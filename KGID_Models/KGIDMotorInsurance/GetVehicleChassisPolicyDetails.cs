@@ -148,7 +148,7 @@ namespace KGID_Models.KGIDMotorInsurance
 
         public string comments { get; set; }
         public  long ByID { get; set; }
-
+ public int application_stat { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

@@ -56,7 +56,9 @@ namespace BLL.MBClaimsBLL
         SelectList GetInjuryListBLL();
         SelectList GetstateListBLL();
 		int UpdateWork_flow_DetailsBLL(GetVehicleChassisPolicyDetails model);
-        List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsBLL(long appid, string chassis);
+       // List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsBLL(long appid, string chassis);
+long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetDraftDetailsBLL();
 
     }
 }

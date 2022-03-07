@@ -134,11 +134,11 @@ namespace BLL.MBClaimsBLL
             return _IMBClaimsDLL.GetMVCGetDetailsOnChassisDLL(ChassisNo);
         }
 
-        public List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsBLL(long appid, string chassis)
-        {
+        //public List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsBLL(long appid, string chassis)
+        //{
 
-            return _IMBClaimsDLL.MvcClaimWorkFlowDetailsDLL(appid,chassis);
-        }
+        //    return _IMBClaimsDLL.MvcClaimWorkFlowDetailsDLL(appid,chassis);
+        //}
         public List<GetVehicleChassisPolicyDetails> PetitionerDetailsListBLL(long Appno)
         {
 
@@ -173,6 +173,13 @@ namespace BLL.MBClaimsBLL
         public int UpdateWork_flow_DetailsBLL(GetVehicleChassisPolicyDetails model) {
 
             return _IMBClaimsDLL.UpdateWork_flow_Details(model);
+        }
+        public long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.SaveAsDraftMvcDetailsDLL(model);
+        } public List<GetVehicleChassisPolicyDetails> GetDraftDetailsBLL()
+        {
+            return _IMBClaimsDLL.GetDraftDetailsDLL();
         }
     }
 }

@@ -1582,74 +1582,149 @@ namespace DLL.MBClaimsDLL
         }
         public long SaveMVCClaimDetailsDLL(GetVehicleChassisPolicyDetails model)
         {
+            int abc = 0;
             try
             {
+               
+                tbl_mvc_application_details mvc_ = _db.tbl_mvc_application_details.Where(x => x.mvc_claim_app_id == model.MVC_claim_app_id).FirstOrDefault();
+                if (mvc_ == null)
+                {
+                    tbl_mvc_application_details tbl_data = new tbl_mvc_application_details();
+
+                    string App_no = DateTime.Now.ToString("yyyy-MM-dd HH:ffff").Replace("-", "").Replace(" ", "").Replace(":", "").Replace(".", "");
+                    model.MVC_claim_app_id = Convert.ToInt64(App_no);
+                    long Application_no = Convert.ToInt64(App_no);
+                    tbl_data.mvc_claim_app_id = Application_no;
+                    tbl_data.chassis_no = model.vehicle_chasis_no;
+                    tbl_data.policy_no = model.Policy_number;
+                    tbl_data.mvc_no = (model.MVC_number).ToString();
+                    tbl_data.date_of_petition = Convert.ToDateTime(model.CourtTime);
+                    tbl_data.name_of_court = model.Name_of_court;
+                    tbl_data.court_district = model.District_dm_id;
+                    tbl_data.court_taluk = model.Taluk_id;
+                    tbl_data.name_of_petitioner = "";
+                    tbl_data.petitioner_pincode = 11;
+                    tbl_data.petitioner_mobile_no = 99;
+                    tbl_data.respondant_name = "";
+                    tbl_data.respondant_designation = "";
+                    tbl_data.respondant_department = "";
+                    tbl_data.respondant_agencyName = "";
+                    tbl_data.respondant_address = "";
+                    tbl_data.respondant_mobile_no = 90;
+                    tbl_data.respondant_pincode = 90;
+                    tbl_data.accident_district = 0;
+                    tbl_data.accident_taluk = 0;
+                    tbl_data.accident_hobli = "";
+                    tbl_data.accident_grampanchayat = "";
+                    tbl_data.accident_village = "";
+                    tbl_data.accident_details = "";
+                    tbl_data.claim_amount = Convert.ToDecimal(model.claim_Amount);
+                    tbl_data.rc_details = "";
+                    tbl_data.dl_details = "";
+                    tbl_data.fir_details = "";
+                    tbl_data.panchanama_details = "";
+                    tbl_data.remarks = model.Remarks_id;
+                    tbl_data.status_id = true;
+                    tbl_data.verified_document = true;
+                    tbl_data.created_by = model.loginId;
+                    tbl_data.updated_by = 0;
+                    tbl_data.mvc_claim_creation_datetime = DateTime.Now;
+                    tbl_data.mvc_claim_updation_datetime = DateTime.Now;
+                    tbl_data.acdnt_name_of_injured_person = model.Name_of_injured;
+                    tbl_data.acdnt_person_father_name = model.Father_name;
+                    tbl_data.acdnt_person_spouse_name = model.Spouse_name;
+                    tbl_data.acdnt_person_full_address = model.Address_of_dead_details;
+                    tbl_data.acdnt_person_age = model.Age_of_injured;
+                    tbl_data.acdnt_person_occupation = model.occupation_of_injured;
+                    tbl_data.acdnt_emp_nameadress_deceased = model.employer_deceased_details;
+                    tbl_data.acdnt_person_monthly_income = Convert.ToDecimal(model.monthly_income_of_injured);
+                    tbl_data.acdnt_comp_claimed_tax = Convert.ToDecimal(model.income_tax_of_injured);
+                    tbl_data.acdnt_place_accident = model.place_of_accident;
+                    tbl_data.acdnt_date_time_of_accident = Convert.ToDateTime(model.accident_DateTime);
+                    tbl_data.acdnt_police_station_details = model.police_station_of_jurisdiction;
+                    tbl_data.acdnt_compens_claimed_travelling = model.police_station_of_compensation;
+                    tbl_data.acdnt_type_of_injury = model.type_injury;
+                    tbl_data.acdnt_nature_of_injury = model.nature_of_injuries_sustained;
+                    tbl_data.acdnt_medical_officer_detail = model.medical_officer;
+                    tbl_data.acdnt_period_treatment_expend = model.Period_of_treatment_of_details;
+                    tbl_data.acdnt_name_of_injury_caused = model.Name_of_injury_caused_of_details;
+                    tbl_data.acdnt_applicant_details = model.Name_and_address_of_applicant_details;
+                    tbl_data.acdnt_relation_details = model.relation_with_deceased;
+                    tbl_data.acdnt_title_to_property = model.title_property_deceased;
+                    tbl_data.acdt_any_other_info = model.any_other_information_details;
+                    tbl_data.state_id = model.stateID;
+                    tbl_data.app_saved_status = model.application_stat;
+                    // app_saved_status 1 for draft
+                    //                  2 for send to sup
+                    _db.tbl_mvc_application_details.Add(tbl_data);
+                     abc = _db.SaveChanges();
+                }
                 
-                tbl_mvc_application_details tbl_data = new tbl_mvc_application_details();
-                string App_no = DateTime.Now.ToString("yyyy-MM-dd HH:ffff").Replace("-", "").Replace(" ", "").Replace(":", "").Replace(".", "");
-                model.MVC_claim_app_id = Convert.ToInt64(App_no);
-                long Application_no = Convert.ToInt64(App_no);
-                tbl_data.mvc_claim_app_id = Application_no;
-                tbl_data.chassis_no = model.vehicle_chasis_no;
-                tbl_data.policy_no = model.Policy_number;
-                tbl_data.mvc_no = (model.MVC_number).ToString();
-                tbl_data.date_of_petition =  Convert.ToDateTime(model.CourtTime);
-                tbl_data.name_of_court = model.Name_of_court;
-                tbl_data.court_district = model.District_dm_id;
-                tbl_data.court_taluk = model.Taluk_id;
-                tbl_data.name_of_petitioner = "";
-                tbl_data.petitioner_pincode = 11;
-                tbl_data.petitioner_mobile_no =99;
-                tbl_data.respondant_name = "";
-                tbl_data.respondant_designation = "";
-                tbl_data.respondant_department = "";
-                tbl_data.respondant_agencyName = "";
-                tbl_data.respondant_address = "";
-                tbl_data.respondant_mobile_no = 90;
-                tbl_data.respondant_pincode = 90;
-                tbl_data.accident_district = 0;
-                tbl_data.accident_taluk= 0;
-                tbl_data.accident_hobli ="";
-                tbl_data.accident_grampanchayat = "";
-                tbl_data.accident_village = "";
-                tbl_data.accident_details ="";
-                tbl_data.claim_amount = Convert.ToDecimal(model.claim_Amount);
-                tbl_data.rc_details = "";
-                tbl_data.dl_details = "";
-                tbl_data.fir_details = "";
-                tbl_data.panchanama_details = "";
-                tbl_data.remarks = model.Remarks_id;
-                tbl_data.status_id = true;
-                tbl_data.verified_document = true;
-                tbl_data.created_by = model.loginId;
-                tbl_data.updated_by = 0;
-                tbl_data.mvc_claim_creation_datetime = DateTime.Now;
-                tbl_data.mvc_claim_updation_datetime = DateTime.Now;
-                tbl_data.acdnt_name_of_injured_person = model.Name_of_injured;
-                tbl_data.acdnt_person_father_name = model.Father_name;
-                tbl_data.acdnt_person_spouse_name = model.Spouse_name;
-                tbl_data.acdnt_person_full_address = model.Address_of_dead_details;
-                tbl_data.acdnt_person_age = model.Age_of_injured;
-                tbl_data.acdnt_person_occupation = model.occupation_of_injured;
-                tbl_data.acdnt_emp_nameadress_deceased = model.employer_deceased_details;
-                tbl_data.acdnt_person_monthly_income = Convert.ToDecimal(model.monthly_income_of_injured);
-                tbl_data.acdnt_comp_claimed_tax = Convert.ToDecimal(model.income_tax_of_injured);
-                tbl_data.acdnt_place_accident = model.place_of_accident;
-                 tbl_data.acdnt_date_time_of_accident=Convert.ToDateTime(model.accident_DateTime);
-                tbl_data.acdnt_police_station_details = model.police_station_of_jurisdiction;
-                tbl_data.acdnt_compens_claimed_travelling = model.police_station_of_compensation;
-                tbl_data.acdnt_type_of_injury = model.type_injury;
-                tbl_data.acdnt_nature_of_injury = model.nature_of_injuries_sustained;
-                tbl_data.acdnt_medical_officer_detail = model.medical_officer;
-                tbl_data.acdnt_period_treatment_expend = model.Period_of_treatment_of_details;
-                tbl_data.acdnt_name_of_injury_caused = model.Name_of_injury_caused_of_details;
-                 tbl_data.acdnt_applicant_details = model.Name_and_address_of_applicant_details;
-                tbl_data.acdnt_relation_details = model.relation_with_deceased;
-                tbl_data.acdnt_title_to_property = model.title_property_deceased;
-                tbl_data.acdt_any_other_info = model.any_other_information_details;
-                tbl_data.state_id = model.stateID;
-                _db.tbl_mvc_application_details.Add(tbl_data);
-               int abc= _db.SaveChanges();
+                else
+                {
+                    mvc_.chassis_no = model.vehicle_chasis_no;
+                    mvc_.policy_no = model.Policy_number;
+                    mvc_.date_of_petition = Convert.ToDateTime(model.CourtTime);
+                    mvc_.name_of_court = model.Name_of_court;
+                    mvc_.court_district = model.District_dm_id;
+                    mvc_.court_taluk = model.Taluk_id;
+                    mvc_.name_of_petitioner = "";
+                    mvc_.petitioner_pincode = 11;
+                    mvc_.petitioner_mobile_no = 99;
+                    mvc_.respondant_name = "";
+                    mvc_.respondant_designation = "";
+                    mvc_.respondant_department = "";
+                    mvc_.respondant_agencyName = "";
+                    mvc_.respondant_address = "";
+                    mvc_.respondant_mobile_no = 90;
+                    mvc_.respondant_pincode = 90;
+                    mvc_.accident_district = 0;
+                    mvc_.accident_taluk = 0;
+                    mvc_.accident_hobli = "";
+                    mvc_.accident_grampanchayat = "";
+                    mvc_.accident_village = "";
+                    mvc_.accident_details = "";
+                    mvc_.claim_amount = Convert.ToDecimal(model.claim_Amount);
+                    mvc_.rc_details = "";
+                    mvc_.dl_details = "";
+                    mvc_.fir_details = "";
+                    mvc_.panchanama_details = "";
+                    mvc_.remarks = model.Remarks_id;
+                    mvc_.status_id = true;
+                    mvc_.verified_document = true;
+                    mvc_.created_by = model.loginId;
+                    mvc_.updated_by = 0;
+                    mvc_.mvc_claim_creation_datetime = DateTime.Now;
+                    mvc_.mvc_claim_updation_datetime = DateTime.Now;
+                    mvc_.acdnt_name_of_injured_person = model.Name_of_injured;
+                    mvc_.acdnt_person_father_name = model.Father_name;
+                    mvc_.acdnt_person_spouse_name = model.Spouse_name;
+                    mvc_.acdnt_person_full_address = model.Address_of_dead_details;
+                    mvc_.acdnt_person_age = model.Age_of_injured;
+                    mvc_.acdnt_person_occupation = model.occupation_of_injured;
+                    mvc_.acdnt_emp_nameadress_deceased = model.employer_deceased_details;
+                    mvc_.acdnt_person_monthly_income = Convert.ToDecimal(model.monthly_income_of_injured);
+                    mvc_.acdnt_comp_claimed_tax = Convert.ToDecimal(model.income_tax_of_injured);
+                    mvc_.acdnt_place_accident = model.place_of_accident;
+                    mvc_.acdnt_date_time_of_accident = Convert.ToDateTime(model.accident_DateTime);
+                    mvc_.acdnt_police_station_details = model.police_station_of_jurisdiction;
+                    mvc_.acdnt_compens_claimed_travelling = model.police_station_of_compensation;
+                    mvc_.acdnt_type_of_injury = model.type_injury;
+                    mvc_.acdnt_nature_of_injury = model.nature_of_injuries_sustained;
+                    mvc_.acdnt_medical_officer_detail = model.medical_officer;
+                    mvc_.acdnt_period_treatment_expend = model.Period_of_treatment_of_details;
+                    mvc_.acdnt_name_of_injury_caused = model.Name_of_injury_caused_of_details;
+                    mvc_.acdnt_applicant_details = model.Name_and_address_of_applicant_details;
+                    mvc_.acdnt_relation_details = model.relation_with_deceased;
+                    mvc_.acdnt_title_to_property = model.title_property_deceased;
+                    mvc_.acdt_any_other_info = model.any_other_information_details;
+                    mvc_.state_id = model.stateID;
+                    mvc_.app_saved_status = model.application_stat;
+                    _db.SaveChanges();
+
+                    
+                
+                }
                 if (abc == 1)
                 {
                     int c = PetitionerRespondantDetailsDLL(model.MVC_claim_app_id, model);
@@ -1673,10 +1748,11 @@ namespace DLL.MBClaimsDLL
                 throw;
             }
 
-
+            return model.MVC_claim_app_id;
         }
 
-        public int UpdateWork_flow_Details(GetVehicleChassisPolicyDetails model) {
+        public int UpdateWork_flow_Details(GetVehicleChassisPolicyDetails model)
+        {
             if (model != null)
             {
                 try
@@ -1705,19 +1781,23 @@ namespace DLL.MBClaimsDLL
                     throw ex;
                     
                 }
-            }else{
+            }
+            else
+            {
                 return 0;
             }
             return 1;
 
         }
 
-        public int SavePathDetailsDLL(string path,long App_id) {
+        public int SavePathDetailsDLL(string path, long App_id)
+        {
             int ans = 1;
             if (path != null && App_id != 0)
             {
                 try
                 {
+
                     tbl_mvc_claim_doc_details mvc_doc = new tbl_mvc_claim_doc_details();
                     mvc_doc.mvcdd_claim_app_id = App_id;
                     mvc_doc.mvcdd_claim_due_id = 0;
@@ -1730,12 +1810,15 @@ namespace DLL.MBClaimsDLL
                     _db.tbl_mvc_claim_doc_details.Add(mvc_doc);
                     int abc = _db.SaveChanges();
 
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     throw ex;
                 }
                 
             }
-            else {
+            else
+            {
                 ans = 0;
                 return ans;
             }
@@ -1743,56 +1826,122 @@ namespace DLL.MBClaimsDLL
             return ans;
         }
 
-        public int PetitionerRespondantDetailsDLL(long Application_id, GetVehicleChassisPolicyDetails model) {
+        public int PetitionerRespondantDetailsDLL(long Application_id, GetVehicleChassisPolicyDetails model)
+        {
             if (Application_id != 0)
             {
                 try
                 {
                     if (model.PetitionerList.Count() != 0)
                     {
-                        foreach(var item in model.PetitionerList){
+                       
+                        List<tbl_mvc_claim_petitioner_details> mvc_petitioner = _db.tbl_mvc_claim_petitioner_details.Where(x => x.mvc_claim_app_id == Application_id).ToList();
 
-                            tbl_mvc_claim_petitioner_details mvc_doc = new tbl_mvc_claim_petitioner_details();
-                            mvc_doc.mvc_claim_app_id = model.MVC_claim_app_id;
-                            mvc_doc.mvc_petitioner_name = item.name_Of_Petitioner;
-                            mvc_doc.mvc_petitioner_addres = item.petitioner_Address;
-                            mvc_doc.mvc_petitioner_mobile_no = Convert.ToInt64(item.petitioner_Mobile_no);
-                            mvc_doc.mvcp_active_status = true;
-                            mvc_doc.mvc_petitioner_pincode_no = Convert.ToInt64(item.pincode_Of_Petitioner);
-                            mvc_doc.mvcp_creation_datetime = DateTime.Now;
-                            mvc_doc.mvcp_updation_datetime = DateTime.Now;
-                            mvc_doc.mvcp_updated_by = 1;
-                            mvc_doc.mvcp_created_by = model.loginId;
+                        if (mvc_petitioner.Count == 0)
+                        {
 
-                            _db.tbl_mvc_claim_petitioner_details.Add(mvc_doc);
-                            int abc = _db.SaveChanges();
+                            foreach (var item in model.PetitionerList)
+                            {
+
+                                tbl_mvc_claim_petitioner_details mvc_doc = new tbl_mvc_claim_petitioner_details();
+                                mvc_doc.mvc_claim_app_id = model.MVC_claim_app_id;
+                                mvc_doc.mvc_petitioner_name = item.name_Of_Petitioner;
+                                mvc_doc.mvc_petitioner_addres = item.petitioner_Address;
+                                mvc_doc.mvc_petitioner_mobile_no = Convert.ToInt64(item.petitioner_Mobile_no);
+                                mvc_doc.mvcp_active_status = true;
+                                mvc_doc.mvc_petitioner_pincode_no = Convert.ToInt64(item.pincode_Of_Petitioner);
+                                mvc_doc.mvcp_creation_datetime = DateTime.Now;
+                                mvc_doc.mvcp_updation_datetime = DateTime.Now;
+                                mvc_doc.mvcp_updated_by = 1;
+                                mvc_doc.mvcp_created_by = model.loginId;
+
+                                _db.tbl_mvc_claim_petitioner_details.Add(mvc_doc);
+                                int abc = _db.SaveChanges();
+                            }
+                        }
+                        else {
+                            foreach (var data in mvc_petitioner) {
+
+                                _db.tbl_mvc_claim_petitioner_details.Remove(data);
+                            }
+                            _db.SaveChanges();
+                            foreach (var item in model.PetitionerList)
+                            {
+                                tbl_mvc_claim_petitioner_details mvc_doc = new tbl_mvc_claim_petitioner_details();
+                                mvc_doc.mvc_claim_app_id = model.MVC_claim_app_id;
+                                mvc_doc.mvc_petitioner_name = item.name_Of_Petitioner;
+                                mvc_doc.mvc_petitioner_addres = item.petitioner_Address;
+                                mvc_doc.mvc_petitioner_mobile_no = Convert.ToInt64(item.petitioner_Mobile_no);
+                                mvc_doc.mvcp_active_status = true;
+                                mvc_doc.mvc_petitioner_pincode_no = Convert.ToInt64(item.pincode_Of_Petitioner);
+                                mvc_doc.mvcp_creation_datetime = DateTime.Now;
+                                mvc_doc.mvcp_updation_datetime = DateTime.Now;
+                                mvc_doc.mvcp_updated_by = 1;
+                                mvc_doc.mvcp_created_by = model.loginId;
+
+                                _db.tbl_mvc_claim_petitioner_details.Add(mvc_doc);
+                                int abc = _db.SaveChanges();
+                            }
                         }
                     }
                     if (model.RespondantList.Count() != 0)
                     {
-                        foreach(var data in model.RespondantList)
-                        {
-                            tbl_mvc_respondent_details mvc_respond = new tbl_mvc_respondent_details();
-                            mvc_respond.mvc_claim_app_id = Application_id;
-                            mvc_respond.mvcrd_respondent_name = data.Respondant_name;
-                            mvc_respond.mvcrd_designation_name = data.Respondant_designation;
-                            mvc_respond.mvcrd_department_name = data.Respondant_department;
-                            mvc_respond.mvcrd_agency_name = data.Respondant_Agency_name;
-                            mvc_respond.mvcrd_designation_name = data.Respondant_designation;
-                            mvc_respond.mvcrd_respondent_addres = data.Respondant_address;
-                            mvc_respond.mvcrd_pincode_no = Convert.ToInt64(data.Respondant_pincode);
-                            mvc_respond.mvcrd_respondent_mobile_no = Convert.ToInt64(data.Respondant_mobile);
-                            mvc_respond.mvcrd_active_status = true;
-                            mvc_respond.mvcrd_creation_datetime = DateTime.Now;
-                            mvc_respond.mvcrd_updation_datetime = DateTime.Now;
-                            mvc_respond.mvcrd_created_by = model.loginId;
-                            mvc_respond.mvcrd_updated_by = 1;
-                            _db.tbl_mvc_respondent_details.Add(mvc_respond);
-                            int abc = _db.SaveChanges();
+                        List<tbl_mvc_respondent_details> mvc_respondant = _db.tbl_mvc_respondent_details.Where(x => x.mvc_claim_app_id == Application_id).ToList();
 
+                        if (mvc_respondant.Count == 0)
+                        {
+                            foreach (var data in model.RespondantList)
+                            {
+                                tbl_mvc_respondent_details mvc_respond = new tbl_mvc_respondent_details();
+                                mvc_respond.mvc_claim_app_id = Application_id;
+                                mvc_respond.mvcrd_respondent_name = data.Respondant_name;
+                                mvc_respond.mvcrd_designation_name = data.Respondant_designation;
+                                mvc_respond.mvcrd_department_name = data.Respondant_department;
+                                mvc_respond.mvcrd_agency_name = data.Respondant_Agency_name;
+                                mvc_respond.mvcrd_designation_name = data.Respondant_designation;
+                                mvc_respond.mvcrd_respondent_addres = data.Respondant_address;
+                                mvc_respond.mvcrd_pincode_no = Convert.ToInt64(data.Respondant_pincode);
+                                mvc_respond.mvcrd_respondent_mobile_no = Convert.ToInt64(data.Respondant_mobile);
+                                mvc_respond.mvcrd_active_status = true;
+                                mvc_respond.mvcrd_creation_datetime = DateTime.Now;
+                                mvc_respond.mvcrd_updation_datetime = DateTime.Now;
+                                mvc_respond.mvcrd_created_by = model.loginId;
+                                mvc_respond.mvcrd_updated_by = 1;
+                                _db.tbl_mvc_respondent_details.Add(mvc_respond);
+                                int abc = _db.SaveChanges();
+
+                            }
+                        }
+                        else {
+                            foreach (var resData in mvc_respondant)
+                            {
+
+                                _db.tbl_mvc_respondent_details.Remove(resData);
+                            }
+                            _db.SaveChanges();
+                            foreach (var data in model.RespondantList)
+                            {
+                                tbl_mvc_respondent_details mvc_respond = new tbl_mvc_respondent_details();
+                                mvc_respond.mvc_claim_app_id = Application_id;
+                                mvc_respond.mvcrd_respondent_name = data.Respondant_name;
+                                mvc_respond.mvcrd_designation_name = data.Respondant_designation;
+                                mvc_respond.mvcrd_department_name = data.Respondant_department;
+                                mvc_respond.mvcrd_agency_name = data.Respondant_Agency_name;
+                                mvc_respond.mvcrd_designation_name = data.Respondant_designation;
+                                mvc_respond.mvcrd_respondent_addres = data.Respondant_address;
+                                mvc_respond.mvcrd_pincode_no = Convert.ToInt64(data.Respondant_pincode);
+                                mvc_respond.mvcrd_respondent_mobile_no = Convert.ToInt64(data.Respondant_mobile);
+                                mvc_respond.mvcrd_active_status = true;
+                                mvc_respond.mvcrd_creation_datetime = DateTime.Now;
+                                mvc_respond.mvcrd_updation_datetime = DateTime.Now;
+                                mvc_respond.mvcrd_created_by = model.loginId;
+                                mvc_respond.mvcrd_updated_by = 1;
+                                _db.tbl_mvc_respondent_details.Add(mvc_respond);
+                                int abc = _db.SaveChanges();
+
+                            }
                         }
                     }
-
 
 
                 }
@@ -1802,11 +1951,12 @@ namespace DLL.MBClaimsDLL
                 }
 
             }
-            else {
+            else
+            {
 
                 return 0;
             }
-           
+
             return 1;
         }
 
@@ -1814,18 +1964,38 @@ namespace DLL.MBClaimsDLL
         {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
+                              where data.app_saved_status==2
+                              select new GetVehicleChassisPolicyDetails
+                              {
+                                  Court_MVC_number = data.mvc_no,
+                                  vehicle_chasis_no = data.chassis_no,
+                                  MVC_claim_app_id = data.mvc_claim_app_id,
+                                  
 
-                          select new GetVehicleChassisPolicyDetails
-                          {
-                              Court_MVC_number = data.mvc_no,
-                              vehicle_chasis_no = data.chassis_no,
-                              MVC_claim_app_id = data.mvc_claim_app_id
-                          }).Distinct().ToList();
+        }).Distinct().ToList();
+          
+          
 
             return vehicleDetails;
         }
+         public List<GetVehicleChassisPolicyDetails> GetDraftDetailsDLL()
+        {
+            List<GetVehicleChassisPolicyDetails> GetDraft = new List<GetVehicleChassisPolicyDetails>();
+            GetDraft = (from CMM in _db.tbl_mvc_application_details
+                                where CMM.app_saved_status == 1
+                                select new GetVehicleChassisPolicyDetails
+                                {
+                                    Court_MVC_number = CMM.mvc_no,
+                                    vehicle_chasis_no = CMM.chassis_no,
+                                    MVC_claim_app_id = CMM.mvc_claim_app_id,
+                                }).ToList();
 
-        public List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisDLL(string ChassisNo) {
+
+            return GetDraft;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisDLL(string ChassisNo)
+        {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
 
             vehicleDetails = (from MIA in _db.tbl_motor_insurance_application
@@ -1862,8 +2032,9 @@ namespace DLL.MBClaimsDLL
 
             return vehicleDetails;
         }
-             
-        public List<GetVehicleChassisPolicyDetails> GetMVCPetitionerDetailsDLL(long Appno) {
+
+        public List<GetVehicleChassisPolicyDetails> GetMVCPetitionerDetailsDLL(long Appno)
+        {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
                                join item in _db.tbl_mvc_claim_petitioner_details on data.mvc_claim_app_id equals item.mvc_claim_app_id
@@ -1879,8 +2050,9 @@ namespace DLL.MBClaimsDLL
                                }).Distinct().ToList();
             return vehicleDetails;
         }
-        public List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsDLL(long Appno) {
-            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();   
+        public List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsDLL(long Appno)
+        {
+            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
                                join item in _db.tbl_mvc_respondent_details on data.mvc_claim_app_id equals item.mvc_claim_app_id
                                where data.mvc_claim_app_id == Appno
@@ -1959,7 +2131,8 @@ namespace DLL.MBClaimsDLL
                               }
                               ).ToList();
             return vehicleDetails;
-        } public List<GetVehicleChassisPolicyDetails> GetOtherDocdetailDLL(long Appno)
+        }
+        public List<GetVehicleChassisPolicyDetails> GetOtherDocdetailDLL(long Appno)
         {
             List<GetVehicleChassisPolicyDetails> OtherDocumentsData = new List<GetVehicleChassisPolicyDetails>();
             OtherDocumentsData = (from data1 in _db.tbl_mvc_application_details
@@ -1985,7 +2158,8 @@ namespace DLL.MBClaimsDLL
            
             return new SelectList(RemarkList, "Value", "Text");
 
-        } public SelectList GetstateListDLL()
+        }
+        public SelectList GetstateListDLL()
         {
             List<SelectListItem> RemarkList = new List<SelectListItem>();
 
@@ -2033,6 +2207,102 @@ namespace DLL.MBClaimsDLL
             }
 
             return workFlowDetails;
+        }
+		  public long SaveAsDraftMvcDetailsDLL(GetVehicleChassisPolicyDetails model)
+        {
+            try
+            {
+
+                tbl_mvc_application_details tbl_data = new tbl_mvc_application_details();
+                string App_no = DateTime.Now.ToString("yyyy-MM-dd HH:ffff").Replace("-", "").Replace(" ", "").Replace(":", "").Replace(".", "");
+                model.MVC_claim_app_id = Convert.ToInt64(App_no);
+                long Application_no = Convert.ToInt64(App_no);
+                tbl_data.mvc_claim_app_id = Application_no;
+                tbl_data.chassis_no = model.vehicle_chasis_no;
+                tbl_data.policy_no = model.Policy_number;
+                tbl_data.mvc_no = (((model.MVC_number).ToString() != null) ? ((model.MVC_number).ToString()) : "");
+                tbl_data.date_of_petition =  ((Convert.ToDateTime(model.CourtTime) != null) ? Convert.ToDateTime(model.CourtTime) :Convert.ToDateTime(DateTime.Now));
+                tbl_data.name_of_court = ((model.Name_of_court != null) ? model.Name_of_court : "");
+                tbl_data.court_district = ((model.District_dm_id != 0) ? model.District_dm_id : 0);
+                tbl_data.court_taluk = ((model.Taluk_id != 0) ? model.Taluk_id : 0);
+                tbl_data.name_of_petitioner = "";
+                tbl_data.petitioner_pincode = 11;
+                tbl_data.petitioner_mobile_no = 99;
+                tbl_data.respondant_name = "";
+                tbl_data.respondant_designation = "";
+                tbl_data.respondant_department = "";
+                tbl_data.respondant_agencyName = "";
+                tbl_data.respondant_address = "";
+                tbl_data.respondant_mobile_no = 90;
+                tbl_data.respondant_pincode = 90;
+                tbl_data.accident_district = 0;
+                tbl_data.accident_taluk = 0;
+                tbl_data.accident_hobli = "";
+                tbl_data.accident_grampanchayat = "";
+                tbl_data.accident_village = "";
+                tbl_data.accident_details = "";
+                tbl_data.claim_amount = ((Convert.ToDecimal(model.claim_Amount) != 0) ? (Convert.ToDecimal(model.claim_Amount)) : 0);
+                tbl_data.rc_details = "";
+                tbl_data.dl_details = "";
+                tbl_data.fir_details = "";
+                tbl_data.panchanama_details = "";
+                tbl_data.remarks = ((model.Remarks_id != 0) ? model.Remarks_id : 0);
+                tbl_data.status_id = true;
+                tbl_data.verified_document = true;
+                tbl_data.created_by = model.loginId;
+                tbl_data.updated_by = 0;
+                tbl_data.mvc_claim_creation_datetime = DateTime.Now;
+                tbl_data.mvc_claim_updation_datetime = DateTime.Now;
+                tbl_data.acdnt_name_of_injured_person = ((model.Name_of_injured != null) ? model.Name_of_injured : "");
+                tbl_data.acdnt_person_father_name = ((model.Father_name != null) ? model.Father_name : "");
+                tbl_data.acdnt_person_spouse_name = ((model.Spouse_name != null) ? model.Spouse_name : "");
+                tbl_data.acdnt_person_full_address = ((model.Address_of_dead_details != null) ? model.Address_of_dead_details : "");
+                tbl_data.acdnt_person_age = ((model.Age_of_injured != 0) ? model.Age_of_injured : 0);
+                tbl_data.acdnt_person_occupation = ((model.occupation_of_injured != null) ? model.occupation_of_injured : "");
+                tbl_data.acdnt_emp_nameadress_deceased = ((model.employer_deceased_details != null) ? model.employer_deceased_details : "");
+                tbl_data.acdnt_person_monthly_income = ((Convert.ToDecimal(model.monthly_income_of_injured) != 0) ? (Convert.ToDecimal(model.monthly_income_of_injured)) : 0);
+                tbl_data.acdnt_comp_claimed_tax = ((Convert.ToDecimal(model.income_tax_of_injured) != 0) ? (Convert.ToDecimal(model.income_tax_of_injured)) : 0);
+                tbl_data.acdnt_place_accident = ((model.place_of_accident != null) ? model.place_of_accident : "");
+                tbl_data.acdnt_date_time_of_accident = ((Convert.ToDateTime(model.accident_DateTime) != null) ? Convert.ToDateTime(model.accident_DateTime) : Convert.ToDateTime(DateTime.Now));
+                tbl_data.acdnt_police_station_details = ((model.police_station_of_jurisdiction != null) ? model.police_station_of_jurisdiction : "");
+                tbl_data.acdnt_compens_claimed_travelling = ((model.police_station_of_compensation != null) ? model.police_station_of_compensation : "");
+                tbl_data.acdnt_type_of_injury = ((model.type_injury != 0) ? model.type_injury : 0);
+                tbl_data.acdnt_nature_of_injury = ((model.nature_of_injuries_sustained != null) ? model.nature_of_injuries_sustained : "");
+                tbl_data.acdnt_medical_officer_detail = ((model.medical_officer != null) ? model.medical_officer : "");
+                tbl_data.acdnt_period_treatment_expend = ((model.Period_of_treatment_of_details != null) ? model.Period_of_treatment_of_details : "");
+                tbl_data.acdnt_name_of_injury_caused = ((model.Name_of_injury_caused_of_details != null) ? model.Name_of_injury_caused_of_details : "");
+                tbl_data.acdnt_applicant_details = ((model.Name_and_address_of_applicant_details != null) ? model.Name_and_address_of_applicant_details : "");
+                tbl_data.acdnt_relation_details = ((model.relation_with_deceased != null) ? model.relation_with_deceased : "");
+                tbl_data.acdnt_title_to_property = ((model.title_property_deceased != null) ? model.title_property_deceased : "");
+                tbl_data.acdt_any_other_info = ((model.any_other_information_details != null) ? model.any_other_information_details : "");
+                tbl_data.state_id = ((model.stateID != 0) ? model.stateID : 0);
+                tbl_data.app_saved_status = model.application_stat;
+                // app_saved_status 1 for draft
+                //                  2 for send to sup
+                _db.tbl_mvc_application_details.Add(tbl_data);
+                int abc = _db.SaveChanges();
+                if (abc == 1)
+                {
+                    int c = PetitionerRespondantDetailsDLL(model.MVC_claim_app_id, model);
+                }
+
+
+               // var returnMessage = UpdateWork_flow_Details(model);
+
+
+                //foreach (var files in )
+                //{
+                //}
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return model.MVC_claim_app_id;
         }
         #endregion
     }
