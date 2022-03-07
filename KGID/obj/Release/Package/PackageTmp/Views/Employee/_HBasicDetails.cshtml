@@ -1,0 +1,60 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+@using KGID_Models.NBApplication
+
+<div id="divHBasicDetails">
+    @Html.HiddenFor(m => m.gender_desc, new { id = "hdnGen" })
+    <div class="row" id="divHShowQRCode" style="display:none;">
+        <div class="form-group col-6">
+            Reference Number : <b><span id="spnHReferanceNo"></span></b>
+        </div>
+        <div class="form-group col-6" id="HRefNo" style="display:block;">
+            <img src="@Html.DisplayFor(model => model.QRCode)" id="imgHQRCode" alt="" style="height:150px;width:150px" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-6">
+            <label class="knlan" for="txtProposerName">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು</label>
+            <label class="Enlan" for="txtProposerName">Proposer Name</label>
+            @Html.TextBoxFor(model => model.employee_name, new { @class = "form-control", @readonly = true })
+        </div>
+        <div class="form-group col-6">
+            <label class="knlan" for="txtAddress">ಪೂರ್ತಿ ವಿಳಾಸ</label>
+            <label class="Enlan" for="txtAddress">Full Address</label>
+            @Html.TextBoxFor(Model => Model.ead_address, new { @class = "form-control", @id = "txtAddress", @readonly = true })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="txtPin" class="knlan control-label">ಪಿನ್‍ ಕೋಡ್‍</label>
+            <label for="txtPin" class="Enlan control-label">Pincode</label>
+            @Html.TextBoxFor(Model => Model.ead_pincode, new { @class = "form-control", @id = "txtPin", @readonly = true })
+        </div>
+        <div class="form-group col-6">
+            <label class="knlan" for="txtPhone">ದೂರವಾಣಿ</label>
+            <label class="Enlan" for="txtPhone">Phone</label>
+            @Html.TextBoxFor(Model => Model.mobile_number, new { @class = "form-control", @readonly = true })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label class="knlan" for="txtServiceDtl">ಸರ್ಕಾರಿ ಸೇವೆಗೆ ಸೇರಿದ ದಿನಾಂಕ</label>
+            <label class="Enlan" for="txtServiceDtl">Joining Date of Government Service</label>
+            <div class="input-group">
+                @Html.TextBoxFor(Model => Model.ewd_date_of_joining, "{0:dd-MM-yyyy}", new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group col-6">
+            <label class="knlan" for="txtDesignation">ಈಗಿನ ಹುದ್ದೆಯ ಹೆಸರು</label>
+            <label class="Enlan" for="txtDesignation">Present Designation</label>
+            @Html.TextBoxFor(Model => Model.d_designation_desc, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <label for="txtWorkingOffice" class="knlan control-label">ಪ್ರಸ್ತುತ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತಿರುವ ಕಛೇರಿ</label>
+            <label for="txtWorkingOffice" class="Enlan control-label">Present Working office</label>
+            @Html.TextAreaFor(Model => Model.ewd_place_of_posting, new { @class = "form-control col-12", @readonly = "readonly" })
+        </div>
+    </div>
+</div>

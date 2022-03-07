@@ -1,0 +1,16 @@
+﻿body {
+}
+
+
+.divLineHeight {
+    line-height: 25px;
+}
+.label {
+    display: inline;
+    text-align: right;
+}
+
+.textbox {
+    display: inline;
+    text-align: right;
+}

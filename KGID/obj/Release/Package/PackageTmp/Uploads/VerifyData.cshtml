@@ -1,0 +1,352 @@
+﻿@*@model KGID_Models.KGID_VerifyData.tbl_verification_details*@
+@model KGID_Models.KGID_VerifyData.VM_VerifiedBy
+@using KGID_Models.KGID_VerifyData
+@{
+    //#line 3 "D:\ChilukuNaidu\KGID4\KGID\Views\VerifyData\VerifyData.cshtml"
+    /**/
+    ViewBag.Title = "VerifyData";
+}
+<style>
+    .a_style {
+        color: #fff !important;
+    }
+</style>
+@using (Html.BeginForm("EditVerifyData", "VerifyData", FormMethod.Post, new { id = "submitForm" }))
+    {
+        @Html.AntiForgeryToken();
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Verify Data</h6>
+                    </div>
+                    <div class="card-body">
+                        @if (Model != null)
+                        {
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <h4> HRMS DATA</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">Employee Name : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.EMPLOYEE_NAME_HRMS,
+                                      new {
+                                          @id= "EMPLOYEE_NAME_HRMS",
+                                          @name= "EMPLOYEE_NAME_HRMS",
+                                          @Value = Model.Verification_details.EMPLOYEE_NAME_HRMS,
+                                          @class = "form-control",
+                                          @disabled = "true",
+                                      })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Father Name : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.FATHER_NAME_HRMS,
+                                     new {
+                                         @id= "FATHER_NAME_HRMS",
+                                         @name= "FATHER_NAME_HRMS",
+                                         @Value = Model.Verification_details.FATHER_NAME_HRMS,
+                                         @class = "form-control",
+                                         @disabled = "true",
+                                       })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Date of Birth : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.DATE_OF_BIRTH_HRMS, "{0:yyyy/MM/dd}",
+                                    new {
+                                        @id= "DATE_OF_BIRTH_HRMS",
+                                        @name= "DATE_OF_BIRTH_HRMS",
+                                        @Value = Model.Verification_details.DATE_OF_BIRTH_HRMS?.ToString("yyyy/MM/dd"),
+                                        @class = "form-control",
+                                        @disabled = "true",
+                                    })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">Employee Number : </label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.EMPID_HRMS,
+                                     new {
+                                         @id= "EMPID_HRMS",
+                                         @name= "EMPID_HRMS",
+                                         @Value = Model.Verification_details.EMPID_HRMS,
+                                         @class = "form-control",
+                                         @disabled = "true",
+                                       })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>First KGID Number : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.FIRST_KGIDNO_HRMS,
+                                      new {
+                                          @id= "FIRST_KGIDNO_HRMS",
+                                          @name= "FIRST_KGIDNO_HRMS",
+                                          @Value = Model.Verification_details.FIRST_KGIDNO_HRMS,
+                                          @class = "form-control",
+                                          @disabled = "true",
+                                        })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>KGID(POLICY NO) : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.POLICY_NO,
+                                         new {
+                                             @id= "POLICY_NO",
+                                             @name= "POLICY_NO",
+                                             @Value = Model.Verification_details.POLICY_NO,
+                                             @class = "form-control",
+                                             @disabled = "true",
+                                           })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <h4> KGID DATA</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">Employee Name : </label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.EMPLOYEE_NAME_KGID,
+                                               new {
+                                                   @id= "EMPLOYEE_NAME_KGID",
+                                                   @name= "EMPLOYEE_NAME_KGID",
+                                                   @Value = Model.Verification_details.EMPLOYEE_NAME_KGID,
+                                                   @class = "form-control btn-edit-data",
+                                                   @disabled = "true",
+                                                 })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Father Name : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.FATHER_NAME_KGID,
+                                                  new {
+                                                      @id= "FATHER_NAME_KGID",
+                                                      @name= "FATHER_NAME_KGID",
+                                                      @Value = Model.Verification_details.FATHER_NAME_KGID,
+                                                      @class = "form-control btn-edit-data",
+                                                      @disabled = "true",
+                                                    })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Date of Birth : </label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.DATE_OF_BIRTH_KGID, "{0:yyyy/MM/dd}",
+                                                     new {
+                                                         @id= "DATE_OF_BIRTH_KGID",
+                                                         @name= "DATE_OF_BIRTH_KGID",
+                                                         @Value = Model.Verification_details.DATE_OF_BIRTH_KGID.ToString("yyyy/MM/dd"),
+                                                         @class = "form-control btn-edit-data",
+                                                         @disabled = "true",
+                                                     })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">Employee Number : </label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.EMPID_HRMS,
+                                                    new {
+                                                        @id= "EMPID_HRMS",
+                                                        @name= "EMPID_HRMS",
+                                                        @Value = Model.Verification_details.EMPID_HRMS,
+                                                        @class = "form-control btn-edit-data",
+                                                        @disabled = "true",
+                                                      })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>First KGID Number : </label>
+
+
+                                    @Html.TextBoxFor(m => m.Verification_details.FIRST_KGIDNO_HRMS,
+                                                    new {
+                                                        @id= "FIRST_KGIDNO_HRMS",
+                                                        @name= "FIRST_KGIDNO_HRMS",
+                                                        @Value = Model.Verification_details.FIRST_KGIDNO_HRMS,
+                                                        @class = "form-control btn-edit-data",
+                                                        @disabled = "true",
+                                                      })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>AGE : </label>
+                                    @Html.TextBoxFor(m => m.Verification_details.EMPLOYEE_AGE,
+                                                    new {
+                                                        @id= "EMPLOYEE_AGE",
+                                                        @name= "EMPLOYEE_AGE",
+                                                        @Value = Model.Verification_details.EMPLOYEE_AGE,
+                                                        @class = "form-control btn-edit-data",
+                                                        @disabled = "true",
+                                                      })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">NOMINEE NAME :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.NOMINEE_NAME,
+                                                new {
+                                                    @id= "NOMINEE_NAME",
+                                                    @name= "NOMINEE_NAME",
+                                                    @Value = Model.Verification_details.NOMINEE_NAME,
+                                                    @class = "form-control btn-edit-data",
+                                                    @disabled = "true",
+                                                  })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>NOMINEE RELATION :</label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.NOMINEE_RELATION,
+                                                    new {
+                                                        @id= "NOMINEE_RELATION",
+                                                        @name= "NOMINEE_RELATION",
+                                                        @Value = Model.Verification_details.NOMINEE_RELATION,
+                                                        @class = "form-control btn-edit-data",
+                                                        @disabled = "true",
+                                                      })
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>NOMINEE AGE : </label>
+
+                                    @Html.TextBoxFor(m => m.Verification_details.NOMINEE_AGE,
+                                                        new {
+                                                            @id= "NOMINEE_AGE",
+                                                            @name= "NOMINEE_AGE",
+                                                            @Value = Model.Verification_details.NOMINEE_AGE,
+                                                            @class = "form-control btn-edit-data",
+                                                            @disabled = "true",
+                                                          })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">RISK DATE :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.DATE_OF_RISK, "{0:yyyy/MM/dd}",
+                                                           new {
+                                                               @id = "DATE_OF_RISK",
+                                                               @name= "DATE_OF_RISK",
+                                                               @Value = Model.Verification_details.DATE_OF_RISK.ToString("yyyy/MM/dd"),
+                                                               @class = "form-control btn-edit-data",
+                                                               @disabled = "true",
+                                                           })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>PREMIUM :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.PREMIUM,
+                                                          new {
+                                                              @id= "PREMIUM",
+                                                              @name= "PREMIUM",
+                                                              @Value = Model.Verification_details.PREMIUM,
+                                                              @class = "form-control btn-edit-data",
+                                                              @disabled = "true",
+                                                            })
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>SUM ASSURED :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.SUM_ASSURED,
+                                                                new {
+                                                                    @id= "SUM_ASSURED",
+                                                                    @name= "SUM_ASSURED",
+                                                                    @Value = Model.Verification_details.SUM_ASSURED,
+                                                                    @class = "form-control btn-edit-data",
+                                                                    @disabled = "true",
+                                                                  })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="Verified">ACCEPTANCE TYPE :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.ACCEPTANCE_TYPE,
+                                                            new {
+                                                                @id= "ACCEPTANCE_TYPE",
+                                                                @name= "ACCEPTANCE_TYPE",
+                                                                @Value = Model.Verification_details.ACCEPTANCE_TYPE,
+                                                                @class = "form-control btn-edit-data",
+                                                                @disabled = "true",
+                                                              })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>REMARKS :</label>
+                                    @Html.TextBoxFor(m => m.Verification_details.REMARKS,
+                                    new {
+                                        @id = "REMARKS",
+                                        @name = "REMARKS",
+                                        @Value = Model.Verification_details.REMARKS,
+                                        @class = "form-control btn-edit-data",
+                                        @disabled = "true",
+                                    })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>ENTER REMARKS :</label>
+                                    @Html.TextBoxFor(x => x.Verification_details.REJECTION_REMARKS, new { @id = "txtERemarks", @class = "form-control" })
+                                </div>
+                            </div>
+                            if (Model.Verification_details.STATUS == "V")
+                            {
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label>VERIFIED BY :</label>
+                                        @Html.TextBoxFor(x => x.UserName, new { @id = "txtERemarks", @class = "form-control", @disabled = "true" })
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>VERIFIER KGID NUMBER :</label>
+                                        @Html.TextBoxFor(x => x.KGIDNumber, new { @id = "txtERemarks", @class = "form-control", @disabled = "true" })
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="form-group col-md-4">
+
+                                </div>
+                                <div class="form-group col-md-4">
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.HiddenFor(m => m.Verification_details.FIRST_KGIDNO_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.VD_ID)
+                                    @Html.HiddenFor(m => m.Verification_details.STATUS, "V")
+
+                                    @Html.HiddenFor(m => m.Verification_details.EMPLOYEE_NAME_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.FATHER_NAME_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.DATE_OF_BIRTH_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.EMPID_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.FIRST_KGIDNO_HRMS)
+                                    @Html.HiddenFor(m => m.Verification_details.POLICY_NO)
+                                    @if (Model.Verification_details.STATUS == "E" || Model.Verification_details.STATUS == "F")
+                                    {
+                                        <a value="Edit" class="btn btn-primary a_style" onclick="edit()">Edit Details</a>
+                                        <input name="submit" type="submit" id="btnReject" value="Scrutinize" class="btn btn-danger" />
+                                        <input name="submit" type="submit" id="btnVerif" value="Verify" class="btn btn-success" />
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            Response.Redirect("~/VerifyData/SearchEmployee");
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+<script>
+    $(document).ready(function () {
+        //$("#btnVerif").hide();
+        $("#btnVerif").change(function () {
+            $(".btn-edit-data").removeAttr("disabled");
+        });
+
+    });
+    function edit() {
+        $("#btnVerif").val("Save & Verify");
+        $(".btn-edit-data").removeAttr("disabled");
+        //$('.form-control').prop('disabled', false);
+    }
+
+</script>

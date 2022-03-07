@@ -1,0 +1,411 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_DDOVerificationDetailsMI
+@using Common;
+@{
+    ViewBag.Title = "Verification Details";
+}
+<style type="text/css">
+    /*.stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+        height: 100%;
+    }*/
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+    td a{
+        color:blue;
+        text-decoration:underline;
+    }
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+    table{
+        text-align:center;
+    }
+</style>
+<script src="~/Content/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts/pie.js"></script>
+<script>
+    var chart;
+    var legend;
+    debugger;
+    var ad = @ViewBag.Verify;
+    console.log(@ViewBag.Verify);
+   
+    if (ad == 15) {
+        var chartData = [
+        @*{
+            "application": "Total Received Applications",
+            "count": @Model.TotalReceived
+        },*@
+            {
+                "application": "Approved Applications",
+                "count": @Model.ForwardedApplications
+        },
+        @*{
+            "application": "Sent Back Applications",
+            "count": @Model.SentBackApplication
+        },*@
+            {
+                "application": "Pending Applications",
+                "count": @Model.PendingApplications
+        }
+        @*,{
+            "application": "Cancelled Applications",
+            "count": @Model.CancelApplication
+        }*@
+        ];
+
+        AmCharts.ready(function () {
+            // PIE CHART
+            chart = new AmCharts.AmPieChart();
+            chart.dataProvider = chartData;
+            chart.titleField = "application";
+            chart.valueField = "count";
+            chart.colors = ["#007bff", "#B0DE09", "#dc3545", "#FF6F91"];
+
+            chart.outlineColor = "#FFFFFF";
+            chart.outlineAlpha = 0.8;
+            chart.outlineThickness = 2;
+            chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+            // this makes the chart 3D
+            chart.depth3D = 15;
+            chart.angle = 30;
+            chart
+            chart.legend = chartData;
+            chart.legend.position = "right";
+            // WRITE
+            chart.write("divApplicationChart");
+        });
+    }
+    else {
+         var chartData = [
+        @*{
+            "application": "Total Received Applications",
+            "count": @Model.TotalReceived
+        },*@
+        {
+            "application": "Forwarded Applications",
+            "count": @Model.ForwardedApplications
+        },
+        @*{
+            "application": "Sent Back Applications",
+            "count": @Model.SentBackApplication
+        },*@
+        {
+            "application": "Pending Applications",
+            "count": @Model.PendingApplications
+        }
+        @*,{
+            "application": "Cancelled Applications",
+            "count": @Model.CancelApplication
+        }*@
+    ];
+
+    AmCharts.ready(function () {
+        // PIE CHART
+        chart = new AmCharts.AmPieChart();
+        chart.dataProvider = chartData;
+        chart.titleField = "application";
+        chart.valueField = "count";
+        chart.colors = ["#007bff", "#B0DE09", "#dc3545", "#FF6F91"];
+
+        chart.outlineColor = "#FFFFFF";
+        chart.outlineAlpha = 0.8;
+        chart.outlineThickness = 2;
+        chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+        // this makes the chart 3D
+        chart.depth3D = 15;
+        chart.angle = 30;
+        chart
+        chart.legend = chartData;
+        chart.legend.position = "right";
+        // WRITE
+        chart.write("divApplicationChart");
+    });
+    }
+
+
+
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary"><b>Submitted Application For Verification</b></h5>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 stat-style">
+                        <div id="divApplicationChart" style="width: 100%; height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <nav id="navmenu">
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a id="nav-tab-Form" class="nav-item nav-link active" data-toggle="tab" href="#pendingForm" role="tab" aria-controls="pendingForm" aria-selected="true"><b>Pending Application</b></a>
+                        <a id="nav-tab-ApproveApp" class="nav-item nav-link" data-toggle="tab" href="#ApproveApp" role="tab" aria-controls="ApproveApp" aria-selected="false"><b>Approved Application</b></a>
+                        <a id="nav-tab-CurrentStatus" class="nav-item nav-link" data-toggle="tab" href="#CurrentStatus" role="tab" aria-controls="CurrentStatus" aria-selected="false"><b>Current Status of Application</b></a>
+                        <a id="nav-tab-CancelApp" class="nav-item nav-link" data-toggle="tab" href="#CancelApp" role="tab" aria-controls="CancelApp" aria-selected="false"><b>Cancellation Policy Application</b></a>
+                    </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                    <div class="tab-pane fade show active" id="pendingForm" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divPendingApp" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*<div class="form-group">
+                                                <h6 class="font-weight-bold">Pending for approval</h6>
+                                            </div>*@
+                                        <table class="table table-striped table-bordered" id="tblMIDDOData" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    <th>Proposer's Name</th>
+                                                    <th>Type of Cover</th>
+                                                    <th>Chassis No.</th>
+                                                    <th>Engine No.</th>
+                                                    <th> Vehicle Model</th>
+                                                    <th>Year of Manufacture </th>                                                   
+                                                    <th>District</th>
+                                                    <th>Application Reference Number</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.EmployeeVerificationDetails != null && Model.EmployeeVerificationDetails.Count > 0)
+                                                {
+                                                    foreach (var item in Model.EmployeeVerificationDetails)
+                                                    {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.TypeofCover</td>
+                                                    <td>@item.ChasisNo</td>
+                                                    <td>@item.EngineNo</td>
+                                                    <td>@item.VehicleModelName</td>
+                                                    <td>@item.VehicleYear</td>
+
+                                                    <td>@item.District</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.Status</td>
+                                                    @if (ViewBag.Verifier == Verifiers.DDO)
+                                                    {
+                                                        <td><a href="@Url.Action("MIDDOVerification", "VerifyDetails", new RouteValueDictionary(new { @empId = item.EmployeeCode, applicationId = item.ApplicationId ,refNo=item.ApplicationNumber,category=item.CategoryId}))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.CW)
+                                                    {
+                                                        <td><a href="/mi_cw_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId">View Application</a></td>
+                                                        @*<td><a href="@Url.Action("MICWVerification", "VerifyDetails", new { area = "", empId = item.EmployeeCode, applicationId = item.ApplicationId, refNo=item.ApplicationNumber,category=item.CategoryId})" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>*@
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.SUPERINTENDENT)
+                                                    {
+                                                        <td><a href="/mi_si_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId">View Application</a></td>
+                                                        @*<td><a href="@Url.Action("MISuperintendentVerification", "VerifyDetails", new { area = "", empId = item.EmployeeCode, applicationId = item.ApplicationId, refNo=item.ApplicationNumber,category=item.CategoryId })" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>*@
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.DIO)
+                                                    {
+                                                        <td><a href="@Url.Action("MIDIOVerification", "VerifyDetails", new { area = "", empId = item.EmployeeCode, applicationId = item.ApplicationId, refNo=item.ApplicationNumber,category=item.CategoryId })" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.ASSITANTDIRECTOR)
+                                                    {
+                                                        <td><a href="/mi_ad_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId">View Application</a></td>
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.DEPUTYDIRECTOR)
+                                                    {
+                                                        <td><a href="/mi_dd_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId">View Application</a></td>
+                                                        @*<td><a href="@Url.Action("MIDDVerification", "VerifyDetails", new { area = "", empId = item.EmployeeCode, applicationId = item.ApplicationId, refNo=item.ApplicationNumber,category=item.CategoryId })" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>*@
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.DIRECTOR)
+                                                    {
+                                                        <td><a href="@Url.Action("MIDVerification", "VerifyDetails", new { area = "", empId = item.EmployeeCode, applicationId = item.ApplicationId, refNo=item.ApplicationNumber,category=item.CategoryId })" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                    }
+                                                    @*<td><a href="@Url.Action("MIDDOVerification", "VerifyDetails", new RouteValueDictionary(new { @empId = item.EmployeeCode, applicationId = item.ApplicationId }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>*@
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ApproveApp" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divApprovedApp" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*<div class="form-group">
+                                                <h6 class="font-weight-bold">Approved Application</h6>
+                                            </div>*@
+                                        <table class="table table-striped table-bordered" id="tblMIDDOApprovedData" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Application Referance Number</th>
+                                                    <th>Policy Number</th>
+                                                    <th>Premium Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.ApprovedEmployeeStatus != null && Model.ApprovedEmployeeStatus.Count > 0)
+                                                {
+                                                    foreach (var item in Model.ApprovedEmployeeStatus)
+                                                    {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.ApplicationId</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.Premium</td>
+                                                    <td>@item.Status</td>
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="CurrentStatus" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divCurrentStatus" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*<div class="form-group">
+                                                <h6 class="font-weight-bold">Application Status</h6>
+                                            </div>*@
+                                        <table class="table table-striped table-bordered" id="tblMIDDOApplicationStatus" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Application Referance Number</th>
+                                                    @*<th>Premium Amount</th>*@
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.LastUpdatedStatusForEmployees != null && Model.LastUpdatedStatusForEmployees.Count > 0)
+                                                {
+                                                    foreach (var item in Model.LastUpdatedStatusForEmployees)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.ApplicationNumber</td>
+                                                            @*<td>@item.Premium</td>*@
+                                                            <td>@item.Status</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="CancelApp" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divCancelApp" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                  
+                                        <table class="table table-striped table-bordered" id="tblMIDDOCancelAppStatus" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    <th>Application Referance Number</th>
+                                                    <th>Chassis/Vehicle No.</th>
+                                                    <th>Name</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.CancelEmployeeStatus != null && Model.CancelEmployeeStatus.Count > 0)
+                                                {
+                                                    foreach (var item in Model.CancelEmployeeStatus)
+                                                    {
+                                                <tr>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.ChasisNo</td>
+                                                    <td>@item.Name</td>
+                                                    @*<td>@item.Status</td>*@
+                                                    <td>@((item.Status == "Cancelled") ? "Pending" : item.Status) </td>
+                                                    @if (ViewBag.Verifier == Verifiers.CW)
+                                                    {
+                                                        <td><a href="/mi_cw_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId/@item.Status">View Application</a></td>
+
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.SUPERINTENDENT)
+                                                    {
+                                                        <td><a href="/mi_si_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId/@item.Status">View Application</a></td>
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.ASSITANTDIRECTOR)
+                                                    {
+                                                        <td><a href="/mi_ad_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId/@item.Status">View Application</a></td>
+                                                    }
+                                                    else if (ViewBag.Verifier == Verifiers.DEPUTYDIRECTOR)
+                                                    {
+                                                        <td><a href="/mi_dd_va/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId/@item.Status">View Application</a></td>
+                                                    }
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblMIDDOData').DataTable({
+            "ordering": false
+        });
+        $('#tblMIDDOApprovedData').DataTable({
+            //paging: true,
+            //info: false,
+            ordering: false,
+            //aaSorting: [[1, "desc"]],
+           // searching: false
+         });
+        $('#tblMIDDOApplicationStatus').DataTable({
+            //paging: true,
+            //info: false,
+            ordering: false,
+            //aaSorting: [[1, "desc"]],
+           // searching: false
+        });
+        $('#tblMIDDOCancelAppStatus').DataTable({
+            //paging: true,
+            //info: false,
+            ordering: false,
+            //aaSorting: [[1, "desc"]],
+            // searching: false
+        });
+    });
+</script>

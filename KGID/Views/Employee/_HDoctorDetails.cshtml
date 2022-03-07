@@ -1,0 +1,152 @@
+﻿@model KGID_Models.NBApplication.VM_DoctorDetails
+
+<div id="divDoctorDetails" data-submit-url="@Url.Action("InsertDoctorDetails", "Employee", new { area = "" })">
+    <div class="row form-group">
+        <div class="col-12">
+            <div class="row">
+                <div class="row col-2">
+                    @Html.RadioButtonFor(model => model.emdd_is_kmc_doctor, true, new { @id = "rbtnKMCDr", @class = "col-1 rd-btn-hodd", @onclick = "DRhandleClick('KMC');" })
+                    <label class="knlan col-11">ರಾಜ್ಯದ ವೈದ್ಯರು</label>
+                    <label class="Enlan col-11">Within state doctor</label>
+                </div>
+                <div class="row col-2">
+                    @Html.RadioButtonFor(model => model.emdd_is_kmc_doctor, false, new { @id = "rbtnOtherDr", @class = "col-1 rd-btn-hodd", @onclick = "DRhandleClick('Other');" })
+                    <label class="knlan col-11">ಇತರ ರಾಜ್ಯದ ವೈದ್ಯರು</label>
+                    <label class="Enlan col-11">Others</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @Html.HiddenFor(m => m.EmployeeId, new { id = "hdnEmpId" })
+        @Html.HiddenFor(m => m.DoctorId, new { id = "hdnDocId" })
+        <div class="form-group col-6">
+            @*<label class="knlan col-11">ಇತರ ರಾಜ್ಯದ ವೈದ್ಯರು</label>
+        <label class="Enlan col-11">KMC/ IMC Code</label>*@
+            @*@if (!string.IsNullOrEmpty(Model.KMCCode))
+        {*@
+            <label class="knlan col-11">ಕೆಎಂಸಿ / ಐಎಂಸಿ ಕೋಡ್</label>
+            <label class="Enlan col-11">KMC/ IMC Code</label>
+            @Html.TextBoxFor(m => m.KMCCode, new { @class = "form-control field-required", id = "txtKMCCode", @maxlength = "15" })
+            @*}
+        else
+        {
+            @Html.TextBoxFor(m => m.IMCCode, new { @class = "form-control field-required", id = "txtKMCCode"data_fetch_detail_url = Url.Action("GetDoctorDetailByKMCCode", "Employee", new { area = "" }), disabled = "disabled" })
+        }*@
+
+            <label class="text-danger err" id="errKMCCodeReq" hidden>Please enter KMC/IMC code of doctor</label>
+            <label class="text-danger err" id="errCORRECTKMCCode" hidden>Please enter correct KMC/IMC code of doctor</label>
+        </div>
+        <div class="form-group col-6">
+            @*@Html.LabelFor(m => m.NameOfDoctor, new { @class = "control-label field-required" })*@
+            <label class="knlan control-label field-required">ವೈದ್ಯರ ಹೆಸರು:</label>
+            <label class="Enlan control-label field-required">Doctor Name:</label>
+            @Html.TextBoxFor(m => m.NameOfDoctor, new { id = "txtDocName", @class = "form-control ddele ClAlpha", disabled = "disabled", @maxlength = "150" })
+
+            <label class="text-danger err" id="errtxtDocName" hidden>Please enter name of doctor</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6" id="divKgid">
+            @*@Html.LabelFor(m => m.PolicyId, new { @class = "control-label" })*@
+            <label class="knlan control-label ">ಕೆಜಿಐಡಿ:</label>
+            <label class="Enlan control-label">KGID:</label>
+            @Html.TextBoxFor(m => m.KGIDOfDoctor, new { @class = "form-control", id = "txtKgid", disabled = "disabled" })
+        </div>
+        <div class="form-group col-6" id="divDsgtn">
+            <label class="knlan control-label ">ಹುದ್ದೆ:</label>
+            <label class="Enlan control-label">Designation:</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control ddele ClAlpha", id = "txtDesignation", disabled = "disabled", @maxlength = "150" })
+
+            <label class="text-danger err" id="errtxtDesignation" hidden>Please enter doctor designation</label>
+        </div>
+        @*</div>
+            <div class="row">*@
+        <div class="form-group col-6" id="divHsptl">
+            @*@Html.LabelFor(m => m.NameOfHospital, new { @class = "control-label" })*@
+            <label class="knlan control-label">ಕಛೇರಿಯ ಹೆಸರು:</label>
+            <label class="Enlan control-label">Name of Office:</label>
+            @Html.TextBoxFor(m => m.NameOfHospital, new { @class = "form-control ddele ClAlpha", id = "txtNameOfOffice", disabled = "disabled", @maxlength = "150" })
+
+            <label class="text-danger err" id="errtxtNameOfOffice" hidden>Please enter hospital name</label>
+        </div>
+        <div class="form-group col-6" id="divHsptlPlace">
+            @*@Html.LabelFor(m => m.PlaceOfHospital, new { @class = "control-label" })*@
+            <label class="knlan control-label">ಕಛೇರಿಯ ಸ್ಥಳ:</label>
+            <label class="Enlan control-label">Place of Office:</label>
+            @Html.TextBoxFor(m => m.PlaceOfHospital, new { @class = "form-control ddele ClAlpha", id = "txtPlaceOfOffice", disabled = "disabled", @maxlength = "150" })
+
+            <label class="text-danger err" id="errtxtPlaceOfOffice" hidden>Please enter hospital place</label>
+        </div>
+    </div>
+    <div id="divDctrBnkDetails" style="display:none;">
+        <div class="form-group row">
+            <h6>
+                <label class="knlan">
+
+                    ವೈದ್ಯರ ಬ್ಯಾಂಕ್ ವಿವರಗಳು:
+                </label><label class="Enlan">Doctor Bank Details :</label>
+            </h6>
+        </div>
+        <div class="row">
+            @* doctor bank details *@
+            <div class="form-group col-6">
+                @*@Html.LabelFor(m => m.BankAccNumber, new { @class = "control-label" })*@
+                <label class="knlan control-label ">ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ:</label>
+                <label class="Enlan control-label">Bank Account Number:</label>
+                @Html.TextBoxFor(m => m.BankAccNumber, new { @class = "form-control bnkdata ClNum", id = "txtBankAccNum", @maxlength = "20", @pattern = @"\d*" })@*@type = "number",*@
+
+                <label class="text-danger err" id="errtxtBankAccNum" hidden>Please enter doctor's account number</label>
+            </div>
+            <div class="form-group col-6">
+                @*@Html.LabelFor(m => m.IFSCCode, new { @class = "control-label" })*@
+                <label class="knlan control-label ">ಐಎಫ್‌ಎಸ್‌ಸಿ ಕೋಡ್:</label>
+                <label class="Enlan control-label">IFSC code:</label>
+                @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control bnkdata ClAlphaNum", id = "txtIFSCCode", @maxlength = "15" })
+
+                <label class="text-danger err" id="errtxtIFSCCode" hidden>Please enter IFSC code </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                @*@Html.LabelFor(m => m.MICRCode, new { @class = "control-label" })*@
+                <label class="knlan control-label ">ಎಂಐಸಿಆರ ಕೋಡ್:</label>
+                <label class="Enlan control-label">MICR code:</label>
+                @Html.TextBoxFor(m => m.MICRCode, new { @class = "form-control bnkdata ClNum", id = "txtMICRCode", @maxlength = "15", @pattern = @"\d*" })@*@type = "number",*@
+
+                <label class="text-danger err" id="errtxtMICRCode" hidden>Please enter MICR code </label>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/ApplicationJS/NBHDoctorDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+        $('.ClAlpha').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-zA-Z\s]/gi, '');
+            }
+        });
+        $('.ClNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^0-9\s]/gi, '');
+            }
+
+        });
+    });
+</script>

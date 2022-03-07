@@ -1,0 +1,240 @@
+﻿@*@model KGID_Models.KGIDLoan.VM_LoanApplicationStat*@
+@model KGID_Models.KGIDLoan.VM_LoanVerificationDetails
+
+@{
+    ViewBag.Title = "Loan Applications";
+}
+<script src="~/Content/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts/pie.js"></script>
+<style>
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    table td {
+        padding: 4px !important;
+    }
+
+    .stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+    }
+
+    .in-s {
+        height: 25px !important;
+        width: 70%;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-s-r {
+        height: 25px !important;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    .bs-example {
+        margin: 20px;
+    }
+</style>
+<script>
+    var chart;
+    var legend;
+
+     var chartData = [
+        {
+            "application": "Total Received Applications",
+            "count": @Model.TotalReceived
+        },
+        {
+            "application": "Forwarded Applications",
+            "count": @Model.ForwardedApplications
+        },
+        {
+            "application": "Sent Back Applications",
+            "count": @Model.SentBackApplication
+        },
+        {
+            "application": "Pending Applications",
+            "count": @Model.PendingApplications
+        }
+    ];
+
+    AmCharts.ready(function () {
+        // PIE CHART
+        chart = new AmCharts.AmPieChart();
+        chart.dataProvider = chartData;
+        chart.titleField = "application";
+        chart.valueField = "count";
+        chart.colors = ["#007bff", "#B0DE09", "#dc3545", "#FF6F91"];
+
+        chart.outlineColor = "#FFFFFF";
+        chart.outlineAlpha = 0.8;
+        chart.outlineThickness = 2;
+        chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+        // this makes the chart 3D
+        chart.depth3D = 15;
+        chart.angle = 30;
+        chart
+        chart.legend = chartData;
+
+        // WRITE
+        chart.write("divApplicationChart");
+    });
+
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Loan Applications</b></h6>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6  stat-style">
+                        <div id="divApplicationChart" style="width: 100%; height: 250px;"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblViewLoanApplicationList" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name of Employees</th>
+                                    <th>Loan Reference Number</th>
+                                    <th>Designation</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.EmployeeLoanVerificationDetails != null && Model.EmployeeLoanVerificationDetails.Count > 0)
+                                {
+                                    foreach (var item in Model.EmployeeLoanVerificationDetails)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.ApplicationNumber</td>
+                                            <td>@item.EmployeeDesignation</td>
+                                            <td>@item.Status</td>
+                                            <td><a href="@Url.Action("LoanApplicationForDdo", "Loan", new RouteValueDictionary(new { empId = item.EmployeeCode, loanApplicationId = item.ApplicationId }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tblViewLoanApplicationList').DataTable();
+       // LoanApplicationList();
+    });
+
+    function LoanApplicationList() {
+        $('#tblViewLoanApplicationList').DataTable({
+            "ordering": false,
+            //"lengthMenu": [10, 25, 50, "All"],
+            //"pageLength": 5000,
+            "ajax": {
+                "url": "/loan/GetLoanApplicationListForAllDdo/",
+                "data": {},
+                "type": "GET",
+                "datatype": "json",
+                "dataSrc": "",
+                //"paging": false,
+            },
+            "columns": [
+                //{ "data": "SNo", "name": "SNo", "autoWidth": true },
+                //{ "data": "PolocyID", "name": "PolocyID", "autoWidth": true },
+                { "data": "LoanApplicationId", "name": "LoanApplicationId", "autoWidth": true },
+                { "data": "LoanReferenceNo", "name": "LoanReferenceNo", "autoWidth": true },
+                { "data": "EmpName", "name": "EmpName", "autoWidth": true },
+                { "data": "EmpDesignation", "name": "EmpDesignation", "autoWidth": true },
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        //if (data.LoanApplicationStatus == 0 || data.LoanApplicationStatus == 1) {
+                        //    return '<a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="/loan/LoanApplicationForDdo?empId=' + data.EmpId + '&loanApplicationId=' + data.LoanApplicationId + '">View Application</a>';
+                        //}
+                        if ((data.LoanApplicationStatus == 1 || data.LoanApplicationStatus == 3) && data.IsActiveStatus == 1 && data.ApplicationStatus == 1) {
+                            return '<a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="/loan/LoanApplicationForDdo?empId=' + data.EmpId + '&loanApplicationId=' + data.LoanApplicationId + '">View Application</a>';
+                        }
+                        else if (data.LoanApplicationStatus == 5) {
+                            //return '<a href="/loan/LoanApplicationForDdo?empId=' + data.EmpId + '&loanApplicationId=' + data.LoanApplicationId + '" target="_Blank">View</a>';
+                            return '<span  style="color:red">Forwarded to CaseWorker.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1002) {
+                            return '<span  style="color:red">DDO Rejected the Aplication.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 7) {
+                            return '<span  style="color:red">Forwarded to Superientendent.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1003) {
+                            return '<span  style="color:red">CaseWorker Rejected the Application.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 9) {
+                            return '<span  style="color:red">Forwarded to DIO.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 11) {
+                            return '<span  style="color:red">Forwarded to Deputy Director.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 13) {
+                            return '<span  style="color:red">Forwarded to Director.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1004) {
+                            return '<span  style="color:red">Superientendent Rejected the Application.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 15) {
+                            return '<span  style="color:red">Application Approved.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1005) {
+                            return '<span  style="color:red">DIO Rejected the Application.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1006) {
+                            return '<span  style="color:red">Disburse the amount.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1007) {
+                            return '<span  style="color:red">Deputy Director Rejected the application.</span>';
+                        }
+                        else if (data.LoanApplicationStatus == 1008) {
+                            return '<span  style="color:red">Director Rejected the application.</span>';
+                        }
+
+                        else {
+                            return '';
+                        }
+                    }
+                }
+            ]
+
+        });
+    }
+</script>

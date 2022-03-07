@@ -1,0 +1,872 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_DeptVerificationDetails
+
+@{
+    ViewBag.Title = "DIO verification";
+}
+
+<style>
+    .text-lg {
+        font-size: 1.2rem !important;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    .bs-example {
+        margin: 20px;
+    }
+
+    .accordion .fa {
+        margin-right: 0.5rem;
+    }
+
+    .headinglink {
+        cursor: pointer !important;
+        color: #007bff !important;
+    }
+
+    .sidebar .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    .sidebar {
+        height: 89%;
+        width: 0;
+        position: absolute;
+        z-index: 1;
+        top: 7.5%;
+        right: 3%;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 33px;
+    }
+
+    .clsFrame {
+        max-width: 100%;
+        height: 100%;
+        background-color: #fff;
+    }
+
+    #iViewApp {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        // Add minus icon for collapse element which is open by default
+        $(".collapse.show").each(function () {
+            $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+        });
+
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function () {
+            $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.bs.collapse', function () {
+            $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+        });
+    });
+
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b><label class="knlan">ಜಿಲ್ಲಾ ವಿಮಾಧಿಕಾರಿಗಳ ಪರಿಶೀಲನೆ</label><label class="Enlan">DIO Verification</label></b></h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <b><label class="knlan">ಮನವಿದಾರರ ಹೆಸರು:</label><label class="Enlan">Employee Name:</label></b><span id="spnEName"></span> | <b><label class="knlan">ಪ್ರಸ್ತಾವನೆ ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ:</label><label class="Enlan">Application Referance Number:</label></b><span id="spnRNo"></span>
+                </div>
+                <nav id="navmenu">
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a id="nav-tab-Workflow" class="nav-item nav-link active" data-toggle="tab" href="#workflow" role="tab" aria-controls="workflow" aria-selected="false"><b><label class="knlan">ಕಾರ್ಯ ಪ್ರಕ್ರಿಯೆಯ ವಿವರ</label><label class="Enlan">Workflow Details</label></b></a>
+                        <a id="nav-tab-Form" class="nav-item nav-link" data-toggle="tab" href="#applicationForm" role="tab" aria-controls="applicationForm" aria-selected="true"><b><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application Form</label></b></a>
+                        <a id="nav-tab-Scrutiny" class="nav-item nav-link" data-toggle="tab" href="#scrutiny" role="tab" aria-controls="scrutiny" aria-selected="false"><b><label class="knlan">ಪರಿಶೀಲನೆ</label><label class="Enlan">Scrutiny</label></b></a>
+                        <a id="nav-tab-Documents" class="nav-item nav-link" data-toggle="tab" href="#uploadeddocuments" role="tab" aria-controls="uploadeddocuments" aria-selected="false"><b><label class="knlan">ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾದ ದಾಖಲಾತಿಗಳು</label><label class="Enlan">Uploaded Documents</label></b></a>
+                        @*<a id="nav-tab-Workflow" class="nav-item nav-link" data-toggle="tab" href="#supportingDocs" role="tab" aria-controls="supportingDocs" aria-selected="false"><b>Supporting Documents</b></a>*@
+                    </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                    <div class="tab-pane fade show active" id="workflow" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="workflowTab" class="application-tab">
+                            <section>
+                                <table class="table table-striped table-bordered" id="tblCWApprovedData" cellspacing="0">
+                                    <thead style="background: #308385;color: #fff;">
+                                        <tr>
+                                            @*<th>Application Referance Number</th>*@
+                                            <th><label class="knlan">ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Submitted Date</label></th>
+                                            <th><label class="knlan">ಇಂದ</label><label class="Enlan">From</label></th>
+                                            <th><label class="knlan">ವರಗೆ</label><label class="Enlan">To</label></th>
+                                            <th><label class="knlan">ಷರಾ</label><label class="Enlan">Remarks</label></th>
+                                            <th><label class="knlan">ಅಭಿಪ್ರಾಯ</label><label class="Enlan">Comments</label></th>
+                                            <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.WorkFlowDetails != null && Model.WorkFlowDetails.Count > 0)
+                                        {
+                                            foreach (var item in Model.WorkFlowDetails)
+                                            {
+                                                <tr>
+                                                    @*<td>@item.ApplicationRefNo</td>*@
+                                                    <td>@item.CreationDateTime</td>
+                                                    <td>@item.From</td>
+                                                    <td>@item.To</td>
+                                                    <td>@item.Remarks</td>
+                                                    <td>@item.Comments</td>
+                                                    <td>@item.ApplicationStatus</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="form-group col-12 text-right">
+                                    <a id="btnWFNext" class="btn btn-primary btn-sm text-white">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="applicationForm" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="applicationFormTab" class="application-tab">
+                            <div class="row col-12" id="divLoadUploadedDocuments">
+                                @if (Model.listUploadDocuments.Any())
+                                {
+                                    foreach (var item in Model.listUploadDocuments)
+                                    {
+                                        if (item.UploaddocType == "Application Form" || item.UploaddocType == "Medical Form")
+                                        {
+                                            <div class="form-group col-6">
+                                                @if (!string.IsNullOrEmpty(item.UploaddocPath))
+                                                {
+                                                    <label class="control-label text-justify col-6">@item.UploaddocType</label>
+                                                    @*<a class="viewuploadeddoc col-6" href="javascript:;" data-path="@item.UploaddocPath">Click Here</a>*@
+                                                    @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @item.UploaddocPath }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <section>
+                                <div class="bs-example">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="card" id="divPanel1">
+                                            <div class="card-header" id="headingOne">
+                                                <h2 class="mb-0">
+                                                    <button id="btncollapseOne" type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
+                                                        <i class="fa fa-plus"></i>
+                                                        <span class="knlan">ಮೂಲ ಹಾಗೂ ಕೆಜಿಐಡಿ  ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</span>
+                                                        <span class="Enlan"> View Basic & KGID Details</span>
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <h2 class="text-center"><label class="knlan">ಮೂಲ ವಿವರಗಳು</label><label class="Enlan">Basic Details</label></h2>
+                                                    <hr />
+                                                    <section>
+                                                        @{
+                                                            @Html.Action("BasicDetailsToView", "ViewDataToVerify")
+                                                        }
+                                                    </section>
+                                                    <div id="divBD"></div>
+                                                    <hr />
+                                                    <h2 class="text-center"><label class="knlan">ಕೆ.ಜಿ.ಐ.ಡಿ ವಿವರಗಳು</label><label class="Enlan">KGID Details</label></h2>
+                                                    <hr />
+                                                    @*<section>
+                                                            @{
+                                                                @Html.Action("KGIDDetailsToView", "ViewDataToVerify")
+                                                            }
+                                                        </section>*@
+                                                    <div id="divKD"></div>
+                                                    <div class="row">
+                                                        <div class="col-12 form-group">
+                                                            @Html.CheckBox("VerifyProposerDetails", new { @id = "chkPropD", @class = "chk-req", @onchange = "ChangeVerificationStatus('chkPD',this.id)" }) <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verify</label></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" id="divPanel2">
+                                            <div class="card-header" id="headingTwo">
+                                                <h2 class="mb-0">
+                                                    <button id="btncollapseTwo" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">
+                                                        <i class="fa fa-plus"></i>
+                                                        <span class="knlan">ಕುಟುಂಬ ಸದಸ್ಯರ ಹಾಗೂ ನಾಮನಿರ್ದೇಶಿತರ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</span>
+                                                        <span class="Enlan"> View Family Details & Nominee Details</span>
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <h2 class="text-center"><label class="knlan">ಕುಟುಂಬದ ವಿವರಗಳು</label><label class="Enlan">Family Details</label></h2>
+                                                    <hr />
+                                                    @*<section>
+                                                            @{
+                                                                @Html.Action("FamilyDetailsToView", "ViewDataToVerify")
+                                                            }
+                                                        </section>*@
+                                                    <div id="divFD"></div>
+                                                    <hr />
+                                                    <h2 class="text-center"><label class="knlan">ನಾಮನಿರ್ದೇಶಿತ ವಿವರಗಳು</label><label class="Enlan">Nominee Details</label></h2>
+                                                    <hr />
+                                                    @*<section>
+                                                            @{
+                                                                @Html.Action("NomineeDetailsToView", "ViewDataToVerify")
+                                                            }
+                                                        </section>*@
+                                                    <div id="divND"></div>
+                                                    <div class="row">
+                                                        <div class="col-12 form-group">
+                                                            @Html.CheckBox("VerifyFmlyDetails", new { @id = "chkFamD", @class = "chk-req", @onchange = "ChangeVerificationStatus('chkFamNomD',this.id)" }) <b> <label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verify</label></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" id="divPanel3">
+                                            <div class="card-header" id="headingThree">
+                                                <h2 class="mb-0">
+                                                    <button id="btncollapseThree" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">
+                                                        <i class="fa fa-plus"></i>
+                                                        <span class="knlan">ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</span>
+                                                        <span class="Enlan"> View Personal Details</span>
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <h2 class="text-center"><label class="knlan">ವೈಯಕ್ತಿಕ ವಿವರಗಳು</label><label class="Enlan">Personal Details</label></h2>
+                                                    <hr />
+                                                    <div id="divPD"></div>
+                                                    <hr />
+                                                    <div class="row">
+                                                        <div class="col-12 form-group">
+                                                            @Html.CheckBox("VerifyPerDetails", new { @id = "chkPreD", @class = "chk-req", @onchange = "ChangeVerificationStatus('chkPML',this.id)" }) <b> <label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verify</label></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" id="divPanel4">
+                                            <div class="card-header" id="headingFour">
+                                                <h2 class="mb-0">
+                                                    <button id="btncollapseFour" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour">
+                                                        <i class="fa fa-plus"></i>
+                                                        <span class="knlan">ಪಾವತಿ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</span>
+                                                        <span class="Enlan"> View Payment Details</span>
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <h2 class="text-center"><label class="knlan">ಪಾವತಿ ವಿವರಗಳು</label><label class="Enlan">Payment Details</label></h2>
+                                                    <hr />
+                                                    @*<section>
+                                                            @{
+                                                                @Html.Action("PaymentDetailsToView", "ViewDataToVerify")
+                                                            }
+                                                        </section>*@
+                                                    <div id="divPAD"></div>
+                                                    <div class="row">
+                                                        <div class="col-12 form-group">
+                                                            @Html.CheckBox("VerifyPayDetails", new { @id = "chkPayD", @class = "chk-req", @onchange = "ChangeVerificationStatus('chkPAD',this.id)" }) <b> <label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verify</label></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (Model.IsMedicalRequired)
+                                        {
+                                            <div class="card" id="divPanel5">
+                                                <div class="card-header" id="headingFive">
+                                                    <h2 class="mb-0">
+                                                        <button id="btncollapseFive" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive">
+                                                            <i class="fa fa-plus"></i>
+                                                            <span class="knlan">ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷಕರ ವರದಿಯನ್ನು ವೀಕ್ಷಿಸಿ</span>
+                                                            <span class="Enlan"> View Medical Examination Report</span>
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        <h2 class="text-center"><label class="knlan">ದೈಹಿಕ ವಿವರಗಳು</label><label class="Enlan">Physical Details</label></h2>
+                                                        <hr />
+                                                        @*<section id="buildyourform">
+                                                                @{
+                                                                    @Html.Action("HPhysicalDetailsToView", "ViewDataToVerify")
+                                                                }
+                                                            </section>*@
+                                                        <div id="divHPD"></div>
+                                                        <hr />
+                                                        <h2 class="text-center"><label class="knlan">ಇತರೆ ವಿವರಗಳು</label><label class="Enlan">Other Details</label></h2>
+                                                        <hr />
+                                                        @*<section>
+                                                                @{
+                                                                    @Html.Action("HOtherDetailsToView", "ViewDataToVerify")
+                                                                }
+                                                            </section>*@
+                                                        <div id="divHOD"></div>
+                                                        <hr />
+                                                        <h2 class="text-center"><label class="knlan">ಆರೋಗ್ಯ ಸ್ಥಿತಿಯ ವಿವರಗಳು</label><label class="Enlan">Health Details</label></h2>
+                                                        <hr />
+                                                        @*<section>
+                                                                @{
+                                                                    @Html.Action("HHealthDetailsToView", "ViewDataToVerify")
+                                                                }
+                                                            </section>*@
+                                                        <div id="divHHD"></div>
+                                                        <hr />
+                                                        <h2 class="text-center"><label class="knlan">ವೈದ್ಯರ ವಿವರಗಳು</label><label class="Enlan">Doctor Details</label></h2>
+                                                        <hr />
+                                                        @*<section>
+                                                                @{
+                                                                    @Html.Action("HDoctorDetailsToView", "ViewDataToVerify")
+                                                                }
+                                                            </section>*@
+                                                        <div id="divHDD"></div>
+                                                        <div class="row">
+                                                            <div class="col-12 form-group">
+                                                                @Html.CheckBox("VerifyPhyDetails", new { @id = "chkPhyD", @class = "chk-req", @onchange = "ChangeVerificationStatus('chkPDD',this.id)" }) <b> <label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verify</label></b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="form-group col-12  text-right">
+                                    <a id="btnAFPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
+                                    <a id="btnAFNext" class="btn btn-primary btn-sm text-white">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="scrutiny" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="scrutinyTab" class="application-tab">
+                            <section>
+
+                                @*@using (Html.BeginForm("SaveCWVData", "VerifyDetails", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmDIOVerify" }))
+                                    {*@
+                                <form id="frmDIOVerify" enctype="multipart/form-data">
+                                    @Html.AntiForgeryToken();
+                                    @*@Html.Hidden("EmpCode", Request.QueryString["empId"])
+                                        @Html.Hidden("ApplicationRefNo", Request.QueryString["applicationId"])*@
+                                    @Html.HiddenFor(m => m.EmpCode, new { id = "hdnEmployeeCode" })
+                                    @Html.HiddenFor(m => m.ApplicationId, new { id = "hdnAppCode" })
+                                    <div class="row" style="display:none">
+                                        <div class="form-group col-6">
+                                            <label for="PublicKey">PublicKey  :</label>
+                                            @Html.HiddenFor(model => model.PublicKey, new { @id = "SignedToken", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <a id="a_colone" class="headinglink" data-toggle="collapse" data-target="#collapseOne" onclick="showtab('headingOne','collapseOne')"><label class="knlan">ಮೂಲ ಹಾಗೂ ಕೆಜಿಐಡಿ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸುವುದು</label><label class="Enlan">Verify Basic & KGID Details</label></a>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkPD", @class = "chk-req", disabled = "true" }) <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify Basic & KGID Details in application form</label>
+                                            </div>
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtAppDetails" class="knlan control-label required">ಪ್ರಸ್ತಾವನೆದಾರರ ವಿವರಗಳು ಸರಿಯಾಗಿವೆಯೇ.</label>
+                                                <label for="txtAppDetails" class="Enlan control-label required">Whether applicant details are correct.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyApplicantDetails", new { @id = "chkAppD", @class = "chk-req verify" }) <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify applicant details</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <a id="a_coltwo" class="headinglink" data-toggle="collapse" data-target="#collapseTwo" onclick="showtab('headingTwo','collapseTwo')"><label class="knlan">ಕುಟುಂಬ ಹಾಗೂ ನಾಮನಿರ್ದೇಶಿತರ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸುವುದು</label><label class="Enlan">Verify Family Details & Nominee Details</label></a>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkFamNomD", @class = "chk-req", disabled = "true" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify family & nominee details in application form</label>
+                                            </div>
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtAppDetails" class="knlan control-label required">ಪ್ರಸ್ತಾವನೆದಾರರು ಪ್ರಾರಂಭಿಕ ಠೇವಣಿಯನ್ನು ಪಾವತಿಸಿದ್ದಾರೆಯೇ.</label>
+                                                <label for="txtAppDetails" class="Enlan control-label required">Whether applicant has paid initial deposit premium.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyPaymentDetails", new { @id = "chkPaidD", @class = "chk-req verify" }) <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify applicant initial deposit premium has paid</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <a id="a_colthree" class="headinglink" data-toggle="collapse" data-target="#collapseThree" onclick="showtab('headingThree','collapseThree')"><label class="knlan">ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿರಿ</label><label class="Enlan">Verify Personal Details</label></a>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkPML", @class = "chk-req", disabled = "true" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify personal in application form</label>
+                                            </div>
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtAppDetails" class="knlan control-label required">ಪ್ರಸ್ತಾವನೆದಾರರು ಪ್ರಸ್ತಾವನೆ ನಮೂನೆಯಲ್ಲಿ ಸಹಿ ಮಾಡಿದ್ದಾರೆಯೇ.</label>
+                                                <label for="txtAppDetails" class="Enlan control-label required">Whether applicant signed propsal form.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyApplicantSigned", new { @id = "chkSignedD", @class = "chk-req verify" }) <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify applicant signed propsal form.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <a id="a_colfour" class="headinglink" data-toggle="collapse" data-target="#collapseFour" onclick="showtab('headingFour','collapseFour')"><label class="knlan">ಪಾವತಿ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿರಿ</label><label class="Enlan">Verify Payment Details</label></a>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBoxFor(m => m.VerifyPaymentDetails, new { @id = "chkPAD", @class = "chk-req", disabled = "true" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify Payment Details in application form</label>
+                                            </div>
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtPBP" class="knlan control-label required">ವೈದ್ಯಕೀಯ ವರದಿಯಲ್ಲಿ ವೈದ್ಯರು ಸಹಿ ಹಾಕಿದ್ದಾರೆಯೇ.</label>
+                                                <label for="txtPBP" class="Enlan control-label required">Whether doctor signed medical report form.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyDoctorSignedForm", new { @id = "chkDS", @class = "chk-req verify" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify doctor signed medical report form</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        @if (Model.IsMedicalRequired)
+                                        {
+                                            <div class="row col-6">
+                                                <div class="form-group col-6 pl-0">
+                                                    <a id="a_colfive" class="headinglink" data-toggle="collapse" data-target="#collapseFive" onclick="showtab('headingFive','collapseFive')"><label class="knlan">ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷಾ ವರದಿಯನ್ನು ಪರಿಶೀಲಿಸಿರಿ</label><label class="Enlan">Verify Medical Examination Report</label></a>
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkPDD", @class = "chk-req", disabled = "true" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                    <label class="err text-danger col-12 pt-2" style="display:none;">Please Verify Medical Examination Report in application form</label>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row col-6">
+                                            </div>
+                                        }
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtPBP" class="knlan control-label required">ಲೋಡ್ ಅಂಶ ಸರಿಯಾಗಿದೆಯೆ.</label>
+                                                <label for="txtPBP" class="Enlan control-label required">Whether load factor is correct.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyLoadFactor", new { @id = "chkLF", @class = "chk-req verify" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify load factor</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0 bold">
+                                                <h5 for="txtPBP" class="control-label required"><label class="knlan">ಮುಖಪುಟ</label><label class="Enlan">Facing Sheet</label></h5>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.ActionLink("View Facing Sheet", "FacingSheet", "Policy", new { applicationId = @Model.ApplicationId, empid = @Model.EmpCode }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                            </div>
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtPBP" class="knlan control-label required">ವೈದ್ಯಕೀಯ ವರದಿ ಕಡ್ಡಾಯವಾಗಿದೆಯೇ / ಕಡ್ಡಾಯವಲ್ಲವೇ.</label>
+                                                <label for="txtPBP" class="Enlan control-label required">Whether medical report is mandatory/ not mandatory.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyMedicalReport", new { @id = "chkMR", @class = "chk-req verify" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical report</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="row col-6">
+                                        </div>
+                                        <div class="row col-6">
+                                            <div class="form-group col-6 pl-0">
+                                                <label for="txtPBP" class="knlan control-label required">ವೈದ್ಯಕೀಯ ಅಭಿಪ್ರಾಯ ಅಗತ್ಯವಿದೆಯೋ ಇಲ್ಲವೋ.</label>
+                                                <label for="txtPBP" class="Enlan control-label required">Whether medical opinion required or not.</label>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                @Html.CheckBox("VerifyMedicalOpinion", new { @id = "chkMO", @class = "chk-req verify" })  <b><label class="knlan">ಪರಿಶೀಲಿಸಿದೆ</label><label class="Enlan">Verified</label></b>
+                                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical opinion</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5><label class="knlan">ವೈದ್ಯಕೀಯ ರಜೆ ವಿವರಗಳು</label><label class="Enlan">Medical Leave Details</label></h5>
+                                    <section style="background-color:#fff;padding:5px;" class="form-group">
+                                        @{
+                                            @Html.Action("OtherLoginMedicalLeaveDetails", "Employee")
+                                        }
+                                    </section>
+                                    <div class="row col-12">
+                                        <div class="form-group col-2">
+                                            <label for="txtMLeave" class="knlan control-label required">ವೈದ್ಯಕೀಯ ರಜಾ</label>
+                                            <label for="txtMLeave" class="Enlan control-label required">Medical Leave</label>
+                                            @Html.TextBoxFor(Model => Model.MedicalLeave, new { @id = "txtMLeave", @class = "form-control", @readonly = true })
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="txtRemarks" class="knlan control-label">ಷರಾ</label>
+                                            <label for="txtRemarks" class="Enlan control-label">Remarks</label>
+                                            @if (Model.IsMedicalRequired == false)
+                                            {
+                                                var list = KGID.Models.VM_Remarks.GetRemarkList(1).ToList();
+
+                                                var Medicallist = KGID.Models.VM_Remarks.GetRemarkList(1).Where(a => a.Text.Contains("Medical")).ToList();
+
+                                                list.RemoveAll(x => Medicallist.Any(y => y.Value == x.Value));
+
+
+                                                @Html.DropDownListFor(model => model.Remarks,
+                                                    new SelectList(list, "Value", "Text"),
+                                                    new { @id = "ddlRemarks", @class = "form-control" })
+
+
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.Remarks,
+                                                new SelectList(KGID.Models.VM_Remarks.GetRemarkList(1), "Value", "Text"),
+                                                   new { @id = "ddlRemarks", @class = "form-control" })
+                                            }
+                                            <label id="errRemarksReq" class="text-danger pt-2 err" style="display:none;">Please enter remarks before sending back the application</label>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="txtComments" class="knlan control-label">ಅಭಿಪ್ರಾಯ</label>
+                                            <label for="txtComments" class="Enlan control-label">Comment</label>
+                                            @Html.TextAreaFor(Model => Model.Comments, new { @id = "txtComments", @class = "form-control", @maxlength = "1000" })
+                                            @*<label id="errCommentsReq" class="text-danger pt-2 err" style="display:none;">Please enter comments before sending back the application</label>*@
+                                        </div>
+                                    </div>
+                                    <div class="row col-12">
+                                        <div class="form-group col-6">
+                                            <label for="txtLoadFactor" class="knlan control-label">ಲೋಡ್ ಅಂಶ</label>
+                                            <label for="txtLoadFactor" class="Enlan control-label">Load Factor</label>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        @Html.TextBoxFor(Model => Model.LoadFactor, new { @id = "txtLoadFactor", @class = "form-control col-2 mr-2", @readonly = "readonly" })
+                                                        @Html.DropDownListFor(m => m.DeductionLoadFactor, new SelectList(Model.DeductionLoadFactors, "Value", "Text"), "None", new { @id = "txtDLoadFactor", @class = "form-control col-8" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-12">
+                                                    <div class="row">
+                                                        <label for="lblSumAssured" class="knlan control-label col-3 mt-2 pr-0">ವಿಮಾ ಮೊತ್ತ</label>
+                                                        <label for="lblSumAssured" class="Enlan control-label col-3 mt-2 pr-0">Sum Assured</label>
+                                                        <div class="row col-8">
+                                                            <label class="control-label mt-1 text-lg">&#x20B9;</label>
+                                                            @Html.TextBoxFor(Model => Model.SumAssured, new { @id = "txtSumAssured", @class = "form-control display-as-label pt-0 pl-1 font-weight-bold border-0 col-10", @readonly = true, style = "background-color: transparent" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <div class="row col-12" id="divHealthOpinionDoc">
+                                                @*@if (Model.HealthOpinionDocuments.Count > 0)
+                                                    {
+                                                        for (var i = 0; i < Model.HealthOpinionDocuments.Count; i++)
+                                                        {
+                                                            <label class="col-12 pl-0">Previously uploaded Document</label>
+                                                            <a href="@Model.HealthOpinionDocuments[i]" class="ho-doc" target="_blank">Health Opinion Document @(i + 1)</a>
+                                                        }
+                                                    }*@
+                                                @if (Model.NeedHealthOpinion.Count > 0)
+                                                {
+                                                    for (var i = 0; i < Model.NeedHealthOpinion.Count; i++)
+                                                    {
+                                                        if (Model.NeedHealthOpinion[i].HealthOpinionType == 3)
+                                                        {
+                                                            <label class="knlan col-12 pl-0"> ಈ ಹಿಂದೆ ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾಗಿದೆ (ಜಿಲ್ಲಾ ಆರೋಗ್ಯಾಧಿಕಾರಿಗಳು).</label>
+                                                            <label class="Enlan col-12 pl-0">Previously uploaded Document(DHO).</label>
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    $("#divHealthOpinion1").hide();
+                                                                });
+                                                            </script>
+                                                            @Html.ActionLink("Health Opinion Document (" + (i + 1) + ")", "ViewFilePath", "Home", new { FilePath = @Model.NeedHealthOpinion[i].HealthOpinionDocuments }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                        }
+                                                        else if (Model.NeedHealthOpinion[i].HealthOpinionType == 10)
+                                                        {
+                                                            <label class="knlan col-12 pl-0">ಈ ಹಿಂದೆ ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾಗಿದೆ (ಆರೋಗ್ಯ ಸೇವೆಗಳ ಇಲಾಖೆ).</label>
+                                                            <label class="Enlan col-12 pl-0">Previously uploaded Document(DHS).</label>
+
+                                                            @Html.ActionLink("Health Opinion Document (" + (i + 1) + ")", "ViewFilePath", "Home", new { FilePath = @Model.NeedHealthOpinion[i].HealthOpinionDocuments }, htmlAttributes: new { @target = "_blank", @class = "ho-doc", @style = "text-decoration: underline; color: #0056b3;" })
+                                                        }
+                                                        @*<a href="@Model.NeedHealthOpinion[i].HealthOpinionDocuments" class="ho-doc" target="_blank">Health Opinion Document @(i + 1)</a>*@
+
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @Html.HiddenFor(m => m.ApplicationStatus, new { id = "hdnApplicationStatus" })
+                                    <div class="row col-12">
+                                        <div class="row col-12">
+                                            <div class="row col-6">
+                                                <div id="AppStatus" style="display:none">
+                                                    <div class="col-12">
+                                                        <label class="col-12" id="lblBackToEmployee">
+                                                            @Html.RadioButtonFor(model => model.ApplicationStatus, 2, new { @id = "rbtnBackToEmployee", @class = "float-left" })
+                                                            <span class="knlan ml-1">ಪ್ರಸ್ತಾವನೆದಾರರಿಗೆ ಹಿಂದಿರುಗಿಸುವುದು</span><span class="Enlan ml-1">Send Back to Employee</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="col-12" id="lblSendBackToDDO">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 4, new { id = "rdBtnSendBackToDDO", @class = "float-left" })
+                                                            <span class="knlan ml-1">ವೇತನ ಬಟವಾಡೆ ಅಧಿಕಾರಿಗಳಿಗೆ  ಹಿಂದಿರುಗಿಸುವುದು</span><span class="Enlan ml-1">Send back to DDO</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="col-12" id="lblSendBackToCW">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 6, new { id = "rdBtnSendBackToCW", @class = "float-left" })
+                                                            <span class="knlan float-left ml-1">ವಿಷಯ ನಿರ್ವಾಹಕರಿಗೆ ಹಿಂದಿರುಗಿಸುವುದು</span>
+                                                            <span class="Enlan float-left ml-1">Send back to Caseworker</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="col-12" id="lblSendBackToSup">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 8, new { id = "rdBtnSendBackToSup", @class = "float-left" })
+                                                            <span class="knlan float-left ml-1">ಅಧಿಕ್ಷಕರಿಗೆ ಹಿಂದಿರುಗಿಸುವುದು</span>
+                                                            <span class="Enlan float-left ml-1">Send back to Superintendent</span>
+                                                        </label>
+                                                    </div>
+                                                    <div id="divForwardToDD" class="col-12">
+                                                        <label class="col-12">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 11, new { id = "rdBtnForwardToDD", @class = "float-left" })
+                                                            <span class="knlan float-left ml-1">ಉಪ ನಿರ್ದೇಶಕರಿಗೆ ಕಳುಹಿಸುವುದು</span>
+                                                            <span class="Enlan float-left ml-1">Forward to Deputy Director</span>
+                                                        </label>
+                                                    </div>
+                                                    <div id="divHealthOpinion1" class="col-12">
+                                                        <label class="col-12">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 14, new { id = "rdBtnHealthOpinion", @class = "float-left" })
+                                                            <span class="knlan float-left ml-1">ಡಿಎಚ್‌ಒ ಅಭಿಪ್ರಾಯ ಬೇಕು</span>
+                                                            <span class="Enlan float-left ml-1">Need DHO Opinion</span>
+                                                        </label>
+                                                    </div>
+                                                    <div id="divApprove" class="col-12">
+                                                        <label class="col-12">
+                                                            @Html.RadioButtonFor(m => m.ApplicationStatus, 15, new { id = "rdBtnApprove", @class = "float-left" })
+
+                                                            <span class="knlan float-left ml-1">ಅಂಗೀಕರಿಸುವುದು</span><span class="Enlan float-left ml-1">Accept</span>
+                                                        </label>
+                                                        <label class="err text-danger col-12 pt-2" style="display:none;">Please select action to be taken</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <button id="btnDIOClear" class="btn btn-danger float-right">Clear</button>
+                                                <button id="btnDIOSubmit" type="button" class="btn btn-success float-right" style="display:none">Send</button>
+                                                <button id="btnDSCSign" type="button" class="btn btn-success float-right" onclick="SignInWithDSC();" style="display:block;">DSC Sign-in</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*}*@
+                                </form>
+                            </section>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="form-group col-12 text-right">
+                                    <a id="btnSPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
+                                    <a id="btnSNext" class="btn btn-primary btn-sm text-white">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="viewSidebar" class="sidebar" style="display:none;">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                        <div class="clsFrame">
+                            <iframe id="iViewApp" src=""></iframe>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="uploadeddocuments" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="documentsTab" class="application-tab">
+                            <section>
+                                <div class="form-group">
+                                    <div class="row col-12" id="divLoadUploadedDocuments">
+                                        @if (Model.listUploadDocuments.Any())
+                                        {
+                                            foreach (var item in Model.listUploadDocuments)
+                                            {
+                                                <div class="form-group col-6">
+                                                    @if (!string.IsNullOrEmpty(item.UploaddocPath))
+                                                    {
+                                                        <label class="control-label text-justify col-6">@item.UploaddocType</label>
+                                                        @*<a class="viewuploadeddoc col-6" href="javascript:;" data-path="@item.UploaddocPath">Click Here</a>*@
+                                                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @item.UploaddocPath }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                    }
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="form-group col-12 text-right">
+                                    <a id="btnUPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        history.pushState("/kgid-dio-verification/?empId=1&applicationId=5", null, "/kgid-dio-verification/")
+    }
+</script>
+<script src="~/Scripts/VerifyDetails/DIOVerification.js"></script>
+<script src="~/Scripts/DigitalSignCerti.min.js"></script>
+<script src="~/Content/bootbox.min.js"></script>
+<script>
+    function SignInWithDSC() {
+        $(".err").hide();
+
+        $(".chk-req").each(function () {
+            if (!$(this).is(":checked")) {
+                $(this).siblings(".err").show();
+            }
+        });
+
+        var isCheckboxchecked = true;
+        if ($(".err:visible").length > 0) {
+            isCheckboxchecked = false;
+            alert("Please Verify Details..!");
+        }
+
+        if (isCheckboxchecked) {
+            $("#ResultDisplay").html("");
+
+            if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+                $("#ResultDisplay").html("Please Download Chrome Extension.");
+                return;
+            }
+            //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+            var authToken = $("").val();
+            var empcode = $('#hdnEmployeeCode').val();
+            //////
+            var ViewModel = {
+                "EmpCode": empcode, "ApplicationRefNo": $("#hdnAppCode").val(), "ApplicationId": $("#hdnAppCode").val(),
+                "LoadFactor": $("#txtLoadFactor").val(), "DeductionLoadFactor": $("#txtDLoadFactor").val(), "SumAssured": $("#txtSumAssured").val()
+                //,"PremiumAmount": $("#txtPrevRefNo").val()
+            }
+            //////
+            DSCSignRegSignedExtension.getSelectedCertificate()       //or "SHA256"
+                .then(
+                    function (CertInfo) {
+                        debugger;
+                        //Success returns Certificate Subject and Thumbprint
+                        //var data = JSON.parse(CertInfo);
+                        //alert("CertThumbPrint received " + data.CertThumbPrint);
+                        //alert(SignData);
+                        var jobj = JSON.parse(CertInfo);
+                        console.debug(CertInfo);
+                        $("#SignedToken").val(jobj.PublicKey);
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/Employee/DSCSignInKGID",
+                            type: "POST",
+                            data: JSON.stringify({
+                                "Kgidno": empcode, "PublicKey": jobj.PublicKey, VerifiedDetails: ViewModel
+                            }),
+                            async: false,
+                            contentType: 'application/json; charset=utf-8',
+                            processData: false,
+                            cache: false,
+                            success: function (data) {
+                                //Signing Operation Completed
+
+                                if (data.IsSuccess == true) {
+                                    $("#btnDSCSign").hide();
+                                    $("#btnDIOSubmit").show();
+                                    $("#AppStatus").show();
+                                    alertify.success("DSC SignIn Succesful.");
+                                    //window.location.href = "/PdfSigning/Index";
+                                }
+                                else if (data.IsSuccess == false) {
+                                    $("#btnDSCSign").show();
+                                    $("#btnDIOSubmit").hide();
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                                else {
+                                    $("#btnDSCSign").show();
+                                    $("#btnDIOSubmit").hide();
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").html(errmsg.message);
+                    }
+                );
+        }
+    };
+</script>

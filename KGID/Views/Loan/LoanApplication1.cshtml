@@ -1,0 +1,132 @@
+﻿@model KGID_Models.KGID_Loan.VM_LoanApplication
+
+@{
+    ViewBag.Title = "Loan Application";
+}
+
+<style>
+    .control-label {
+        font-size: 0.95rem !important;
+        padding-top: 0.5rem;
+        font-weight: bold;
+        line-height: 1.2;
+    }
+
+    .required::after {
+        content: " *";
+        font-weight: bold;
+        color: red;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+    }
+
+    .field-validation-error span {
+        line-height: 1.8;
+    }
+</style>
+
+<form id="frmLoanApplication">
+    <div class="col-12">
+        <div class="form-group mt-2">
+            <h2 class="text-center font-weight-bold text-black-50">Loan Application</h2>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label id="lblPolicyNumber" class="control-label text-sm-left col-6">Policy Number</label>
+                        <div class="col-6 pr-0 pl-0">
+                            @Html.TextBoxFor(m => m.PolicyNumber, new { id = "txtPolicyNumber", @class = "form-control", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label class="control-label col-6 required">Purpose of loan</label>
+                        <div class="col-6 pl-0 pr-0">
+                            @Html.DropDownListFor(m => m.Purpose, new SelectList(Model.Purposes, "Value", "Text"), "-- Select purpose --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label id="lblPolicyNumber" class="control-label col-6 required pt-0">Family member for whom taking loan:</label>
+                        <div class="col-6 pl-0 pr-0">
+                            @Html.DropDownListFor(m => m.MemberRelation, new SelectList(Model.FamilyMembers, "Value", "Text"), "-- Select family member --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.MemberRelation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label class="control-label col-6 required">Number of installments</label>
+                        <div class="col-6 pl-0 pr-0">
+                            @Html.TextBoxFor(m => m.Installment, new { @class = "form-control", type = "number", maxlength = "2", min = "10", max = "40" })
+                            @Html.ValidationMessageFor(m => m.Installment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label id="lblSpouseKGIDNumber" class="control-label col-6 pt-0">KGID number of spouse <br /> (if Govt. employee)</label>
+                        <div class="col-6 pl-0 pr-0">
+                            @Html.TextBoxFor(m => m.SpouseKGIDNumber, new { id = "txtSpouseKGIDNumber", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row col-12">
+                        <label class="control-label col-6 required">Upload Documents</label>
+                        <div class="col-6 pl-0 pr-0">
+                            @Html.TextBoxFor(m => m.Document, new { type = "file", id = "fldDocument", @class = "form-control p-0", accept = "application/pdf", style = "border:0;" })
+                            @Html.ValidationMessageFor(m => m.Document, "", new { @class = "text-danger" })
+                            <label id="errFileType" class="text-danger pt-2 err" style="display:none;">Please select only PDF files for upload</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="form-group text-center col-12">
+    <input type="button" value="Submit" onclick="SubmitApplication();" class="btn-primary btn-lg" />
+</div>
+
+<script>
+    $("#fldDocument").change(function () {
+        var fileName = $("#fldDocument").val();
+        $("#errFileType").hide();
+        var extension = fileName.substr((fileName.lastIndexOf('.') + 1));
+        if (extension !== "pdf") {
+            $("#errFileType").show();
+        }
+    });
+
+    function SubmitApplication() {
+        if ($(".err:visible").length === 0 && $("#frmLoanApplication").valid()) {
+            alertify.confirm("Are you sure you want to submit loan application?", function () {
+                //alertify.success("Loan application submitted successfully");
+                $("#frmLoanApplication").submit();
+            }).setHeader("Confirm loan application");
+        }
+    }
+</script>

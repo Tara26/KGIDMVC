@@ -1,0 +1,56 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_Upload_EmployeeForm
+
+@{
+    ViewBag.Title = "UploadEmployeeData";
+}
+
+@*@using (Html.BeginForm("UploadEmployeeData", "VerifyData", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+<form id="frmUploadDocs" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.App_Employee_Code, new { id = "hdnUFEmpId" })
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><label class="knlan">ಪ್ರಸ್ತಾಪಕರ ನಮೂನೆ ಮತ್ತು ವೈದ್ಯಕೀಯ ವರದಿಯನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Upload Application Form & Medical Report</label></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row col-md-12">
+                        @if (ViewBag.IsApplicationRequired != null && ViewBag.IsApplicationRequired)
+                        {
+                        <div class="form-group col-6" id="divUploadApplication">
+                            <label class="knlan">ಪ್ರಸ್ತಾಪಕರ ನಮೂನೆಯನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label>
+                            <label class="Enlan">Upload Application Form</label>
+                            @Html.TextBoxFor(m => m.ApplicationFormDoc, new { @id = "txtApplicationFormDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAdmittedToHospital", onchange = "DocFileChange(this.id,'errAppUploadDoc')" })
+                            <label id="errAppUploadDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            @*@Html.ActionLink("View Application Form", "UploadEmployeeDownload", "VerifyData", new { id = "1" }, htmlAttributes: new { @target = "_blank" })*@
+                        </div>
+                        }
+                        @if (ViewBag.IsMedicalRequired != null && ViewBag.IsMedicalRequired)
+                        {
+                        <div class="form-group col-md-6">
+                            <label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿಯನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label>
+                            <label class="Enlan">Upload Medical Form</label>
+                            @Html.TextBoxFor(m => m.MedicalFormDoc, new { @id = "txtMedicalFormDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAdmittedToHospital", onchange = "DocFileChange(this.id,'errMedicalUploadDoc')" })
+                            <label id="errMedicalUploadDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            @*@Html.ActionLink("View Medical Report", "UploadEmployeeDownload", "VerifyData", new { id = "2", @target = "_blank" }, htmlAttributes: new { @target = "_blank" })*@
+                        </div>
+                        }
+                        <input type="hidden" id="hdnMedicalReq" value=@ViewBag.IsMedicalRequired />
+                        <input type="hidden" id="hdnApplicationReq" value=@ViewBag.IsApplicationRequired />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <input type="button" value="Submit" class="btn btn-primary" style="margin-top: 20%;" id="btnSubmit" />@*onclick="ApplicationFormUpload();"*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <script src="~/Scripts/VerifyData/UploadEmployeeData.js"></script>
+

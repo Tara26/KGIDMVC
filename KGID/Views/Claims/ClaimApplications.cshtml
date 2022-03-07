@@ -1,0 +1,210 @@
+﻿@model KGID_Models.Claim.VM_ClaimApplications
+@using Common;
+@{
+    ViewBag.Title = "Employee Claim";
+}
+<style type="text/css">
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Claim Applications</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 stat-style">
+                        <div id="divApplicationChart" style="width: 100%; height: 400px;"></div>
+                    </div>
+                </div>
+
+                @if (Model != null)
+                {
+                    <input id="hdnChartValues" type="hidden" data-total-apps="@Model.TotalReceived" data-forwarded-apps="@Model.ForwardedApplications" data-sent-back-apps="@Model.SentBackApplication" data-pending-apps="@Model.PendingApplications" />
+                }
+                else
+                {
+                    <input id="hdnChartValues" type="hidden" data-total-apps="0" data-forwarded-apps="0" data-sent-back-apps="0" data-pending-apps="0" />
+                }
+
+                <table id="tblClaims" class="table table-striped table-bordered" cellspacing="0">
+                    <thead style="background: #308385;color: #fff;">
+                        <tr class="text-center">
+                            <th>Sl No.</th>
+                            <th>Name of Employee</th>
+                            <th>Claim reference number</th>
+                            <th>Maturity Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int counter = 1;
+                        }
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.Claims)
+                            {
+                                <tr class="text-center">
+                                    <td>@counter</td>
+                                    <td>@item.EmpName</td>
+                                    <td>@item.ClaimRefNumber</td>
+                                    <td>@item.MaturityDate.ToString("dd-MM-yyyy")</td>
+                                    @if (ViewBag.ClaimType == ClaimTypes.MATURITY)
+                                    {
+                                        if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("CWMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("SIMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DIOMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)))
+
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DDMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR)))
+                                        {
+
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                    }
+                                    else if (ViewBag.ClaimType == ClaimTypes.PREMATURITY)
+                                    {
+                                        if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("CWPreMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("SIPreMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DIOPreMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)))
+
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DDPreMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR)))
+                                        {
+
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DPreMaturityClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                    }
+                                    else if (ViewBag.ClaimType == ClaimTypes.DEATH)
+                                    {
+                                        if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("CWDeathClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("SIDeathClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DIODeathClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)))
+
+                                        {
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DDDeathClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                        else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR)))
+                                        {
+
+                                            <td><a class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" href="@Url.Action("DDeathClaimDetails", "Claims", new { area = "", empId = item.EmpId ,applicationId = item.ClaimApplicationId ,applicationRefNo=item.ClaimRefNumber})">View Application</a></td>
+                                        }
+                                    }
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#tblClaims").DataTable({
+            "ordering": false
+        });
+    });
+</script>
+
+<script src="~/Content/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts/pie.js"></script>
+
+<script>
+    var chart;
+    var legend;
+
+    var chartData = [
+        {
+            "application": "Total Received Applications",
+            "count": $("#hdnChartValues").data("total-apps")
+        },
+        {
+            "application": "Forwarded Applications",
+            "count": $("#hdnChartValues").data("forwarded-apps")
+        },
+        {
+            "application": "Sent Back Applications",
+            "count": $("#hdnChartValues").data("sent-back-apps")
+        },
+        {
+            "application": "Pending Applications",
+            "count": $("#hdnChartValues").data("pending-apps")
+        }
+    ];
+
+    AmCharts.ready(function () {
+        // PIE CHART
+        chart = new AmCharts.AmPieChart();
+        chart.dataProvider = chartData;
+        chart.titleField = "application";
+        chart.valueField = "count";
+        chart.colors = ["#007bff", "#B0DE09", "#dc3545", "#FF6F91"];
+
+        chart.outlineColor = "#FFFFFF";
+        chart.outlineAlpha = 0.8;
+        chart.outlineThickness = 2;
+        chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+        // this makes the chart 3D
+        chart.depth3D = 15;
+        chart.angle = 30;
+        chart.legend = chartData;
+        chart.legend.position = "right";
+        // WRITE
+        chart.write("divApplicationChart");
+    });
+
+</script>

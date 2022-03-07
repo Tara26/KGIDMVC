@@ -1,0 +1,211 @@
+﻿@model KGID_Models.Ticketing_Tool.tbl_report_problem
+@using KGID.Models
+<style>
+    div {
+        border: thin;
+        border-color: transparent;
+        border-width: 2px;
+        border-style: dashed;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 100px;
+        grid-gap: 20px;
+        place-items: center;
+    }
+
+    .area {
+        background-color: #eee;
+        clear: both;
+        padding-bottom: 35px;
+        display: grid;
+        border: none;
+    }
+</style>
+
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+<div id="divPrintBasicDetails" style="background-color:#eee; clear: both;padding-bottom: 35px; display: grid;  ">
+    <form id="frmAppBasicDetails">
+        <br />
+        <div class="row ">
+            @Html.HiddenFor(model => model.rp_module_id, new { @id = "hdnmoduleStatus", @class = "col-1", @value = Model.rp_module_id })
+            @Html.HiddenFor(model => model.rp_problem_type_id, new { @id = "hdnprobStatus", @class = "col-1", @value = Model.rp_problem_type_id })
+            @Html.HiddenFor(model => model.rp_id, new { @id = "hdnrp_id", @class = "col-1", @value = Model.rp_id })
+            <div class="col-md-5 form-group " style="text-align:right">
+                <label for="Module"><b><label class="knlan">ಘಟಕ:</label><label class="Enlan">Module:</label></b></label>
+
+            </div>
+
+            <div class="col-md-1" style="text-align:left">
+                @TT_Mast.GetModuleList().Where(x => x.mt_module_type == Model.rp_module_id).Select(x => x.mt_desc).FirstOrDefault()
+
+                @*@Html.DropDownListFor(model => model.rp_module_id,
+                    new SelectList(KGID.Models.TT_Mast.GetModuleList(), "mt_module_type", "mt_desc"), "-- N/A  --",
+                    new { @id = "ddlmoduleType", @class = "form-control disabled", disabled = "disabled" })*@
+
+
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-5 form-group" style="text-align:right">
+                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ:</label><label class="Enlan">Problem Type:</label></b></label>
+
+            </div>
+
+            <div class="col-md-5" style="text-align:left">
+                @TT_Mast.GetProblemTypeList().Where(x => x.pt_id == Model.rp_problem_type_id).Select(x => x.pr_description).FirstOrDefault()
+                @*@Html.DropDownListFor(model => model.rp_problem_type_id,
+                    new SelectList(KGID.Models.TT_Mast.GetProblemTypeList(), "pt_id", "pr_description"), "-- N/A  --",
+                    new { @id = "ddlprobType", @class = "form-control disabled", disabled = "disabled" })*@
+
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5 form-group" style="text-align:right">
+                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆಯ ವಿವರಗಳು:</label><label class="Enlan">Details of the problem:</label></b></label>
+            </div>
+
+            <div class="col-md-5" style="text-align:left;word-wrap:break-word;">
+                @*@Model.rp_complaint_description*@
+                @Html.TextAreaFor(model => model.rp_complaint_description, new { @class = "form-control form-control-sm area", @id = "txtEmployeeFullName", @readonly = "readonly" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5 form-group" style="text-align:right">
+                <label for="Module"><b><label class="knlan">ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಸ್ಕ್ರೀನ್‌ಶಾಟ್:</label><label class="Enlan">Uploaded Screenshot:</label></b></label>
+            </div>
+            <div class="form-group col-md-5">
+                @*<a href="@Url.Action("ViewFilePath1", "Home", new { area = "", FilePath = Model.rp_upload_document})" ,htmlAttributes: new { target="_blank" } class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;"><label class="knlan">ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Download</label></a>*@
+
+                @if (!string.IsNullOrEmpty(Model.rp_upload_document))
+                {
+                    <a href="@Url.Action("ViewFilePath1", "Home", new { area = "", FilePath = Model.rp_upload_document })" ,htmlAttributes: new { target="_blank" } class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;"><label class="knlan">ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Download</label></a>
+                }
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-5 form-group" style="text-align:right">
+                <label for="Status"><b><label class="knlan">ಸ್ಥಿತಿ:</label><label class="Enlan">Current Status:</label></b></label>
+            </div>
+            <div class="col-md-5" style="text-align:left; word-wrap:break-word;">
+                @Model.rp_report_problem_status
+
+            </div>
+        </div>
+        @if (Model.rp_report_problem_status != "Resolved")
+        {
+            <div class="row">
+                <div class="form-group col-md-5" style="text-align:right">
+                    Assign To :
+                </div>
+                <div class="form-group col-md-5">
+                    @Html.DropDownListFor(model => model.rp_assignedto,
+                                         new SelectList(KGID.Models.VM_HelpDeskUsersList.GetHelpDeskUsersList(), "Value", "Text"), "-- Please select --",
+                                         new { @id = "ddlAssignedto", @class = "form-control" })
+                    <label class="text-danger medium err" id="errddlAssignedto" style="display:none;">Please select a helpdesk user.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-5">
+                </div>
+                <div class="form-group col-md-1">
+                    <input type="submit" value="Assign" class="btn btn-primary" id="btnupload" onclick="return AssignTicket(); " />
+                </div>
+            </div>
+        }
+        @*@if (Model.STS != 2)
+            {
+                <div class="row">
+                    <div class="col-md-5 form-group" style="text-align:right">
+                        <label for="Status"><b><label class="knlan">ಸ್ಥಿತಿ:</label><label class="Enlan">Status:</label></b></label>
+                    </div>
+                    <div class="col-md-5" style="text-align:left; word-wrap:break-word;">
+                        @Model.rp_report_problem_status
+
+                    </div>
+                </div>
+            }
+
+            @if (Model.rp_remarks != null)
+            {
+                <div class="row">
+                    <div class="col-md-5 form-group" style="text-align:right">
+                        <label for="Module"><b><label class="knlan">ಷರಾ:</label><label class="Enlan">Remark:</label></b></label>
+                    </div>
+                    <div class="col-md-5" style="text-align:left;word-wrap:break-word;">
+
+                        @Html.TextAreaFor(model => model.rp_remarks, new { @class = "form-control form-control-sm area", @id = "txtrp_remarks", @readonly = "readonly" })
+                    </div>
+
+
+                </div>
+            }
+            @if (Model.STS == 2)
+            {
+                <div class="row">
+                    <div class="col-md-3 form-group" style="text-align:right">
+                        <label for="Status"><b>Status:</b></label>
+                    </div>
+                    <div class="col-md-5" style="text-align:left">
+                        <select id="ddlStatus" name="ddlStatus" class="ddlStatus form-control input-small">
+                            <option value="">--Select--</option>
+                            @if (@Model.rp_report_problem_status == "Resolved")
+                            {
+                                <option value="Resolved" selected>Resolved</option>
+                            }
+                            else
+                            {
+                                <option value="Resolved">Resolved</option>
+                            }
+                            @if (@Model.rp_report_problem_status == "InProgress")
+                            {
+                                <option value="InProgress" selected>InProgress</option>
+                            }
+                            else
+                            {
+                                <option value="InProgress">InProgress</option>
+                            }
+                            @if (@Model.rp_report_problem_status == "Pending" || @Model.rp_report_problem_status == "")
+                            {
+                                <option value="Pending" selected>Pending</option>
+                            }
+                            else
+                            {
+                                <option value="Pending">Pending</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-3 form-group" style="text-align:right">
+                        <label for="Comments"><b><label class="knlan">ಸಮಸ್ಯೆಯ ಕುರಿತು ಪ್ರತಿಕ್ರಿಯೆಗಳು / ಟೀಕೆಗಳು:</label><label class="Enlan">Comments/Remarks on the problem:</label></b></label>
+                    </div>
+
+                    <div class="col-md-5" style="text-align:left">
+                        @Html.TextAreaFor(model => model.rp_remarks, new { @class = "form-control form-control-sm ", @id = "txtComments" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="form-group col-md-5">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="submit" value="Update" class="btn btn-primary" id="btnupload" onclick="UpdateReportedproblem1(); " />
+                    </div>
+                </div>
+            }*@
+
+    </form>
+</div>
+

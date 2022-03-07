@@ -1,0 +1,235 @@
+﻿@model KGID_Models.NBApplication.VM_PaymentDetails
+@using KGID.Models
+@{
+    ViewBag.Title = "KhajaneIIGateway";
+}
+<style>
+    /*ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 25%;
+        background-color: #f1f1f1;
+        height: 100%;
+        position: fixed;
+        overflow: auto;
+    }*/
+    .active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+        /* Change the link color on hover */
+        li a:hover {
+            background-color: #555;
+            color: white;
+        }
+
+    #divOrderSummary {
+        background-color: #f9f9f9;
+        padding: 12px;
+    }
+    .headercenter {
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary headercenter"><b>KHAJANE II </b></h6>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(m => m.EmpID, new { id = "hdnEmployeeID" })
+                @Html.HiddenFor(m => m.cd_application_id, new { id = "hdnAppID" })
+                @Html.HiddenFor(m => m.cd_challan_id, new { id = "hdnChallanID" })
+                @Html.HiddenFor(m => m.cs_transaction_ref_no, new { id = "hdnTranRefNo" })
+                <div class="row col-12">
+                    <div class="form-group col-3">
+                        <ul>
+                            <li><a id="nav-card-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Card" role="tab" aria-controls="nav-Card" aria-selected="true"><i class="fa fa-address-card"></i><b>Debit/Credit Card</b></a></li>
+                            <li><a id="nav-card-tab" class="nav-item nav-link" data-toggle="tab" href="#nav-Card" role="tab" aria-controls="nav-Card" aria-selected="true"><i class="fa fa-bank"></i><b>Internet Banking</b></a></li>
+                            <li><a id="nav-card-tab" class="nav-item nav-link" data-toggle="tab" href="#nav-Card" role="tab" aria-controls="nav-Card" aria-selected="true"><i class="fa fa-bank"></i><b>BHIM UPI</b></a></li>
+                        </ul>
+                    </div>
+                    <div id="nav-Card" class="form-group col-6">
+                        <div class="col-12">
+                            <div class="col-10">
+                                <label>Please enter your card details</label>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label><b></b>Card Number</label>
+                                        <input type="text" id="txtCardNumber" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-4">
+                                        <label>Expiry Date/Valid Thru</label>
+                                        <input type="text" id="txtCardNumber" class="form-control" placeholder="Month">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>Expiry   Year</label>
+                                        <input type="text" id="txtCardNumber" class="form-control" placeholder="Year">
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <label>CCV/CVC 4-DBC</label>
+                                        <input type="text" id="txtCardNumber" class="form-control" placeholder="CCV">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Name of the card holder</label>
+                                        <input type="text" id="txtCardNumber" class="form-control" placeholder="Name as on card">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <input type="checkbox" checked /><b>Use you GSTIN for claiming input tax <i style="color:red;">(Optional)</i> </b>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-8">
+                                        <button class="btn" style="background-color:yellow;" id="btnPay">Pay Now</button>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <a href="#" id="a_docdownload" title="Download" style="float: right;"><i class="fa fa-download" style="font-size: 12px;"> Download XML file</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-3" id="divOrderSummary">
+                        <label><b>Order Summary</b></label>
+                        <div class="col-12">
+                            <div class="row form-group">
+                                <label>Order No :</label>
+                                <span class="" id="lbltrannbr">@Html.DisplayFor(model => model.cd_challan_ref_no)</span>
+                            </div>
+                            <div class="row form-group">
+                                <label>Merchant Name :</label>
+                                <label>Khajane II DOT Karnataka</label>
+                            </div>
+                            <div class="row form-group">
+                                <label>Amount : </label>
+                                <span class="" id="lblAmt">@Html.DisplayFor(model => model.cd_amount)</span>
+                            </div>
+                            <div class="row form-group">
+                                <label>Processing Fee : </label>
+                            </div>
+                            <div class="row form-group">
+                                <label>GST : </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#btnPay").click(function () {
+        var PaymentDetails = {};
+        PaymentDetails.cs_transaction_ref_no = $("#hdnTranRefNo").val();
+        PaymentDetails.cs_amount = $("#lblAmt").text();
+        PaymentDetails.cs_status = 1;
+        PaymentDetails.EmpID = $("#hdnEmployeeID").val();
+        PaymentDetails.cd_application_id = $("#hdnAppID").val();
+        PaymentDetails.cs_challan_id = $("#hdnChallanID").val();
+        PaymentDetails.cd_challan_ref_no = $("#lbltrannbr").text();
+
+        $.ajax({
+            url: '/Employee/InsertChalanStatusDetails',
+            data: JSON.stringify({ "objPaymentDetails": PaymentDetails }),
+            async: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                var xmlDoc = document.implementation.createDocument(null, 'TransactionDetails', null);
+                var CRN = xmlDoc.createElement('ChallanRefernceNumber');
+                CRN.textContent = $("#lbltrannbr").text();
+                xmlDoc.documentElement.appendChild(CRN);
+                var TRN = xmlDoc.createElement('TransactionNumber');
+                TRN.textContent = $("#hdnTranRefNo").val() ;
+                xmlDoc.documentElement.appendChild(TRN);
+                var Amt = xmlDoc.createElement('Amount');
+                Amt.textContent = $("#lblAmt").text();
+                xmlDoc.documentElement.appendChild(Amt);
+                var TRNDate = xmlDoc.createElement('TransactionDate');
+                TRNDate.textContent = new Date().getDate() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getFullYear();
+                xmlDoc.documentElement.appendChild(TRNDate);
+                var Stat = xmlDoc.createElement('Status');
+                Stat.textContent = "Success";
+                xmlDoc.documentElement.appendChild(Stat);
+                const serializer = new XMLSerializer();
+                const xmlStr = serializer.serializeToString(xmlDoc);
+                var pom = document.createElement('a');
+                var filename = "TransactionDetails.xml";
+                var bb = new Blob([xmlStr], { type: 'text/xml' });
+                pom.setAttribute('href', window.URL.createObjectURL(bb));
+                pom.setAttribute('download', filename);
+                pom.click();
+                alertify.success("Payment completed successfully");
+                window.location.href = '/kgid-app?empId=' + $("#hdnEmployeeID").val() + '&pay=true';
+            }, error: function (result) {
+                alertify.error("Payment failed. Please try again later");
+            }
+        });
+        alertify.success("Payment completed successfully");
+    })
+
+    $("#a_docdownload").click(function () {
+        $.ajax({
+            url: '/Employee/PaymentDetailsToDownload',
+            async: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                var xmlDoc = document.implementation.createDocument(null, 'PaymentDetails', null);
+                var TRN = xmlDoc.createElement('ReceiptType');
+                TRN.textContent = result.receipt_type_desc;
+                xmlDoc.documentElement.appendChild(TRN);
+                var CRN = xmlDoc.createElement('ChallanRefernceNumber');
+                CRN.textContent = result.cd_challan_ref_no;
+                xmlDoc.documentElement.appendChild(CRN);
+                var Amt = xmlDoc.createElement('Amount');
+                Amt.textContent = result.cd_amount;
+                xmlDoc.documentElement.appendChild(Amt);
+                var TRNDate = xmlDoc.createElement('DDOCode');
+                TRNDate.textContent = result.ddo_code;
+                xmlDoc.documentElement.appendChild(TRNDate);
+                var CRN = xmlDoc.createElement('Purpose');
+                CRN.textContent = result.purpose_desc;
+                xmlDoc.documentElement.appendChild(CRN);
+                var Amt = xmlDoc.createElement('SubPurpose');
+                Amt.textContent = result.sub_purpose_desc;
+                xmlDoc.documentElement.appendChild(Amt);
+                var TRNDate = xmlDoc.createElement('HOA');
+                TRNDate.textContent = result.hoa;
+                xmlDoc.documentElement.appendChild(TRNDate);
+                var TRNDate = xmlDoc.createElement('GenerationDate');
+                TRNDate.textContent = result.cd_date_of_generation;
+                xmlDoc.documentElement.appendChild(TRNDate);
+
+                const serializer = new XMLSerializer();
+                const xmlStr = serializer.serializeToString(xmlDoc);
+                var pom = document.createElement('a');
+                var filename = "PaymentDetails.xml";
+                var bb = new Blob([xmlStr], { type: 'text/xml' });
+                pom.setAttribute('href', window.URL.createObjectURL(bb));
+                pom.setAttribute('download', filename);
+                pom.click();
+            }, error: function (result) {
+                alertify.error("Error occured in downloading payment details");
+            }
+        });
+    })
+</script>

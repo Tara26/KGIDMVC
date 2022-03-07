@@ -1,0 +1,292 @@
+﻿@model KGID_Models.KGIDMotorInsurance.GetVehicleChassisPolicyDetails
+
+@{
+    ViewBag.Title = "MvcClaimApprovalProcess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int slno = 1;
+}
+<style>
+    button#btnApplicationVehicleSearch {
+        padding: 10px 10px;
+    }
+
+    button#btnsendsup {
+        padding: 10px 10px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".add-row").click(function () {
+            var Name_of_petitioner = $("#Name_of_petitioner").val();
+            var pincode = $("#pincode").val();
+            var address = $("#address").val();
+            var mobile_no = $("#mobile_no").val();
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + Name_of_petitioner + "</td><td>" + mobile_no + "</td><td>" + address + "</td><td>" + pincode + "</td></tr>";
+            $("#petitioner_table").append(markup);
+        });
+        $('.viewuploadeddoc').click(function () {
+            debugger
+            var $this = $(this);
+            var docpath = $this.data('path');
+            OpenSidebar(docpath)
+        });
+        function OpenSidebar(filename) {
+            $("#iViewApp")[0].src = window.location.origin + filename;
+            $("#viewSidebar")[0].style.display = "block";
+            $("#viewSidebar")[0].style.width = "500px";
+            $("#viewSidebar")[0].style.height = "67%";
+            $("#applicationFormTab")[0].style.marginRight = "500px";
+            $("#viewSidebar")[0].style.marginTop = "100px";
+        }
+        // Find and remove selected table rows
+        $(".delete-row").click(function () {
+            $("table tbody").find('input[name="record"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+        $("#btnsendsup").click(function () {
+            debugger;
+
+            var destination = document.getElementById("checkbox-Yes");
+            var assignedTo = destination.value;
+            var RemarkSelected = $("#remarks option:selected").val();
+            var Comments_details = $("#Comments_details").val();
+
+
+            $.ajax({
+                url: '/MotorInsuranceClaims/GetMVCdetailsforSuperindenant',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisno, Appno: Application_no }),
+                contentType: false,
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+
+                }
+            })
+
+        });
+
+    });
+    //$('#tblSIVerifyData').DataTable({
+    //    paging: false,
+    //    info: false,
+    //    ordering: false,
+    //    //aaSorting: [[1, "desc"]],
+    //    searching: false
+    //});
+
+
+    $(document).ready(function () {
+        $(".add-respondent").click(function () {
+            var Name_of_respondent = $("#Name_of_respondent").val();
+            var respondent_designation = $("#respondent_designation").val();
+            var department = $("#department").val();
+            var agency_name = $("#agency_name").val();
+            var respondent_address = $("#respondent_address").val();
+            var respondent_mobile_no = $("#respondent_mobile_no").val();
+            var respondent_pincode = $("#respondent_pincode").val();
+            var respondent_markup = "<tr><td><input type='checkbox' name='record'></td><td>" + Name_of_respondent + "</td><td>" + respondent_designation + "</td><td>" + department + "</td><td>" + agency_name + "</td><td>" + respondent_address + "</td><td>" + respondent_mobile_no + "</td><td>" + respondent_pincode + "</td></tr>";
+            $("#respondent_table").append(respondent_markup);
+        });
+
+        // Find and remove selected table rows
+        $(".delete-row1").click(function () {
+            $("table tbody").find('input[name="record"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+
+
+    });
+    function viewMVCdetailsSup(chassisno, Application_no) {
+        debugger;
+
+        $.ajax({
+            url: '/MotorInsuranceClaims/GetMVCdetailsforSuperindenant',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ chassis: chassisno, Appno: Application_no }),
+            contentType: false,
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.GetVehicleChassisPolicyDetailsList.length > 0) {
+
+                    //  var odToDate = (response.GetVehicleChassisPolicyDetailsList[0].OD_to_date);
+
+                    $('#VehicleRegistrationNumber').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no);
+                    $('#VehicleChassisNumber').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);
+                    $('#VehicleCategoryType').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type);
+                    $('#VehicleCategory').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_category_desc);
+                    $('#VehicleModel').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_model);
+                    $('#VehicleType').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Type);
+                    $('#txtTypeofCover').val(response.GetVehicleChassisPolicyDetailsList[0].type_of_Cover);
+                    $('#txtPolicyNo').val(response.GetVehicleChassisPolicyDetailsList[0].Policy_number);
+                    $('#ODFromDate').val(response.GetVehicleChassisPolicyDetailsList[0].OD_from_date1);
+                    $('#ODToDate').val(response.GetVehicleChassisPolicyDetailsList[0].OD_to_date1);
+                    $('#TPFromDate').val(response.GetVehicleChassisPolicyDetailsList[0].TP_from_date1);
+                    $('#TPToDate').val(response.GetVehicleChassisPolicyDetailsList[0].TP_to_date1);
+
+                }
+                if (response.CourtDetailsList.length > 0) {
+                    $('#mvc_no').val(response.CourtDetailsList[0].Court_MVC_number);
+                    $('#date_of_petition').val(response.CourtDetailsList[0].CourtTime);
+                    $('#Court_Name').val(response.CourtDetailsList[0].Name_of_court);
+                    $('#CourtdistrictName').val(response.CourtDetailsList[0].Court_District_Name);
+                    $('#CourtTalukName').val(response.CourtDetailsList[0].Court_Taluk_Name);
+                    $('#accidentDistrictName').val(response.CourtDetailsList[0].Accident_district_name);
+                    $('#accidentTalukName').val(response.CourtDetailsList[0].Accident_taluk_name);
+                    $('#accidenthobliName').val(response.CourtDetailsList[0].Accident_hobli);
+                    $('#accidentGramPanchayatName').val(response.CourtDetailsList[0].Accident_gramPanchayat);
+                    $('#accidentVillage').val(response.CourtDetailsList[0].Accident_village);
+                    $('#accidentDetails').val(response.CourtDetailsList[0].Accident_details);
+                    $('#accidentClaimAmnt').val(response.CourtDetailsList[0].claim_Amount);
+                }
+                if (response.MVCAppDocDetails.length > 0) {
+                    debugger;
+                    $("#dl_details_file").attr("href", response.MVCAppDocDetails[0].Accident_dl_details);
+                    $("#fir_details_file").attr("href", response.MVCAppDocDetails[0].Accident_fir_details);
+                    $("#Objection_Statement_file").attr("href", response.MVCAppDocDetails[0].Accident_object_statement_details);
+                    $("#Panchnama_details_file").attr("href", response.MVCAppDocDetails[0].Accident_panchnama_details);
+                    $("#petitioner_details_file").attr("href", response.MVCAppDocDetails[0].petitioner_details);
+                    $("#RC_details_file").attr("href", response.MVCAppDocDetails[0].Accident_rc_details);
+                    $("#Summons_details_file").attr("href", response.MVCAppDocDetails[0].summons_detals);
+
+
+                }
+                if (response.otherDetailsData.length > 0) {
+                    $("#other_document_details").empty();
+
+                    $.each(response.otherDetailsData, function (id, value) {
+
+
+                        var markup = "<a href=" + value.OtherDocument + " style='color: blue';target='_blank'>View Document</a> </br>";
+
+                        $("#other_document_details").append(markup);
+                        slNo++;
+                    });
+                }
+
+
+                if (response.PetitionerList.length > 0) {
+                    var slNo = 1;
+                    $("#petitioner_table_body").empty();
+                    $.each(response.PetitionerList, function (id, value) {
+
+
+                        var markup = "<tr><td>" + slNo + "</td><td>" + value.petitioner_name + "</td><td>" + value.petitioner_Mobile_no + "</td><td>" + value.petitioner_Address +
+                            "</td><td>" + value.pincode_Of_Petitioner + "</td></tr>";
+
+                        $("#petitioner_table_body").append(markup);
+                        slNo++;
+                    });
+                } if (response.RespondantList.length > 0) {
+                    var slResNo = 1;
+                    $("#respondent_tbody").empty();
+                    $.each(response.RespondantList, function (id, resp) {
+
+
+                        var markup = "<tr><td>" + slResNo + "</td><td>" + resp.Respondant_name + "</td><td>" + resp.Respondant_designation + "</td><td>" + resp.Respondant_department +
+                            "</td><td>" + resp.Respondant_Agency_name + "</td><td>" + resp.Respondant_address + "</td><td>" + resp.Respondant_mobile + "</td><td>" + resp.Respondant_pincode + "</td></tr>";
+
+                        $("#respondent_tbody").append(markup);
+                        slResNo++;
+                    });
+                }
+
+            },
+            complete: function (response) {
+                $('#ViewModaldetailsOnChassisNumber').modal('show');
+            },
+            error: function (response) {
+                alertify.error("Could not load details");
+            }
+
+        });
+    }
+
+
+</script>
+<style>
+    button#btnsearch {
+        padding: 10px 10px;
+    }
+
+    button#btnsendsup {
+        padding: 10px 10px;
+    }
+</style>
+<div class="card-body">
+
+    <div class="lms-registration-form" id="TeacherDetails">
+        <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Application Status </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-menu2-tab" data-toggle="pill" href="#pills-menu2" role="tab" aria-controls="pills-menu2" aria-selected="false">Lokadhalat </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div class="tab-content" id="pills-tabContent">
+
+    <!----------------------------------------Application Status------------------->
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        @*<label style="color:black">Please read the following the instructions carefully. / ದಯವಿಟ್ಟು ಕೆಳಗಿನ ಸೂಚನೆಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಓದಿ. </label>*@
+        <section>
+            <div class="row">
+                <div class="col-12">
+
+                    <table class="table table-striped table-bordered" id="tblSIVerifyData" cellspacing="0">
+                        <thead style="background: #308385;color: #fff;">
+                            <tr>
+
+                                <th>SL.No</th>
+                                <th>MVC No.</th>
+                                <th>Vehicle Chassis No</th>
+                                <th>Action</th>
+                                <th>Other Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model.GetVehicleChassisPolicyDetailsList != null && Model.GetVehicleChassisPolicyDetailsList.Count > 0)
+                            {
+                                foreach (var item in Model.GetVehicleChassisPolicyDetailsList)
+                                {
+                                    <tr>
+                                        <td>@(slno++)</td>
+                                        <td>@item.Court_MVC_number</td>
+                                        <td>@item.vehicle_chasis_no</td>
+                                        <td>
+                                            <a href="/mvc_AD_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                        </td>
+                                        <td>
+                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat</a> <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+

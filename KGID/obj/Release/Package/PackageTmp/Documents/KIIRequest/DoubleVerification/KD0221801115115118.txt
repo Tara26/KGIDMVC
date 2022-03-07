@@ -1,0 +1,18 @@
+<data>
+<RctReceiveValidateChlnRq>
+      <chlnDate>08/01/2021</chlnDate>
+      <deptCode>12C</deptCode>
+      <ddoCode>20139O</ddoCode>
+      <deptRefNum>KD0221801115115118</deptRefNum>
+      <rctReceiveValidateChlnDtls>
+        <amount>1</amount>
+        <deptPrpsId>2</deptPrpsId>
+        <prpsName>0230~00~104~0~00~000</prpsName>
+        <subPrpsName>FACT REN 03</subPrpsName>
+        <subDeptRefNum>323456789577A</subDeptRefNum>
+      </rctReceiveValidateChlnDtls>
+      <rmtrName>prathik</rmtrName>
+      <totalAmount>1</totalAmount>
+      <trsryCode>572A</trsryCode>
+</RctReceiveValidateChlnRq>
+</data>

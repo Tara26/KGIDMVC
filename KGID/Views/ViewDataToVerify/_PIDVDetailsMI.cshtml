@@ -1,0 +1,133 @@
+﻿
+
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceIDVDetails
+@using KGID.Models
+
+<style>
+    #tblIDVdiv p{
+    font-size: 14px;
+    line-height: 25px;
+    color: black;
+    }
+</style>
+
+<table style="width: 100%; border:none;" id="tblIDVdiv">
+	<tbody>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Vaahan Cost Price Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(model => model.miidv_vaahanidvamount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p> Cost Price as per Invoice Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtenteredidvovamnt" })
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Re-entered Cost Price as per Invoice Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtidvovamnt" })
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Non-electrical accessories fitted to the vehicle Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_non_electrical_accessories_amount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Electrical and electronic accessories fitted to the vehicle Rs</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_electrical_accessories_amount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Side car (Two wheeler Trailer(Pvt cars)) Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_side_car_trailer_amount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Value of CNG / LPG KIT Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_value_of_cng_lpg_amount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Insured Declared Value Rs. Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_total_amount)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 50.7616%; height: 34px;"><p>Total Amount Payable Rs.</p></td>
+			<td style="width: 40%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.miidv_idv_premium_amount)
+				</p>
+			</td>
+
+		</tr>
+
+	</tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#txtenteredidvovamnt").inputFilter(function (value) {
+            return /^\d*$/.test(value);
+
+            $("#txtidvovamnt").inputFilter(function (value) {
+                return /^\d*$/.test(value);
+
+                $('#hdnMIIDVReferanceNo').val() = $('#spnMIReferanceNo').text();
+            });
+</script>
+
+

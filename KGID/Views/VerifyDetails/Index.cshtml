@@ -1,0 +1,445 @@
+﻿@*@model KGID_Models.KGIDEmployee.VM_NBApplication*@
+@model KGID_Models.KGIDEmployee.VM_KGIDDetails
+
+
+<link href="~/Content/Steps/style.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<style>
+    #tabs {
+        background: #007b5e;
+        color: #eee;
+    }
+
+        #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+            color: #4169E1;
+            background-color: transparent;
+            border-color: transparent transparent #f3f3f3;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #tabs .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            color: #eee;
+            font-size: 20px;
+        }
+
+    #btnSave {
+        width: 140px;
+        height: 50px;
+        color: #fff;
+        background: #2dad04;
+        align-items: center;
+        -moz-align-items: center;
+        -webkit-align-items: center;
+        -o-align-items: center;
+        -ms-align-items: center;
+        justify-content: center;
+        -moz-justify-content: center;
+        -webkit-justify-content: center;
+        -o-justify-content: center;
+        -ms-justify-content: center;
+        text-decoration: none;
+        border: none;
+        float: right;
+        margin-right: 1%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#VPay").hide();
+        $("#VMedical").hide();
+        $("#Verify").hide();
+
+        $("#nav-ApplicationForm-tab").click(function (event) {
+            $("#VApp").show();
+            $("#VAay").hide();
+            $("#VMedical").hide();
+            $("#Verify").hide();
+        });
+
+        $("#nav-Payment-tab").click(function (event) {
+            $("#VPay").show();
+            $("#VMedical").hide();
+            $("#VApp").hide();
+            $("#Verify").hide();
+        });
+
+        $("#nav-MedicalReport-tab").click(function (event) {
+            $("#VMedical").show();
+            $("#VPay").hide();
+            $("#VApp").hide();
+            $("#Verify").hide();
+        });
+        $("#nav-VerifyDetails-tab").click(function (event) {
+            $("#Verify").show();
+            $("#VMedical").hide();
+            $("#VPay").hide();
+            $("#VApp").hide();
+        });
+    });
+</script>
+<div id="divApplication">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-warning"><b><label class="knlan">
+                      ನೌಕರರ ಅರ್ಜಿಯನ್ನು ಪರಿಶೀಲಿಸಿ
+                   </label><label class="Enlan">Verify Employee Application</label></b></h6>
+
+                </div>
+                <div class="card-body">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-ApplicationForm-tab" data-toggle="tab" href="#VApp" role="tab" aria-controls="nav-home" aria-selected="true"><label class="knlan">ಅರ್ಜಿ</label><label class="Enlan">ApplicationForm</label></a>
+                            <a class="nav-item nav-link disabled" id="nav-Payment-tab" data-toggle="tab" href="#VPay" role="tab" aria-controls="nav-profile" aria-selected="false"><label class="knlan">
+                               ಪಾವತಿ
+                            </label><label class="Enlan">Payment</label></a>
+                            <a class="nav-item nav-link disabled" id="nav-MedicalReport-tab" data-toggle="tab" href="#VMedical" role="tab" aria-controls="nav-about" aria-selected="false"><label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿ</label><label class="Enlan">Medical Report</label></a>
+                            <a class="nav-item nav-link disabled" id="nav-VerifyDetails-tab" data-toggle="tab" href="#Verify" role="tab" aria-controls="nav-about" aria-selected="false"><label class="knlan">ಪರಿಶೀಲಿಸಿದ ವಿವರಗಳು</label><label class="Enlan">Verified Details</label></a>
+                        </div>
+                    </nav>
+                    <form method="POST" id="signup-form" class="signup-form" action="#">
+
+                        <div id="VApp">
+                            <h3><label class="knlan">ಮೂಲ ವಿವರಗಳು</label><label class="Enlan">Basic Details</label></h3>
+                            <fieldset class="container">
+                                @{
+                                    @Html.Action("VerifyBasicDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+
+                            <h3><label class="knlan">ಕೆಜಿಐಡಿ ವಿವರಗಳು</label><label class="Enlan">KGID Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyKGIDDetailsToView", "VerifyDetails")
+                                }
+
+                            </fieldset>
+
+                            <h3><label class="knlan">ನಾಮಿನಿ ವಿವರಗಳು</label><label class="Enlan">Nominee Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyNomineeDetailsToView", "VerifyDetails")
+                                }
+
+                            </fieldset>
+
+                            <h3><label class="knlan">ಕುಟುಂಬದ ವಿವರಗಳು</label><label class="Enlan">Family Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyFamilyDetailsToView", "VerifyDetails")
+                                }
+
+                            </fieldset>
+
+                            <h3>
+                                <label class="knlan">
+                                    ವೈಯಕ್ತಿಕ ವಿವರಗಳು
+                                </label><label class="Enlan">Personal Details</label>
+                            </h3>
+                            <fieldset>
+                                @*<p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>*@
+
+                                @{
+                                    @Html.Action("VerifyPersonalDetailsToView", "VerifyDetails")
+                                }
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <h3><label class="knlan">ಘೋಷಣೆ</label><label class="Enlan">Declaration</label></h3>
+                            <fieldset>
+                                <h2><label class="knlan">ಘೋಷಣೆ</label><label class="Enlan">Declaration</label></h2>
+                                @{
+                                    @Html.Action("VerifyDeclarationDetailsToView", "VerifyDetails")
+                                }
+
+                            </fieldset>
+                        </div>
+                        <div id="VPay">
+                            <h3><label class="knlan">ಆರಂಭಿಕ ಠೇವಣಿ ಪಾವತಿ</label><label class="Enlan">Initial Deposit Payment</label></h3>
+                            <fieldset>
+                                @*<p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>*@
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><label class="knlan">ಪಾವತಿಸಬೇಕಾದ ಹಣ</label><label class="Enlan">Payment Amount</label></label>
+                                            <input type="text" id="txtamount" class="form-control" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><label class="knlan">ಪಾವತಿ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ</label><label class="Enlan">Payment Reference No</label></label>
+                                            <input type="text" id="txtpaymentrefno" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ಉದ್ದೇಶ</label><label class="Enlan">Purpose</label></label>
+                                            <input type="text" id="txttransactionno" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ಉಪ ಉದ್ದೇಶ</label><label class="Enlan">Sub Purpose</label></label>
+                                            <input type="text" id="txttransactionno" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">
+                                                ಜಿಲ್ಲೆ ಕಚೇರಿ
+                                            </label><label class="Enlan">District Offfice</label></label>
+                                            <input type="text" id="txttransactionno" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ಎಚ್ಒಎ</label><label class="Enlan">HOA</label></label>
+                                            <input type="text" id="txttransactionno" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ದಿನಾಂಕ</label><label class="Enlan">Date</label></label>
+                                            <input type="text" id="txtdateofpayment" class="form-control">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary">Pay Through KII</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary">Retry</button>
+                                                <a class="btn btn-success" onclick="SaveChallanDetails();">Save</a>
+                                            </div>
+                                            @*<div class="col-md-4">
+                                                    <a href="#next" id="btnNext" role="menuitem">Next</a>
+                                                </div>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br />
+                                        <br />
+                                        <a class="btn btn-info" onclick="GenerateChallan();">Generate Challan</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <h3><label class="knlan">ಪಾವತಿ ಸ್ಥಿತಿ</label><label class="Enlan">Payment Status</label></h3>
+                            <fieldset class="container" id="PaymentStatus">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ಪಾವತಿ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ.</label><label class="Enlan">Payment Reference No.</label></label>
+                                            <input type="text" id="txtpaymentrefno1" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">
+                                             ಮೊತ್ತ
+                                             </label><label class="Enlan">Amount</label></label>
+                                            <input type="text" id="txtamount1" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ವಹಿವಾಟು ಸಂಖ್ಯೆ</label><label class="Enlan">Transaction No</label></label>
+                                            <input type="text" id="txttransactionno1" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtChallen"><label class="knlan">ಪಾವತಿ ದಿನಾಂಕ</label><label class="Enlan">Date of Payment</label></label>
+                                            <input type="text" placeholder="DD/MM/YY" id="txtdateofpayment1" class="form-control">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a class="btn btn-primary" onclick="PrintChallanDetails();">Print</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary">Retrive For KII</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="VMedical">
+                            <h3><label class="knlan">ಮೂಲ ವಿವರಗಳು</label><label class="Enlan">Basic Details</label></h3>
+                            <fieldset class="container">
+                                @{
+                                    @Html.Action("VerifyHBasicDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+
+                            <h3><label class="knlan">ಭೌತಿಕ ವಿವರಗಳು</label><label class="Enlan">Physical Details</label></h3>
+                            <fieldset id="buildyourform">
+                                @{
+                                    @Html.Action("VerifyHPhysicalDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+
+                            <h3><label class="knlan">ಇತರ ವಿವರಗಳು</label><label class="Enlan">Other Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyHOtherDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+
+                            <h3><label class="knlan">
+                              ಆರೋಗ್ಯ ವಿವರಗಳು
+                            </label><label class="Enlan">Health Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyHHealthDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+                            <h3><label class="knlan">ವೈದ್ಯರ ವಿವರಗಳು</label><label class="Enlan">Doctor Details</label></h3>
+                            <fieldset>
+                                @{
+                                    @Html.Action("VerifyHDoctorDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+                        </div>
+                        <div id="Verify">
+                            <h3><label class="knlan">ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</label><label class="Enlan">Verify Details</label></h3>
+                            <fieldset class="container">
+                                @{
+                                    @Html.Action("VerifyDetailsToView", "VerifyDetails")
+                                }
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Content/Steps/additional-methods.js"></script>
+<script src="~/Content/Steps/jquery.steps.min.js"></script>
+<script src="~/Content/Steps/main.js"></script>
+<script type="text/javascript">
+    function FormSubmitted() {
+
+        if ($('#nav-ApplicationForm-tab').hasClass('active')) {
+            var StepNo = $("#VApp .current .step-number").text();
+            if (StepNo == 6) {
+                $('#nav-Payment-tab').removeClass("disabled");
+            }
+        }
+        else if ($('#nav-Payment-tab').hasClass('active')) {
+            var StepNo = $("#VPay .current .step-number").text();
+            if (StepNo == 2) {
+                $('#nav-MedicalReport-tab').removeClass("disabled");
+            }
+        }
+        else if ($('#nav-MedicalReport-tab').hasClass('active')) {
+            var StepNo = $("#VMedical .current .step-number").text();
+            if (StepNo == 5) {
+                $('#nav-VerifyDetails-tab').removeClass("disabled");
+            }
+        }
+        else if ($('#nav-VerifyDetails-tab').hasClass('active')) {
+            var StepNo = $("#Verify .current .step-number").text();
+            if (StepNo == 1) {
+                alert("Application form verified successfully");
+            }
+        }
+    }
+    function rebindValidation() {
+        $('form').each(function (i, f) {
+            $form = $(f);
+            $form.removeData('validator');
+            $form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse($form);
+        });
+    }
+    $(document).ready(function () {
+        var $input = $('<button type="button" id="btnSave">Submit</button>');
+        $input.appendTo($('#Verify ul[aria-label=Pagination]'));
+
+        var eid = 1517240;
+
+        $("#Verify #btnSave").on('click', function () {
+            var VStepNo = $("#Verify .current .step-number").text();
+
+            if (VStepNo == 1) {
+                SaveVerificationDetails();
+            }
+        });
+    });
+    function SaveVerificationDetails() {
+        var ddoCode = '01338O';
+        var viewModel = {
+            'dvd_ddo_code': ddoCode, 'dvd_application_ref_no': "21052020115551", 'dvd_medical_leave': $("#txtMLeave").val(),
+            'dvd_Verify_Proposer_Details': $("#chkPD")[0].checked, 'dvd_Verify_Payment_Details': $("#chkPayD")[0].checked,
+            'dvd_Verify_Medical_Details': $("#chkMDR")[0].checked, 'dvd_Verify_Medical_Condition': $("#chkMC")[0].checked, 'dvd_remarks': $("#txtRemarks").val(),
+            'dvd_creation_datetime': new Date()
+        };
+        $.ajax({
+            url: '/VerifyDetails/InsertVerifyDetails',
+            data: JSON.stringify(viewModel),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                var _valid = result;
+            }, error: function (result) {
+                var _valid = result;
+            }
+        });
+    }
+    function printApplicationForm() {
+
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Basic Details</h2></div><div class="form-group col-4"></div></div>' + $("#divPrintBasicDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Payscale Details</h2></div><div class="form-group col-4"></div></div>' + $("#divKGID").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Nominee Details</h2></div><div class="form-group col-4"></div></div>' + $("#divNominee").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Family Details</h2></div><div class="form-group col-4"></div></div>' + $("#divFamily").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Personal Details</h2></div><div class="form-group col-4"></div></div>' + $("#divPersonal").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Declaration</h2></div><div class="form-group col-4"></div></div>' + $("#divDeclaration").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Application Form</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+    function printMedicalReport() {
+
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Basic Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHBasicDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Physical Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHPhysicalDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Other Details</h3></div><div class="form-group col-4"></div></div>' + $("#divOtherDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Health Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHealthDetails").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Medical Report</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

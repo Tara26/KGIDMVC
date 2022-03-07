@@ -1,0 +1,235 @@
+﻿@model KGID_Models.KGID_Login.tbl_logindetails
+@{
+    ViewBag.Title = "ChangePassword";
+
+}
+
+
+<script src="~/Scripts/aes.js"></script>
+
+<script type="text/javascript">
+    //Agency Login
+    function submitrecord() {
+        
+        debugger;
+        var value_code = "";
+        if ('@ViewBag.code') {
+            $('#pswkey').val('@ViewBag.code');
+            value_code = '@ViewBag.code';
+             }
+        var _NewPassword = $("#deptNewPassword").val();
+        var _Userpsw = $("#deptUserpassword").val();
+        var _ConfirmPassword = $("#deptConfirmPassword").val();
+        var _forms = false;
+        if (_NewPassword === _ConfirmPassword) {
+            _forms = true
+
+        }
+        //var dialog = bootbox.dialog({
+        //    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Please wait...</p>',
+        //    closeButton: false
+        //});
+
+        if (_forms == true) {
+
+
+            var token = $('[name=__RequestVerificationToken]').val();
+
+            var key = CryptoJS.enc.Utf8.parse(value_code);
+            var iv = CryptoJS.enc.Utf8.parse(value_code);
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(_NewPassword), key,
+
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+
+            $('#deptNewPassword').val(encryptedlogin);
+            var encryptedConfirmpassword = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(_ConfirmPassword), key,
+
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            $('#deptConfirmPassword').val(encryptedConfirmpassword);
+
+            var encryptedpassword = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(_Userpsw), key,
+
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            $('#deptUserpassword').val(encryptedpassword);
+
+            $.ajax({
+                type: "POST",
+                url: "/ChangePassword/UserChangePassword",
+                dataType: 'json',
+                data: {
+                   // headers: { '__RequestVerificationToken': token },
+                    um_user_New_password: $("#deptNewPassword").val(),
+                    um_user_password: $("#deptUserpassword").val(),
+                    um_user_Confirm_password: $("#deptConfirmPassword").val(),
+                    pswkey: value_code
+                    //txtCaptcha: _captcha,
+                },
+                success: function (result) {
+                    debugger;
+                    if (result.IsSuccess == "Success") {
+
+                        $("#txtOTP").val("");
+                        $("#myMVModal").modal('show');
+
+                    }
+                    else if (result.IsSuccess == "WrongCaptcha") {
+                        window.location.href = result.RedirectUrl;
+                    }
+                    else if (result.IsSuccess == "InvalidLogin") {
+                        window.location.href = result.RedirectUrl;
+                    }
+                }
+            });
+        }
+        else {
+            //bootbox.alert("Please Enter all the fields")
+            bootbox.alert("New Password and Confirm Password should match", function () {
+                window.location.reload();
+            });
+        }
+    }
+
+    function verifymobileOTP() {
+
+        var MOTP = $("#txtOTP").val();
+        $.ajax({
+            type: "Get",
+
+            url: '@Url.Action("VerifyOTP", "ChangePassword")',
+            dataType: 'json',
+            data: {
+                // headers: { '__RequestVerificationToken': token },
+                OTP: MOTP,
+
+
+                //txtCaptcha: _captcha,
+            },
+            success: function (result) {
+                if (result.IsSuccess == "1") {
+
+                    $("#divVerify_Modal").hide();
+                    
+                    $("#spnSuccess_Modal").html("updated sucessfully");
+                    setTimeout(function () { 
+                        $("#myMVModal").modal('hide');
+                    }, 3000);
+
+                }
+                else if (result.IsSuccess == "WrongCaptcha") {
+                    window.location.href = result.RedirectUrl;
+                }
+                else if (result.IsSuccess == "InvalidLogin") {
+                    window.location.href = result.RedirectUrl;
+                }
+            }
+        });
+    }
+</script>
+
+<section class="latest-blog spad">
+    <div class="container">
+        <div id='myMVModal' class='modal'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div id='myModalContent'>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"> Mobile Otp Verification</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="row" id="divSuccess_Modal">
+                                        <h5> <span id="spnSuccess_Modal"></span></h5>
+                                    </div>
+                                    <div class="row" id="divVerify_Modal">
+                                        <label id="lblotp" class="control-label" style="margin:9px">Enter OTP </label> <input type="text" id="txtOTP" class="form-control col-5" style="margin-left:68px" />
+                                        <span id="spnFailed_Modal"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Close</button>*@
+                            <button type="button" class="btn btn-primary" id="btn_ok" onclick="verifymobileOTP();">Verify</button>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @*<div class="single-latest-blog">
+                        <img src="~/Content/NewUI/img/kgid-home-banner.png" alt="pdf icon" />
+                    </div>*@
+            </div>
+
+            <div class="col-md-5">
+                <div class="login-form shadow-lg">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="p-4">
+                                <div class="row  text-center">
+                                    <div class="form-group">
+                                        <div class="custom-control">
+                                            <h5 style="color:black;padding-left: 147px">  Agency Change Password</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                @using (@Html.BeginForm("", "", new { area = "" }, FormMethod.Post, new { id = "frmDeptLogin" }))
+                                {
+                                    @Html.AntiForgeryToken();
+                                    @Html.Hidden("password", "", new { @id = "pswkey" })
+                                    <div class="user" id="department_login_form" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                        <div class="row form-group">
+                                            <label class="control-label col-3 required">Old Password</label>
+                                            <div class="col-9">
+                                                @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address ...">*@
+                                                @Html.TextBoxFor(x => x.um_user_password, new { onpaste = "return false", oncopy = "return false", @class = "form-control col-11", placeholder = "Enter Password", @type = "Password", id = "deptUserpassword", @maxlength = 14 })
+                                                @Html.ValidationMessageFor(x => x.um_user_password, "", new { id = "deptVUserName", @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label class="control-label col-3 required">New Password</label>
+                                            <div class="col-9">
+                                                @*<input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Enter Password ...">*@
+                                                @Html.TextBoxFor(x => x.um_user_New_password, new { onpaste = "return false", oncopy = "return false", id = "deptNewPassword", @type = "Password", @class = "form-control col-11", placeholder = "Enter New Password", @maxlength = 14 })
+                                                @Html.ValidationMessageFor(x => x.um_user_New_password, "", new { id = "deptVPassword", @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label class="control-label col-3 required">Confirm Password</label>
+                                            <div class="col-9">
+                                                @*<input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Enter Password ...">*@
+                                                @Html.TextBoxFor(x => x.um_user_Confirm_password, new { onpaste = "return false", oncopy = "return false", id = "deptConfirmPassword", @type = "Password", @class = "form-control col-11", placeholder = "Enter Confirm Password", @maxlength = 14 })
+                                                @Html.ValidationMessageFor(x => x.um_user_Confirm_password, "", new { id = "deptVPassword", @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                @*<div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="chkRememberme">
+                                                        <label class="custom-control-label" for="chkRememberme">Remember Me</label>
+                                                    </div>*@
+                                            </div>
+                                            <div class="col-md-6">
+                                                @*<input name="submit" type="button" id="btnLoginDept" value="Login" class="btn btn-success" data-url="@Url.Action("UserLogin", "Login", new { area = "" })" data-redirect-url="@Url.Action("UploadEmployeeDetails", "Employee", new { area = "" })" />*@
+                                                <input name="submit" type="button" id="btnSave" value="Submit" class="btn btn-success" onclick="submitrecord();" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

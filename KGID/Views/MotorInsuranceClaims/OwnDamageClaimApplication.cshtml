@@ -1,0 +1,1655 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_MIOwnDamageClaimDetails
+@{
+    ViewBag.Title = "OwnDamageClaimApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .filelink {
+        color: blue;
+        text-decoration: underline;
+    }
+</style>
+<h3 style="text-align:center">Motor Insurance Own Damage Claim Application</h3><br />
+<!--//OwnDamageClaim Details// -->
+<section>
+    <div class="row">
+        <div class="col-2">
+            <br /><h6>Select Policy Number:</h6>
+        </div>
+        <div class="col-3">
+            @*@Html.DropDownListFor(M => M.MIOwnDamageClaimDetails, new SelectList(Model.MIOwnDamageClaimDetails, "MIApplicationNumber", "MIPolicyNumber"))*@
+            @Html.DropDownListFor(model => model.MIOwnDamageClaimDetails, new SelectList(Model.MIOwnDamageClaimDetails, "MIApplicationNumber", "MIPolicyNumber"), "-- Select Policy Number --", new { @class = "form-control", id = "ddlOwnDamageList" })
+        </div>
+        <div class="col-8">
+        </div>
+    </div>
+</section>
+<hr />
+<div id="claimform" style="display:none">
+    <div class="login-form shadow-lg">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="p-5">
+
+                    <section>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Vehicle Number :</label>
+                                <input class="form-control" id="txtMIVehicleNumber" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Vehicle Registration Location :</label>
+                                <input class="form-control" id="txtMIVehicleRegistrationName" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Date of Manufactur :</label>
+                                <input class="form-control" id="txtMIVehicleDateOfManufactur" name="Name" type="text" value="" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Make of Vehicle :</label>
+                                <input class="form-control" id="txtMIVehicleMakeName" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Model :</label>
+                                <input class="form-control" id="txtMIVehicleModelName" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Manufacturer :</label>
+                                <input class="form-control" id="txtMIVehicleManufactureName" name="Name" type="text" value="" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Cubic Capacity :</label>
+                                <input class="form-control" id="txtMICubicCapacity" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">No. of Passengers :</label>
+                                <input class="form-control" id="txtMINoOfPassengers" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblPolicyID" class=" control-label">Policy Number :</label>
+                                <input class="form-control" id="txtMIPolicyNumber" name="Name" type="text" value="" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblPolicyPremium">Policy Premium :</label>
+                                <input class="form-control" id="txtPolicyPremium" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblPolicyFromDate" class="control-label">Policy From Date :</label>
+                                <input class="form-control" id="txtPolicyFromDate" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblPolicyToDate" class=" control-label">Policy TO Date :</label>
+                                <input class="form-control" id="txtPolicyToDate" name="Name" type="text" value="" readonly />
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <div class="row" style="display:none;">
+                        <div class="form-group col-2">
+                        </div>
+                        <div class="form-group col-3" style="text-align:right">
+                            <br />
+                            <label for="lblODClaimAppN">OD Claim Application No :</label>
+                        </div>
+                        <div class="form-group col-4">
+                            <input class="form-control" id="txtODClaimAppNo" name="Name" type="text" readonly />
+                        </div>
+                        <div class="form-group col-3">
+                        </div>
+                    </div>
+                    <input class="form-control" id="txtPolicyID" name="Name" type="text" value="" hidden />
+                    <input class="form-control" id="txtMIEmployeeId" name="Name" type="text" hidden />
+                    <input class="form-control" id="txtMIUserCategoryId" name="Name" type="text" hidden />
+                    <div class="form-group col-4">
+                        <label for="lblCliamType" class="control-label">Claim Type :</label>
+                        <select class="form-control claimtype">
+                            <option value="0" disabled="disabled" selected="selected">Please select claim type</option>
+                            <option value="1">Fire Accident</option>
+                            <option value="2">Theft Cases</option>
+                            <option value="3">Natural Calamities</option>
+                            <option value="4">Accident</option>
+                        </select>
+                        <label id="errtxtIsclaimtype" class="col-form-label-sm text-danger err" hidden>Please Select Claim Type.</label>
+                    </div>
+                    <div id="FireAccidentSection" style="display:none">
+                        <hr />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">a) Claim Form :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" class="filelink" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <label class="col-12 CF1" style="display:none">Previously uploaded Document: <a id="CF1" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimFormDoc1" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimFormDoc1')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimFormDoc1" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">b) Registration Copy (RC) :</label>
+                                <label class="col-12 RC1" style="display:none">Previously uploaded Document: <a id="RC1" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RegistrationCopyDoc1" onchange="ODClaimDocFileChange(this.id,'errtxtIsRegistrationCopyDoc1')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRegistrationCopyDoc1" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">c)Driving Licence (DL) :</label>
+                                <label class="col-12 DL1" style="display:none">Previously uploaded Document: <a id="DL1" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="DLDoc1" onchange="ODClaimDocFileChange(this.id,'errtxtIsDLDoc1')" size="18" style="width: 250px;">
+                                <label id="errtxtIsDLDoc1" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">d)FIR Copy :</label>
+                                <label class="col-12 FIR1" style="display:none">Previously uploaded Document: <a id="FIR1" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="FIRDoc1" onchange="ODClaimDocFileChange(this.id,'errtxtIsFIRDoc1')" size="18" style="width: 250px;">
+                                <label id="errtxtIsFIRDoc1" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">e) Estimation Report :</label>
+                                <label class="col-12 ER1" style="display:none">Previously uploaded Document: <a id="ER1" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="EstimationReportDoc1" onchange="ODClaimDocFileChange(this.id,'errtxtIsEstimationReportDoc1')" size="18" style="width: 250px;">
+                                <label id="errtxtIsEstimationReportDoc1" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="TheftCasesSection" style="display:none">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">a) Claim Form :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" class="filelink" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <label class="col-12 CF2" style="display:none">Previously uploaded Document: <a id="CF2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimFormDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimFormDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimFormDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">b) Registration Copy (RC) :</label>
+                                <label class="col-12 RC2" style="display:none">Previously uploaded Document: <a id="RC2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RegistrationCopyDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsRegistrationCopyDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRegistrationCopyDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">c)Driving Licence (DL) :</label>
+                                <label class="col-12 DL2" style="display:none">Previously uploaded Document: <a id="DL2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="DLDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsDLDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsDLDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">d)FIR Copy :</label>
+                                <label class="col-12 FIR2" style="display:none">Previously uploaded Document: <a id="FIR2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="FIRDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsFIRDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsFIRDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">e) C-Report :</label>
+                                <label class="col-12 CR2" style="display:none">Previously uploaded Document: <a id="CR2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="CReportDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsCReportDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsCReportDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">f) Affidavit :</label>
+                                <label class="col-12 AD2" style="display:none">Previously uploaded Document: <a id="AD2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="AffidavitDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsAffidavitDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsAffidavitDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">g) Claim Discharge form :</label>
+                                <label class="col-12 CD2" style="display:none">Previously uploaded Document: <a id="CD2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimDischargeFormDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimDischargeFormDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimDischargeFormDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">h) Advance Payee Receipt :</label>
+                                <label class="col-12 APRD2" style="display:none">Previously uploaded Document: <a id="APRD2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="AdvPayeeRecepit2" onchange="ODClaimDocFileChange(this.id,'errtxtIsAdvPayeeRecepit2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsAdvPayeeRecepit2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">i) Recipient ID :</label>
+                                <label class="col-12 RD2" style="display:none">Previously uploaded Document: <a id="RD2" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RecipientIDDoc2" onchange="ODClaimDocFileChange(this.id,'errtxtIsRecipientIDDoc2')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRecipientIDDoc2" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="NaturalCalamitiesSection" style="display:none">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">a) Claim Form :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" class="filelink" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <label class="col-12 CF3" style="display:none">Previously uploaded Document: <a id="CF3" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimFormDoc3" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimFormDoc3')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimFormDoc3" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">b) Registration Copy (RC) :</label>
+                                <label class="col-12 RC3" style="display:none">Previously uploaded Document: <a id="RC3" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RegistrationCopyDoc3" onchange="ODClaimDocFileChange(this.id,'errtxtIsRegistrationCopyDoc3')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRegistrationCopyDoc3" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">c)Driving Licence (DL) :</label>
+                                <label class="col-12 DL3" style="display:none">Previously uploaded Document: <a id="DL3" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="DLDoc3" onchange="ODClaimDocFileChange(this.id,'errtxtIsDLDoc3')" size="18" style="width: 250px;">
+                                <label id="errtxtIsDLDoc3" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">d)FIR Copy :</label>
+                                <label class="col-12 FIR3" style="display:none">Previously uploaded Document: <a id="FIR3" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="FIRDoc3" onchange="ODClaimDocFileChange(this.id,'errtxtIsFIRDoc3')" size="18" style="width: 250px;">
+                                <label id="errtxtIsFIRDoc3" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">e) Estimation Report :</label>
+                                <label class="col-12 ER3" style="display:none">Previously uploaded Document: <a id="ER3" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="EstimationReportDoc3" onchange="ODClaimDocFileChange(this.id,'errtxtIsEstimationReportDoc3')" size="18" style="width: 250px;">
+                                <label id="errtxtIsEstimationReportDoc3" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="AccidentSection" style="display:none">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">a) Claim Form :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" class="filelink" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <label class="col-12 CF4" style="display:none">Previously uploaded Document: <a id="CF4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimFormDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimFormDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimFormDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">b) Registration Copy (RC) :</label>
+                                <label class="col-12 RC4" style="display:none">Previously uploaded Document: <a id="RC4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RegistrationCopyDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsRegistrationCopyDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRegistrationCopyDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">c)Driving Licence (DL) :</label>
+                                <label class="col-12 DL4" style="display:none">Previously uploaded Document: <a id="DL4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="DLDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsDLDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsDLDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">d)FIR Copy :</label>
+                                <label class="col-12 FIR4" style="display:none">Previously uploaded Document: <a id="FIR4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="FIRDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsFIRDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsFIRDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">e) Estimation Report :</label>
+                                <label class="col-12 ER4" style="display:none">Previously uploaded Document: <a id="ER4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="EstimationReportDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsEstimationReportDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsEstimationReportDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">f) RTO Report :</label>
+                                <label class="col-12 RTOR4" style="display:none">Previously uploaded Document: <a id="RTOR4" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="RTOReportDoc4" onchange="ODClaimDocFileChange(this.id,'errtxtIsRTOReportDoc4')" size="18" style="width: 250px;">
+                                <label id="errtxtIsRTOReportDoc4" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <section>
+                        <h6>Accident Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Date of Accident :</label>
+                                <input class="form-control" id="txtAccidentDate" placeholder="DD-MM-YYYY" autocomplete="off" name="Name" type="text" value="" />
+                                <label id="errtxtIstxtAccidentDate" class="col-form-label-sm text-danger err" hidden>Please Enter Date of Accident.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Cause of Accident :</label>
+                                @*<input class="form-control" id="txtCaseofAccident" placeholder="Enter Cause of Accident" name="Name" type="text" value="" />*@
+                                <select class="form-control coa">
+                                    <option value="0" disabled="disabled" selected="selected">Please select cause of accident</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                    <option value="4">Four</option>
+                                </select>
+                                <label id="errtxtIscoa" class="col-form-label-sm text-danger err" hidden>Please Select Cause of Accident.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Place of Accident :</label>
+                                <input class="form-control" id="txtPlaceofAccident" maxlength="99" placeholder="Enter Place of Accident" name="Name" type="text" value="" />
+                                <label id="errtxtIstxtPlaceofAccident" class="col-form-label-sm text-danger err" hidden>Please Enter Place of Accident.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblDist" class="control-label">Dist :</label>
+                                @*<input class="form-control" id="txtPoaDist" placeholder="Enter Dist" name="Name" type="text" value="" />*@
+                                <select id="txtPoaDist" name="slctdist" class="slctdist form-control input-small"> </select>
+                                <label id="errtxtIsslctdist" class="col-form-label-sm text-danger err" hidden>Please Select Dist of Accident.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblTaluka" class=" control-label">Taluka :</label>
+                                @*<input class="form-control" id="txtPoaTaluka" placeholder="Enter Taluka" name="Name" type="text" value="" />*@
+                                <select id="txtPoaTaluka" name="slcttaluka" class="slcttaluka form-control input-small"> </select>
+                                <label id="errtxtIsslcttaluka" class="col-form-label-sm text-danger err" hidden>Please Select Taluka of Accident.</label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblAccidentImages" class=" control-label">Accident Images :</label>
+                                <label class="col-12 ClaimVehicleImagePath" style="display:none">Previously uploaded Document: <a id="ClaimVehicleImagePath" class="doc-uploaded">Click Here</a></label>
+                                <input type="file" name="filename" class="form-control" id="ClaimVehicleImages" onchange="ODClaimDocFileChange(this.id,'errtxtIsClaimVehicleImages')" size="18" style="width: 250px;">
+                                <label id="errtxtIsClaimVehicleImages" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <section style="display:none">
+                        <h6>FIR Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">FIR No. :</label>
+                                <input class="form-control" id="txtFIRNo" placeholder="Enter FIR No" name="Name" type="text" value="" required />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">FIR Date :</label>
+                                <input class="form-control" id="txtFIRDate" placeholder="DD-MM-YYYY" autocomplete="off" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">FIR Police Station :</label>
+                                <input class="form-control" id="txtFIRPS" placeholder="Enter FIR Police Station Name" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Dist :</label>
+                                <input class="form-control" id="txtPSDist" placeholder="Enter Dist of Police Station" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Taluka :</label>
+                                <input class="form-control" id="txtPSTaluka" placeholder="Enter Taluka of Police Station" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Upload Document :</label>
+                                <input type="file" name="filename" class="form-control" id="FileDocFIR" value="browse" size="18" style="width: 250px;">
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h6>Claim Details</h6><br />
+                        <div class="row">
+                            @*<div class="form-group col-4">
+                                    <label for="lblVDRegistrationNo">Vehicle Port :</label>
+                                    <input class="form-control" id="txtVehiclePort" placeholder="Enter Vehicle Port" name="Name" type="text" value="" />
+                                </div>*@
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Damage Cost :</label>
+                                @*<input class="form-control" type="number" placeholder="Enter Damage Cost" id="txtDamageCost" name="Damage_Cost" oninput="this.value=this.value.replace(/[^0-9]/g,'.');">*@
+                                <input class="form-control" type="number" placeholder="Enter Damage Cost" id="txtDamageCost" name="Damage_Cost" min="0" onKeyDown="if(this.value.length==9 && event.keyCode!=8) return false;" />
+                                <label id="errtxtIstxtDamageCost" class="col-form-label-sm text-danger err" hidden>Please Enter Damage Cost.</label>
+                            </div>
+                            @*<div class="form-group col-4">
+                                    <label for="lblVDRegistrationNo">Total Amount :</label>
+                                    <input class="form-control" type="number" placeholder="Enter Total Amount" id="txtTotalAmount" name="Total_Amount" oninput="this.value=this.value.replace(/[^0-9]/g,'.');">
+                                </div>*@
+                        </div>
+                    </section>
+                    <section>
+                        <table class="table table-striped table-bordered" id="tblComponentnList" cellspacing="0">
+                            <thead>
+                                <tr style="background: #308385;color: #fff;">
+                                    @*<th>Policy ID</th>*@
+                                    <th colspan="4" style="text-align:center;">Component Details</th>
+                                </tr>
+                                <tr>
+                                    <td><p></p></td>
+                                    <td>
+                                        <p style="text-align:right;"> Enter Component</p>
+                                    </td>
+                                    <td>
+                                        @*<select id="txtcompnt" name="slctcompnt" class="slctcomponent form-control form-control-sm" style="width:100%"> </select>*@
+                                        <input type="text" class="form-control form-control-sm" id='txtcompnt' name="input" />
+                                    </td>
+                                    <td>
+                                        @*<button type="button" onClick="addRow(this, $('select.slctcomponent option:selected').val(), $('select.slctcomponent option:selected').text())">Add</button>*@
+                                        <button type="button" onClick="addRow(this, $('#txtcompnt').val(), $('#txtcompnt').val())">Add</button>
+                                    </td>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th>Component</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Total Amount</th>
+                                    <th><input type="text" class="form-control form-control-sm" id='sum1' name="input" disabled /></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <label id="errtxtIssum1" class="col-form-label-sm text-danger err" hidden>Please Enter Components.</label>
+                    </section>
+
+                    <section style="display:none">
+                        <hr />
+                        <h6>Driver Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Name of Driver :</label>
+                                <input class="form-control" id="txtDriverName" placeholder="Enter Driver Name" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Gender :</label>
+                                <select class="form-control">
+                                    <option value="" disabled="disabled" selected="selected">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Age :</label>
+                                <input class="form-control" type="number" placeholder="Enter Age" id="txtAge" name="Age" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                        </div>
+                        <h6>Driver Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Driver License No. :</label>
+                                <input class="form-control" id="txtDLNo" placeholder="EnterDriver License No." name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Upload Driver Statement :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <input type="file" name="filename" class="form-control" id="FileDocDS" value="browse" size="18" style="width: 250px;">
+                            </div>
+                        </div>
+                    </section>
+                    @*<input type="submit" class="form-control " value="Submit" />*@
+                    <center><button id="odclaimbtnSubmit" class="btn btn-success">Submit</button></center>
+
+                    <section style="display:none">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped table-bordered" id="tblApplicationList" cellspacing="0">
+                                    <thead style="background: #308385;color: #fff;">
+                                        <tr>
+                                            @*<th>Policy ID</th>*@
+                                            <th>Vehicle Reg.Number</th>
+                                            <th>Vehicle Details</th>
+                                            <th>Policy Number</th>
+                                            <th>Policy Premium Amount</th>
+                                            <th>Policy From Date</th>
+                                            <th>Policy To Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.MIOwnDamageClaimDetails != null && Model.MIOwnDamageClaimDetails.Count > 0)
+                                        {
+                                            foreach (var item in Model.MIOwnDamageClaimDetails)
+                                            {
+                                                <tr>
+                                                    @*<td>@item.MIPolicyId</td>*@
+                                                    <td>@item.MIVehicleRegistrationNumber</td>
+                                                    <td>@item.MIVehicleManufactureName @item.MIVehicleModelName</td>
+                                                    <td>@item.MIPolicyNumber</td>
+                                                    <td>@item.MIPremium</td>
+                                                    <td>@item.MIPolicyFromDate.Value.ToString("dd MMM yyyy")</td>
+                                                    <td>@item.MIPolicyToDate.Value.ToString("dd MMM yyyy")</td>
+
+                                                    @*@if (item.MIRenewalApplicationNumber == 0)
+                                                        {
+                                                            <td>
+                                                                <a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="Renewal", refNo = item.MIApplicationNumber, category=item.MIUserCategoryId }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Renewal Application</a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="EditRenewal", @refNo = item.MIApplicationNumber, @category=item.MIUserCategoryId,@renewalRefNo=item.MIRenewalApplicationNumber }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Edit Renewal Application</a></td>
+                                                        }*@
+
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//OwnDamageClaim Details END//-->
+<script>
+    $(document).ready(function () {
+        GetDistList();
+        GetComponentList();
+        $("#txtcompnt").select2({
+        });
+    });
+    $('#ddlOwnDamageList').change(function ()
+    {
+        var AppNo = $('select#ddlOwnDamageList option:selected').val();
+        var MIPolicyNumber = $('select#ddlOwnDamageList option:selected').text();
+        //$("#claimform").show();
+        $.ajax({
+            url: '/MotorInsuranceClaims/OwnDamageClaimApplicationList',
+            async: false,
+            type: 'GET',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                //var filtered = result;
+                //filtered.MIOwnDamageClaimDetails = filtered.MIOwnDamageClaimDetails.filter(function (a) {
+                //    return a.MIApplicationNumber === AppNo;
+                //});
+                //console.log(filtered);
+                var filtered1 = result;
+                var newArray = filtered1.MIOwnDamageClaimDetails.filter(function (el) {
+                    return el.MIApplicationNumber === parseInt(AppNo); // Changed this so a home would match
+                });
+                console.log(newArray);
+                $('#txtMIVehicleNumber').val(newArray[0].MIVehicleRegistrationNumber)
+                $('#txtMIVehicleRegistrationName').val(newArray[0].MIRegistrationName)
+                $('#txtMIVehicleDateOfManufactur').val(moment(newArray[0].MIVehicleManufactureDate).format("DD-MM-YYYY").toUpperCase())
+
+
+                $('#txtMIVehicleManufactureName').val(newArray[0].MIVehicleManufactureName)
+                $('#txtMIVehicleMakeName').val(newArray[0].MIVehicleMakeName)
+                $('#txtMIVehicleModelName').val(newArray[0].MIVehicleModelName)
+                $('#txtMIRegistrationName').val(newArray[0].MIRegistrationName)
+                $('#txtMICubicCapacity').val(newArray[0].MICubicCapacity)
+                $('#txtMINoOfPassengers').val(newArray[0].MINoOfPassengers)
+
+                $('#txtMIEmployeeId').val(newArray[0].MIEmployeeId)
+                $('#txtMIUserCategoryId').val(newArray[0].MIUserCategoryId)
+                $('#txtPolicyID').val(newArray[0].MIPolicyId)
+                $('#txtMIPolicyNumber').val(newArray[0].MIPolicyNumber)
+                $('#txtPolicyPremium').val(newArray[0].MIPremium)
+                $('#txtPolicyFromDate').val(moment(newArray[0].MIPolicyFromDate).format("DD-MM-YYYY").toUpperCase())
+                $('#txtPolicyToDate').val(moment(newArray[0].MIPolicyToDate).format("DD-MM-YYYY").toUpperCase())
+                $("#claimform").show();
+                //GetODClaimDetails(MIPolicyNumber)
+                //var myDate = formatJSONDate(newArray[0].MIPolicyFromDate)
+                //console.log(myDate);
+            }, error: function (result) {
+                alertify.error("Could not load details");
+            }
+        });
+    });
+
+    function GetODClaimDetails(AppNo) {
+        $.ajax({
+            //url: "/MotorInsuranceClaims/GetDistList",
+            url: "@Url.Action("GetODClaimDetails", "MotorInsuranceClaims")",
+            data: JSON.stringify({ "PolicyNumber": AppNo }),
+            type: 'POST',
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            processData: false,
+            success: function (result) {
+                debugger
+                //console.log(result)
+                console.log(result.Data)
+                //result.Data.Odca_claim_app_no
+                if (result.Data.Odca_claim_app_no != null) {
+                    var odclaimappNo = result.Data.Odca_claim_app_no
+                    $('#txtODClaimAppNo').val(odclaimappNo);
+                    //
+                    //$('#txtPolicyID').val(result.Data.Odca_policy_id);
+                    $('#txtMIVehicleNumber').val(result.Data.Odca_vehicle_number);
+                    $('#txtMIPolicyNumber').val(result.Data.Odca_policy_number);
+                    $('#txtMIEmployeeId').val(result.Data.Odca_proposer_id);
+                    $('#txtMIUserCategoryId').val(result.Data.Odca_category_id);
+                    //$('.claimtype option:selected').val(result.Data.Odca_claim_id);
+                    $('.claimtype').val(result.Data.Odca_claim_id).change();
+                    $('#txtAccidentDate').val(moment(result.Data.Odca_date_time_of_accident).format("DD-MM-YYYY HH:MM").toUpperCase());
+                    //var caseofaccident = $('#txtCaseofAccident').val();
+                    $('.coa').val(result.Data.Odca_accident_cause_id).change();
+                    $('#txtPlaceofAccident').val(result.Data.Odca_place_of_accident);
+                    //var placeofaccidentDist = $('#txtPoaDist').val();
+                    //var placeofaccidentTaluka = $('#txtPoaTaluka').val();
+                    $('.slctdist').val(result.Data.Odca_district_id).change();
+                    $('.slcttaluka').val(result.Data.Odca_taluka_id).change();
+                    $('#txtDamageCost').val(result.Data.Odca_damage_cost);
+                    if (result.Data.ClaimVehicleImagesFileName != null) {
+                        $('#ClaimVehicleImagePath').attr('href', result.Data.ClaimVehicleImagesFileName);
+                        $('#ClaimVehicleImagePath').attr("target", "_blank");
+                        $('.ClaimVehicleImagePath').show();
+                    }
+                    if (result.Data.ClaimComponentListDetails != null) {
+                        $("#tblComponentnList > TBODY").html("");
+                        $("#sum1").val("");
+                        debugger
+                        var t = "";
+                        $.each(result.Data.ClaimComponentListDetails, function (i, v) {
+                            //t += '<tr><td>' + v.ID + '</td><td>' + v.Type + '</td><td>' + v.Value + '</td></tr>';
+                            t += '<tr><td><input type="hidden" class="form-control form-control-sm" value=' + v.ID + '></td><td>' + v.Type + '</td><td><input type="number" min="1" oncopy="return false" onpaste="return false" placeholder="Please Enter Amount" class="form-control form-control-sm camnt" value=' + v.Value + '></td></tr>';
+                        });
+                        $('#tblComponentnList TBODY').append(t);
+                        $("body .camnt").trigger("change");
+                    }
+                    else {
+                        $("#tblComponentnList > TBODY").html("");
+                        $("#sum1").val("");
+                    }
+                    if (result.Data.Odca_claim_id == 1) {
+                        //result.Data.ClaimFormDoc1FileName;
+                        //result.Data.RegistrationCopyDoc1FileName;
+                        //result.Data.DLDoc1FileName;
+                        //result.Data.FIRDoc1FileName;
+                        //result.Data.EstimationReportDoc1FileName;
+                        $('#CF1').attr('href', result.Data.ClaimFormDoc1FileName);
+                        $('#CF1').attr("target", "_blank");
+                        $('.CF1').show();
+                        $('#RC1').attr('href', result.Data.RegistrationCopyDoc1FileName);
+                        $('#RC1').attr("target", "_blank");
+                        $('.RC1').show();
+                        $('#DL1').attr('href', result.Data.DLDoc1FileName);
+                        $('#DL1').attr("target", "_blank");
+                        $('.DL1').show();
+                        $('#FIR1').attr('href', result.Data.FIRDoc1FileName);
+                        $('#FIR1').attr("target", "_blank");
+                        $('.FIR1').show();
+                        $('#ER1').attr('href', result.Data.EstimationReportDoc1FileName);
+                        $('#ER1').attr("target", "_blank");
+                        $('.ER1').show();
+                    }
+                    else if (result.Data.Odca_claim_id == 2) {
+                        //result.Data.ClaimFormDoc2FileName;
+                        //result.Data.RegistrationCopyDoc2FileName;
+                        //result.Data.DLDoc2FileName;
+                        //result.Data.FIRDoc2FileName;
+                        //result.Data.CReportDoc2FileName;
+                        //result.Data.AffidavitDoc2FileName;
+                        //result.Data.ClaimDischargeFormDoc2FileName;
+                        //result.Data.AdvPayeeRecepit2FileName;
+                        //result.Data.RecipientIDDoc2FileName;
+                        $('#CF2').attr('href', result.Data.ClaimFormDoc2FileName);
+                        $('#CF2').attr("target", "_blank");
+                        $('.CF2').show();
+                        $('#RC2').attr('href', result.Data.RegistrationCopyDoc2FileName);
+                        $('.RC2').show();
+                        $('#RC2').attr("target", "_blank");
+                        $('#DL2').attr('href', result.Data.DLDoc2FileName);
+                        $('#DL2').attr("target", "_blank");
+                        $('.DL2').show();
+                        $('#FIR2').attr('href', result.Data.FIRDoc2FileName);
+                        $('#FIR2').attr("target", "_blank");
+                        $('.FIR2').show();
+                        $('#CR2').attr('href', result.Data.CReportDoc2FileName);
+                        $('#CR2').attr("target", "_blank");
+                        $('.CR2').show();
+                        $('#AD2').attr('href', result.Data.AffidavitDoc2FileName);
+                        $('#AD2').attr("target", "_blank");
+                        $('.AD2').show();
+                        $('#CD2').attr('href', result.Data.ClaimDischargeFormDoc2FileName);
+                        $('#CD2').attr("target", "_blank");
+                        $('.CD2').show();
+                        $('#APRD2').attr('href', result.Data.AdvPayeeRecepit2FileName);
+                        $('#APRD2').attr("target", "_blank");
+                        $('.APRD2').show();
+                        $('#RD2').attr('href', result.Data.RecipientIDDoc2FileName);
+                        $('#RD2').attr("target", "_blank");
+                        $('.RD2').show();
+                    }
+                    else if (result.Data.Odca_claim_id == 3) {
+                        //result.Data.ClaimFormDoc3FileName;
+                        //result.Data.RegistrationCopyDoc3FileName;
+                        //result.Data.DLDoc3FileName;
+                        //result.Data.FIRDoc3FileName;
+                        //result.Data.EstimationReportDoc3FileName;
+                        $('#CF3').attr('href', result.Data.ClaimFormDoc3FileName);
+                        $('#CF3').attr("target", "_blank");
+                        $('.CF3').show();
+                        $('#RC3').attr('href', result.Data.RegistrationCopyDoc3FileName);
+                        $('.RC3').show();
+                        $('#RC3').attr("target", "_blank");
+                        $('#DL3').attr('href', result.Data.DLDoc3FileName);
+                        $('#DL3').attr("target", "_blank");
+                        $('.DL3').show();
+                        $('#FIR3').attr('href', result.Data.FIRDoc3FileName);
+                        $('#FIR3').attr("target", "_blank");
+                        $('.FIR3').show();
+                        $('#ER3').attr('href', result.Data.EstimationReportDoc3FileName);
+                        $('#ER3').attr("target", "_blank");
+                        $('.ER3').show();
+                    }
+                    else if (result.Data.Odca_claim_id == 4) {
+                        //result.Data.ClaimFormDoc4FileName;
+                        //result.Data.RegistrationCopyDoc4FileName;
+                        //result.Data.DLDoc4FileName;
+                        //result.Data.FIRDoc4FileName;
+                        //result.Data.EstimationReportDoc4FileName;
+                        //result.Data.RTOReportDoc4FileName;
+                        $('#CF4').attr('href', result.Data.ClaimFormDoc4FileName);
+                        $('#CF4').attr("target", "_blank");
+                        $('.CF4').show();
+                        $('#RC4').attr('href', result.Data.RegistrationCopyDoc4FileName);
+                        $('.RC4').show();
+                        $('#RC4').attr("target", "_blank");
+                        $('#DL4').attr('href', result.Data.DLDoc4FileName);
+                        $('#DL4').attr("target", "_blank");
+                        $('.DL4').show();
+                        $('#FIR4').attr('href', result.Data.FIRDoc4FileName);
+                        $('#FIR4').attr("target", "_blank");
+                        $('.FIR4').show();
+                        $('#ER4').attr('href', result.Data.EstimationReportDoc4FileName);
+                        $('#ER4').attr("target", "_blank");
+                        $('.ER4').show();
+                        $('#RTOR4').attr('href', result.Data.RTOReportDoc4FileName);
+                        $('#RTOR4').attr("target", "_blank");
+                        $('.RTOR4').show();
+                    }
+                }
+                else {
+                    debugger
+                    $('#txtODClaimAppNo').val('');
+                    $('.claimtype').val(0).change();
+                    $('#txtAccidentDate').val('');
+                    $('.coa').val(0).change();
+                    $('.slctdist').val(0).change();
+                    $('.slcttaluka').val(0).change();
+                    $('#txtDamageCost').val('');
+                    if (result.Data.ClaimVehicleImagesFileName == null) {
+                        $("#ClaimVehicleImagePath").removeAttr("href");
+                        $("#ClaimVehicleImagePath").removeAttr("target");
+                        $('.ClaimVehicleImagePath').hide();
+                    }
+                    if (result.Data.Odca_claim_id == 0) {
+                        $('#CF1').removeAttr("href", result.Data.ClaimFormDoc1FileName);
+                        $('#CF1').removeAttr("target", "_blank");
+                        $('.CF1').hide();
+                        $('#RC1').removeAttr("href", result.Data.RegistrationCopyDoc1FileName);
+                        $('#RC1').removeAttr("target", "_blank");
+                        $('.RC1').hide();
+                        $('#DL1').removeAttr("href", result.Data.DLDoc1FileName);
+                        $('#DL1').removeAttr("target", "_blank");
+                        $('.DL1').hide();
+                        $('#FIR1').removeAttr("href", result.Data.FIRDoc1FileName);
+                        $('#FIR1').removeAttr("target", "_blank");
+                        $('.FIR1').hide();
+                        $('#ER1').removeAttr("href", result.Data.EstimationReportDoc1FileName);
+                        $('#ER1').removeAttr("target", "_blank");
+                        $('.ER1').hide();
+                        $('#CF2').removeAttr("href", result.Data.ClaimFormDoc2FileName);
+                        $('#CF2').removeAttr("target", "_blank");
+                        $('.CF2').hide();
+                        $('#RC2').removeAttr("href", result.Data.RegistrationCopyDoc2FileName);
+                        $('.RC2').hide();
+                        $('#RC2').removeAttr("target", "_blank");
+                        $('#DL2').removeAttr("href", result.Data.DLDoc2FileName);
+                        $('#DL2').removeAttr("target", "_blank");
+                        $('.DL2').hide();
+                        $('#FIR2').removeAttr("href", result.Data.FIRDoc2FileName);
+                        $('#FIR2').removeAttr("target", "_blank");
+                        $('.FIR2').hide();
+                        $('#CR2').removeAttr("href", result.Data.CReportDoc2FileName);
+                        $('#CR2').removeAttr("target", "_blank");
+                        $('.CR2').hide();
+                        $('#AD2').removeAttr("href", result.Data.AffidavitDoc2FileName);
+                        $('#AD2').removeAttr("target", "_blank");
+                        $('.AD2').hide();
+                        $('#CD2').removeAttr("href", result.Data.ClaimDischargeFormDoc2FileName);
+                        $('#CD2').removeAttr("target", "_blank");
+                        $('.CD2').hide();
+                        $('#APRD2').removeAttr("href", result.Data.AdvPayeeRecepit2FileName);
+                        $('#APRD2').removeAttr("target", "_blank");
+                        $('.APRD2').hide();
+                        $('#RD2').removeAttr("href", result.Data.RecipientIDDoc2FileName);
+                        $('#RD2').removeAttr("target", "_blank");
+                        $('.RD2').hide();
+                        $('#CF3').removeAttr("href", result.Data.ClaimFormDoc3FileName);
+                        $('#CF3').removeAttr("target", "_blank");
+                        $('.CF3').hide();
+                        $('#RC3').removeAttr("href", result.Data.RegistrationCopyDoc3FileName);
+                        $('.RC3').hide();
+                        $('#RC3').removeAttr("target", "_blank");
+                        $('#DL3').removeAttr("href", result.Data.DLDoc3FileName);
+                        $('#DL3').removeAttr("target", "_blank");
+                        $('.DL3').hide();
+                        $('#FIR3').removeAttr("href", result.Data.FIRDoc3FileName);
+                        $('#FIR3').removeAttr("target", "_blank");
+                        $('.FIR3').hide();
+                        $('#ER3').removeAttr("href", result.Data.EstimationReportDoc3FileName);
+                        $('#ER3').removeAttr("target", "_blank");
+                        $('.ER3').hide();
+                        $('#CF4').removeAttr("href", result.Data.ClaimFormDoc4FileName);
+                        $('#CF4').removeAttr("target", "_blank");
+                        $('.CF4').hide();
+                        $('#RC4').removeAttr("href", result.Data.RegistrationCopyDoc4FileName);
+                        $('.RC4').hide();
+                        $('#RC4').removeAttr("target", "_blank");
+                        $('#DL4').removeAttr("href", result.Data.DLDoc4FileName);
+                        $('#DL4').removeAttr("target", "_blank");
+                        $('.DL4').hide();
+                        $('#FIR4').removeAttr("href", result.Data.FIRDoc4FileName);
+                        $('#FIR4').removeAttr("target", "_blank");
+                        $('.FIR4').hide();
+                        $('#ER4').removeAttr("href", result.Data.EstimationReportDoc4FileName);
+                        $('#ER4').removeAttr("target", "_blank");
+                        $('.ER4').hide();
+                        $('#RTOR4').removeAttr("href", result.Data.RTOReportDoc4FileName);
+                        $('#RTOR4').removeAttr("target", "_blank");
+                        $('.RTOR4').hide();
+                    }
+                    $('#tblComponentnList TBODY').empty();
+                    $("#sum1").val("");
+                }
+            }
+        });
+    }
+    function GetDistList() {
+        $.ajax({
+            type: "GET",
+            //url: "/MotorInsuranceClaims/GetDistList",
+            url: "@Url.Action("GetDistList", "MotorInsuranceClaims")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "--Select Dist--" + '</option>';
+                $(".slctdist").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' +
+                        data[i].Key + '">' + data[i].Value + '</option>';
+                    $(".slctdist").append(optionhtml);
+                });
+                $('.slcttaluka').prop('disabled', 'disabled');
+            }
+        });
+    }
+    $('.slctdist').on('change', function () {
+        var distidval = (this.value);
+        GetTalukaList(distidval)
+    });
+    function GetTalukaList(distid) {
+        $(".slcttaluka").empty();
+        $.ajax({
+            //url: "/MotorInsuranceClaims/GetDistList",
+            url: "@Url.Action("GetTalukaList", "MotorInsuranceClaims")",
+            data: JSON.stringify({ "DistId": distid }),
+            type: 'POST',
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            processData: false,
+            success: function (data) {
+                var optionhtml1 = '<option value="' +
+                    0 + '" disabled>' + "--Select Taluka--" + '</option>';
+                $(".slcttaluka").append(optionhtml1);
+
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' +
+                        data[i].Key + '">' + data[i].Value + '</option>';
+                    $(".slcttaluka").append(optionhtml);
+                });
+                $('.slcttaluka').prop('disabled', false);
+            }
+        });
+    }
+    function GetComponentList() {
+        $.ajax({
+            type: "GET",
+            //url: "/MotorInsuranceClaims/GetDistList",
+            url: "@Url.Action("GetComponentList", "MotorInsuranceClaims")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var optionhtml1 = '<option value="' +
+                    0 + '" disabled>' + "--Select Component--" + '</option>';
+                $(".slctcomponent").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' +
+                        data[i].Key + '">' + data[i].Value + '</option>';
+                    $(".slctcomponent").append(optionhtml);
+                });
+            }
+        });
+    }
+    //function formatJSONDate(jsonDate) {
+    //    return moment(jsonDate).format("D-MM-YYYY").toUpperCase()
+    //}
+    //OwnDamageListOnChange
+    //Claim Type Onchange
+    $('.claimtype').on('change', function () {
+        var cliamvalue = (this.value);
+        if (cliamvalue == '1') {
+            $("#FireAccidentSection").show();
+            $("#TheftCasesSection").hide();
+            $("#NaturalCalamitiesSection").hide();
+            $("#AccidentSection").hide();
+            $("#errtxtIsclaimtype").attr("hidden", true);
+        }
+        else if (cliamvalue == '2') {
+            $("#TheftCasesSection").show();
+            $("#FireAccidentSection").hide();
+            $("#NaturalCalamitiesSection").hide();
+            $("#AccidentSection").hide();
+            $("#errtxtIsclaimtype").attr("hidden", true);
+        }
+        else if (cliamvalue == '3') {
+            $("#NaturalCalamitiesSection").show();
+            $("#FireAccidentSection").hide();
+            $("#TheftCasesSection").hide();
+            $("#AccidentSection").hide();
+            $("#errtxtIsclaimtype").attr("hidden", true);
+        }
+        else if (cliamvalue == '4') {
+            $("#AccidentSection").show();
+            $("#FireAccidentSection").hide();
+            $("#TheftCasesSection").hide();
+            $("#NaturalCalamitiesSection").hide();
+            $("#errtxtIsclaimtype").attr("hidden", true);
+        }
+        else {
+            $("#FireAccidentSection").hide();
+            $("#TheftCasesSection").hide();
+            $("#NaturalCalamitiesSection").hide();
+            $("#AccidentSection").hide();
+        }
+    });
+    var today = new Date();
+    $('#txtAccidentDate').datetimepicker({
+        timepicker: true,
+        format: 'd-m-Y H:i',
+        autoclose: true,
+        maxDate: 0,
+        yearStart: today.getFullYear() - 80,
+        yearEnd: today.getFullYear(),
+        scrollMonth: false,
+        scrollInput: false
+    });
+    //$("#txtAccidentDate").on("keydown keypress keyup", false);
+    //$('#txtAccidentDate').change(function () {
+    $('#txtAccidentDate').on("keyup change", function (e) {
+        debugger;
+        //var policyfromdate = $('#txtPolicyFromDate').val();
+        //var policyenddate = $('#txtPolicyToDate').val();
+        var accidentdatetime = $('#txtAccidentDate').val();
+        var accidentdate = accidentdatetime.split(' ')[0];
+            var from = $("#txtPolicyFromDate").val().split("-");
+            var f = new Date(from[2], from[1] - 1, from[0]);
+            var to = $("#txtPolicyToDate").val().split("-");
+            var t = new Date(to[2], to[1] - 1, to[0]);
+            var acdt = accidentdate.split("-");
+            var ad = new Date(acdt[2], acdt[1] - 1, acdt[0]);
+            var todaydate = new Date();
+        if (ad >= f && ad <= todaydate) {
+                console.log('PolicyValid=OK');
+                //alertify.success('PolicyValid=OK');
+            }
+            else {
+                alertify.error('PolicyExpired');
+                $('#txtAccidentDate').val('');
+            }
+    });
+    $('#txtFIRDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        autoclose: true,
+        maxDate: 0,
+        yearStart: today.getFullYear() - 80,
+        yearEnd: today.getFullYear(),
+        scrollMonth: false,
+        scrollInput: false
+    });
+    $("#txtFIRDate").on("keydown keypress keyup", false);
+
+    function ODClaimDocFileChange(id, errLbl) {
+        if ($("#" + id).get(0).files[0] != undefined) {
+            var fileType = $("#" + id).get(0).files[0].type;
+            if (fileType == 'application/pdf') {
+                $("#" + errLbl).attr("hidden", true);
+            }
+            else {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("Please upload document in pdf format");
+                $("#" + id).val("");
+                return false;
+            }
+            const fsize = $("#" + id).get(0).files[0].size;
+            const maxAllowedSize = 5 * 1024 * 1024;
+            // The size of the file.
+            if (fsize > maxAllowedSize) {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("File too Big, please select a file less than 5 MB");
+                $("#" + id).val("");
+            }
+        }
+    }
+    $('#odclaimbtnSubmit').click(function () {
+        debugger
+        if (ValidateODClaimApp()) {
+            alertify.confirm("Are you sure you want to finish the application?", function () {
+            var ClaimComponentListArrays = new Array();
+            $("#tblComponentnList TBODY TR").each(function () {
+                var row = $(this);
+                var ClaimComponentsList = {};
+                ClaimComponentsList.ID = row.find("TD").eq(0).find('input').val();
+                ClaimComponentsList.Type = row.find("TD").eq(1).html();
+                ClaimComponentsList.Value = row.find("TD").eq(2).find('input').val();
+                //ClaimComponentsList.Value = row.find("TD").eq(2).html();
+                //var asd = $(tr).find('td:eq(3)').text();//get the value
+                //var asd01 = $(tr).find('td:eq(4)').find('input').val();// value of input box
+                ClaimComponentListArrays.push(ClaimComponentsList);
+            });
+            //var theRemovedElement = ClaimComponentListArrays.shift();
+            //debugger
+            var odclaimapno = $('#txtODClaimAppNo').val();
+            //var policyid = $('#txtPolicyID').val();
+            var vehiclenumber = $('#txtMIVehicleNumber').val();
+            var policynumber = $('#txtMIPolicyNumber').val();
+            var proposerid = $('#txtMIEmployeeId').val();
+            var usercategoryid = $('#txtMIUserCategoryId').val();
+            var claimtypeval = $('.claimtype option:selected').val();
+            var accidentDT = $('#txtAccidentDate').val();
+            //var caseofaccident = $('#txtCaseofAccident').val();
+            var caseofaccident = $('.coa option:selected').val();
+            var placeofaccident = $('#txtPlaceofAccident').val();
+            //var placeofaccidentDist = $('#txtPoaDist').val();
+            var placeofaccidentDist = $('.slctdist option:selected').val();
+            //var placeofaccidentTaluka = $('#txtPoaTaluka').val();
+            var placeofaccidentTaluka = $('.slcttaluka option:selected').val();
+            var damagecost = $('#txtDamageCost').val();
+            const formData = new FormData();
+            if (claimtypeval == 1) {
+                const ClaimFormDoc1 = document.getElementById('ClaimFormDoc1');
+                const RegistrationCopyDoc1 = document.getElementById('RegistrationCopyDoc1');
+                const DLDoc1 = document.getElementById('DLDoc1');
+                const FIRDoc1 = document.getElementById('FIRDoc1');
+                const EstimationReportDoc1 = document.getElementById('EstimationReportDoc1');
+
+                const fileCD1 = ClaimFormDoc1.files[0];
+                const fileRCD1 = RegistrationCopyDoc1.files[0];
+                const fileDLD1 = DLDoc1.files[0];
+                const fileFIRD1 = FIRDoc1.files[0];
+                const fileERD1 = EstimationReportDoc1.files[0];
+
+                formData.append('ClaimFormDoc1', fileCD1);
+                formData.append('RegistrationCopyDoc1', fileRCD1);
+                formData.append('DLDoc1', fileDLD1);
+                formData.append('FIRDoc1', fileFIRD1);
+                formData.append('EstimationReportDoc1', fileERD1);
+            }
+            else if (claimtypeval == 2) {
+                const ClaimFormDoc2 = document.getElementById('ClaimFormDoc2');
+                const RegistrationCopyDoc2 = document.getElementById('RegistrationCopyDoc2');
+                const DLDoc2 = document.getElementById('DLDoc2');
+                const FIRDoc2 = document.getElementById('FIRDoc2');
+                const CReportDoc2 = document.getElementById('CReportDoc2');
+                const AffidavitDoc2 = document.getElementById('AffidavitDoc2');
+                const ClaimDischargeFormDoc2 = document.getElementById('ClaimDischargeFormDoc2');
+                const AdvPayeeRecepit2 = document.getElementById('AdvPayeeRecepit2');
+                const RecipientIDDoc2 = document.getElementById('RecipientIDDoc2');
+
+                const fileCD2 = ClaimFormDoc2.files[0];
+                const fileRCD2 = RegistrationCopyDoc2.files[0];
+                const fileDLD2 = DLDoc2.files[0];
+                const fileFIRD2 = FIRDoc2.files[0];
+                const fileCRD2 = CReportDoc2.files[0];
+                const fileAD2 = AffidavitDoc2.files[0];
+                const fileCDFD2 = ClaimDischargeFormDoc2.files[0];
+                const fileAPRD2 = AdvPayeeRecepit2.files[0];
+                const fileRIDD2 = RecipientIDDoc2.files[0];
+
+                formData.append('ClaimFormDoc2', fileCD2);
+                formData.append('RegistrationCopyDoc2', fileRCD2);
+                formData.append('DLDoc2', fileDLD2);
+                formData.append('FIRDoc2', fileFIRD2);
+                formData.append('CReportDoc2', fileCRD2);
+                formData.append('AffidavitDoc2', fileAD2);
+                formData.append('ClaimDischargeFormDoc2', fileCDFD2);
+                formData.append('AdvPayeeRecepit2', fileAPRD2);
+                formData.append('RecipientIDDoc2', fileRIDD2);
+            }
+            else if (claimtypeval == 3) {
+                const ClaimFormDoc3 = document.getElementById('ClaimFormDoc3');
+                const RegistrationCopyDoc3 = document.getElementById('RegistrationCopyDoc3');
+                const DLDoc3 = document.getElementById('DLDoc3');
+                const FIRDoc3 = document.getElementById('FIRDoc3');
+                const EstimationReportDoc3 = document.getElementById('EstimationReportDoc3');
+
+                const fileCD3 = ClaimFormDoc3.files[0];
+                const fileRCD3 = RegistrationCopyDoc3.files[0];
+                const fileDLD3 = DLDoc3.files[0];
+                const fileFIRD3 = FIRDoc3.files[0];
+                const fileERD3 = EstimationReportDoc3.files[0];
+
+                formData.append('ClaimFormDoc3', fileCD3);
+                formData.append('RegistrationCopyDoc3', fileRCD3);
+                formData.append('DLDoc3', fileDLD3);
+                formData.append('FIRDoc3', fileFIRD3);
+                formData.append('EstimationReportDoc3', fileERD3);
+            }
+            else if (claimtypeval == 4) {
+                const ClaimFormDoc4 = document.getElementById('ClaimFormDoc4');
+                const RegistrationCopyDoc4 = document.getElementById('RegistrationCopyDoc4');
+                const DLDoc4 = document.getElementById('DLDoc4');
+                const FIRDoc4 = document.getElementById('FIRDoc4');
+                const EstimationReportDoc4 = document.getElementById('EstimationReportDoc4');
+                const RTOReportDoc4 = document.getElementById('RTOReportDoc4');
+
+                const fileCD4 = ClaimFormDoc4.files[0];
+                const fileRCD4 = RegistrationCopyDoc4.files[0];
+                const fileDLD4 = DLDoc4.files[0];
+                const fileFIRD4 = FIRDoc4.files[0];
+                const fileERD4 = EstimationReportDoc4.files[0];
+                const fileRTORD4 = RTOReportDoc4.files[0];
+
+                formData.append('ClaimFormDoc4', fileCD4);
+                formData.append('RegistrationCopyDoc4', fileRCD4);
+                formData.append('DLDoc4', fileDLD4);
+                formData.append('FIRDoc4', fileFIRD4);
+                formData.append('EstimationReportDoc4', fileERD4);
+                formData.append('RTOReportDoc4', fileRTORD4);
+            }
+
+            formData.append('Odca_claim_app_no', odclaimapno);
+            formData.append('Odca_claim_id', claimtypeval);
+            formData.append('Odca_proposer_id', proposerid);
+            formData.append('Odca_category_id', usercategoryid);
+            //formData.append('Odca_policy_id', policyid);
+            formData.append('Odca_vehicle_number', vehiclenumber);
+            formData.append('Odca_policy_number', policynumber);
+            formData.append('Odca_date_time_of_accident', accidentDT);
+            formData.append('Odca_accident_cause_id', caseofaccident);
+            formData.append('Odca_place_of_accident', placeofaccident);
+            formData.append('Odca_district_id', placeofaccidentDist);
+            formData.append('Odca_taluka_id', placeofaccidentTaluka);
+            formData.append('Odca_damage_cost', damagecost);
+            const ClaimAccidentImg = document.getElementById('ClaimVehicleImages');
+            const fileCAI = ClaimAccidentImg.files[0];
+            formData.append('ClaimVehicleImages', fileCAI);
+            //var dataToPost = JSON.stringify({ "VM_ODClaimApplicationDetails": formData, "ClaimComponentsList": ClaimComponentListArray });
+            //var dataToPost = { "ODCAD": formData, "ClaimComponentsList": ClaimComponentListArray };
+            //ClaimComponentListArray = JSON.stringify({ 'ClaimComponentListArrays': ClaimComponentListArrays });
+            //ClaimComponentListArrays = JSON.stringify({ 'ClaimComponentListArrays': ClaimComponentListArrays });
+            //formData.append('ClaimComponentListDetails', ClaimComponentListArrays);
+            //$(ClaimComponentListArrays).each(function (index, el) {
+            //    debugger
+            //    formData.append('ClaimComponentList[${index}].ID', el.ID);
+            //    formData.append('ClaimComponentList[${index}].Type', el.Type);
+            //});
+            for (var i = 0; i < ClaimComponentListArrays.length; i++) {
+                debugger
+                formData.append("ClaimComponentListDetails[" + i + "].ID", ClaimComponentListArrays[i].ID);
+                formData.append("ClaimComponentListDetails[" + i + "].Type", ClaimComponentListArrays[i].Type);
+                formData.append("ClaimComponentListDetails[" + i + "].Value", ClaimComponentListArrays[i].Value);
+            }
+            //formData.append('ClaimComponentListDetails', ClaimComponentListArrays);
+            console.log('formData', formData)
+            //$.getJSON('/MotorInsuranceClaims/SaveODClaimDetails', $.param({ ClaimComponentListArrays1: ClaimComponentListArrays }, true), function (data) {
+            //    alert(data.message);
+            //});
+            $.ajax({
+                //traditional: true,
+                url: '/MotorInsuranceClaims/SaveODClaimDetails',
+                data: formData,
+                //data: ClaimComponentListArrays,
+                //data: $.param({ ClaimComponentListArrays1: ClaimComponentListArrays }, true),
+                //data: { 'ClaimComponentListArrays1': ClaimComponentListArrays },
+                //data: JSON.stringify({ ClaimComponentListArrays1: ClaimComponentListArrays }),
+                //data: JSON.stringify({ "ODCAD": formData, "ClaimComponentsList": ClaimComponentListArray }),
+                //contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    var odclaimappNo = result.ReferenceNo
+                   // $('#txtODClaimAppNo').val(odclaimappNo);
+                    console.log("res")
+                    console.log(result)
+
+                    if (result.ReferenceNo != 0) {
+                        alertify.alert("Application Submitted Successfully", function () {
+                            window.location.href = "/mi-odc-soa";
+                        }).setHeader("Attention");
+                    }
+                    else if (result.ReferenceNo == 2) {
+                        alertify.alert("Error", "Application Already Submitted, Please check the status..!", function () {
+                            window.location.href = "/mi-odc-soa";
+                        }).setHeader("Attention");
+                    }
+                    else if (result.ReferenceNo == 0) {
+                        alertify.alert("Error", "Application Not Submitted, Please try again..!", function () {
+                            window.location.reload();
+                        }).setHeader("Attention");
+                    }
+                    else {
+                        ///////////////////////////////////
+                        alertify.alert("Error", "Application Not Submitted, Please try again..!", function () {
+                            window.location.reload();
+                        }).setHeader("Attention");
+                    }
+
+
+                }, error: function (result) {
+                    alertify.error("Could not load details");
+                }
+                });
+
+            }).setHeader("Submit Application");
+        }
+        else {
+            return false;
+        }
+    });
+    function ValidateODClaimApp() {
+        debugger;
+        var errorcount = 0;
+
+        var claimtypeval = $('.claimtype option:selected').val();
+        var accidentDT = $('#txtAccidentDate').val();
+        //var caseofaccident = $('#txtCaseofAccident').val();
+        var caseofaccident = $('.coa option:selected').val();
+        var placeofaccident = $('#txtPlaceofAccident').val();
+        //var placeofaccidentDist = $('#txtPoaDist').val();
+        var placeofaccidentDist = $('.slctdist option:selected').val();
+        //var placeofaccidentTaluka = $('#txtPoaTaluka').val();
+        var placeofaccidentTaluka = $('.slcttaluka option:selected').val();
+        var damagecost = $('#txtDamageCost').val();
+        var sumofcomponent = $('#sum1').val();
+        if (claimtypeval == null || claimtypeval == "" || claimtypeval == 0) {
+            $("#errtxtIsclaimtype").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else{
+            $("#errtxtIsclaimtype").attr("hidden", true);
+            $('#errtxtIsclaimtype').text("");
+        }
+        if (accidentDT == null || accidentDT == "") {
+            $("#errtxtIstxtAccidentDate").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIstxtAccidentDate").attr("hidden", true);
+            $('#errtxtIstxtAccidentDate').text("")
+        }
+        if (caseofaccident == null || caseofaccident == "" || caseofaccident == 0) {
+            $("#errtxtIscoa").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIscoa").attr("hidden", true);
+            $('#errtxtIscoa').text("")
+        }
+        if (placeofaccident == null || placeofaccident == "") {
+            $("#errtxtIstxtPlaceofAccident").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIstxtPlaceofAccident").attr("hidden", true);
+            $('#errtxtIstxtPlaceofAccident').text("")
+        }
+        if (placeofaccidentDist == null || placeofaccidentDist == "" || placeofaccidentDist == 0) {
+            $("#errtxtIsslctdist").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIsslctdist").attr("hidden", true);
+            $('#errtxtIsslctdist').text("")
+        }
+        if (placeofaccidentTaluka == null || placeofaccidentTaluka == "" || placeofaccidentTaluka == 0) {
+            $("#errtxtIsslcttaluka").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIsslcttaluka").attr("hidden", true);
+            $('#errtxtIsslcttaluka').text("")
+        }
+        if ($("#ClaimVehicleImages").val().length == 0) {
+            $("#errtxtIsClaimVehicleImages").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIsClaimVehicleImages").attr("hidden", true);
+            $('#errtxtIsClaimVehicleImages').text("")
+        }
+        if (damagecost == null || damagecost == "") {
+            $("#errtxtIstxtDamageCost").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIstxtDamageCost").attr("hidden", true);
+            $('#errtxtIstxtDamageCost').text("")
+        }
+        if (claimtypeval == 1) {
+            if ($("#ClaimFormDoc1").val().length == 0) {
+                $("#errtxtIsClaimFormDoc1").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RegistrationCopyDoc1").val().length == 0) {
+                $("#errtxtIsRegistrationCopyDoc1").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#DLDoc1").val().length == 0) {
+                $("#errtxtIsDLDoc1").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#FIRDoc1").val().length == 0) {
+                $("#errtxtIsFIRDoc1").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#EstimationReportDoc1").val().length == 0) {
+                $("#errtxtIsEstimationReportDoc1").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if (errorcount == 0) return true;
+            else return false;
+        }
+        else if (claimtypeval == 2) {
+            if ($("#ClaimFormDoc2").val().length == 0) {
+                $("#errtxtIsClaimFormDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RegistrationCopyDoc2").val().length == 0) {
+                $("#errtxtIsRegistrationCopyDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#DLDoc2").val().length == 0) {
+                $("#errtxtIsDLDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#FIRDoc2").val().length == 0) {
+                $("#errtxtIsFIRDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#CReportDoc2").val().length == 0) {
+                $("#errtxtIsCReportDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#AffidavitDoc2").val().length == 0) {
+                $("#errtxtIsAffidavitDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#ClaimDischargeFormDoc2").val().length == 0) {
+                $("#errtxtIsClaimDischargeFormDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#AdvPayeeRecepit2").val().length == 0) {
+                $("#errtxtIsAdvPayeeRecepit2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RecipientIDDoc2").val().length == 0) {
+                $("#errtxtIsRecipientIDDoc2").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if (errorcount == 0) return true;
+            else return false;
+        }
+        else if (claimtypeval == 3) {
+            if ($("#ClaimFormDoc3").val().length == 0) {
+                $("#errtxtIsClaimFormDoc3").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RegistrationCopyDoc3").val().length == 0) {
+                $("#errtxtIsRegistrationCopyDoc3").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#DLDoc3").val().length == 0) {
+                $("#errtxtIsDLDoc3").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#FIRDoc3").val().length == 0) {
+                $("#errtxtIsFIRDoc3").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#EstimationReportDoc3").val().length == 0) {
+                $("#errtxtIsEstimationReportDoc3").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if (errorcount == 0) return true;
+            else return false;
+        }
+        else if (claimtypeval == 4) {
+            if ($("#ClaimFormDoc4").val().length == 0) {
+                $("#errtxtIsClaimFormDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RegistrationCopyDoc4").val().length == 0) {
+                $("#errtxtIsRegistrationCopyDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#DLDoc4").val().length == 0) {
+                $("#errtxtIsDLDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#FIRDoc4").val().length == 0) {
+                $("#errtxtIsFIRDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#EstimationReportDoc4").val().length == 0) {
+                $("#errtxtIsEstimationReportDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if ($("#RTOReportDoc4").val().length == 0) {
+                $("#errtxtIsRTOReportDoc4").removeAttr("hidden");
+                //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+                errorcount++;
+            }
+            if (errorcount == 0) return true;
+            else return false;
+        }
+
+        if (sumofcomponent == null || sumofcomponent == "" || sumofcomponent == 0) {
+            $("#errtxtIssum1").removeAttr("hidden");
+            //$('#errtxtIsClaimFormDoc1').text("Idv amount mismatch.Please enter correct amount.");
+            errorcount++;
+        }
+        else {
+            $("#errtxtIssum1").attr("hidden", true);
+            $('#errtxtIssum1').text("")
+        }
+
+        if (errorcount == 0) return true;
+        else return false;
+    }
+    function addRow1(btn, datavalue, datatext) {
+        debugger
+        var parentRow = btn.parentNode.parentNode;
+        var table = parentRow.parentNode;
+        var rowCount = table.rows.length;
+
+        var row = table.insertRow(rowCount);
+
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("input");
+        element1.type = "text";
+        //element1.id = "value" + datavalue;
+        element1.setAttribute('class', "form-control");
+        //element1.class = "form-control";
+        element1.value = datavalue;
+        cell1.appendChild(element1);
+
+        var cell2 = row.insertCell(1);
+        var element3 = document.createElement("input");
+        element3.type = "text";
+        element3.id = "value" + datavalue;
+        element3.value = datatext;
+        element3.setAttribute('class', "form-control");
+        //element3.class = "form-control";
+        cell2.appendChild(element3);
+
+        var cell3 = row.insertCell(2);
+        var element2 = document.createElement("input");
+        element2.type = "number";
+        element2.setAttribute('class', "form-control");
+        element2.setAttribute('min', "1");
+        element2.setAttribute('oncopy', "return false");
+        element2.setAttribute('onpaste', "return false");
+        element2.setAttribute('placeholder', "Please Enter Amount");
+        cell3.appendChild(element2);
+        //var cell3 = row.insertCell(2);
+        //var element2 = document.createElement("select");
+        ////element2.type = "select";
+        //var option1 = document.createElement("option");
+        //option1.innerHTML = "Option1";
+        //option1.value = "1";
+        //element2.add(option1, null);
+        //var option2 = document.createElement("option");
+        //option2.innerHTML = "Option2";
+        //option2.value = "2";
+        //element2.add(option2, null);
+        //cell3.appendChild(element2);
+
+
+        var cell4 = row.insertCell(3);
+        var createA = document.createElement('a');
+        var createAText = document.createTextNode("Remove");
+        createA.setAttribute('href', "javascript:void(0)");
+        //onClick = "addRow(this),
+        createA.setAttribute('onClick', "RemoveRow(this)");
+        createA.appendChild(createAText);
+        createA.id = "remCF";
+        //getTheTableTag.appendChild(createA);
+        cell4.appendChild(createA);
+
+    }
+    function RemoveRow(r) {
+        debugger;
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("tblComponentnList").deleteRow(i);
+        //var aaaaaaa = $(this).parent().parent();
+        //$(this).parent().parent().remove();
+    }
+    function addRow(btn, datavalue, datatext) {
+        //Reference the Name and Country TextBoxes.
+        var txtName = datavalue;
+        var txtCountry = datatext;
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblComponentnList > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Name cell.
+        //var cell = $(row.insertCell(-1));
+        //cell.html(txtName);
+        //<input type="hidden" id="custId" name="custId" value="3487">
+        var cell = $(row.insertCell(-1));
+        var element1 = document.createElement("input");
+        element1.type = "hidden";
+        element1.setAttribute('class', "form-control form-control-sm");
+        element1.setAttribute('value', txtName);
+        cell.append(element1);
+
+
+        //Add Country cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtCountry);
+
+        //Add Amount Value cell.
+        cell = $(row.insertCell(-1));
+        var element2 = document.createElement("input");
+        element2.type = "number";
+        element2.setAttribute('class', "form-control form-control-sm camnt");
+        element2.setAttribute('min', "1");
+        element2.setAttribute('oncopy', "return false");
+        element2.setAttribute('onpaste', "return false");
+        element2.setAttribute('placeholder', "Please Enter Amount");
+        cell.append(element2);
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr('class', "btn btn-danger btn-sm");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        $('#txtcompnt').val("");
+        //txtName.val("");
+        //txtCountry.val("");
+    }
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(1).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblComponentnList")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+            $("#sum1").val("");
+            $("body .camnt").trigger("change");
+        }
+    };
+
+    $('body').on('change', '.camnt', function () {
+        var sum = 0;
+        $(".camnt").each(function () {
+            //add only if the value is number
+            if (!isNaN(this.value) && this.value.length != 0) {
+                sum += parseFloat(this.value);
+                $(this).css("background-color", "#FEFFB0");
+            }
+            else if (this.value.length != 0) {
+                $(this).css("background-color", "red");
+            }
+        });
+
+        $("#sum1").val(sum.toFixed(2));
+    });
+
+
+    //$("#remCF").on('click', function () {
+    //    debugger
+    //    $(this).parent().parent().remove();
+    //});
+</script>

@@ -1,0 +1,123 @@
+﻿@model KGID_Models.Ticketing_Tool.TTReportProblem
+@using KGID.Models
+@{
+    ViewBag.Title = "AdminViewAllReportedProblems";
+}
+
+@*<h2>View All Reported Problems</h2>*@
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+
+<link href="~/Content/NewUI/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/NewUI/css/jquery-ui.min.js" rel="stylesheet" />
+<script src="~/Scripts/DateTimePicker/jquery.datetimepicker.js"></script>
+<style>
+    .t_head {
+        background: #308385;
+        color: #fff;
+    }
+
+    table.dataTable thead tr {
+        background: #308385;
+        color: #fff;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblNomineeDetails').DataTable({
+            paging: true,
+            bSort: true,
+            searching: true,
+            scrollCollapse: true,
+            bInfo: true
+        });
+    });
+
+
+
+</script>
+
+
+<div class="row" id="divNominee">
+    <div class="form-group col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row"><div class="col-10"><h5 class="col-12 text-black-100 font-weight-bold"><b><label class="knlan">ಮನವಿದಾರರ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">View All Reported Problems</label></b></h5></div><div class="col-2">@Html.ActionLink("Download Excel File", "DownloadXLS")</div></div>
+            </div>
+            <div class="card-body">                
+                <table id="tblNomineeDetails" class="table table-striped table-bordered" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Sl.No</th>
+                            <th>Ticket No</th>
+                            <th>Module</th>
+                            <th>Problem Type</th>
+                            <th>Status</th>
+                            <th>Date of Submission</th>
+                            <th>Date of Resolve</th>
+                            <th>Asssigned to</th>
+                            @*
+                                <th>Remarks</th>*@
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.TicketingToolReportProblemlist.Count > 0)
+                        {
+                            int counter = 1;
+                            foreach (var item in Model.TicketingToolReportProblemlist)
+                            {
+                                <tr data-row-number="@counter">
+                                    <td>@item.rp_id</td>
+                                    <td>@item.rp_ticket_no</td>
+                                    <td>@item.mt_desc</td>
+                                    <td>@item.pr_description</td>
+                                    <td>@item.rp_report_problem_status</td>
+                                    <td>@item.SubmissionDate</td>
+                                    <td>@item.ResolveDate</td>
+                                    <td>@item.AssignedTo</td>
+
+
+                                    <td>
+
+                                        @*<a class="GetAllanchorDetail" href="javascript:void(0);" data-toggle="modal" data-target="#mdlLoanBA" data-id="@item.rp_id" onclick="UpdateReportedproblem();">View Details</a>*@
+                                        <a class="csAssignTicket" href="javascript:void(0);" data-toggle="modal" data-target="#mdlLoanBA" data-id="@item.rp_id">View Details</a>
+
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mdlLoanBA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 725px!important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="mdl_content">
+
+
+                @*<section>
+                        @{
+                            @Html.Action("GetDetailsById", "TicketingTool")
+                        }
+                    </section>*@
+
+
+
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>

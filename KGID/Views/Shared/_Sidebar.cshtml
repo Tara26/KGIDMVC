@@ -1,0 +1,189 @@
+﻿@using Common;
+
+<style>
+    .bg-color1 {
+        /*background-image: linear-gradient(180deg,#6bb171 10%,#583612 100%);*/
+        background-color: #fff;
+    }
+
+    .collapse-header-h6 {
+        color: #716565 !important;
+        padding-left: 8px !important;
+        font-size: 12px !important;
+    }
+
+    .collapse-item-a {
+        padding-left: 0px !important;
+        color: #5b471f !important;
+    }
+
+    .collapse-item-a-initial {
+        white-space: initial !important;
+        line-height: 20px !important;
+    }
+
+    .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover, .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover {
+        background-color: #6bb171 !important;
+        padding-left: 5px !important;
+        color: #fff !important;
+    }
+</style>
+
+<ul class="navbar-nav bg-gradient-custom sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/kgid-home/">
+        <div class="sidebar-brand-icon">
+            <Img src="~/Content/Images/KGID-KA.png" style="width: 60%;" />
+        </div>
+        <div class="sidebar-brand-text mx-3" style="font-size: 25px;">KGID</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    @*<li class="nav-item">
+            <a class="nav-link" href="/Home/Dashboard">
+                <em class="fas fa-fw fa-tachometer-alt"></em>
+                <span>Dashboard</span>
+            </a>
+        </li>*@
+    @*<!-- Divider -->
+        <hr class="sidebar-divider" />
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Employee Data
+        </div>*@
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <em class="fa fa-ambulance"></em>
+            <span><b>EMPLOYEE DATA VERIFICATION</b></span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="bg-color1 py-2 collapse-inner rounded">
+                @* <h6 class="collapse-header">EMPLOYEE DETAILS</h6>*@
+                <a class="collapse-item collapse-item-a" href="/VerifyData/SearchEmployee">Search Employee</a>
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider" />
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Insurance
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+            <em class="fa fa-ambulance"></em>
+            <span><b>LIFE INSURANCE</b></span>
+        </a>
+        <div id="collapseThree" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="bg-color1 py-2 collapse-inner rounded">
+                <h6 class="collapse-header collapse-header-h6">NEW EMPLOYEE DETAILS</h6>
+                <a class="collapse-item collapse-item-a" href="/Employee/UploadEmployeeDetails">Upload Employee Details</a>
+                @*<a class="collapse-item" href="/Employee/NewEmployeeSearch">Search Employee Details</a>*@
+                <h6 class="collapse-header collapse-header-h6">INSURED EMPLOYEE DETAILS</h6>
+                @* <a class="collapse-item" href="/Employee/InsuredEmployee">Insured Employee Details</a>*@
+                @if (Session["AppSubmitted"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                {
+                    <a class="collapse-item collapse-item-a" href="@Url.Action("ViewApplicationDetails", "VerifyDetails", new { area = "" })">Application Details</a>
+                }
+                else
+                {
+                    <a class="collapse-item collapse-item-a" href="@Url.Action("ApplicationForm", "Employee", new { empId = Session["UID"], loginType = Session["LoginType"] })">Application Form</a>
+                }
+                @if (Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.DDO)))
+                {
+                    <a class="collapse-item collapse-item-a" href="@Url.Action("DetailsForDDOVerification", "Employee", new { area = "" })">DDO Verification Details</a>
+                }
+                @if (Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                {
+                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWEmpDetails", "VerifyDetails", new { area = "" })">Applications for verification</a>
+                }
+                @if (Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                {
+                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIEmpDetails", "VerifyDetails", new { area = "" })">Applications for verification</a>
+                }
+                @if (Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                {
+                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIOEmpDetails", "VerifyDetails", new { area = "" })">Applications for verification</a>
+                }
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <em class="fas fa-fw fa-wrench"></em>
+                <span>Utilities</span>
+            </a>
+            <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Utilities:</h6>
+                    <a class="collapse-item" href="utilities-color.html">Colors</a>
+                    <a class="collapse-item" href="utilities-border.html">Borders</a>
+                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                    <a class="collapse-item" href="utilities-other.html">Other</a>
+                </div>
+            </div>
+        </li>*@
+
+    <!-- Divider -->
+    @*<hr class="sidebar-divider" />*@
+
+    <!-- Heading -->
+    @*<div class="sidebar-heading">
+            Addons
+        </div>*@
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    @*<li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                <em class="fas fa-fw fa-folder"></em>
+                <span>USER DETAILS</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Login Screens:</h6>
+                    <a class="collapse-item" href="login.html">Upload Employee Details</a>
+                    <a class="collapse-item" href="register.html">Search Employee Details</a>
+                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">Other Pages:</h6>
+                    <a class="collapse-item" href="404.html">404 Page</a>
+                    <a class="collapse-item active" href="blank.html">Blank Page</a>
+                </div>
+            </div>
+        </li>*@
+
+    <!-- Nav Item - Charts -->
+    @*<li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <em class="fas fa-fw fa-chart-area"></em>
+                <span>Charts</span>
+            </a>
+        </li>*@
+
+    <!-- Nav Item - Tables -->
+    @*<li class="nav-item">
+            <a class="nav-link" href="tables.html">
+                <em class="fas fa-fw fa-table"></em>
+                <span>Tables</span>
+            </a>
+        </li>*@
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block" />
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

@@ -1,0 +1,123 @@
+﻿
+
+@{
+    ViewBag.Title = "Superintendent";
+}
+<div class="container">
+    <div id="super1">
+        <div class="card shadow mb-4" style="width: 66.6rem">
+            <div class="card-body">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-center text-gray-600">Superintendent</h6>
+                </div>
+                <table class="table table-bordered table-striped" cellspacing="0" style="border-left: none;border-bottom:none;width: 700px;margin-left: 210px">
+                    <thead>
+                        <tr>
+                            <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label> <label class="Enlan">SL. NO.</label></th>
+                            <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ </label><label class="Enlan">Application Number</label></th>
+                            <th><label class="knlan">ಕಡತದ ಹೆಸರು</label> <label class="Enlan">Name of the File</label></th>
+                            <th style="width: 200px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="height: 43px">01</td>
+                            <td></td>
+                            <td></td>
+                            <td><button>View application</button></td>
+                        </tr>
+                        <tr>
+                            <td style="height: 43px">02</td>
+                            <td></td>
+                            <td></td>
+                            <td><button>View application</button></td>
+                        </tr>
+                        <tr>
+                            <td style="height: 43px"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" id="btn112" value="Next" name="next" class="btn btn-info" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="super2">
+        <div class="card shadow mb-4" style="width: 66.6rem">
+            <div class="card-body">
+                <form class="bg-gray-100">
+                    <div class="card-header py-3">
+                        <h5 class="m-0 font-weight-bold text-center text-gray-600"><label class="knlan">
+                                 ಅಧೀಕ್ಷಕರು
+                          </label> <label class="Enlan">Superintendent</label></h5>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-7">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="txtFormNo"><label class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ :</label> <label class="Enlan">Application No:</label></label>
+                            <input type="text" id="txtFormNo" name="ApplicationNo" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <label for="txtApplicationMedical"><label class="knlan">ಪ್ರಸ್ತಾವನೆಯ ವಿವರಗಳು / ವೈದ್ಯಕೀಯ ವಿವರಗಳು</label><label class="Enlan">Application Details/Medical Details</label></label>
+                            <textarea class="form-control" rows="5" id="txtApplicationMedical" name="Application Details/Medical Details"></textarea>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="txtRemarks">Remarks:</label>
+                            <textarea class="form-control" rows="3" id="txtRemarks" name="Remarks"></textarea>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" name="View Scanned Application" class="btn btn-info" value="View Scanned Application" />
+                        </div>
+                        <div class="col-md-3">
+
+                            <input type="button" name="View Scanned Medical Report" class="btn btn-info" value="View Scanned Medical Report" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" name="Forward" class="btn btn-info" value="Forward" />
+
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" name="Send Back" class="btn btn-danger" value="Send Back" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#super2").hide();
+        $("#btn112").click(function (event) {
+            $("#super2").show();
+            $("#super1").hide();
+        });
+    });
+</script>

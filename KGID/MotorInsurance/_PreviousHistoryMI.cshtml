@@ -1,0 +1,447 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsurancePreviousHistoryDetails
+<style>
+    /*span {
+        font-size: large;
+        font-weight: 900;
+    }*/
+</style>
+
+<script src="~/Scripts/KGIDMotorInsurance/Common.js"></script>
+<link href="~/Content/MotorInsurance.css" rel="stylesheet" />
+<div class="row" id="divPreviousHistoryDetails">
+    <form id="formPreviousHistoryMI" enctype="multipart/form-data" class="col-12">
+        <div id="divPreviousHistoryMI" data-submit-url="@Url.Action("", "", new { area = "" })">
+            @Html.Hidden("ph_EmployeeCode", Session["UId"], new { @id = "hdnmipdEmpID" })
+            @*@Html.Hidden("ph_reference", new { @id = "hdnphRefrence" })*@
+            @Html.HiddenFor(m => m.ph_reference, new { @id = "hdnPHReferenceNo" })
+            @Html.HiddenFor(m => m.mivd_pagetype, new { id = "hdnIdvPageType" })
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="required autoincrementid"><span></span> Date of purchase of the vehicle by the proposer</label>
+                </div>
+                <div class="form-group col-6">
+                    @Html.TextBoxFor(model => model.ph_DateOfPurchaseOfVehicle, "{0:dd/MM/yyyy}", new { @id = "txtPHDateOfPurchase", @class = "form-control", @onchange = "AutopopulateFromToDate(this.id)" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-6 ">
+                <label class="autoincrementid"><span></span> Whether the vehicle is new or already used at present</label>
+            </div>
+            <label class="col-1" style="display:inherit" id="lblNew">
+                @Html.RadioButtonFor(model => model.ph_PurchaseType, false, new { @id = "rbtVPurchaseTypNo", @class = "csVPurchaseTypAN", onchange = "ToggleVehicletype()" })  New
+            </label>
+            <label class="col-2" style="display:inherit" id="lblSecond">
+                @Html.RadioButtonFor(model => model.ph_PurchaseType, true, new { @id = "rbtnVPurchaseTypYes", @class = "csVPurchaseTypAY", onchange = "ToggleVehicletype()" }) Previously Insured
+            </label>
+            <div class="form-group col-5">
+            </div>
+        </div>
+
+        <div id="divPH3" style="display:none">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="autoincrementid"><span></span> Will the vehicle be used exclusively for </label><br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="control-label col-6">a. Private, Social, Domestic, Pleasure & Professional purposes</label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_VehicleUsedPurposeA, true, new { @id = "rbtnVehicleUsedAYes", @class = "csVehicleUsedAY" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_VehicleUsedPurposeA, false, new { @id = "rbtnVehicleUsedANo", @class = "csVehicleUsedAN" })  No
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="control-label col-6">b. Carriage of goods other than samples or personal luggage</label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_VehicleUsedPurposeB, true, new { @id = "rbtnVehicleUsedBYes", @class = "csVehicleUsedAY" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_VehicleUsedPurposeB, false, new { @id = "rbtnVehicleUsedBNo", @class = "csVehicleUsedAN" })  No
+                </label>
+            </div>
+        </div>
+        <div id="divSecondhand">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="autoincrementid"><span></span> Is the vehicle in good condition? </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_vehicleCondition, false, new { @id = "rbtnVehicleConditionYes", @class = "csVehicleConditionY", onchange = "ToggleVehicleCondition()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_vehicleCondition, true, new { @id = "rbtnVehicleConditionNo", @class = "csVehicleConditionN", onchange = "ToggleVehicleCondition()" })  No
+                </label>
+                <div class="form-group col-5">
+                </div>
+            </div>
+            <div class="VehicleCondition" id="divVehicleCondition">
+                <div class="row">
+                    <label class="col-6">
+                        If 'no' please give full details
+                    </label>
+                    <div class="form-group col-6">
+                        @Html.TextBoxFor(model => model.ph_VehicleConditionReason, new { @id = "txtPHReason", @class = "form-control ClAlphaNum", @maxlength = "100" })
+                        @Html.ValidationMessageFor(m => m.ph_VehicleConditionReason, "Please enter the details.", new { @class = "text-danger col-form-label-sm err", id = "errorPVConditionReq", hidden = "hidden" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="required autoincrementid"><span></span> Name and address of the previous insurer</label>
+                </div>
+                <div class="form-group col-6">
+                    @Html.TextBoxFor(model => model.ph_previousinsurerDetails, new { @id = "txtPHInsurerDetails", @class = "form-control ClAlphaNum", @maxlength = "100" })
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="required autoincrementid"><span></span> Previous Policy Number </label>
+                </div>
+                <div class="form-group col-6">
+                    @Html.TextBoxFor(model => model.ph_previousinsurerNo, new { @id = "txtPHVInsurerNo", @class = "form-control ClAlphaNum", @maxlength = "15" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-2 autoincrementid">
+                   <span></span> Period of latest insurance from:
+                </div>
+                <div class="form-group col-1">
+
+                </div>
+                <div class="form-group col-2">
+                    @Html.TextBoxFor(model => model.ph_insuranceFromDt, "{0:dd/MM/yyyy}", new { @id = "txtPHfromDt", @class = "form-control", onchange = "SetEndDate()" })
+                    @Html.ValidationMessageFor(m => m.ph_insuranceFromDt, "", new { @class = "text-danger col-form-label-sm err", id = "errorPVinsuranceFromDtReq", hidden = "hidden" })
+
+                </div>
+                <div class="form-group col-1">
+                    to:
+                </div>
+                <div class="form-group col-2">
+                    @Html.TextBoxFor(model => model.ph_insuranceToDt, "{0:dd/MM/yyyy}", new { @id = "txtPHVToDate", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ph_insuranceToDt, "", new { @class = "text-danger col-form-label-sm err", id = "errorPVinsuranceToDtReq", hidden = "hidden" })
+                </div>
+                <div class="form-group col-4">
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+                <div class="form-group col-6">
+                    <label for="tblTypeOfCover" class="control-label field-required">g. Type Of Cover :</label>
+                </div>
+                <div class="form-group col-6">
+                    @Html.TextBoxFor(model => model.ph_TypeOfCover, new { @class = "form-control", @id = "txtPHTypeOfCover", @readonly = "readonly" })
+
+                </div>
+            </div>*@
+        <div id="divPH4">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="autoincrementid"><span></span> Has any insurance company ever : </label><br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="control-label col-6">a. Declined the proposal</label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceDeclined, true, new { @id = "rbtnInsuranceDeclinedYes", @class = "csInsuranceDeclinedY" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceDeclined, false, new { @id = "rbtnInsuranceDeclinedANo", @class = "csInsuranceDeclinedN" })  No
+                </label>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="control-label col-6">b. Cancelled and refused to renew </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceCancelled, true, new { @id = "rbtnInsuranceCancelledYes", @class = "csInsuranceCancelledY", onchange = "ToggleCancelledInsured()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceCancelled, false, new { @id = "rbtnInsuranceCancelledNo", @class = "csInsuranceCancelledN", onchange = "ToggleCancelledInsured()" })  No
+                </label>
+            </div>
+            <div id="divCancellation">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="control-label col-12 divLineHeight">If yes, reasons there of </label>
+                    </div>
+                    <div class="form-group col-6">
+                        @Html.TextBoxFor(model => model.ph_CancelledReason, new { @id = "txtphCancelled", @class = "form-control ClAlphaNum", @maxlength = "100" })
+                        @Html.ValidationMessageFor(m => m.ph_CancelledReason, "Please enter the reason.", new { @class = "text-danger col-form-label-sm err", id = "errorPVCancelledReq", hidden = "hidden" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="control-label col-6">c. Imposed special condition of excess</label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceImposed, true, new { @id = "rbtnInsuranceImposedYes", @class = "csInsuranceImposedY", onchange = "ToggleImposedInsured()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.ph_InsuranceImposed, false, new { @id = "rbtnInsuranceImposedNo", @class = "csInsuranceImposedN", onchange = "ToggleImposedInsured()" })  No
+                </label>
+            </div>
+            <div id="divImposed">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="form-group col-12 divLineHeight">if yes, reasons and details thereof </label>
+                    </div>
+                    <div class="form-group col-6">
+                        @Html.TextBoxFor(model => model.ph_ImposedReason, new { @id = "txtphImposed", @class = "form-control ClAlphaNum", @maxlength = "100" })
+                        @Html.ValidationMessageFor(m => m.ph_ImposedReason, "Please enter the reason.", new { @class = "text-danger col-form-label-sm err", id = "errorPVImposedReq", hidden = "hidden" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="autoincrementid"><span></span> Details of Hire Purchase / Hypothecation / Lease</label> <br />
+
+                <label class="control-label col-6"> a. If the vehicle proposed for insurance :</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="control-label col-6">
+                    Under Hire Purchase
+                </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Hire, true, new { @id = "rbtnHireYes", @class = "csHireY", onchange = "ToggleHireorLease()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Hire, false, new { @id = "rbtnHireNo", @class = "csHireN", onchange = "ToggleHireorLease()" })  No
+            </label>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="control-label col-6">Under Lease agreement </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Lease, true, new { @id = "rbtnLeaseYes", @class = "csLeaseY", onchange = "ToggleHireorLease()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Lease, false, new { @id = "rbtnLeaseNo", @class = "csLeaseN", onchange = "ToggleHireorLease()" })  No
+            </label>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="control-label col-6">Under Hypothecation Agreement</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Hypothecation, true, new { @id = "rbtnHypothecationYes", @class = "csHypothecationY", onchange = "ToggleHireorLease()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.ph_Hypothecation, false, new { @id = "rbtnHypothecationNo", @class = "csHypothecationN", onchange = "ToggleHireorLease()" })  No
+            </label>
+        </div>
+        <div class="row divHire">
+            <div class="form-group col-6">
+                <label for="tblTypeOfCover" class="form-group col-12">b. If yes, give name and address of concerned parties</label>
+            </div>
+            <div class="form-group col-6">
+                @Html.TextBoxFor(model => model.ph_HReason, new { @class = "form-control ClAlphaNum", @id = "txtPVHReason", @maxlength = "100" })
+                @Html.ValidationMessageFor(m => m.ph_HReason, "Please enter name and address of concerned parties.", new { @class = "text-danger col-form-label-sm err", id = "errorPVHireReq", hidden = "hidden" })
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="tblOtherInfo" class="control-label field-required autoincrementid"><span></span> Any other relevant information</label>
+            </div>
+            <div class="form-group col-6">
+                @Html.TextBoxFor(model => model.ph_OtherInfo, new { @class = "form-control ClAlphaNum", @id = "txtPHOthersReason", @maxlength = "100" })
+
+            </div>
+        </div>
+
+        <div class="row" style="display:none">
+            <div class="form-group col-6">
+
+
+                @Html.TextBoxFor(model => model.previous_vehicle_malus, new { @id = "txtPHmalus", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                @Html.HiddenFor(model => model.previous_vehicle_malus_id, new { @id = "txtPHMalusId", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            </div>
+            <div class="form-group col-6">
+
+
+                @Html.TextBoxFor(model => model.previous_vehicle_ncb, new { @id = "txtPHncb", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                @Html.HiddenFor(model => model.previous_vehicle_ncb_id, new { @id = "txtncbId", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+
+        if ($("#rbtVPurchaseTypNo").prop("checked") == false && $("#rbtnVPurchaseTypYes").prop("checked") == true) {
+            $('#divSecondhand').show();
+        }
+        else {
+            $('#divSecondhand').hide();
+        }
+
+        $("#txtPHTypeOfCover").css('pointer-events', 'none');
+
+        if ($("#hdnPagetype").val() == "Renewal" || $("#hdnPagetype").val() == "EditRenewal") {
+            $("#divPreviousHistoryDetails").find("input, button, submit, textarea, select, input[type='radio']").attr('readonly', true);
+            $("#divPreviousHistoryDetails").find("input, button, submit, textarea, select, input[type='radio']").css("pointer-events", "none");
+            $("#divPreviousHistoryDetails").css("pointer-events", "none");
+            $("#divPreviousHistoryDetails").attr("tabindex", "-1");
+
+        }
+        else {
+            $("#divPreviousHistoryDetails").find("input, button, submit, textarea, select,input[type='radio']").attr('readonly', false);
+        }
+        //alert($('#spnMIReferanceNo').text())
+        $('#hdnPHReferenceNo').val($('#spnMIReferanceNo').text());
+        //alert($('#hdnPHReferenceNo').text())
+
+        if ($('[name="ph_InsuranceCancelled"]:checked').val() == "True") {
+            $("#divCancellation").show();
+            $("#ph_CancelledReason").addClass("txtar-personal-req");
+
+        }
+        else {
+            $("#divCancellation").hide();
+        }
+        if ($('[name="ph_vehicleCondition"]:checked').val() == "True") {
+            $("#divVehicleCondition").show();
+            $("#txtPHReason").addClass("txtar-personal-req");
+
+        }
+        else {
+            $("#divVehicleCondition").hide();
+        }
+        if ($('[name="ph_InsuranceImposed"]:checked').val() == "True") {
+            $("#divImposed").show();
+            $("#ph_ImposedReason").addClass("txtar-personal-req");
+
+        }
+        else {
+            $("#divImposed").hide();
+        }
+        debugger;
+        if ($('[name="ph_Hire"]:checked').val() == "True" || $('[name="ph_Lease"]:checked').val() == "True" || $('[name="ph_Hypothecation"]:checked').val() == "True") {
+            $(".divHire").show();
+            $("#txtPHReason").addClass("txtar-personal-req");
+        }
+        else {
+            $(".divHire").hide();
+        }
+
+        var today = new Date();
+        $('#txtPHDateOfPurchase').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            dateFormat: 'dd-mm-yy',
+        });
+        //txtPHVToDate txtPHfromDt
+        $('#txtPHVToDate').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            dateFormat: 'dd-mm-yy',
+        });
+        $('#txtPHfromDt').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            dateFormat: 'dd-mm-yy',
+        });
+
+        $("#txtPHDateOfPurchase").on("keydown keypress keyup", false);
+        $("#txtPHVToDate").on("keydown keypress keyup", false);
+        $("#txtPHfromDt").on("keydown keypress keyup", false);
+
+
+        //$('#txtPHfromDt').prop("readonly", true);
+        //$('#txtPHVToDate').prop("readonly", true);
+        //$('#txtPHVToDate').css("pointer-events", "none");
+        //$('#txtPHfromDt').css("pointer-events", "none");
+
+
+
+        var manufactureryear = $('#ddlVDManufacturerYear option:selected').text();
+        var manufacturermonth = $('#ddlManufacturMonth option:selected').val();
+
+        //alertify.success(manufactureryear)
+        //alertify.success(manufacturermonth)
+
+        debugger;
+        var today = new Date();
+        jQuery('#txtPHDateOfPurchase').datetimepicker({
+            defaultDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+            maxDate: new Date(),
+            yearStart: manufactureryear,
+            scrollMonth: false,
+            scrollInput: false,
+            closeOnDateSelect: true,
+            useCurrent: false,
+        });
+
+        jQuery('#txtPHfromDt').datetimepicker({
+            defaultDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+            timepicker: false,
+            format: 'd-m-Y',
+            minDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+            maxDate: new Date(),
+            yearStart: manufactureryear,
+            scrollMonth: false,
+            scrollInput: false,
+            closeOnDateSelect: true,
+            useCurrent: false,
+        });
+        debugger;
+       
+        //SetEndDate();
+
+
+    });
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,288 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceVehicleDetails
+
+<script src="~/Scripts/KGIDMotorInsurance/Common.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+
+<div id="divMIVehicleDetails" data-submit-url="@Url.Action("InsertMIVehicleDetails", "MotorInsurance", new { area = "" })">
+   
+    <div class="row">
+        @Html.HiddenFor(model => model.mi_referenceno, new { id = "hdnMIVDReferanceNo" })
+        @Html.Hidden("emld_application_id", Session["UId"], new { @id = "hdnmivdEmpID" })
+        <div class="form-group col-6">
+            <label for="lblVDRegistrationNo">Registration No :</label>
+            @Html.TextBoxFor(m => m.mivd_registration_no, new { @class = "form-control", @id = "txtVDRegistrationNo", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group col-6">
+            <label for="lblVDMakeOfVehicle" class=" control-label">Make of Vehicle :</label>
+            @Html.DropDownListFor(model => model.VehicleMake, new SelectList(Model.VehicleTypeOfMakeList, "Value", "Text"), "-- Select Make of Vehicle --", new { @class = "form-control", id = "ddlVDVehicleMake", @onchange = "SelectManufactureBasedonMake(this.id)" })
+            @Html.ValidationMessageFor(m => m.VehicleMake, "Please select make of vehicle.", new { @class = "text-danger col-form-label-sm err", id = "errVDMakeReq", hidden = "hidden" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblVDDateOfRegistration">Date of Registration  :</label>
+            @Html.TextBoxFor(model => model.mivd_date_of_registration, new { @class = "form-control", @id = "txtVDDateOfRegistration", placeholder = "DD-MM-YYYY", autocomplete = "off", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group col-6">
+
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="lblVDTypeOfModel" class=" control-label">Type of Manufacturer :</label>
+                    @Html.DropDownListFor(model => model.VehicleManufacture, new SelectList(Model.VehicleTypeOfManufactureList, "Value", "Text"), "-- Select Manufacturer Of Vehicle --", new { @class = "form-control", id = "ddlVDVehicleManufacture", @onchange = "SelectModelBasedonManufacture(this.id)" })
+                    @Html.ValidationMessageFor(m => m.VehicleManufacture, "Please select manufacturer of vehicle.", new { @class = "text-danger col-form-label-sm err", id = "errVDManuReq", hidden = "hidden" })
+
+                </div>
+                <div class="form-group col-6">
+                    <label for="lblVDTypeOfModel" class=" control-label">Type of Model :</label>
+                    @Html.DropDownListFor(model => model.VehicleModel, new SelectList(Model.VehicleTypeOfModelList, "Value", "Text"), "-- Select Model --", new { @class = "form-control", id = "ddlVDTypeOfModel" })
+                    @Html.ValidationMessageFor(m => m.VehicleModel, "Please select type of model.", new { @class = "text-danger col-form-label-sm err", id = "errVDModelTypeReq", hidden = "hidden" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblVDRTO">Vehicle RTO :</label>
+            @Html.DropDownListFor(model => model.mivd_vehicle_rto_id, new SelectList(Model.VehicleRTOList, "Value", "Text"), "-- Select RTO --", new { @class = "form-control", id = "ddlVDRTO" })
+
+            @Html.ValidationMessageFor(m => m.mivd_vehicle_rto_id, "Please select RTO.", new { @class = "text-danger col-form-label-sm err", id = "errVDRTOReq", hidden = "hidden" })
+        </div>
+
+
+        <div class="form-group col-3">
+            <label for="lblVDDateOfManu">Month of Manufacture  :</label>
+            @Html.DropDownListFor(Model => Model.mivd_manufacturer_month,
+                                                 new SelectList(KGID.Models.KGID_MI_Master.GetMonthList(), "mm_month_id", "mm_month_desc", Model.mivd_manufacturer_month),
+                                               "-- Select Month --",
+                                              new {@id= "ddlManufacturMonth", @class = "form-control", @onchange = "ValidateSeatingCubicWeightCapacity(this.id)" })
+            @Html.ValidationMessageFor(m => m.mivd_date_of_manufacture, "Please enter manufacture month.", new { @class = "text-danger col-form-label-sm err", id = "errVDManufactureReq", hidden = "hidden" })
+        </div>
+        <div class="form-group col-3">
+            <label for="lblVDYear">Year of Manufacture :</label>
+            @Html.DropDownListFor(model => model.year, new SelectList(Model.VehicleManufacturerYearList, "Value", "Text"), "-- Select Year --", new { @class = "form-control", id = "ddlVDManufacturerYear" })
+            @Html.ValidationMessageFor(m => m.year, "Please select manufacture year.", new { @class = "text-danger col-form-label-sm err", id = "errVDManufactureryearReq", hidden = "hidden" })
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="form-group col-6">
+            <label for="lblVDChasisNo" class=" control-label">Chassis No :</label>
+            <div class="row">
+
+                <div class="form-group col-9">
+
+                    @Html.TextBoxFor(m => m.mivd_chasis_no, new { @class = "form-control alphanumericOnly", @style = "text-transform:uppercase", @id = "txtVDChasisNo", @maxlength = "17", @onblur = "GetRTODetailsData('txtVDChasisNo')" })
+                    @Html.ValidationMessageFor(m => m.mivd_chasis_no, "Please enter valid chassis no.", new { @class = "text-danger col-form-label-sm err", id = "errVDChassisNoReq", hidden = "hidden", })
+
+                </div>
+                <div class="form-group col-2">
+                    <button id="btnFetchDetails" class="btn btn-sm btn-primary" onclick="GetVahanDetails();">Fetch Details</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group col-6">
+            <label for="lblVDFuelType">Vehicle Fuel Type :</label>
+            @Html.DropDownListFor(model => model.VehicleFuel, new SelectList(Model.VehicleFuelList, "Value", "Text"), "-- Select Fuel Type --", new { @class = "form-control", id = "ddlVDFuelType" })
+            @Html.ValidationMessageFor(m => m.VehicleFuel, "Please select fuel type.", new { @class = "text-danger col-form-label-sm err", id = "errVDFuelTypeReq", hidden = "hidden" })
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblVDEngine">Engine No :</label>
+            @Html.TextBoxFor(model => model.mivd_engine_no, new { @class = "form-control alphanumericOnly", @style = "text-transform:uppercase", @id = "txtVDEngine", @maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.mivd_engine_no, "Please enter valid engine no.", new { @class = "text-danger col-form-label-sm err", id = "errVDEngineNOReq", hidden = "hidden" })
+
+        </div>
+        <div class="form-group col-6">
+            <label for="lblVDFuelType">Vehicle Type :</label>
+            @Html.DropDownListFor(Model => Model.mivd_vehicle_type_id,
+                                                  new SelectList(KGID.Models.KGID_MI_Master.GetVehicleTypeList(), "vht_vehicle_type_id", "vht_vehicle_type_desc", Model.mivd_vehicle_type_id),
+                                                "-- Select Vehicle Type--",
+                                               new {@id= "ddlVehType", @class = "form-control", @onchange = "DDLGetCategoryList()" })
+            @Html.ValidationMessageFor(m => m.VehicleFuel, "Please select vehicle type.", new { @class = "text-danger col-form-label-sm err", id = "errVDVTypeReq", hidden = "hidden" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblVDCubicCapacity" class=" control-label">Cubic Capacity :</label>
+            @Html.TextBoxFor(model => model.mivd_cubic_capacity, new { @class = "form-control numbersonly", @id = "txtVDCubicCapacity", @maxlength = "6" })
+            @Html.ValidationMessageFor(m => m.mivd_cubic_capacity, "", new { @class = "text-danger col-form-label-sm err", id = "errVDCubicCapacityReq", hidden = "hidden" })
+
+        </div>
+        <div class="form-group col-6">
+            <label for="lblVDsubType">Vehicle Sub Type :</label>
+            @Html.DropDownListFor(Model => Model.mivd_vehicle_subtype_id,
+                                                  new SelectList(KGID.Models.KGID_MI_Master.GetVehicleSubTypeList(), "vst_vehicle_subtype_id", "vst_vehicle_subtype_desc", Model.mivd_vehicle_subtype_id),
+                                                "-- Select Vehicle Sub Type--",
+                                               new {@id= "ddlVehSubType", @class = "form-control" , @onchange = "DDLGetCategoryList()"})
+            @Html.ValidationMessageFor(m => m.VehicleFuel, "Please select vehicle sub type.", new { @class = "text-danger col-form-label-sm err", id = "errVDVSTypeReq", hidden = "hidden" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="lblVDSeating" class=" control-label">Seating Capacity Including Driver :</label>
+                    @Html.TextBoxFor(model => model.mivd_seating_capacity_including_driver, new { @class = "form-control numbersonly", @id = "txtVDSeating", @maxlength = "3" })
+                    @Html.ValidationMessageFor(m => m.mivd_seating_capacity_including_driver, "", new { @class = "text-danger col-form-label-sm err", id = "errVDSeatingReq", hidden = "hidden" })
+                </div>
+                <div class="form-group col-6">
+                    <label for="lblVDDateOfManu">Vehicle Weight (kgs) :</label>
+                    @Html.TextBoxFor(model => model.mivd_vehicle_weight, new { @class = "form-control numbersonly", @id = "txtVDWeight", @maxlength = "6" })
+                    @Html.ValidationMessageFor(m => m.mivd_vehicle_weight, "", new { @class = "text-danger col-form-label-sm err", id = "errVDVWeightReq", hidden = "hidden" })
+                </div>
+
+            </div>
+            </div>
+       
+
+        <div class="form-group col-6">
+            <label for="lblVDFuelType">Vehicle Category Type :</label>
+            @Html.DropDownListFor(Model => Model.mivd_vehicle_category_id,
+                                                 new SelectList(KGID.Models.KGID_MI_Master.GetVehicleCategoryTypeList(), "vc_vehicle_category_id", "vc_vehicle_category_desc", Model.mivd_vehicle_category_id),
+                                               "-- Select Vehicle Category --",
+                                              new {@id= "ddlVehCatType", @class = "form-control", @onchange = "ValidateSeatingCubicWeightCapacity(this.id)" })
+            @Html.ValidationMessageFor(m => m.VehicleFuel, "Please select vehicle category.", new { @class = "text-danger col-form-label-sm err", id = "errVDVCTypeReq", hidden = "hidden" })
+        </div>
+
+
+
+    </div>
+ 
+    <div class="row" style="display:none">
+        <div class="form-group col-6">
+            <label for="lblVDDateOfManu">Own Damage Cover  :</label>
+
+            @Html.TextBoxFor(model => model.mivd_own_damage_value, new { @id = "txtowndamage", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.HiddenFor(model => model.mivd_own_damage_id, new { @id = "txtowndamageid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+        <div class="form-group col-6">
+            <label for="lblP">Premium Liability Value  :</label>
+
+            @Html.TextBoxFor(model => model.mivd_premium_liability_value, new { @id = "txtpremiumliability", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.HiddenFor(model => model.mivd_premium_liability_id, new { @id = "txtpremiumliabilityid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+    </div>
+    <div class="row" style="display:none">
+        <div class="form-group col-6">
+            <label for="lblVehMinValue">Vehicle Minimum Value</label>
+            @Html.TextBoxFor(model => model.mivd_vehicle_min_value, new { @id = "txtVDminvalue", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.HiddenFor(model => model.mivd_vehicle_min_id, new { @id = "txtVDminvalueid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+        <div class="form-group col-6">
+            <label for="lblVehMinValue">Depreciation (%) :</label>
+            @Html.TextBoxFor(model => model.mivd_Depreciation_value, new { @id = "txtVDDepreciation", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.HiddenFor(model => model.mivd_Depreciation_id, new { @id = "txtVDDepreciationid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.HiddenFor(model => model.mivd_Zone, new { @id = "txtVDZone", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+    </div>
+    <div class="row" style="display:none">
+        <div class="form-group col-6">
+            <label for="lblVehMinValue">OD Govt Discount/Additional Amount</label>
+            @Html.TextBoxFor(model => model.mivd_Additionalamt, new { @id = "txtAdditionalamt", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.TextBoxFor(model => model.mivd_govDiscount, new { @id = "txtGovDiscount", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+
+    </div>
+    <div class="row" style="display:none">
+        <div class="form-group col-6">
+            <label for="lblVehMinValue">PL Govt Discount</label>
+            @Html.TextBoxFor(model => model.mivd_PLgovDiscount, new { @id = "txtPLGovDiscount", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+        <div class="form-group col-6">
+            <label for="lblVehMinValue">Driver/Passenger/Additional Amount :</label>
+            @Html.TextBoxFor(model => model.mivd_PLDriverAmt, new { @id = "txtPLDriverAmt", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            @Html.TextBoxFor(model => model.mivd_PLPassengerAmt, new { @id = "txtPLPassengerAmt", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+        </div>
+    </div>
+
+    @if (Model.mivd_pagetype == "Renewal" || Model.mivd_pagetype == "EditRenewal")
+    {
+        <div class="row" style="display:none">
+            <div class="form-group col-6">
+                <label for="lblVDDateOfManu">Malus (%)  :</label>
+
+                @Html.TextBoxFor(model => model.mivd_malus_value, new { @id = "txtMalus", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                @Html.HiddenFor(model => model.mivd_malus_id, new { @id = "txtMalusid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                @*@Html.ValidationMessageFor(m => m.mivd_vehicle_weight, "Please enter Vehicle weight.", new { @class = "text-danger col-form-label-sm err", id = "errVDVWeightReq", hidden = "hidden" })*@
+            </div>
+            <div class="form-group col-6">
+                <label for="lblP">No Claim (%)  :</label>
+
+                @Html.TextBoxFor(model => model.mivd_ncb_value, new { @id = "txtNcb", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+                @Html.HiddenFor(model => model.mivd_ncb_id, new { @id = "txtNcbid", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;" })
+            </div>
+
+        </div>
+    }
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#hdnPagetype").val() == "Renewal" || $("#hdnPagetype").val() == "EditRenewal") {
+            $("#divMIVehicleDetails").find("input, button, submit, textarea, select").attr('readonly', true);
+            $("#divMIVehicleDetails").find("input, button, submit, textarea, select").css("pointer-events", "none");
+           
+        }
+        else {
+            $("#divMIVehicleDetails").find("input, button, submit, textarea, select").attr('readonly', false);
+            $("#txtVDRegistering").attr('readonly', true);
+            $("#txtVDDateOfRegistration").attr('readonly', true);
+            $("#txtVDRegistrationNo").attr('readonly', true);
+        }
+        $('#ddlVehSubType').prop("disabled", true);
+        $('#ddlVehCatType').prop("disabled", true);
+        DisableFeilds();
+
+    });
+
+   // var d = new Date();
+ //   var year = d.getFullYear() - 18;
+
+    //if ($('#txtVDDateOfManufacture1').val() == "") {
+
+    //    $('#txtVDDateOfManufacture').datepicker({
+    //        dateFormat: 'dd-mm-yy',
+    //        changeYear: true,
+    //        changeMonth: true,
+    //        //yearRange: '2020:' + year,
+    //        //defaultDate: new Date(year, d.getMonth(), d.getDate())
+    //    });
+    //    $('#manu2').hide();
+    //}
+    //else {
+    //    $('#manu2').show();
+    //    $('#manu1').hide();
+    //}
+  
+
+    //var today = new Date();
+    //$('#txtVDDateOfManufacture').datepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    autoclose: true,
+    //    maxDate: 0,
+    //    yearRange:"1900:2025",
+    //    //yearStart: today.getFullYear() - 80,
+    //    //yearEnd: today.getFullYear(),
+    //    scrollMonth: false,
+    //    scrollInput: false
+    //});
+  //  $("#txtVDDateOfManufacture").on("keydown keypress keyup", false);
+
+
+
+
+</script>

@@ -1,0 +1,144 @@
+﻿@model KGID_Models.KGID_Report.VM_KGIDApplicationReportDetails
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;">                    
+                    <label class="knlan control-label"><b>ಕೆಜಿಐಡಿ ಅರ್ಜಿ ವರದಿ</b></label>
+                    <label class="Enlan control-label"><b>KGID Applications</b></label>
+                </h6>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmApplicationReports" }))
+                {
+                    <div class="form-group col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="knlan control-label">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ಈ ದಿನಾಂಕದಿಂದ :</label>
+                                <label class="Enlan control-label">Applications from date:</label>
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control disable-keyboard", autocomplete = "off", id = "txtFromDate" })
+                                <label id="errAppRepFromDate" class="col-form-label-sm text-danger err" hidden>Please mention from date.</label>
+                            </div>
+                            <div class="col-6">
+                                <label class="knlan control-label">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ಈ ದಿನಾಂಕದವರೆಗೆ:</label>
+                                <label class="Enlan control-label">Applications to date:</label>
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control disable-keyboard", autocomplete = "off", id = "txtToDate" })
+                                <label id="errAppRepToDate" class="col-form-label-sm text-danger err" hidden>Please mention to date.</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group col-12">
+                    <div class="text-center">
+                        <button id="btnSearch" class="btn btn-primary" onclick="SearchApplications();" data-url="/APP-REP-DET">Search</button>
+                    </div>
+                </div>
+                
+                <div id="divApplications">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+
+        var options = {
+            timepicker: false,
+            format: 'd-m-Y',
+            autoClose: true,
+            yearStart: today.getFullYear() - 100,
+            yearEnd: today.getFullYear(),
+            defaultDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            minDate: new Date(today.getFullYear() - 100, 0, 1),
+            maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            scrollMonth: false,
+            scrollInput: false,
+            closeOnDateSelect: true
+        };
+
+        $('#txtFromDate').datetimepicker("destroy");
+        $('#txtFromDate').datetimepicker(options);
+
+        $('#txtToDate').datetimepicker("destroy");
+        $('#txtToDate').datetimepicker(options);
+    });
+
+    function SearchApplications() {
+        $(".err").attr("hidden", true);
+        if ($('#txtFromDate').val() == "" && $('#txtToDate').val() == "") {
+            $("#errAppRepFromDate").removeAttr("hidden"); 
+            $("#errAppRepToDate").removeAttr("hidden");
+            return false;
+        } else if ($('#txtFromDate').val() == "") {
+            $("#errAppRepFromDate").removeAttr("hidden");
+            return false;
+        } else if ($('#txtToDate').val() == "") {
+            $("#errAppRepToDate").removeAttr("hidden");
+            return false;
+        }
+
+        var todate = $("#txtToDate").val();
+        var tdate = todate.split("-");
+        var td = tdate[2] + "/" + tdate[1] + "/" + tdate[0];
+        var tdt = new Date(td);
+        var fromdate = $("#txtFromDate").val();
+        var fdate = fromdate.split("-");
+        var fd = fdate[2] + "/" + fdate[1] + "/" + fdate[0];
+        var fdt = new Date(fd);
+
+        if (fdt > tdt) {
+            $("#errAppRepFromDate").removeAttr("hidden");
+            $("#errAppRepFromDate").text("From date should be lesser than to date");
+            return false;
+        }
+
+        var formData = new FormData($("#frmApplicationReports").get(0));
+        
+        var FD = formData.get('FromDate').split("-");
+        var FDT = FD[2] + "/" + FD[1] + "/" + FD[0];
+        formData.set('FromDate', FDT);
+
+        var TD = formData.get('ToDate').split("-");
+        var TDT = TD[2] + "/" + TD[1] + "/" + TD[0];
+        formData.set('ToDate', TDT);
+
+        var url = $("#btnSearch").data("url");
+        $("#divApplications").html("");
+
+        $.ajax({
+            url: url,
+            data: formData,
+            async: false,
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#divApplications").html(data);
+                EnglishToKannada();
+                $(".err").attr("hidden", true);
+            }, error: function (result) {
+                alertify.error("Could not fetch KGID applications");
+            }
+        });
+    }
+    function EnglishToKannada() {
+        var _knLan = $('.knlan');
+        var _EnLan = $('.Enlan');
+        if (localStorage.ChangeLang == '0') {
+            _EnLan.hide();
+            _knLan.show();
+            $('#changeLan').val('A');
+        }
+        else {
+            _knLan.hide();
+            _EnLan.show();
+            $('#changeLan').val('ಕ');
+        }
+    }
+</script>

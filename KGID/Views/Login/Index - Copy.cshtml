@@ -1,0 +1,1247 @@
+﻿@model KGID_Models.KGID_Login.tbl_logindetails
+
+@{
+    /**/
+
+    ViewBag.Title = "KGID - Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+
+}
+
+<script src="~/Scripts/aes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.mjs"></script>
+<script type="text/javascript">
+
+
+    var heden_CaptchaImg = undefined;
+        $(function () {
+            $('#GetCaptcha').click(function () {
+                var ImgSrc = '@Url.Action("CaptchaImage")';
+                $('#CaptchaImg').attr('src', ImgSrc);
+
+
+                @*$.ajax({
+                    type: "GET",
+                    url:  '@Url.Action("CaptchaImage")',
+                    contentType: "image/png",
+                    success: function (data) {
+                        alert(data); // For testing
+
+
+                        //$('#CaptchaImg').attr('src', "data:image/png;base64," + data);
+                    },
+                   error: function(error, txtStatus) {
+                            console.log(txtStatus);
+                            console.log('error');
+                        }
+                });*@
+
+
+            });
+        });
+
+ $(function () {
+            $('#GetCaptcha1').click(function () {
+                var ImgSrc = '@Url.Action("CaptchaImage")';
+                $('#CaptchaImg1').attr('src', ImgSrc);
+
+
+                @*$.ajax({
+                    type: "GET",
+                    url:  '@Url.Action("CaptchaImage")',
+                    contentType: "image/png",
+                    success: function (data) {
+                        alert(data); // For testing
+
+
+                        //$('#CaptchaImg').attr('src', "data:image/png;base64," + data);
+                    },
+                   error: function(error, txtStatus) {
+                            console.log(txtStatus);
+                            console.log('error');
+                        }
+                });*@
+
+
+     });
+    });
+
+     $(function () {
+            $('#GetCaptcha2').click(function () {
+                var ImgSrc = '@Url.Action("CaptchaImage")';
+                $('#CaptchaImg2').attr('src', ImgSrc);
+                @*$.ajax({
+                    type: "GET",
+                    url:  '@Url.Action("CaptchaImage")',
+                    contentType: "image/png",
+                    success: function (data) {
+                        alert(data); // For testing
+
+
+                        //$('#CaptchaImg').attr('src', "data:image/png;base64," + data);
+                    },
+                   error: function(error, txtStatus) {
+                            console.log(txtStatus);
+                            console.log('error');
+                        }
+                });*@
+     });
+    });
+
+
+    function get_captcha() {
+        debugger;
+        captcha = undefined;
+        _valid = undefined;
+
+        $.ajax({
+
+            url: "/Login/GetCaptcha_value",
+
+            data: JSON.stringify(),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                debugger;
+                captcha = undefined;
+                _valid = undefined;
+                _valid = result;
+                captcha = result;
+
+
+            }
+
+        });
+        return _valid;
+    }
+
+
+</script>
+<style type="text/css">
+    .col-lg-8 {
+        padding: 0 0
+    }
+
+    .p-5 {
+        padding: 1rem !important
+    }
+
+    .col-md-5 {
+    }
+
+    .a {
+        padding: 10px;
+    }
+
+    .nav-heading {
+        color: #000;
+    }
+
+    .b {
+    }
+
+    .bkan {
+        background-image: url('../../Content/Images/kgid-login-bg-6-1920-kn.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .shadow-lg {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+        background-color: #ffffff82;
+    }
+
+    body {
+        font-size: 16px;
+        font-weight: 600;
+        background-image: url('../../Content/Images/kgid-login-bg-6-blank.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .custom-control-label {
+        position: relative;
+        margin-bottom: 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .control-label {
+        display: inline-block;
+        margin-bottom: .5rem;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .col-form-label-sm {
+        padding-top: calc(.25rem + 1px);
+        padding-bottom: calc(.25rem + 1px);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    a {
+        color: #1b1919;
+        text-decoration: none;
+        background-color: transparent;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .text-info {
+        color: #000 !important;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    /*.navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }*/
+</style>
+
+@*<nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-2 col-md-2">
+                <a href="#" title="Home" class="btn"><i class="fa fa-home " aria-hidden="true"></i><label class="Knlan" style="color: #000;">ಮುಖಪುಟ</label><label class="Enlan" style="color: #000;">Home</label></a> &nbsp;&nbsp;
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <a href="#" title="User manual and videos" class="btn "><i class="fa fa-newspaper-o " aria-hidden="true"></i><label class="Knlan" style="color: #000;">ಬಳಕೆದಾರರ ಕೈಪಿಡಿ ಮತ್ತು ವಿಡಿಯೋ ತುಣುಕುಗಳು</label><label class="Enlan" style="color: #000;">User manual and videos</label></a>&nbsp;&nbsp;
+            </div>
+            <div class="dropdown col-lg-2 col-md-2 ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    New Business
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Apply for kgid policy</button>
+                    <button class="dropdown-item" type="button">view kgid policy</button>
+
+                </div>
+            </div>
+
+        </form>
+    </nav>*@
+<section class="latest-blog spad">
+
+    <div class="container">
+        <!-- Banner Section Begin -->
+        <div class="row nav-heading navbar navbar-light " style="background-color:lightblue;">
+            <div class="col-lg-3 col-md-3"></div>
+            <div class="col-lg-1 col-md-2">
+                <a href="#" title="Home" class="btn"><i class="fa fa-home " aria-hidden="true"></i><label class="Knlan" style="color: #000;">ಮುಖಪುಟ</label><label class="Enlan" style="color: #000;">Home</label></a> &nbsp;&nbsp;
+            </div>
+            <div class="col-lg-4 col-md-2">
+                <a href="/kgid-umv" title="User manual and videos" class="btn " style="padding-left: 111px"><i class="fa fa-newspaper-o " aria-hidden="true"></i><label class="Knlan" style="color: #000;">ಬಳಕೆದಾರರ ಕೈಪಿಡಿ ಮತ್ತು ವಿಡಿಯೋ ತುಣುಕುಗಳು</label><label class="Enlan" style="color: #000;">User manual and videos</label></a>&nbsp;&nbsp;
+            </div>
+
+            <div class="dropdown col-lg-4 col-md-2">
+                <a href="/kgid-cs/" title="Help Desk" class="btn "><i class="fa fa-phone " aria-hidden="true"></i><label class="Knlan" style="color: #000;">ಸಂಪರ್ಕಿಸಿ</label><label class="Enlan" style="color: #000;">Help Desk</label></a>
+            </div>
+            @*<div class="dropdown col-lg-2 col-md-2 ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    New Business
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Apply for kgid policy</button>
+                    <button class="dropdown-item" type="button">view kgid policy</button>
+
+                                </div>
+                            </div>*@
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <span class="Enlan">
+                    <img src="~/Content/Images/kgid-login-lefticons-1920-en.png" class="img-responsive" />
+                </span>
+                <span class="Knlan">
+                    <img src="~/Content/Images/kgid-login-lefticons-1920-kn.png" class="img-responsive" />
+                </span>
+            </div>
+
+            <div class="col-md-5">
+
+                <div class="login-form shadow-lg">
+                    <div class="row" style="    margin-top: 20px; padding:20px">
+                        @*<div class="col-lg-4" style="background-image:url('/Content/Images/login-sideimg.jpg'); background-repeat:no-repeat;background-size: cover; background-position:center">
+
+
+                            </div>*@
+                        <div class="col-lg-12">
+                            <div class="p-5">
+                                <div class="text-center" style="padding: 1px;border: 3px solid #096cd2;">
+                                    <div class="row">
+                                        <div class="form-group col-form-label-sm col-lg-4 mb-0">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="radio" class="custom-control-input" name="loginType" id="chkDepartment">
+                                                <label class="custom-control-label pt-1 Enlan" for="chkDepartment" id="lblDepartment">Agency Login</label>
+                                                <label class="custom-control-label pt-1 Knlan" for="chkDepartment" id="lblDepartment">ಏಜೆನ್ಸಿ ಲಾಗಿನ್</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-form-label-sm col-lg-3 mb-0">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="radio" class="custom-control-input" name="loginType" id="chkKGID" checked="">
+                                                <label class="custom-control-label pt-1 Enlan" for="chkKGID" id="lblKGID">KGID Login</label>
+                                                <label class="custom-control-label pt-1 Knlan" for="chkKGID" id="lblKGID">ಕೆಜಿಐಡಿ ಲಾಗಿನ್</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-form-label-sm col-lg-5 mb-0">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="radio" class="custom-control-input" name="loginType" id="chkNewEmp">
+                                                <label class="custom-control-label pt-1 Enlan" for="chkNewEmp" id="lblNewEmp">New Employee Login</label>
+                                                <label class="custom-control-label pt-1 Knlan" for="chkNewEmp" id="lblNewEmp">ಹೊಸ ವಿಮಾದಾರರ ಲಾಗಿನ್‍</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><br /><br />
+
+                                @using (@Html.BeginForm("", "", new { area = "" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmDeptLogin" }))
+                                {
+                                    @Html.AntiForgeryToken();
+
+                                    @Html.HiddenFor(x => x.image_captcha, new { @id = "image_captcha" })
+                                    @Html.Hidden("password", "", new { @id = "pswkey" })
+                                    <div class="user" id="department_login_form" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                        <div class="row form-group">
+                                            <label class="control-label col-3 required"><label class="Enlan">Username</label><label class="Knlan">ಬಳಕೆದಾರರ ಹೆಸರು</label></label>
+                                            <div class="col-9">
+                                                @*<div>
+                                                        @Html.Captcha(6) <br />  <p> <input type="submit" value="Send" /> </p>
+                                                    </div>*@
+
+                                                @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address ...">*@
+                                                @Html.TextBoxFor(x => x.um_user_name, new { @class = "form-control col-11", placeholder = "Enter Username", id = "deptUserName", @maxlength = 50 })
+                                                @Html.ValidationMessageFor(x => x.um_user_name, "", new { id = "deptVUserName", @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label class="control-label col-3 required"><label class="Knlan">ಪಾಸ್ವರ್ಡ್ </label><label class="Enlan">Password</label></label>
+                                            <div class="col-9">
+                                                @*<input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Enter Password ...">*@
+                                                @Html.TextBoxFor(x => x.um_user_password, new { onpaste = "return false", oncopy = "return false", id = "deptPassword", @type = "Password", @class = "form-control col-11", placeholder = "Enter Password", @maxlength = 14 })
+                                                @Html.ValidationMessageFor(x => x.um_user_password, "", new { id = "deptVPassword", @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <label for="Captcha" class="text-info"><label class="Knlan">ಕ್ಯಾಪ್ಚಾ</label><label class="Enlan">Captcha:</label></label>
+                                        <div class="form-group row">
+                                            <div class="col-5">
+
+
+
+                                                <img id="CaptchaImg" alt="Captcha" style="" />
+                                                @*<img id="CaptchaImg" alt="Captcha" src="@Url.Action("CaptchaImage","Login")" style="" />*@
+
+                                                <a id="GetCaptcha" href="javascript:void(0)">Refresh</a>
+                                                @*@Html.TextBoxFor(x => x.txtInputCaptcha, new { @class = "custom_style col-8", @readonly = true, id = "txtInputCaptchaDept" })*@
+                                                @*<a href="#" onclick="javascript:ReloadCaptchaCodeAgency();"> <img src="~/Content/images/refresh-icon.png" class="custom_style col-3" style="cursor: pointer;vertical-align: top;" height="30" ;width="30" id="refresh" alt="refresh" /></a>*@
+                                                @*@Html.LabelFor(x => x.txtInputCaptcha, new { @id = "txtInputCaptchaDept", @class = "custom_style", @style = "width:100px;height:35px;font-size:25px;padding:0;" })*@
+                                            </div>
+                                            <div class="col-6 pl-0 pr-4-75">
+                                                @Html.TextBoxFor(x => x.txtEnteredCaptcha, new { onpaste = "return false", oncopy = "return false", @maxlength = "6", @class = "form-control", @id = "txtEnteredCaptchaDept", autocomplete = "off", placeholder = "Enter Captcha" })
+                                                @Html.ValidationMessageFor(x => x.txtEnteredCaptcha, "", new { id = "deptVCaptcha", @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                @*<div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="chkRememberme">
+                                                        <label class="custom-control-label" for="chkRememberme">Remember Me</label>
+                                                    </div>*@
+                                            </div>
+                                            <div class="col-md-6">
+                                                @*<input name="submit" type="button" id="btnLoginDept" value="Login" class="btn btn-success" data-url="@Url.Action("UserLogin", "Login", new { area = "" })" data-redirect-url="@Url.Action("UploadEmployeeDetails", "Employee", new { area = "" })" />*@
+                                                <input name="submit" type="submit" id="btnLoginDept" value="Login" class="btn btn-success" />
+                                            </div>
+                                        </div>
+
+                                        <div class="align-items-center">
+
+                                            <span id="errLogin" class="text-danger">@ViewBag.EMessage</span>
+
+                                            @if (@TempData["Captcha_validation"] != null)
+                                            {
+                                                <span id="errLogin" class="text-danger">@TempData["Captcha_validation"]</span>
+                                            }
+                                        </div>
+                                        <hr />
+                                        <div class="text-center">
+                                            <a class="" href="forgot-password.html">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="user" id="kgid_login_form" style="display:none;padding: 5px;border: 1px solid rgb(229, 229, 229);">
+
+                                    <label id="invalid_credentials_kgid" class="text-danger small">Invalid KGID Number. Please enter valid KGID Number.</label>
+                                    <label id="lblInvalidKgidNo" class="text-danger small" style="display:none">Mobile Number does not exits. Please register your number in HRMS.</label>
+
+                                    <div class="row form-group">
+                                        <label class="control-label col-3 required"><label class="Enlan">KGID Number</label> <label class="Knlan">ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ</label></label>
+                                        <div class="col-8">
+                                            <input type="text" id="kgid_number" class="form-control" maxlength="50" name="kgid-number" data-kgid-verify-url="@Url.Action("GetMobileNumberOfInsured", "Employee", new { area = "" })" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <label class="control-label col-3 required"><label class="Enlan">Mobile Number</label><label class="Knlan">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label></label>
+                                        <div class="col-8">
+                                            <input type="text" id="mobile_no_kgid" class="form-control" name="mobile-no-kgid" required>
+                                            <input type="hidden" id="mobile_no_kgid_hidden" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <a id="otp_authentication_kgid" class="btn btn-sm btn-success text-center white-color" onclick="authenticateKgid()">
+                                                Authenticate
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" id="otp_value_kgid">
+                                        @*<label for="otp_kgid" class="col-md-3 col-form-label text-md-right text-right">OTP</label>*@
+                                        <label for="otp_kgid" class="col-md-3 col-form-label"><label class="knlan">ಒಟಿಪಿ</label><label class="Enlan">OTP</label></label>
+                                        <div class="col-8">
+                                            <input type="text" id="otp_kgid" class="form-control" name="otp" maxlength="7" placeholder="Enter OTP" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="otp_invalid_kgid">
+                                        <div class="col-md-12">
+                                            <p class="text-danger text-center small">Please enter valid OTP.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group" id="captcha_kgid">
+                                        @*<label for="Captcha" class="control-label pt-2-5">Captcha:</label>*@
+                                        <label for="Captcha" class="col-md-3 col-form-label"><label class="knlan">ಕ್ಯಾಪ್ಚಾ</label><label class="Enlan">Captcha:</label></label>
+                                        <div class="col-4">
+                                            <img id="CaptchaImg1" alt="Captcha" style="" />
+                                            @*<img id="CaptchaImg1" alt="Captcha" src="@Url.Action("CaptchaImage","Login")" style="" />*@
+                                            <a id="GetCaptcha1" href="javascript:void(0)">Refresh</a>
+
+                                            @*<a  href="javascript:void(0)" id="GetCaptcha1"  onclick="refresh(this.id);">Refresh</a>*@
+                                            @*<input type="text" id="txtInputCaptchaKgid" class="custom_style col-7" name="txtInputCaptchaKgid" readonly="">
+                                                <a href="#" onclick="javascript:ReloadCaptchaCodeKgid();"> <img src="~/Content/images/refresh-icon.png" class="custom_style col-4" style="cursor: pointer;vertical-align: top;" height="30" ;width="30" id="refresh" alt="refresh" /></a>*@
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="text" id="txtEnteredCaptchaKgid" class="form-control form-control-sm" name="txtEnteredCaptchaKgid" maxlength="6" placeholder="Enter Captcha">
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            //$('input[name=txtEnteredCaptchaKgid]').keydown(function (e) {
+                                            //    debugger;
+                                            //    if (e.keyCode == 13) {
+                                            //        $("#otp_login_kgid").click();
+                                            //    }
+                                            //});
+                                            //$('input[name=txtEnteredCaptchaNewEmp]').keydown(function (e) {
+                                            //    if (e.keyCode == 13) {
+                                            //        $("#otp_login_new_emp").click();
+                                            //    }
+                                            //});
+                                        });
+                                    </script>
+
+
+                                    <div class="form-group row" id="captcha_invalid_kgid">
+                                        <div class="col-md-12">
+                                            <p class="text-danger text-center small">Please enter valid Captha.</p>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-12 offset-md-12 text-center" id="login_button_kgid">
+                                            <a class="btn btn-success text-center white-color" id="otp_login_kgid">
+                                                &emsp; Login &emsp;
+                                            </a>
+                                        </div>*@
+                                    <div class="row form-group">
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <div id="login_button_kgid">
+                                                <a class="btn btn-success text-center white-color" id="otp_login_kgid">
+                                                    &emsp; Login &emsp;
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="user" id="newemp_login_form" style="display:none;padding: 5px;border: 1px solid rgb(229, 229, 229);">
+
+                                    <div class="row form-group">
+                                        <label class="col-form-label-sm font-weight-bold col-3">Login using</label>
+                                    </div>
+                                    <div class="row form-group col-12">
+                                        <div class="col-6 pl-0">
+                                            <input type="radio" id="mobileLogin" name="login" checked>
+                                            <label id="lblMLogin" for="mobileLogin" class="col-form-label-sm mb-0 required"><label class="Knlan">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Mobile Number</label></label>
+                                        </div>
+                                        <div class="col-6 pl-0">
+                                            <input type="radio" id="emailLogin" name="login">
+                                            <label id="lblELogin" for="emailLogin" class="col-form-label-sm mb-0"><label class="Knlan">ಇಮೇಲ್ ಐಡಿ</label><label class="Enlan">Email address</label></label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-12">
+                                        <label id="mobilePrefix" class="col-form-label-sm col-1 mb-0 pl-0 pt-2 pr-1 text-right">+91</label>
+                                        <input type="text" id="loginValue" class="form-control col-10 numbersOnly" placeholder="Enter mobile number" maxlength="10" />
+                                        <div id="divMobile" style="display:none;">
+                                            <div class="form-group mt-2 ml-3 row col-md-12">
+                                                <p class="text-danger text-center small">Please enter details to Authenticate.</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-2 ml-3 row">
+                                            <label class="text-danger col-12 medium err-login" id="errKGIDPresent" hidden>Please login using KGID Login.</label>
+
+                                            <label class="text-danger col-12 medium err-login" id="errMobile" hidden>Please enter registered mobile number.</label>
+                                            <label class="text-danger col-12 medium err-login" id="errEmail" hidden>Please enter registered email address.</label>
+                                            @*}
+                                                else
+                                                {
+                                                    <label class="text-danger col-12 medium err-login" id="errMobile" hidden>Please login using KGID number.</label>
+                                                    <label class="text-danger col-12 medium err-login" id="errEmail" hidden>Please login using KGID number.</label>
+                                                }*@
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-6 pl-0">
+                                            <input type="button" id="otp_authentication_new_emp" class="btn btn-success white-color col-12" onclick="authenticateNewEmp()" value="Authenticate" data-authenticate-url="@Url.Action("VerifyNewEmployeeLogin", "Login", new { area = "" })" />
+                                            @*<input type="button" id="otp_authentication_Edit" class="btn btn-success white-color col-5" style="font-size:10px;display:none;" value="Change Number"  />*@
+                                        </div>
+                                        <div class="col-6 pl-0 pr-4-5" id="otp_value_new_emp" style="">
+                                            <input type="text" id="otp_new_emp" class="form-control" name="otp" placeholder="Enter OTP" maxlength="7" required="">
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" id="emp_id_new_emp_hidden" />
+                                    <div class="form-group row mt-1 ml-1 text-center" id="otp_invalid_new_emp">
+                                        <div class="col-md-6"><p></p></div>
+                                        <div class="col-md-6">
+                                            <p class="text-danger mb-0 medium">Please enter valid OTP.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12" id="captcha_new_emp">
+                                        <div class="col-6 pl-0">
+                                            <img id="CaptchaImg2" alt="Captcha" style="" />
+                                            @*<img id="CaptchaImg" alt="Captcha" src="@Url.Action("CaptchaImage","Login")" style="" />*@
+
+                                            <a id="GetCaptcha2" href="javascript:void(0)">Refresh</a>
+                                            @*<input type="text" id="txtInputCaptchaNewEmp" class="custom_style col-8" name="txtInputCaptchaNewEmp" readonly>
+                                                <a href="#" onclick="javascript:ReloadCaptchaCode();"> <img src="~/Content/images/refresh-icon.png" class="custom_style col-3" style="cursor: pointer;vertical-align: top;" height="30" ;width="30" id="refresh" alt="refresh" /></a>*@
+
+                                        </div>
+                                        <div class="col-6 pl-0 pr-4-5">
+                                            <input autocomplete="off" class="form-control col-12" id="txtEnteredCaptchaNewEmp" maxlength="6" name="txtEnteredCaptchaNewEmp" placeholder="Enter Captcha" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row col-12" id="captcha_invalid_new_emp">
+                                        <div class="col-md-6"><p></p></div>
+                                        <div class="col-md-6">
+                                            <p class="text-danger medium">Please enter valid Captcha.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 offset-md-12 text-center" id="login_button_new_emp">
+                                        <input type="button" class="btn btn-success text-center white-color" id="otp_login_new_emp" value="Login" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Latest Blog Section End -->
+@*<div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<script>
+    var redirectUrl;
+    $(document).ready(function () {
+        $('#kgid_login_form').hide();
+        $('#newemp_login_form').hide();
+        $('#otp_value').hide();
+        $('#login_button').hide();
+        $('#invalid_credentials').hide();
+        $('#otp_authentication').hide();
+        $('#otp_invalid').hide();
+
+        $('#otp_value_kgid').hide();
+        $('#login_button_kgid').hide();
+        $('#invalid_credentials_kgid').hide();
+        $('#otp_authentication_kgid').hide();
+        $('#otp_invalid_kgid').hide();
+
+        $('#captcha_kgid').hide();
+        $('#captcha_invalid_kgid').hide();
+
+        $('#otp_value_new_emp').hide();
+        $('#login_button_new_emp').hide();
+        $('#invalid_credentials_new_emp').hide();
+        $('#otp_authentication_new_emp').hide();
+        $('#otp_invalid_new_emp').hide();
+
+        $('#captcha1').hide();
+
+        $('#captcha_new_emp').hide();
+        $('#captcha_invalid_dept').hide();
+        $('#captcha_invalid_new_emp').hide();
+        $("#deptUserName").focus();
+        $('#chkKGID').click();
+
+        jQuery('.numbersOnly').keyup(function () {
+            if ($("#mobileLogin").prop("checked"))
+                this.value = this.value.replace(/[^0-9\\]/g, '');
+        });
+
+        jQuery('#otp_new_emp').keyup(function () {
+            this.value = this.value.replace(/[^0-9\\]/g, '');
+        });
+        ReloadCaptchaCodeAgency();
+
+    });
+
+    //Department Login
+
+    $('#chkDepartment').click(function () {
+        $('#logType').text("");
+        $('#logType').text($('#lblDepartment').text());
+        $('#kgid_login_form').hide();
+        $('#newemp_login_form').hide();
+        $('#department_login_form').show();
+       // DrawCaptcha($("#txtInputCaptchaDept"));
+        ("#deptUserName").focus();
+                var ImgSrc = '@Url.Action("CaptchaImage")';
+        $('#CaptchaImg').attr('src', ImgSrc);
+
+
+    });
+
+    //$("#otp_authentication_new_emp").click(function (e) {
+    //    var url = $(this).data("url");
+    //    var redirectUrl = $(this).data("redirect-url");
+    //    var data = $("#frmDeptLogin").serialize();
+
+    //    var captcha = removeSpaces($('#txtInputCaptchaDept').val());
+    //    var entCaptcha = $('#txtEnteredCaptchaDept').val()
+
+    //    if (captcha == entCaptcha) {
+    //        $.post(url, data).done(function (response) {
+    //            if (response.IsSuccess) {
+    //                window.location.href = redirectUrl;
+    //            }
+    //            else {
+
+    //            }
+    //        });
+    //    }
+    //    else {
+    //        $('#captcha_invalid_dept').show();
+    //    }
+    //});
+
+    //KGID Login
+
+    $('#chkKGID').click(function () {
+        $('#logType').text("");
+        $('#logType').text($('#lblKGID').text());
+        $('#kgid_login_form').show();
+        $('#newemp_login_form').hide();
+        $('#department_login_form').hide();
+       // ReloadCaptchaCodeKgid();
+        resetKGIDForm();
+    });
+
+    $("#kgid_number").change(function () {
+        $("#invalid_credentials_kgid").hide();
+        $("#lblInvalidKgidNo").hide();
+        var $kgidNumber = $(this);
+        var url = $kgidNumber.data('kgid-verify-url');
+        url = url + "?kgId=" + $kgidNumber.val();
+        $.get(url).done(function (response) {
+            if (response.IsSuccess) {
+                $('#mobile_no_kgid').val(replaceMiddlePhone(response.MobileNumber.toString(), 6));
+                $('#mobile_no_kgid_hidden').val(response.MobileNumber);
+                $('#mobile_no_kgid').attr("disabled", true);
+                $("#mobile_no_kgid").trigger("change");
+            }
+            else {
+                if (response.MobileNumber == 0) {
+
+                    $('#lblInvalidKgidNo').show();
+                    $('#mobile_no_kgid').val("");
+                }
+                else {
+                    $("#invalid_credentials_kgid").show();
+                    $('#mobile_no_kgid').val("");
+                }
+
+            }
+        });
+    });
+
+    $("#mobile_no_kgid").change(function () {
+        $('#otp_authentication_kgid').show();
+    });
+
+    function authenticateKgid() {
+        kgid = $('#kgid_number').val();
+        var mobile = $('#mobile_no_kgid_hidden').val();
+        var domainName = window.location.hostname;
+        var expiry = new Date();
+        expiry.setMinutes(expiry.getMinutes() + 55);
+        var value = '@Request.RequestContext.HttpContext.Session["AuthToken"]';
+        document.cookie = 'AuthToken' + '=' + value + ';expires=' + expiry.toGMTString(); +';Domain=' + domainName + ';path=' + window.location.pathname + ';HttpOnly;secure=true;';
+        $.getJSON("../login/VerifyKGIDAndMobileNo", { kgId: kgid, mobileNumber: mobile },
+            function (result) {
+                if (result.IsSuccess == true) {
+                    $('#otp_value_kgid').show();
+                    $('#login_button_kgid').show();
+                    $('#invalid_credentials_kgid').hide();
+                   // DrawCaptcha($("#txtInputCaptchaKgid"));
+                    ReloadCaptchaCodeKgid();
+              
+                    $('#captcha_kgid').show();
+                    redirectUrl = result.RedirectUrl;
+                }
+                else if (result.IsRedirect && !result.IsSuccess) {
+                    window.location.href = result.RedirectUrl;
+                }
+                else {
+                    $('#otp_value_kgid').hide();
+                    $('#login_button_kgid').hide();
+                    $('#invalid_credentials_kgid').show();
+                    $('#captcha_kgid').hide();
+                }
+            });
+    }
+
+
+    var otpCount = 0;
+    //$('#otp_login_kgid').click(function () {
+    //    var captcha = undefined;
+    //    var SUCESS = undefined;
+
+    //    $('#captcha_invalid_kgid').hide();
+    //    $('#otp_invalid_kgid').hide();
+
+    //    var url = $(this).data("redirect-url");
+    //    kgid = $('#kgid_number').val();
+
+    //    url = url + "?empId=" + kgid + "&loginType=KGID";
+    //    var otp = $('#otp_kgid').val();
+    //    //if (otpCount == 3) {
+    //    //   alert("You exceeded maximum 3 limits of wrong otps.Please try after sometime.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+    //    //   setTimeout(function () {
+    //    //       location.reload();
+    //    //   }, 2000);
+    //    //}
+    //    //else {
+    //    var txtEnteredcaptcha = $('#txtEnteredCaptchaKgid').val();
+    //    $.ajax({
+
+    //        url: "/Login/GetCaptcha_value",
+
+    //        data: JSON.stringify({ 'GetCaptcha': txtEnteredcaptcha }),
+    //        type: 'POST',
+    //        contentType: 'application/json; charset=utf-8',
+    //        success: function (result) {
+    //            debugger;
+    //            captcha = undefined;
+
+    //            captcha = result._res;
+    //            SUCESS = result.match;
+    //            var entCaptcha = $('#txtEnteredCaptchaKgid').val();
+    //            if (otp == "1123") {
+    //                // window.location.href = redirectUrl;
+    //                if (captcha == entCaptcha && SUCESS == true) {
+    //                    window.location.href = redirectUrl;
+    //                }
+    //                else {
+    //                    $('#captcha_invalid_kgid').show();
+    //                    $('#GetCaptcha1').click();
+    //                }
+    //            }
+
+    //            else {
+    //                $('#otp_invalid_kgid').show();
+    //                $('#otp_kgid').val('');
+    //                return false;
+    //            }
+    //            //$.getJSON("../login/OTPAuthentication", { kgid: kgid },
+    //            //                        function (result) {
+    //            //                           if (result == otp) {
+
+    //            //                               if (captcha == entCaptcha && SUCESS == true) {
+    //            //                                   window.location.href = redirectUrl;
+    //            //                               }
+    //            //                               else {
+    //            //                                   $('#captcha_invalid_kgid').show();
+    //            //                                   $('#GetCaptcha1').click();
+    //            //                               }
+    //            //                          }
+    //            //                          else {
+    //            //                              otpCount = otpCount + 1;
+    //            //                             alert("Invalid otp. please enter valid otp.").find('.modal-content').css({ 'margin-top': '140px' });
+    //            //                             $('#otp_kgid').val('');
+    //            //                             return false;
+    //            //                         }
+    //            //                     });
+
+    //        }
+
+    //    });
+    //    //}
+    //});
+
+    //nEW METHOD BY PRASANT FOR CAPTCHA
+    $('#otp_login_kgid').click(function () {
+        var captcha = undefined;
+        var SUCESS = undefined;
+
+        $('#captcha_invalid_kgid').hide();
+        $('#otp_invalid_kgid').hide();
+
+        var url = $(this).data("redirect-url");
+        kgid = $('#kgid_number').val();
+
+        url = url + "?empId=" + kgid + "&loginType=KGID";
+        var otp = $('#otp_kgid').val();
+        if (otpCount == 3) {
+           alert("You exceeded maximum 3 limits of wrong otps.Please try after sometime.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        }
+        else {
+            var txtEnteredcaptcha = $('#txtEnteredCaptchaKgid').val();
+            $.ajax({
+
+                url: "/Login/GetCaptcha_value",
+
+                data: JSON.stringify({ 'GetCaptcha': txtEnteredcaptcha }),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    debugger;
+                    captcha = undefined;
+
+                    captcha = result._res;
+                    SUCESS = result.match;
+                    var entCaptcha = $('#txtEnteredCaptchaKgid').val();
+
+                    $.getJSON("../login/OTPAuthentication", { kgid: kgid },
+                        function (result) {
+                            if (result == otp) {
+
+                                if (captcha == entCaptcha && SUCESS == true) {
+                                    window.location.href = redirectUrl;
+                                }
+                                else {
+                                    $('#captcha_invalid_kgid').show();
+                                    $('#GetCaptcha1').click();
+                                }
+                            }
+                            else {
+                                otpCount = otpCount + 1;
+                                alert("Invalid otp. please enter valid otp.").find('.modal-content').css({ 'margin-top': '140px' });
+                                $('#otp_kgid').val('');
+                                return false;
+                            }
+                        });
+                    
+                }
+
+            });
+        }
+        //var captcha = removeSpaces($('#txtInputCaptchaKgid').val());
+      
+
+    });
+    function resetKGIDForm() {
+        $('#otp_value_kgid').hide();
+        $('#login_button_kgid').hide();
+        $('#invalid_credentials_kgid').hide();
+        $('#otp_authentication_kgid').hide();
+        $('#otp_invalid_kgid').hide();
+
+        $('#captcha_kgid').hide();
+        $('#captcha_invalid_kgid').hide();
+
+        $("#kgid_number").val('');
+        $('#mobile_no_kgid').removeAttr("disabled");
+        $('#mobile_no_kgid').val('');
+
+        $("#kgid_number").focus();
+    }
+
+    //New Employee Login
+
+    $('#chkNewEmp').click(function () {
+        $('#logType').text("");
+        $('#logType').text($('#lblNewEmp').text());
+        $('#kgid_login_form').hide();
+        $('#newemp_login_form').show();
+        $('#department_login_form').hide();
+        resetNewEmpForm();
+    });
+
+    $("#mobileLogin").change(function () {
+        $("#lblMLogin").addClass("required");
+        $("#lblELogin").removeClass("required");
+        $("#mobilePrefix").show();
+        $("#loginValue").attr("placeholder", "Enter mobile number").removeClass("col-11").attr("maxLength", "10").attr("type", "text").val('');
+        //$("#loginValue").prop('type', 'number');
+        $("#loginValue").attr('maxlength', '10');
+    });
+
+    $("#emailLogin").change(function () {
+        $("#lblMLogin").removeClass("required");
+        $("#lblELogin").addClass("required");
+        $("#mobilePrefix").hide();
+        $("#loginValue").attr("placeholder", "Enter email address").addClass("col-11").removeAttr("maxLength").attr("type", "text").val('');
+        //$("#loginValue").prop('type', 'text');
+        $("#loginValue").attr('maxlength', '100');
+    });
+
+    function authenticateNewEmp() {
+        var EText = $("#loginValue").val();
+        if (EText == "") {
+            $("#divMobile").show();
+            $("#loginValue").focus();
+            return false;
+        } else {
+            $("input:radio[type='radio']").prop('disabled', true);
+            $("#loginValue").prop('disabled', true);
+            $("#divMobile").hide();
+        }
+        $(".err-login").attr("hidden", true);
+        var url = $("#otp_authentication_new_emp").data("authenticate-url");
+        var isMobileLogin;
+        var isEmailLogin;
+        if ($("#mobileLogin").is(":checked")) {
+            isMobileLogin = true;
+        }
+        else {
+            isMobileLogin = false;
+        }
+
+        if ($("#emailLogin").is(":checked")) {
+            isEmailLogin = true;
+        }
+        else {
+            isEmailLogin = false;
+        }
+
+
+        var loginValue = $("#loginValue").val();
+        if ($("#emailLogin").is(":checked")) {
+            ValidateEmail(loginValue);
+        }
+        var viewModel = {
+            'isMobileLogin': isMobileLogin, 'loginValue': loginValue
+        };
+        var domainName = window.location.hostname;
+            var expiry = new Date();
+            expiry.setMinutes(expiry.getMinutes() + 55);
+            var value = '@Request.RequestContext.HttpContext.Session["AuthToken"]';
+        document.cookie = 'AuthToken' + '=' + value + ';expires=' + expiry.toGMTString(); +';Domain=' + domainName + ';path=' + window.location.pathname + ';HttpOnly;secure=true;';
+        $.ajax({
+            url: url,
+            data: JSON.stringify(viewModel),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.IsSuccess) {
+                    //$('#loginValue').show()
+                    // $("#otp_authentication_new_emp").val("Re-authenticate");
+                    $("#otp_authentication_new_emp").val("Re-send OTP");
+                    $('#otp_value_new_emp').show();
+                    $('#login_button_new_emp').show();
+                    $('#invalid_credentials_new_emp').hide();
+                    //DrawCaptcha($("#txtInputCaptchaNewEmp"));
+                    var ImgSrc = '@Url.Action("CaptchaImage")';
+                    $('#CaptchaImg2').attr('src', ImgSrc);
+                    $('#captcha_new_emp').show();
+                    $('#emp_id_new_emp_hidden').val(response.EmpId);
+                    redirectUrl = response.RedirectUrl;
+                }
+                else {
+                    if (response.IsKGIDPresent) {
+                        $("#errKGIDPresent").removeAttr("hidden");
+                    }
+                    else if (!response.IsKGIDPresent && !response.IsSuccess && response.EmpId == 0) {
+                        window.location.href = response.RedirectUrl;
+                    }
+                    else {
+                        $("input:radio[type='radio']").prop('disabled', false);
+                        $("#loginValue").prop('disabled', false);
+                        if (isMobileLogin) {
+                            $("#errMobile").removeAttr("hidden");
+                        }
+                        else if (isEmailLogin)  {
+                            $("#errEmail").removeAttr("hidden");
+                        }
+                    }
+                }
+            }, error: function (response) {
+                var _valid = result;
+            }
+        });
+    }
+
+    $('#otp_login_new_emp').click(function () {
+        debugger;
+        var captcha = undefined;
+        var SUCESS = undefined;
+
+        $('#captcha_invalid_new_emp').hide();
+        $('#otp_invalid_new_emp').hide();
+
+        var empId = $('#emp_id_new_emp_hidden').val();
+        var url = $(this).data("redirect-url");
+        url = url + "?empId=" + empId + "&loginType=New";
+
+        var otp = $('#otp_new_emp').val();
+
+        if (otpCount == 3) {
+            alert("You exceeded maximum 3 limits of wrong otps.Please try after sometime.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        }
+        else {
+
+            var txtEnteredcaptcha = $('#txtEnteredCaptchaNewEmp').val();
+            $.ajax({
+
+                url: "/Login/GetCaptcha_value",
+
+                data: JSON.stringify({ 'GetCaptcha': txtEnteredcaptcha }),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    captcha = undefined;
+
+                    captcha = result._res;
+                    SUCESS = result.match;
+                    var entCaptcha1 = $('#txtEnteredCaptchaNewEmp').val();
+                    var finalCaptcha = captcha;
+                    console.log(finalCaptcha);
+                    console.log(entCaptcha1);
+
+                    $.getJSON("../login/OTPAuthentication", { kgid: empId },
+                        function (result) {
+                            if (result == otp) {
+
+                                if (captcha == entCaptcha1 && SUCESS == true) {
+                                    window.location.href = redirectUrl;
+                                }
+                                else {
+                                    $('#captcha_invalid_new_emp').show();
+                                    $('#GetCaptcha2').click();
+                                }
+                            }
+                            else {
+                                otpCount = otpCount + 1;
+                               
+                                alert("Invalid otp. please enter valid otp.").find('.modal-content').css({ 'margin-top': '140px' });
+                                $('#otp_new_emp').val('');
+                                return false;
+                            }
+                        });
+
+
+                }
+
+            });
+        }
+
+    });
+
+    function resetNewEmpForm() {
+        $('#otp_value_new_emp').hide();
+        $('#login_button_new_emp').hide();
+        $('#invalid_credentials_new_emp').hide();
+        $('#otp_authentication_new_emp').show();
+        $('#otp_invalid_new_emp').hide();
+
+        $('#captcha_new_emp').hide();
+        $('#captcha_invalid_new_emp').hide();
+
+        $("#loginValue").val('');
+        $("#loginValue").focus();
+        $("#mobileLogin").trigger('click');
+    }
+
+    //Helper functions
+
+    function replaceMiddlePhone(string, n) {
+        var rest = string.length - n;
+        return string.slice(0, Math.ceil(rest / 2) + 0) + '*'.repeat(n) + string.slice(-Math.floor(rest / 1) + 2);
+    };
+
+    function replaceMiddleEmail(string, n) {
+        var pos = string.indexOf('@@');
+        var rest = pos - n;
+        return string.slice(0, Math.ceil(rest / 2) + 0) + '*'.repeat(n) + string.slice(-Math.floor(rest / 2) + 1);
+    };
+
+    function hideemail(target) {
+        var email = target;
+        var hiddenEmail = "";
+        for (i = 0; i < email.length; i++) {
+            if (i > 2 && i < email.indexOf("@@")) {
+                hiddenEmail += "*";
+            }
+            else {
+                hiddenEmail += email[i];
+            }
+        }
+        return hiddenEmail;
+        console.log(hiddenEmail)
+    }
+    function ReloadCaptchaCode() {
+       // DrawCaptcha($("#txtInputCaptchaNewEmp"));
+         var ImgSrc = '@Url.Action("CaptchaImage")';
+        $('#CaptchaImg2').attr('src', ImgSrc);
+    }
+    function ReloadCaptchaCodeAgency() {
+       // DrawCaptcha($("#txtInputCaptchaDept"));
+        var ImgSrc = '@Url.Action("CaptchaImage")';
+        $('#CaptchaImg').attr('src', ImgSrc);
+
+
+    }
+    function ReloadCaptchaCodeKgid() {
+       // DrawCaptcha($("#txtInputCaptchaKgid"));
+
+         var ImgSrc = '@Url.Action("CaptchaImage")';
+        $('#CaptchaImg1').attr('src', ImgSrc);
+
+
+    }
+    function ValidateEmail(inputText) {
+        var regexp = /^\S+$/
+        // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)\S*$/;
+        if (regexp.test(inputText)) {
+            $("#errEmail").attr("hidden");
+            return true;
+        }
+        else {
+            $("#errEmail").removeAttr("hidden");
+            return false;
+        }
+    }
+    //Agency Login
+    $("#btnLoginDept").click(function (e) {
+        e.preventDefault();
+        //var dialog = bootbox.dialog({
+        //    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Please wait...</p>',
+        //    closeButton: false
+        //});
+        debugger;
+        var value_code = "";
+        if ('@ViewBag.code') {
+            $('#pswkey').val('@ViewBag.code');
+            value_code = '@ViewBag.code';
+        }
+        var _forms = $("#frmDeptLogin").valid();
+        if (_forms == true) {
+            var _userName = $("#deptUserName").val();
+            var _Userpsw = $("#deptPassword").val();
+            var forms = $("#frmDeptLogin");
+            var token = $('input[name="__RequestVerificationToken"]', forms).val();
+
+            //var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            //var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var key = CryptoJS.enc.Utf8.parse(value_code);
+            var iv = CryptoJS.enc.Utf8.parse(value_code);
+
+            var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(_userName), key,
+
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+
+            $('#deptUserName').val(encryptedlogin);
+
+            var encryptedpassword = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(_Userpsw), key,
+
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            $('#deptPassword').val(encryptedpassword);
+            // var _captcha = $("#txtInputCaptchaDept").val();
+            var _captcha = "";
+            var domainName = window.location.hostname;
+            var expiry = new Date();
+            expiry.setMinutes(expiry.getMinutes() + 55);
+            var value = '@Request.RequestContext.HttpContext.Session["AuthToken"]';
+            document.cookie = 'AuthToken' + '=' + value + ';expires=' + expiry.toGMTString(); +';Domain=' + domainName + ';path=' + window.location.pathname + ';HttpOnly;secure=true;';
+            $.ajax({
+                type: "POST",
+                url: "/Login/UserLogin",
+                dataType: 'json',
+                data: {
+                    __RequestVerificationToken: token,
+                    um_user_name: $("#deptUserName").val(),
+                    um_user_password: $("#deptPassword").val(),
+                    txtEnteredCaptcha: $("#txtEnteredCaptchaDept").val(),
+                    txtInputCaptcha: _captcha,
+                    pswkey: value_code
+                    //txtCaptcha: _captcha,
+                },
+                success: function (result) {
+                    if (result.IsSuccess == "SuccessLogin") {
+                        window.location.href = result.RedirectUrl;
+                        //window.location.href = "/kgid-home/";
+                    }
+                    else if (result.IsSuccess == "WrongCaptcha") {
+                        window.location.href = result.RedirectUrl;
+                    }
+                    else if (result.IsSuccess == "InvalidLogin") {
+                        window.location.href = result.RedirectUrl;
+                    }
+                }
+            });
+        }
+        else {
+            //bootbox.alert("Please Enter all the fields")
+            bootbox.alert("Please Enter all the fields", function () {
+                window.location.reload();
+            });
+        }
+    });
+</script>

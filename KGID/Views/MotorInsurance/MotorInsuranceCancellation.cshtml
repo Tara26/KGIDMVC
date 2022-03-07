@@ -1,0 +1,137 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceCancellation
+<script src="~/Scripts/KGIDMotorInsurance/Common.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+
+@{ 
+    string url = @Request.RawUrl;
+    string[] QueryString = url.Split('/');
+}
+
+<form id="FormCancelDetails" enctype="multipart/form-data" class="col-12">
+
+    @Html.HiddenFor(m => m.MI_App_Reference_ID, new { id = "hdnmicnclappid" })
+    @Html.HiddenFor(m => m.App_Proposer_ID, new { id = "hdnmicnclempid" })
+
+    @Html.Hidden("category", QueryString[2])
+    <br />
+
+   
+    <div class="row" >
+        <div class="col-2" id="divVehicletext" >
+            <br /><h6>Vehicle No. /Policy No. </h6>
+        </div>
+       
+        <div class="col-2">
+            @Html.TextBoxFor(model => model.miVehicleNo, new { @class = "form-control alphanumericOnly ", @style = "text-transform:uppercase", @id = "txtVehicleNo", onblur = "CheckValidVehicleNo()", @maxlength = "10" })
+            <label id="errVehcileNo" class="col-form-label-sm text-danger err" hidden>Please enter Vehicle No.</label>
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="form-group col-12">
+                <table id="tblVehicleDetails" class="table table-striped table-bordered" style="width:100%;display:none;">
+                    <thead>
+                        <tr>
+                            <th hidden><label class="Enlan">Vehicle Details Id</label></th>
+                            <th><label class="Enlan">Application Id</label></th>
+                            <th><label class="Enlan">Chassis No.</label></th>
+                            <th><label class="Enlan"> Registration No.</label></th>
+                            <th><label class="Enlan"> Policy From Date</label></th>
+                            <th><label class="Enlan"> Policy To Date</label></th>
+                            <th><label class="Enlan"> Status</label></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@if (Model.VehiclePolicyDetails != null)
+                            {
+                                foreach (var item in Model.VehiclePolicyDetails)
+                                {
+                                    <tr>
+                                        <td hidden>@item.vehicle_application_id</td>
+                                        <td hidden>@item.vehicle_details_id</td>
+                                        <td>@item.vehicle_chassis_no</td>
+                                        <td>@item.vehicle_registration_no</td>
+                                        <td>@item.policy_from_date</td>
+                                        <td>@item.policy_to_date</td>
+                                        <td>@item.status</td>
+                                    </tr>
+                                }
+                            }*@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="divDoctab" style="display:none">
+        <div class="row">
+            <div class="col-2">
+                <br /><h6>Reason of Cancellation </h6>
+            </div>
+            <div class="col-3">
+
+                @Html.DropDownListFor(model => model.reasonID, new SelectList(Model.cancelReasonList, "Value", "Text"), "-- Select Reason --", new { @class = "form-control", id = "ddlCancelReasonList", @onchange = "ShowUploadDocTab(this.id)" })
+                <label id="errReasonList" class="col-form-label-sm text-danger err" hidden>Please select reason.</label>
+            </div>
+            <div class="col-8">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row" id="AuctionUpload" style="display:none">
+        <div class="col-2">
+            <br />
+            <h6>Auction Details:</h6>
+        </div>
+        <div class="col-6">
+            @if (!string.IsNullOrEmpty(Model.AuctionDetailsDoc_filename))
+            {
+                <label class="col-12 prevdoc" id="txtAuctionFileName">Previously uploaded Document: <a href="@Model.AuctionDetailsDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>
+                @Html.TextBoxFor(model => model.AuctionDetailsDoc_filename, new { @id = "txtHAuctionDetails", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+
+            }
+            @Html.TextBoxFor(m => m.AuctionDetailsDoc, new { @id = "txtAuctionDetailsDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" })  @*//, @onchange = "DocFileChange('txtProposalDocNewPurchase','errProposalDocNewPurchase')"*@
+            <label id="errAuctionDetails" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+        </div>
+    </div>
+    <div class="form-group row" id="VIRTOUpload" style="display:none">
+        <div class="col-2">
+            <br />
+            <h6>Vehicle Inspection Report by RTO:</h6>
+
+        </div>
+        <div class="col-6">
+            @if (!string.IsNullOrEmpty(Model.VIReportDoc_filename))
+            {
+                <label class="col-12 prevdoc" id="txtVIRptDocFileName">Previously uploaded Document: <a href="@Model.VIReportDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>
+                @Html.TextBoxFor(model => model.VIReportDoc_filename, new { @id = "txtHVIRptDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+
+            }
+            @Html.TextBoxFor(m => m.VIReportDoc, new { @id = "txVIReprtDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" })
+            <label id="errVIRptDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+        </div>
+    </div>
+    <div class="form-group row" id="NOCUpload" style="display:none">
+        <div class="col-2">
+            <br />
+            <h6>NOC stating clearance of vehicle purchase loan (MCA) by DDO</h6>
+
+        </div>
+        <div class="col-6">
+            @if (!string.IsNullOrEmpty(Model.NOCDoc_filename))
+            {
+                <label class="col-12 prevdoc" id="txtNOCDocFileName">Previously uploaded Document: <a href="@Model.NOCDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>
+                @Html.TextBoxFor(model => model.NOCDoc_filename, new { @id = "txtHNOCDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+            }
+            @Html.TextBoxFor(m => m.NOCDoc, new { @id = "txtNOCDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" })
+            <label id="errNOCDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+        </div>
+    </div>
+    <input type="button" id="btnCancelMIPolicy" value="Cancel Policy" class="btn btn-primary" onclick="MICancelApplication();" style="display:none;" />
+
+
+</form>
+

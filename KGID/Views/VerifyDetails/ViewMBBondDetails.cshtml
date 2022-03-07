@@ -1,0 +1,328 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_DDOVerificationDetailsMI
+@{
+    ViewBag.Title = "ViewMBBondDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    #tblMBBondDetails_wrapper {
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Motor Insurance Bond</h6>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblMBBondDetails_wrapper">
+                            <thead class="t_head">
+                                <tr>
+                                    @*<th>Employee Name</th>*@
+                                    @*<th>Reference Number</th>*@
+                                    <th>Policy Number</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>MB Bond</th>
+                                    <th>View</th>
+                                    @*<th>Status</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PolicyPremiumDetailMI != null && Model.PolicyPremiumDetailMI.Count > 0)
+                                {
+                                    foreach (var item in Model.PolicyPremiumDetailMI)
+                                    {
+                                        <tr>
+                                            @*<td>@item.Name</td>*@
+                                            <td>@item.PolicyNumber</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>
+                                                @if (item.Status == "Approved")
+                                                {
+                                                    if (item.MBSignedBondDocPath == "" || item.MBSignedBondDocPath == null)
+                                                    {
+                                                        @*<a class="a123" href="NBSignBond(@item.ApplicationId,@item.EmployeeCode)">Sign NB Bond</a>*@
+                                                        <a class="MBSignBond" href="javascript:;" data-appid="@item.ApplicationId" data-empid="@item.EmployeeCode"><p style="color:orangered;text-decoration:underline">Sign MB Bond</p></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="OpenDocPath" href="javascript:;" data-path="@item.MBSignedBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View MB Bond</a>
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @*<a href="/mi-soa-vmib-apln/empty/@item.ApplicationNumber/@item.ApplicationId/@item.EmployeeCode" target="_blank">View</a>*@
+                                                <a class="OpenDocPath" style="text-decoration:underline;color:blue" href="javascript:;" data-path="@item.MBBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View Unsign Bond</a>
+                                            </td>
+                                            @*<td>@item.Status</td>*@
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Motor Insurance Renewal Bond</h6>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblMBRenewalBondDetails_wrapper">
+                            <thead class="t_head">
+                                <tr>
+                                    @*<th>Employee Name</th>*@
+                                    @*<th>Reference Number</th>*@
+                                    <th>Policy Number</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>MB Bond</th>
+                                    <th>View</th>
+                                    @*<th>Status</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.RenewalPolicyPremiumDetailMI != null && Model.RenewalPolicyPremiumDetailMI.Count > 0)
+                                {
+                                    foreach (var item in Model.RenewalPolicyPremiumDetailMI)
+                                    {
+                                        <tr>
+                                            @*<td>@item.Name</td>*@
+                                            <td>@item.PolicyNumber</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>
+                                                @if (item.Status == "Approved")
+                                                {
+                                                    if (item.MBSignedBondDocPath == "" || item.MBSignedBondDocPath == null)
+                                                    {
+                                                        @*<a class="a123" href="NBSignBond(@item.ApplicationId,@item.EmployeeCode)">Sign NB Bond</a>*@
+                                                        <a class="MBSignBond" href="javascript:;" data-appid="@item.ApplicationId" data-empid="@item.EmployeeCode"><p style="color:orangered;text-decoration:underline">Sign MB Bond</p></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="OpenDocPath" href="javascript:;" data-path="@item.MBSignedBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View MB Bond</a>
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @*<a href="/mi-soa-vmib-apln/empty/@item.ApplicationNumber/@item.ApplicationId/@item.EmployeeCode" target="_blank">View</a>*@
+                                                <a class="OpenDocPath" style="text-decoration:underline;color:blue" href="javascript:;" data-path="@item.MBBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View Unsign Bond</a>
+                                            </td>
+                                            @*<td>@item.Status</td>*@
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/DigitalSignCerti.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblMBBondDetails_wrapper").DataTable({
+            ordering: false
+        });
+        $("#tblMBRenewalBondDetails_wrapper").DataTable({
+            ordering: false
+        });
+    });
+    $(function () {
+        $('.OpenDocPath').click(function () {
+            var $this = $(this);
+            var docpath = $this.data('path');
+            var policynumber = $this.data('policynumber');
+            var doctype = $this.data('doctype');
+            $.ajax({
+                url: '/VerifyData/PrintFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var path = result.Result
+                    //const linkSource = `data:application/pdf;base64,${path}`;
+                    //const downloadLink = document.createElement("a");
+                    if (doctype == "Bond") {
+                        const fileName = "Bond_" + policynumber + ".pdf";
+                        //downloadLink.href = linkSource;
+                        //downloadLink.download = fileName;
+                        //downloadLink.click();
+                        // Open New Tab
+                        printPreview(path)
+                        //
+                        delete doctype;
+                    }
+                }
+            });
+        });
+    });
+    function printPreview(data) {
+        var type = 'application/pdf';
+        let blob = null;
+        const blobURL = URL.createObjectURL(pdfBlobConversion(data, 'application/pdf'));
+        const theWindow = window.open(blobURL);
+        const theDoc = theWindow.document;
+        const theScript = document.createElement('script');
+        function injectThis() {
+            window.print();
+        }
+        theScript.innerHTML = 'window.onload = ${injectThis.toString()};';
+        theDoc.body.appendChild(theScript);
+    }
+    //converts base64 to blob type for windows
+    function pdfBlobConversion(b64Data, contentType) {
+        contentType = contentType || '';
+        var sliceSize = 512;
+        b64Data = b64Data.replace(/^[^,]+,/, '');
+        b64Data = b64Data.replace(/\s/g, '');
+        var byteCharacters = window.atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset = offset + sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        var blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+    //Added by Venkatesh
+    $(function () {
+        $('.MBSignBond').click(function () {
+            debugger
+            var $this = $(this);
+            var ApplicationID = $this.data('appid');
+            var EmployeeID = $this.data('empid');
+            if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+                $("#ResultDisplay").html("Please Download Chrome Extension.");
+                return;
+            }
+            //////////////////////////////
+            /// DSC SIGN USER Validation
+            DSCSignRegSignedExtension.getSelectedCertificate()       //or "SHA256"
+                .then(
+                    function (CertInfo) {
+                        debugger;
+                        //Success returns Certificate Subject and Thumbprint
+                        //var data = JSON.parse(CertInfo);
+                        //alert("CertThumbPrint received " + data.CertThumbPrint);
+                        //alert(SignData);
+                        var jobj = JSON.parse(CertInfo);
+                        console.debug(CertInfo);
+                        $("#SignedToken").val(jobj.PublicKey);
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/Employee/DSCSignInDIO",
+                            type: "POST",
+                            data: JSON.stringify({ "PublicKey": jobj.PublicKey }),
+                            async: false,
+                            contentType: 'application/json; charset=utf-8',
+                            processData: false,
+                            cache: false,
+                            success: function (data) {
+                                //Signing Operation Completed
+
+                                if (data.IsSuccess == true) {
+                                    alertify.success("DSC Mapping Available..");
+                                    ///////////////////////////////
+                                    var RefID = ApplicationID;//Application ID
+                                    var EmpID = EmployeeID;//Employee ID
+                                    var UnSignedWS = "https://49.206.243.82/VerifyDetails/MIGetFileForSigning";
+                                    var SignedWS = "https://49.206.243.82/VerifyDetails/MIUploadSignedFile";
+                                    //var UnSignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/MIGetFileForSigning";
+                                    //var SignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/MIUploadSignedFile";
+                                    //var UnSignedWS = "http://localhost:52375/VerifyDetails/MIGetFileForSigning";
+                                    //var SignedWS = "http://localhost:52375/VerifyDetails/MIUploadSignedFile";
+                                    //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+                                    //------------------------------------------//
+                                    DSCSignRegSignedExtension.misignPdfHash1(RefID, EmpID, UnSignedWS, SignedWS)
+                                        .then(
+                                            function (CertInfo) {
+                                                debugger
+                                                //Success returns Certificate Subject and Thumbprint
+                                                var data = JSON.parse(CertInfo);
+                                                //alert(data);
+                                                if (data == "True") {
+                                                    console.debug(data);
+                                                    alertify.alert("Bond Generated", "Bond Signing Success..!", function () {
+                                                        window.location.reload();
+                                                    }).setHeader("Attention");
+                                                }
+                                                else if (data == "false") {
+                                                    alertify.error("DSC PDF SignIn Failed..!");
+                                                    alertify.alert("Bond Not Generated", "Bond SigningFailed..! Retry Again..!", function () {
+                                                        window.location.reload();
+                                                    }).setHeader("Attention");
+                                                }
+                                                else if (data == "Failed Code - 101") {
+                                                    alertify.error("DSC PDF SignIn Failed..!");
+                                                    alertify.alert("Bond Not Generated", "Bond Signing Failed..! Retry Again..!", function () {
+                                                        window.location.href = reload();
+                                                    }).setHeader("Attention");
+                                                }
+
+                                            },
+                                            function (errmsg)       //Signing Host Returned Error.
+                                            {
+                                                debugger
+                                                alertify.error("Bond Signing Failed..! Retry Again..!");
+                                            }
+                                        );
+
+                                }
+                                else if (data.IsSuccess == false) {
+
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                                else {
+
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").html(errmsg.message);
+                    }
+                );
+
+        });
+    });
+</script>

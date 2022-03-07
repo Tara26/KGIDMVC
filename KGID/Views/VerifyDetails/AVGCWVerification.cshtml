@@ -1,0 +1,13 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_DeptVerificationDetails
+
+@{
+    ViewBag.Title = "AVG Case worker verification";
+}
+
+<div id="divNeedHealthOpinion">
+    @{
+        Html.RenderPartial("_CWHealthOpinion", Model);
+    }
+</div>
+
+<script src="~/Scripts/VerifyDetails/AVGCWVerification.js"></script>

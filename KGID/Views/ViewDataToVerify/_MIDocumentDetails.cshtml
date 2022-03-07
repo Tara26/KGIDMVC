@@ -1,0 +1,527 @@
+﻿
+
+
+
+@model KGID_Models.KGIDMotorInsurance.VM_MI_Upload_Documents
+
+<style>
+    label a {
+        text-decoration-line: underline;
+        color: blue;
+    }
+</style>
+<div class="col-md-12">
+
+    <div class="row">
+
+        <form id="FormMIDocumentDetails" enctype="multipart/form-data" class="col-12">
+
+            @{
+                if (Model.MIPAgetype == "ViewRenewal")
+                {
+                    if (!string.IsNullOrEmpty(Model.RenewalFitnessCertificateRTODoc_filename))
+                    {
+                        <div class="" id="divRenDoc" style="padding: 10px">
+                            <div class="form-group col-form-label-sm col-lg-4 mb-0" style="float: none;">
+                                @*<div class="custom-control custom-checkbox small" style="display:none">
+                                    <input type="radio" class="custom-control-input" name="loginType" id="chkNewPurchasedVehicle" checked="">
+                                    <label>Renewal Upload Documents</label>
+                                </div>*@
+                               
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Emission Certificate:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.RenewalFitnessCertificateRTODoc_filename))
+                                    {
+
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.RenewalFitnessCertificateRTODoc_filename" style="color: blue;">Click Here</a>
+                                        @*<label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">   <a class="OpenDocPath" href="javascript:;" data-path="@Model.ProposalDocNewPurchase_filename" data-doctype="NewDocument">Click Here</a></label>*@
+                                    }
+                                </div>
+                            </div>
+                            </div>
+                            }
+
+                            }
+                            else
+                            {
+
+                            if (!string.IsNullOrEmpty(Model.GovtSanctionDoc_filename))
+                            {
+                            <div class="" id="NewPurchasedVehicle" style="padding: 10px">
+                                <div class="form-group col-form-label-sm col-lg-4 mb-0" style="float: none;">
+                                    <div class="custom-control custom-checkbox small" style="display:none">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkNewPurchasedVehicle" checked="">
+                                        <label class="custom-control-label" id="lblDepartment">New Purchased Vehicle</label>
+                                    </div>
+                                    <label class="" id="lblDepartment"><b style="margin-left: -12px;">New Purchased Vehicle</b></label>
+                                </div>
+                                <div class="form-group row"  style="display:none">
+                                    <div class="col-4">
+
+
+                                        <b>Proposal Form:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocNewPurchase_filename))
+                                        {
+
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.ProposalDocNewPurchase_filename" style="color: blue;">Click Here</a>
+                                            @*<label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">   <a class="OpenDocPath" href="javascript:;" data-path="@Model.ProposalDocNewPurchase_filename" data-doctype="NewDocument">Click Here</a></label>*@
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Sanction Letter from Government:</b>
+                                    </div>
+                                    <div class="col-6">
+
+                                        @if (!string.IsNullOrEmpty(Model.GovtSanctionDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtGovtSanctionDocFileName"> <a href="@Model.GovtSanctionDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.GovtSanctionDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Tax Invoice:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProformaInvoiceDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtProformaInvoiceDocFileName"> <a href="@Model.ProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.ProformaInvoiceDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Sale Certificate:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.PSaleCertificateDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtProformaInvoiceDocFileName"> <a href="@Model.ProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.PSaleCertificateDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            <div class="form-group row" >
+                                <div class="col-4">
+
+                                    <b>Other Documents:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.OtherDocument1_filename))
+                                    {
+
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.OtherDocument1_filename" style="color: blue;">Click Here</a>
+                                        @*<label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">   <a class="OpenDocPath" href="javascript:;" data-path="@Model.ProposalDocNewPurchase_filename" data-doctype="NewDocument">Click Here</a></label>*@
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                   else if (!string.IsNullOrEmpty(Model.PIVGovtSanctionDoc_filename))
+                    {
+                        <div class="" id="PreviouslyInsuredVehicle" style="padding: 10px">
+                            <div class="form-group col-form-label-sm col-lg-4 mb-0" style="float: none;">
+                                <div class="custom-control custom-checkbox small" style="display:none">
+                                    <input type="radio" class="custom-control-input" name="loginType" id="chkPreviouslyInsuredVehicle" checked="">
+                                    <label class="custom-control-label" id="lblDepartment">Previously Insured Vehicle</label>
+                                </div>
+                                <label class="" id="lblDepartment"><b style="margin-left: -12px;">Previously Insured Vehicle</b></label>
+                            </div>
+                            <div class="form-group row" >
+                                <div class="col-4">
+
+                                    <b>Old Insurance Certificate:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.OldInsuranceCertificate_filename))
+                                    {
+
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.OldInsuranceCertificate_filename" style="color: blue;">Click Here</a>
+                                        @*<label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">   <a class="OpenDocPath" href="javascript:;" data-path="@Model.ProposalDocNewPurchase_filename" data-doctype="NewDocument">Click Here</a></label>*@
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Sanction Letter from Government:</b>
+                                </div>
+                                <div class="col-6">
+
+                                    @if (!string.IsNullOrEmpty(Model.PIVGovtSanctionDoc_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtGovtSanctionDocFileName"> <a href="@Model.GovtSanctionDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.PIVGovtSanctionDoc_filename" style="color: blue;">Click Here</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Tax Invoice:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.PIVProformaInvoiceDoc_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtProformaInvoiceDocFileName"> <a href="@Model.ProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.PIVProformaInvoiceDoc_filename" style="color: blue;">Click Here</a>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Sale Certificate:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.PIVPSaleCertificateDoc_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtProformaInvoiceDocFileName"> <a href="@Model.ProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.PIVPSaleCertificateDoc_filename" style="color: blue;">Click Here</a>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="form-group row" >
+                                <div class="col-4">
+
+                                    <b>Other Documents:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.OtherDocument4_filename))
+                                    {
+
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.OtherDocument4_filename" style="color: blue;">Click Here</a>
+                                        @*<label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">   <a class="OpenDocPath" href="javascript:;" data-path="@Model.ProposalDocNewPurchase_filename" data-doctype="NewDocument">Click Here</a></label>*@
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                   else if (!string.IsNullOrEmpty(Model.DonationDoc_filename))
+                    {
+                        <div class="user" id="DonatedVehicle" style="padding: 10px;">
+                            <div class="row form-group">
+                                <label class="control-label col-3 required" style="flex: 0 0 0%;"></label>
+                                <div class="form-group col-form-label-sm col-lg-3 mb-0" style="display:none">
+                                    <div class="custom-control small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkDonatedVehicle" style="display:none">
+                                        <label class="custom-control-label " for="chkDonatedVehicle" id="lblKGID">Donated Vehicle</label>
+                                    </div>
+
+                                    </div>
+                                    <label class="" id=""><b style="margin-left: -20px;font-size:16px">Donated Vehicle</b></label>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Letter of Donation:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.DonationDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtDonationDocFileName"> <a href="@Model.DonationDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.DonationDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row"  style="display:none">
+                                    <div class="col-4">
+
+                                        <b>Proposal Form :</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocDonatedVehicle_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtProposalDocDonatedVehicleFileName"> <a href="@Model.ProposalDocDonatedVehicle_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.ProposalDocDonatedVehicle_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Sale Certificate:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.SaleCertificateDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtSaleCertificateDocFileName"> <a href="@Model.SaleCertificateDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.SaleCertificateDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Tax Invoice:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.TaxInvoiceDoc_filename))
+                                        {
+                                            @*<label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName"> <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.TaxInvoiceDoc_filename" style="color: blue;">Click Here</a>
+                                        }
+
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.DonatedEmissionCertificate_filename))
+                            {
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Emission Certificate:</b>
+                                    </div>
+                                    <div class="col-6">
+
+                                        @*<label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName"> <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.DonatedEmissionCertificate_filename" style="color: blue;">Click Here</a>
+
+
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Other Documents:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.OtherDocument2_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName"> <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.OtherDocument2_filename" style="color: blue;">Click Here</a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    else if (!string.IsNullOrEmpty(Model.cCertificateDoc_filename))
+                    {
+                        <div class="user" id="SeizedVehicle" style="padding: 10px;">
+                            <div class="row form-group">
+                                <label class="control-label col-3 required" style="flex: 0 0 0%;"></label>
+                                <div class="form-group col-form-label-sm col-lg-5 mb-0" style="display:none">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkSeizedVehicle" style="display:none">
+                                        <label class="custom-control-label " for="chkSeizedVehicle" id="lblNewEmp">Seized Vehicle</label>
+                                    </div>
+                                </div>
+                                <label class="" id="lblDntDepartment"><b style="margin-left: -20px;font-size:16px">Seized Vehicle</b></label>
+                            </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>“B” Extract from RTO- Certificate:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.cCertificateDoc_filename))
+                                        {
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.cCertificateDoc_filename" style="color: blue;">Click Here</a>
+                                            @*<label class="col-12 prevdoc" id="txtcCertificateDocFileName"> <a href="@Model.cCertificateDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="form-group row"  style="display:none">
+                                    <div class="col-4">
+
+                                        <b>Proposal Form:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocSeizedVehicle_filename))
+                                        {
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.ProposalDocSeizedVehicle_filename" style="color: blue;">Click Here</a>
+                                            @*<label class="col-12 prevdoc" id="txtProposalDocSeizedVehicleFileName"> <a href="@Model.ProposalDocSeizedVehicle_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>RTO certificate on vehicle value:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.RTOcertificateDoc_filename))
+                                        {
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.RTOcertificateDoc_filename" style="color: blue;">Click Here</a>
+                                            @*<label class="col-12 prevdoc" id="txtRTOcertificateDocFileName"> <a href="@Model.RTOcertificateDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <b>Fitness Certificate from RTO:</b>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.FitnessCertificateRTODoc_filename))
+                                        {
+                                            <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.FitnessCertificateRTODoc_filename" style="color: blue;">Click Here</a>
+                                            @*<label class="col-12 prevdoc" id="txtRTOcertificateDocFileName"> <a href="@Model.RTOcertificateDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        }
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Emission Certificate:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.SeizedEmissionCertificate_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName"> <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.SeizedEmissionCertificate_filename" style="color: blue;">Click Here</a>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Other Documents:</b>
+                                </div>
+                                <div class="col-6">
+                                    @if (!string.IsNullOrEmpty(Model.OtherDocument3_filename))
+                                    {
+                                        @*<label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName"> <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+                                        <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.OtherDocument3_filename" style="color: blue;">Click Here</a>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                   else if (!string.IsNullOrEmpty(Model.AuctionDoc_filename))
+                    {
+                        <div class="" id="AuctionDoccerti" style="padding: 10px">
+
+                            <div class="form-group row">
+                                <div class="col-4">
+
+                                    <b>Auction Certificate:</b>
+                                </div>
+                                <div class="col-6">
+
+                                    <a class="viewuploadeddoc col-6" href="javascript:void(0)" data-path="@Model.AuctionDoc_filename" style="color: blue;">Click Here</a>
+                                    @*<label class="col-12 prevdoc" id="txtRTOcertificateDocFileName"> <a href="@Model.RTOcertificateDoc_filename" target="_blank" class="doc-uploaded">Click Here</a></label>*@
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    }
+                }
+
+
+
+                            }
+                    </form>
+
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+     $('#NewPurchasedVehicle').hide();
+        $('#DonatedVehicle').hide();
+        $('#SeizedVehicle').hide();
+        var NewPurchasedVehicle = '@Model.GovtSanctionDoc_filename';
+        var DonatedVehicle = '@Model.DonationDoc_filename';
+         var SeizedVehicle = '@Model.cCertificateDoc_filename';
+
+        if (NewPurchasedVehicle != null && NewPurchasedVehicle !="") {
+            document.getElementById("chkNewPurchasedVehicle").checked = "true";
+            $('#NewPurchasedVehicle').show();
+            $("#IsNewPurchase").prop("checked", "checked");
+
+        }
+        else if (DonatedVehicle != null && DonatedVehicle != "") {
+            document.getElementById("chkDonatedVehicle").checked = "true";
+            $('#DonatedVehicle').show();
+            $("#IsDonatedVehicle").prop("checked", "checked");
+        }
+        else if (SeizedVehicle != null && SeizedVehicle != "") {
+            document.getElementById("chkSeizedVehicle").checked = "true";
+            $('#SeizedVehicle').show();
+            $("#IsSeizedVehicle").prop("checked", "checked");
+        }
+
+    if ($("#chkNewPurchasedVehicle").is(":checked")) {
+        $('#DonatedVehicle').hide();
+        $('#SeizedVehicle').hide();
+        $('#NewPurchasedVehicle').show();
+    };
+
+    if ($("#chkDonatedVehicle").is(":checked")) {
+        $('#DonatedVehicle').show();
+        $('#SeizedVehicle').hide();
+        $('#NewPurchasedVehicle').hide();
+
+    }
+    if ($("#chkSeizedVehicle").is(":checked")) {
+        $('#DonatedVehicle').hide();
+        $('#SeizedVehicle').show();
+        $('#NewPurchasedVehicle').hide();
+
+    };
+
+   $('.viewuploadeddoc').click(function () {
+        debugger
+        var $this = $(this);
+        var docpath = $this.data('path');
+        OpenSidebar(docpath)
+   });
+    function OpenSidebar(filename) {
+        $("#iViewApp")[0].src = window.location.origin + filename;
+        $("#viewSidebar")[0].style.display = "block";
+        $("#viewSidebar")[0].style.width = "500px";
+        $("#viewSidebar")[0].style.height = "67%";
+        $("#applicationFormTab")[0].style.marginRight = "500px";
+        $("#viewSidebar")[0].style.marginTop = "100px";
+    }
+
+
+</script>

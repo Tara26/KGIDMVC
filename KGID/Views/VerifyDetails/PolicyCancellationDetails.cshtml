@@ -1,0 +1,117 @@
+﻿@model KGID_Models.NBApplication.VM_PolicyCancellationDetails
+@{
+    ViewBag.Title = "Policy Cancellation Details";
+}
+
+<style>
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    table td {
+        padding: 4px !important;
+    }
+
+    .stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+    }
+
+    .in-s {
+        height: 25px !important;
+        width: 70%;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-s-r {
+        height: 25px !important;
+        padding: 3px;
+        font-size: 12px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <label class="knlan control-label"><b>ನೀತಿ ರದ್ದತಿ ವಿನಂತಿ</b></label>
+                    <label class="Enlan control-label"><b>Policy Cancellation Request</b></label>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblApplicationStatus" cellspacing="0">
+                            <thead style="background: #308385;color: #fff;">
+                                <tr>
+                                    <th><label class="Enlan">Name</label><label class="knlan">ಹೆಸರು</label></th>
+                                    <th><label class="Enlan">Application Reference Number</label><label class="knlan">ಅಪ್ಲಿಕೇಶನ್ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ</label></th>
+                                    <th><label class="Enlan">Cancelled Date</label><label class="knlan">ರದ್ದುಪಡಿಸಿದ ದಿನಾಂಕ</label></th>
+                                    <th><label class="Enlan">Employee Type</label><label class="knlan">ನೌಕರರ ಪ್ರಕಾರ</label></th>
+                                    <th><label class="Enlan">Status</label><label class="knlan">ಸ್ಥಿತಿ</label></th>
+                                    <th><label class="Enlan">Action</label><label class="knlan">ಕ್ರಿಯೆ</label></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.listPolicyCancelDetails.Count > 0)
+                                {
+                                    foreach (var item in Model.listPolicyCancelDetails)
+                                    {
+                                        <tr>
+                                            <td>@item.EmployeeName</td>
+                                            <td>@item.ApplicationReferenceNo</td>
+                                            <td>@item.CreatedDate</td>
+                                            <td>@item.EmployeeType</td>
+                                            <td>@item.Status</td>
+                                            <td>
+                                                @if (item.Type == "DDO")
+                                                {
+                                                    <a onclick="CancelApplication(@item.ApplicationID,@item.EmployeeID,'Cancel','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Approve</a>
+                                                    <a onclick="CancelApplication(@item.ApplicationID,@item.EmployeeID,'Forward','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Forward</a>
+                                                }
+                                                else
+                                                {
+                                                    <a onclick="CancelApplication(@item.ApplicationID,@item.EmployeeID,'Cancel','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Approve</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblApplicationStatus").DataTable();
+    });
+    function CancelApplication(ApplicationId, EmployeeId, Action, Type) {
+        alertify.confirm((Action == "Cancel") ? "Are you sure to approve this policy cancellation" : "Are you sure to forward this policy cancellation request to DIO", function () {
+            $.ajax({
+                type: 'POST',
+                url: '/VerifyDetails/NBAppCancelRequestAction',
+                data: JSON.stringify({ 'AppId': ApplicationId, 'EmpId': EmployeeId, 'Action': Action }),
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "/kgid-c-req?Type=" + Type;
+                    }
+                    else
+                        alertify.error("Error occured in sending cancellation request");
+                }
+            })
+        }).setHeader("Confirmation");
+    }
+</script>

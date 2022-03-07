@@ -1,0 +1,868 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsurancePolicyPrintDetails
+@{
+    ViewBag.Title = "PrintMIBond";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    label {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="row" id="divSOPDetails">
+    <form id="FormSOPDetails" enctype="multipart/form-data" class="col-12">
+        <section>
+            <div class="form-group col-12">
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12" style="margin-top:5px; margin-bottom:5px">
+                        <h5 style="text-align:center; color: #ff0000; font-family:'Times New Roman'">
+                            KARNATAKA GOVERNMENT INSURANCE DEPARTMENT, MOTOR BRANCH : BENGALURU - 560 001<br />
+                            CERTIFICATE OF INSURANCE CUM POLICY SCHEDULE
+                        </h5>
+                        <center><span style="margin-top:5px;">Phone No. : 080-22536163/164/165, Fax No. : 080-22867575, Email : mtb-kgid@karnataka.gov.in</span></center>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Section Code : 3
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Certificate No. :
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Policy No. @Html.DisplayFor(model => model.policy_number)
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Policy Type : Package Policy
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        CQ/DD/Challan No. :
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Date : @DateTime.Now.Date.ToShortDateString()
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        Name and Address of Insured
+                        <br /><br />
+                    </div>
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        Premium Paid Rs. <span style="border-bottom: 1px solid black;padding-left: 5px; padding-right: 5px"> @Html.DisplayFor(model => model.premium)</span>
+                        <br /><br />
+                        Risk From Midnight On : <span style="border-bottom: 1px solid black; padding-left: 0px">
+                            @if (@Model.from_date.Value != null)
+                            {@Model.from_date.Value.ToString("dd/MM/yyyy")}
+                        else
+                        {@Html.DisplayFor(model => model.from_date)}
+                        </span>
+                        <br /><br />
+                        To Midnight On : <span style="border-bottom: 1px solid black; padding-left: 0px">
+                            @if (@Model.to_date.Value != null)
+                            {@Model.to_date.Value.ToString("dd/MM/yyyy")}
+                        else
+                        {@Html.DisplayFor(model => model.to_date)}
+                        </span>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        Registration No. :
+                    </div>
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        Make :
+                    </div>
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        Year of Manufacture : @Html.DisplayFor(model => model.year_of_manufacturer)
+                    </div>
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        C.C. : @Html.DisplayFor(model => model.cubic_capacity)
+                    </div>
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        GVW : @Html.DisplayFor(model => model.vehicle_weight)
+                    </div>
+                    <div class="col-2" style="margin-top:10px; margin-bottom:10px;">
+                        Seating Capacity : @Html.DisplayFor(model => model.seating_capacity_including_driver)
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Engine No. : @Html.DisplayFor(model => model.engine_no)
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Chassis No. : @Html.DisplayFor(model => model.chasis_no)
+                    </div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        Zone :
+                    </div>
+                </div>
+                <!--//IDV Details Start// -->
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12">
+                        <table width="100%" style="margin-top:10px; margin-bottom:10px;">
+
+                            <tr>
+                                <td>Insured's Declared Value</td>
+                                <td>Side Car</td>
+                                <td>Non-Electrical Accessories</td>
+                                <td>Electrical Accessories</td>
+                                <td>CNG Unit/LPG Unit</td>
+                                <td>Total</td>
+                            </tr>
+                            <tr><td><br></td></tr>
+                            <tr>
+                                <td> Rs. <u>@Html.DisplayFor(model => model.insured_declared_value_amount)</u></td>
+                                @if (Model.side_car_trailer_amount != null)
+                                {
+                                    <td> Rs. <u>@Html.DisplayFor(model => model.side_car_trailer_amount)</u></td>
+                                }
+                                else
+                                {
+                                    <td>Rs. <span style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span></td>
+
+                                }
+                                @if (Model.non_electrical_accessories_amount != null)
+                                {
+                                    <td> Rs. <u>@Html.DisplayFor(model => model.non_electrical_accessories_amount)</u></td>
+                                }
+                                else
+                                {
+                                    <td>Rs. <span style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span></td>
+
+                                }
+                                @if (Model.electrical_accessories_amount != null)
+                                {
+                                    <td> Rs. <u>@Html.DisplayFor(model => model.electrical_accessories_amount)</u></td>
+                                }
+                                else
+                                {
+                                    <td>Rs. <span style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span></td>
+
+                                }
+                                @if (Model.value_of_cng_lpg_amount != null)
+                                {
+                                    <td> Rs. <u>@Html.DisplayFor(model => model.value_of_cng_lpg_amount)</u></td>
+                                }
+                                else
+                                {
+                                    <td>Rs. <span style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span></td>
+
+                                }
+                                <td> Rs. <u>@Html.DisplayFor(model => model.total_amount)</u></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!--//IDV Details END//-->
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12" style="margin-top:10px; margin-bottom:10px;">
+                        <h5 style="text-align:center">SCHEDULE OF PREMIUM</h5>
+                    </div>
+                </div>
+                <!--//Premium Calculation Start// -->
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-6" style="margin-top:10px;">
+                        <b>A: OWN DAMAGES</b>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Basic Premium
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtbp" class="form-control" readonly />*@
+                                Rs. <span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                @*<br />Add (@Html.DisplayFor(model => model.own_damage_value).ToString("0.000"))% on IDV*@
+                                <br />Add (@if (@Model.own_damage_value != null)
+                                {@Model.own_damage_value.Value.ToString("0.000")}
+                            else
+                            {@Html.DisplayFor(model => model.own_damage_value)})% on IDV
+
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtbpidv" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtbpidv"></label></u>*@
+                                Rs. <span id="txtbpidv" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtidvsubtot" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtidvsubtot"></label></u>*@
+                                Rs. <span id="txtidvsubtot" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />O.D. Premium
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtodp" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtodp"></label></u>*@
+                                Rs. <span id="txtodp" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Less Govt Rebate(20)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlgrod" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlgrod"></label></u>*@
+                                Rs. <span id="txtlgrod" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtrebatetotod" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtrebatetotod"></label></u>*@
+                                Rs. <span id="txtrebatetotod" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Add Electrical Accessories
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txteleacc" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txteleacc"></label></u>*@
+                                Rs. <span id="txteleacc" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />LPG Kit Amount ()%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlpgkitod" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlpgkitod"></label></u>*@
+                                Rs. <span id="txtlpgkitod" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Imported Vehicles ()%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtiv" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtiv"></label></u>*@
+                                Rs. <span id="txtiv" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Fibre Glass Fuel Tank
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtfgft" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtfgft"></label></u>*@
+                                Rs. <span id="txtfgft" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Driving Institution (1)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtdiod" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtdiod"></label></u>*@
+                                Rs. <span id="txtdiod" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtsubtotlpgod" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtsubtotlpgod"></label></u>*@
+                                Rs. <span id="txtsubtotlpgod" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Less Automobile Assn Member ()%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlaam" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlaam"></label></u>*@
+                                Rs. <span id="txtlaam" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Handicapped (1)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txth" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txth"></label></u>*@
+                                Rs. <span id="txth" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Anti Theft Device ()%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtatd" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtatd"></label></u>*@
+                                Rs. <span id="txtatd" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtsubtotextra" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtsubtotextra"></label></u>*@
+                                Rs. <span id="txtsubtotextra" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Add Mlaus (0)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtamod" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtamod"></label></u>*@
+                                Rs. <span id="txtamod" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Less NCB (0)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlessncb" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlessncb"></label></u>*@
+                                Rs. <span id="txtlessncb" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Others
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtothers" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtothers"></label></u>*@
+                                Rs. <span id="txtothers" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />Total
+                            </div>
+                            <div class="col-6">
+                                <br /><br />
+                                @*<input type="text" id="txtodtot" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtodtot"></label></u>*@
+                                Rs. <span id="txtodtot" style="border-bottom: 1px solid black; padding-left: 0px">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6" style="margin-top:10px;">
+                        <b>B: LIABILITY TO PUBLIC RISK</b>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Liability to Public Risk
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlpr" value="6847.00" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlpr">6847.00</label></u>*@
+                                Rs. <span id="txtlpr" style="border-bottom: 1px solid black; padding-left: 0px">@Html.DisplayFor(model => model.premium_liability_value)</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Less Govt Rebate (20)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtlgrlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlgrlpr"></label></u>*@
+                                Rs. <span id="txtlgrlpr" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtsubtotlpr" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtsubtotlpr"></label></u>*@
+                                Rs. <span id="txtsubtotlpr" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Add Driving Institution (1)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtdilpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtdilpr"></label></u>*@
+                                Rs. <span id="txtdilpr" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />LPG Kit Amount (60)%
+                            </div>
+                            <div class="col-6">
+                                <br /><br />
+                                @*<input type="text" id="txtlpgkitlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlpgkitlpr"></label></u>*@
+                                Rs. <span id="txtlpgkitlpr" style="border-bottom: 1px solid black; padding-right: 30px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Sub Total
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtsubtotlpglpr" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtsubtotlpglpr"></label></u>*@
+                                Rs. <span id="txtsubtotlpglpr" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />Add
+                            </div>
+                            <div class="col-6">
+                                <br />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />(a)Driver's Risk
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtdrlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtdrlpr"></label></u>*@
+                                Rs. <span id="txtdrlpr" style="border-bottom: 1px solid black; padding-right: 22px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br />(b)Pillion Rider's Risk
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtprrlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtprrlpr"></label></u>*@
+                                Rs. <span id="txtprrlpr" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />(c)Passenger's Risk
+                            </div>
+                            <div class="col-6">
+                                <br /><br />
+                                @*<input type="text" id="txtprlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtprlpr"></label></u>*@
+                                Rs. <span id="txtprlpr" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />(d).Cleaner's Risk
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtclrlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtclrlpr"></label></u>*@
+                                Rs. <span id="txtclrlpr" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />(e).Coolies's Risk
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtcorlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtcorlpr"></label></u>*@
+                                Rs. <span id="txtcorlpr" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <br /><br />Add Malus (0)%
+                            </div>
+                            <div class="col-6">
+                                <br />
+                                @*<input type="text" id="txtamlpr" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtamlpr"></label></u>*@
+                                Rs. <span id="txtamlpr" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top:88px">
+                            <div class="col-6" style="padding-bottom:8px">
+                                <br /><br />Total
+                            </div>
+                            <div class="col-6" style="padding-bottom:8px">
+                                <br /> <br />
+                                @*<input type="text" id="txtlprtot" style="font-weight: bold;" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlprtot"></label></u>*@
+                                Rs. <span id="txtlprtot" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Total of A
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtodtotA" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtodtotA"></label></u>*@
+                                Rs. <span id="txtodtotA" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Total of B
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtlprtotB" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtlprtotB"></label></u>*@
+                                Rs. <span id="txtlprtotB" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Total of A&B
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txttotAB" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txttotAB"></label></u>*@
+                                Rs. <span id="txttotAB" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Previous Year's Different
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtpyd" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtpyd"></label></u>*@
+                                Rs. <span id="txtpyd" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Current Year's Different
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtcyd" class="form-control" value="0.00" readonly />*@
+                                @*Rs. <u><label id="txtcyd"></label></u>*@
+                                Rs. <span id="txtcyd" style="border-bottom: 1px solid black; padding-left: 50px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Premium
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtpremium" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtpremium"></label></u>*@
+                                Rs. <span id="txtpremium" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                GST (18%)
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txtgstamt" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txtgstamt"></label></u>*@
+                                Rs. <span id="txtgstamt" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                Total Current Receipt
+                            </div>
+                            <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                                @*<input type="text" id="txttotalcrpremium" class="form-control" readonly />*@
+                                @*Rs. <u><label id="txttotalcrpremium"></label></u>*@
+                                Rs. <span id="txttotalcrpremium" style="border-bottom: 1px solid black; padding-left: 0px"> &nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <br />
+                        @*<h4>Total Amount Payable</h4>*@
+                    </div>
+                    <div class="col-4">
+                        <br />
+                        @*<input type="text" id="txtTotalPremium" style="font-weight: bold;" class="form-control" readonly />*@
+                        <h5>Total Amount Payable:  <span id="txtTotalPremium"></span></h5>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12">
+                        <br />
+                        Subject to Endorsements :<br />
+                        Persons or Classes of Persons entitled to drive: See overleaf:<br />
+                        Limitations as to Use: See overleaf<br />
+                        <br />
+                        Limit of Liability : Such amount as is neccessary to meet the requirements of the Motor Vehicle Act, 1998. It is certified that the policy to which this certificate relates as well as this Certificate of Insurance is issued in accordance with the provisions of Chapter X and Chapter XI of Motor Vehicle Act, 1998.
+                    </div>
+                    <div class="col-6" style="padding-top:55px">
+                        <p style="text-align:left">Computer's Signature<br />Despatch Date : @DateTime.Now</p>
+                    </div>
+                    <div class="col-6" style="padding-top:55px">
+                        <p style="text-align:center">For Director<br />KGID, Bengaluru</p>
+                    </div>
+                </div>
+                <!--//Premium Calculation End// -->
+            </div>
+        </section>
+    </form>
+</div>
+<div class="row form-group">
+    <div class="form-group col-4"></div>
+    <div class="form-group col-3">
+        <div class="text-center">
+            <input type="submit" id="btnMIBPrint" value="Print" onclick="printMIBond();return false;" class="btn btn-primary pull-right">
+        </div>
+    </div>
+    <div class="form-group col-4"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        var pvvtot ='@Model.total_amount';
+
+        var txttotamntValue = parseFloat(pvvtot) || 0;
+        //txtbpidv
+        var odvalue ='@Model.own_damage_value';
+        var txtbpidvValue = ((parseFloat(txttotamntValue)) / 100) * (parseFloat(odvalue));
+
+        if (!isNaN(txtbpidvValue)) {
+            var res = Math.round(txtbpidvValue).toFixed(2)
+            //alert(res)
+            $("#txtbpidv").text(ReplaceNumberWithCommas(res));
+            //document.getElementById('txtbpidv').innerText  = ReplaceNumberWithCommas(res);
+            //document.getElementById('txtidvsubtot').innerText = ReplaceNumberWithCommas(res);
+            $("#txtidvsubtot").text(ReplaceNumberWithCommas(res));
+            //document.getElementById('txtodp').innerText = ReplaceNumberWithCommas(res);
+            $("#txtodp").text(ReplaceNumberWithCommas(res));
+        }
+        //txtlgrod
+        var txtlgrodValue = ((parseFloat(res)) / 100) * 20;
+        if (!isNaN(txtlgrodValue)) {
+            var res1 = Math.round(txtlgrodValue).toFixed(2)
+            //alert(res1)
+            //document.getElementById('txtlgrod').innerText = ReplaceNumberWithCommas(res1);
+            $("#txtlgrod").text(ReplaceNumberWithCommas(res1));
+            //document.getElementById('txtrebatetotod').value = res1;
+        }
+        //txtrebatetotod
+        var txtrebatetotodvalue = parseFloat(res) - parseFloat(res1)
+        var res2 = Math.round(txtrebatetotodvalue).toFixed(2)
+        //document.getElementById('txtrebatetotod').innerText = ReplaceNumberWithCommas(res2);
+        $('#txtrebatetotod').text(ReplaceNumberWithCommas(res2));
+
+        //txtsubtotlpgod
+        var txtsubtotlpgodValue = Math.round(txtrebatetotodvalue).toFixed(2);
+        //document.getElementById('txtsubtotlpgod').innerText = ReplaceNumberWithCommas(txtsubtotlpgodValue);
+        $('#txtsubtotlpgod').text(ReplaceNumberWithCommas(txtsubtotlpgodValue));
+
+        //txth
+        var txthValue = ((parseFloat(txtsubtotlpgodValue)) / 100) * 1;
+        //document.getElementById('txth').value = ReplaceNumberWithCommas(txthValue);
+
+        //txtsubtotextra
+        var txtsubtotextraVlaue = Math.round(txtsubtotlpgodValue).toFixed(2);
+        //document.getElementById('txtsubtotextra').innerText = ReplaceNumberWithCommas(txtsubtotextraVlaue);
+        $('#txtsubtotextra').text(ReplaceNumberWithCommas(txtsubtotextraVlaue));
+
+        //txtlessncb
+        var txtlessncbValue = ((parseFloat(txtsubtotextraVlaue)) / 100) * 0;
+        if (!isNaN(txtlessncbValue)) {
+            var res3 = Math.round(txtlessncbValue).toFixed(2)
+            //alert(res1)
+            document.getElementById('txtlessncb').innerText = ReplaceNumberWithCommas(res3);
+            //document.getElementById('txtrebatetotod').value = res1;
+        }
+
+        //txtodtot
+        var txtodtotValue = parseFloat(txtsubtotextraVlaue) - parseFloat(res3)
+        var res4 = Math.round(txtodtotValue).toFixed(2)
+        //document.getElementById('txtodtot').innerText = ReplaceNumberWithCommas(res4);
+        $('#txtodtot').text(ReplaceNumberWithCommas(res4));
+        //document.getElementById('txtodtotA').innerText = ReplaceNumberWithCommas(res4);
+        $('#txtodtotA').text(ReplaceNumberWithCommas(res4));
+
+        //B. LIABILITY TO PUBLIC RISK
+        //txtlgrlpr
+        var LPRvalue ='@Model.premium_liability_value';
+        //var txtlprValue = document.getElementById('txtlpr').innerText || 0;
+        var txtlprValue = LPRvalue;
+        var res5 = Math.round(txtlprValue).toFixed(2)
+        //txtbpidv
+        var txtlgrlprValue = ((parseFloat(res5)) / 100) * 20;
+        var res6 = Math.round(txtlgrlprValue).toFixed(2)
+        //document.getElementById('txtlgrlpr').innerText = ReplaceNumberWithCommas(res6);
+        $('#txtlgrlpr').text(ReplaceNumberWithCommas(res6));
+        //txtsubtotlpr
+        var txtsubtotlprValue = parseFloat(res5) - parseFloat(res6)
+        var res7 = Math.round(txtsubtotlprValue).toFixed(2)
+        //document.getElementById('txtsubtotlpr').innerText = ReplaceNumberWithCommas(res7);
+        $('#txtsubtotlpr').text(ReplaceNumberWithCommas(res7));
+
+        //txtlpgkitlpr
+        CNGvalueDummy = 0;
+        //var txtcngamntrValue = document.getElementById('txtcngamnt').innerText || 0;
+        var txtcngamntrValue = CNGvalueDummy
+        var txtlpgkitlprValue = ((parseFloat(txtcngamntrValue)) / 100) * 60;
+        var res8 = Math.round(txtlpgkitlprValue).toFixed(2)
+        //document.getElementById('txtlpgkitlpr').innerText = ReplaceNumberWithCommas(res8);
+        $('#txtlpgkitlpr').text(ReplaceNumberWithCommas(res8));
+
+        //txtsubtotlpglpr
+        var txtsubtotlpglprValue = parseFloat(res7) + parseFloat(res8)
+        var res9 = Math.round(txtsubtotlpglprValue).toFixed(2)
+        //document.getElementById('txtsubtotlpglpr').innerText = ReplaceNumberWithCommas(res9);
+        $('#txtsubtotlpglpr').text(ReplaceNumberWithCommas(res9));
+
+        //txtdrlpr
+        var res10 = "25.00"
+        //document.getElementById('txtdrlpr').innerText = ReplaceNumberWithCommas(res10);
+        $('#txtdrlpr').text(ReplaceNumberWithCommas(res10));
+        //txtprlpr
+        var res11 = "2730.00"
+        //document.getElementById('txtprlpr').innerText = ReplaceNumberWithCommas(res11);
+        $('#txtprlpr').text(ReplaceNumberWithCommas(res11));
+
+        //txtlprtot
+        var txtlprtotValue = parseFloat(res9) + parseFloat(res10) + parseFloat(res11)
+        var res12 = Math.round(txtlprtotValue).toFixed(2)
+        //document.getElementById('txtlprtot').innerText = ReplaceNumberWithCommas(res12);
+        $('#txtlprtot').text(ReplaceNumberWithCommas(res12));
+        //document.getElementById('txtlprtotB').innerText = ReplaceNumberWithCommas(res12);
+        $('#txtlprtotB').text(ReplaceNumberWithCommas(res12));
+
+        //txttotAB
+        var txttotABValue = parseFloat(res4) + parseFloat(res12)
+        var res13 = Math.round(txttotABValue).toFixed(2)
+        //document.getElementById('txttotAB').innerText = ReplaceNumberWithCommas(res13);
+        $('#txttotAB').text(ReplaceNumberWithCommas(res13));
+        //document.getElementById('txtpremium').innerText = ReplaceNumberWithCommas(res13);
+        $('#txtpremium').text(ReplaceNumberWithCommas(res13));
+
+        //txtgstamt
+        var txtgstamtValue = ((parseFloat(res13)) / 100) * 18;
+        var res14 = Math.round(txtgstamtValue).toFixed(2)
+        //document.getElementById('txtgstamt').innerText = ReplaceNumberWithCommas(res14);
+        $('#txtgstamt').text(ReplaceNumberWithCommas(res14));
+
+        //txttotalcrpremium
+        var txttotalcrpremiumValue = parseFloat(res13) + parseFloat(res14)
+        var res15 = Math.round(txttotalcrpremiumValue).toFixed(2)
+        document.getElementById('txttotalcrpremium').innerText = ReplaceNumberWithCommas(res15);
+        //txtTotalPremium
+        //document.getElementById('txtTotalPremium').innerText = ReplaceNumberWithCommas(res15);
+        $('#txtTotalPremium').text(ReplaceNumberWithCommas(res15));
+
+    });
+    function ReplaceNumberWithCommas(yourNumber) {
+        //Seperates the components of the number
+        var components = yourNumber.toString().split(".");
+        //Comma-fies the first part
+        components[0] = components[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //Combines the two sections
+        return components.join(".");
+    }
+    function printMIBond() {
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2></h2></div><div class="form-group col-4"></div></div>' + $("#divSOPDetails").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>MI Bond</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+        return null;
+    }
+</script>

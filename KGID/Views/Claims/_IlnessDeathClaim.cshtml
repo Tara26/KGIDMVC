@@ -1,0 +1,101 @@
+﻿@model KGID_Models.Claim.VM_EmpDetailForDeathClaimApplication
+
+<div id="divIllness">
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Name of deceased:</label>
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtNameOfDeceased", @class = "form-control", disabled = true })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Date Of Death:</label>
+                    @Html.TextBoxFor(m => m.DateOfDeath, new { id = "txtDateOfDeath", @class = "form-control date-picker disable-keyboard" })
+                    @Html.ValidationMessageFor(m => m.DateOfDeath, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cause of death:</label>
+                    @Html.TextBoxFor(m => m.CauseOfDeath, new { id = "txtCauseOfDeath", @class = "form-control ClAlphaNum" })
+                    @Html.ValidationMessageFor(m => m.CauseOfDeath, "", new { @class = "text-danger row col-12" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">When was the dead person first told was ill:</label>
+                    @Html.TextBoxFor(m => m.FirstToldIll, new { id = "txtFirstToldIll", @class = "form-control ClAlphaNum" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name and address of the doctor during the insurer's last period of illness:</label>
+                    @Html.TextAreaFor(m => m.DoctorName, new { id = "txtArDoctorNameAndAddress", @class = "form-control pt-2 ClAlphaNum", rows = "4", style = "resize:none;" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Marital Status of Deceased (at the time of death):</label>
+                    @Html.RadioButtonFor(m => m.IsMarried, true, new { id = "rbMarried" }) Married
+                    @Html.RadioButtonFor(m => m.IsMarried, false, new { id = "rbUnmarried" }) Unmarried
+                    @Html.ValidationMessageFor(m => m.IsMarried, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name of Nominee:</label>
+                    @Html.TextBoxFor(m => m.NameOfNominee, new { id = "txtNameOfNominee", @class = "form-control ClAlphaNum" })
+                    @Html.ValidationMessageFor(m => m.NameOfNominee, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Age of Nominee:</label>
+                    @Html.TextBoxFor(m => m.AgeOfNominee, new { id = "txtRelationShipWithDeceased", @class = "form-control number-only", @maxlength = "3" })
+                    @Html.ValidationMessageFor(m => m.AgeOfNominee, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Relation with Deceased:</label>
+                    @Html.TextBoxFor(m => m.NomineeRelation, new { id = "txtRelationShipWithDeceased", @class = "form-control ClAlphaNum" })
+                    @Html.ValidationMessageFor(m => m.NomineeRelation, "", new { @class = "text-danger row col-12" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Whether Nominee Alive? :</label>
+                    @Html.RadioButtonFor(m => m.IsNomineeAlive, true, new { id = "rbNomineeAlive" }) Yes
+                    @Html.RadioButtonFor(m => m.IsNomineeAlive, false, new { id = "rbNomineeAlive" }) No
+                    @Html.ValidationMessageFor(m => m.IsNomineeAlive, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">If treated for years, the name and address of Hospital or clinic:</label>
+                    @Html.TextAreaFor(m => m.DoctorDetail, new { id = "txtNameOfNominee", @class = "form-control pt-3 ClAlphaNum", rows = "7", style = "resize:none;" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("input[type='text']").attr("autocomplete", "off");
+    $(".disable-keyboard").on("keypress", function (e) {
+        return false;
+    });
+
+    $(".number-only").on("keypress", function (e) {
+        var isValid = false;
+        var regex = /^\d*$/;
+        isValid = regex.test(e.originalEvent.key);
+        if (!isValid)
+            e.preventDefault();
+    });
+</script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+    });
+</script>

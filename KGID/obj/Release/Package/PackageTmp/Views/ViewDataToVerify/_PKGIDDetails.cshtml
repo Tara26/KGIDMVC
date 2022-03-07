@@ -1,0 +1,184 @@
+﻿@model KGID_Models.NBApplication.VM_PolicyDetails
+@using KGID_Models.NBApplication;
+
+<style>
+    #tblPKgidPremium p {
+        line-height: 14px;
+    }
+</style>
+
+@*<table style="width:100%;">
+    <tr>
+        <td><p class="knlan">ಪ್ರಸ್ತಾಪಕರ ವೇತನ ಶ್ರೇಣಿ : <span id="spnPayscalep"></span></p><p class="Enlan">Employee Pay Scale : <span id="spnPayscalep"></span></p></td>
+    </tr>
+</table>*@
+@Html.Hidden("IsMedicalRequired", "", new { id = "hdnMedicalRequired" })
+
+<table id="tblPKgidPremium" class="" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p class="knlan">ಪ್ರಥಮ ಪಾಲಿಸಿ ಸಂಖ್ಯೆ</p><p class="Enlan">First Policy Number </p></th>
+            <th><p class="knlan">ಹೊಂದಿರುವ ಒಟ್ಟು ಪಾಲಿಸಿಗಳು</p><p class="Enlan">Total No. of Policies held</p></th>
+            <th><p class="knlan">ಈಗಾಗಲೇ ಹೊಂದಿರುವ ಪಾಲಿಸಿಗಳ ಪ್ರೀಮಿಯಂ ಮೊತ್ತ</p><p class="Enlan">Amount of Premium paid</p></th>
+            <th><p class="knlan">ಒಟ್ಟು ಮೊತ್ತ</p><p class="Enlan">Total Amount</p></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+        @*@if (Model.KGIDPolicyList != null)
+        {
+            foreach (VM_PolicyDetails item in Model.KGIDPolicyList)
+            {
+                <tr>
+                    @if (!string.IsNullOrEmpty(item.p_kgid_policy_number.ToString()))
+                    {
+                        <td style="text-align:center"><p>@item.p_kgid_policy_number</p></td>
+                    }
+                    else
+                    {
+                        <td style="text-align:center"><p>@item.p_kgid_policy_number</p></td>
+                    }
+                    <td style="text-align:center"><p>@item.p_sanction_date</p></td>
+                    <td style="color: black;text-align:center">@item.p_premium</td>
+                </tr>
+            }
+        }*@
+    </tbody>
+    @*<tfoot> <tr> <th colspan="2" style="text-align:right"><p class="knlan">ಒಟ್ಟು:</p><p class="Enlan">Total:</p></th> <th class="csPTotal" style="color: black;"></th> </tr> </tfoot>*@
+</table>
+
+<script type="text/javascript">
+    var tablePremiumP;
+    //$("#divVKGID label").attr("style", "font-weight:600;");
+    $(document).ready(function () {
+        SwitchMedicalRequired();
+        $("#spnPayscalep").text($("#spnPrePayScale").text());
+
+        $("#spnPayscalep").text($("#txtPayscleCode").val());
+        if ($.fn.dataTable.isDataTable('#tblPKgidPremium')) {
+            tablePremiumP = $('#tblPKgidPremium').DataTable();
+        }
+        else {
+            tablePremiumP = $("#tblPKgidPremium").DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(2, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    // Update footer
+                    $(api.column(2).footer()).html(
+                        parseFloat(pageTotal)
+                    );
+                }
+            });
+        }
+    });
+
+    function SwitchMedicalRequired() {
+        var dateOfBirthUnformatted = $("#txtBasicDateOfBirth").val().split('-');
+        var dateOfBirth = new Date(dateOfBirthUnformatted[2], dateOfBirthUnformatted[1] - 1, dateOfBirthUnformatted[0]);
+        var currentDate = new Date();
+        var difference = currentDate.getFullYear() - dateOfBirth.getFullYear();
+        var initialDeposit = 0;
+
+        var NewPolicyAmount = 0;
+        var ExistingPolicyAmount = 0;
+        if ($("#hdnSentBackAppliaction").val() != 0) {
+            $("#tblKgidPremium tr td:nth-child(2)").each(function () {
+                var value = $(this);
+                if (value[0].innerHTML !== "") {
+                    if (ExistingPolicyAmount == 0) {
+                        ExistingPolicyAmount = parseFloat(value[0].nextElementSibling.innerHTML);
+                    } else {
+                        ExistingPolicyAmount = ExistingPolicyAmount + parseFloat(value[0].nextElementSibling.innerHTML);
+                    }
+                } else {
+                    if (NewPolicyAmount == 0) {
+                        NewPolicyAmount = parseFloat(value[0].nextElementSibling.innerHTML);
+                    } else {
+                        NewPolicyAmount = NewPolicyAmount + parseFloat(value[0].nextElementSibling.innerHTML);
+                    }
+                }
+            });
+            initialDeposit = NewPolicyAmount;
+        }
+        else {
+            if ($("#divKGID").find(".dataTables_empty").length === 1) {
+                initialDeposit = parseFloat($("#txtAmount").val());
+                $("#hdnNewPolicyAmount").val(initialDeposit);
+            }
+            else {
+                $("#tblKgidPremium tbody tr td:nth-child(2)").each(function () {
+                    var value = $(this);
+                    if (value[0].innerHTML == "") {
+                        if ($("#txtAmount").val() == "0" && NewPolicyAmount == 0) {
+                            NewPolicyAmount = parseFloat(value[0].nextElementSibling.innerHTML);
+                        }
+                        else if ($("#txtAmount").val() != "0") {
+                            NewPolicyAmount = parseFloat($("#txtAmount").val());
+                        } else {
+                            NewPolicyAmount = NewPolicyAmount + parseFloat(value[0].nextElementSibling.innerHTML);
+                        }
+                    } else {
+                        $("#hdnInsuredEmployee").val(1);
+                        if (ExistingPolicyAmount == 0) {
+                            ExistingPolicyAmount = parseFloat(value[0].nextElementSibling.innerHTML);
+                        } else {
+                            ExistingPolicyAmount = ExistingPolicyAmount + parseFloat(value[0].nextElementSibling.innerHTML);
+                        }
+                    }
+                });
+                if (NewPolicyAmount == 0) {
+                    $("#hdnNewPolicyAmount").val($("#txtAmount").val());
+                } else {
+                    $("#hdnNewPolicyAmount").val(NewPolicyAmount);
+                }
+                initialDeposit = parseFloat($("#hdnNewPolicyAmount").val());
+            }
+        }
+
+        if (difference <= 40 && initialDeposit < 1000) {
+            medicalRequiredStatus = false;
+            $("#hdnMedicalRequired").val(false);
+        }
+        if (difference > 40) {
+            medicalRequiredStatus = true;
+            $("#hdnMedicalRequired").val(true);
+        }
+        if (initialDeposit >= 1000) {
+            medicalRequiredStatus = true;
+            $("#hdnMedicalRequired").val(true);
+        }
+    }
+</script>
+

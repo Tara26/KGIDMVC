@@ -1,0 +1,131 @@
+﻿@model KGID_Models.Dashboard.VM_ListOfPolicyDetails
+
+@{
+
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b></b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-2">
+                    </div>
+                    <div class="form-group col-2 text-right">
+                        <br /> KGID Number:
+                    </div>
+                    <div class="form-group col-2">
+                        @Html.TextBoxFor(x => x.FirstKGIDRefNo, new { @class = "form-control col-11", placeholder = "Enter KGID Number", id = "txtKgidNoFst", @maxlength = 50 })
+                        @Html.ValidationMessageFor(x => x.FirstKGIDRefNo, "", new { id = "errFirstKGIDReq", @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group col-4">
+                        <a id="btnShowDts" class="btn btn-info">View</a>
+                    </div>
+                    <div class="form-group col-2">
+                    </div>
+                </div>
+
+                <div id="DivDscData" style="display:none">
+                    @*@{
+                        if (Model.listDashboardData != null)
+                        {
+                            if (Model.listDashboardData.Count() > 0)
+                            {*@
+                                <div class="form-group">
+                                    <table id="tblDashBoardPolicyDetails" class="table table-striped table-bordered" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th hidden>PolicyID</th>
+                                                <th hidden>EmpID</th>
+                                                <th>KGID Policy Number</th>
+                                                <th>Risk Date</th>
+                                                <th>Premium Amount</th>
+                                                <th>Sum Assured</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @*}
+                        }
+
+                    }*@
+
+                </div>
+                   
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        $('#btnShowDts').click(function () {
+            debugger;
+            if ($("#txtKgidNoFst").val() != "" && $("#txtKgidNoFst").val() != "0") {
+                $("#errFirstKGIDReq").attr("hidden", true);
+            var kgidNumber = $("#txtKgidNoFst").val();
+           
+            $.ajax({
+                url: '/Home/GetDetailsBasedOnKGIDNo',
+                data: JSON.stringify({ kgidnum: kgidNumber }),
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json',
+                success: function (result) {
+                    debugger
+                    if (result != null) {
+                        debugger;
+                        //$("#tblDashboardEmpDetails").DataTable(
+                        //    {
+                        //        bLengthChange: true,
+                        //        lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+                        //        bFilter: true,
+                        //        bSort: true,
+                        //        bPaginate: true,
+                        //        data: result.listDashboardData,
+                        //        columns: [{ 'data': 'PolicyID' },
+                        //            { 'data': 'KGIDPolicyNumber' },
+                        //            { 'data': 'PremiumAmt' },
+                        //            { 'data': 'Status' }]
+                        //    });
+                        $('#tblDashBoardPolicyDetails tbody').empty();
+                        $.each(result, function (i, item) {
+                            //var date = string.Format("{0:dd/MM/yyyy}", item.RiskDate);
+                            var riskdate = moment(item.RiskDate).utcOffset(330).format('DD-MM-YYYY');
+                            var rows = "<tr>" +
+                                "<td>" + item.KGIDfirstHRMS + "</td>" +
+                                "<td>" + riskdate + "</td>" +
+                                "<td>" + item.PremiumAmt + "</td>" +
+                                "<td>" + item.SumAssured + "</td>" +
+                              
+                                "<td>" + item.status + "</td>" + "</tr>";
+                            $('#tblDashBoardPolicyDetails tbody').append(rows);
+                        });
+                        $('#DivDscData').show();
+                    }
+                }, error: function (result) {
+                    alertify.error("Could not save roles");
+                }
+                });
+            }
+            else {
+                $("#errFirstKGIDReq").text("Please enter the Kgid number. ");
+                $("#errFirstKGIDReq").removeAttr("hidden");
+
+            }
+               
+        });
+    });
+  
+</script>
+
+

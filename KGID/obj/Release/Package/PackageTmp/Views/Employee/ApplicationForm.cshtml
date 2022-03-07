@@ -1,0 +1,323 @@
+﻿@model KGID_Models.NBApplication.VM_ApplicationDetail
+@{
+    ViewBag.Title = "Application Form";
+}
+<link href="~/Content/StepsDemo/css/jquery.steps.css" rel="stylesheet" />
+<script src="~/Content/StepsDemo/js/jquery.steps.min.js"></script>
+<style type="text/css">
+    .wizard > .content > .body {
+        position: relative;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    .application-tab .steps ul li {
+        width: 14% !important;
+    }
+
+    .application-tab #ApplicationTab-t-5 {
+        font-size: 11.5px;
+        padding: 1.1em 1em;
+    }
+
+    #MedicalTab .steps ul li {
+        width: 15% !important;
+    }
+
+    #btnASave {
+        cursor: pointer;
+    }
+
+    #btnPSave {
+        cursor: pointer;
+    }
+
+    #btnMSave {
+        cursor: pointer;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .error {
+        font-size: 0.75rem !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    #btnMedicalPrint {
+        background: #2184be;
+        color: #fff;
+        display: block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .btnPayment {
+        float: right;
+    }
+
+    .calclink {
+        display: block;
+        width: 100%;
+        padding: 6px 2px 6px 6px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .foot-t-req {
+        padding: 10px;
+        background: #f7f7f7;
+        border: none;
+        border-radius: 20px !important;
+        box-shadow: 0px 3px 3px #d8d8d8;
+    }
+
+    .table-block tr {
+        page-break-after: always !important;
+        page-break-before: always !important;
+        page-break-inside: auto !important;
+    }
+
+</style>
+
+@Html.HiddenFor(m => m.ApplicationId, new { id = "hdnKGIDApplicationId" })
+@Html.HiddenFor(m => m.QRCode, new { id = "hdnQRCode" })
+@Html.Hidden("hdnNewPolicyAmount")
+@Html.HiddenFor(m => m.SentBackAppliaction, new { id = "hdnSentBackAppliaction" })
+@Html.Hidden("hdnInsuredEmployee")
+@Html.HiddenFor(m => m.RestrictApplyingPolicy, new { id = "hdnAge" })
+@Html.HiddenFor(m=>m.PaymentStatus, new { id= "hdnPaymentStatus" })
+
+@Html.HiddenFor(m => m.Remarks, new { id = "hdnRmrks" })
+@if (ViewBag.RestrictApplyingPolicy == true)
+{
+    <p class="text-center font-size-18 foot-t-req">Cannot apply for new policy as age exceeding 50 years.</p>
+}
+else
+{
+    if (ViewBag.ApplicationProcess == true)
+    {
+        <p class="text-center font-size-18 foot-t-req">Your application is in progress.</p>
+    }
+    else
+    {
+        <div id="divApplication" data-eid="@Session["UID"]">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="row text-center"><h5 class="col-12 text-black-100 font-weight-bold"><b><label class="knlan">ಮನವಿದಾರರ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Employee Application</label></b></h5></div>
+                            <hr />
+                            <div class="row">
+                                @*<h5 class="m-0 text-black-100 font-weight-bold col-3 text-center"><b>Employee Application</b></h5>*@
+                                <div class="col-6 text-left" style="font-size:20px;">
+                                    <label class="knlan">ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ :</label><label class="Enlan">Reference Number :</label><b><span id="spnReferanceNo">@Model.ApplicationNumber</span></b>
+                                </div>
+                                <div class="col-5 text-right" id="refNo" style="display:block;">
+                                    <img alt="" style="height:60px;width:60px" id="imgQRCode" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <nav id="navmenu">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    @if (Model.SentBackAppliaction != 0 && Model.Remarks == 4)
+                                    {
+                                        <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b><label class="knlan">ಅರ್ಜಿ ವಿವರಗಳು</label><label class="Enlan">Application Details</label></b></a>
+                                        <a id="nav-Medical-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b><label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿ</label><label class="Enlan">Medical Report</label></b></a>
+                                    }
+                                    @if (Model.SentBackAppliaction != 0 && Model.Remarks == 2)
+                                    {
+                                        <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b><label class="knlan">ಪ್ರಸ್ತಾವನೆಯ ವಿವರಗಳು</label><label class="Enlan">Application Details</label></b></a>
+                                        @*<a id="nav-Medical-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b>Medical Report</b></a>*@
+                                    }
+
+                                    @if (Model.SentBackAppliaction != 0 && Model.Remarks == 3)
+                                    {
+                                        @*<a id="nav-Application-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b>Application Details</b></a>*@
+                                        <a id="nav-Medical-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b><label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿ</label><label class="Enlan">Medical Report</label></b></a>
+                                    }
+
+                                    @if (Model.SentBackAppliaction != 0 && Model.Remarks == 0)
+                                    {
+                                        <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b><label class="knlan">ಪ್ರಸ್ತಾವನೆಯ ವಿವರಗಳು</label><label class="Enlan">Application Details</label></b></a>
+                                        <a id="nav-Medical-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b><label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿ</label><label class="Enlan">Medical Report</label></b></a>
+                                    }
+
+                                    @if (Model.SentBackAppliaction == 0)
+                                    {
+                                        <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b><label class="knlan">ಪ್ರಸ್ತಾವನೆಯ ವಿವರಗಳು</label><label class="Enlan">Application Details</label></b></a>
+                                        <a id="nav-Payment-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Payment" role="tab" aria-controls="nav-Payment" aria-selected="false"><b><label class="knlan">ಆರಂಭಿಕ ಠೇವಣಿ ಪಾವತಿ</label><label class="Enlan">Initial Deposit Payment</label></b></a>
+                                        <a id="nav-Medical-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b><label class="knlan">ವೈದ್ಯಕೀಯ ವರದಿ</label><label class="Enlan">Medical Report</label></b></a>
+                                    }
+                                </div>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                                <div class="tab-pane fade show active" id="nav-Application" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div id="ApplicationTab" class="application-tab">
+                                        <h2><label class="knlan">ಮೂಲ ವಿವರಗಳು</label><label class="Enlan">Basic Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("BasicDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                        <h2><label class="knlan">ಕೆಜಿಐಡಿ ವಿವರಗಳು</label><label class="Enlan">KGID Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("KGIDDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                        <h2><label class="knlan">ಕುಟುಂಬದ ವಿವರಗಳು</label><label class="Enlan">Family Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("FamilyDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                        <h2><label class="knlan">ನಾಮನಿರ್ದೇಶಿತ ವಿವರಗಳು</label><label class="Enlan">Nominee Details</label></h2>
+                                        <section>
+                                            @{
+                                                @*@Html.Action("NomineeDetailsToView", "Employee")*@
+                                            }
+                                            @*<div id="divnomoinee"></div>*@
+                                        </section>
+                                        <h2>
+                                            <label class="knlan">
+                                                ವೈಯಕ್ತಿಕ ವಿವರಗಳು
+                                            </label><label class="Enlan">Personal Details</label>
+                                        </h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("PersonalDetailsToView", "Employee")
+                                            }
+
+                                        </section>
+                                        @*<h2>Medical Leave Details</h2>
+                                            <section>
+                                                @{
+                                                    @Html.Action("MedicalLeaveDetailsToView", "Employee")
+                                                }
+
+                                            </section>*@
+                                        <h2><label class="knlan">ಘೋಷಣೆ</label><label class="Enlan">Declaration</label></h2>
+                                        <section>
+                                            @*@{
+                                                @Html.Action("DeclarationDetailsToView", "Employee")
+                                            }*@
+
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-Payment" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div id="PaymentTab" class="Payment-tab">
+                                        <h2><label class="knlan">ಪಾವತಿ ವಿವರಗಳು</label><label class="Enlan">Payment Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("PaymentDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-Medical" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                    <div id="MedicalTab">
+                                        <h2><label class="knlan">ಮೂಲ ವಿವರಗಳು</label><label class="Enlan">Basic Details</label></h2>
+                                        <section>
+                                            @if (@Model.Remarks == 3 || @Model.Remarks == 4)
+                                            {
+                                                <div class="row">
+                                                    <div class="form-group col-3 font-weight-bold">
+                                                        <label class="knlan">ಹೊಸ ವೈದ್ಯಕೀಯ ವರದಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Download Fresh Medical Form</label>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <a onclick="PrintMedicalFormPDF();" style="color:blue;cursor:pointer;">Click Here</a>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @{
+                                                @Html.Action("HBasicDetailsToView", "Employee")
+                                            }
+                                        </section>
+
+                                        <h2><label class="knlan">ಭೌತಿಕ ವಿವರಗಳು</label><label class="Enlan">Physical Details</label></h2>
+                                        <section id="buildyourform">
+                                            @{
+                                                @Html.Action("HPhysicalDetailsToView", "Employee")
+                                            }
+                                        </section>
+
+                                        <h2><label class="knlan">ಇತರ ವಿವರಗಳು</label><label class="Enlan">Other Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("HOtherDetailsToView", "Employee")
+                                            }
+                                        </section>
+
+                                        <h2><label class="knlan">ಆರೋಗ್ಯ ವಿವರಗಳು</label><label class="Enlan">Health Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("HHealthDetailsToView", "Employee")
+                                            }
+                                        </section>
+
+                                        <h2><label class="knlan">ವೈದ್ಯರ ವಿವರಗಳು</label><label class="Enlan">Doctor Details</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("HDoctorDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                        <h2><label class="knlan">ಘೋಷಣೆ</label><label class="Enlan">Declaration</label></h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("HDeclarationDetailsToView", "Employee")
+                                            }
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <input type='button' value='yes' id='btnYes' />
+                        <input type='button' value='no' id='btnNo' />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+}
+<script src="~/Scripts/ApplicationJS/NBApplication.js"></script>
+<script src="~/Scripts/html2canvas/html2canvas.js"></script>
+<script src="~/Scripts/html2pdf/html2pdf.bundle.min.js"></script>

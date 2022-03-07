@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row text-center"><h5 class="col-12 text-black-100 font-weight-bold"><b>
+                    <label class="Enlan">Update User Details</label><label class="knlan">ಬಳಕೆದಾರರ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label>
+                 </b></h5></div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-7">
+                        <label for="lblkgidno" class="control-label Enlan">KGID Number:</label>
+                        <label for="lblkgidno" class="control-label knlan">ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtKGIDNO" name="txtKGIDNO" type="text" maxlength="7" placeholder="Enter KGID Number">
+
+                        <label id="errKGIDNo" class="col-form-label-sm text-danger err" hidden>Please Enter KGID Number</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <br />
+                        <input type="submit" value="View" class="btn btn-primary" id="btnShowDetails" />
+                        @*<a id="btnShowDetails" class="btn btn-primary">View</a>*@
+                    </div>
+                </div>
+
+                <div class="row" id="divUserDetails">
+                    <div class="form-group col-5">
+                        <label for="lblmblno" class="control-label Enlan">Mobile Number:</label>
+                        <label for="lblmblno" class="control-label knlan">ಮೊಬೈಲ್ ನಂಬರ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtMBLNO" name="txtMBLNO" type="text" maxlength="10" placeholder="Enter Mobile Number">
+                        <label id="errMBLNo" class="col-form-label-sm text-danger err" hidden>Please Enter Mobile Number</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="lblemailid" class="control-label Enlan">Email ID:</label>
+                        <label for="lblemailid" class="control-label knlan">ಇಮೇಲ್:</label>
+                        <input class="form-control form-control-sm preventSpace" id="txtEmailID" name="txtEmailID" type="text" placeholder="Enter Email ID">
+                        <label id="errEmailID" class="col-form-label-sm text-danger err" hidden>Please Enter Mail ID</label>
+                    </div>
+                    <div class="form-group col-2">
+                        <br />
+                        <input type="submit" value="Update" class="btn btn-primary" id="btnUpdateDetails" />
+                        @*<a id="btnUpdateDetails" class="btn btn-primary">Update</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/ApplicationJS/UserDetails.js"></script>

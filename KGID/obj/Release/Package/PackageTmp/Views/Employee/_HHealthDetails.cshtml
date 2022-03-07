@@ -1,0 +1,661 @@
+﻿@model KGID_Models.NBApplication.VM_MOtherDetails
+
+<div id="divHealthDetails">
+    <form id="frmHealthDetails" enctype="multipart/form-data">
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnEmployeeId" })
+        @Html.HiddenFor(m => m.application_id, new { id = "hdnApplicationId" })
+        <div class="form-group">
+            <div class="row">
+                <label for="txtWAS" class="knlan control-label col-12">
+                    ಈ ಕೆಳಕಂಡ ಪ್ರಶ್ನೆಗಳಿಗೆ (ಪ್ರಶ್ನೆ ಸಂಖ್ಯೆ 4 ರಿಂದ 15 ರವರೆಗಿನ) ಉತ್ತರ ʼಹೌದುʼ ಎಂದಿದ್ದರೆ ಪೂರ್ಣ ವಿವರ ಕೊಡಿ (ಆರೋಗ್ಯ ಸುಸ್ಥಿತಿಯಲ್ಲಿಲ್ಲದಿದ್ದಲ್ಲಿ, ಅನಾರೋಗ್ಯದ ಬಗ್ಗೆ ಪೂರಕ
+                    ದಾಖಲೆಗಳನ್ನು ಅಪ-ಲೋಡ್ ಮಾಡತಕ್ಕದ್ದು)
+                </label>
+                <label for="txtWAS" class="Enlan control-label col-12">
+                    If the answer to following questions (Q. number 4 to 15) is “YES” then provide detailed information
+                </label>
+            </div>
+            <div class="row">
+                <label for="txtis" class="knlan control-label col-2">
+                    4) ಎದೆ, ಹೃದಯ ಅಥವಾ ಶ್ವಾಸಕೋಶದಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಯಾವುದಾದರೂ ಲಕ್ಷಣ ಕಂಡು ಬರುವುದೇ
+                </label>
+                <label for="txtis" class="Enlan control-label col-2">
+                    4) Is there any symptoms of having
+                    illness in chest, heart and lungs?
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HavingIllnessinChest, true, new { @id = "rbtnHILYes", @class = "csHavingIllnessinChestY", onchange = "HDcheckboxchange(this.id,'txtHavingIllnessinChest')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HavingIllnessinChest, false, new { @id = "rbtnHILNo", @class = "csHavingIllnessinChestN", onchange = "HDcheckboxchange(this.id,'txtHavingIllnessinChest')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.HavingIllnessinChestDesc, new { @id = "txtHavingIllnessinChest", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtHavingIllnessinChestReq" class="col-form-label-sm text-danger err" hidden>Please enter details about chest illness.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.HavingIllnessinChestDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.HavingIllnessinChestDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-HD ", @style = "display:none;" })
+                        @*<a href="@Model.HavingIllnessinChestDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.HavingIllnessinChestDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.HavingIllnessinChestDoc, new { @id = "txtHavingIllnessinChestDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuHavingIllnessinChest txtAr-doc-health-req", onchange = "HDocFileChange(this.id,'errtxtHavingIllnessinChestDoc')" })
+                    <label id="errtxtHavingIllnessinChestDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for chest illness.</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtillness" class="knlan control-label col-2">
+                    5) ಹಲ್ಲು, ಒಸಡು, ನಾಲಿಗೆ, ಕಿವಿ, ಮೂಗು, ಗಂಟಲು ಅಥವಾ ಕಣ್ಣುಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಚಿಹ್ನೆ ಕಂಡು ಬರುವುದೇ?
+                </label>
+                <label for="txtillness" class="Enlan control-label col-2">
+                    5) Is there any symptoms of disease in teeth
+                    gums, tongue, ear, nose, Throat, eyes?
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HavingIllnessinTeeth, true, new { @id = "rbtnHITYes", @class = "csHavingIllnessinTeethY", onchange = "HDcheckboxchange(this.id,'txtHavingIllnessinTeeth')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HavingIllnessinTeeth, false, new { @id = "rbtnHITNo", @class = "csHavingIllnessinTeethN", onchange = "HDcheckboxchange(this.id,'txtHavingIllnessinTeeth')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.HavingIllnessinTeethDesc, new { @id = "txtHavingIllnessinTeeth", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtHavingIllnessinTeethReq" class="col-form-label-sm text-danger err" hidden>Please enter details about teeth illness.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.HavingIllnessinTeethDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.HavingIllnessinTeethDocFileName, new { @class = "display-as-label form-label col-12", @style = "display:none;" })
+                        @*<a href="@Model.HavingIllnessinTeethDocFileName" target="_blank" class=" doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.HavingIllnessinTeethDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.HavingIllnessinTeethDoc, new { @id = "txtHavingIllnessinTeethDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuHavingIllnessinTeeth", onchange = "ODocFileSize(this.id,'errtxtHavingIllnessinTeethDoc')" })
+                    <label id="errtxtHavingIllnessinTeethDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtDoes" class="knlan control-label col-2">
+                    6) ಮನವಿದಾರರಲ್ಲಿ ಯಾವುದಾದರೂ ಕೊರತೆ ಅಥವಾ ಅಂಗವಿಕಾರವಿದೆಯೇ?
+                    ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                </label>
+                <label for="txtDoes" class="Enlan control-label col-2">
+                    6) Does the Proposer have any
+                    deficieancy or disability?
+                    Does the Proposer have Thyroid,lymph
+                    node in joint, or have scars from surgery
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Disability, true, new { @id = "rbtnDYes", @class = "csDisabilityY", onchange = "HDcheckboxchange(this.id,'txtDisability')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Disability, false, new { @id = "rbtnDNo", @class = "csDisabilityN", onchange = "HDcheckboxchange(this.id,'txtDisability')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.DisabilityDesc, new { @id = "txtDisability", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtDisabilityReq" class="col-form-label-sm text-danger err" hidden>Please enter details about disability.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.DisabilityDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.DisabilityDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.DisabilityDocFileName" target="_blank" class=" doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.DisabilityDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.DisabilityDoc, new { @id = "txtDisabilityDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuDisability", onchange = "ODocFileSize(this.id,'errtxtDisabilityDoc')" })
+                    <label id="errtxtDisabilityDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <div class="row">
+                <label for="txtthyroid" class="knlan control-label col-2">
+                    7) ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                </label>
+                <label for="txtthyroid" class="Enlan control-label col-2">
+                   7) Does the Proposer have Thyroid,lymph
+                    node in joint, or have scars from surgery
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HaveThyroid, true, new { @id = "rbtnHTYes", @class = "csHaveThyroidY", onchange = "HDcheckboxchange(this.id,'txtHaveThyroid')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.HaveThyroid, false, new { @id = "rbtnHTNo", @class = "csHaveThyroidN", onchange = "HDcheckboxchange(this.id,'txtHaveThyroid')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.HaveThyroidDesc, new { @id = "txtHaveThyroid", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtHaveThyroidReq" class="col-form-label-sm text-danger err" hidden>Please enter details about thyroid.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.HaveThyroidDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.HaveThyroidDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.HaveThyroidDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.HaveThyroidDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.HaveThyroidDoc, new { @id = "txtHaveThyroidDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuHaveThyroid", onchange = "ODocFileSize(this.id,'errtxtHaveThyroidDoc')" })
+                    <label id="errtxtHaveThyroidDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>*@
+        <div class="html2pdf__page-break"></div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtIndication" class="knlan control-label col-2">
+                    7) ಲಿವರ್ ಅಥವಾ ಸ್ಪ್ಲೀನ್ ದೊಡ್ಡದಾಗಿರುವ ಯಾವುದಾದರೂ ಗುರುತಿದೆಯೆ?
+                </label>
+                <label for="txtIndication" class="Enlan control-label col-2">
+                    7) Any indication of enlargement of
+                    Spleen or Liver
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.EnlargementSpleenLiver, true, new { @id = "rbtnESLYes", @class = "csEnlargementSpleenLiverY", onchange = "HDcheckboxchange(this.id,'txtEnlargementSpleenLiver')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.EnlargementSpleenLiver, false, new { @id = "rbtnESLNo", @class = "csEnlargementSpleenLiverN", onchange = "HDcheckboxchange(this.id,'txtEnlargementSpleenLiver')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.EnlargementSpleenLiverDesc, new { @id = "txtEnlargementSpleenLiver", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtEnlargementSpleenLiverReq" class="col-form-label-sm text-danger err" hidden>Please enter details about enlargement of spleen or liver.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.EnlargementSpleenLiverDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.EnlargementSpleenLiverDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-HD ", @style = "display:none;" })
+                        @*<a href="@Model.EnlargementSpleenLiverDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.EnlargementSpleenLiverDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.EnlargementSpleenLiverDoc, new { @id = "txtEnlargementSpleenLiverDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuEnlargementSpleenLiver txtAr-doc-health-req", onchange = "HDocFileChange(this.id,'errtxtEnlargementSpleenLiverDoc')" })
+                    <label id="errtxtEnlargementSpleenLiverDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for enlargement of spleen or liver.</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtabnormality" class="knlan control-label col-2">
+                    8) ಹೊಟ್ಟೆ ಅಥವಾ ಜೀರ್ಣಾಗದ ಯಾವುದೇ ಭಾಗದಲ್ಲಿ ಯಾವುದಾದರೂ ಅಸಹಜತೆ ಇದೆಯೆ?
+                </label>
+                <label for="txtabnormality" class="Enlan control-label col-2">
+                    8) Is there any abnormality in any part of the
+                    Gastrointestinal track
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.GastroIntestinateTrack, true, new { @id = "rbtnGITYes", @class = "csGastroIntestinateTrackY", onchange = "HDcheckboxchange(this.id,'txtGastroIntestinateTrack')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.GastroIntestinateTrack, false, new { @id = "rbtnGITNo", @class = "csGastroIntestinateTrackN", onchange = "HDcheckboxchange(this.id,'txtGastroIntestinateTrack')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.GastroIntestinateTrackDesc, new { @id = "txtGastroIntestinateTrack", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtGastroIntestinateTrackReq" class="col-form-label-sm text-danger err" hidden>Please enter details about abnormality of gastro intestinate track.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.GastroIntestinateTrackDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.GastroIntestinateTrackDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.GastroIntestinateTrackDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.GastroIntestinateTrackDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.GastroIntestinateTrackDoc, new { @id = "txtGastroIntestinateTrackDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuGastroIntestinateTrack", onchange = "ODocFileSize(this.id,'errtxtGastroIntestinateTrackDoc')" })
+                    <label id="errtxtGastroIntestinateTrackDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txthernia" class="knlan control-label col-2">9) ಹರ್ನಿಯಾ ಇದೆಯೇ?</label>
+                <label for="txthernia" class="Enlan control-label col-2">9) Does proposer suffer from Hernia?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.SufferFromHernia, true, new { @id = "rbtnSFHYes", @class = "csSufferFromHerniaY", onchange = "HDcheckboxchange(this.id,'txtSufferFromHernia')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.SufferFromHernia, false, new { @id = "rbtnSFHNo", @class = "csSufferFromHerniaN", onchange = "HDcheckboxchange(this.id,'txtSufferFromHernia')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.SufferFromHerniaDesc, new { @id = "txtSufferFromHernia", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtSufferFromHerniaReq" class="col-form-label-sm text-danger err" hidden>Please enter details about hernia.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.SufferFromHerniaDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.SufferFromHerniaDocFileName, new { @class = "display-as-label form-label col-12", @style = "display:none;" })
+                        @*<a href="@Model.SufferFromHerniaDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.SufferFromHerniaDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.SufferFromHerniaDoc, new { @id = "txtSufferFromHerniaDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuSufferFromHernia", onchange = "ODocFileSize(this.id,'errtxtSufferFromHerniaDoc')" })
+                    <label id="errtxtSufferFromHerniaDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        @*//----------------------------------------------*@
+        <div class="form-group">
+            <div class="row">
+                <label for="txtSufferFromUrinaryTract" class="knlan control-label col-2">
+                    10) ಜನನಾಂಗ, ಮೂತ್ರಾಂಗಗಳಲ್ಲಿ ಅಸಹಜತೆ ಹಾಗೂ ಕಾಯಿಲೆ ಏನಾದರೂ ಕಂಡು ಬರುವುದೆ?
+                </label>
+                <label for="txtSufferFromUrinaryTract" class="Enlan control-label col-2">
+                    10) Is there any abnormalities found in the
+                    urinary tract
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.SufferFromUrinaryTract, true, new { @id = "rbtnSFUTYes", @class = "csSufferFromUrinaryTractY", onchange = "HDcheckboxchange(this.id,'txtSufferFromUrinaryTract')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.SufferFromUrinaryTract, false, new { @id = "rbtnSFUTNo", @class = "csSufferFromUrinaryTractN", onchange = "HDcheckboxchange(this.id,'txtSufferFromUrinaryTract')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.SufferFromUrinaryTractDesc, new { @id = "txtSufferFromUrinaryTract", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtSufferFromUrinaryTractReq" class="col-form-label-sm text-danger err" hidden>Please enter details about abnormalities.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.SufferFromUrinaryTractDocFileName))
+                    {
+                        
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                    <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.SufferFromUrinaryTractDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.SufferFromUrinaryTractDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.SufferFromUrinaryTractDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.SufferFromUrinaryTractDoc, new { @id = "txtSufferFromUrinaryTractDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuSufferFromUrinaryTract", onchange = "ODocFileSize(this.id,'errtxtSufferFromUrinaryTractDoc')" })
+                    <label id="errtxtSufferFromUrinaryTractDoc" class="col-form-label-sm text-danger err" hidden></label> @*==, onchange = "HDocFileChange(this.id,'errtxtSufferFromUrinaryTractDoc')"*@
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtNervousSystem" class="knlan control-label col-2">
+                    11) ನರವ್ಯೂಹಕ್ಕೆ ಸಂಬಂಧಪಟ್ಟ ಯಾವುದಾದರೂ ಅನಾರೋಗ್ಯದಿಂದ ಪೀಡಿತರಾಗಿರುವ ಯಾವುದೇ ಸೂಚನೆ ಇದೆಯೆ?
+                </label>
+                <label for="txtNervousSystem" class="Enlan control-label col-2">
+                    11) Does the proposer have any indication
+                    of having diseases or ailments with respect
+                    to the Nervous System
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.NervousSystemDisease, true, new { @id = "rbtnNSDYes", @class = "csNervousSystemDiseaseY", onchange = "HDcheckboxchange(this.id,'txtNervousSystemDisease')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.NervousSystemDisease, false, new { @id = "rbtnNSDNo", @class = "csNervousSystemDiseaseN", onchange = "HDcheckboxchange(this.id,'txtNervousSystemDisease')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.NervousSystemDiseaseDesc, new { @id = "txtNervousSystemDisease", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtNervousSystemDiseaseReq" class="col-form-label-sm text-danger err" hidden>Please enter details about nervous system.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.NervousSystemDiseaseDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.NervousSystemDiseaseDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-HD ", @style = "display:none;" })
+                        @*<a href="@Model.NervousSystemDiseaseDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.NervousSystemDiseaseDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.NervousSystemDiseaseDoc, new { @id = "txtNervousSystemDiseaseDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuNervousSystemDisease txtAr-doc-health-req", onchange = "HDocFileChange(this.id,'errtxtNervousSystemDiseaseDoc')" })
+                    <label id="errtxtNervousSystemDiseaseDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for nervous system</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtUndergoneSurgery" class="knlan control-label col-2">
+                    12) ಮನವಿದಾರರು ಶಸ್ತ್ರಚಿಕಿತ್ಸೆ ಮಾಡಿಸಿಕೊಂಡಿರುವ ಬಗ್ಗೆ ಯಾವುದಾದರೂ ಸೂಚನೆ ಇದೆಯೆ?
+                </label>
+                <label for="txtUndergoneSurgery" class="Enlan control-label col-2">
+                    12) Does the proposer have any indication
+                    of having undergone a surgery
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneSurgery, true, new { @id = "rbtnUSYes", @class = "csUndergoneSurgeryY", onchange = "HDcheckboxchange(this.id,'txtUndergoneSurgery')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneSurgery, false, new { @id = "rbtnUSNo", @class = "csUndergoneSurgeryN", onchange = "HDcheckboxchange(this.id,'txtUndergoneSurgery')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.UndergoneSurgeryDesc, new { @id = "txtUndergoneSurgery", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtUndergoneSurgeryReq" class="col-form-label-sm text-danger err" hidden>Please enter details about surgery.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.UndergoneSurgeryDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.UndergoneSurgeryDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.UndergoneSurgeryDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.UndergoneSurgeryDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.UndergoneSurgeryDoc, new { @id = "txtUndergoneSurgeryDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuUndergoneSurgery", onchange = "ODocFileSize(this.id,'errtxtUndergoneSurgeryDoc')" })
+                    <label id="errtxtUndergoneSurgeryDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtAccidentWoundMarks" class="knlan control-label col-2">
+                    13) ಮನವಿದಾರರಲ್ಲಿ ಆಕಸ್ಮಿಕ ಅಥವಾ ಬೇರಾವುದೇ ಕಾರಣದಿಂದ ಆದ ಗಾಯದ ಗುರುತಿದೆಯೇ?
+                </label>
+                <label for="txtAccidentWoundMarks" class="Enlan control-label col-2">
+                    13) Does the proposer have any marks of
+                    which might have occured accidentally,or
+                    done due to any other reason
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AccidentWoundMarks, true, new { @id = "rbtnAWMYes", @class = "csAccidentWoundMarksY", onchange = "HDcheckboxchange(this.id,'txtAccidentWoundMarks')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AccidentWoundMarks, false, new { @id = "rbtnAWM No", @class = "csAccidentWoundMarksN", onchange = "HDcheckboxchange(this.id,'txtAccidentWoundMarks')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AccidentWoundMarksDesc, new { @id = "txtAccidentWoundMarks", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtAccidentWoundMarksReq" class="col-form-label-sm text-danger err" hidden>Please enter details about wound marks.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AccidentWoundMarksDocFileName))
+                    {
+                        
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                       <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AccidentWoundMarksDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.AccidentWoundMarksDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AccidentWoundMarksDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.AccidentWoundMarksDoc, new { @id = "txtAccidentWoundMarksDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAccidentWoundMarks", onchange = "ODocFileSize(this.id,'errtxAccidentWoundMarksDoc')" })
+                    <label id="errtxAccidentWoundMarksDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtAdverseSymptomInHealth" class="knlan control-label col-2">
+                    14) ಮನವಿದಾರರ ಆರೋಗ್ಯ ಅಥವಾ ಸ್ವಭಾವದಲ್ಲಿ ಮುಖ್ಯವಾದ  ಪ್ರತಿಕೂಲ ಲಕ್ಷಣಗಳೇನಾದರೂ ಕಂಡುಬರುವುದೇ?
+                </label>
+                <label for="txtAdverseSymptomInHealth" class="Enlan control-label col-2">
+                    14) Is there any important adverse symptom
+                    in the very nature of the proposer's health
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdverseSymptomInHealth, true, new { @id = "rbtnASHYes", @class = "csAdverseSymptomInHealthY", onchange = "HDcheckboxchange(this.id,'txtAdverseSymptomInHealth')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdverseSymptomInHealth, false, new { @id = "rbtnASHNo", @class = "csAdverseSymptomInHealthN", onchange = "HDcheckboxchange(this.id,'txtAdverseSymptomInHealth')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AdverseSymptomInHealthDesc, new { @id = "txtAdverseSymptomInHealth", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtAdverseSymptomInHealthReq" class="col-form-label-sm text-danger err" hidden>Please enter details about symptoms.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AdverseSymptomInHealthDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AdverseSymptomInHealthDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.AdverseSymptomInHealthDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AdverseSymptomInHealthDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.AdverseSymptomInHealthDoc, new { @id = "txtAdverseSymptomInHealthDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAdverseSymptomInHealth", onchange = "ODocFileSize(this.id,'errtxtAdverseSymptomInHealthDoc')" })
+                    <label id="errtxtAdverseSymptomInHealthDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="divMedicalFemaleDetails" style="display:none;">
+            @*<hr />*@
+            <div class="form-group">
+                <div class="row">
+                    <label for="txtBreastIllness" class="knlan control-label col-2">
+                      15 a) ಸ್ತನಗಳಿಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ಯಾವುದಾದರೂ ಕಾಯಿಲೆ ಇದೆಯೇ
+                    </label>
+                    <label for="txtBreastIllness" class="Enlan control-label col-2">
+                        15 a) Do they have any illness with regards to
+                        breast
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BreastIllness, true, new { @id = "rbtnBIYes", @class = "csBreastIllnessY", onchange = "HDcheckboxchange(this.id,'txtBreastIllness')" })  Yes
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BreastIllness, false, new { @id = "rbtnBINo", @class = "csBreastIllnessN", onchange = "HDcheckboxchange(this.id,'txtBreastIllness')" })  No
+                    </label>
+                    <div class="form-group col-4">
+                        @Html.TextAreaFor(model => model.BreastIllnessDesc, new { @id = "txtBreastIllness", @class = "form-control ClAlphaNum", rows = "3" })
+                        <label id="errtxtBreastIllnessReq" class="col-form-label-sm text-danger err" hidden>Please enter details about illness.</label>
+                    </div>
+                    <div class="form-group col-4 pl-0">
+                        @if (!string.IsNullOrEmpty(Model.BreastIllnessDocFileName))
+                        {
+                        <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.TextBoxFor(m => m.BreastIllnessDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                            @*<a href="@Model.BreastIllnessDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.BreastIllnessDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        }
+                        @Html.TextBoxFor(m => m.BreastIllnessDoc, new { @id = "txtBreastIllnessDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuBreastIllness", onchange = "ODocFileSize(this.id,'errtxtBreastIllnessDoc')" })
+                        <label id="errtxtBreastIllnessDoc" class="col-form-label-sm text-danger err" hidden></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="txtBreastCancer" class="knlan control-label col-2">b)ಪ್ರಸ್ತಾಪಕರಿಗೆ ಸ್ತನ ಕ್ಯಾನ್ಸರ್ ಇದೆಯೇ?</label>
+                    <label for="txtBreastCancer" class="Enlan control-label col-2">b) Do the Proposer have breast Cancer</label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BreastCancer, true, new { @id = "rbtnBCYes", @class = "csBreastCancerY", onchange = "HDcheckboxchange(this.id,'txtBreastCancer')" })  Yes
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BreastCancer, false, new { @id = "rbtnBCNo", @class = "csBreastCancerN", onchange = "HDcheckboxchange(this.id,'txtBreastCancer')" })  No
+                    </label>
+                    <div class="form-group col-4">
+                        @Html.TextAreaFor(model => model.BreastCancerDesc, new { @id = "txtBreastCancer", @class = "form-control ClAlphaNum", rows = "3" })
+                        <label id="errtxtBreastCancerReq" class="col-form-label-sm text-danger err" hidden>Please enter details about cancer.</label>
+                    </div>
+                    <div class="form-group col-4 pl-0">
+                        @if (!string.IsNullOrEmpty(Model.BreastCancerDocFileName))
+                        {
+                        <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.TextBoxFor(m => m.BreastCancerDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                            @*<a href="@Model.BreastCancerDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.BreastCancerDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        }
+                        @Html.TextBoxFor(m => m.BreastCancerDoc, new { @id = "txtBreastCancerDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuBreastCancer", onchange = "ODocFileSize(this.id,'errtxtBreastCancerDoc')" })
+                        <label id="errtxtBreastCancerDoc" class="col-form-label-sm text-danger err" hidden></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="txtClueInPregancy" class="knlan control-label col-2">
+                        c) ಗರ್ಭ ಧರಿಸಿದ ಯಾವುದೇ ಸುಳಿವು ಅಥವಾ ಸಂಶಯ ನಿಮಗೆ ಕಂಡುಬಂದಿದೆಯೆ? ಆಗಿದ್ದರೆ ಅವಧಿ ತಿಳಿಸಿ
+                    </label>
+                    <label for="txtClueInPregancy" class="Enlan control-label col-2">
+                        c) Do you have any clue or doubt about
+                        Proposer getting pregnant
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.ClueInPregancy, true, new { @id = "rbtnCIPYes", @class = "csClueInPregancyY", onchange = "HDcheckboxchange(this.id,'txtClueInPregancy')" })  Yes
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.ClueInPregancy, false, new { @id = "rbtnCIPTNo", @class = "csClueInPregancyN", onchange = "HDcheckboxchange(this.id,'txtClueInPregancy')" })  No
+                    </label>
+                    <div class="form-group col-4">
+                        @Html.TextAreaFor(model => model.ClueInPregancyDesc, new { @id = "txtClueInPregancy", @class = "form-control ClAlphaNum", rows = "3" })
+                        <label id="errtxtClueInPregancyReq" class="col-form-label-sm text-danger err" hidden>Please enter details about pregancy.</label>
+
+                    </div>
+                    <div class="form-group col-4 pl-0">
+                        @if (!string.IsNullOrEmpty(Model.ClueInPregancyDocFileName))
+                        {
+                        <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.TextBoxFor(m => m.ClueInPregancyDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                            @*<a href="@Model.ClueInPregancyDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.ClueInPregancyDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        }
+                        @Html.TextBoxFor(m => m.ClueInPregancyDoc, new { @id = "txtClueInPregancyDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuClueInPregancy", onchange = "ODocFileSize(this.id,'errtxtClueInPregancyDoc')" })
+                        <label id="errtxtClueInPregancyDoc" class="col-form-label-sm text-danger err" hidden></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="txtBiologicalIllness" class="knlan control-label col-2">
+                        d) ಜೈವಿಕ ಅನಾರೋಗ್ಯದ ಅಥವಾ ಅಂಡಾಶಯ ಅಥವಾ ಗರ್ಭಕೋಶದ ರೋಗ ಲಕ್ಷಣಗಳೇನಾದರೂ ಗುರುತಿಸುವಿರಾ?
+                    </label>
+                    <label for="txtBiologicalIllness" class="Enlan control-label col-2">
+                        d) Do you identify any biological illness,
+                        symptoms of ovarian or uterian disease
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BiologicalIllness, true, new { @id = "rbtnBIYes", @class = "csBiologicalIllnessY", onchange = "HDcheckboxchange(this.id,'txtBiologicalIllness')" })  Yes
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.BiologicalIllness, false, new { @id = "rbtnBINo", @class = "csBiologicalIllnessN", onchange = "HDcheckboxchange(this.id,'txtBiologicalIllness')" })  No
+                    </label>
+                    <div class="form-group col-4">
+                        @Html.TextAreaFor(model => model.BiologicalIllnessDesc, new { @id = "txtBiologicalIllness", @class = "form-control ClAlphaNum", rows = "3" })
+                        <label id="errtxtBiologicalIllnessReq" class="col-form-label-sm text-danger err" hidden>Please enter details about illness.</label>
+                    </div>
+                    <div class="form-group col-4 pl-0">
+                        @if (!string.IsNullOrEmpty(Model.BiologicalIllnessDocFileName))
+                        {
+                        <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.TextBoxFor(m => m.BiologicalIllnessDocFileName, new { @class = "display-as-label form-label col-12", @style = "display:none;" })
+                            @*<a href="@Model.BiologicalIllnessDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.BiologicalIllnessDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        }
+                        @Html.TextBoxFor(m => m.BiologicalIllnessDoc, new { @id = "txtBiologicalIllnessDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuBiologicalIllness", onchange = "ODocFileSize(this.id,'errtxtBiologicalIllnessDoc')" })
+                        <label id="errtxtBiologicalIllnessDoc" class="col-form-label-sm text-danger err" hidden></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+       
+            @*<div class="row">
+                <label for="txttxtGoodLifeCycle" class="knlan control-label col-2">
+                    16) ಮನವಿದಾರರ ಜೀವವನ್ನು ಉತ್ತಮವೆಂದು ನೀವು ಪರಿಗಣಿಸುವಿರಾ? ಹಾಗಿಲ್ಲದಿದ್ದರೆ ನಿಮ್ಮ ಅಭಿಪ್ರಾಯಕ್ಕೆ ಸ್ಷಷ್ಟ ಕಾರಣಗಳನ್ನು ತಿಳಿಸಿ
+                </label>
+                <label for="txttxtGoodLifeCycle" class="Enlan control-label col-2">
+                    16) Does the Proposer have a good life
+                    cycle?
+                    If not, please give the specific reason
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.GoodLifeCycle, true, new { @id = "rbtnGLCTYes", @class = "csGoodLifeCycleY", onchange = "HDcheckboxchange(this.id,'txtGoodLifeCycle')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.GoodLifeCycle, false, new { @id = "rbtnGLCTNo", @class = "csGoodLifeCycleN", onchange = "HDcheckboxchange(this.id,'txtGoodLifeCycle')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.GoodLifeCycleDesc, new { @id = "txtGoodLifeCycle", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtGoodLifeCycleReq" class="col-form-label-sm text-danger err" hidden>Please enter details about life cycle.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.GoodLifeCycleDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.GoodLifeCycleDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.GoodLifeCycleDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.GoodLifeCycleDoc, new { @id = "txtGoodLifeCycleDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuGoodLifeCycle", onchange = "ODocFileSize(this.id,'errtxtGoodLifeCycleDoc')" })
+                    <label id="errtxtGoodLifeCycleDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="txttxtGoodLifeCycle" class="knlan control-label col-2">
+                        16) ಮನವಿದಾರರ ಜೀವವನ್ನು ಉತ್ತಮವೆಂದು ನೀವು ಪರಿಗಣಿಸುವಿರಾ? ಹಾಗಿಲ್ಲದಿದ್ದರೆ ನಿಮ್ಮ ಅಭಿಪ್ರಾಯಕ್ಕೆ ಸ್ಷಷ್ಟ ಕಾರಣಗಳನ್ನು ತಿಳಿಸಿ
+                    </label>
+                    <label for="txttxtGoodLifeCycle" class="Enlan control-label col-2">
+                        16) Does the Proposer have a good life
+                        cycle?
+                        If not, please give the specific reason
+                    </label>
+
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.GoodLifeCycle, true, new { @id = "rbtnGLCSTYes", @class = "csGoodLifeCycleYes", onchange = "HDHealthcheckboxchange(this.id,'txtGoodLifeCycle')" })  Yes
+                    </label>
+                    <label class="col-1">
+                        @Html.RadioButtonFor(model => model.GoodLifeCycle, false, new { @id = "rbtnGLCSTNo", @class = "csGoodLifeCycleNo", onchange = "HDHealthcheckboxchange(this.id,'txtGoodLifeCycle')" })  No
+                    </label>
+                    <div class="form-group col-4">
+                        @Html.TextAreaFor(model => model.GoodLifeCycleDesc, new { @id = "txtGoodLifeCycle", @class = "form-control ClAlphaNum", rows = "3" })
+                        <label id="errtxtGoodLifeCycleReq" class="col-form-label-sm text-danger err" hidden>Please enter details about life cycle.</label>
+                    </div>
+                    <div class="form-group col-4 pl-0">
+                        @if (!string.IsNullOrEmpty(Model.GoodLifeCycleDocFileName))
+                        {
+                            <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.TextBoxFor(m => m.GoodLifeCycleDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                            @*<a href="@Model.GoodLifeCycleDocFileName" target="_blank" class="doc-uploaded-HD">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.GoodLifeCycleDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        }
+                        @Html.TextBoxFor(m => m.GoodLifeCycleDoc, new { @id = "txtGoodLifeCycleDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuGoodLifeCycle", onchange = "ODocFileSize(this.id,'errtxtGoodLifeCycleDoc')" })
+                        <label id="errtxtGoodLifeCycleDoc" class="col-form-label-sm text-danger err" hidden></label>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
+
+<script src="~/Scripts/ApplicationJS/NBHHealthDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            debugger
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+
+
+    });
+    function ODocFileSize(id, errLbl) {
+        debugger;
+
+        if ($("#" + id).get(0).files[0] != undefined) {
+            const fsize = $("#" + id).get(0).files[0].size;
+            const maxAllowedSize = 5 * 1024 * 1024;
+            // The size of the file.
+            if (fsize > maxAllowedSize) {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("File too Big, please select a file less than 5 MB");
+                $("#" + id).val("");
+               
+            }
+           
+        }
+    }
+
+</script>

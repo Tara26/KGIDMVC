@@ -1,0 +1,81 @@
+﻿@model KGID_Models.NBApplication.VM_FamilyDetails
+@using KGID_Models.NBApplication;
+
+
+
+<div id="divVFamily">
+    <div class="form-group">
+        <table id="tblviewFamilyDetails" class="table table-striped table-bordered" style="width:100%;padding-bottom:10px;">
+            <thead>
+                <tr>
+                    <th><label class="knlan">ಕುಟುಂಬ ಸದಸ್ಯರ ಹೆಸರು </label><label class="Enlan">Name of family member</label></th>
+                    <th><label class="knlan">ಸಂಬಂಧ </label><label class="Enlan">Relation</label></th>
+                    <th><label class="knlan">ಜನ್ಮ ದಿನಾಂಕ </label><label class="Enlan">Date of Birth</label></th>
+                    <th><label class="knlan">ಕುಟುಂಬ ಸದಸ್ಯರ ವಯಸ್ಸು </label><label class="Enlan">Age of Family Member</label></th>
+                    <th><label class="knlan">ಜೀವಂತ / ಮೃತರು </label><label class="Enlan">Alive / Dead</label></th>
+                    <th><label class="knlan">ಒಡಹುಟ್ಟಿದವರು ಮದುವೆಯಾಗಿದ್ದಾರೆಯೇ? </label><label class="Enlan">Is Sibling Married?</label></th>
+                    <th><label class="knlan">ಜೀವಂತ (ಆರೋಗ್ಯ ಸ್ಥಿತಿ)</label><label class="Enlan">Alive (Health Condition)</label></th>
+                    <th><label class="knlan">ಮರಣ ಹೊಂದಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Death</label></th>
+                    <th><label class="knlan">ಮರಣ (ಮರಣದ ಕಾರಣ)</label><label class="Enlan">Dead (Death Reason)</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.EmployeeId != 0)
+                {
+                    int counter = 1;
+                    foreach (var item in Model.FamilyDetails)
+                    {
+                        <tr data-row-number="@counter" data-fd-id="@item.Id">
+                            <td class="tdName">@item.NameOfMember</td>
+                            <td class="tdRelation">@item.Relation</td>
+                            <td class="tdDateOfBirth">@item.DateOfBirth</td>
+                            <td class="tdAge">@item.Age</td>
+                            @{
+                                string aliveDead = item.AliveDead.HasValue && item.AliveDead.Value ? "Alive" : "Dead";
+                            }
+                            <td class="tdLivingStatus">@aliveDead</td>
+                            @{ string isSiblingMarried = (item.Relation == "Brother" || item.Relation == "Sister") ? (item.IsSiblingMarried == true) ? "Married" : "UnMarried" : "N/A"; }
+                            <td>@isSiblingMarried</td>
+                            <td>@item.HealthCondition</td>
+                            <td>@item.DateOfDeath</td>
+                            <td>@item.ReasonOfDeath</td>
+                        </tr>
+                        counter++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class="control-label col-sm-4 pt-2-5"><b><label class="knlan">ಸಹೋದರರ ಸಂಖ್ಯೆ</label><label class="Enlan">Number of Brother's</label></b></label> : <span id="spnNoOfBrother">@Html.DisplayFor(model => model.NoOfBrother)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class=" control-label col-sm-4 pt-2-5"><b><label class="knlan">ಸಹೋದರಿಯರ ಸಂಖ್ಯೆ</label><label class="Enlan">Number of Sister's</label></b> </label> : <span id="spnNoOfSister">@Html.DisplayFor(model => model.NoOfSister)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class=" control-label col-sm-4 pt-2-5"><b><label class="knlan">ಮಕ್ಕಳ ಸಂಖ್ಯೆ</label><label class="Enlan">Number of Children's</label></b> </label> : <span id="spnNoOfChildren">@Html.DisplayFor(model => model.NoOfChildren)</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var table;
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblviewFamilyDetails')) {
+            table = $('#tblviewFamilyDetails').DataTable({
+                paging: false,
+                info: false,
+                searching: false
+            });
+        }
+    });
+</script>

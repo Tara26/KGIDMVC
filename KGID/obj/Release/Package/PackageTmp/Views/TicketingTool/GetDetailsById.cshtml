@@ -1,0 +1,92 @@
+﻿@model KGID_Models.Ticketing_Tool.tbl_report_problem
+@using KGID.Models
+
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+<div id="divPrintBasicDetails">
+    <form id="frmAppBasicDetails">
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Module"><b><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></b></label>
+            </div>
+
+            <div class="col-md-3">
+                @Html.HiddenFor(model => model.rp_module_id, new { @id = "hdnmoduleStatus", @class = "col-1", @value = Model.rp_module_id })
+                @Html.DropDownListFor(model => model.rp_module_id,
+           new SelectList(KGID.Models.TT_Mast.GetModuleList(), "mt_module_type", "mt_desc"), "-- N/A  --",
+           new { @id = "ddlmoduleType", @class = "form-control disabled", disabled = "disabled"  })
+                
+                
+                 </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></b></label>
+            </div>
+
+            <div class="col-md-3">
+                @Html.HiddenFor(model => model.rp_problem_type_id, new { @id = "hdnprobStatus", @class = "col-1", @value = Model.rp_problem_type_id })
+                @Html.DropDownListFor(model => model.rp_problem_type_id,
+           new SelectList(KGID.Models.TT_Mast.GetProblemTypeList(), "pt_id", "pr_description"), "-- N/A  --",
+           new { @id = "ddlprobType", @class = "form-control disabled", disabled = "disabled" })
+
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆಯ ವಿವರಗಳು</label><label class="Enlan">Details of the problem</label></b></label>
+            </div>
+
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.rp_complaint_description, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullName", @readonly = "readonly" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Module"><b><label class="knlan">ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಸ್ಕ್ರೀನ್‌ಶಾಟ್</label><label class="Enlan">Uploaded Screenshot</label></b></label>
+            </div>
+            <div class="form-group col-md-5">
+                <input type="file" name="postedFile" id="postedFile" class="form-control" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Status"><b><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></b></label>
+            </div>
+
+            <div class="col-md-3">
+                <select id="ddlStatus" name="ddlStatus" class="ddlStatus form-control input-small">
+                    <option value="">--Select--</option>
+                    <option value="1">Resolved</option>
+                    <option value="2">InProgress</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Comments"><b><label class="knlan">ಸಮಸ್ಯೆಯ ಕುರಿತು ಪ್ರತಿಕ್ರಿಯೆಗಳು / ಟೀಕೆಗಳು</label><label class="Enlan">Comments/Remarks on the problem</label></b></label>
+            </div>
+
+            <div class="col-md-5">
+                <textarea class="form-control" cols="20" data-val="true" data-val-required="Please enter Comments" id="txtComments" name="Comments" rows="3" style="width:525px;height:60px"></textarea>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="form-group col-md-5">
+            </div>
+            <div class="form-group col-md-1">
+                <input type="submit" value="Update" class="btn btn-primary" id="btnupload" onclick="UpdateReportedproblem1();" />
+            </div>
+        </div>
+
+    </form>
+</div>
+

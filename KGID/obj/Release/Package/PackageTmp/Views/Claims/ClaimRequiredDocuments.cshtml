@@ -1,0 +1,751 @@
+﻿@model KGID_Models.Claim.VM_ClaimRequiredDocuments
+
+@{
+    ViewBag.Title = "Upload Required Documets";
+}
+
+<style>
+    .pt-12 {
+        padding-top: 10px;
+    }
+
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    .btn-delete-doc {
+        position: absolute;
+        right: 0px;
+        z-index: 2;
+        top: 20px;
+        cursor: pointer !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;"><b>Documents Required</b></h6>
+            </div>
+            @using (Html.BeginForm("SumbitClaimDocuments", "Claims", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmClaimDoc" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.EmpId, new { id = "hdnEmpId" })
+            <div class="card-body">
+                <h6>Please upload the scanned copies of all the documents required below</h6>
+                <hr />
+
+                <div class="row">
+                    <div class="row col-6 ">
+
+                        <label class="control-label col-6 pt-3 m-t-10 required">Death Certificate <span style="color:red">(*)</span>: </label>
+                        <div class="col-6 pt-12">
+                            <input type="file" class="form-control border-0 in-s" id="DeathCertificate" name="DeathCertificate" accept="application/pdf" , onchange="file_validation(this)" required />
+                        </div>
+                    </div>
+                    <div class="row col-6">
+                        <label class="control-label col-6 pt-3 m-t-10 required">Claim Application <span style="color:red">(*)</span>:</label>
+                        <div class="col-6 pt-12">
+                            <input type="file" class="form-control border-0" id="ClaimApplication" name="ClaimApplication" accept="application/pdf" , onchange="file_validation(this)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row col-6 ">
+
+                        <label class="text-danger col-12 medium err-login" id="lbl_DeathCertificate" style="display:none"></label>
+                        <div class="col-6 pt-12">
+                            <label class="text-danger col-12 medium err-login" id="fil_DeathCertificate" style="display:none"></label>
+                        </div>
+                    </div>
+                    <div class="row col-6">
+                        <label class="text-danger col-12 medium err-login" id="lbl_ClaimApplication" style="display:none"></label>
+                        <div class="col-6">
+                            <label class="text-danger col-12 medium err-login" id="fil_ClaimApplication" style="display:none"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col-6 ">
+                        <label class="control-label col-6 pt-3 m-t-10 required">Policy Bonds <span style="color:red">(*)</span>:</label>
+                        <div class="col-6 pt-12">
+                            <input type="file" class="form-control border-0" id="PolicyBonds" name="PolicyBonds" accept="application/pdf" , onchange="file_validation(this)" required />
+                        </div>
+                    </div>
+                    <div class="row col-6">
+                        <label class="control-label col-6 pt-3 m-t-10 required">Medical Attendance Report <span style="color:red">(*)</span>:</label>
+                        <div class="col-6 pt-12">
+                            <input type="file" class="form-control border-0" id="MedicalAttendanceReport" name="MedicalAttendanceReport" accept="application/pdf" , onchange="file_validation(this)" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row col-6 ">
+
+                        <label class="text-danger col-12 medium err-login" id="lbl_PolicyBonds" style="display:none"></label>
+                        <div class="col-6 pt-12">
+                            <label class="text-danger col-12 medium err-login" id="fil_PolicyBonds" style="display:none"></label>
+                        </div>
+                    </div>
+                    <div class="row col-6">
+                        <label class="text-danger col-12 medium err-login" id="lbl_MedicalAttendanceReport" style="display:none"></label>
+                        <div class="col-6">
+                            <label class="text-danger col-12 medium err-login" id="fil_MedicalAttendanceReport" style="display:none"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col-6 ">
+                        <label class="control-label col-6 pt-3 m-t-10 required">Survival Certificate <span style="color:red">(*)</span>:</label>
+                        <div class="col-6 pt-12">
+                            <input type="file" class="form-control border-0" id="SurvivalCertificate" name="SurvivalCertificate" accept="application/pdf" , onchange="file_validation(this)" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row col-6 ">
+                        <label class="text-danger col-12 medium err-login" id="lbl_SurvivalCertificate" style="display:none"></label>
+                        <div class="col-6 pt-12">
+                            <label class="text-danger col-12 medium err-login" id="fil_SurvivalCertificate" style="display:none"></label>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.ClaimSubTypeId == 3)
+                {
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Leaves Availed on Medical Grounds <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="LeavesAvailed" name="LeavesAvailed" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Details of Medical Reimbursement <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                @*<input type="file" class="form-control border-0" id="MedicalReimbursement:" name="MedicalReimbursement" accept="application/pdf" , onchange="file_validation(this)" required />*@
+                                <input type="file" class="form-control border-0" id="MedicalReimbursement" name="MedicalReimbursement" accept="application/pdf" , onchange="file_validation(this)" required />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_LeavesAvailed" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_LeavesAvailed" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="text-danger col-12 medium err-login" id="lbl_MedicalReimbursement" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_MedicalReimbursement" style="display:none"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Death Summary <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                @*<input type="file" class="form-control border-0" id="DeathSummary:" name="DeathSummary" accept="application/pdf" , onchange="file_validation(this)" required />*@
+                                <input type="file" class="form-control border-0" id="DeathSummary" name="DeathSummary" accept="application/pdf" , onchange="file_validation(this)" required />
+
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Discharge Summary <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                @*<input type="file" class="form-control border-0" id="DischargeSummary:" name="DischargeSummary" accept="application/pdf" , onchange="file_validation(this)" required />*@
+                                <input type="file" class="form-control border-0" id="DischargeSummary" name="DischargeSummary" accept="application/pdf" , onchange="file_validation(this)" required />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_DeathSummary" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_DeathSummary" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="text-danger col-12 medium err-login" id="lbl_DischargeSummary" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_DischargeSummary" style="display:none"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else if (Model.ClaimSubTypeId == 4)
+                {
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Police Report <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="PoliceReport" name="PoliceReport" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="control-label col-6 pt-3 m-t-10 required">FIR <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="FIR" name="FIR" accept="application/pdf" , onchange="file_validation(this)" required />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_PoliceReport" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_PoliceReport" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="text-danger col-12 medium err-login" id="lbl_FIR" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_FIR" style="display:none"></label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Post-Mortem Report <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="PostMortemReport" name="PostMortemReport" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_PostMortemReport" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_PostMortemReport" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+
+                        </div>
+                    </div>
+
+                }
+                else if (Model.ClaimSubTypeId == 5)
+                {
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Court Order Declaring Dead <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="CourtOrderDeclaringDead" name="CourtOrderDeclaringDead" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_CourtOrderDeclaringDead" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_CourtOrderDeclaringDead" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+
+                        </div>
+                    </div>
+                }
+
+                @if (!Model.IsNomineeAlive)
+                {
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Succession certificate <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="SuccessionCertificate" name="SuccessionCertificate" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="control-label col-6 pt-3 m-t-10 required">Consent Letter <span style="color:red">(*)</span>:</label>
+                            <div class="col-6 pt-12">
+                                <input type="file" class="form-control border-0" id="ConsentLetter" name="ConsentLetter" accept="application/pdf" , onchange="file_validation(this)" required />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="text-danger col-12 medium err-login" id="lbl_SuccessionCertificate" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_SuccessionCertificate" style="display:none"></label>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="text-danger col-12 medium err-login" id="lbl_ConsentLetter" style="display:none"></label>
+                            <div class="col-6 pt-12">
+                                <label class="text-danger col-12 medium err-login" id="fil_ConsentLetter" style="display:none"></label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                    <div class="row">
+                        @if (Model.IsNomineeMinor)
+                        {
+                            <div class="row col-6">
+                                <label class="control-label col-6 pt-3 m-t-10 required">Guardianship Certificate <span style="color:red">(*)</span>:</label>
+                                <div class="col-6 pt-12">
+                                    <input type="file" class="form-control border-0" id="GuardianshipCertificate" name="GuardianshipCertificate" accept="application/pdf" , onchange="file_validation(this)" required />
+                                </div>
+                            </div>
+
+                            <div class="row col-6">
+                                <label class="text-danger col-12 medium err-login" id="lbl_GuardianshipCertificate" style="display:none"></label>
+                                <div class="col-6 pt-12">
+                                    <label class="text-danger col-12 medium err-login" id="fil_GuardianshipCertificate" style="display:none"></label>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.IsMarriedAfterPolicyApplication)
+                        {
+                            <div class="row col-6">
+                                <label class="control-label col-6 pt-3 m-t-10 required">Marriage Certificate <span style="color:red">(*)</span>:</label>
+                                <div class="col-6 pt-12">
+                                    <input type="file" class="form-control border-0" id="MarriageCertificate" name="MarriageCertificate" accept="application/pdf" , onchange="file_validation(this)" required />
+                                </div>
+                            </div>
+
+                            <div class="row col-6">
+                                <label class="text-danger col-12 medium err-login" id="lbl_MarriageCertificate" style="display:none"></label>
+                                <div class="col-6 pt-12">
+                                    <label class="text-danger col-12 medium err-login" id="fil_MarriageCertificate" style="display:none"></label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                <hr />
+                <div id="divOtherDocuments" class="row"></div>
+                <div class="text-right pt-4 col-12">
+                    <a href="javascript:void(0);" onclick="AddOtherDocuments();" class="font-weight-bold">Add Other Documents</a>
+                    <label class="text-danger col-12 medium err-login" id="lbl_ClaimSubTypeId" style="display:none"></label>
+
+                </div>
+                <div>
+                    <input type="hidden" id="ClaimSubTypeId" name="ClaimSubTypeId" value="@Model.ClaimSubTypeId" required />
+                    @*<label class="text-danger col-12 medium err-login" id="fil_ClaimSubTypeId" style="display:none"></label>*@
+                    <label class="text-danger col-12 medium err-login" id="fil_ClaimSubTypeId" style="display:none"></label>
+
+                </div>
+
+                <div class="card-footer text-right">
+                    <button id="btnBack" onclick="window.history.back();" class="btn btn-danger btn-lg" style="font-size: 14px;color: #FFF;letter-spacing: 1px;">Back</button>
+                    <button class="btn btn-success btn-lg" type="button" style="font-size: 14px;color: #FFF;letter-spacing: 1px;" id="btn_submit">Forward</button>
+
+                </div>
+            
+
+        </div>
+            }
+    </div>
+</div>
+    </div>
+
+<script>
+
+    var counter = 0;
+    function AddOtherDocuments() {
+        var docString = "<div class='row col-6'><label class='control-label col-6 pt-3 m-t-10 required'>Other documents <span style='color:red'>(*)</span>:</label><div class='col-6 pt-12'><input class='form-control border-0' id='OtherDocuments_" + counter + "_' name='OtherDocuments[" + counter + "]' type='file' value='',accept='application/pdf' , onchange='file_validation(this)'><button class='btn-delete-doc close' type='button' onclick='DeleteDoc(this)'><span>×</span></button></div></div>";
+        $("#divOtherDocuments").append(docString);
+        counter++;
+      
+    }
+
+    function DeleteDoc(control) {
+        var $controlToDelete = $(control).parent().parent("div");
+        $controlToDelete.remove();
+    }
+
+    $("#btn_submit").click(function () {
+        debugger;
+        var ClaimSubTypeId = $('#ClaimSubTypeId').val();
+
+        var imgVal = $('#DeathCertificate').val();
+        if (imgVal == '') {
+            $("#lbl_DeathCertificate").show();
+            $("#lbl_DeathCertificate").text("Death Certificate Required");
+            return false;
+        } 
+        var ClaimApplication = $('#ClaimApplication').val();
+        if (ClaimApplication == '') {
+            $("#lbl_ClaimApplication").show();
+            $("#lbl_ClaimApplication").text("please select a  Claim Application File");
+            return false;
+        } 
+        var PolicyBonds = $('#PolicyBonds').val();
+        if (PolicyBonds == '') {
+            $("#lbl_PolicyBonds").show();
+            $("#lbl_PolicyBonds").text("please select a  Policy Bonds File");
+            return false;
+        }
+        var MedicalAttendanceReport = $('#MedicalAttendanceReport').val();
+        if (MedicalAttendanceReport == '') {
+            $("#lbl_MedicalAttendanceReport").show();
+            $("#lbl_MedicalAttendanceReport").text("please select a  Medical Attendance Report File");
+            return false;
+        }
+        
+
+        var SurvivalCertificate = $('#SurvivalCertificate').val();
+        if (SurvivalCertificate == '') {
+            $("#lbl_SurvivalCertificate").show();
+            $("#lbl_SurvivalCertificate").text("please select a Survival Certificate File");
+            return false;
+        } 
+
+        var LeavesAvailed = $('#LeavesAvailed').val();
+        if (LeavesAvailed == '') {
+            $("#lbl_LeavesAvailed").show();
+            $("#lbl_LeavesAvailed").text("please select a Leaves Availed File");
+            return false;
+        } 
+         
+       
+        
+
+        
+        if (ClaimSubTypeId == 3) {
+
+            var MedicalReimbursement = $('#MedicalReimbursement').val();
+
+            if (MedicalReimbursement == '' || MedicalReimbursement == undefined) {
+
+                $("#lbl_MedicalReimbursement").show();
+                $("#lbl_MedicalReimbursement").text("please select a  Medical Reimbursement File");
+                return false;
+            }
+
+            var DischargeSummary = $('#DischargeSummary').val();
+            if (DischargeSummary == '' || DischargeSummary == undefined) {
+                $("#lbl_DischargeSummary").show();
+                $("#lbl_DischargeSummary").text("please select a  Discharge Summary File");
+                return false;
+            }
+            var DeathSummary = $('#DeathSummary').val();
+
+            if (DeathSummary == '') {
+                $("#lbl_DeathSummary").show();
+                $("#lbl_DeathSummary").text("please select a  Death Summary File");
+                return false;
+            }
+           
+        }
+        if (counter != 0) {
+            //var xx = $('#OtherDocuments_' + (counter - 1) + '_');
+            var OtherDocuments = $('#OtherDocuments_' + (counter - 1) + '_').val();
+
+            if (OtherDocuments == '' || OtherDocuments.indexOf('.') == -1 || OtherDocuments.indexOf('pdf') == -1) {
+                $("#lbl_ClaimSubTypeId").show();
+                $("#lbl_ClaimSubTypeId").text("please select a  Other Document File");
+                return false;
+            }
+
+        }
+        if (ClaimSubTypeId == 4) {
+            var PoliceReport = $('#PoliceReport').val();
+
+            if (PoliceReport == '') {
+                $("#lbl_PoliceReport").show();
+                $("#lbl_PoliceReport").text("please select a Police Report File");
+                return false;
+            }
+
+            var FIR = $('#FIR').val();
+
+            if (FIR == '') {
+                $("#lbl_FIR").show();
+                $("#lbl_FIR").text("please select a FIR File");
+                return false;
+            }
+
+            var PostMortemReport = $('#PostMortemReport').val();
+
+            if (PostMortemReport == '') {
+                $("#lbl_PostMortemReport").show();
+                $("#lbl_PostMortemReport").text("please select a PostMortem Report File");
+                return false;
+            }
+
+        }
+
+
+        if (ClaimSubTypeId ==5) {
+            var CourtOrderDeclaringDead = $('#CourtOrderDeclaringDead').val();
+
+            if (CourtOrderDeclaringDead == '') {
+                $("#lbl_CourtOrderDeclaringDead").show();
+                $("#lbl_CourtOrderDeclaringDead").text("please select a Police Report File");
+                return false;
+            }
+
+            
+
+        }
+       
+        if ($("#frmClaimDoc").valid()) {
+            $("#frmClaimDoc").submit();
+        }
+    })
+
+
+    function file_validation(file) {
+        debugger;
+       
+        $("#fil_DeathCertificate").hide();
+        $("#fil_ClaimApplication").hide();
+        $("#fil_PolicyBonds").hide();
+        $("#fil_MedicalAttendanceReport").hide();
+        $("#fil_DeathSummary").hide();
+        $("#fil_MedicalReimbursement").hide();
+        $("#fil_DischargeSummary").hide();
+        $("#fil_SurvivalCertificate").hide();
+        $("#fil_LeavesAvailed").hide();
+        $("#fil_ClaimSubTypeId").empty();
+        $("#fil_ClaimSubTypeId").hide();
+        $("#fil_PoliceReport").hide();
+        $("#fil_FIR").hide();
+        $("#fil_PostMortemReport").hide();
+        $("#fil_CourtOrderDeclaringDead").hide();
+
+         $("#lbl_DeathCertificate").hide();
+        $("#lbl_ClaimApplication").hide();
+        $("#lbl_PolicyBonds").hide();
+        $("#lbl_MedicalAttendanceReport").hide();
+        $("#lbl_DeathSummary").hide();
+        $("#lbl_MedicalReimbursement").hide();
+        $("#lbl_DischargeSummary").hide();
+        $("#lbl_SurvivalCertificate").hide();
+        $("#lbl_LeavesAvailed").hide();
+        $("#lbl_ClaimSubTypeId").empty();
+        $("#lbl_ClaimSubTypeId").hide();
+        $("#lbl_PoliceReport").hide();
+        $("#lbl_FIR").hide();
+        $("#lbl_PostMortemReport").hide();
+        $("#lbl_CourtOrderDeclaringDead").hide();
+     
+        var count = 0;
+        myfile = $(file).val();
+        
+       
+            var ext = myfile.split('.').pop();
+            
+            if (ext == "pdf") {
+                //const fi = document.getElementById(file);
+                // Check if any file is selected.
+                //var FileSize = file.files[0].size / 1024 
+                //{
+                //    alert(FileSize);
+
+                //}
+               
+               
+                if (file.files.length > 0) {
+
+                   
+                    var FileSize = file.files[0].size
+                    {
+                      
+                        
+                        const file = Math.round((FileSize / 1024));
+                        // The size of the file.
+
+                        if (FileSize > 4766573) {
+                         
+                            count = 1;
+                            
+
+                    }
+                    
+                    }
+
+                    if (count == 1) {
+
+                        $(file).val('');
+                        //$("#errMobile").show();
+                        //$("#errMobile").text("File too Big, please select a file less than 5mb");
+
+                        switch (file.id) {
+                            case "DeathCertificate":
+                                $("#fil_DeathCertificate").show();
+                                $("#fil_DeathCertificate").text(" please select Death Certificate  pdf File less than 5mb");
+                                break;
+
+                            case "ClaimApplication":
+                                $("#fil_ClaimApplication").show();
+                                $("#fil_ClaimApplication").text("please select Claim Application  pdf File less than 5mb");
+                                break;
+                            case "PolicyBonds":
+                                $("#fil_PolicyBonds").show();
+                                $("#fil_PolicyBonds").text("please select Policy Bonds  pdf File less than 5mb");
+                                break;
+
+                            case "MedicalAttendanceReport":
+                                $("#fil_MedicalAttendanceReport").show();
+                                $("#fil_MedicalAttendanceReport").text("please select Medical AttendanceReport  pdf File less than 5mb");
+                                break;
+
+                            case "DeathSummary":
+                                $("#fil_DeathSummary").show();
+                                $("#fil_DeathSummary").text("please select Death Summary  pdf File less than 5mb");
+                                break;
+
+                            case "MedicalReimbursement":
+                                $("#fil_MedicalReimbursement").show();
+                                $("#fil_MedicalReimbursement").text("please select Medical Reimbursement  pdf File less than 5mb");
+                                break;
+                            case "DischargeSummary":
+                                $("#fil_DischargeSummary").show();
+                                $("#fil_DischargeSummary").text("please select Discharge Summary  pdf File less than 5mb");
+                                break; 
+
+                            case "SurvivalCertificate":
+                                $("#fil_SurvivalCertificate").show();
+                                $("#fil_SurvivalCertificate").text("please select Survival Certificate  pdf File less than 5mb");
+                                break; 
+                            case "LeavesAvailed":
+                                $("#fil_LeavesAvailed").show();
+                                $("#fil_LeavesAvailed").text("please select Leaves Availed  pdf File less than 5mb");
+                                break; 
+
+                            case "PoliceReport":
+                                $("#fil_PoliceReport").show();
+                                $("#fil_PoliceReport").text("please select Police Report  pdf File less than 5mb");
+                                break; 
+
+                            case "FIR":
+                                $("#fil_FIR").show();
+                                $("#fil_FIR").text("please select FIR  pdf File less than 5mb");
+                                break; 
+                            case "PostMortemReport":
+                                $("#fil_PostMortemReport").show();
+                                $("#fil_PostMortemReport").text("please select PostMortem Report  pdf File less than 5mb");
+                                break;
+                            case "CourtOrderDeclaringDead":
+                                $("#fil_CourtOrderDeclaringDead").show();
+                                $("#fil_CourtOrderDeclaringDead").text("please select CourtOrder DeclaringDead  pdf File less than 5mb");
+                                break;
+
+                        }
+                        if (counter != 0) {
+                            
+
+                            //if (OtherDocuments == '' || OtherDocuments.indexOf('.') == -1 || OtherDocuments.indexOf('pdf') == -1) {
+                            $("#fil_ClaimSubTypeId").show();
+                            $("#fil_ClaimSubTypeId").text("please select other  pdf File less than 5mb");
+                            return false;
+                            //}
+                        }
+
+                    } 
+                   
+                    //for (const i = 0; i <= file.files.length - 1; i++) {
+                       
+                    //    const fsize = file.files[i].size;
+                        
+                    //    const file = Math.round((fsize / 1024));
+                    //    // The size of the file.
+                       
+                    //    if (file >= 4096) {
+                    //        alert(
+                    //            "File too Big, please select a file less than 4mb");
+                    //    } 
+                    //}
+                }
+            } else {
+                switch (file.id) {
+                    case "DeathCertificate":
+                        $("#fil_DeathCertificate").show();
+                        $("#fil_DeathCertificate").text("please select Death Certificate  pdf File");
+                        break;
+
+                    case "ClaimApplication":
+                        $("#fil_ClaimApplication").show();
+                        $("#fil_ClaimApplication").text("please select Claim Application  pdf File");
+                        break;
+                    case "PolicyBonds":
+                        $("#fil_PolicyBonds").show();
+                        $("#fil_PolicyBonds").text("please select Policy Bonds  pdf File");
+                        break;
+
+                    case "MedicalAttendanceReport":
+                        $("#fil_MedicalAttendanceReport").show();
+                        $("#fil_MedicalAttendanceReport").text("please select Medical AttendanceReport  pdf File");
+                        break;
+
+                    case "DeathSummary":
+                        $("#fil_DeathSummary").show();
+                        $("#fil_DeathSummary").text("please select Death Summary  pdf File");
+                        break;
+
+                    case "MedicalReimbursement":
+                        $("#fil_MedicalReimbursement").show();
+                        $("#fil_MedicalReimbursement").text("please select Medical Reimbursement  pdf File");
+                        break;
+                    case "DischargeSummary":
+                        $("#fil_DischargeSummary").show();
+                        $("#fil_DischargeSummary").text("please select Discharge Summary  pdf File");
+                        break;
+                    case "PoliceReport":
+                        $("#fil_PoliceReport").show();
+                        $("#fil_PoliceReport").text("please select Police Report  pdf File ");
+                        break;
+
+                    case "FIR":
+                        $("#fil_FIR").show();
+                        $("#fil_FIR").text("please select FIR  pdf File");
+                        break;
+                    case "PostMortemReport":
+                        $("#fil_PostMortemReport").show();
+                        $("#fil_PostMortemReport").text("please select PostMortem Report  pdf File ");
+                        break;
+                    case "CourtOrderDeclaringDead":
+                        $("#fil_CourtOrderDeclaringDead").show();
+                        $("#fil_CourtOrderDeclaringDead").text("please select CourtOrder DeclaringDead  pdf File");
+                        break;
+                    
+                }
+                if (counter != 0) {
+
+
+                    //if (OtherDocuments == '' || OtherDocuments.indexOf('.') == -1 || OtherDocuments.indexOf('pdf') == -1) {
+                    $("#fil_ClaimSubTypeId").show();
+                    $("#fil_ClaimSubTypeId").text("please select other  pdf File");
+                    return false;
+                    //}
+                }
+                
+               
+                $(file).val('');
+            }
+      
+
+        
+    }
+
+   
+</script>
+
+

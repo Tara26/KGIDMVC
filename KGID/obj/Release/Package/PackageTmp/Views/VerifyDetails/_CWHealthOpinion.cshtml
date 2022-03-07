@@ -1,0 +1,460 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_DeptVerificationDetails
+
+@{
+    Layout = null;
+}
+
+<style>
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    .control-label-larger {
+        font-size: 1.0rem !important;
+    }
+
+    .bigger-text {
+        font-size: 1rem !important;
+    }
+
+    .line-height {
+        line-height: 1.5 !important;
+    }
+</style>
+
+<div id="divPending">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <b>
+                            <label class="knlan control-label">ಆರೋಗ್ಯ ಅಭಿಪ್ರಾಯ ಅಪ್‌ಲೋಡ್</label>
+                            <label class="Enlan control-label">Health opinion upload</label>
+                        </b>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <nav id="navmenu">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a id="nav-tab-Scrutiny" class="nav-item nav-link active show" data-toggle="tab" href="#scrutiny" role="tab" aria-controls="scrutiny" aria-selected="true"><b><label class="knlan">ಆರೋಗ್ಯ ಅಭಿಪ್ರಾಯ ಅಪ್‌ಲೋಡ್</label><label class="Enlan">Health opinion upload</label></b></a>
+                            <a id="nav-tab-Documents" class="nav-item nav-link" data-toggle="tab" href="#uploadeddocuments" role="tab" aria-controls="uploadeddocuments" aria-selected="false"><b><label class="knlan">ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು </label><label class="Enlan">Uploaded Documents</label></b></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                        <div class="tab-pane fade show active" id="scrutiny" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="scrutinyTab" class="application-tab">
+                                <section>
+                                    @if ((string)ViewBag.VerificationType == "NHO")
+                                    {
+                                        @*<p>@Html.ActionLink("Print Health Opinion Application", "DHOOpinion", "VerifyDetails", htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })</p>
+                                            <p>@Html.ActionLink("Print Health Opinion Application DHS", "DHSOpinion", "VerifyDetails", htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })</p>*@
+                                        <p class="text-center"><a onclick="PrintDHO();" style="text-decoration: underline; color: #0056b3;">Print Health Opinion Application</a></p>
+
+                                        <form id="frmHOVerDetails" enctype="multipart/form-data">
+                                            @Html.HiddenFor(m => m.ApplicationStatus, new { id = "hdnHOApplicationStatus" })
+                                            @Html.HiddenFor(m => m.IsHealthOpinion, new { id = "hdnHealthOpinion" })
+                                            @Html.HiddenFor(m => m.EmpCode, new { id = "hdnEmpCode" })
+                                            @Html.HiddenFor(m => m.ApplicationId, new { id = "hdnApplicationId" })
+                                            @Html.HiddenFor(m => m.MedicalLeave, new { id = "hdnMedicalLeave" })
+                                            @Html.HiddenFor(m => m.VerifyProposerDetails, new { id = "hdnVerifyProposerDetails" })
+                                            @Html.HiddenFor(m => m.LoadFactor, new { id = "hdnLoadFactor" })
+                                            @Html.HiddenFor(m => m.DeductionLoadFactor, new { id = "hdnDeductionLoadFactor" })
+                                            @Html.HiddenFor(m => m.SumAssured, new { id = "hdnSumAssured" })
+                                            <div class="row col-12">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        @if (Model.NeedHealthOpinion.Count > 0)
+                                                        {
+                                                            for (var i = 0; i < Model.NeedHealthOpinion.Count; i++)
+                                                            {
+                                                                if (Model.NeedHealthOpinion[i].HealthOpinionType == 14)
+                                                                {
+                                                                    <label class="col-12 pl-0">Previously uploaded Document(DHO)</label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="col-12 pl-0">Previously uploaded Document(DHS)</label>
+                                                                }
+                                                                @Html.ActionLink("Health Opinion Document (" + (i + 1) + ")", "ViewFilePath", "Home", new { FilePath = @Model.NeedHealthOpinion[i].HealthOpinionDocuments }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                            }
+                                                        }
+                                                        @Html.TextBoxFor(Model => Model.HealthUploadDoc, new { @id = "flupldCWHealthOpinion", @class = "form-control display-as-label-upload pl-0 doc-upld-req  border-0", style = "background:transparent;", type = "file", accept = "application/pdf", onchange = "DocFileChange(this.id,'lblCWHealthReq')" })
+                                                        @*<label id="lblCWHealthReq" class="knlan col-form-label-sm text-danger err" hidden></label>*@
+                                                        <label id="lblCWHealthReq" class="col-form-label-sm text-danger err" hidden>Please upload Health opinion document</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div id="divDHOOpinion" style="display:none;">
+                                            <div class="row" style="margin-top:20px;">
+                                                <div class="form-group col-12">
+                                                    <p class="text-black-50 col-12 text-center"><span class="p-1 font-weight-bold" style="border-bottom: 0.12rem solid black;">ನಿರ್ದೇಶನಾಲಯ, ಕರ್ನಾಟಕ ಸರ್ಕಾರಿ ವಿಮಾ ಇಲಾಖೆ, ಬೆಂಗಳೂರು-560 001</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-5">
+                                                    <div class="border p-3 text-center line-height bigger-text">
+                                                        <label class="">ಸಂಖ್ಯೆ:ಕಸವಿಇ:ಜಿವಿಕ: /  &emsp; &emsp;   /20 &emsp; &emsp;  -20</label> <br />
+                                                        <label class="">
+                                                            ಜಿಲ್ಲಾ ಆರೋಗ್ಯಾಧಿಕಾರಿಗಳು,
+                                                            ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ,
+                                                        </label><br />
+                                                        <label class="">………………………………………………….</label> <br />
+                                                        <label class="">………………………………………………….</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-3">
+                                                </div>
+                                                <div class="form-group col-4">
+                                                    <label class="">ದಿನಾಂಕ:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12">
+                                                            <label class="control-label-larger line-height">
+                                                                &emsp; &emsp; &emsp; &emsp; ವಿಷಯ:- ಶ್ರೀ/ಶ್ರೀಮತಿ/ಕುಮಾರಿ…………………………………..ರವರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ
+                                                                &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;ಸಂಖ್ಯೆ………………………………. ಅಂಗೀಕಾರದ ಬಗ್ಗೆ ತಜ್ಞ ಅಭಿಪ್ರಾಯ ಕೋರಿ.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12 text-center">
+                                                            <label class="control-label-larger line-height">
+                                                                ******
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12">
+                                                            <label class="control-label-larger line-height">
+                                                                &emsp; &emsp; &emsp; &emsp; ಮೇಲ್ಕಂಡ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದಂತೆ ಮನವಿದಾರರ ಪ್ರಸ್ತಾವನೆ/ವೈದ್ಯಕೀಯ ವರದಿಯಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳನ್ನು ಗಮನಿಸಲಾಗಿ ತಮ್ಮ ಅಭಿಪ್ರಾಯ ಕೋರಲಾಗಿದೆ.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="border p-3 text-center line-height bigger-text col-12">
+                                                            <div class="row col-12" style="height:150px;">
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-7 float-right"></div>
+                                                                <div class="col-5 float-right">
+                                                                    ಜಿಲ್ಲಾ ವಿಮಾಧಿಕಾರಿ/ಸಹಾಯಕ ನಿರ್ದೇಶಕರು
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="p-3 text-center line-height bigger-text col-12">
+                                                            ಜಿಲ್ಲಾ ಆರೋಗ್ಯಾಧಿಕಾರಿಗಳು, ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ, ಇವರ ಅಭಿಪ್ರಾಯ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="border p-3 text-center line-height bigger-text col-12">
+                                                            <div class="row col-12" style="height:150px;">
+                                                            </div>
+                                                            <div class="row col-12">
+                                                                <div class="col-7"></div>
+                                                                <div class="col-5 float-right">
+                                                                    ಜಿಲ್ಲಾ ಆರೋಗ್ಯಾಧಿಕಾರಿಗಳು,<br />
+                                                                    ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ,<br />
+                                                                    (ಸಹಿ ಮತ್ತು ಮೊಹರಿನೊಂದಿಗೆ)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p  class="text-center"><a onclick="PrintDHS();" style="text-decoration: underline; color: #0056b3;">Print Health Opinion Application</a></p>
+                                        <form id="frmHOVerDetails" enctype="multipart/form-data">
+                                            @Html.HiddenFor(m => m.ApplicationStatus, new { id = "hdnHOApplicationStatus" })
+                                            @Html.HiddenFor(m => m.IsHealthOpinion, new { id = "hdnHealthOpinion" })
+                                            @Html.HiddenFor(m => m.EmpCode, new { id = "hdnEmpCode" })
+                                            @Html.HiddenFor(m => m.ApplicationId, new { id = "hdnApplicationId" })
+                                            @Html.HiddenFor(m => m.MedicalLeave, new { id = "hdnMedicalLeave" })
+                                            @Html.HiddenFor(m => m.LoadFactor, new { id = "hdnLoadFactor" })
+                                            @Html.HiddenFor(m => m.DeductionLoadFactor, new { id = "hdnDeductionLoadFactor" })
+                                            @Html.HiddenFor(m => m.SumAssured, new { id = "hdnSumAssured" })
+                                            <div class="row col-12">
+                                                <div class="form-group col-6">
+                                                    <div class="row col-12">
+                                                        @if (Model.NeedHealthOpinion.Count > 0)
+                                                        {
+                                                            for (var i = 0; i < Model.NeedHealthOpinion.Count; i++)
+                                                            {
+                                                                if (Model.NeedHealthOpinion[i].HealthOpinionType == 3)
+                                                                {
+                                                                    <label class="knlan col-12 pl-0">ಈ ಹಿಂದೆ ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾಗಿದೆ (ಜಿಲ್ಲಾ ಆರೋಗ್ಯಾಧಿಕಾರಿಗಳು)</label>
+                                                                    <label class="Enlan col-12 pl-0">Previously uploaded Document(DHO)</label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="knlan col-12 pl-0"> ಈ ಹಿಂದೆ ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾಗಿದೆ (ಆರೋಗ್ಯ ಸೇವೆಗಳ  ಇಲಾಖೆ )</label>
+                                                                    <label class="Enlan col-12 pl-0">Previously uploaded Document(DHS)</label>
+                                                                }
+                                                                @Html.ActionLink("Health Opinion Document (" + (i + 1) + ")", "ViewFilePath", "Home", new { FilePath = @Model.NeedHealthOpinion[i].HealthOpinionDocuments }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                            }
+                                                        }
+                                                        @Html.TextBoxFor(Model => Model.HealthUploadDoc, new { @id = "flupldCWHealthOpinion", @class = "form-control display-as-label-upload pl-0 doc-upld-req  border-0", style = "background:transparent;", type = "file", accept = "application/pdf", onchange = "DocFileChange(this.id,'lblCWHealthReq')" })
+                                                        <label id="lblCWHealthReq" class="col-form-label-sm text-danger err" hidden>Please upload Health opinion document</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div id="divDHSOpinion" style="display:none;">
+                                            <div class="row" style="margin-top:20px;">
+                                                <div class="form-group col-12">
+                                                    <p class="text-black-50 col-12 text-center"><span class="p-1 font-weight-bold" style="border-bottom: 0.12rem solid black;">ನಿರ್ದೇಶನಾಲಯ, ಕರ್ನಾಟಕ ಸರ್ಕಾರಿ ವಿಮಾ ಇಲಾಖೆ, ಬೆಂಗಳೂರು-560 001</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-5">
+                                                    <div class="border p-3 text-center line-height bigger-text">
+                                                        <label class="">ಸಂಖ್ಯೆ:ಕಸವಿಇ:ಜಿವಿಕ: /  &emsp; &emsp;   /20  &emsp; &emsp; -20</label> <br />
+                                                        <label class="">
+                                                            ಮಾನ್ಯ ನಿರ್ದೇಶಕರು,
+                                                            ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ,
+                                                        </label><br />
+                                                        <label class="">ಆರೋಗ್ಯ ಸೌಧ,  </label> <br />
+                                                        <label class="">ಮಾಗಡಿ ರಸ್ತೆ ಬೆಂಗಳೂರು-560 023.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-3">
+                                                </div>
+                                                <div class="form-group col-4">
+                                                    <label class="">ದಿನಾಂಕ:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12">
+                                                            <label class="control-label-larger line-height">
+                                                                &emsp; &emsp; &emsp; &emsp; ವಿಷಯ:- ಶ್ರೀ/ಶ್ರೀಮತಿ/ಕುಮಾರಿ…………………………………..ರವರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ
+                                                                &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;ಸಂಖ್ಯೆ……………………………….ಅಂಗೀಕಾರದ ಬಗ್ಗೆ ತಜ್ಞ ಅಭಿಪ್ರಾಯ ಕೋರಿ.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12 text-center">
+                                                            <label class="control-label-larger line-height">
+                                                                ******
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-12">
+                                                            <label class="control-label-larger line-height">
+                                                                &emsp; &emsp; &emsp; &emsp; ಮೇಲ್ಕಂಡ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದಂತೆ ಮನವಿದಾರರ ಪ್ರಸ್ತಾವನೆ/ವೈದ್ಯಕೀಯ ವರದಿಯಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳನ್ನು ಗಮನಿಸಲಾಗಿ ತಮ್ಮ ಅಭಿಪ್ರಾಯ ಕೋರಲಾಗಿದೆ.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="border p-3 text-center line-height bigger-text col-12">
+                                                            <div class="row col-12" style="height:150px;">
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-7 float-right"></div>
+                                                                <div class="col-5 float-right">
+                                                                    ಸಹಾಯಕ ನಿರ್ದೇಶಕರು<br />
+                                                                    ಎ.ವಿ.ಜಿ. ಶಾಖೆ
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="p-3 text-center line-height bigger-text col-12">
+                                                            ನಿರ್ದೇಶಕರು, ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ, ಇವರ ಅಭಿಪ್ರಾಯ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <div class="row col-12">
+                                                        <div class="border p-3 text-center line-height bigger-text col-12">
+                                                            <div class="row col-12" style="height:150px;">
+                                                            </div>
+                                                            <div class="row col-12">
+                                                                <div class="col-7"></div>
+                                                                <div class="col-5 float-right">
+                                                                    ನಿರ್ದೇಶಕರು, <br />
+                                                                    ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ ಇಲಾಖೆ,<br />
+                                                                    (ಸಹಿ ಮತ್ತು ಮೊಹರಿನೊಂದಿಗೆ)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-6 pull-right">
+                                            <div class="col-4">
+                                                <button id="btnSubmit" class="btn btn-success">Send</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="form-group col-12 text-right">
+                                        <a id="btnSNext" class="btn btn-primary btn-sm text-white">Next</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="uploadeddocuments" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="documentsTab" class="application-tab">
+                                <section>
+                                    <div class="form-group">
+                                        <div class="row col-12" id="divLoadUploadedDocuments">
+                                            @if (Model.listUploadDocuments.Any())
+                                            {
+                                                foreach (var item in Model.listUploadDocuments)
+                                                {
+                                                    <div class="form-group col-6">
+                                                        @if (!string.IsNullOrEmpty(item.UploaddocPath))
+                                                        {
+                                                            <label class="control-label text-justify col-6">@item.UploaddocType</label>
+                                                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @item.UploaddocPath }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                                        }
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="form-group col-12 text-right">
+                                        <a id="btnUPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        history.pushState("/kgid-cw-verification/?empId=1&applicationId=5&verificationType='NHO'", null, "/kgid-cw-verification/")
+    }
+
+    function PrintDHO() {
+        var contents = $("#divDHOOpinion").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Intimation Letter</title><style>.control-label-larger{font-size: 1.15rem !important;}.bigger-text{font-size: 1rem !important;}.line-height{line-height: 1.5 !important;}</style>');
+        frameDoc.document.write('</head><body class="container">');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+    function PrintDHS() {
+        var contents = $("#divDHSOpinion").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Intimation Letter</title><style>.control-label-larger{font-size: 1.15rem !important;}.bigger-text{font-size: 1rem !important;}.line-height{line-height: 1.5 !important;}</style>');
+        frameDoc.document.write('</head><body class="container">');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

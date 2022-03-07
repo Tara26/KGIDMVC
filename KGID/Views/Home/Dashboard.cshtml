@@ -1,0 +1,132 @@
+﻿@model KGID_Models.Dashboard.VM_Dashboard
+@using Common;
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+@if (Session["SelectedCategory"] != null && (Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)) || Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DDO)) || Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)) || Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)) || Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)) || Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR))))
+{
+    @Html.HiddenFor(t => t.Initial, new { id = "hdnInitial" })
+    @Html.HiddenFor(t => t.SentBackToEmployee, new { id = "hdnSentBackToEmployee" })
+    @Html.HiddenFor(t => t.ForwardToDDO, new { id = "hdnForwardToDDO" })
+    @Html.HiddenFor(t => t.SentBackToDDO, new { id = "hdnSentBackToDDO" })
+    @Html.HiddenFor(t => t.ForwardToCaseworker, new { id = "hdnForwardToCaseworker" })
+    @Html.HiddenFor(t => t.SentBackToCaseworker, new { id = "hdnSentBackToCaseworker" })
+    @Html.HiddenFor(t => t.ForwardToSuperintendent, new { id = "hdnForwardToSuperintendent" })
+    @Html.HiddenFor(t => t.SentBackToSuperintendent, new { id = "hdnSentBackToSuperintendent" })
+    @Html.HiddenFor(t => t.ForwardToDIO, new { id = "hdnForwardToDIO" })
+    @Html.HiddenFor(t => t.SentBackToDIO, new { id = "hdnSentBackToDIO" })
+    @Html.HiddenFor(t => t.ForwardToDD, new { id = "hdnForwardToDD" })
+    @Html.HiddenFor(t => t.SentBackToDD, new { id = "hdnSentBackToDD" })
+    @Html.HiddenFor(t => t.ForwardToD, new { id = "hdnForwardToD" })
+    @Html.HiddenFor(t => t.NeedHealthOpinion, new { id = "hdnNeedHealthOpinion" })
+    @Html.HiddenFor(t => t.Approved, new { id = "hdnApproved" })
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Application Status', 'Count'],
+                ['Initial', parseInt($("#hdnInProgress").val())],
+                ['Sent back to employee', parseInt($("#hdnSentBackToEmployee").val())],
+                ['Fowarded to DDO', parseInt($("#hdnForwardToDDO").val())],
+                ['Sent Back to DDO', parseInt($("#hdnSentBackToDDO").val())],
+                ['Forwarded to Caseworker', parseInt($("#hdnForwardToCaseworker").val())],
+                ['Sent back to Caseworker', parseInt($("#hdnSentBackToCaseworker").val())],
+                ['Forwarded to Superintendent', parseInt($("#hdnForwardToSuperintendent").val())],
+                ['Sent back to Superintendent', parseInt($("#hdnSentBackToSuperintendent").val())],
+                ['Fowarded to DIO', parseInt($("#hdnForwardToDIO").val())],
+                ['Sent back to DIO', parseInt($("#hdnSentBackToDIO").val())],
+                ['Fowarded to Deputy Director', parseInt($("#hdnForwardToDD").val())],
+                ['Sent back to Deputy Director', parseInt($("#hdnSentBackToDD").val())],
+                ['Forwarded to Director', parseInt($("#hdnForwardToD").val())],
+                ['Needs health opinion', parseInt($("#hdnNeedHealthOpinion").val())],
+                ['Approved', parseInt($("#hdnApproved").val())]
+            ]);
+
+            var options = {
+                height: 400,
+                pieSliceText: 'value',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <div>
+        <h2 style="text-align: center;" class="text-black-50">Status of Applications</h2>
+        <div id="chart_container" align='center'>
+            <div id="piechart"></div>
+        </div>
+    </div>
+}
+else if ((Session["Categories"] != null && Session["Categories"].ToString() == "1") || (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString() == "1"))
+{
+    if (Model.listDashboardData != null)
+    {
+        if (Model.listDashboardData.Count() > 0)
+        {
+            <div class="form-group">
+                <table id="tblDashboardEmpDetails" class="table table-striped table-bordered" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th hidden>PolicyID</th>
+                            <th hidden>EmpID</th>
+                            <th>KGID Policy Number</th>
+                            <th>Risk Date</th>
+                            <th>Premium Amount</th>
+                            <th>Sum Assured</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.listDashboardData.Any())
+                        {
+                            foreach (var item in Model.listDashboardData)
+                            {
+                                <tr>
+                                    <td hidden>@item.PolicyID</td>
+                                    <td hidden>@item.EmployeeID</td>
+                                    <td>@item.KGIDPolicyNumber</td>
+                                    <td>@item.SanctionDate</td>
+                                    <td>@item.PremiumAmt</td>
+                                    <td>@item.SumAssured</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <marquee behavior="alternate" scrollamount="15">
+                <div style="width:fit-content;">
+                    <h1 class="text-center font-weight-bolder" style="font-size:50px">
+                        <strong>WELCOME TO KARNATAKA GOVERNMENT <br />INSURANCE DEPARTMENT WEBSITE</strong>
+                    </h1>
+                </div>
+            </marquee>
+        }
+    }
+}
+else
+{
+    <marquee behavior="alternate" scrollamount="15">
+        <div style="width:fit-content;">
+            <h1 class="text-center font-weight-bolder" style="font-size:50px">
+                <strong>WELCOME TO KARNATAKA GOVERNMENT <br />INSURANCE DEPARTMENT WEBSITE</strong>
+            </h1>
+        </div>
+    </marquee>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblDashboardEmpDetails").DataTable();
+    })
+</script>

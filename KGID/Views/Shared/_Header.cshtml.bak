@@ -1,0 +1,151 @@
+﻿@using Common;
+<!-- top navigation -->
+<div class="top_nav">
+    <div class="col-lg-12 col-md-12" style="background-color:#005ea5">
+        <div style="float:right">
+
+
+            <a class='yellowblack' href='#'><img src="~/Content/accessibility-controls/images/1.png" title='Yellow on Black' style="float: left" /></a>
+            <a class='yellowblue' href='#'><img src='~/Content/accessibility-controls/images/2.png' title='Yellow on Blue' style="float: left" /></a>
+            <a class='fushblack' href='#'><img src='~/Content/accessibility-controls/images/3.png' title='Fuchsia on Black' style="float: left" /></a>
+            <a class='standards' href='#'><img src="~/Content/accessibility-controls/images/4.png" title='Standard' style="float: left" /></a>
+
+            <a class='decreaseFont' href='#'><img src='~/Content/accessibility-controls/images/aSmall.png' title='Font Decrease' style="float: left" /></a>
+            <a class='resetFont' href='#'><img src='~/Content/accessibility-controls/images/a_reset.png' title='Standard' style="float: left" /></a>
+            <a class='increaseFont' href='#'><img src='~/Content/accessibility-controls/images/aBig.png' title='Font Increase' style="float: left" /></a>&nbsp;&nbsp;&nbsp;
+
+        </div>
+    </div>
+    <div class="nav_menu">
+
+        <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+		<div style="width:268px; float:left">
+			@*<img src="~/Content/Images/chief_minister_of_karrnataka_en2.png" />*@
+			@*<img style="height: 75px; width: 65px;" class="cm-photo" src="~/Content/Images/CM_Photo 3.png" />*@
+			<div class="text-center Enlan">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="col-lg-2">
+							<a>
+								<img style="height: 75px; width: 65px; " class="cm-photo" src="~/Content/Images/CM_Photo 3.png" />
+							</a>
+						</div>
+
+						<div class="col-lg-8 mt-3" style="margin-left: 18px; padding-left: 30px; float: left; background:none !important;">
+
+							<label style="font-size:12px; float:left; line-height: 10px; color:black;">Sri. Basavaraj Bommai</label>
+							<label style="font-size:12px; float:left; line-height: 10px; color:black;">Hon'ble Chief Minister</label>
+							<label style="font-size:12px; float:left; line-height: 10px; color:black;">Government of Karnataka</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="text-center knlan">
+				<div class="row">
+					<div class="col-lg-2">
+						<a>
+							<img style="height: 75px; width: 65px; " class="cm-photo" src="~/Content/Images/CM_Photo 3.png" />
+						</a>
+					</div>
+					<div class="col-lg-8 mt-3" style="margin-left: 18px; padding-left: 30px; float: left; background:none !important;">
+
+						<label style="font-size:12px; float:left; line-height: 10px; color:black;">ಶ್ರೀ. ಬಸವರಾಜ ಬೊಮ್ಮಾಯಿ</label>
+						<label style="font-size:12px; float:left; line-height: 10px; color:black;">ಮಾನ್ಯ ಮುಖ್ಯಮಂತ್ರಿಗಳು</label>
+						<label style="font-size:12px; float:left; line-height: 10px; color:black;">ಕರ್ನಾಟಕ ಸರ್ಕಾರ</label>
+
+					</div>
+				</div>
+			</div>
+		</div>
+			@*<div style="width:200px; float:right; margin: 19px 0 0 0;"><span>User Manual/Videos | Downloads</span></div>*@
+			<nav class="nav navbar-nav">
+
+				<ul class="navbar-right">
+
+					<li class="nav-item dropdown open" style="padding-left: 15px; background-color:white;border: 1px solid #111;">
+						<a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+
+							<img src="~/Content/frontend/images/img.jpg" />
+							@if (Session["UserName"] == null)
+							{
+								Response.Redirect("/Login/Index");
+							}
+							else
+							{
+								@Session["UserName"].ToString();
+							}
+						</a>
+						<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+							<a href="#" class="dropdown-item" id="categorySwitchPanel" data-toggle="modal"><i class="fa fa-list-alt"></i> Switch Category</a>
+
+							@if (Session["SelectedCategory"] == null)
+							{
+								var cat = Session["Categories"].ToString();
+								if (cat == "11" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+								{
+									<a class="dropdown-item" href="@Url.Action("Index", "ChangePassword", new { area = "" })">Change Password</a>
+								}
+							}
+							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-lock"></i>&nbsp;  Logout</a>
+						</div>
+					</li>
+
+					@*<li role="presentation" class="nav-item dropdown open">
+					<a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+						<i class="fa fa-envelope-o"></i>
+						<span class="badge bg-green">6</span>
+					</a>
+					<ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+						<li class="nav-item">
+							<a class="dropdown-item">
+								<span class="image"><img src="~/Content/frontend/images/img.jpg" alt="Profile Image" /></span>
+								<span>
+									<span>Anusha</span>
+									<span class="time">3 mins ago</span>
+								</span>
+								<span class="message">
+									Text Here
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item">
+								<span class="image"><img src="~/Content/frontend/images/img.jpg" alt="Profile Image" /></span>
+								<span>
+									<span>Ujwal</span>
+									<span class="time">3 mins ago</span>
+								</span>
+								<span class="message">
+									Text here
+								</span>
+							</a>
+						</li>
+
+
+						<li class="nav-item">
+							<div class="text-center">
+								<a class="dropdown-item">
+									<strong>See All Alerts</strong>
+									<i class="fa fa-angle-right"></i>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</li>*@
+					<li style="background-color:white;border: 1px solid #111;">
+						<img src="~/Content/NewUI/img/en-ka.png" alt="LIMSlogo" style="padding-top:2px;width: 40px;margin-top: 5px;">
+						<a href="#" class="kannada-btn" id="changeLan">&nbsp;&nbsp;<label class="knlan">English </label><label class="Enlan">ಕನ್ನಡ</label> &nbsp;</a>
+					</li>
+				</ul>
+			</nav>
+
+		</div>
+</div>
+
+
+
+
+<!-- /top navigation -->

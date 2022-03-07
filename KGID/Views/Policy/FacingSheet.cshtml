@@ -1,0 +1,304 @@
+﻿@model KGID_Models.KGID_Policy.VM_FacingSheet
+
+<style>
+    .control-label {
+        font-size: 0.95rem !important;
+    }
+
+    .control-label-larger {
+        font-size: 1.15rem !important;
+    }
+
+    .big-text {
+        font-size: 0.85rem !important;
+    }
+
+    .bigger-text {
+        font-size: 1rem !important;
+    }
+
+    .line-height {
+        line-height: 1.5 !important;
+    }
+
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    th {
+        border-top: 1px solid #000;
+    }
+
+    hr {
+        border: 1px solid black;
+    }
+</style>
+
+<div id="divFacingSheet">
+    <div class="form-group col-12">
+        <h2 class="text-black-50 col-12 text-center">Karnataka Government Insurance Department</h2>
+        <h3 class="text-black-50 col-12 text-center font-weight-light">Facing sheet</h3>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-4">
+                <div class="border border-dark text-center p-2">
+                    <span class="font-weight-bold big-text">Proposal Number</span>
+                </div>
+                <div class="border border-dark text-center p-2 border-top-0" style="min-height:76px;">
+                    <span class="big-text line-height">@Model.ApplicationNumber</span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="border border-dark text-center p-2">
+                    <span class="font-weight-bold big-text">Insurance Letter Number</span>
+                </div>
+                <div class="border border-dark text-center p-2 border-top-0" style="min-height:76px;">
+                    @if (!string.IsNullOrEmpty(Model.FirstKGIDNumber))
+                    {
+                        <span class="big-text">@Model.FirstKGIDNumber</span>
+                    }
+                    else
+                    {
+                        <span class="big-text">&nbsp;</span>
+                    }
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="border border-dark text-center p-2">
+                    <span class="font-weight-bold big-text">District Inusrance Office Address</span>
+                </div>
+                <div class="border border-dark text-center p-2 border-top-0" style="min-height:76px;">
+                    <span class="big-text line-height">@Model.DistrictInsuranceOfficeAddress</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-3">
+                <label class="control-label font-weight-bold pt-2">The Name of the Insurer is Mr. / Mrs.</label>
+            </div>
+            <div class="col-9">
+                <label class="form-control">@Model.InsurerName</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-5">
+                <div class="col-12 border border-dark" style="min-height:262px;">
+                    <div class="col-12 text-center p-2">
+                        <label class="font-weight-bold big-text">First / Subsequent</label><br>
+                        <label class="font-weight-bold big-text">Numbers of Insurance Letters that already exist</label>
+                    </div>
+                    <div class="col-12 pl-4">
+                        @for (int i = 0; i < Model.Policies.Count(); i++)
+                        {
+                            <div class="form-group row">
+                                <span class="col-1 control-label font-weight-bold">@(i + 1))</span>
+                                @{
+                                    string policyLable = "Policy_" + i;
+                                }
+                                @Html.Label(policyLable, Model.Policies[i].ToString(), new { @class = "control-label col-8" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="col-12 border border-dark" style="min-height:262px;">
+                    <div class="col-12 pl-4">
+                        <div class="text-center p-2">
+                            <label class="font-weight-bold big-text">Non Medical / Medical</label>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold big-text">Initial Deposit details</label>
+                        </div>
+                    </div>
+                    <div class="col-12 pl-4">
+                        <div class="form-group row pt-2">
+                            <label class="col-1 control-label font-weight-bold">Date: </label>
+                            <label class="col-11 control-label">@DateTime.Now.ToString("dd-MM-yyyy")</label>
+                        </div>
+                        <div class="form-group row pt-2">
+                            <label class="control-label col-2 font-weight-bold pt-2 pr-0">Challan No: </label>
+                            <input type="text" id="txtChallanNumber" class="form-control col-9 ml-3" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <label class="control-label-larger line-height font-weight-bold">
+            Proposal submitted by Mr / Mrs / Kumari @Model.InsurerName with Initial Deposit of <b>&#x20B9;</b>
+            @Html.TextBoxFor(m => m.InitialDeposit, new { id = "txtInitialDeposit", @class = "border-0 border-bottom number", style = "border-bottom:black dotted 1px !important; background:transparent;", disabled = true }) :
+            Check Medical Report, District Inspector/ The Deputy Director has approved the order as estimated at <b>&#x20B9;</b>
+            @Html.TextBoxFor(m => m.SumAssured, new { id = "txtEstimatedPremium", @class = "border-0 border-bottom number", style = "border-bottom:black dotted 1px !important; background:transparent;", disabled = true })
+            as calculated on the back of this page
+        </label>
+    </div>
+    <div class="form-group mt-10">
+        <div class="row col-12">
+            <div class="col-8">
+                <label class="control-label col-12 font-weight-bold">Caseworker</label>
+                <label class="control-label col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+            <div class="control-label col-4 text-center">
+                <label class="col-12 font-weight-bold">Superintendents</label>
+                @*<label class="col-12 font-weight-bold">District Insurance Officer / Drawing and Disbursing Officer</label>*@
+                <label class="col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="row col-12">
+            <div class="col-4">
+                <label class="control-label col-12 font-weight-bold">Key points and recommendation noted in the petition / medical report</label>
+                <div class="mt-3 pl-5">
+                    <span class="bigger-text col-12 pl-5">
+                        @if (!string.IsNullOrEmpty(Model.DLFactor))
+                        {
+                            @Html.Raw(Model.LoadFactor + ", " + Model.DLFactor)
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.LoadFactor)
+                        }
+                    </span>
+                </div>
+            </div>
+            <div class="control-label col-8 text-center">
+                <label class="col-12 font-weight-bold">Order of Passage</label>
+            </div>
+        </div>
+        <div class="row col-12 mt-10">
+            <div class="col-4">
+                <label class="control-label col-12 font-weight-bold">District Insurance Officer</label>
+                <label class="control-label col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+            <div class="col-4 text-center">
+                <label class="control-label col-12 font-weight-bold">Deputy Director</label>
+                <label class="control-label col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+            <div class="col-4 text-center">
+                <label class="control-label col-12 font-weight-bold">Director</label>
+                <label class="control-label col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="row">
+            <div class="col-8">
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold text-right col-10">Accurate computations after approval / acceptance</label>
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Date of liability</label>
+                    @Html.TextBoxFor(m => m.DateOfLiability, new { id = "txtDateOfLiability", @class = "control-label border-0 border-bottom number col-2", style = "border-bottom:black dotted 1px !important" })
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Date of Birth of Insurer</label>
+                    <input type="text" id="txtDateOfBirth" value="@Model.DateOfBirth.ToString("dd-MM-yyyy")" class="control-label border-0 border-bottom number col-2" style="border-bottom:black dotted 1px !important">
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Age of the Insurer</label>
+                    @Html.TextBoxFor(m => m.Age, new { id = "txtAge", @class = "control-label border-0 border-bottom number col-2", style = "border-bottom:black dotted 1px !important" })
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Monthly Insurance Premium</label>
+                    <div class="col-2 p-0">
+                        <b class="control-label-larger">&#x20B9;&nbsp;</b>
+                        @Html.TextBoxFor(m => m.MonthlyPremium, new { id = "txtMonthlyPremium", @class = "control-label border-0 border-bottom number col-10", style = "border-bottom:black dotted 1px !important" })
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Insurance Amount</label>
+                    <div class="col-2 p-0">
+                        <b class="control-label-larger">&#x20B9;&nbsp;</b>
+                        @Html.TextBoxFor(m => m.InsuranceAmount, new { id = "txtInsuranceAmount", @class = "control-label border-0 border-bottom number col-10", style = "border-bottom:black dotted 1px !important" })
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Effective Month/ Year</label>
+                    @Html.TextBoxFor(m => m.EffectiveMonthYear, new { id = "txtEffectiveMonthYear", @class = "control-label border-0 border-bottom number col-2", style = "border-bottom:black dotted 1px !important" })
+                </div>
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-6">Date of Issue of Insurance letter</label>@*.ToString("dd-MM-yyyy")*@
+                    @if (Model.DateOfIssue.ToString() != "" && Model.DateOfIssue.ToString() != null)
+                    {
+                        <input type="text" id="txtDateOfIssue" value="@Model.DateOfIssue" class="control-label border-0 border-bottom number col-2" style="border-bottom:black dotted 1px !important">
+                    }
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row col-12">
+                    <label class="control-label font-weight-bold col-12">Corrections</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt-5 pt-4">
+        <div class="row">
+            <div class="col-8">                
+            </div>
+            <div class="control-label col-4 text-center">
+                <label class="col-12 font-weight-bold">District Insurance Officer</label>
+                <label class="col-12 font-weight-bold">Date: @DateTime.Now.ToString("dd-MM-yyyy")</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="form-group col-12">
+    <input type="button" class="btn btn-primary pull-right" onclick="printFacingSheet();" value="Print" />
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tableOptions = {
+            "ordering": false,
+            "paging": false,
+            "info": false,
+            "searching": false
+        };
+
+
+        $("#tblLoanInformation").DataTable(tableOptions);
+    });
+
+    function printFacingSheet() {
+        var contents = $("#divFacingSheet").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Facing Sheet</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

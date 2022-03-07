@@ -1,0 +1,369 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_NBBond
+@using KGID_Models.NBApplication
+@{
+    ViewBag.Title = "PrintNBBond";
+}
+
+<div id="divPrintNBBond">
+    <div style="font-size:1rem;border:1px solid #111;padding: 5px; height:1500px;">
+        <div class="row">
+            @Html.HiddenFor(m => m.EmployeeBasicDetails.date_of_birth, new { @id = "hdnDOB" })
+            @Html.HiddenFor(m => m.EmployeeBasicDetails.p_sanction_date, new { @id = "hdnSanctiondate" })
+            <!--<div class="form-group col-5"></div>-->
+            <div class="form-group col-9">
+
+                <div class="text-center">
+                    <img src="/Content/Images/KGID-KA.png" style="width:100px;" />
+                </div><br />
+                <div class="text-center" style="font-size:2rem;">Policy Issued Office Stamp</div><br />
+                <div class="text-center" style="font-size:2rem;">(LIFE BRANCH)</div><br />
+                <div class="text-center" style="font-size:2rem;">
+                    BANGALORE
+                </div>
+
+                @*<div style="position:relative;float: right;width: 313px;">
+                <div style="width: 308px;height: 40px;margin: 15px auto;position: absolute;border: 3px solid #17a2b8;"></div>
+                <div style="width: 308px;height: 200px;margin: 15px auto;position: absolute;border: 3px solid #17a2b8;"></div>
+            </div>*@
+            </div>
+            <div class="form-group col-3">
+                <div style="position:relative;float: right;width: 313px;">
+                    <div style="width: 308px;height: 40px;margin: 15px auto;position: absolute;border: 3px solid #111;text-align: center;padding: 10px;">
+                        <span style="">Karnataka Govt. Insurance Dept.</span>
+                    </div>
+                    <div style="width: 308px;height: 200px;margin: 15px auto;position: absolute;border: 3px solid #111;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                <p>
+                    WHEREAS THE DIRECTOR , KARNATAKA GOVERNMENT INSURANCE DEPARTMENT, OFFICIAL BRANCH , BANGLORE ,
+                    for and on behalf of the governor of Karnataka (hereinafter called the Insurance Department) has received a
+                    Proposal and Declaration for assurance , which proposal and declaration with the statements contained and referred to therein,
+                    the insured named in the schedule here to has agreed shall be the basis of the assurance,  and has received the first premium
+                    for the assurance of the amount and the terms stated in the scheduled.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                <p>
+                    Now this Policy witnessed that in consideration of the premises and on condition that there shall be duly paid to the
+                    insurance department the subsequent premiums as .... for in the said schedule , the insurance department will , upon
+                    satisfactory proof that that the sum assured has become payable in the term of the said schedule , be subject and liable
+                    to pay the amount thereof , to the person or persons mention in the said schedule are entitled.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                <p>
+                    This contract is made subject to the following praviso, viz. it shall be void and the payment made by the proposer under
+                    it shall be forfeited if the statement contained in the aforesaid proposal and declaration be untrue and it's hereby declared
+                    that this policy is granted subject to the rules issued by the government Karnataka related to government servants
+                    (Compulsory life insurance) Rules 1958.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-5"></div>
+            <div class="form-group col-3">
+                <div class="text-center" style="font-size:2rem;">
+                    SCHEDULE
+                </div>
+            </div>
+            <div class="form-group col-4"></div>
+        </div>
+        <div class="row" style="margin-bottom:10px;">
+            <!--<div class="form-group col-5"></div>-->
+            <div class="form-group col-12">
+                <div class="text-center" style="font-size:1.2rem;">
+                    Date of last detailed medical examination <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.App_Creation_Date)</u>
+                </div>
+            </div>
+            <!--<div class="form-group col-4"></div>-->
+        </div>
+        <div class="row tblDesign" style="margin-left:10px;width:98%">
+            <div class="form-group col-12">
+                <div class="row" style="border:1px solid #111;">
+                    <div class="form-group col-6" style="margin-top:1rem;">Name and Designation</div>
+
+                    <div class="form-group col-6" style="margin-top:1rem;">Policy no <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.kad_kgid_application_number)</u></div>
+
+                    <div class="form-group col-6">
+                        <u>
+                            @Html.DisplayFor(model => model.EmployeeBasicDetails.employee_name),
+                            @Html.DisplayFor(model => model.EmployeeBasicDetails.designation),
+                            @Html.DisplayFor(model => model.EmployeeBasicDetails.dm_ddo_office)
+                        </u>
+                    </div>
+                    
+                    <div class="form-group col-6">Date of Risk  <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.p_sanction_date)</u></div>
+
+                    <div class="form-group col-6">Fathers Name <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.father_name)</u></div>
+
+                    <div class="form-group col-6">Admitted date of birth <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.date_of_birth)</u></div>
+
+                    <div class="form-group col-6">Date of proposal and declaration .....</div>
+
+                    <div class="form-group col-6">Monthly premium  <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.p_premium)</u></div>
+
+                    <div class="form-group col-6"> .....</div>
+
+                    <div class="form-group col-6">Sum Assured <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.p_total_sum_assured)</u></div>
+
+                    <div class="form-group col-6"> .....</div>
+
+                    <div class="form-group col-6">Month of final payment <u><span id="spnfinalpayment"></span></u></div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    <div class="form-group col-12" style="margin-top:1rem;">Sum assured Rupees <u><span id="spnAmount"></span></u></div>
+
+                    @Html.HiddenFor(m => m.EmployeeBasicDetails.p_total_sum_assured, new { @id = "hdnAmount" })
+
+                    <div class="form-group col-12">Due Date of subsequent premium: first day of <u><span id="spnduemonth"></span></u> and onwards.</div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="form-group col-12" style="margin-top:1rem;">Event on which sum assured becomes payable : The Insured completing the age of 35 years or at death ,if earlier.</div>
+
+                    <div class="form-group col-8">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Relationship</th>
+                                    <th>Age of the nominee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.NomineeDetailsList != null)
+                                {
+                                    int counter = 1;
+                                    foreach (VM_NomineeDetail item in Model.NomineeDetailsList)
+                                    {
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@item.NameOfNominee</td>
+                                            <td>@item.Relation</td>
+                                            <td>@item.Age</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                <p>
+                    To whom the sum assured is payable : To the insured on his/her completing the age of 55 years or in the event of his/her death earlier to his/her  nominee. Nominees registered in the office of director , Government insurance department , and filling such nominees, to the legal heirs of the insured after the production of satisfactory evidence of the death of the insured.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                <p>
+                    In witness whereof these present s has been executed on behalf of and under the direction of the government of Karnataka at  Bangalore. This <u><span id="spnCurrDay"></span></u> day of <u><span id="spnCurrMonth"></span></u> <u> <span id="spnCurrYear"></span></u>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">Checked by</div>
+            <div class="form-group col-4">Examined by</div>
+            <div class="form-group col-4">For Director</div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">Caseworker</div>
+            <div class="form-group col-4">Supdt.</div>
+            <div class="form-group col-4"></div>
+        </div>
+    </div>
+</div>
+@*<div id="divPrintNBBond2">
+        <div style="border:1px solid #111;padding: 5px; height:1500px;">
+            <div class="row tblDesign" style="margin-left:10px;width:98%">
+                <div class="form-group col-12">
+                    <div class="row" style="border-top:1px solid #111;border-right:1px solid #111;border-left:1px solid #111;">
+                        <div class="form-group col-12" style="margin-top:1rem;">NR No._____________________________________________________</div>
+
+                        <div class="form-group col-12">
+                            @if (Model.NomineeDetailsList != null)
+                            {
+                                foreach (VM_NomineeDetail item in Model.NomineeDetailsList)
+                                {
+                                    <u>@item.NameOfNominee, @item.Relation, @item.Age</u>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row" style="border-right:1px solid #111;border-left:1px solid #111;">
+                        <div class="form-group col-12" style="margin-top:1rem;">Is Nominated and registered under Rule 25.</div>
+                    </div>
+
+                    <div class="row" style="border-right:1px solid #111;border-left:1px solid #111;">
+                        <div class="form-group col-1"></div>
+                        <div class="form-group col-7" style="margin-top:1rem;">Banglore,</div>
+                        <div class="form-group col-4" style="margin-top:1rem;">For Director,</div>
+                    </div>
+                    <div class="row" style="border-bottom:1px solid #111;border-right:1px solid #111;border-left:1px solid #111;">
+                        <div class="form-group col-8" style="margin-top:1rem;">Dated___________________________________________</div>
+                        <div class="form-group col-4" style="margin-top:1rem;">Insurance Department.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12 text-center" style="margin-top:1rem;font-size:1.5rem;">( Entries In case of change in Nominations, and Endrosements change in Name , Date of Birth etc. )</div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="divPrintNBBond3">
+
+        <div style="border:1px solid #111;padding: 5px; height:1500px;">
+            <div class="row">
+                <!--<div class="form-group col-5"></div>-->
+                <div class="form-group col-12">
+
+                    <div class="text-center" style="font-size:3rem;">ASSIGNMENT</div><br />
+                    <div class="text-center" style="font-size:2rem;">FORM 'B'</div><br />
+                    <div class="text-center" style="font-size:2rem;">(See Rule 42)</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                    <p>
+                        To be executed on a stamp paper of appropriate value if not executed in the policy.
+                    </p>
+                </div>
+                <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                    <p>
+                        I <u> @Html.DisplayFor(model => model.EmployeeBasicDetails.employee_name) </u> son/Daughter of <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.father_name)</u>
+                        aged <u><span id="spnDOB"></span></u> years in consideration of loan have taken or take in
+                        Karnataka Government Insurance Department Under Order No. FD 67 PID 61, dated 23-09-1963 do here by assigned and transfer as
+                        beneficial owner , all my right title and interest in the policy no. <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.p_kgid_policy_number)</u> Bearing Date ........ granted by the Director ,
+                        Karnataka Government Insurance Department on my life for a sum of RS <u>@Html.DisplayFor(model => model.EmployeeBasicDetails.p_total_sum_assured)</u> (Sum Assured To Be Entered) and all money
+                        assured by or to became payable by or under the same to the Governor of Karnataka (herein after called the Karnataka
+                        Government Insurance department ) and declare that the receipt or receipts or books adjustment by the Karnataka Government
+                        Insurance Department for any sum or sums of money to be received or adjusted by it under on account of the said policy shall
+                        discharge the insurance department from all responsibility in respect of the receipt or receipts or adjustments were assigned
+                        or effected by myself, my heirs, executors , administrators or assigns.
+                    </p>
+                    
+
+                </div>
+                <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                    <p>
+                        I do hereby covenant I shall not do or knowingly suffer anything to be done whereby the said policy may be rendered
+                        void or voidable or the said Government Insurance Department may be prevented from receiving or adjusting the policy
+                        money or any part thereof:
+                    </p>
+                </div>
+                <div class="form-group col-12" style="font-size:1.3rem;text-align:justify;">
+                    <p>
+                        Provided always that, I the said sri/smt <u> @Html.DisplayFor(model => model.EmployeeBasicDetails.employee_name) </u>  my heirs, executors , administrators and assigns reserve the
+                        right of repaying in full at anytime the loan outstanding against my account in the books of Karnataka Government
+                        Insurance Department together with assured  interest either in cash or adjustment in policy moneys payable and thereafter
+                        get the policy re-assigned  in favour of my heirs, executors , administrators or assigns.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Dated ....................................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">..................................................................................................</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Place .....................................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">Signature of the Assigner</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Witness .................................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;"></div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Signature ...............................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">Designation ..................................................................................................</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Designation ............................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">Address ........................................................................................................</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">Address ..................................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">...................................  ...................................................................................</div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6" style="margin-top:1rem;">.................................................................................................................</div>
+                <div class="form-group col-6" style="margin-top:1rem;">............................ ...........................................................................................</div>
+            </div>
+        </div>
+    </div>
+    <div id="divPrintNBBond4">
+
+        <div style="border:1px solid #111;padding: 5px; height:1500px;">
+
+            <div class="row">
+                <div class="form-group col-12">
+                    <div class="text-center" style="font-size:3rem;">LOAN ACCOUNT</div>
+                </div>
+            </div>
+            <div class="row" style="margin-left:10px;width:98%">
+                <div class="form-group col-12">
+                    <div class="row" style="border:1px solid #111;">
+                        <div class="form-group col-3" style="border-right:1px solid #111;">
+                            Date of Sanction
+                        </div>
+                        <div class="form-group col-3" style="border-right:1px solid #111;">
+                            Assignment Number
+                        </div>
+                        <div class="form-group col-3" style="border-right:1px solid #111;">
+                            <div class="row" style="border-bottom:1px solid #111;">
+                                <div class="form-group col-12">
+                                    Loan Granted
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    RS.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-3" style="border-right:1px solid #111;">
+                            <div class="row" style="border-bottom:1px solid #111;">
+                                <div class="form-group col-12">
+                                    Initials
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6" style="border-right:1px solid #111;">
+                                    Caseworkers
+                                </div>
+                                <div class="form-group col-6">
+                                    Superitendent
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="row form-group">
+    <div class="form-group col-4"></div>
+    <div class="form-group col-3">
+        <div class="text-center">
+            <input type="submit" id="btnAllPrint" value="Print" onclick="printNBBond();" class="btn btn-primary pull-right">
+        </div>
+    </div>
+    <div class="form-group col-4"></div>
+</div>
+
+<script src="~/Scripts/VerifyData/PrintNBBond.js"></script>

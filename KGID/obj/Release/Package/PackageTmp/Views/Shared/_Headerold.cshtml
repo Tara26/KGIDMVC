@@ -1,0 +1,955 @@
+﻿@using Common;
+
+<style type="text/css">
+    .csDropMenu {
+        background: #000;
+        color: #fff;
+    }
+
+    .stellarnav li {
+        border-right: 1px solid #0b74ad !important;
+    }
+
+    .csStellarnav li a {
+        padding: 6px !important;
+        position: inherit;
+        background: #0083b8d6;
+        color: #FFF !important;
+    }
+
+    .stellarnav li.has-sub > a:after {
+        color: #000 !important;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #FFF;
+    }
+
+    .csStellarnav.dark li a:hover {
+        color: #FFF !important;
+        background-color: #0083b8d6 !important;
+    }
+
+    .csStellarnav ul ul {
+        width: max-content;
+        right: 0;
+    }
+
+        .csStellarnav ul ul li {
+            overflow: hidden;
+            right: 0;
+        }
+
+            .csStellarnav ul ul li a {
+                background: #1066a7 !important;
+            }
+
+    .csStellarnav {
+        width: auto;
+    }
+
+    .csDropMenu a .login-usr {
+        background: #000 !important;
+    }
+
+    .header-top .ht-right .login-panel {
+        padding-left: 0;
+        border-left: 0px solid #e5e5e5;
+        padding-top: 0;
+    }
+
+    .stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+        height: 100%;
+    }
+
+    /*.header_link {
+        width: 19%;
+    }*/
+
+    /*.hStellarnav ul ul {
+        width: 100% !important;
+    }*/
+
+    .stellarnav .active {
+        color: #fff !important;
+        background-color: #4279d6 !important;
+    }
+
+    .stellarnav.dark li a:hover {
+        color: #fff !important;
+        background-color: #4279d6 !important;
+    }
+
+    .breadcrumbheader {
+        float: right;
+        color: #fff;
+    }
+    /*.shadow-lg{
+        width:100%!important;
+    }*/
+    .t_head {
+        background: #308385;
+        color: #fff;
+    }
+</style>
+
+<header class="header-section">
+    <div class="header-top">
+        <div class="container">
+            <div class="ht-left">
+                <div class="mail-service">
+                    <i class=" fa fa-envelope"></i>
+                    <a href="#">help[dot]kgid[at]karnataka[dot]gov[dot]in</a>
+                </div>
+                <div class="phone-service">
+                    <i class=" fa fa-phone"></i>
+                    +91 080 2237 3845
+                </div>
+
+            </div>
+            <div class="ht-right">
+                <div class="stellarnav login-panel csStellarnav" id="menu">
+                    <ul>
+                        <li class="pull-right">
+                            <a class="login-usr">
+                                <i class="fa fa-user"></i>
+                                @if (Session["UserName"] == null)
+                                {
+                                    Response.Redirect("/Login/Index");
+                                }
+                                else
+                                {
+                                    @Session["UserName"].ToString();
+                                }
+                            </a>
+                            <ul class="open-left shadow-lg">
+                                <li><a href="#" class="category-switch-panel font-weight-light" id="categorySwitchPanel" data-toggle="modal"><i class="fa fa-list-alt"></i>Switch Category</a></li>
+                                @if (Session["SelectedCategory"] == null)
+                                {
+                                    var cat = Session["Categories"].ToString();
+                                    if (cat == "11" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+                                    {
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("Index", "ChangePassword", new { area = "" })">Change Password</a>
+                                        </li>
+                                    }
+                                }
+                                <li><a href="#" class="" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-lock"></i>&nbsp;  Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lan-selector">
+                    @*<img src="~/Content/NewUI/img/flag-2kn.jpg" alt="LIMSlogo" style="padding-top:8px">*@
+                    <img src="~/Content/NewUI/img/en-ka.png" width="29" height="27" alt="LIMSlogo" style="padding-top:8px">
+                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                        <option value='yu'>Kannada </option>
+                        <option value='yt'>English</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="inner-header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="logoleft">
+                        <a>
+                            <img src="~/Content/NewUI/img/KGID-logo.png" alt="KGID-logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="advanced-search">
+                        <h5>Government of Karnataka</h5>
+                        <h2>Karnataka Government Insurance Department</h2>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="logoright">
+                        <a>
+                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="head-nav-item">
+        <div class="container">
+            <div class="stellarnav hStellarnav">
+                <ul>
+                    <li class="header_link"><a href="/kgid-home/" class="">Home</a></li>
+
+                    @if (Session["SelectedCategory"] == null)
+                    {
+                        var cat = Session["Categories"].ToString();
+                        if (cat == "1" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.EMPLOYEE)))
+                        {
+                            <li class="header_link">
+                                <a href="">New Business</a>
+                                <ul>
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a" href="@Url.Action("ApplicationForm", "Employee", new { area = "" })">Apply for KGID Policy</a>@*, empId = Session["UID"]*@
+                                        @*<a class="collapse-item collapse-item-a" href="/kgid-app/">Apply for KGID Policy</a>*@
+                                        <a class="collapse-item collapse-item-a" href="/Employee/GetInstructions/">Apply for KGID Policy</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-view-app/">View KGID Application</a>
+                                    </li>
+                                    @*<li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-claims/">Claims</a>
+                                        </li>*@
+                                </ul>
+                            </li>
+                            if (Session["InsuredUser"] != null && Session["InsuredUser"].ToString() == "True")
+                            {
+                                <li class="header_link">
+                                    <a href="">Loan</a>
+                                    <ul>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-loan-app/">Apply Loan</a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-loan-app-status/">Loan Application Status</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            @*<li class="header_link">
+                                    <a href="">Group Insurance</a>
+                                    <ul>
+                                        <li><a href="">Apply</a></li>
+                                    </ul>
+                                </li>*@
+                            <li class="header_link">
+                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Motor Insurance</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Fresh Application</a>
+                                        <ul>
+                                            <li>
+                                                @*<a href="@Url.Action("MotorInsuranceApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Application Form</a>*@
+                                                <a href="/mi-e-fa">Application Form</a>
+                                            </li>
+                                            @*<li>*@
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                            @*  <a href="/mi-e-mp">Make Payment</a>*@
+                                            @* </li>  *@
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                                <a href="/mi-e-soa">Status of Application</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Renewal</a>
+                                        <ul>
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIRenewalApplication", "MotorInsurance", new { area = "" })">Renewal Application</a>*@
+                                                <a href="/mi-e-re">Renewal Application</a>
+                                            </li>
+                                            @*<li>*@
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfRenewalApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                            @*<a href="/mi-dpt-r-rmp">Make Payment</a>
+                                                </li>*@
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfRenewalApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                                <a href="/mi-dpt-r-rsoa">Status of Application</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">MI Claim Application</a>
+                                        <ul>
+                                            <li>
+                                                @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                                <a href="/mi-dpt-odc">Own Damage Claim</a>
+                                            </li>
+                                            <li>
+                                                @*                                         <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("ThirdPartyDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })">Third Party Damage Claim</a>*@
+                                                <a href="/mi-dpt-tpdc">Third Party Damage Claim</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">MI Claim Application</a>
+                                <ul>
+                                    <li>
+                                        @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim Application</a>*@
+                                        <a href="/mi-e-odc">Own Damage Claim Application</a>
+                                    </li>
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("ThirdPartyDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })">Third Party Damage Claim Application</a>*@
+                                        <a href="/mi-e-tpdca">Third Party Damage Claim Application</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+                        else if (cat == "11" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+                        {
+                            <li class="header_link">
+                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Motor Insurance</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Fresh Application</a>
+                                        <ul>
+                                            <li>
+                                                @*<a href="@Url.Action("MIApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Application Form</a>*@
+                                                <a href="/mi-agy-fa/New">Application Form</a>
+                                            </li>
+                                            @*<li>
+                                                   <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                                    <a href="/mi-agy-mp">Make Payment</a>
+                                                </li>*@
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                                <a href="/mi-agy-soa">Status of Application</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Renewal</a>
+                                        <ul>
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIRenewalApplication", "MotorInsurance", new { area = "" })">Renewal Application</a>*@
+                                                <a href="/mi-agy-r-af">Renewal Application</a>
+                                            </li>
+                                            @*<li>
+                                                   <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfRenewalApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                                    <a href="/mi-agy-r-mp">Make Payment</a>
+                                                </li>*@
+                                            <li>
+                                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfRenewalApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                                <a href="/mi-agy-r-soa">Status of Application</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Motor Insurance Application</a>
+                                <ul>
+
+                                    <li>
+                                        @*<a href="@Url.Action("MotorInsuranceApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Fresh Application</a>*@
+                                        <a href="/mi-agy-fa/New">Fresh Application</a>
+                                    </li>
+                                    @*<li>
+                                          <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                            <a href="/mi-agy-mp">Make Payment</a>
+                                        </li>*@
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                        <a href="/mi-agy-soa">Status of Application</a>
+                                    </li>
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIRenewalApplication", "MotorInsurance", new { area = "" })">Renewal Application</a>*@
+                                        <a href="/mi-agy-r-ra">Renewal Application</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">MI Claim Application</a>
+                                <ul>
+                                    <li>
+                                        @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim Application</a>*@
+                                        <a href="/mi-agy-odca">Own Damage Claim Application</a>
+
+                                    </li>
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("ThirdPartyDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })">Third Party Damage Claim Application</a>*@
+                                        <a href="/mi-agy-tpdca">Third Party Damage Claim Application</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+                    }
+                    else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Equals(Convert.ToString((int)UserCategories.EMPLOYEE)))
+                    {
+                        <li class="header_link">
+                            <a href="">New Business</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-app/">Apply for KGID Policy</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-view-app/">View KGID Application</a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-claims/">Claims</a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        if (Session["InsuredUser"] != null && Session["InsuredUser"].ToString() == "True")
+                        {
+                            <li class="header_link">
+                                <a href="">Loan</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-loan-app/">Apply Loan</a>
+                                    </li>
+                                    <li>
+                                        @*<a class="collapse-item collapse-item-a" href="@Url.Action("Loanapplicationstatus", "Loan", new { area = "" })">Loan Application Status</a>*@
+                                        <a class="collapse-item collapse-item-a" href="/kgid-view-app/">View Loan Application</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        @*<li class="header_link">
+                                <a href="">Group Insurance</a>
+                                <ul>
+                                    <li><a href="">Apply</a></li>
+                                </ul>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DDO)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-ddo/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-ddo-loan/">Loan Applications for verification</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header_link">
+                            <a href="/VIEW-NB-DDO-IL">Intimation Letter</a>
+
+                        </li>
+
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a" href="@Url.Action("UploadEmployeeDetails", "Upload", new { area = "" })">Upload Employee Details</a>
+                        </li>
+
+                        <li class="header_link">
+                            <a href="">Cancellation Request</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-c-req?Type=DDO">Policy Cancellation Request</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-loan-c-req?Type=DDO">Loan Cancellation Request</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Motor Insurance</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Fresh Application</a>
+                                    <ul>
+                                        <li>
+                                            @*<a href="@Url.Action("MotorInsuranceApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Application Form</a>*@
+                                            <a href="/mi-dpt-faf/New">Application Form</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                            <a href="/mi-dpt-mp">Make Payment</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                            <a href="/mi-dpt-soa">Status of Application</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Renewal</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIRenewalApplication", "MotorInsurance", new { area = "" })">Renewal Application</a>*@
+                                            <a href="/mi-dpt-r-ra">Renewal Application</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfRenewalApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                            <a href="/mi-dpt-r-rmp">Make Payment</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfRenewalApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                            <a href="/mi-dpt-r-rsoa">Status of Application</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">MI Claim Application</a>
+                                    <ul>
+                                        <li>
+                                            @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                            <a href="/mi-dpt-odc">Own Damage Claim</a>
+                                        </li>
+                                        <li>
+                                            @*                                         <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("ThirdPartyDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })">Third Party Damage Claim</a>*@
+                                            <a href="/mi-dpt-tpdc">Third Party Damage Claim</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @*<li>
+                                <a href="">Initiate claim application</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="@Url.Action("DDOPreMatureClaimApplication", "Claims", new { area = "" })">Prematurity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="@Url.Action("DDODeathClaimApplication", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-cw/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-cw-loan/">Loan Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a href="">MI Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-cw-dpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-cw-agy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-cw-eply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">MI Renewal Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-cw-rdpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-cw-ragy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForCWVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-cw-reply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li class="header_link">
+                                <a href="">Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li class="header_link">
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-si/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-si-loan/">Loan Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a href="">MI Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-si-dpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-si-agy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-si-eply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">MI Renewal Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-si-rdpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-si-ragy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForsuperintendentVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-si-reply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @*<li class="header_link">
+                                                <a href="">Claims</a>
+                                                <ul>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                                    </li>
+                                                </ul>
+                            </li>*@
+                        @*<li class="header_link">
+                                    <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-dio-loan/">Loan Applications for verification</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header_link">
+                            <a href="">Cancellation Request</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-c-req?Type=DIO">Policy Cancellation Request</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-loan-c-req?Type=DIO">Loan Cancellation Request</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li class="header_link">
+                                <a href="">Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIOMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIOPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIODeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li class="header_link">
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+
+                        <li class="header_link">
+                            <a href="">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("VIEW-NBB-FS", "VerifyDetails", new { area = "" })">Print Bond & Facing Sheet</a>*@
+                                    <a href="/VIEW-NBB-FS">Print Bond & Facing Sheet</a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("PrematurityClaimApplications", "Claims", new { area = "" })">Pre maturity Claims</a>
+                                    </li>*@
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dd/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-dd-loan/">Loan Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a href="">MI Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-dd-dpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-dd-agy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-dd-eply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">MI Renewal Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>*@
+                                            <a href="/mi-dd-rdpt/2">For Department</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>*@
+                                            <a href="/mi-dd-ragy/11">For Agency</a>
+                                        </li>
+                                        <li>
+                                            @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>*@
+                                            <a href="/mi-dd-reply/1">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li class="header_link">
+                                <a href="">Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li class="header_link">
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR)))
+                    {
+                        <li class="header_link">
+                            <a href="">Application for verification</a>
+                            <ul>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-d/">NB Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-d-loan/">Loan Applications for verification</a>
+                                </li>
+                                <li>
+                                    <a href="">MI Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">MI Renewal Applications for verification</a>
+                                    <ul>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="header_link">
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Reports</a>
+                            <ul>
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP">KGID Application Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li class="header_link">
+                                <a href="">Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li class="header_link">
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["Categories"] != null && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.ADMIN)))
+                    {
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="/kgid-search-emp/">Employee Verification</a>
+                            </li>*@
+                        <li>
+                            <a class="collapse-item collapse-item-a" href="~/Admin/SaveDSCDetails/">Save DSC Details</a>
+                        </li>
+                        <li>
+                            <a class="collapse-item collapse-item-a" href="/Employee/AddUserRole/">Add User Role</a>
+                        </li>
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("Index", "Loan", new { area = "" })">Loan Update</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.AVGCASEWORKER)))
+                    {
+                        <li>
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-avg-cw/">Applications for verification</a>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+                    {
+                        <li>
+                            <a class="collapse-item collapse-item-a" href="@Url.Action("UploadEmployeeDetails", "Upload", new { area = "" })">Upload User Data</a>
+                        </li>
+                        <li>
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="#">Motor Insurance Application</a>
+                            <ul>
+
+                                <li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="/MotorInsurance/MotorInsuranceApplication?PageType='New'">Fresh Application</a>*@
+                                    @*<a href="@Url.Action("MotorInsuranceApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Fresh Application</a>*@
+                                    <a href="/mi-agy-fa/New">Fresh Application</a>
+                                </li>
+
+
+
+                                <li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                    <a href="/mi-agy-mp">Make Payment</a>
+                                </li>
+                                <li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                    <a href="/mi-agy-soa">Status of Application</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div><!-- .stellarnav -->
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>
+
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="breadcrumb-text">
+                <a href="/kgid-home/"><i class="fa fa-home"></i> Home</a>
+                <span id="PageName"></span>
+                <div class="breadcrumbheader">
+                    @if (Session["Designation"] != null)
+                    {
+                        <b>Designation :</b> <span id="p_designation">@Session["Designation"].ToString()</span>
+                    }
+                    &nbsp;
+                    @if (Session["Department"] != null)
+                    {
+                        <b>Department : </b> <span id="p_department">@Session["Department"].ToString()</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Form Section Begin -->

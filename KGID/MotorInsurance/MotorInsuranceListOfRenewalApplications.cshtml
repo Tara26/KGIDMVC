@@ -1,0 +1,531 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_DDOVerificationDetailsMI
+@{
+    ViewBag.Title = "MotorInsuranceListOfRenewalApplications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/StepsDemo/css/jquery.steps.css" rel="stylesheet" />
+<script src="~/Content/StepsDemo/js/jquery.steps.min.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/MIApplicationList.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<style type="text/css">
+    .wizard > .content > .body {
+        position: relative;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    .application-tab .steps ul li {
+        width: 14% !important;
+    }
+
+    .application-tab #ApplicationTab-t-5 {
+        font-size: 11.5px;
+        padding: 1.1em 1em;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .error {
+        font-size: 0.75rem !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+
+    .btnPayment {
+        float: right;
+    }
+
+    .calclink {
+        display: block;
+        width: 100%;
+        padding: 6px 2px 6px 6px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+</style>
+
+<div id="divApplicationMI" data-eid="@Session["UID"]">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="row">
+                        <h5 style="text-align:center" class="m-0 text-black-100 font-weight-bold col-12"><b>Motor Insurance Renewal Applications List</b></h5>
+
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <nav id="navmenu">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b>Application Form</b></a>
+                            <a id="nav-Payment-Preview-tab" class="nav-item nav-link" data-toggle="tab" href="#nav-Payment-Priview" role="tab" aria-controls="nav-Payment-Preview" aria-selected="false"><b>Payment Preview</b></a>
+                            <a id="nav-Payment-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Payment" role="tab" aria-controls="nav-Payment" aria-selected="false"><b>Payment</b></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                        <div class="tab-pane fade show active" id="nav-Application" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped table-bordered" id="tblApplicationList" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    @*<th>Employee Code</th>
+        <th>Name</th>*@
+                                                    <th>Application Reference Number</th>
+                                                    <th>Type of Cover</th>
+                                                    <th>Registration no.</th>
+                                                    <th>Chassis No.</th>
+                                                    <th>Engine No.</th>
+                                                    <th>Year of Manufacture</th>
+                                                    @*<td>Vehicle Manufacturer </td>*@
+                                                    <th>Vehicle Model</th>
+                                                    <th>Premium</th>
+                                                    <th>Status</th>
+
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.LastUpdatedStatusForEmployees != null && Model.LastUpdatedStatusForEmployees.Count > 0)
+                                                {
+                                                    foreach (var item in Model.LastUpdatedStatusForEmployees)
+                                                    {
+                                                <tr>
+
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.TypeofCover</td>
+                                                    <td>@item.registrationNo</td>
+                                                    <td>@item.ChasisNo</td>
+                                                    <td>@item.EngineNo</td>
+                                                    <td>@item.VehicleYear</td>
+                                                    <td>@item.VehicleModelName</td>
+                                                    <td>@item.Premium</td>
+
+                                                    @*<td>@item.Status</td>*@
+                                                    <td>@((item.Status == "Initial") ? "Renewal Proposal" : item.Status) </td>
+                                                    @if (@item.AppStatusID == 2 || @item.AppStatusID == 1)
+                                                    {
+                                                        <td>
+                                                            <a href="mi-r-edt-apln/EditRenewal/@item.PrevApplicationNumber/@item.CategoryId/@item.ApplicationNumber">Edit Application</a>
+                                                        </td>
+                                                    }
+
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- -->
+                        <div class="tab-pane fade" id="nav-Payment-Priview" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div id="PaymentTab1" class="Payment-tab1">
+                                <h3 style="text-align:center">Payment Preview Details</h3><br />
+
+                                <section>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-striped table-bordered" id="tblPremiumList" cellspacing="0">
+                                                <thead style="background: #308385;color: #fff;">
+                                                    <tr>
+                                                        <th style="display:none;">Application ID</th>
+                                                        <th>Application Reference Number</th>
+                                                        <th>Type of Cover</th>
+                                                        <th>Registration no.</th>
+                                                        <th>Chassis No.</th>
+                                                        <th>Engine No.</th>
+                                                        <th>Year of Manufacture</th>
+                                                        @*<td>Vehicle Manufacturer </td>*@
+                                                        <th>Vehicle Model</th>
+                                                        <th>Insurance Amount </th>
+                                                        
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.PolicyPremiumDetailMI != null && Model.PolicyPremiumDetailMI.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.PolicyPremiumDetailMI)
+                                                        {
+                                                    <tr>
+                                                        @*<td>@item.EmployeeCode</td>*@
+                                                        <td class="AppRefNo">@item.ApplicationNumber</td>
+                                                        <td class="AppID" style="display:none;">@item.ApplicationId</td>
+                                                        <td>@item.TypeofCover</td>
+                                                        <td>@item.registrationNo</td>
+                                                        <td>@item.ChasisNo</td>
+                                                        <td>@item.EngineNo</td>
+                                                        <td>@item.VehicleYear</td>
+                                                        <td>@item.VehicleModelName</td>
+                                                        @*// <td>@item.VehicleManufactureName @item.VehicleModelName</td>*@
+                                                        <td>@item.PolicyPremiumAmount</td>
+                                                        @*<td><input type="checkbox" id="@item.PolicyPremiumAmount" name="show_static_notify"></td>*@
+                                                        <td>
+                                                            @if (item.PolicyPremiumAmount != null)
+                                                            {
+                                                                <input type='checkbox' id='@item.PolicyId' class="ckppa" value="@item.PolicyPremiumAmount" />
+                                                            }
+                                                            else { }
+                                                        </td>
+                                                    </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><label style="font-weight: bold;font-size:larger;">Total Payable Amount</label></td>
+                                                        @*<td><input type="text" id="txttotal" class="form-control col-sm-6" readonly name="totpayamt"></td>*@
+                                                        <td><label ID="txttotal" style="font-weight: bold;font-size:large;" name=""></label></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div style="text-align:center">
+                                    @*<a class="btn btn-info btn-lg" href="#nav-Payment" aria-expanded="true">Proceed To Payment</a>*@
+                                    <button class="btn btn-info btn-lg" onclick="RPrPayment()">Proceed To Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="tab-pane fade" id="nav-Payment" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div id="PaymentTab" class="Payment-tab">
+                                <h2 style="text-align:center">Premium Payment</h2>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Premium Amount</label>
+                                                <input type="text" id="txtPayAmount" disabled class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Payment Reference No</label>
+                                                <input type="text" id="txtpaymentrefno" class="form-control" value="13524644654118" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Purpose</label>
+                                                <input type="text" id="txtPurpose" class="form-control" value="KGID Premium" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Sub Purpose</label>
+                                                <input type="text" id="txtSubPurpose" class="form-control" value="Initial Payment" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">DDO Code</label>
+                                                <input type="text" id="txtDistrictOfffice" class="form-control" value="12027O" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">HOA</label>
+                                                <input type="text" id="txtHOA" class="form-control" value="Revenue Head of Account" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Date</label>
+                                                <input type="text" disabled id="txtdateofpayment" class="form-control">
+                                            </div>
+                                            <div class="row btnPayment">
+                                                @*<button class="btn btn-info">Pay Through KII</button>*@
+                                                <button class="btn btn-info btn-lg" onclick="RPrPay()">Pay Through KII</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <br />
+                                            <br />
+                                            <a class="btn btn-info" onclick="GenerateMIRenewalChallan();">Print Challan</a>
+                                        </div>
+                                    </div>
+                                </section>
+                                @*<h2>Payment Status</h2>
+                                    <section class="container" id="PaymentStatus">
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="txtChallen">Reference No.</label>
+                                                    <input type="text" id="txtRefNo" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtChallen">Amount</label>
+                                                    <input type="text" id="txtPayRAmount" disabled class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtChallen">Transaction No</label>
+                                                    <input type="text" id="txttransactionno1" class="form-control" value="113001150541">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtChallen">Date of Payment</label>
+                                                    <input type="text" placeholder="DD/MM/YYYY" id="txtdateofpayment1" disabled class="form-control">
+                                                </div>
+                                                <div class="row btnPayment">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-info">Retrive For KII</button>
+                                                        <button class="btn btn-info" onclick="PrintChallanDetails();">Print</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                    </section>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.keyCode == 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                e.preventDefault();
+                return false;
+            }
+        }
+        //$('#tblApplicationList').DataTable();
+        //$('#tblApplicationPaymentDetails').DataTable();
+        //$('#tblApplicationPayment').DataTable();
+         $('#tblApplicationList').DataTable({
+            paging: true,
+            info: false,
+            ordering: false,
+            //aaSorting: [[1, "desc"]],
+           // searching: false
+        });
+     
+
+
+         $('#tblApplicationPaymentDetails').DataTable();
+         $('#tblApplicationPayment').DataTable();
+       
+
+        //$("#PaymentStatusTab").hide();
+        var d = new Date();
+        //var n = d.toLocaleDateString();
+        var n = new Intl.DateTimeFormat('en-AU').format(d);
+        document.getElementById("txtdateofpayment").defaultValue = n;
+        document.getElementById("txtdateofpayment1").defaultValue = n;
+        //document.getElementById('paymentdate').value = Date();
+        //document.getElementById('spaymentdate').placeholder = Date();
+        $("#PaymentTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                //$('#btnAllPrint').remove();
+                //('#PaymentTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "none");
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+                else {
+                    if (currentIndex == 0) {
+                        //return SaveChallanDetails(eid);
+                        return true;//CserverResponse;
+                    }
+                }
+                return true;
+            },
+            onFinished: function (event, currentIndex) {
+                if (CserverResponse == false) {
+                    SaveMIRenewalChallanDetails(eid);
+                }
+
+                //$('.nav-tabs a[href="#nav-Medical"]').tab('show');
+                alertify.success("Payment Completed!");
+            }
+        });
+
+    });
+    var AllRefNos = [];
+    var restotal = 0;
+    var AllPolicyNos = [];
+    function RPrPayment() {
+
+        $('#nav-Payment-tab').removeClass("disabled");
+        $("#nav-Payment-tab").click();
+    }
+    function RPrPay() {
+        //alertify.prompt("Test");
+        //alert(AllRefNos);
+        var challanamt = $('#txtPayAmount').val();
+        var RefNos = AllRefNos.toString();
+        var Type = "Renewal";
+         $.cookie("amrn", decodeURI(RefNos), { expires: 1 });
+        $.cookie("amch", parseFloat(restotal), { expires: 1 });
+       // alert(RefNos + "," + parseFloat(challanamt));
+        $.ajax({
+            url: '/MotorInsurance/InsertMIChallanDetails',
+            data: JSON.stringify({ "RefNos": RefNos, "ChallanAmount": parseFloat(challanamt), "Type": Type }),
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                alertify.success("Payment Successfully Completed");
+                setTimeout(function () {
+                    window.location.href = "/mi-agy-r-soa";
+                }, 1000);
+                //window.location.href = "/MotorInsurance/MotorInsuranceListOfApplications";
+            }, error: function (result) {
+                alertify.error("Could Not completed Premium Payment");
+            }
+        });
+    }
+    function GenerateMIRenewalChallan() {
+        var challanamt = $('#txtPayAmount').val();
+        //var amt = parseFloat(challanamt).toString();
+        var RefNos = AllRefNos.toString();
+        var Type = "Renewal";
+        $.cookie("amrnp", decodeURI(RefNos), { expires: 1 });
+        $.cookie("amchp", parseFloat(restotal), { expires: 1 });
+        $.ajax({
+            url: '/MotorInsurance/PrintMIChallanDetails',
+            data: JSON.stringify({ "RefNos": RefNos, "ChallanAmount": parseFloat(challanamt), "Type": Type }),
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                if (result.IsSuccess == true) {
+                    var path = result.Result
+                    //downloadPDF(path)
+                    //alert(path)
+                    //window.open("data:application/pdf;base64, " + path);
+                    //pdf new tab start
+                    var objbuilder = '';
+                    objbuilder += ('<object width="100%" height="100%" data="data:application/pdf;base64,');
+                    objbuilder += (path);
+                    objbuilder += ('" type="application/pdf" class="internal">');
+                    objbuilder += ('<embed src="data:application/pdf;base64,');
+                    objbuilder += (path);
+                    objbuilder += ('" type="application/pdf"  />');
+                    objbuilder += ('</object>');
+
+                    var win = window.open("#", "_blank");
+                    var title = "MI Challan Print";
+                    win.document.write('<html><title>' + title + '</title><body style="margin-top: 0px; margin - left: 0px; margin - right: 0px; margin - bottom: 0px; ">');
+                    win.document.write(objbuilder);
+                    win.document.write('</body></html>');
+                    layer = jQuery(win.document);
+                    //end
+                }
+                else if (result.IsSuccess == false) {
+                    alertify.error("Unable to Print Challan..!");
+                }
+            }
+        });
+    }
+    function PrintChallanDetails() {
+        console.log($('#txtpaymentrefno1').val());
+        $.ajax({
+            url: '/Employee/PrintChallanDetails',
+            data: { challanNo: $('#txtpaymentrefno1').val() },
+            type: 'POST',
+            //contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                window.location = "/Employee/PrintChallanDetails?challanNo=" + $('#txtpaymentrefno1').val();
+                $('#PaymentTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "block");
+            }
+        });
+    }
+    function SaveMIRenewalChallanDetails(eid) {
+        //var CserverResponse = false;
+
+        var viewModel = {
+            'cd_system_emp_code': eid, 'cd_referance_number': $("#spnReferanceNo").text(), 'cd_challan_ref_no': $("#txttransactionno1").val(),//$("#txtpaymentrefno").val(),
+            'cd_dept_code': $("#txtDistrictOfffice").val(), 'cd_ddo_code': $("#txtDistrictOfffice").val(), 'cd_purpose_code': $("#txtPurpose").val(), 'cd_subpurpose_code': $("#txtSubPurpose").val(),
+            'cd_head_of_account': $("#txtHOA").val(), 'cd_amount': $("#txtPayAmount").val(), 'cd_datetime_of_challan': new Date(), 'cd_status': '1', 'cd_creation_datetime': new Date()
+        };
+        $.ajax({
+            url: '/Employee/InsertChallanDetails',
+            data: JSON.stringify(viewModel),//JSON.stringify(),
+            async: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $("#txtRefNo").val($("#spnReferanceNo").text());
+                alertify.success("Payment details saved successfully");
+                CserverResponse = true;
+            }, error: function (result) {
+                alertify.error("Could not save Payment details");
+            }
+        });
+
+        return CserverResponse;
+    }
+
+    $('#tblPremiumList input').change(function () {
+        var total = 0;
+        $('#tblPremiumList input').each(function () {
+            if (this.checked) {
+                total += parseInt(this.value);
+            }
+        });
+        restotal = Math.round(total).toFixed(2)
+        $("#txttotal").html(restotal);
+        //document.getElementById('txttotal').value = restotal;
+        document.getElementById('txtPayAmount').value = restotal;
+        //document.getElementById('txtPayRAmount').value = restotal;
+        //Get Referance Numbers List
+        var checkbox = $(this);
+        var state = checkbox.prop('checked');
+        var tr = checkbox.parents('tr');
+        var AppRefNo = tr.children('.AppID').text();
+
+        if (state) {
+            AllRefNos.push(AppRefNo);
+        } else {
+            var index = AllRefNos.indexOf(AppRefNo);
+
+            AllRefNos.splice(index, 1);
+        }
+    });
+
+</script>

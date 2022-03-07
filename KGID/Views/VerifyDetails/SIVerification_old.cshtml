@@ -1,0 +1,476 @@
+﻿@model KGID_Models.KGID_VerifyData.VM_DeptVerificationDetails
+
+@{
+    ViewBag.Title = "Superintendent verification";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-warning"><b>Superintendent verification</b></h6>
+            </div>
+            <div class="card-body">
+                @*<div class="row col-12">
+                        <div class="form-group col-6">
+                            <label>View Application Form</label>
+                            @Html.ActionLink("Click Here", "EmployeeDocumentDownload", "VerifyDetails", new { id = Model.EmpCode, name = "Application Form" }, htmlAttributes: new { @target = "_blank" })
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="form-group col-6">
+                            <label class="control-label">View Medical Report</label>
+                            @Html.ActionLink("Click Here", "EmployeeDocumentDownload", "VerifyDetails", new { id = Model.EmpCode, name = "Medical Report" }, htmlAttributes: new { @target = "_blank" })
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="form-group col-6">
+                            <label class="control-label">View Facing Sheet</label>
+                            @Html.ActionLink("Click Here", "FacingSheet", new { applicationReferenceNumber = Model.ApplicationRefNo }, htmlAttributes: new { @target = "_blank" })
+                        </div>
+                    </div>*@
+                @using (Html.BeginForm("SaveSIVData", "VerifyDetails", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmSIVerDetails" }))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(m => m.EmpCode)
+                    @*<div class="row col-12">
+
+                            <div class="form-group col-3">
+                                <label for="txtWEIGHT" class="control-label required">Verify Proposer Details</label>
+                            </div>
+                            <div class="form-group col-3">
+                                @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkPD", @class = "chk-req" }) <b>Verified</b>
+                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify proppser details</label>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label for="txtPulseRatePerMin" class="control-label required">Verify Payment Details</label>
+                            </div>
+                            <div class="form-group col-3">
+                                @Html.CheckBoxFor(m => m.VerifyPaymentDetails, new { @id = "chkPayD", @class = "chk-req" })  <b>Verified</b>
+                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify payment details</label>
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <div class="form-group col-3">
+                                <label for="txtBreathRatePerMin" class="control-label required">Verify Medical Details Report</label>
+                            </div>
+                            <div class="form-group col-3">
+                                @Html.CheckBoxFor(m => m.VerifyMedicalDetails, new { @id = "chkMDR", @class = "chk-req" })  <b>Verified</b>
+                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical details</label>
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="txtPBP" class="control-label required">Verify Medical Condition</label>
+                            </div>
+                            <div class="form-group col-3">
+                                @Html.CheckBoxFor(m => m.VerifyMedicalCondition, new { @id = "chkMC", @class = "chk-req" })  <b>Verified</b>
+                                <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical condition</label>
+                            </div>
+                        </div>*@
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <div class="form-group col-12">
+                                <label>View Application Form</label>
+                                @*@Html.ActionLink("Click Here", "EmployeeDocumentDownload", "VerifyDetails", new { id = Model.EmpCode, name = "Application Form" }, htmlAttributes: new { @target = "_blank" })*@
+                                @Html.ActionLink("Click Here", "VerifyEmployeeDetails", "ViewDataToVerify", new { EmpID = Model.EmpCode }, htmlAttributes: new { @target = "_blank" })
+                            </div>
+                            @*<div class="form-group col-12">
+                                    <label class="control-label">View Medical Report</label>
+                                    @Html.ActionLink("Click Here", "EmployeeDocumentDownload", "VerifyDetails", new { id = Model.EmpCode, name = "Medical Report" }, htmlAttributes: new { @target = "_blank" })
+                                </div>*@
+                        </div>
+                        <div class="form-group col-6">
+                            <div class="row">
+
+                                <div class="form-group col-6 pl-0">
+                                    <label for="txtWEIGHT" class="control-label required">Verify Proposer Details</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    @Html.CheckBoxFor(m => m.VerifyProposerDetails, new { @id = "chkPD", @class = "chk-req" }) <b>Verified</b>
+                                    <label class="err text-danger col-12 pt-2" style="display:none;">Please verify proppser details</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    <a href="#" id="btnAllPrint" onclick="printApplicationForm();">Click Here</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6 pl-0">
+                                    <label for="txtPulseRatePerMin" class="control-label required">Verify Payment Details</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    @Html.CheckBoxFor(m => m.VerifyPaymentDetails, new { @id = "chkPayD", @class = "chk-req" })  <b>Verified</b>
+                                    <label class="err text-danger col-12 pt-2" style="display:none;">Please verify payment details</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    <a href="#" id="btnAllPrint" onclick="printPaymentDetails();">Click Here</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <div class="form-group col-12">
+                                <label class="control-label">View Facing Sheet</label>
+                                @Html.ActionLink("Click Here", "FacingSheet", "Policy", new { applicationReferenceNumber = Model.ApplicationRefNo }, htmlAttributes: new { @target = "_blank" })
+                            </div>
+                        </div>
+                        @*</div>*@
+                        @*<div class="row col-12">*@
+                        <div class="form-group col-6">
+                            <div class="row">
+                                <div class="form-group col-6 pl-0">
+                                    <label for="txtBreathRatePerMin" class="control-label required">Verify Medical Details Report</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    @Html.CheckBoxFor(m => m.VerifyMedicalDetails, new { @id = "chkMDR", @class = "chk-req" })  <b>Verified</b>
+                                    <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical details</label>
+                                </div>
+                                <div class="form-group col-3">
+                                    <a href="#" id="btnAllPrint" onclick="printMedicalReport();">Click Here</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6 pl-0">
+                                    <label for="txtPBP" class="control-label required">Verify Medical Condition</label>
+                                </div>
+                                <div class="form-group col-6">
+                                    @Html.CheckBoxFor(m => m.VerifyMedicalCondition, new { @id = "chkMC", @class = "chk-req" })  <b>Verified</b>
+                                    <label class="err text-danger col-12 pt-2" style="display:none;">Please verify medical condition</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row col-12">
+                        <div class="form-group col-6">
+                            <label for="txtPHeight" class="control-label required">Medical Leave</label>
+                            @Html.TextBoxFor(Model => Model.MedicalLeave, new { @id = "txtMLeave", @class = "form-control" })
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="txtRemarks" class="control-label">Remarks</label>
+                            @Html.TextAreaFor(Model => Model.Remarks, new { @id = "txtRemarks", @class = "form-control" })
+                            <label id="errRemarksReq" class="text-danger pt-2 err" style="display:none;">Please enter remarks before sending back the application</label>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="row col-12">
+                            <div class="col-8">
+                                <label class="col-6">
+                                    @Html.RadioButtonFor(m => m.ApplicationStatus, 6, new { id = "rdBtnSendBackToCW", @class = "float-left" })
+                                    <span class="float-left ml-1">Send back to Case worker</span>
+                                </label>
+                            </div>
+                            <div class="col-8">
+                                <label class="col-6">
+                                    @Html.RadioButtonFor(m => m.ApplicationStatus, 9, new { id = "rdBtnForwardToDIO", @class = "float-left" })
+                                    <span class="float-left ml-1">Forward to DIO</span>
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <button id="btnSubmit" type="submit" class="btn btn-success">Send</button>
+                                <button id="btnClear" type="reset" class="btn btn-danger">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="divDDOPrint" style="display:none;">
+    <div id="ApplicationTab" class="application-tab">
+        <h2>Basic Details</h2>
+        <section>
+            @{
+                @Html.Action("BasicDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+        <h2>Family Details</h2>
+        <section>
+            @{
+                @Html.Action("FamilyDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+        <h2>Nominee Details</h2>
+        <section>
+            @{
+                @Html.Action("NomineeDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+        <h2>Personal Details</h2>
+        <section>
+            @{
+                @Html.Action("PersonalDetailsToView", "ViewDataToVerify")
+            }
+
+        </section>
+        <h2>Medical Leave Details</h2>
+        <section>
+            @{
+                @Html.Action("MedicalLeaveDetailsToView", "ViewDataToVerify")
+            }
+
+        </section>
+
+        @*<h2>Declaration</h2>
+        <section>
+            @{
+                @Html.Action("DeclarationDetailsToView", "ViewDataToVerify")
+            }
+
+        </section>*@
+    </div>
+    <div id="PaymentTab" class="Payment-tab">
+        <h2>Payment Details</h2>
+        <section>
+            <div class="row" id="divPaymentDetails">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Payment Amount</label>
+                        <input type="text" id="txtPayAmount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Reference No</label>
+                        <input type="text" id="txtpaymentrefno" class="form-control" value="" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Purpose</label>
+                        <input type="text" id="txtPurpose" class="form-control" value="KGID Premium" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Sub Purpose</label>
+                        <input type="text" id="txtSubPurpose" class="form-control" value="Initial Payment" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">DDO Code</label>
+                        <input type="text" id="txtDistrictOfffice" class="form-control" value="12027O" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">HOA</label>
+                        <input type="text" id="txtHOA" class="form-control" value="Revenue Head of Account" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Date</label>
+                        <input type="text" id="txtdateofpayment" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary">Pay Through KII</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary">Retry</button>
+                            <a class="btn btn-success" onclick="SaveChallanDetails();">Save</a>
+                        </div>
+                        @*<div class="col-md-4">
+                                <a href="#next" id="btnNext" role="menuitem">Next</a>
+                            </div>*@
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <br />
+                    <br />
+                    <a class="btn btn-info" onclick="GenerateChallan();">Generate Challan</a>
+                </div>
+            </div>
+        </section>
+        <h2>Payment Status</h2>
+        <section class="container">
+            <div class="row" id="divPaymentStatus">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="txtChallen">Reference No.</label>
+                        <input type="text" id="txtRefNo" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Amount</label>
+                        <input type="text" id="txtPayAmount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Transaction No</label>
+                        <input type="text" id="txttransactionno1" class="form-control" value="113001150541">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtChallen">Date of Payment</label>
+                        <input type="text" placeholder="DD/MM/YYYY" id="txtdateofpayment1" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary" onclick="PrintChallanDetails();">Print</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary">Retrive For KII</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </section>
+    </div>
+    <div id="MedicalTab">
+        <h2>Basic Details</h2>
+        <section class="container">
+            @{
+                @Html.Action("HBasicDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+
+        <h2>Physical Details</h2>
+        <section id="buildyourform">
+            @{
+                @Html.Action("HPhysicalDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+
+        <h2>Other Details</h2>
+        <section>
+            @{
+                @Html.Action("HOtherDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+
+        <h2>Health Details</h2>
+        <section>
+            @{
+                @Html.Action("HHealthDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+
+        <h2>Doctor Details</h2>
+        <section>
+            @{
+                @Html.Action("HDoctorDetailsToView", "ViewDataToVerify")
+            }
+        </section>
+        @*<h2>Declaration</h2>
+        <section>
+            @{
+                @Html.Action("HDeclarationDetailsToView", "ViewDataToVerify")
+            }
+        </section>*@
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btnSubmit").click(function (e) {
+        $(".err").hide();
+        $(".chk-req").each(function () {
+            if (!$(this).is(":checked")) {
+                $(this).siblings(".err").show();
+            }
+        });
+
+        var isStatusSelected = true;
+        if ($("input[name='ApplicationStatus']:checked").length === 0) {
+            $("input[name='ApplicationStatus']").parent().siblings(".err").show();
+            isStatusSelected = false;
+        }
+
+        var isCheckboxchecked = true;
+        if ($(".err:visible").length > 0) {
+            isCheckboxchecked = false;
+        }
+
+        var isSendBack = true;
+        if ($("input[name='ApplicationStatus']:checked").val() === "6" && $("#txtRemarks").val() === "") {
+            $("#errRemarksReq").show();
+            isSendBack = false;
+        }
+
+        if (isStatusSelected && isCheckboxchecked && isSendBack) {
+            alertify.confirm("Are you sure you want to submit the changes?", function () {
+                $("#frmSIVerDetails").submit();
+            }).setHeader("Confirm changes?");
+        }
+
+        e.preventDefault();
+    });
+
+
+    function printApplicationForm() {
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Basic Details</h2></div><div class="form-group col-4"></div></div>' + $("#divPrintBasicDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Nominee Details</h2></div><div class="form-group col-4"></div></div>' + $("#divNominee").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Family Details</h2></div><div class="form-group col-4"></div></div>' + $("#divFamily").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Personal Details</h2></div><div class="form-group col-4"></div></div>' + $("#divPersonal").html() + "<hr/>";
+        //contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Declaration</h2></div><div class="form-group col-4"></div></div>' + $("#divDeclaration").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Application Form</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+    function printPaymentDetails() {
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Payment Details</h2></div><div class="form-group col-4"></div></div>' + $("#divPaymentDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Payment Status</h2></div><div class="form-group col-4"></div></div>' + $("#divPaymentStatus").html() + "<hr/>";
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Payment Details</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+    function printMedicalReport() {
+
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Basic Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHBasicDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Physical Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHPhysicalDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Other Details</h3></div><div class="form-group col-4"></div></div>' + $("#divOtherDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Health Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHealthDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Doctor Details</h3></div><div class="form-group col-4"></div></div>' + $("#divDoctorDetails").html(); + "<hr/>";
+        //contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h3>Doctor Details</h3></div><div class="form-group col-4"></div></div>' + $("#divHDeclaration").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Medical Report</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

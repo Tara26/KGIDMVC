@@ -1,0 +1,102 @@
+﻿
+
+@{
+
+}
+
+<style>
+    .control-label-large {
+        font-size: x-large;
+    }
+</style>
+
+<div class="form-group col-12">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <label class="col-3" style="padding-top:0.75rem !important">Search KGID:</label>
+                <input type="search" id="txtSearch" class="form-control col-7" />
+                <div class="col-2">
+                    <input type="button" class="btn" onclick="DisplayEmpDetails();" value="GO" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divEmpDetails" style="display:none;">
+    <form id="frmEmpClaimApp">
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label-large">Employee Name:</label>
+                    <label id="txtEmpName" class="control-label-large">Arjun</label>
+                </div>
+                <div class="col-6">
+                    <label class="control-label-large">Designation:</label>
+                    <label id="txtEmpDesignation" class="control-label-large">Senior Software Engineer</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label-large">Department:</label>
+                    <label id="txtEmpDepartment" class="control-label-large">Information Technology</label>
+                </div>
+                <div class="col-6">
+                    <label class="control-label-large">Age:</label>
+                    <label id="txtEmpDepartment" class="control-label-large">30</label>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label">Date of Termination:</label>
+                    <input type="text" id="txtDateOfTermination" class="form-control" />
+                </div>
+                <div class="col-6">
+                    <label class="control-label">Termination Letter:</label>
+                    <input type="file" id="docTerminationLetter" class="col-5 form-control border-0" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label">Date of Relieving:</label>
+                    <input type="text" id="txtDateOfRelieving" class="form-control" />
+                </div>
+                <div class="col-6">
+                    <label class="control-label">Relieving Letter:</label>
+                    <input type="file" id="docRelievingLetter" class="col-5 form-control border-0" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="from-group col-12 text-right">
+            <button id="btnClear" onclick="ClearFields();" class="btn">Clear</button>
+            <button id="btnForward" onclick="alert('Forwarded')" class="btn">Forward</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ClearFields() {
+        $('#frmEmpClaimApp')[0].reset();
+        $("#txtSearch").val("");
+        $("#divEmpDetails").hide();
+    }
+    function DisplayEmpDetails() {
+        alertify.success('Searched');
+        $("#divEmpDetails").show();
+    }
+</script>

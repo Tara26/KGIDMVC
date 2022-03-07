@@ -1,0 +1,194 @@
+﻿@model KGID_Models.KGID_Loan.VM_EmployeeDetails
+@{
+    ViewBag.Title = "Loan Update Details";
+}
+
+<style>
+    .control-label {
+        font-size: 0.95rem !important;
+    }
+
+    .required::after {
+        content: " *";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold text-center text-dark">Loan Payment Data Entry</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-group col-12">
+                    <div class="row col-12 d-block text-center">
+                        <label id="errNoData" class="text-danger font-weight-bold" hidden>No data found</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label font-weight-bold text-center col-12">KGID Details</label>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label font-weight-bold text-center col-12">HRMS Details</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label pt-2 col-4 required">Policy Number</label>
+                            <div class="col-6 pl-0 pr-0">
+                                @Html.TextBoxFor(model => model.PolicyNumber, new { @class = "form-control", @id = "txtPolicyNumber", autocomplete = "off", @maxlength = "7" })
+                                @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { id = "txtVPolicyNumber", @class = "text-danger  pt-2" })
+                                @Html.Label("ErrorPolicyNumber", "Please enter a valid policy number!", new { id = "errPolicyNumber", @class = "text-danger pt-2", hidden = "hidden" })
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label pt-2 col-4"><span class="align-middle">Employee Number</span></label>
+                            <div class="col-6 pl-0 pr-0">
+                                @Html.TextBoxFor(model => model.EmployeeNumber, new { @class = "form-control", @id = "txtEmpNumber", autocomplete = "off", @readonly = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label pt-2 col-4"><span class="align-middle">First Policy Number</span></label>
+                            @Html.TextBoxFor(model => model.FirstPolicyNumber, new { @class = "form-control col-6", @id = "txtFirstPolicyNumber", autocomplete = "off", @maxlength = "7", @readonly = true })
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label pt-2 col-4">HRMS Name</label>
+                            @Html.TextBoxFor(model => model.HRMSName, new { @class = "form-control col-6", @id = "txtHRMSName", autocomplete = "off", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label pt-2 col-4"><span class="align-middle">Insured Name</span></label>
+                            @Html.TextBoxFor(model => model.InsuredName, new { @class = "form-control col-6", @id = "txtInsuredName", autocomplete = "off", @readonly = true })
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div id="divSubsequentPolicyDetails">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdLoanDetail" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="loanModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loanModalLabel">Loan details</h5>
+                <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnSave" value="Save" class="btn btn-primary" onclick="ValidateAndSubmit();" />
+                <input type="button" value="Clear" class="btn btn-danger" onclick="ClearField(true);" />
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtLPremium,#txtGLAmount,#txtLPIntrest,#txtLoan,#txtLoanInterest,#txtOthers").keydown(function (e) {
+            if (e.keyCode == 189 || e.keyCode == 109) {
+                event.preventDefault();
+            }
+        });
+
+        $("#txtPolicyNumber").on("change", function () {
+            GetSubsequentLoanDetails();
+        });
+    });
+
+    function GetLoanDetails(loanIdVal, policyNumberVal, saveTypeVal) {
+        $.ajax({
+            url: '/Loan/GetEmpLoanDetails',
+            data: JSON.stringify({ loanId: loanIdVal, policyNumber: policyNumberVal, saveType: saveTypeVal }),
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#mdLoanDetail").find(".modal-body").html(data);
+                $("#mdLoanDetail").modal("show");
+            }
+        });
+    }
+
+    function GetSubsequentLoanDetails() {
+        var policyNumberVal = $("#txtPolicyNumber").val();
+        if (policyNumberVal !== "") {
+            var intRegex = /^\d+$/;
+            if (!intRegex.test(policyNumberVal)) {
+                $("#spnPolicyNumber").show();
+                $("#spnPolicyNumber").text("Please Enter Numbers Only.");
+                $("#txtPolicyNumber").focus();
+                return false;
+            } else {
+                $("#spnPolicyNumber").hide();
+            }
+
+            $.ajax({
+                url: '/Loan/GetSubSequentPolicyDetails',
+                data: JSON.stringify({ policyNumber: policyNumberVal }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $("#divSubsequentPolicyDetails").html(result);
+                    var tableOptions = {
+                        "ordering": false,
+                        "paging": false,
+                        "info":false,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                "targets": [1],
+                                "visible": true
+                            },
+                            {
+                                "targets": [2, 3],
+                                "visible": true,
+                                "searchable": false
+                            }
+                        ]
+                    };
+
+                    if (!$.fn.DataTable.isDataTable('#tblSubsequentPolicies')) {
+                        $("#tblSubsequentPolicies").DataTable(tableOptions);
+                    }
+                    else {
+                        $("#tblSubsequentPolicies").DataTable().destroy();
+                        $("#tblSubsequentPolicies").DataTable(tableOptions);
+                    }
+                }
+            });
+        }
+        else {
+            $("#divSubsequentPolicyDetails").html("");
+        }
+    }
+</script>

@@ -1,0 +1,334 @@
+﻿@model KGID_Models.Admin.VM_DSCDetails
+
+@{
+
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Update DSC Details</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-2">
+                    </div>
+                    <div class="form-group col-2 text-right">
+                        <br /> KGID Number:
+                    </div>
+                    <div class="form-group col-2">
+                        <input class="form-control form-control-sm" id="txtKHIGNUM" name="txtKHIGNUM" type="text">
+                    </div>
+                    <div class="form-group col-4">
+                        <a id="btnShow" class="btn btn-info" style="color:white;">View</a>
+                    </div>
+                    <div class="form-group col-2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4" style="display:none">
+                        <b>Employee ID:</b>
+                        <span id="spnEmpId"></span>
+                    </div>
+                    <div class="form-group col-4">
+                        <b>Employee Name:</b>
+                        <span id="spnName"></span>
+                    </div>
+                    <div class="form-group col-4">
+                        <b>Designation:</b>
+                        <span id="spnDesg"></span>
+                    </div>
+                    <div class="form-group col-4">
+                        <b>Department:</b>
+                        <span id="spnDept"></span>
+                    </div>
+                </div>
+                <div class="row" id="btnDsc" style="display:none">
+                    <div class="form-group col-2">
+                    </div>
+                    <div class="form-group col-4 text-right">
+                        <br /><h4>DSC Signatory Details</h4>
+                    </div>
+                    <div class="form-group col-4" id="BtnDscPublicKey" style="display:block">
+                        <button id="btnDSCPublic" type="button" class="btn btn-success" onclick="GetDscPublickey();">Get DSC Details</button>
+                    </div>
+                    <div class="form-group col-2">
+                    </div>
+                </div>
+                @using (Html.BeginForm("SaveDSCDetails", "Admin", FormMethod.Post, new { id = "frmDSCDetails" }))
+                {
+                    <div id="DivDscData" style="display:none">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">KGID Number:</label>
+                                    @Html.TextBoxFor(m => m.KGIDNumber, new { id = "txtKGIDNumber", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">Signatory Name:</label>
+                                    @Html.TextBoxFor(m => m.SignatoryName, new { id = "SignatoryName", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">Employee ID:</label>
+                                    @Html.TextBoxFor(m => m.EmpId, new { id = "txtEmpID", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">DSC public key:</label>
+                                    @Html.TextBoxFor(m => m.DSCPublicKey, new { id = "txtDSCPublicKey", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">Date of Issue:</label>
+                                    @Html.TextBoxFor(m => m.DSCIssueDate, new { id = "txtDateOfIssue", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">Date of expiry:</label>
+                                    @Html.TextBoxFor(m => m.DateOfExpiry, new { id = "txtDateOfExpiry", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">DSC serial number:</label>
+                                    @Html.TextBoxFor(m => m.DSCSerialNumber, new { id = "txtDSCSerialNumber", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="control-label">Authority of Issue:</label>
+                                    @Html.TextBoxFor(m => m.IssueAuthority, new { id = "IssueAuthority", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row text-center" id="btnDscSave" style="display:none">
+                    <div class="col-12">
+                        <input type="button" class="btn btn-success" onclick="SaveDSCDetails();" value="Register DSC" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/DigitalSignCerti.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    $('#btnShow').click(function () {
+        var kgidNumber = $("#txtKHIGNUM").val();
+        ClearFields()
+        $.ajax({
+            url: '/Admin/GetEmpDscDetails',
+            data: JSON.stringify({ kgidnum: kgidNumber }),
+            async: false,
+            type: 'POST',
+            cache: false,
+            contentType: 'application/json',
+            success: function (result) {
+                debugger
+                if (result.EmpDetail.employee_name != null) {
+                    if (result.EmpDetail.dsc_emp_id != 0) {
+                        $("#spnName").text(result.EmpDetail.employee_name);
+                        $("#spnDesg").text(result.EmpDetail.designation);
+                        $("#spnDept").text(result.EmpDetail.department);
+                        $("#spnEmpId").text(result.EmpDetail.employee_id);
+                        ///
+                        $("#txtDateOfIssue").val(FormatJsonDate(result.EmpDetail.dsc_date_of_issue, 'DD-MM-YYYY HH:mm:ss'));
+                        $("#txtDateOfExpiry").val(FormatJsonDate(result.EmpDetail.dsc_date_of_expiring, 'DD-MM-YYYY HH:mm:ss'));
+                        $("#txtDSCPublicKey").val(result.EmpDetail.dsc_public_key);
+                        $("#txtKGIDNumber").val(result.EmpDetail.dsc_kgid_number);
+                        $("#txtDSCSerialNumber").val(result.EmpDetail.dsc_dsc_serial_no);
+                        $("#txtEmpID").val(result.EmpDetail.dsc_emp_id);
+                        $("#SignatoryName").val(result.EmpDetail.dsc_name_of_authority);
+                        $("#IssueAuthority").val(result.EmpDetail.dsc_authority_of_issuer);
+                        ///
+                        $("#btnDsc").hide();
+                        $("#DivDscData").show();
+                        $("#btnDscSave").hide();
+                    }
+                    else {
+                        $("#spnName").text(result.EmpDetail.employee_name);
+                        $("#spnDesg").text(result.EmpDetail.designation);
+                        $("#spnDept").text(result.EmpDetail.department);
+                        $("#spnEmpId").text(result.EmpDetail.employee_id);
+                        $("#btnDsc").show();
+                        $("#btnDscSave").hide();
+                    }
+                }
+                else {
+                    alertify.error("Please Enter Valid KGID Number..!");
+                }
+            }, error: function (result) {
+                alertify.error("Could not save roles");
+            }
+        });
+    });
+
+    function GetDscPublickey() {
+        debugger;
+        $("#ResultDisplay").html("");
+        if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+            $("#ResultDisplay").html("Please Download Chrome Extension.");
+            return;
+        }
+        DSCSignRegSignedExtension.getSelectedCertificate()       //or "SHA256"
+            .then(
+            function (CertInfo) {
+                debugger
+                var data = JSON.parse(CertInfo);
+                //alert("CertThumbPrint received " + data.CertThumbPrint);
+                console.debug(CertInfo);
+                var jobj = JSON.parse(CertInfo);
+                var arr = jobj.SelCertSubject.split(',');
+                var SName = arr[0].split('=');
+                var SNumber = arr[1].split('=');
+                var issuearr = jobj.issuerName.Name.split(',');
+                var IAithority = issuearr[0].split('=');
+                $("#DivDscData").show();
+                $("#SignatoryName").val(SName[1]);
+                $("#txtDateOfExpiry").val(jobj.ExpDate);
+                $("#txtDSCPublicKey").val(jobj.PublicKey);
+                $("#txtDateOfIssue").val(jobj.ValidFrom);
+                $("#IssueAuthority").val(IAithority[1]);
+                $("#txtDSCSerialNumber").val(SNumber[1]);
+                $("#btnDscSave").show();
+                $("#BtnDscPublicKey").hide();
+                $("#txtKGIDNumber").val($("#txtKHIGNUM").val());
+                $("#txtEmpID").val($("#spnEmpId").text());
+                alertify.success("DSC Details Fetching Successful..");
+                ///
+                //$("#DivDscData").show();
+                //$("#SignatoryName").val(data.SignatoryName);
+                //$("#IssueAuthority").val(data.IssueAuthority);
+                //----//Missing$("#txtDSCSerialNumber").val(data.SerialNumber);
+                //$("#txtDateOfIssue").val(data.StartDate);
+                //$("#txtDateOfExpiry").val(data.ExpiryDate);
+                //$("#txtDSCPublicKey").val(SignData);
+                
+                },
+                function (errmsg)       //Signing Host Returned Error.
+                {
+                    $("#btnDscSave").hide();
+                    $("#BtnDscRegistration").hide();
+                    $("#BtnDscPublicKey").show();
+                    $("#DateOfExpiring").val("");
+                    alertify.error("DSC Details Fetching Failed..!");
+                }
+            );
+    };
+
+    function GetDscPublickey_OLD() {
+        debugger;
+        $("#ResultDisplay").html("");
+        if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+            $("#ResultDisplay").html("Please Download Chrome Extension.");
+            return;
+        }
+        DSCSignRegSignedExtension.signAuthToken("", "SHA-256")       //or "SHA256"
+            .then(
+                function (SignData) {
+                    console.debug(SignData);
+                    $.ajax({
+                        url: "/Employee/GetDSCDetails",
+                        type: "POST",
+                        data: JSON.stringify({ "PublicKey": SignData }),
+                        async: false,
+
+                        contentType: 'application/json; charset=utf-8',
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            //Signing Operation Completed
+                            debugger
+                            if (data.IsSuccess == true) {
+                                debugger
+                                $("#DivDscData").show();
+                                $("#SignatoryName").val(data.SignatoryName);
+                                $("#IssueAuthority").val(data.IssueAuthority);
+                                $("#txtDSCSerialNumber").val(data.SerialNumber);
+                                $("#txtDateOfIssue").val(data.StartDate);
+                                $("#txtDateOfExpiry").val(data.ExpiryDate);
+                                $("#txtDSCPublicKey").val(SignData);
+                                $("#btnDscSave").show();
+                                $("#BtnDscPublicKey").hide();
+                                $("#txtKGIDNumber").val($("#txtKHIGNUM").val());
+                                $("#txtEmpID").val($("#spnEmpId").text());
+                                alertify.success("DSC Details Fetching Successful..");
+                            }
+                            else {
+                                $("#btnDscSave").hide();
+                                $("#BtnDscRegistration").hide();
+                                $("#BtnDscPublicKey").show();
+                                $("#DateOfExpiring").val("");
+                                alertify.error("DSC Details Fetching Failed..!");
+                            }
+                        }
+                    });
+                },
+                function (errmsg)       //Signing Host Returned Error.
+                {
+                    $("#ResultDisplay").html(errmsg.message);
+                }
+            );
+    };
+    function SaveDSCDetails() {
+        var formData = new FormData($("#frmDSCDetails").get(0));
+
+        $.ajax({
+            url: '/Admin/SaveDSCDetails',
+            data: formData,
+            async: false,
+            type: 'POST',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (result) {
+                if (result.IsSuccess == true) {
+                    ClearFields();
+                    $("#spnName").text("");
+                    $("#spnDesg").text("");
+                    $("#spnDept").text("");
+                    $("#spnEmpId").text("");
+                    $("#txtKHIGNUM").val("");
+                    $("#btnDsc").hide();
+                    $("#DivDscData").hide();
+                    $("#btnDscSave").hide();
+                    alertify.success("DSC Registration Successfull..");
+                    //window.location.reload();
+                }
+                else {
+                    alertify.error(result.Message);
+                }
+            }, error: function (result) {
+                alertify.error(result.Message);
+            }
+        });
+    }
+    function FormatJsonDate(date, format) {
+        return moment(date).format(format);
+    }
+    function ClearFields() {
+        $("#SignatoryName").val("");
+        $("#IssueAuthority").val("");
+        $("#txtDSCSerialNumber").val("");
+        $("#txtDateOfIssue").val("");
+        $("#txtDateOfExpiry").val("");
+        $("#txtDSCPublicKey").val("");
+        $("#txtKGIDNumber").val("");
+    }
+</script>

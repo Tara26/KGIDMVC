@@ -1,0 +1,96 @@
+﻿@model KGID_Models.KGID_Loan.VM_SubsequentPolicyDetails
+
+<style>
+    td {
+        font-size: 0.95rem !important;
+    }
+</style>
+
+@if (Model.SubsquentPolicies.Any())
+{
+    <h2 class="text-center text-black-50">List of Employee's Loan</h2>
+    <br />
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10 shadow">
+            <br />
+            <table id="tblSubsequentPolicies" width="100%">
+                <thead>
+                    <tr>
+                        <th>Loan Id</th>
+                        <th>Policy Number</th>
+                        <th>Sanction Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subsequentPolicy in Model.SubsquentPolicies)
+                    {
+                        <tr>
+                            <td>
+                                @if (subsequentPolicy.Id != 0)
+                                {
+                                    @subsequentPolicy.Id
+                                }
+                                else
+                                {
+                                    @Html.Raw("-")
+                                }
+                            </td>
+                            <td>@subsequentPolicy.PolicyNumber</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(subsequentPolicy.SanctionedDate))
+                                {
+                                    @subsequentPolicy.SanctionedDate
+                                }
+                                else
+                                {
+                                    @Html.Raw("No loan")
+                                }
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(subsequentPolicy.SanctionedDate))
+                                {
+                                    <a href="javascript:void(0);" class="btn-sm btn-info" onclick="GetLoanDetails(@subsequentPolicy.Id, @subsequentPolicy.PolicyNumber, 'Edit')">Edit</a>
+                                    Html.Raw(" / ");
+                                    <a href="javascript:void(0);" class="btn-sm btn-primary" onclick="GetLoanDetails(@subsequentPolicy.Id, @subsequentPolicy.PolicyNumber, 'Add')">Add</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0);" class="btn-sm btn-primary" onclick="GetLoanDetails(@subsequentPolicy.Id, @subsequentPolicy.PolicyNumber, 'Add')">Add</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.HiddenFor(m => m.EmployeeDetails.EmployeeNumber, new { id = "hdnEmpNumber" })
+            @Html.HiddenFor(m => m.EmployeeDetails.FirstPolicyNumber, new { id = "hdnFirstPolNumber" })
+            @Html.HiddenFor(m => m.EmployeeDetails.HRMSName, new { id = "hdnEmpNameHRMS" })
+            @Html.HiddenFor(m => m.EmployeeDetails.InsuredName, new { id = "hdnEmpNameKGID" })
+            @Html.HiddenFor(m => m.EmployeeDetails.PolicyNumber, new { id = "hdnEmpPolicyNumber" })
+            <br />
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#errPolicyNumber").attr("hidden", true);
+        if (typeof $("#hdnEmpPolicyNumber").val() === "undefined") {
+            $("#errPolicyNumber").removeAttr("hidden");
+            $("#errNoData").removeAttr("hidden");
+            $("#txtHRMSName").val("");
+            $("#txtEmpNumber").val("");
+            $("#txtFirstPolicyNumber").val("");
+            $("#txtInsuredName").val("");
+        }
+        else {
+            $("#errPolicyNumber").attr("hidden", true);
+            $("#errNoData").attr("hidden", true);
+            $("#txtHRMSName").val($("#hdnEmpNameHRMS").val());
+            $("#txtEmpNumber").val($("#hdnEmpNumber").val());
+            $("#txtFirstPolicyNumber").val($("#hdnFirstPolNumber").val());
+            $("#txtInsuredName").val($("#hdnEmpNameKGID").val());
+        }
+    });
+</script>

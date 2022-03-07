@@ -1,0 +1,1136 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceOtherDetails
+
+<div class="row" id="divOtherDetails">
+
+    <form id="FormOtherDetails" enctype="multipart/form-data" class="col-12">
+
+
+        <p style="text-align: center;" id="pform1"><strong>PROPOSAL FORM-I</strong></p>
+
+        <p style="text-align: center;" id="pform2"><strong>PROPOSAL FORM - II </strong></p>
+
+        @Html.Hidden("miod_emp_id", Session["UId"], new { id = "hdnmivdEmpID" })
+
+        @Html.Hidden("miod_application_id", Session["UId"], new { @id = "hdnPHReferenceNo" })
+
+        <span class='slnoid1 slnoid2' style="display:none;">1</span>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is driven by non-conventional source of power(if Yes, Please give details)<br /><span class="lblOprivate">Permitted by the concerned RTA</span></label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_non_conventioanal_source, true, new { @id = "rbtnRTAYes", @class = "csIsRTAY", onchange = "ToggleNonConSourceDetails(this.id)" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_non_conventioanal_source, false, new { @id = "rbtnRTANo", @class = "csIsCNGY", onchange = "ToggleNonConSourceDetails(this.id)" })  No
+            </label><br />
+        </div>
+        <div class="non-con-source-details">
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-2">
+                    If Yes, Please give details
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_is_non_conventioanal_source_details, new { @id = "txtIsNonConSourceDetails", @class = "form-control csIsNonConSourceDetails ClAlphaNum", @maxlength = "100" })
+                    <label id="errIsNonConSourceDetails" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is used for driving tuitions</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_driving_tuitions, true, new { @id = "rbtnDriveTutYes", @class = "csIsDriveTutY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_driving_tuitions, false, new { @id = "rbtnDriveTutNo", @class = "csIsDriveTutN" })  No
+            </label><br />
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether extension of geographical area to the following countries required?</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_geographical, true, new { @id = "rbtnGeoYes", @class = "csIsGeoY", onchange = "ToggleGeographicalDetails()" }) Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_geographical, false, new { @id = "rbtnGeoNo", @class = "csIsGeoN", onchange = "ToggleGeographicalDetails()" }) No
+            </label>
+        </div>
+
+        <div class="geographical-details">
+            <div class="row">
+                <div class="form-group col-4 divMargYrs">
+                    <label class="control-label col-6">(i) First Country?</label>
+                    <div class="input-group">
+                        @Html.DropDownListFor(Model => Model.miod_geographical_ext1,
+                                                new SelectList(KGID.Models.KGID_MI_Master.GetGeoDetails(), "ge_geographical_extension_id", "ge_name_of_country", Model.miod_geographical_ext1),
+                                              "-- Select GEO Extension--",
+                                             new {@id= "ddlGeoExt1", @class = "form-control", @onchange = "DDLGEO1()" })
+                        <label id="errddlGeoExt1Details" class="col-form-label-sm text-danger err ml-4" hidden>Please select the country.</label>
+                    </div>
+                </div>
+                <div class="form-group col-4 divOccuAddr">
+                    <label class="control-label col-6">(ii)Second Country</label>
+                    <div class="input-group">
+                        @Html.DropDownListFor(Model => Model.miod_geographical_ext2,
+                                               new SelectList(KGID.Models.KGID_MI_Master.GetGeoDetails(), "ge_geographical_extension_id", "ge_name_of_country", Model.miod_geographical_ext2),
+                                             "-- Select GEO Extension--",
+                                            new {@id= "ddlGeoExt2", @class = "form-control", @onchange = "DDLGEO2()" })
+                        @*@Html.DropDownListFor(model => model.miod_geographical_ext2, new SelectList(Model.GeographicalExtensionList, "Value", "Text"), "-- Select Year --", new { @class = "form-control", id = "ddlODGE2" })*@
+                        <label id="errddlGeoExt2Details" class="col-form-label-sm text-danger err ml-4" hidden>Please select the country.</label>
+                    </div>
+                </div>
+                <div class="form-group col-4 divOccuAddr">
+                    <label class="control-label col-6">(ii)Third Country</label>
+                    <div class="input-group">
+                        @Html.DropDownListFor(Model => Model.miod_geographical_ext3,
+                                                 new SelectList(KGID.Models.KGID_MI_Master.GetGeoDetails(), "ge_geographical_extension_id", "ge_name_of_country", Model.miod_geographical_ext3),
+                                               "-- Select GEO Extension--",
+                                              new {@id= "ddlGeoExt3", @class = "form-control", @onchange = "DDLGEO3()" })
+                        <label id="errddlGeoExt3Details" class="col-form-label-sm text-danger err ml-4" hidden>Please select the country.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the use of vehicle is limited to your own premises?</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_own_premises, false, new { @id = "rbtnVLltdYes", @class = "csIsVLltdY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_own_premises, true, new { @id = "rbtnVLltdNo", @class = "csIsVLltdN" })  No
+            </label>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+
+                <label class="control-label text-justify lblOprivate" id="lblprivate" style="display:none"><span class='slnoid1'>slno</span>. Whether the vehicle is used for commercial purpose?</label>
+
+                <label class="control-label text-justify  lblOcommerical" id="lblcommerical" style="display:none"><span class='slnoid2'>slno</span>. Whether the commerical vehicle is also used for Private Purpose (excluding use for hire or reward)?</label>
+
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_commercial_purpose, true, new { @id = "rbtnCommYes", @class = "csIsCommY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_commercial_purpose, false, new { @id = "rbtnCommNo", @class = "csIsCommN" })  No
+            </label>
+
+        </div>
+        <div>
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle belongs to foreign embassy/consulate?</label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_foreign_embasy, true, new { @id = "rbtnFEYes", @class = "csIsFEY" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_foreign_embasy, false, new { @id = "rbtnFENo", @class = "csIsFEN" })  No
+                </label>
+            </div>
+        </div>
+
+        <div id="divOD6" class="row" style="display:none">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1'>slno</span>. Whether the car is certified as Vintage car or Classic car by Vintage car and Classic car club of India?</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_vintage_car, true, new { @id = "rbtnVintCarYes", @class = "csIsVintCarY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_vintage_car, false, new { @id = "rbtnVintCarNo", @class = "csIsVintCarN" })  No
+            </label>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is designed for use of Blind/Handicapped/Mentally Challenged persons and duly endorsed as such by RTA.</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_for_blind_or_ph, true, new { @id = "rbtnPHYes", @class = "csIsPHY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_for_blind_or_ph, false, new { @id = "rbtnPHNo", @class = "csIsPHN" })  No
+            </label>
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is fitted with fibre glass tank?</label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_fibre_glass_tank, true, new { @id = "rbtnFGlassYes", @class = "csIsFGlassY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_fibre_glass_tank, false, new { @id = "rbtnFGlassNo", @class = "csIsFGlassN" })  No
+            </label>
+        </div>
+
+
+
+        <div id="divOD10_11_12" style="display:none">
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify"><span class='slnoid1'>slno</span>. Whether the vehicle is fitted with bi-fuel system such as petrol/diesel and CNG/LPG permitted by concerned RTA? </label>
+                </div>
+
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_bi_fuel_system, true, new { @id = "rbtnCNGYes", @class = "csIsCNGY", onchange = "ToggleBiFuelDetails(this.id)" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_bi_fuel_system, false, new { @id = "rbtnCNGNo", @class = "csIsCNGN", onchange = "ToggleBiFuelDetails(this.id)" })  No
+                </label>
+            </div>
+            <div class="bi-fuel-system-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        If Yes,Value Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_bi_fuel_amount, new { @id = "txtIsBiFuelAmount", @class = "form-control csIsbifuelamount ClNum", @maxlength = "10" })
+                        <label id="errbifuelamount" class="col-form-label-sm text-danger err" hidden>Please enter amount.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <span class='slnoid1'>slno</span>. Do you wish to opt for higher deductible over and above the Compulsory deductible (Rs. 50 for two wheelers and Rs. 500/- Rs. 1000/- for private cars)<br />
+                    </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_higher_deductible, true, new { @id = "rbtnHighDedctYes", @class = "csIsHighDedctY", onchange = "ToggleHigherDeductibleDetails()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_higher_deductible, false, new { @id = "rbtnHighDedctNo", @class = "csIsHighDedctN", onchange = "ToggleHigherDeductibleDetails()" })  No
+                </label>
+            </div>
+            <div class="higher-deductible-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-3">
+                        If Yes, please specify the amount <br />(for two wheelers) Rs.500/750/1000/3000<br />
+                        (for private cars) Rs.2500/5000/7500/15000
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_higher_deductible_amount, new { @id = "txtIsHigherDedctAmount", @class = "form-control csIsHigherDedctAmount ClNum", @maxlength = "5" })
+                        <label id="errIsHigherDedctAmount" class="col-form-label-sm text-danger err" hidden>Please enter amount.</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <span class='slnoid1'>slno</span>. Are you a member of Automobile Association of India?
+                    </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_automobile_association_of_india, true, new { @id = "rbtnAutoMobYes", @class = "csIsAutoMobY", onchange = "ToggleAutomobileAssociationDetails()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_automobile_association_of_india, false, new { @id = "rbtnAutoMobNo", @class = "csIsAutoMobN", onchange = "ToggleAutomobileAssociationDetails()" })  No
+                </label>
+            </div>
+            <div class="automobile-association-details">
+                <div class="row">
+                    <div class="form-group col-4">
+                        If Yes, please state.
+                    </div>
+                    <div class="form-group col-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        a. Name of Association
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_name_of_association, new { @id = "txtIsNameOfAssociation", @class = "form-control csIsNameOfAssociation ClAlpha", @maxlength = "100" })
+                        <label id="errIsNameOfAssociation" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        b. Membership No.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_membership_no, new { @id = "txtIsMembershipNo", @class = "form-control csIsMembershipNo ClAlphaNum", @maxlength = "15" })
+                        <label id="errIsMembershipNo" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        c. Date of Expiry
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_date_of_expiry, new { @id = "txtIsDateofExpiry", @class = "form-control csIsDateofExpiry" })
+                        <label id="errIsDateofExpiry" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <span class='slnoid1 slnoid2'>slno</span>. Do you wish to cover Legal Liability to?
+                </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_cover_legal_liability, true, new { @id = "rbtnCLLYes", @class = "csIsCLLY", onchange = "ToggleLegalLiabilityDetails()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_cover_legal_liability, false, new { @id = "rbtnCLLNo", @class = "csIsCLLN", onchange = "ToggleLegalLiabilityDetails()" })  No
+            </label>
+        </div>
+        <div class="legal_liability-details">
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-2">
+                    A) For Driver / Conductor / Cleaner?(No. of persons)
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_cll_driver_conductor_count, new { @id = "txtIsCLLNoOfDrivers", @class = "form-control csIsCLLNoOfDrivers ClNum", @maxlength = "3" })
+                    <label id="errIsCLLNoOfDrivers" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+
+            <!-- ///////////////////////////////////////////////////////////// -->
+
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-2">
+                    B) Other Employees ?(No. of persons)
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_cll_other_emp_count, new { @id = "txtIsCLLOE", @class = "form-control csIsIsCLLOE ClNum", @maxlength = "3" })
+                    <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <!-- ///////////////////////////////////////////////////////////// -->
+
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-2">
+                    C) Non fare paying passengers?( No. of persons)
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_cll_non_fare_passengers_count, new { @id = "txtIsCLLNFP", @class = "form-control csIsCLLNFP ClNum", @maxlength = "3" })
+                    <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <!-- ///////////////////////////////////////////////////////////// -->
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Are you entitled to No Claim Bonus? If yes, Please submit Proof thereof</label>
+            </div>
+
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_no_claim_bonus, true, new { @id = "rbtnNCBYes", @class = "csIsNCBY", onchange = "ToggleNoClaimBonusDetails()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_no_claim_bonus, false, new { @id = "rbtnNCBNo", @class = "csIsNCBN", onchange = "ToggleNoClaimBonusDetails()" })  No
+            </label>
+        </div>
+        <div class="no-claim-bonus-details">
+            <div class="form-group col-5 pl-0 pr-0">
+                @if (!string.IsNullOrEmpty(Model.Miod_is_no_claim_bonus_doc_filename))
+                {
+                    <label class="col-12 prevdoc">Previously uploaded Document: <a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                    @Html.TextBoxFor(model => model.Miod_is_no_claim_bonus_doc_filename, new { @id = "txtnoclmbonusdoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                    @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                }
+                @Html.TextBoxFor(m => m.miod_is_no_claim_bonus_doc, new { @id = "txtIsPlaceChangeDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsPlaceChange", onchange = "NCBDocFileChange(this.id,'errIsPlaceChangeDoc')" })
+                <label id="errIsPlaceChangeDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify lblOprivate" id="lblLPrivate" style="display:none">
+                    <span class='slnoid1 '>slno</span>.  Liability to Third Parties?<br />
+                    The policy provides Third Party Property Damage (TPPD) of Rs.1Lakh (Two Wheelers) and Rs. 7.5Lakhs (Private Cars). Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000/- only?
+                </label>
+                <label class="control-label text-justify lblOcommerical" id="lblLCommerical" style="display:none">
+                    <span class='slnoid2'>slno</span>.  Liability to Third Parties?<br />
+                    The policy provides Third Party Property Damage (TPPD) of Rs.1Lakh (Two Wheelers) and Rs. 7.5Lakhs (other class vehicles). Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000/- only?
+                </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_liability_third_parties, true, new { @id = "rbtnLTPPDYes", @class = "csIsLTPPDY" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_liability_third_parties, false, new { @id = "rbtnLTPPDNo", @class = "csIsLTPPDN" })  No
+            </label>
+        </div>
+        <div id="divOD16_17" style="display:none">
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <span class='slnoid1'>slno</span>. Whether higher towing charges is opted over and above the limit prescribed in the policy?<br />
+                    </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_higher_towing_charges, true, new { @id = "rbtnHighTowingYes", @class = "csIsRheumaticFeverY", onchange = "ToggleHigherTowingChargesDetails()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_higher_towing_charges, false, new { @id = "rbtnHighTowingNo", @class = "csIsRheumaticFeverN", onchange = "ToggleHigherTowingChargesDetails()" })  No
+                </label>
+            </div>
+            <div class="higher-towing-charges-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        If Yes, the amount opted Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_is_higher_towing_charges_amount, new { @id = "txtIsHighTowingCharges", @class = "form-control csIsIsHighTowingCharges ClNum", @maxlength = "8" })
+                        <label id="errIsHighTowingCharges" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <span class='slnoid1'>slno</span>. Do you wish to include Personal Accident (P.A.) Cover for name and persons?
+                    </label>
+                </div>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_include_personal_accident, true, new { @id = "rbtnIPAYes", @class = "csIsRheumaticFeverY", onchange = "TogglePersonalAccidentDetails()" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_include_personal_accident, false, new { @id = "rbtnIPANo", @class = "csIsRheumaticFeverN", onchange = "TogglePersonalAccidentDetails()" })  No
+                </label>
+            </div>
+            <div class="personal-accident-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        A) For Driver (No. of persons)
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_pa_driver_conductor_count, new { @id = "txtIsPAcover", @class = "form-control csIsPAcover ClNum", @maxlength = "3" })
+                        <label id="errIsPAcover" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        B) Other Employees?(No. of persons)
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_pa_other_emp_count, new { @id = "txtIsOtheremp", @class = "form-control csIsOtheremp ClNum", @maxlength = "3" })
+                        <label id="errIsOtheremp" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        C) Unnamed Passengers?(No. of persons)
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miod_pa_unnamed_passengers_count, new { @id = "txtIsPAUnnameCount", @class = "form-control csIsPAUnnameCount ClNum", @maxlength = "3" })
+                        <label id="errIsPAUnnameCount" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <span class='slnoid1 slnoid2'>slno</span>.  Do you wish to include Personal Accident P.A. Cover for Name and Persons?
+                </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_include_personal_accident_for_persons, true, new { @id = "rbtnIPApersonYes", @class = "csIsRheumaticFeverY", onchange = "TogglePAforPersonsDetails()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_include_personal_accident_for_persons, false, new { @id = "rbtnIPApersonNo", @class = "csIsRheumaticFeverN", onchange = "TogglePAforPersonsDetails()" })  No
+            </label>
+        </div>
+        <div class="pa-for-persons-details">
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    <span class="lblOprivate">If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers</span>
+                    <span class="lblOcommerical">If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of other classes of vehicles and Rs.1 Lakh in the case of motorised two wheelers</span>
+                </div>
+                <div class="form-group col-4">
+                    <strong>Name</strong>
+                </div>
+                <div class="form-group col-4">
+                    <strong>CSI Opted(Rs)</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    1).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name1, new { @id = "txtIsIPAname1", @class = "form-control csIsIPAname1 ClAlpha", @maxlength = "100" })
+                    <label id="errIsIPAname1" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name1_amount, new { @id = "txtIsIPAname1CSI", @class = "form-control csIsIPAnameamt1 ClNum", @maxlength = "6" })
+                    <label id="errIsIPAnameamt1" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    2).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name2, new { @id = "txtIsIPAname2", @class = "form-control csIsIPAname2 ClAlpha", maxlength = "100" })
+                    <label id="errIsIPAname2" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name2_amount, new { @id = "txtIsIPAname2CSI", @class = "form-control csIsIPAnameamt2 ClNum", @maxlength = "6" })
+                    <label id="errIsIPAnameamt2" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    3).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name3, new { @id = "txtIsIPAname3", @class = "form-control csIsIPAname3 ClAlpha", maxlength = "100" })
+                    <label id="errIsIPAname3" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipap_name3_amount, new { @id = "txtIsIPAname3CSI", @class = "form-control csIsIPAnameamt3 ClNum", @maxlength = "6" })
+                    <label id="errIsIPAnameamt3" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <span class='slnoid1 slnoid2'>slno</span>. Do you wish to include P.A. Cover for unnamed persons / hire / pillion passenger (two wheelers)?
+                </label>
+            </div>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_include_pa_cover_for_unnamed_persons, true, new { @id = "rbtnIPAUNYes", @class = "csIsIPAUNY", onchange = "TogglePACoverforUnnamedPersonsDetails()" })  Yes
+            </label>
+            <label class="col-1" style="display:inherit">
+                @Html.RadioButtonFor(model => model.miod_is_include_pa_cover_for_unnamed_persons, false, new { @id = "rbtnIPAUNNo", @class = "csIsIPAUNN", onchange = "TogglePACoverforUnnamedPersonsDetails()" })  No
+            </label>
+        </div>
+        <div class="pa-for-un-persons-details">
+            <div class="row">
+                <div class="form-group col-4">
+                    <span class='lblOprivate'>If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers</span>
+                    <span class='lblOcommerical'>If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of other classes of vehicles and Rs.1 Lakh in the case of motorised two wheelers</span>
+                </div>
+                <div class="form-group col-4">
+                    <strong>Numbers of Persons</strong>
+                </div>
+                <div class="form-group col-4">
+                    <strong>CSI Opted(Rs)</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    1).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name1, new { @id = "txtIsunIPAname1", @class = "form-control csIsunIPAname1 ClNum", @maxlength = "1" })
+                    <label id="errIsunIPAname1" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name1_amount, new { @id = "txtIsunIPAname1CSI", @class = "form-control csIsunIPAname1CSI ClNum", @maxlength = "6" })
+                    <label id="errIsunIPAname1CSI" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    2).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name2, new { @id = "txtIsunIPAname2", @class = "form-control csIsunIPAname2 ClNum", @maxlength = "1" })
+                    <label id="errIsunIPAname2" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name2_amount, new { @id = "txtIsunIPAname2CSI", @class = "form-control csIsunIPAname2CSI ClNum", @maxlength = "6" })
+                    <label id="errIsunIPAname2CSI" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    3).
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name3, new { @id = "txtIsunIPAname3", @class = "form-control csIsunIPAname3 ClNum", @maxlength = "1" })
+                    <label id="errIsunIPAname3" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miod_ipaun_name3_amount, new { @id = "txtIsunIPAname3CSI", @class = "form-control csIsunIPAname3CSI ClNum", @maxlength = "6" })
+                    <label id="errIsunIPAname3CSI" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        @*Commerical anti theft*@
+
+        <div id="DivCommerical" style="display:none">
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify"><span class='slnoid1 slnoid2'>slno</span>. Is the vehicle fitted with the any Anti-theft device approved by the AARI. Pune? <br />
+                    If yes,attach Certificate of Installation in the Vehicle issued by Automobile Association of India.</label>
+                </div>
+
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_anti_theft, true, new { @id = "rbtnAntiYes", @class = "csIsAntiY", onchange = "ToggleAntitheftDetails(this.id)" })  Yes
+                </label>
+                <label class="col-1" style="display:inherit">
+                    @Html.RadioButtonFor(model => model.miod_is_anti_theft, false, new { @id = "rbtnAntiNo", @class = "csIsAntiN", onchange = "ToggleAntitheftDetails(this.id)" })  No
+                </label>
+            </div>
+            <div class="anti_theft_details">
+                <div class="form-group col-5 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.Miod_is_anti_theft_doc_filename))
+                    {
+                        <label class="col-12 prevdoc">Previously uploaded Document: <a href="@Model.Miod_is_anti_theft_doc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                        @Html.TextBoxFor(model => model.Miod_is_anti_theft_doc_filename, new { @id = "txtantitheftdoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                        @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                    }
+                    @Html.TextBoxFor(m => m.miod_is_anti_theft_doc, new { @id = "txtIsAnthitheftDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsPlaceChange", onchange = "AnthitheftDocFileChange(this.id,'errIsAntitheftDoc')" })
+                    <label id="errIsAntitheftDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+        </div>
+
+        @*Commerical anti theft*@
+
+
+        <div class="row">
+            <div class="row col-9 div-choices" style="display:none;">
+
+
+            </div>
+
+            <div class="col-3 pr-0 ml-4 div-choices" style="display:none;">
+                @*<div class="form-group div-doc-upload" id="divProposalFileUpload">
+                    @if (!string.IsNullOrEmpty(Model.ProposalDocFileName))
+                    {
+                        <label class="col-12 pl-0 pr-0 prevdoc" id="prevPropUpld">Previously uploaded Document</label>
+                        <a href="@Model.ProposalDocFileName" target="_blank" class="doc-uploaded">Click Here</a>
+                    }
+                    @Html.TextBoxFor(m => m.ProposalDoc, new { @id = "txtProposalMadeDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsProposalMade pl-0 pr-0", disabled = true, onchange = "DocFileChange(this.id,'errIsProposalDoc')" })
+                    <label id="errIsProposalDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 errPersonal">
+                <label id="errPersonal" class="col-form-label-sm text-danger err" hidden>Please mention the corresponding document details.</label>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        if ($("#hdnPagetype").val() == "Renewal" || $("#hdnPagetype").val() == "EditRenewal") {
+            $("#divOtherDetails").find("input, button, submit, textarea, select, input[type='radio']").attr('readonly', true);
+            $("#divOtherDetails").css("pointer-events", "none");
+        }
+        else {
+            $("#divOtherDetails").find("input, button, submit, textarea, select,input[type='radio']").attr('readonly', false);
+        }
+        var geo = '@Model.miod_is_geographical';
+        //alert(GeoExt1);
+        if (geo == "False") {
+            $("#ddlGeoExt2").prop("disabled", true);
+            $("#ddlGeoExt3").prop("disabled", true);
+        }
+        else {
+            //var GeoExt1 = '@Model.miod_geographical_ext1';
+        }
+        //$('#hdnMIVDReferanceNo').val() = $('#spnMIReferanceNo').text();
+        if ($('[name="miod_is_non_conventioanal_source"]:checked').val() == "True") {
+            $(".non-con-source-details").show();
+        }
+        else {
+            $(".non-con-source-details").hide();
+        }
+        if ($('[name="miod_is_geographical"]:checked').val() == "True") {
+            $(".geographical-details").show();
+        }
+        else {
+            $(".geographical-details").hide();
+        }
+        if ($('[name="miod_is_no_claim_bonus"]:checked').val() == "True") {
+            $(".no-claim-bonus-details").show();
+        }
+        else {
+            $(".no-claim-bonus-details").hide();
+        }
+        if ($('[name="miod_is_anti_theft"]:checked').val() == "True") {
+            $(".anti_theft_details").show();
+        }
+        else {
+            $(".anti_theft_details").hide();
+        }
+
+        if ($('[name="miod_is_bi_fuel_system"]:checked').val() == "True") {
+            $(".bi-fuel-system-details").show();
+        }
+        else {
+            $(".bi-fuel-system-details").hide();
+        }
+        if ($('[name="miod_is_higher_deductible"]:checked').val() == "True") {
+            $(".higher-deductible-details").show();
+        }
+        else {
+            $(".higher-deductible-details").hide();
+        }
+        if ($('[name="miod_is_higher_towing_charges"]:checked').val() == "True") {
+            $(".higher-towing-charges-details").show();
+        }
+        else {
+            $(".higher-towing-charges-details").hide();
+        }
+        if ($('[name="miod_is_automobile_association_of_india"]:checked').val() == "True") {
+            $(".automobile-association-details").show();
+        }
+        else {
+            $(".automobile-association-details").hide();
+        }
+        if ($('[name="miod_is_cover_legal_liability"]:checked').val() == "True") {
+            $(".legal_liability-details").show();
+        }
+        else {
+            $(".legal_liability-details").hide();
+        }
+        if ($('[name="miod_is_include_personal_accident"]:checked').val() == "True") {
+            $(".personal-accident-details").show();
+        }
+        else {
+            $(".personal-accident-details").hide();
+        }
+        if ($('[name="miod_is_include_personal_accident_for_persons"]:checked').val() == "True") {
+            $(".pa-for-persons-details").show();
+        }
+        else {
+            $(".pa-for-persons-details").hide();
+        }
+        if ($('[name="miod_is_include_pa_cover_for_unnamed_persons"]:checked').val() == "True") {
+            $(".pa-for-un-persons-details").show();
+        }
+        else {
+            $(".pa-for-un-persons-details").hide();
+        }
+
+    });
+    function DDLGEO1() {
+        var a = document.getElementById("ddlGeoExt1");
+        var b = document.getElementById("ddlGeoExt2");
+        var c = document.getElementById("ddlGeoExt3");
+        if (a != null || a != "") {
+            $("#ddlGeoExt2").prop("disabled", false);
+        }
+        console.log(a, b, c);
+        if (a.options[a.selectedIndex].value == b.options[b.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt2 option").prop("selected", false);
+        } else {
+            //
+        }
+        if (a.options[a.selectedIndex].value == c.options[c.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt3 option").prop("selected", false);
+        } else {
+            //
+        }
+    }
+    function DDLGEO2() {
+        var a = document.getElementById("ddlGeoExt1");
+        var b = document.getElementById("ddlGeoExt2");
+        var c = document.getElementById("ddlGeoExt3");
+        if (b != null || a != "") {
+            $("#ddlGeoExt3").prop("disabled", false);
+        }
+        console.log(a, b, c);
+        if (a.options[a.selectedIndex].value == b.options[b.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt2 option").prop("selected", false);
+        } else {
+            //
+        }
+        if (b.options[b.selectedIndex].value == c.options[c.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt3 option").prop("selected", false);
+        } else {
+            //
+        }
+    }
+    function DDLGEO3() {
+        var a = document.getElementById("ddlGeoExt1");
+        var b = document.getElementById("ddlGeoExt2");
+        var c = document.getElementById("ddlGeoExt3");
+        console.log(a, b, c);
+        if (a.options[a.selectedIndex].value == b.options[b.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt2 option").prop("selected", false);
+        } else {
+            //
+        }
+        if (a.options[a.selectedIndex].value == c.options[c.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt3 option").prop("selected", false);
+        } else {
+            //
+        }
+        if (b.options[b.selectedIndex].value == c.options[c.selectedIndex].value) {
+            alertify.alert("Already Selected!! Choose Another Country..").setHeader("Warning !!!");;
+            $("#ddlGeoExt3 option").prop("selected", false);
+        } else {
+            //
+        }
+
+    }
+    function ToggleNonConSourceDetails(chkId) {
+        if ($('#' + chkId).val() == "True") {
+            $(".non-con-source-details").show();
+            //$('#' + txtId).removeAttr("readonly");
+            //$('#txtIsPlaceChangeDoc').removeAttr("disabled");
+            //$('#' + txtId).addClass("txtar-personal-req");
+            //$('#txtIsPlaceChangeDoc').addClass("txtAr-doc-personal-req");
+            //$('#txtIsPlaceChangeDoc').val("")
+        } else {
+            $(".non-con-source-details").hide();
+            $('#txtIsNonConSourceDetails').val("");
+            //$('#' + txtId).attr("readonly", "true");
+            //$('#txtIsPlaceChangeDoc').attr("disabled", true);
+            //$('#' + txtId).removeClass("txtar-personal-req");
+            //$('#txtIsPlaceChangeDoc').removeClass("txtAr-doc-personal-req");
+        }
+    }
+    function ToggleGeographicalDetails() {
+        if ($('[name="miod_is_geographical"]:checked').val() == "True") {
+            $(".geographical-details").show();
+        }
+        else {
+            $(".geographical-details").hide();
+            $("#ddlGeoExt1").val('');
+            $("#ddlGeoExt2").val('');
+            $("#ddlGeoExt3").val('');
+        }
+    }
+
+    function ToggleHigherDeductibleDetails() {
+        if ($('[name="miod_is_higher_deductible"]:checked').val() == "True") {
+            $(".higher-deductible-details").show();
+        }
+        else {
+            $(".higher-deductible-details").hide();
+            $('#txtIsHigherDedctAmount').val("");
+        }
+    }
+    function ToggleAutomobileAssociationDetails() {
+        if ($('[name="miod_is_automobile_association_of_india"]:checked').val() == "True") {
+            $(".automobile-association-details").show();
+        }
+        else {
+            $(".automobile-association-details").hide();
+            $('#txtIsNameOfAssociation').val("");
+            $('#txtIsMembershipNo').val("");
+            $('#txtIsDateofExpiry').val("");
+        }
+    }
+    // LegalLiabilityDetails
+    function ToggleLegalLiabilityDetails() {
+        if ($('[name="miod_is_cover_legal_liability"]:checked').val() == "True") {
+            $(".legal_liability-details").show();
+        }
+        else {
+            $(".legal_liability-details").hide();
+            $('#txtIsCLLNoOfDrivers').val("");
+            $('#txtIsCLLOE').val("");
+            $('#txtIsCLLNFP').val("");
+            //$("input[name='miod_is_cll_driver_conductor']:checkbox").prop('checked', false);
+            //$("input[name='miod_is_cll_other_emp']:checkbox").prop('checked', false);
+            //$("input[name='miod_is_cll_other_emp']:checkbox").prop('checked', false);
+
+        }
+    }
+    //////////////////////////////////////////
+
+    function ToggleNoClaimBonusDetails() {
+        if ($('[name="miod_is_no_claim_bonus"]:checked').val() == "True") {
+            $(".no-claim-bonus-details").show();
+        }
+        else {
+            $(".no-claim-bonus-details").hide();
+            $('#txtnoclmbonusdoc').val("");
+        }
+    }
+
+    function ToggleAntitheftDetails() {
+        if ($('[name="miod_is_anti_theft"]:checked').val() == "True") {
+            $(".anti_theft_details").show();
+        }
+        else {
+            $(".anti_theft_details").hide();
+            $('#txtantitheftdoc').val("");
+        }
+    }
+    function ToggleHigherTowingChargesDetails() {
+        if ($('[name="miod_is_higher_towing_charges"]:checked').val() == "True") {
+            $(".higher-towing-charges-details").show();
+        }
+        else {
+            $(".higher-towing-charges-details").hide();
+            $('#txtIsHighTowingCharges').val("");
+        }
+    }
+    // PersonalAccidentDetails
+    function TogglePersonalAccidentDetails() {
+        if ($('[name="miod_is_include_personal_accident"]:checked').val() == "True") {
+            $(".personal-accident-details").show();
+        }
+        else {
+            $(".personal-accident-details").hide();
+            $('#txtIsPAcover').val("");
+            $('#txtIsOtheremp').val("");
+            $('#txtIsPAUnnameCount').val("");
+        }
+    }
+    ///////////////////////////////////////////////////////////
+
+    function TogglePAforPersonsDetails() {
+        if ($('[name="miod_is_include_personal_accident_for_persons"]:checked').val() == "True") {
+            $(".pa-for-persons-details").show();
+        }
+        else {
+            $(".pa-for-persons-details").hide();
+            $('#txtIsIPAname1').val("");
+            $('#txtIsIPAname1CSI').val("");
+            $('#txtIsIPAname2').val("");
+            $('#txtIsIPAname2CSI').val("");
+            $('#txtIsIPAname3').val("");
+            $('#txtIsIPAname3CSI').val("");
+        }
+    }
+    function TogglePACoverforUnnamedPersonsDetails() {
+        if ($('[name="miod_is_include_pa_cover_for_unnamed_persons"]:checked').val() == "True") {
+            $(".pa-for-un-persons-details").show();
+        }
+        else {
+            $(".pa-for-un-persons-details").hide();
+            $('#txtIsunIPAname1').val("");
+            $('#txtIsunIPAname1CSI').val("");
+            $('#txtIsunIPAname2').val("");
+            $('#txtIsunIPAname2CSI').val("");
+            $('#txtIsunIPAname3').val("");
+            $('#txtIsunIPAname3CSI').val("");
+        }
+    }
+
+    /////////////////////////////
+    function ODcheckboxchange(chkId) {
+        if ($('#' + chkId).val() == "True") {
+            //$('#' + txtId).removeAttr("readonly");
+            $('#txtIsPlaceChangeDoc').removeAttr("disabled");
+            //$('#' + txtId).addClass("txtar-personal-req");
+            $('#txtIsPlaceChangeDoc').addClass("txtAr-doc-personal-req");
+            $('#txtIsPlaceChangeDoc').val("")
+        } else {
+            //$('#' + txtId).val("");
+            //$('#' + txtId).attr("readonly", "true");
+            $('#txtIsPlaceChangeDoc').attr("disabled", true);
+            //$('#' + txtId).removeClass("txtar-personal-req");
+            $('#txtIsPlaceChangeDoc').removeClass("txtAr-doc-personal-req");
+            $('#txtIsPlaceChangeDoc').val("")
+        }
+    }
+    function PDcheckboxchange(chkId, txtId) {
+        if ($('#' + chkId).val() == "True") {
+            $('#' + txtId).removeAttr("readonly");
+            $('#' + txtId + 'Doc').removeAttr("disabled");
+            $('#' + txtId).addClass("txtar-personal-req");
+            $('#' + txtId + 'Doc').addClass("txtAr-doc-personal-req");
+            $('#' + txtId + 'Doc').val("")
+        } else {
+            $('#' + txtId).val("");
+            $('#' + txtId).attr("readonly", "true");
+            $('#' + txtId + 'Doc').attr("disabled", true);
+            $('#' + txtId).removeClass("txtar-personal-req");
+            $('#' + txtId + 'Doc').removeClass("txtAr-doc-personal-req");
+            $('#' + txtId + 'Doc').val("")
+        }
+    }
+    function ToggleBiFuelDetails(chkId) {
+        if ($('#' + chkId).val() == "True") {
+            $(".bi-fuel-system-details").show();
+            //$('#' + txtId).removeAttr("readonly");
+            //$('#txtIsPlaceChangeDoc').removeAttr("disabled");
+            //$('#' + txtId).addClass("txtar-personal-req");
+            //$('#txtIsPlaceChangeDoc').addClass("txtAr-doc-personal-req");
+            //$('#txtIsPlaceChangeDoc').val("")
+        } else {
+            $(".bi-fuel-system-details").hide();
+            $('#txtIsBiFuelAmount').val("");
+            //$('#' + txtId).attr("readonly", "true");
+            //$('#txtIsPlaceChangeDoc').attr("disabled", true);
+            //$('#' + txtId).removeClass("txtar-personal-req");
+            //$('#txtIsPlaceChangeDoc').removeClass("txtAr-doc-personal-req");
+        }
+    }
+    function NCBDocFileChange(id, errLbl) {
+        if ($("#" + id).get(0).files[0] != undefined) {
+            var fileType = $("#" + id).get(0).files[0].type;
+            if (fileType == 'application/pdf') {
+                $("#" + errLbl).attr("hidden", true);
+                var testval = $("#txtIsPlaceChangeDoc").val();
+                $("#txtnoclmbonusdoc").val(testval);
+            }
+            else {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("Please upload document in pdf format");
+                $("#" + id).val("");
+            }
+            const fsize = $("#" + id).get(0).files[0].size;
+            const maxAllowedSize = 5 * 1024 * 1024;
+            // The size of the file.
+            if (fsize > maxAllowedSize) {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("File too Big, please select a file less than 5 MB");
+                $("#" + id).val("");
+            }
+        }
+    }
+
+    function AnthitheftDocFileChange(id, errLbl) {
+        debugger;
+        if ($("#" + id).get(0).files[0] != undefined) {
+            var fileType = $("#" + id).get(0).files[0].type;
+            if (fileType == 'application/pdf') {
+                $("#" + errLbl).attr("hidden", true);
+                var testval = $("#txtIsAnthitheftDoc").val();
+                $("#txtantitheftdoc").val(testval);
+            }
+            else {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("Please upload document in pdf format");
+                $("#" + id).val("");
+            }
+            const fsize = $("#" + id).get(0).files[0].size;
+            const maxAllowedSize = 5 * 1024 * 1024;
+            // The size of the file.
+            if (fsize > maxAllowedSize) {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("File too Big, please select a file less than 5 MB");
+                $("#" + id).val("");
+            }
+        }
+    }
+
+
+
+    var today = new Date();
+
+    debugger;
+    //var splitdate = today.split('-');
+    var date = today.getDate();
+    var month = today.getMonth();
+    var year = today.getFullYear();
+    var endyear = parseInt(year) + 5;
+    var startyear = parseInt(year) - 30;
+
+    jQuery('#txtIsDateofExpiry').datetimepicker({
+        defaultDate: new Date(year, month, date),
+        timepicker: false,
+        format: 'd-m-Y',
+        minDate: new Date(year, month, date),
+        maxDate: new Date(endyear, 11, 31),
+        yearStart: startyear,
+        yearEnd: endyear,
+        closeOnDateSelect: true,
+        scrollMonth: false,
+        scrollInput: false
+    });
+    //$('#txtIsDateofExpiry').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    autoclose: true,
+    //    maxDate: 0,
+    //    yearStart: today.getFullYear() - 10,
+    //    yearEnd: today.getFullYear()+10,
+    //    scrollMonth: false,
+    //    scrollInput: false
+    //});
+    $("#txtIsDateofExpiry").on("keydown keypress keyup", false);
+</script>
+
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+
+        $('.ClAlpha').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z\s]/gi, '');
+            }
+        });
+
+        $('.ClNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^0-9\s]/gi, '');
+            }
+
+        });
+
+    });
+</script>

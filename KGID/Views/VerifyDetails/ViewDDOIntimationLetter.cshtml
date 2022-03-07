@@ -1,0 +1,158 @@
+﻿
+
+
+
+@model KGID_Models.KGIDNBApplication.VM_DDOVerificationDetails
+@{
+    ViewBag.Title = "View Application Details";
+}
+<style type="text/css">
+    #tblEmployeeNBBondFS_wrapper {
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" style="text-align:center">
+                    <label class="knlan control-label">ಮಾಹಿತಿ ಪತ್ರವನ್ನು ವೀಕ್ಷಿಸಿ</label>
+                    <label class="Enlan control-label">View Intimation Letter</label>
+                </h6>
+            </div>
+
+
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-striped table-bordered" id="tblEmployeeNBBondFS">
+                        <thead class="t_head">
+                            <tr>
+                                <th><label class="Enlan">Employee Name</label><label class="knlan">ನೌಕರನ ಹೆಸರು</label></th>
+                                <th><label class="Enlan">Policy Number</label><label class="knlan">ಪಾಲಿಸಿ ಸಂಖ್ಯೆ</label></th>
+                                <th><label class="Enlan">Sanctioned Date</label><label class="knlan">ಮಂಜೂರಾದ ದಿನಾಂಕ</label></th>
+                                <th><label class="Enlan">View Intimation Letter for DDO</label><label class="knlan">ಡಿಡಿಒಗಾಗಿ ಮಾಹಿತಿ ಪತ್ರವನ್ನು ವೀಕ್ಷಿಸಿ</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.EmployeeVerificationDetails != null && Model.EmployeeVerificationDetails.Count > 0)
+                            {
+                                foreach (var item in Model.EmployeeVerificationDetails)
+                                {
+                                    if (item.Status == "Approved")
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.PolicyNumber</td>
+                                            <td>@item.SanctionedDate</td>
+                                            <td>
+                                                @Html.ActionLink("View Initimation Letter", "GetIntimationLetter", "Policy", new { applicationId = item.ApplicationId }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-2"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblEmployeeNBBondFS").DataTable({
+            ordering: false
+        });
+    });
+    $(function () {
+        $('.OpenDocPath').click(function () {
+            debugger
+            var $this = $(this);
+            var docpath = $this.data('path');
+            var policynumber = $this.data('policynumber');
+            var doctype = $this.data('doctype');
+            $.ajax({
+                url: '/VerifyData/PrintFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    debugger
+                    var path = result.Result
+                    //const linkSource = `data:application/pdf;base64,${path}`;
+                    //const downloadLink = document.createElement("a");
+                    if (doctype == "Bond") {
+                        const fileName = "Bond_" + policynumber + ".pdf";
+                        //downloadLink.href = linkSource;
+                        //downloadLink.download = fileName;
+                        //downloadLink.click();
+                        // Open New Tab
+                        printPreview(path)
+                        //
+                        delete doctype;
+                    }
+                    else if (doctype == "FS") {
+                        const fileName = "FS_" + policynumber + ".pdf";
+                        //downloadLink.href = linkSource;
+                        //downloadLink.download = fileName;
+                        //downloadLink.click();
+                        // Open New Tab
+                        printPreview(path)
+                        //
+                        delete doctype;
+                    }
+                }
+            });
+        });
+    });
+    function printPreview(data) {
+        var type = 'application/pdf';
+        let blob = null;
+        const blobURL = URL.createObjectURL(pdfBlobConversion(data, 'application/pdf'));
+        const theWindow = window.open(blobURL);
+        const theDoc = theWindow.document;
+        const theScript = document.createElement('script');
+        function injectThis() {
+            window.print();
+        }
+        theScript.innerHTML = 'window.onload = ${injectThis.toString()};';
+        theDoc.body.appendChild(theScript);
+    }
+    //converts base64 to blob type for windows
+    function pdfBlobConversion(b64Data, contentType) {
+        contentType = contentType || '';
+        var sliceSize = 512;
+        b64Data = b64Data.replace(/^[^,]+,/, '');
+        b64Data = b64Data.replace(/\s/g, '');
+        var byteCharacters = window.atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset = offset + sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        var blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+</script>

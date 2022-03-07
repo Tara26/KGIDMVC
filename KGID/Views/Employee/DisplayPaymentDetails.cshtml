@@ -1,0 +1,175 @@
+﻿
+@*@model KGID_Models.NBApplication.VM_ApplicationDetail
+@using KGID.Models*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b></b></h6>
+            </div>
+            <div class="card-body">
+                <div id="DivDscData">
+                    <div><h4>Challan Details</h4></div>
+                    <div class="form-group">
+                        <table id="tblPaymentVerficationDetails1" class="table table-striped table-bordered" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>                                    
+                                    <th>Application Reference No.</th>
+                                    <th>Challen Transaction Ref No</th>
+                                    <th>Payment Status</th>
+                                    <th>Amount</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.payment)
+                                {
+                                    if (@item.cd_active_status == 1)
+                                    {
+                                <tr>
+                                    <td>@item.Employe_name</td>
+                                    <td>@item.ApplicationNumber</td>
+                                    <td>@item.cd_challan_ref_no</td>
+                                    <td>@item.PaymentStatus</td>
+                                    <td>@item.amount</td>
+                                    @if (@item.PaymentStatus == 2)
+                                    {<td></td>}
+                                    else if(@item.challan_status_id == 0)
+                                    {
+                                    <td><a href="#" onclick="deleteChallanetails(@item.cd_challan_id,'@item.cd_challan_ref_no',@item.ApplicationId);">Delete</a></td>
+                                    }
+                                </tr>
+                                    }
+
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div id="DivDscData1">
+                    <div class="form-group">
+                        @*@if (ViewBag.count >1)
+                        {*@ 
+                            <div><h4>Challan Status</h4></div>
+                            <table id="tblPaymentVerficationDetails11" class="table table-striped table-bordered" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>Challen Transaction Ref No.</th>
+                                        <th>Payment Status</th>
+                                        <th>Payment Status</th>
+                                        <th>Amount</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item1 in ViewBag.payment)
+                                    {
+                                        if (ViewBag.paymentstatus == "true")
+                                        {
+                                            <tr>
+                                                <td>@item1.Employe_name</td>
+                                                <td>@item1.Challen_TransactionNo</td>
+                                                <td>@item1.PaymentStatus</td>
+                                                <td>@item1.PaymentStatus</td>
+                                                <td>@item1.amount</td>
+                                                <td></td>
+
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                <tr>
+                                    <td>@item1.Employe_name</td>
+                                    <td>@item1.Challen_TransactionNo</td>
+                                    <td>@item1.PaymentStatus</td>
+                                    @if (@item1.Challen_TransactionNo != null)
+                                    {
+                                        <td><input class="form-control form-control-sm ClNum" value="" type="text" placeholder="@item1.PaymentStatus" id="@item1.challan_status_id"></td>
+
+                                    }
+
+                                    else
+                                    {
+                                        @*<td>@item1.amount</td>*@
+                                        <td>@item1.PaymentStatus</td>
+                                    }
+
+                                  
+                                    <td>@item1.amount</td>
+                                    @if (@item1.Challen_TransactionNo != null)
+                                    {
+                                        <td><a href="#" onclick="UpdateChallanStatus(@item1.PaymentStatus,@item1.challan_status_id);">Update</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td> </td>
+                                    }
+
+                                </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        @*}*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#tblPaymentVerficationDetails1").DataTable();
+        $("#tblPaymentVerficationDetails11").DataTable();
+    });
+
+    function UpdateChallanStatus(PaymentStatus, challan_status_id)
+    {
+        var ps = document.getElementById(challan_status_id).value;
+        PaymentStatus=ps
+        $.ajax({
+            type: 'get',
+            url: '/update-paymentdetail-details-ChallanStatus/',
+            data: { paymentstatus: PaymentStatus, challanId: challan_status_id},
+            success: function (result) {
+                if (result == 1) {                    
+                      alertify.success("Updated Successfully.");        
+                }
+                else {                    
+                    alertify.error("Error in Updating.");  
+                }               
+                location.reload();
+            }
+        });
+    }
+
+    function deleteChallanetails(cd_challan_id, cd_challan_ref_no,ApplicationId)
+    {
+        $.ajax({
+            type: 'get',
+            url: '/delete-challanDetails/',
+            data: { cd_challan_id: cd_challan_id, cd_challan_ref_no: cd_challan_ref_no, applicationId: ApplicationId},
+            success: function (result) {
+
+                if (result == 1) {
+                    alertify.success("Deleted Successfully.");
+                }               
+                else {
+                    alertify.error("Error in Updating.");                    
+                }
+                location.reload();
+            }
+        });
+    }
+</script>
+
+

@@ -1,0 +1,459 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MIApplicationDetails
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/StepsDemo/css/jquery.steps.css" rel="stylesheet" />
+<script src="~/Content/StepsDemo/js/jquery.steps.min.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+<script src="~/Scripts/html2canvas/html2canvas.js"></script>
+<script src="~/Scripts/html2pdf/html2pdf.bundle.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<style type="text/css">
+    .wizard > .content > .body {
+        position: relative;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    .application-tab .steps ul li {
+        width: 14% !important;
+    }
+
+    .application-tab #ApplicationTab-t-5 {
+        font-size: 11.5px;
+        padding: 1.1em 1em;
+    }
+
+    #MedicalTab .steps ul li {
+        width: 15% !important;
+    }
+
+    #btnASave {
+        cursor: pointer;
+    }
+
+    #btnPSave {
+        cursor: pointer;
+    }
+
+    #btnMSave {
+        cursor: pointer;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .error {
+        font-size: 0.75rem !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    #btnMedicalPrint {
+        background: #2184be;
+        color: #fff;
+        display: block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .btnPayment {
+        float: right;
+    }
+
+    .calclink {
+        display: block;
+        width: 100%;
+        padding: 6px 2px 6px 6px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+</style>
+
+<div id="divApplicationMI" data-eid="@Session["UID"]">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="row">
+                        <h5 class="m-0 text-black-100 font-weight-bold col-3"><b>Motor Insurance Application</b></h5>
+                        <div class="col-6 text-center col-6 pt-2" style="font-size:20px;">
+                            Reference Number : <b><span id="spnMIReferanceNo"></span></b>
+                        </div>
+                        <div class="col-2 text-right" id="refNo" style="display:none;">
+                            <img alt="" style="height:60px;width:60px" id="imgQRCode" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <nav id="navmenu">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b>Proposal Form</b></a>
+                            <a id="nav-Document-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Document" role="tab" aria-controls="nav-Document" aria-selected="false"><b>Upload Required Documents</b></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                        <div class="tab-pane fade show active" id="nav-Application" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="ApplicationTab" class="application-tab">
+                                @Html.HiddenFor(model => model.Type, new { @id = "hdnPagetype" })
+                                @Html.HiddenFor(model => model.previousRefNo, new { @id = "hdnPrevRefNo" })
+                                <h2>Proposer Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalProposerDetailsToView", "MotorInsurance", new { PageType = Model.Type, refNo = Model.previousRefNo })
+                                    }
+                                </section>
+                                <h2>Vehicle Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalVehicleDetailsToView", "MotorInsurance", new { PageType = Model.Type, refNo = Model.previousRefNo, RenewalRefNo = Model.RenewalRefNo })
+                                    }
+                                    <input type="text" id="txtDOM" style="font-weight: bold;" class="form-control" readonly hidden />
+                                    <input type="text" id="txtODV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                    <input type="text" id="txtPLV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                    <input type="text" id="txtDPV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                    <input type="text" id="txtNCBV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                    <input type="text" id="txtMALUSV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                </section>
+                                <h2>Other Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalOtherDetailsToView", "MotorInsurance", new { PageType = Model.Type, refNo = Model.previousRefNo })
+                                    }
+                                </section>
+
+                                <h2>Previous History</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalPreviousHistoryToView", "MotorInsurance", new { PageType = Model.Type, refNo = Model.previousRefNo })
+                                    }
+                                </section>
+                                <h2>IDV Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalIDVDetailsToView", "MotorInsurance", new { PageType = Model.Type, refNo = Model.previousRefNo })
+                                    }
+                                    <input type="text" id="txtPV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                </section>
+                                <h2>Declaration</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("DeclarationToView", "MotorInsurance")
+                                    }
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Document" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div id="DocumentTab" class="Document-tab">
+                                <h2>Upload Required Documents</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("RenewalMIDocumentDetailsToView", "MotorInsurance",new { PageType = Model.Type })
+                                    }
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var PDserverResponse = false;
+    var VDserverResponse = false;
+    var ODserverResponse = false;
+    var IDVserverResponse = false;
+    var PHDserverResponse = false;
+    $(document).ready(function () {
+        //$('#hdnMIVDReferanceNo').val() = $('#spnMIReferanceNo').text();
+        var RefNumber = $("#hdnMIReferanceNo").val();
+        if (RefNumber != null) {
+            $("#spnMIReferanceNo").text(RefNumber);
+        }
+        $("#imgQRCode").attr('src', $("#hdnQRCode").val());
+        $(".geographical-details").hide();
+        //$(".bi-fuel-system-details").hide();
+        $(".higher-deductible-details").hide();
+        $(".automobile-association-details").hide();
+        /////// LegalLiabilityDetails Start
+        $(".legal_liability-details").hide();
+        /////// LegalLiabilityDetails End
+        //$(".no-claim-bonus-details").hide();
+        $(".higher-towing-charges-details").hide();
+        /////// PersonalAccidentDetails Start
+        $(".personal-accident-details").hide();
+        /////// PersonalAccidentDetails End
+        //$(".pa-for-persons-details").hide();
+
+            $('#divMIProposerDetails input').css("pointer-events", "none");
+           
+            $('#divMIProposerDetails textarea').css("pointer-events", "none");
+
+            $('#divPreviousHistoryMI input').css("pointer-events", "none");
+            $('#divPreviousHistoryMI select').css("pointer-events", "none");
+            $('#divPreviousHistoryMI textarea').css("pointer-events", "none");
+
+            $('#divPreviousHistoryMI input').attr("tabindex", "-1");
+            $('#divPreviousHistoryMI select').attr("tabindex", "-1");
+            $('#divPreviousHistoryMI textarea').attr("tabindex", "-1");
+
+        if ($("#hdnPagetype").val() == "Renewal" || $("#hdnPagetype").val() == "EditRenewal") {
+            $('#divMIProposerDetails select').css("pointer-events", "auto");
+        }
+        else {
+             $('#divMIProposerDetails select').css("pointer-events", "none");
+        }
+
+
+        $("#ApplicationTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                $('#btnAllPrint').remove();
+                if (currentIndex > newIndex) {
+
+                    return true;
+                }
+                else {
+                    if (currentIndex == 0) {
+
+                        if ($('#hdnPagetype').val() == "Renewal" || $('#hdnPagetype').val() == "EditRenewal") {
+                            GetRenewalVehicleDetails();
+                        }
+                        else {
+
+                        }
+                    }
+                    else if (currentIndex == 1) {
+                        ValidateVehicleDetails();
+                        ValidateSeatingCubicWeightCapacity("ddlVehCat");
+                        if ($('.err:visible').length === 0) {
+                            SaveVehicleDetails();
+
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                    else if (currentIndex == 2) {
+                        Renewalsum();
+                    }
+                    else if (currentIndex == 3) {
+                       
+                    }
+                    else if (currentIndex == 4) {
+                        if ($('.err:visible').length === 0) {
+                            var idvamount = $("#txtidvovamnt").val();
+                            if (idvamount == "") {
+                                $("#errIsidvvalue").removeAttr("hidden");
+                                alertify.error("Please Enter IDV Value..!!");
+                                return false;
+                            }
+                            else if (idvamount != null || idvamount == undefined) {
+                                $('#errIsidvvalue').hide();
+                                //$("#ApplicationTab ul[aria-label=Pagination] li:nth-child(3)").after('<li><a id="btnAllPrint" role="menuitem" onclick="printApplicationForm()" style="cursor: pointer;">Preview</a></li>');
+                                //$('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "none");
+                                //alertify.error("Please Enter IDV Value..!!");
+                                return true;
+                            }
+
+
+
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (currentIndex == 5) {
+                        $('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "block");
+                        return true;
+                    }
+                    return true;
+                }
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                
+
+            },
+            onFinished: function (event, currentIndex) {
+                if (currentIndex == 5) {
+                    var isChecked = $("#miDeclaration").is(":checked");
+                    if (isChecked) {
+                        alertify.confirm("Are you sure you want to submit the proposal form?", function () {
+                            //$("#divShowQRCode").show();
+                            if (PDserverResponse == false) {
+                                SaveMIProposerDetails();
+                            }
+                            if (VDserverResponse == false) {
+                                if ($('.err:visible').length === 0) {
+                                    SaveVehicleDetails();
+                                }
+                            }
+                            if (ODserverResponse == false) {
+                                SaveOtherDetails();
+                            }
+                            if (PHDserverResponse == false) {
+                                SavePreviousHistoryDetails();
+                                
+                            }
+                            if (IDVserverResponse == false) {
+                                SaveIDVDetails();
+                            }
+
+
+                            DownloadRenewalApplicationForm()
+                            $('#nav-Document-tab').removeClass("disabled");
+                             $("#nav-Document-tab").click();
+                            //setTimeout(function () {
+                            //    window.location.href ="/mi-agy-r-mp";
+                            //}, 1000);
+                        }).setHeader("Submit Application?");
+                    }
+                    else {
+                        alertify.alert("Please agree to the terms and condition.").setHeader("Warning !!!");
+                        return false;
+                    }
+                }
+            }
+        });
+
+        $("#ApplicationTab ul[aria-label=Pagination] li:nth-child(1)").after('<li><a id="btnASave" role="menuitem" onclick="ApplicationDetailsSave()">Save</a></li>');
+
+         $("#DocumentTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+               
+            },
+            onFinished: function (event, currentIndex) {
+                //var label = $('#txtProposalDocNewPurchaseFileName').text();
+                //alert(label); 
+                
+                if ($("#txtURenewalFitnessCertificateRTO").val().length == 0 && $("#txtRenewalFitnessCertificateRTOfilename").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload Emission Certificate Doc").setHeader("Warning!!!");
+                            return false;
+                        }
+               
+
+                SaveMIDocumentDetails($('#hdnSentBackApp').val());
+                //window.location.href = "/MotorInsurance/MotorInsuranceListOfApplications";
+            }
+        });
+
+    });
+
+
+    function DownloadRenewalApplicationForm() {
+    debugger
+    var Applicationcontents = "";
+
+        Applicationcontents = $('#divMIRenewalPrintForm').html();
+    
+    var date = new Date().getDate() + '_' + (parseInt(new Date().getMonth()) + parseInt(1)) + '_' + new Date().getFullYear();
+
+    let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+    mywindow.document.write(`<html><head><title>Print Application</title>`);
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(Applicationcontents);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+
+}
+    function printApplicationForm() {
+        //if ($("#chkDeclaration").prop("checked") == false) {
+        //    alertify.alert("Please agree to the terms and condition.").setHeader("Warning !!!");
+        //    return false;
+        //}
+        $("#spnBReferanceNo").text($("#hdnMIReferanceNo").val());
+        $("#imgBQRCode").attr("src", $("#hdnQRCode").val());
+        $("#divShowQRCode").show();
+        var contents = '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Proposer Details </h2></div></div>' + $("#divMIProposerDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Vehicle Details</h2></div></div>' + $("#divMIVehicleDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Other Details</h2></div></div>' + $("#divOtherDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">IDV Details</h2></div></div>' + $("#divIDVDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Previous History Details</h2></div></div>' + $("#divPreviousHistoryDetails").html() + "<hr/>";
+        //contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Declaration</h2></div><div class="form-group col-4"></div></div>' + $("#divDeclaration").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Motor Insurance Application Form</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+        $('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "block");
+    }
+
+    function GetMIRenewalDeclaration() {
+        debugger;
+        var RefNo = $('#hdnPrevRefNo').val();
+        var pt = $('#hdnPagetype').val();
+        $.ajax({
+            url: '/MotorInsurance/RenewalDeclarationToView',
+            data: JSON.stringify({ "PageType":pt, "refNo":RefNo }),
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#ApplicationTab-p-5").html(data);
+                ////EnglishToKannada();
+                //if ($('.knlan').is(":visible")) {
+                //    $("#lblEmployeeNameKN").text($("#txtEmployeeFullNameKN").val());
+                //}
+                //else {
+                //    $("#lblEmployeeNameEN").text($("#txtEmployeeFullName").val());
+                //}
+            }
+        });
+    }
+
+
+</script>

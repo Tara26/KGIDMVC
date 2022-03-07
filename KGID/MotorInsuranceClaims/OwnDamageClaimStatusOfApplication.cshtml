@@ -1,0 +1,145 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_ODClaimVerificationDetails
+@{
+    ViewBag.Title = "OwnDamageClaimStatusOfApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>OwnDamageClaimStatusOfApplication</h2>*@
+
+<style type="text/css">
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    td a {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    table {
+        text-align: center;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h3>OD Claims Status of Application</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <div id="divCurrentStatus" class="application-tab">
+                    <section>
+                        <div class="row">
+                            <div class="col-12">
+                                @*<div class="form-group">
+                                        <h6 class="font-weight-bold">Application Status</h6>
+                                    </div>*@
+                                <table class="table table-striped table-bordered" id="tblMIDDOApplicationStatus" cellspacing="0">
+                                    <thead style="background: #308385;color: #fff;">
+                                        <tr>
+                                            @*<th>Employee Code</th>
+                                                <th>Name</th>*@
+                                            <th>Serial no</th>
+                                            <th>Application Reference Number</th>
+                                            <th>Vehicle No.</th>
+                                            @*<th>Chassis No.</th>
+                                            <th>Engine No.</th>
+                                            <th>Year of Manufacturer</th>
+                                            <th>Vehicle Model</th>*@
+                                            <th>Policy Number</th>
+                                            @*<th>MI Bond</th>*@
+                                            <th>Status</th>
+                                            @*<th>Action</th>*@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.ViewStatusForEmployees != null && Model.ViewStatusForEmployees.Count > 0)
+                                        {
+                                            var rowcount = 1;
+                                            foreach (var item in Model.ViewStatusForEmployees)
+                                            {
+                                                <tr>
+                                                    @*<td>@item.EmployeeCode</td>*@
+                                                    <td>@rowcount</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.VehicleNumber</td>
+                                                    @*<td>@item.ChasisNo</td>
+                                                    <td>@item.EngineNo</td>
+                                                    <td>@item.VehicleYear</td>
+                                                    <td>@item.VehicleModelName</td>*@
+
+                                                    <td>@item.PolicyNumber</td>
+
+                                                    <td>@item.Status</td>
+                                                    @*@if (@item.AppStatusID == 2 || @item.AppStatusID == 1)
+                                                    {
+
+                                                        <td><a href="/mi-soa-edt-apln/empty/@item.ApplicationNumber/@item.CategoryId">Edit Application</a></td>
+                                                    }
+                                                    else if (@item.AppStatusID == 15)
+                                                    {
+                                                        if (item.SignedBondDocPath == "" || item.SignedBondDocPath == null)
+                                                        {
+                                                            <td>
+
+                                                                <a class="OpenMBDocPath" href="javascript:;" data-path="@item.UnsignBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond" style="text-decoration-color:green"><p style="color:forestgreen;">View Unsigned MB Bond</p></a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <a class="OpenMBDocPath" href="javascript:;" data-path="@item.SignedBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View MB Bond</a>
+                                                            </td>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <td><a href="/mi-soa-vw-apln/@item.EmployeeCode/@item.ApplicationId/@item.ApplicationNumber/@item.CategoryId">View Application</a></td>
+                                                    }*@
+
+                                                </tr>
+                                                rowcount++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="7">
+                                                    There is no applications submitted to display.
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

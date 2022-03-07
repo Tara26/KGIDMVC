@@ -1,0 +1,280 @@
+﻿@model KGID_Models.NBApplication.VM_PersonalHealthDetails
+
+@*<hr />
+    <p style="text-align: center;"><strong>PERSONAL DETAILS:</strong></p>*@
+
+<div id="divper">
+    @Html.HiddenFor(m => m.ephd_gender_id, new { id = "hdnGenderId" })
+    
+    <div id="divFemaleSection" style="display:none;">
+        <p style="text-align: center;" class="knlan"><strong>FEMALE SECTION:</strong></p><p style="text-align: center;" class="Enlan"><strong>FEMALE SECTION:</strong></p>
+        <ol>
+            <li><p>Date of last Menstrual period : @Html.DisplayFor(model => model.PeriodDate)</p></li>
+            <li>
+                <p>
+                    Are you pregnant now? :
+                    @if (Model.ephd_is_pregnant == true)
+                    {
+                        <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                    }
+                    else
+                    {
+                        <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                    }
+                </p>
+            </li>
+        </ol>
+    </div>
+    @*<p style="text-align: center;" class="knlan"><strong>ವೈಯಕ್ತಿಕ ಆರೋಗ್ಯ ವಿವರಗಳು:</strong></p>
+        <p style="text-align: center;" class="Enlan"><strong>PERSONAL HEALTH DETAILS:</strong></p>*@
+
+
+    <table style="border:none; width: 0%; " id="tblPers">
+        <tbody>
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p>(a)</p></td>
+                <td style="width: 50.7616%; height: 34px;"><p class="knlan">ನಿಮ್ಮ ಆರೋಗ್ಯವು ಈಗ ಸುಸ್ಥಿತಿಯಲ್ಲಿದೆಯೆ?</p><p class="Enlan">Is your health in good condition now?</p></td>
+                <td style="width: 5.2384%; height: 34px;">
+                    <p>
+                        :
+                        @if (Model.ephd_health_condition != null && Model.ephd_health_condition == true)
+                        {
+                            <span>
+                                <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                            </span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label> </span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.InfectiousDiseaseHouseDetails)</p></td>
+            </tr>
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p>(b)</p></td>
+                <td style="width: 50.7616%; height: 34px;"><p class="knlan">ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಯಾವುದೇ ಖಾಯಿಲೆಗೆ ಒಂದು ವಾರಕ್ಕಿಂತ ಹೆಚ್ಚು ಕಾಲ ಚಿಕಿತ್ಸೆ ಪಡೆದಿದ್ದಲ್ಲಿ ಅಥವಾ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗೆ ಒಳಪಟ್ಟಿದ್ದಲ್ಲಿ ಅದರ ವಿವರಗಳು  :</p><p class="Enlan">Details regarding any treatment taken for more than 1 week for any illness or undergone any surgery in last 3 years</p></td>
+                <td style="width: 5.2384%; height: 34px;">
+                    <p>
+                        :
+                        @if (Model.IsInfectiousDiseaseHouse == true)
+                        {
+                            <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.InfectiousDiseaseHouseDetails)</p></td>
+            </tr>
+            <tr style="height: 70px;">
+                <td style="width: 5%; height: 70px;"><p>(c)</p></td>
+                <td style="width: 50.7616%; height: 70px;"><p class="knlan">ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯ ನಿಮಿತ್ತ ಕೆಲಸಕ್ಕೆ ಗೈರುಹಾಜರಾಗಿದ್ದಲ್ಲಿ ವಿವರಗಳು :</p><p class="Enlan">Details regarding any absence from work due to illness during the last 3 years, state when, how long and for which disease.</p></td>
+                <td style="width: 18.2384%; height: 70px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.IsAbsent == true)
+                        {
+                            <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.AbsentDetails)</p></td>
+            </tr>
+            <tr style="height: 70px;">
+                <td style="width: 5%; height: 70px;"><p>(d)</p></td>
+                <td style="width: 50.7616%; height: 70px;"><p class="knlan">ನೀವು  ಹೊಟ್ಟೆ,ಹೃದಯ, ಶ್ವಾಸಕೋಶ, ಮೂತ್ರಜನಕಾಂಗ, ಮೆದುಳು, ನರಗಳು ಅಥವಾ ಇನ್ನಾವುದೇ ಭಾಗಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ರೋಗಗಳಿಂದ  ಮಧುಮೂತ್ರರೋಗ, ಕ್ಷಯ, ಹೆಚ್ಚು/ಕಡಿಮೆ ರಕ್ತದ ಒತ್ತಡ, ಕ್ಯಾನ್ಸರ್, ಮೂರ್ಛೆರೋಗ, ಕುಷ್ಟ, ಹರ್ನಿಯ ಅಂಡವಾಯು, ಹೆಪಿಟೈಟಸ್-ಬಿ ಅಥವಾ ಏಡ್ಸ್ ಖಾಯಿಲೆಗಳಿಗೆ ಒಳಗಾಗಿದ್ದರೆ ವಿವರ ನೀಡುವುದು.  :</p><p class="Enlan">Have you ever suffered from diseases of stomach(Digestive system),Lungs,Urinary tract,Brain,Nerves or any other bodily parts, Diabetes, Tuberculosis, Hyper or Hypo tension(high or low B.P), Cancer, Epilepsy(Epileptic seizures),Leprosy, Hernia, Hepatitis-B or HIV AIDS? If so provide details.</p></td>
+                <td style="width: 18.2384%; height: 70px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.IsStomachDisease == true)
+                        {
+                            <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.StomachDiseaseDetails)</p></td>
+            </tr>
+            <tr style="height: 52px;">
+                <td style="width: 5%; height: 52px;"><p>(e)</p></td>
+                <td style="width: 50.7616%; height: 52px;"><p class="knlan"> ಮದ್ಯಸಾರ ಪಾನೀಯ, ಧೂಮಪಾನ, ಗಾಂಜಾ ಅಫೀಮು ಅಥವಾ ಇತರ ಯಾವುದೇ ಮಾದಕ ದ್ರವ್ಯ / ನಿದ್ರಾಜನಕ ಔಷಧಗಳನ್ನು ಸೇವಿಸುತ್ತೀರಾ ಇಲ್ಲವೆ ಹಿಂದೆ ಎಂದಾದರೂ ಸೇವಿಸಿದ್ದುಂಟೆ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ :</p><p class="Enlan">Do you drink wine, spirits or malt liquors? Are you addicted to the use of any narcotic drugs like opium, cocaine, etc. If so, give particulars, Do you smoke tobacco? If so, to what extent?</p></td>
+                <td style="width: 18.2384%; height: 52px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.IsDrinksDrugs == true)
+                        {
+                            <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.DrinksDrugsDetails)</p></td>
+            </tr>
+            <tr style="height: 52px;">
+                <td style="width: 5%; height: 52px;"><p>(f)</p></td>
+                <td style="width: 50.7616%; height: 52px;"><p class="knlan">ಇನ್ನಾವುದೇ ಇತರೆ ಖಾಯಿಲೆಗಳಿಂದ ಬಳಲುತ್ತಿದ್ದೀರಾ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ :</p><p class="Enlan">Have you had any other illnesses considered by you to be important or not? If so, give details.</p></td>
+                <td style="width: 18.2384%; height: 52px;">
+                    <p>
+                        : &nbsp;
+                        @if (Model.IsAnyOtherDisease == true)
+                        {
+                            <span><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </p>
+                </td>
+                <td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.AnyOtherDiseaseDetails)</p></td>
+            </tr>
+            <tr style="height: 52px;">
+                <td style="width: 5%; height: 52px;"><p>(g)</p></td>
+                <td style="width: 50.7616%; height: 52px;"><p class="knlan">ನಿಮ್ಮ ನಿಖರವಾದ ಎತ್ತರ ಮತ್ತು ತೂಕ</p><p class="Enlan">Your exact height and weight </p></td>
+                <td style="width: 28.2384%; height: 52px;">
+                    <p>
+                        <span class="knlan">ಎತ್ತರ (ಸೆಂ.ಮೀ.ಗಳಲ್ಲಿ)</span>
+                        <span class="Enlan">Height [cms]</span> :@Html.DisplayFor(model => model.ephd_height)
+                        <br />
+                        <span class="knlan">ತೂಕ (ಕೆ.ಜಿ.ಗಳಲ್ಲಿ)</span>
+                        <span class="Enlan">Weight [kgs]</span> :@Html.DisplayFor(model => model.ephd_weight)
+                    </p>
+                </td>
+                <td style="width: 28%; height: 34px;">@*<p>@Html.DisplayFor(model => model.AnyOtherDiseaseDetails)</p>*@</td>
+            </tr>
+        </tbody>
+    </table>
+    @if (Model.ephd_gender_id == 2)
+    {
+        <div id="divFemaleDetails">
+            <p class="Enlan">(h)  To be filled by female applicants only</p>
+            <p class="knlan">(h)  ಮಹಿಳಾ ಮನವಿದಾರರು ಮಾತ್ರ ಉತ್ತರಿಸಬೇಕು</p>
+            <table style="border:none; width: 0%;">
+                <tbody>
+                    <tr style="height: 5px;">
+                        <td style="width: 5%; height: 5px;"><p>(i)</p></td>
+                        <td style="width: 40.7616%; height: 5px;"><p class="knlan">ನೀವು ಇತ್ತೀಚೆಗೆ ಹೊರಗಾದ ದಿನಾಂಕ :</p><p class="Enlan">Date of last Menstrual period</p></td>
+                        <td style="width: 18.2384%; height: 5px;">
+                            <p>
+                                : &nbsp;
+                                @Html.DisplayFor(model => model.PeriodDate, new { @id = "txtPED" })
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height: 5px;">
+                        <td style="width: 5%; height: 5px;"><p>(ii)</p></td>
+                        <td style="width: 40.7616%; height: 5px;"><p class="knlan">ನೀವು ಈಗ ಗರ್ಭಿಣಿಯಾಗಿದ್ದೀರಾ? :</p><p class="Enlan">Are you pregnant now?</p></td>
+                        <td style="width: 18.2384%; height: 5px;">
+                            @*<p>*@
+                            : &nbsp;
+                            @if (Model.ephd_is_pregnant == true)
+                            {
+                                <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                                <span class="Enlan col-sm-2 text-center">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                                <span class="Enlan col-sm-2 text-center">No</span>
+                            }
+                            @*</p>*@
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <hr />
+    <p style="text-align: center;" class="knlan"><strong>ಘೋಷಣೆ</strong></p><p style="text-align: center;" class="Enlan"><strong>DECLARATION</strong></p>
+    <ol>
+        <li>
+            <p style="line-height:14px; font-size:10px;" class="knlan">
+                ಕಡ್ಡಾಯ ಜೀವ ವಿಮೆಗಾಗಿ ಪ್ರಸ್ತಾವನೆ ಸಲ್ಲಿಸಿರುವ ಶ್ರೀ/ಶ್ರೀಮತಿ/ಕುಮಾರಿ <b>@Session["UserName"].ToString()@*<span id="spnDPropName"></span>*@</b>, ಆದ
+                ನಾನು ಈ ಪ್ರಸ್ತಾವನೆಯಲ್ಲಿರುವ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳನ್ನು ಪೂರ್ಣವಾಗಿ ತಿಳಿದುಕೊಂಡು ಅವುಗಳಿಗೆ
+                ಸತ್ಯವಾದ ಮಾಹಿತಿಗಳನ್ನೇ ಒದಗಿಸಿರುತ್ತೇನೆಂದು ಈ ಮೂಲಕ ಘೋಷಿಸುತ್ತೇನೆ.
+            </p>
+            <p style="line-height:14px;" class="Enlan">
+                I Mr/Mrs/Kumari <b>@Session["UserName"].ToString()@*<span id="spnDPropName"></span>*@</b>, who has put forward the compulsory life
+                insurance proposal, declare that I have come to know all the questions  in this
+                proposal completely, and have provided them with factual information.
+            </p>
+        </li>
+        <li>
+            <p style="line-height:14px; font-size:10px;" class="knlan">
+                ಪ್ರಸ್ತಾವನೆ ಸಲ್ಲಿಸಿದ ದಿನದಿಂದ ಅಂಗೀಕಾರದವರೆಗಿನ ಮಧ್ಯಂತರ ಅವಧಿಯಲ್ಲಿ ನನ್ನ
+                ಆರೋಗ್ಯದಲ್ಲಿ ವ್ಯತ್ಯಾಸ ಉಂಟಾದಲ್ಲಿ ಅವುಗಳನ್ನು ವಿಮಾ ಇಲಾಖೆಗೆ ಲಿಖಿತ ಮೂಲಕ
+                ತಿಳಿಸುತ್ತೇನೆ.
+            </p>
+            <p style="line-height:14px;" class="Enlan">
+                If there is any difference in my health condition, in the interim period between the
+                date of submission and the date of acceptance of the proposal, I will notify the same
+                to the insurance department in writing.
+            </p>
+        </li>
+        <li>
+            <p style="line-height:14px; font-size:10px;" class="knlan">
+                ನಾನು ನೀಡಿರುವ ಮಾಹಿತಿಗಳು ವಿಮಾ ಕರಾರಿಗೆ ಆಧಾರವಾಗಿರುವುದಾಗಿಯೂ ಸುಳ್ಳು ಮಾಹಿತಿ
+                ನೀಡಿ ಪಾಲಿಸಿ ಪಡೆದಲ್ಲಿ ವಿಮಾ ಕರಾರು ನಿಷ್ಪರಿಣಾಮವಾಗಿ ನಾನು ಪಾವತಿಸಿದ ವಿಮಾ ಕಂತುಗಳು
+                ಸರ್ಕಾರಕ್ಕೆ ಮುಟ್ಟುಗೋಲಾಗುತ್ತೆಂದೂ ನಾನು ತಿಳಿದಿರುತ್ತೇನೆ.
+            </p>
+            <p style="line-height:14px;" class="Enlan">
+                I am aware that the information provided by me is the basis for the insurance
+                contract. The insurance contract will be ineffective and the premiums paid by me will
+                be forfeited  by the government if the information provided by me are found to be
+                incorrect.
+            </p>
+        </li>
+        <li>
+            <p style="line-height:14px; font-size:10px;" class="knlan">
+                ಕಡ್ಡಾಯ ಜೀವ ವಿಮಾ ನಿಯಮಾವಳಿಗಳ ಎಲ್ಲಾ ನಿಬಂಧನೆಗಳನ್ನು ನಾನು
+                ಒಪ್ಪಿಕೊಂಡಿರುತ್ತೇನೆ.
+            </p>
+            <p style="line-height:14px;" class="Enlan">
+                I agree to all the conditions of the Compulsory Life Insurance Rules.
+            </p>
+        </li>
+    </ol>
+    @*<p class="knlan" style="font-size:10px;">
+            ✓ ಮೇಲೆ ತಿಳಿಸಿದ ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳನ್ನು ನಾನು ಒಪ್ಪುತ್ತೇನೆ.
+        </p>
+        <p class="Enlan">
+            ✓ I agree to the terms and condition mentioned above.
+        </p>*@
+    <table width="100%">
+        <tr>
+            <td style="text-align: left;"><span class="knlan">ದಿನಾಂಕ:</span><span class="Enlan">Date:</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"><span class="knlan">ಸ್ಥಳ:</span><span class="Enlan">Place:</span></td>
+            <td style="text-align: right;"><span class="knlan">ಮನವಿದಾರರ ಸಹಿ ಮತ್ತು ಪದನಾಮ</span><span class="Enlan">Signature of the Proposer and Designation</span></td>
+        </tr>
+    </table>
+    @*<p><span style="text-align: left;" class="knlan">ದಿನಾಂಕ:</span><span style="text-align: left;" class="Enlan">Date:</span></p>
+        <p>
+            <span style="text-align: left;" class="knlan">ಸ್ಥಳ:</span><span style="text-align: left;" class="Enlan">Place:</span>
+            <span style="text-align: right;" class="knlan">ಮನವಿದಾರರ ಸಹಿ ಮತ್ತು ಪದನಾಮ :</span><span style="text-align: right;" class="Enlan">Signature of the Proposer and Designation:</span>
+        </p>*@
+</div>
+<script>
+    $(document).ready(function () {
+        $("#spnDPropName").text($("#lblEmployeeNameEN").text());
+    });
+</script>

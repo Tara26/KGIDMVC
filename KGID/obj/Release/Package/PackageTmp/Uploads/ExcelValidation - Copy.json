@@ -1,0 +1,183 @@
+{
+
+  "ValidationData": [
+
+    {
+      "Module": "Site_Details",
+      "Column": "DIV_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Division should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "CIRCLE_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Circle should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "LAYOUT_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Layout should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SUB_LAYOUT_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Sub-Layout should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_TYPE",
+      "Validation": "^[0-9]",
+      "errorMsg": "Site Type should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_AREA",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Site Area should be decimal."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "AREA_UNIT",
+      "Validation": "^[0-9]",
+      "errorMsg": "Site unit should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_REGISTERED_DATE",
+      "Validation": "/^\\d{2}([./-])\\d{2}\\1\\d{4}$/",
+      "errorMsg": "Invalid Site Register Date."
+    },
+    //{
+    //  "Module": "Budget_Upload_State",
+    //  "Column": "SITE_ACTIVE",
+    //  "Validation": "[v,c,V,C]$",
+    //  "errorMsg": "Invalid VC Code"
+    //},
+
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_CREATED_BY",
+      "Validation": "^[0-9]",
+      "errorMsg": "Created by should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_UPDATED_DATE",
+      "Validation": "^[0-9]",
+      "errorMsg": "Updated by should be numeric."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_CREATED_DATE",
+      "Validation": "/^\\d{2}([./-])\\d{2}\\1\\d{4}$/",
+      "errorMsg": "Invalid Created Date."
+    },
+    {
+      "Module": "Site_Details",
+      "Column": "SITE_UPDATED_DATE",
+      "Validation": "/^\\d{2}([./-])\\d{2}\\1\\d{4}$/",
+      "errorMsg": "Invalid Updated Date."
+    },
+
+
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_DIV_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Division should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_CIRCLE_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Circle should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_APARTMENT_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Layout should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_BLOCK_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Sub-Layout should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_UNIT_ID",
+      "Validation": "^[0-9]",
+      "errorMsg": "Flat Unit should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_FLAT_AREA",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Flat Area should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "AREA_UNIT",
+      "Validation": "^[0-9]",
+      "errorMsg": "Flat unit should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_SUPER_BUILTUP_AREA",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Builtup Area should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_UNDIVIDED_AREA",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Undivided Area should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_UNDIVIDED_AREA_SHARE",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Undivided Area share should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_NO_OF_PARKING_UNITS",
+      "Validation": "^[0-9]",
+      "errorMsg": "Number of parking unit should be numeric."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_PARKING_AREA",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Parking Area share should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_FLAT_CREATED_DATE",
+      "Validation": "/^\\d{2}([./-])\\d{2}\\1\\d{4}$/",
+      "errorMsg": "Invalid Created Date."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_FLAT_UPDATED_DATE",
+      "Validation": "/^\\d{2}([./-])\\d{2}\\1\\d{4}$/",
+      "errorMsg": "Invalid Updated Date."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_FLAT_LONGITUDE",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Flat Longitude should be decimal."
+    },
+    {
+      "Module": "Flat_Details",
+      "Column": "FTD_FLAT_LATITUDE",
+      "Validation": "^[0-9](\\.[0-9]+)?$",
+      "errorMsg": "Flat Latitude share should be decimal."
+    }
+  ]
+}

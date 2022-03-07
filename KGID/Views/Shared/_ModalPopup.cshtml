@@ -1,0 +1,32 @@
+﻿<div id="modalPopup" class="modal center-block">
+    <!-- Modal content -->
+    <div class="modal-content" style="width:80%">
+        <div class="modal-header">
+            <h2>@ViewBag.PopupTitle</h2>
+            <span class="close text-right">&times;</span>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-default btn-success modal-save" data-dismiss="modal" value="Save" />
+            <input type="button" class="btn btn-default btn-danger" data-dismiss="modal" onclick="ClosePopup();" value="Close" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Get the modal
+    var $modal = $("#modalPopup");
+    // Get the <span> element that closes the modal
+    var $close = $(".close");
+
+    // When the user clicks on <span> (x), close the modal
+    $close.click(function () {
+        ClosePopup();
+    });
+
+    function ClosePopup() {
+        $modal.hide();
+        $("body").removeClass("modal-open");
+    }
+</script>

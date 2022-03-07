@@ -1,0 +1,210 @@
+﻿@*@model KGID_Models.Ticketing_Tool.tbl_module_type_master*@
+@model KGID_Models.Ticketing_Tool.TTReportProblem
+@using KGID.Models
+@{
+    ViewBag.Title = "ReportProblem";
+}
+
+
+<style>
+    /*table.dataTable thead tr {
+        background-color: #008080;
+    }*/
+    table.dataTable thead tr {
+        background: #308385;
+        color: #fff;
+    }
+
+    .row_BasicDetails {
+        text-align: right;
+    }
+</style>
+
+
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('#tblNomineeDetails').DataTable({
+
+            deferRender: true,
+
+            scrollCollapse: true,
+            scroller: true
+        });
+    });
+</script>
+@if (Session["Categories"].ToString() != "14")
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><b><label class="knlan">ಸಮಸ್ಯೆಗಳನ್ನು ವರದಿ ಮಾಡಿ</label><label class="Enlan">Report Problem</label></b></h6>
+                </div>
+                <div class="card-body">
+                    <div id="divPrintBasicDetails" style="margin-left:auto;margin-right:auto;">
+                        <form id="frmAppBasicDetails">
+                            <div class="row form-group row_BasicDetails">
+                                <div class="col-md-5 form-group ">
+                                    <label for="Module"><b><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></b></label>
+                                </div>
+
+                            <div class="col-md-3 div_Moduletype">
+                                <select id="ddlModuletype" name="ddlModuletype" class="ddlModuletype form-control input-small"> </select>
+                                <label class="text-danger col-12 medium err" id="errddlModuletype" style="display:none;"> Please Select Module .</label>
+                            </div>
+                            <div class="col-md-3 div_Moduletype">
+                                @*<label class="text-danger col-12 medium err" id="errddlModuletype" style="display:none;"> Please Select Module .</label>*@
+                            </div>
+                        </div>
+
+                        <div class="row form-group row_BasicDetails">
+                            <div class="col-md-5 form-group  ">
+                                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></b></label>
+                            </div>
+
+                            <div class="col-md-3">
+                                <select id="ddlProblemtype" name="ddlProblemtype" class="ddlProblemtype form-control input-small">
+                                    <option value="">--Select Problem Type--</option>
+                                    <option value="1">Not able to proceed further</option>
+                                    <option value="2">Pending</option>
+                                </select>
+                                <label class="text-danger col-12 medium err" id="errddlProblemtype" style="display:none;">Please Select Problem type.</label>
+
+                            </div>
+                            <div class="col-md-3">
+                                @*<label class="text-danger col-12 medium err" id="errddlProblemtype" style="display:none;">Please Select Problem type.</label>*@
+                            </div>
+                        </div>
+                        <div class="row form-group row_BasicDetails">
+                            <div class="col-md-5 form-group ">
+                                <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆಯ ವಿವರಗಳು</label><label class="Enlan">Details of the problem</label></b></label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <textarea class="form-control" cols="20" data-val="true" data-val-required="Please enter Description" id="txtcomplaintdesc" name="txtcomplaintdesc" rows="3" style="width:500px;height:70px"></textarea>
+                                <label class="text-danger col-12 medium err" id="errddlProblemtype" style="display:none;">Please Fill Details of the problem.</label>
+
+                            </div>
+                            <div class="col-md-3">
+                                @*<label class="text-danger col-12 medium err" id="errddlProblemtype" style="display:none;">Please Fill Details of the problem.</label>*@
+                            </div>
+                        </div>
+                        <div class="row form-group row_BasicDetails">
+                            <div class="col-md-5 form-group ">
+                                <label for="Module"><b><label class="knlan">ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Upload Screenshot</label></b></label>
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <input type="file" name="postedFile" id="postedFile" class="form-control" accept="application/pdf"  onchange="file_validation(this)" />
+                                <label class="text-danger col-12 medium err-postedFile" id="errpostedFile" style="display:none;">Please upload PNG/JPG/JPEG/GIF files only within 5 MB.</label>
+                                <label class="text-danger col-12 medium " id="errddlpostedFile" style="display:none;">Please  Upload Screenshot.</label>
+                            </div>
+                            <div class="col-md-3">
+                                @*<label class="text-danger col-12 medium err-postedFile" id="errpostedFile" style="display:none;">Please Upload pdf file With in 5 MB.</label>
+                                    <label class="text-danger col-12 medium err" id="errddlpostedFile" style="display:none;">Please  Upload Screenshot.</label>*@
+                            </div>
+
+                            </div>
+                            <div class="row form-group row_BasicDetails">
+                                <div class="form-group col-md-5 ">
+                                </div>
+                                <div class="form-group " style=" margin:auto; padding-right:261px">
+                                    <input type="submit" value="Submit" class="btn btn-primary" id="btnupload" onclick=" return savereportedproblem();" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><b><label class="knlan">ವರದಿ ಮಾಡಿದ ಸಮಸ್ಯೆಗಳ ಪಟ್ಟಿ</label><label class="Enlan">List of Reported Problem's</label></b></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="divNominee">
+                        <div class="form-group col-12">
+                            <table id="tblNomineeDetails" class="table table-striped table-bordered" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label><label class="Enlan">Sl.No</label></th>
+                                        <th><label class="knlan">ಟಿಕೆಟ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Ticket No</label></th>
+                                        <th><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></th>
+                                        <th><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></th>
+                                        <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+                                        <th><label class="knlan">ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Submission</label></th>
+                                        <th><label class="knlan">ಪರಿಹರಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Resolve</label></th> @*
+                                            <th>Remarks</th>*@
+                                        <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.TicketingToolReportProblemlist.Count > 0)
+                                    {
+                                        int counter = 1;
+                                        foreach (var item in Model.TicketingToolReportProblemlist)
+                                        {
+                                            <tr data-row-number="@counter">
+                                                <td>@item.rp_id</td>
+                                                <td>@item.rp_ticket_no</td>
+                                                <td>@item.mt_desc</td>
+                                                <td>@item.pr_description</td>
+                                                <td>@item.rp_report_problem_status</td>
+                                                <td>@item.SubmissionDate</td>
+                                                <td>@item.ResolveDate</td>
+
+
+                                            <td>
+                                                @*<a href="javascript:void(0);" class="anchorDetail" data-id="@item.rp_id" class="btn btn-sm btn-primary in-b-s">Details</a>*@
+                                                <a class="anchorDetail" href="javascript:void(0);" data-toggle="modal" data-target="#mdlLoanBA" data-id="@item.rp_id">View Details</a>
+                                                @*<a  class="anchorDetail" data-id="@item.rp_id">Details</a>*@
+                                            </td>
+                                        </tr>
+                                        counter++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlLoanBA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 725px!important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label class="knlan">ವಿವರಗಳು</label><label class="Enlan">Details</label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="mdl_content">
+
+
+                @*<section>
+                        @{
+                            @Html.Action("GetDetailsById", "TicketingTool")
+                        }
+                    </section>*@
+
+
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>*@
+        </div>
+    </div>
+</div>

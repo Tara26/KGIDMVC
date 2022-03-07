@@ -1,0 +1,208 @@
+﻿@model KGID_Models.KGIDNBApplication.VM_DDOVerificationDetails
+@{
+    ViewBag.Title = "View Application Details";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    
+                    <label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ವಿವರಗಳು</label>
+                    <label class="Enlan"><b>Application Details</b></label>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                      
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <table class="table table-striped table-bordered" id="tblEmployeeData" cellspacing="0">
+                        <thead class="t_head">
+                            <tr>
+                                <th><label class="knlan">ಹೆಸರು</label><label class="Enlan">Name</label></th>
+                                <th><label class="knlan">ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Reference Number</label></th>
+                                <th><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ</label><label class="Enlan">Policy Number</label></th>
+                                <th><label class="knlan">ಅಭಿಪ್ರಾಯ</label><label class="Enlan">Comments</label></th>
+                                <th><label class="knlan">ಎನ್ ಬಿ ಬಾಂಡ್</label><label class="Enlan">NB Bond</label></th>
+                                <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+                                <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.EmployeeVerificationDetails != null && Model.EmployeeVerificationDetails.Count > 0)
+                            {
+                                foreach (var item in Model.EmployeeVerificationDetails)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.ApplicationNumber</td>
+                                        <td>@item.PolicyNumber</td>
+                                        <td>@item.Remarks</td>
+                                        <td>
+                                            @if (item.Status == "Approved")
+                                            {
+                                                @*@Html.ActionLink("View NB Bond", "PrintNBBond", "VerifyData", new { PolicyNo = item.ApplicationId }, htmlAttributes: new { @target = "_blank" })*@
+                                                if (item.NBSignBondDocPath == "" || item.NBSignBondDocPath == null)
+                                                {
+                                                    <a class="" href="javascript:;"><p style="color:red">Final Approval Pending</p></a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="ENBOpenDocPath" href="javascript:;" data-path="@item.NBSignBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View NB Bond</a>
+
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>@item.Status</td>
+                                        @if (item.Status == "Send Back to Employee")
+                                        {
+                                            <td>
+                                                <a href="@Url.Action("ApplicationForm", "Employee", new RouteValueDictionary(new { @empId = item.EmployeeCode }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">@*<label class="knlan">ಪ್ರಸ್ತಾವನೆಯನ್ನು ವೀಕ್ಷಿಸಿ </label> class="Enlan"*@<label>View Application</label></a>
+                                                <a onclick="CancelApplication(@item.ApplicationId,@item.EmployeeCode)" class="btn btn-danger btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">@*<label class="knlan">ಪ್ರಸ್ತಾವನೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿ</label>class="Enlan"*@<label>Cancel Application</label></a>
+                                            </td>
+
+                                        }
+                                        else if (item.Status == "Policy Cancellation Request" || item.Status == "Policy Cancelled" || item.Status == "Approved" || item.Status == "Policy cancellation request forwarded" || item.Status == "Policy Generated" || item.ApplicationNumber == "")
+                                        {
+                                            <td></td>
+                                        }
+                                        else if (item.Status != "Approved")
+                                        {
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;" onclick="CancelApplication(@item.ApplicationId,@item.EmployeeCode)">@*<label class="knlan">ಪ್ರಸ್ತಾವನೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿ</label> class="Enlan"*@<label>Cancel Application</label></a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        <label class="knlan">ವೀಕ್ಷಿಸಲು ಸಲ್ಲಿಸಲಾದ ಯಾವುದೇ ಪ್ರಸ್ತಾವನೆಗಳು ಇಲ್ಲ.</label><label class="Enlan">There is no applications submitted to display.</label>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlUpdateComments" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="updateFamilyLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 50% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateFamilyLabel">Policy cancellation</h5>
+                <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" id="hdnEmpID" />
+                    <input type="hidden" id="hdnAppID" />
+                    <div class="form-group col-12">
+                        <label for="txtPolCancelCmnts" class="knlan control-label required">ಅಭಿಪ್ರಾಯ</label>
+                        <label for="txtPolCancelCmnts" class="Enlan control-label required">Comments</label>
+                        <textarea id="txtPolCancelCmnts" class="form-control alphaonly" autocomplete="off" maxlength="1000" style="width:100%;"></textarea>
+                        <label id="errPolCancelCmnts" class="col-form-label-sm text-danger err" hidden>Please mention comments.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnUpdate" value="Update" class="btn btn-primary" onclick="SaveCancelRequest();" />
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".alphaonly").on("input", function () {
+        var regexp = /[^a-z A-Z]/g;
+        if ($(this).val().match(regexp)) {
+            $(this).val($(this).val().replace(regexp, ''));
+        }
+    });
+
+    function CancelApplication(ApplicationId, EmployeeId) {
+        alertify.confirm("Are you sure to cancel the application", function () {
+            $("#hdnEmpID").val(EmployeeId);
+            $("#hdnAppID").val(ApplicationId);
+            $("#txtPolCancelCmnts").val("");
+            $("#mdlUpdateComments").modal("show");
+        }).setHeader("Confirmation");
+    }
+
+    function SaveCancelRequest() {
+        if ($("#txtPolCancelCmnts").val() == "") {
+            $("#errPolCancelCmnts").removeAttr("hidden");
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Employee/NBApplicationCancel',
+            data: JSON.stringify({ 'AppId': $("#hdnAppID").val(), 'EmpId': $("#hdnEmpID").val(), 'Comments': $("#txtPolCancelCmnts").val() }),
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if (data >2) {
+                    //alertify.success("Policy cancellation request sent successfully");
+                    window.location.href = "/kgid-view-app/";
+                }
+                else
+                    alertify.error("Error occured in sending cancellation request");
+            }
+        })
+    }
+    $(function () {
+        $('.ENBOpenDocPath').click(function () {
+            var $this = $(this);
+            var docpath = $this.data('path');
+            var policynumber = $this.data('policynumber');
+            var doctype = $this.data('doctype');
+            $.ajax({
+                url: '/VerifyData/PrintFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var path = result.Result
+                    //const linkSource = `data:application/pdf;base64,${path}`;
+                    //const downloadLink = document.createElement("a");
+                    if (doctype == "Bond") {
+                        const fileName = "Bond_" + policynumber + ".pdf";
+                        //downloadLink.href = linkSource;
+                        //downloadLink.download = fileName;
+                        //downloadLink.click();
+                        // Open New Tab
+                        printPreview(path)
+                        //
+                        delete doctype;
+                    }
+                    else if (doctype == "FS") {
+                        const fileName = "FS_" + policynumber + ".pdf";
+                        //downloadLink.href = linkSource;
+                        //downloadLink.download = fileName;
+                        //downloadLink.click();
+                        // Open New Tab
+                        printPreview(path)
+                        //
+                        delete doctype;
+                    }
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,326 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_MIOwnDamageClaimDetails
+@{
+    ViewBag.Title = "OwnDamageClaimApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="text-align:center">Motor Insurance Own Damage Claim Application</h3><br />
+<!--//OwnDamageClaim Details// -->
+<section>
+    <div class="row">
+        <div class="col-2">
+           <br /><h6>Select Vehicle:</h6>
+        </div>
+        <div class="col-3">
+            @*@Html.DropDownListFor(M => M.MIOwnDamageClaimDetails, new SelectList(Model.MIOwnDamageClaimDetails, "MIApplicationNumber", "MIPolicyNumber"))*@
+            @Html.DropDownListFor(model => model.MIOwnDamageClaimDetails, new SelectList(Model.MIOwnDamageClaimDetails, "MIApplicationNumber", "MIPolicyNumber"), "-- Select Vehicle --", new { @class = "form-control", id = "ddlOwnDamageList"})
+        </div>
+        <div class="col-8">
+        </div>
+    </div>
+</section>
+<hr />
+<div id="claimform" style="display:none">
+    <div class="login-form shadow-lg">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="p-5">
+
+                    <section>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Make of Vehicle :</label>
+                                <input class="form-control" id="txtMIVehicleMakeName" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Model :</label>
+                                <input class="form-control" id="txtMIVehicleModelName" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Manufacturer :</label>
+                                <input class="form-control" id="txtMIVehicleManufactureName" name="Name" type="text" value="" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Cubic Capacity :</label>
+                                <input class="form-control" id="txtMICubicCapacity" name="Name" type="text" value="" readonly />
+                            </div>
+
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">No. of Passengers :</label>
+                                <input class="form-control" id="txtMINoOfPassengers" name="Name" type="text" value="" readonly />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">RTO Location :</label>
+                                <input class="form-control" id="txtMIRegistrationName" name="Name" type="text" value="" readonly />
+
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <section>
+                        <h6>Accident Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Date of Accident :</label>
+                                <input class="form-control" id="txtAccidentDate" placeholder="DD-MM-YYYY" autocomplete="off" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Time of Accident :</label>
+                                <input class="form-control" id="txtAccidentTime" placeholder="HH-MM" autocomplete="off" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Cause of Accident :</label>
+                                <input class="form-control" id="Name" placeholder="Enter Cause of Accident" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Place of Accident :</label>
+                                <input class="form-control" id="Name3" placeholder="Enter Place of Accident" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Dist :</label>
+                                <input class="form-control" id="Name1" placeholder="Enter Dist" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Taluka :</label>
+                                <input class="form-control" id="Name3" placeholder="Enter Taluka" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Remarks :</label>
+                                <input class="form-control" id="Name1" placeholder="Enter Remarks" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class="control-label">Upload Document :</label>
+                                <select class="form-control">
+                                    <option value="" disabled="disabled" selected="selected">Please select document type</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <br />
+                                <input type="file" name="filename" class="form-control" id="filename-input" value="browse" size="18" style="float: left; width: 250px;">
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <section>
+                        <h6>FIR Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">FIR No. :</label>
+                                <input class="form-control" id="Name" placeholder="Enter FIR No" name="Name" type="text" value="" required />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">FIR Date :</label>
+                                <input class="form-control" id="txtFIRDate" placeholder="DD-MM-YYYY" autocomplete="off" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">FIR Police Station :</label>
+                                <input class="form-control" id="Name" placeholder="Enter FIR Police Station Name" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Dist :</label>
+                                <input class="form-control" id="Name1" placeholder="Enter Dist of Police Station" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Taluka :</label>
+                                <input class="form-control" id="Name3" placeholder="Enter Taluka of Police Station" name="Name" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDTypeOfModel" class=" control-label">Upload Document :</label>
+                                <input type="file" name="filename" class="form-control" id="filename-input" value="browse" size="18" style="width: 250px;">
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <section>
+                        <h6>Claim Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Vehicle Port :</label>
+                                <input class="form-control" id="Name" placeholder="Enter Vehicle Port" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Damage Cost :</label>
+                                @*<input class="form-control" id="Name1" name="Name" type="number" value="" min="0" />*@
+                                <input class="form-control" type="number" placeholder="Enter Damage Cost" id="txtDamageCost" name="Damage_Cost" oninput="this.value=this.value.replace(/[^0-9]/g,'.');">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Total Amount :</label>
+                                @*<input class="form-control" id="txtTotalAmount" name="Total_Amount" type="number" value="" min="0" />*@
+                                <input class="form-control" type="number" placeholder="Enter Total Amount" id="txtTotalAmount" name="Total_Amount" oninput="this.value=this.value.replace(/[^0-9]/g,'.');">
+                            </div>
+                        </div>
+                    </section>
+                    <hr />
+                    <section>
+                        <h6>Driver Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Name of Driver :</label>
+                                <input class="form-control" id="Name" placeholder="Enter Driver Name" name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Gender :</label>
+                                @*<input class="form-control" id="Name1" name="Name" type="text" value="" />*@
+                                <select class="form-control">
+                                    <option value="" disabled="disabled" selected="selected">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Age :</label>
+                                @*<input class="form-control" id="txtAge" name="Age" type="number" value="" min="0" />*@
+                                <input class="form-control" type="number" placeholder="Enter Age" id="txtAge" name="Age" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                            </div>
+                        </div>
+                        <h6>Driver Details</h6><br />
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="lblVDRegistrationNo">Driver License No. :</label>
+                                <input class="form-control" id="Name" placeholder="EnterDriver License No." name="Name" type="text" value="" />
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="lblVDMakeOfVehicle" class="control-label">Upload Driver Statement :</label>
+                                <a title="Motor Claim Form &amp; Drivers Statement" href="https://kgid.karnataka.gov.in/storage/pdf-files/Forms/Motor%20Claim%20Form.pdf" target="_blank">Motor Claim Form &amp; Drivers Statement</a>
+                                <input type="file" name="filename" class="form-control" id="filename-input" value="browse" size="18" style="width: 250px;">
+                            </div>
+                        </div>
+                    </section>
+                    @*<input type="submit" class="form-control " value="Submit" />*@
+                    <center><button id="btnSubmit" class="btn btn-success">Submit</button></center>
+
+                    <section style="display:none">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped table-bordered" id="tblApplicationList" cellspacing="0">
+                                    <thead style="background: #308385;color: #fff;">
+                                        <tr>
+                                            @*<th>Policy ID</th>*@
+                                            <th>Vehicle Reg.Number</th>
+                                            <th>Vehicle Details</th>
+                                            <th>Policy Number</th>
+                                            <th>Policy Premium Amount</th>
+                                            <th>Policy From Date</th>
+                                            <th>Policy To Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.MIOwnDamageClaimDetails != null && Model.MIOwnDamageClaimDetails.Count > 0)
+                                        {
+                                            foreach (var item in Model.MIOwnDamageClaimDetails)
+                                            {
+                                                <tr>
+                                                    @*<td>@item.MIPolicyId</td>*@
+                                                    <td>@item.MIVehicleRegistrationNumber</td>
+                                                    <td>@item.MIVehicleManufactureName @item.MIVehicleModelName</td>
+                                                    <td>@item.MIPolicyNumber</td>
+                                                    <td>@item.MIPremium</td>
+                                                    <td>@item.MIPolicyFromDate.Value.ToString("dd MMM yyyy")</td>
+                                                    <td>@item.MIPolicyToDate.Value.ToString("dd MMM yyyy")</td>
+
+                                                    @*@if (item.MIRenewalApplicationNumber == 0)
+                                                        {
+                                                            <td>
+                                                                <a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="Renewal", refNo = item.MIApplicationNumber, category=item.MIUserCategoryId }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Renewal Application</a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="EditRenewal", @refNo = item.MIApplicationNumber, @category=item.MIUserCategoryId,@renewalRefNo=item.MIRenewalApplicationNumber }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Edit Renewal Application</a></td>
+                                                        }*@
+
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//OwnDamageClaim Details END//-->
+<script>
+    $('#ddlOwnDamageList').change(function () {
+        var AppNo = $('select#ddlOwnDamageList option:selected').val();
+        //$("#claimform").show();
+        $.ajax({
+            url: '/MotorInsuranceClaims/OwnDamageClaimApplicationList',
+            async: false,
+            type: 'GET',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                //var filtered = result;
+                //filtered.MIOwnDamageClaimDetails = filtered.MIOwnDamageClaimDetails.filter(function (a) {
+                //    return a.MIApplicationNumber === AppNo;
+                //});
+                //console.log(filtered);
+                var filtered1 = result;
+                var newArray = filtered1.MIOwnDamageClaimDetails.filter(function (el) {
+                    return el.MIApplicationNumber ===parseInt(AppNo); // Changed this so a home would match
+                });
+                console.log(newArray);
+                $('#txtMIVehicleManufactureName').val(newArray[0].MIVehicleManufactureName)
+                $('#txtMIVehicleMakeName').val(newArray[0].MIVehicleMakeName)
+                $('#txtMIVehicleModelName').val(newArray[0].MIVehicleModelName)
+                $('#txtMIRegistrationName').val(newArray[0].MIRegistrationName)
+                $('#txtMICubicCapacity').val(newArray[0].MICubicCapacity)
+                $('#txtMINoOfPassengers').val(newArray[0].MINoOfPassengers)
+                $("#claimform").show();
+            }, error: function (result) {
+                alertify.error("Could not load details");
+            }
+        });
+    });
+
+    //OwnDamageListOnChange
+    var today = new Date();
+    $('#txtAccidentDate').datetimepicker({
+        timepicker: true,
+        format: 'd-m-Y H:i',
+        autoclose: true,
+        maxDate: 0,
+        yearStart: today.getFullYear() - 80,
+        yearEnd: today.getFullYear(),
+        scrollMonth: false,
+        scrollInput: false
+    });
+    $("#txtAccidentDate").on("keydown keypress keyup", false);
+    $('#txtFIRDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        autoclose: true,
+        maxDate: 0,
+        yearStart: today.getFullYear() - 80,
+        yearEnd: today.getFullYear(),
+        scrollMonth: false,
+        scrollInput: false
+    });
+    $("#txtFIRDate").on("keydown keypress keyup", false);
+    $('#txtAccidentTime').datetimepicker({
+        dateFormat: '',
+        datepicker: false,
+        //timeFormat: 'hh:mm tt',
+        //timeOnly: true  
+        format: 'HH:mm' 
+    });
+    $("#txtAccidentTime").on("keydown keypress keyup", false);
+</script>

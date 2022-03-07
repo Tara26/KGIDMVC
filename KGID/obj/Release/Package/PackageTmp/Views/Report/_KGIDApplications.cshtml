@@ -1,0 +1,51 @@
+﻿@model KGID_Models.KGID_Report.VM_KGIDApplicationReports
+
+<div class="form-group col-12">
+    <hr />
+</div>
+<div class="form-group">
+    <table id="tblApplications" class="table table-striped table-bordered">
+        <thead class="text-center" style="background: #308385;color: #fff;line-height:1.5;">
+            <tr>
+                <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label><label class="Enlan">Sl. No.</label></th>
+                <th><label class="knlan">ಹೆಸರು</label><label class="Enlan">Name</label></th>
+                <th><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ</label><label class="Enlan">Application Reference Number</label></th>
+                <th><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ದಿನಾಂಕ</label><label class="Enlan">Application Date</label></th>
+                <th><label class="knlan">ಜಿಲ್ಲೆ</label><label class="Enlan">District</label></th>
+                <th><label class="knlan">ಇಲಾಖೆ</label><label class="Enlan">Department</label></th>
+                <th><label class="knlan">ಹೊಸ ವಿಮಾದಾರ / ವಿಮೆ ಹೊಂದಿದ ವಿಮಾದಾರ</label><label class="Enlan">New / Insured</label></th>
+                <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+            </tr>
+        </thead>
+        <tbody class="text-center" style="line-height:1.5;">
+            @if (Model != null && Model.ApplicationReports.Count > 0)
+            {
+                foreach (var reportData in Model.ApplicationReports)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@reportData.Name</td>
+                        <td>@reportData.ApplicationRefNumber</td>
+                        <td>@reportData.ApplicationDate.ToString("dd-MM-yyyy")</td>
+                        <td>@reportData.District</td>
+                        <td>@reportData.Department</td>
+                        <td>@reportData.Priority</td>
+                        <td>@reportData.Status</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var t =$("#tblApplications").DataTable({
+        });
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+</script>

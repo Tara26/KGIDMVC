@@ -1,0 +1,140 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceProposerDetails
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+<div id="divMIProposerDetails" data-submit-url="@Url.Action("InsertMIAppnReferenceno", "MotorInsurance", new { area = "" })">
+    @*@Html.HiddenFor(model => model.mipd_kgid_application_number, new { id = "hdnMIReferanceNo" })*@
+    @Html.HiddenFor(model => model.mipd_kgid_application_number, new { id = "hdnMIReferanceNo" })
+    @Html.HiddenFor(m => m.QRCode, new { id = "hdnQRCode" })
+
+    <div class="row" id="divShowQRCode" style="display:none;">
+        <div class="form-group col-6">
+            Reference Number : <b><span id="spnBReferanceNo"></span></b>
+        </div>
+        <div class="form-group col-6" id="refNo" style="display:none;">
+            @if (@Html.DisplayFor(model => model.QRCode) != null)
+            {
+                <img src="@Html.DisplayFor(model => model.QRCode)" id="imgBQRCode" alt="" style="height:150px;width:150px" />
+            }
+            else
+            {
+                <img src="" id="imgBQRCode" alt="" style="height:150px;width:150px" />
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblPProposerName" class="control-label field-required">Proposer's Full Name :</label>
+            @Html.TextBoxFor(model => model.mipd_proposer_fullname, new { @class = "form-control ", @id = "txtPProposerFullName", @readonly = "readonly" })
+        </div>
+        <div class="form-group col-6">
+            <label for="lblPEmail" class="control-label field-required">Email :</label>
+            @Html.TextBoxFor(model => model.mipd_email, new { @class = "form-control", @id = "txtPEmail", @readonly = "readonly" })
+
+
+        </div>
+    </div>
+ 
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblPAddress" class="control-label field-required">Address :</label>
+            @Html.TextBoxFor(model => model.mipd_address, new { @class = "form-control", @id = "txtPAddress", @maxlength = "200" })
+            @Html.ValidationMessageFor(m => m.mipd_address, "Please enter address.", new { @class = "text-danger col-form-label-sm err", id = "errVDAddressReq", hidden = "hidden" })
+        </div>
+     
+        <div class="form-group col-6">
+            <label for="lblPFaxNo" class="control-label field-required">Fax No :</label>
+            @Html.TextBoxFor(model => model.mipd_fax_no, new { @class = "form-control numbersonly", @id = "txtPFaxNo", @maxlength = "10" })
+            @Html.ValidationMessageFor(m => m.mipd_fax_no, "Please enter valid fax number.", new { @class = "text-danger col-form-label-sm err", id = "errVDFaxReq", hidden = "hidden" })
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblPPinCode" class="control-label field-required">Pincode :</label>
+            @Html.TextBoxFor(model => model.mipd_pincode, new { @class = "form-control numbersonly", @maxlength = "6", @id = "txtPPinCode" })
+            @Html.ValidationMessageFor(m => m.mipd_pincode, "Please enter valid pincode.", new { @class = "text-danger col-form-label-sm err", id = "errVDPinCodeReq", hidden = "hidden" })
+
+        </div>
+        <div class="form-group col-6">
+            <label for="lblPOccupation" class="control-label field-required">Occupation/Business :</label>
+            @Html.TextBoxFor(model => model.mipd_occupation, new { @class = "form-control", @id = "txtPOccupation", @readonly = "readonly" })
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblPTelephoneNo" class="control-label field-required">Telephone No :</label>
+            @Html.TextBoxFor(model => model.mipd_telephone_no, new { @class = "form-control", @id = "txtPTelephoneNo", @readonly = "readonly" })
+
+
+        </div>
+        <div class="form-group col-6">
+            <label for="tblTypeOfCover" class="control-label field-required">Type of Cover :</label>
+            @Html.TextBoxFor(model => model.mipd_type_of_cover, new { @class = "form-control", @id = "txtPTelephoneNo", @readonly = "readonly" })
+
+        </div>
+    </div>
+    @if (Model.mipd_pagetype == "Renewal" || Model.mipd_pagetype=="EditRenewal")
+    {
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="lblPTelephoneNo" class="control-label field-required">Previous Reference No :</label>
+            @Html.TextBoxFor(model => model.mipd_old_application_Ref_number, new { @class = "form-control", @id = "txtPrevRefNo", @readonly = "readonly" })
+
+
+        </div>
+        <div class="form-group col-6">
+            <label for="tblTypeOfCover" class="control-label field-required"></label>
+           
+
+        </div>
+    </div>
+    }
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        if ($("#hdnPagetype").val() == "Renewal") {
+            $("#divMIProposerDetails").find("input, button, submit, textarea, select").attr('readonly', true);
+        }
+       
+
+        var RefNumber = $("#hdnMIReferanceNo").val();
+        if (RefNumber != null) {
+            $("#spnMIReferanceNo").text(RefNumber);
+        }
+        
+        EnableDisableNexrButton();
+
+        if ($('#txtPAddress').val() != "") {
+            $('#txtPAddress').prop('readonly', true);
+        }
+        else {
+            $('#txtPAddress').prop('readonly', false);
+        }
+
+        if ( $('#txtPFaxNo').val() != "0") {
+            $('#txtPFaxNo').prop('readonly', true);
+
+        }
+        else {
+           
+            $('#txtPFaxNo').prop('readonly', false);
+        }
+
+        if ($('#txtPPinCode').val() != 0) {
+            $('#txtPPinCode').prop('readonly', true);
+        }
+        else {
+            $('#txtPPinCode').prop('readonly', false);
+        }
+
+    });
+
+   
+</script>
+
+

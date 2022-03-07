@@ -1,0 +1,31 @@
+{
+
+  "ValidationData": [
+    {
+      "Column": "em_dateofjoining",
+      "Validation": "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$",
+      "errorMsg": "Invalid em_dateofjoining."
+    },
+    {
+      "Column": "em_creation_datetime",
+      "Validation": "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$",
+      "errorMsg": "Invalid em_creation_datetime."
+    },
+    {
+      "Column": "em_updation_datetime",
+      "Validation": "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$",
+      "errorMsg": "Invalid em_updation_datetime."
+    },
+    {
+      "Column": "em_date_of_birth",
+      "Validation": "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$",
+      "errorMsg": "Invalid em_date_of_birth."
+    },
+    {
+      "Column": "em_date_of_appointment",
+      "Validation": "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$",
+      "errorMsg": "Invalid em_date_of_appointment."
+    }
+
+  ]
+}

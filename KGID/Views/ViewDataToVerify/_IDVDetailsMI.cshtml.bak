@@ -1,0 +1,97 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceIDVDetails
+
+<div class="row" id="divIDV">
+    <form id="FormIDVDetails" enctype="multipart/form-data" class="col-12">
+        @Html.Hidden("miidv_emp_id", Session["UId"], new { id = "hdnmivdEmpID" })
+        @*@Html.Hidden("miidv_application_id", new { id = "hdnMIVDReferanceNo" })*@
+        @Html.HiddenFor(m => m.miidv_application_id, new { @id = "hdnMIIDVReferanceNo" })
+        <!--//IDV Details// -->
+        <div class="idv-details">
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b> Insured's Declared value of Vehicle Rs.</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_insured_declared_value_amount)
+                  
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b> Non-electrical accessories fitted to the vehicle Rs.</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_non_electrical_accessories_amount)
+                 
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>  Electrical and electronic accessories fitted to the vehicle Rs.</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_electrical_accessories_amount)
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b> Side car (Two wheeler Trailer(Pvt cars)) Rs.</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_side_car_trailer_amount)
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>  Value of CNG / LPG KIT Rs.</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_value_of_cng_lpg_amount)
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>   Total value</b>
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miidv_total_amount)
+                   
+                </div>
+            </div>
+        </div>
+
+        <!--//IDV Details END//-->
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#hdnMIIDVReferanceNo').val() = $('#spnMIReferanceNo').text();
+    });
+    function sum() {
+        var txtidvovamntValue = document.getElementById('txtidvovamnt').value || 0;
+        var txtnoneleaccamntValue = document.getElementById('txtnoneleaccamnt').value || 0;
+        var txteleaccamntValue = document.getElementById('txteleaccamnt').value || 0;
+        var txtsidecaramntValue = document.getElementById('txtsidecaramnt').value || 0;
+        var txtcngamntrValue = document.getElementById('txtcngamnt').value || 0;
+        var result = parseFloat(txtidvovamntValue) + parseFloat(txtnoneleaccamntValue) + parseFloat(txteleaccamntValue) + parseFloat(txtsidecaramntValue) + parseFloat(txtcngamntrValue);
+        if (!isNaN(result)) {
+            var res = parseFloat(result).toFixed(2)
+            document.getElementById('txttotamnt').value = res;
+        }
+}
+</script>

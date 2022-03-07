@@ -1,0 +1,42 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_ODClaimApprovedApplicationDetails
+@{
+    ViewBag.Title = "ODClaimApprovedAppDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ODClaimApprovedAppDetails</h2>
+
+<section>
+    <table class="table table-striped table-bordered" id="tblCWApprovedData" cellspacing="0">
+        <thead style="background: #308385;color: #fff;">
+            <tr>
+                @*<th>Application Referance Number</th>*@
+                <th>Application No.</th>
+                <th>Vehicle No.</th>
+                <th>Policy No.</th>
+                <th>Approved Damage Cost</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ApprovedAppDetails != null && Model.ApprovedAppDetails.Count > 0)
+            {
+                foreach (var item in Model.ApprovedAppDetails)
+                {
+                    <tr>
+                        @*<td>@item.ApplicationRefNo</td>*@
+                        <td>@item.ApplicationRefNo</td>
+                        <td>@item.VehicleNo</td>
+                        <td>@item.MIPolicyNo</td>
+                        <td>@item.ApprovedDamageCost</td>
+                        <td>@item.ApplicationStatus</td>
+                        <td><a href="@Url.Action("ODClaimWorkOrderView", "MotorInsuranceClaims", new { area = "", empId = item.EmpolyeeId, applicationId = item.ApplicationId, refNo=item.ApplicationRefNo,PolicyNo=item.MIPolicyNo,category=item.CategoryId })" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">ViewWorkOrder</a></td>
+                        <td><a href="/mi_odc_aprvd_app/@item.EmpolyeeId/@item.ApplicationId/@item.ApplicationRefNo/@item.MIPolicyNo/@item.CategoryId">View Work Order</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</section>

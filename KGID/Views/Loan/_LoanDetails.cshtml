@@ -1,0 +1,280 @@
+﻿@model KGID_Models.KGID_Loan.VM_LoanDetails
+
+<style>
+    .control-label {
+        font-size: 0.95rem !important;
+    }
+
+    .required::after {
+        content: " *";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("SaveLoanDetails", "Loan", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmSaveLoanDetails" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.Id, new { id = "hdnLoanId" })
+    @Html.HiddenFor(m => m.PolicyNumber, new { id = "hdnLoanPolicyNumber" })
+    <div class="form-group">
+        <div class="row col-12">
+            <div class="col-6">
+                <div class="row col-12">
+                    <label class="control-label pt-2 col-4">Policy number:</label>
+                    @Html.LabelFor(m => m.PolicyNumber, Model.PolicyNumber.ToString(), new { @class = "form-control col-8 border-0 font-weight-bold", style = "background-color: #ffffff;" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row col-12 ml-1 pl-2">
+                    <label class="control-label pt-2 col-4">District:</label>
+                    @if (ViewBag.SaveType.Equals("Edit") && !string.IsNullOrEmpty(Model.DistrictName))
+                    {
+                        @Html.LabelFor(m => m.DistrictName, Model.DistrictName, new { @class = "form-control col-8 border-0 font-weight-bold", style = "background-color: #ffffff;" })
+                        @Html.HiddenFor(m => m.DistrictId)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(m => m.DistrictId, new SelectList(Model.Districts, "Value", "Text"), "-- Select District --", new { @class = "form-control col-8", @id = "dist_name" })
+                        @Html.ValidationMessageFor(m => m.DistrictId, "", new { @class = "text-danger" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label class="control-label pt-2 col-12 text-center"></label>
+        </div>
+        <div class="col-6">
+            <label class="control-label pt-2 col-12 text-center font-weight-bold"><legend>Branch Adjustment Details</legend></label>
+        </div>
+    </div>
+
+    <div class="row pl-3 pr-3">
+        <div class="pb-3 col-6 shadow-sm" style="background: #1a427361;">
+            <div class="form-group pt-5 row col-12">
+                <label class="control-label pt-2 col-5 required">Loan Sanctioned Date</label>
+                <div class="col-7 pl-0 pr-0">
+                    @Html.TextBoxFor(model => model.SanctionedDate, new { @class = "form-control", @id = "txtSDate", autofocus = true, autocomplete = "off", @maxlength = "10", placeholder = "dd-MM-yyyy" })
+                    @Html.ValidationMessageFor(model => model.SanctionedDate, "", new { id = "txtVSDate", @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row col-12">
+                <label class="control-label pt-2 col-5 required">Sanctioned Gross Amount</label>
+                <div class="col-7 pl-0 pr-0">
+                    @Html.TextBoxFor(model => model.GrossLoanAmount, new { @class = "form-control csClaculate pr-0", @id = "txtGLAmount", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.GrossLoanAmount, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row col-12">
+                <label class="control-label pt-2 col-5 required">Branch Adjustment</label>
+                @Html.Label("BranchAdjustment", Model.BranchAdjustment.ToString(), new { @class = "form-control col-7", @id = "txtLDeduction", style = "background-color: #b6b7b9;" })
+                @Html.HiddenFor(model => model.BranchAdjustment, new { id = "hdnBranchAdjustment" })
+                @Html.ValidationMessageFor(model => model.BranchAdjustment, "", new { @class = "text-danger pt-2", id = "txtVLDeduction" })
+            </div>
+            <div class="form-group row col-12">
+                <label class="control-label pt-2 col-5 required">Net Amount</label>
+                @Html.Label("NetAmount", Model.NetAmount.ToString(), new { @class = "form-control col-7", @id = "txtNetAmount", style = "background-color: #b6b7b9;" })
+                @Html.HiddenFor(model => model.NetAmount, new { id = "hdnNetAmount" })
+                @Html.ValidationMessageFor(model => model.NetAmount, "", new { @class = "text-danger pt-2" })
+            </div>
+            <div class="form-group row col-12">
+                <label class="control-label pt-2 col-5 required">Total Installments</label>
+                @Html.TextBoxFor(model => model.Period, new { @class = "form-control col-7 csClaculate", @id = "txtLoanPeriod", autocomplete = "off", @maxlength = "3" })
+                @Html.ValidationMessageFor(model => model.Period, "", new { @class = "text-danger pt-2" })
+            </div>
+            <div class="form-group row col-12">
+                <label class="control-label pt-2 col-5 required">Installment Amount</label>
+                @Html.Label("InstalmentAmount", Model.InstalmentAmount.ToString(), new { @class = "form-control col-7", @id = "txtInstallmentAmount", style = "background-color: #b6b7b9;" })
+                @Html.HiddenFor(model => model.InstalmentAmount, new { id = "hdnInstalmentAmount" })
+                @Html.ValidationMessageFor(model => model.InstalmentAmount, "", new { @class = "text-danger pt-2" })
+            </div>
+        </div>
+        <div class="col-6" style="background: #71717524;">
+            <div class="form-group pt-5 row col-12">
+                <label class="control-label pt-2 col-4 required">Premium</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.Premium, new { @class = "form-control csClaculate", @id = "txtLPremium", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.Premium, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row pt-2 col-12">
+                <label class="control-label pt-2 col-4 required">Premium Interest</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.PremiumInterest, new { @class = "form-control csClaculate", @id = "txtLPIntrest", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.PremiumInterest, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row pt-2 col-12">
+                <label class="control-label pt-2 col-4 required">Loan</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control csClaculate", @id = "txtLoan", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row pt-2 col-12">
+                <label class="control-label pt-2 col-4 required">Loan Interest</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.Interest, new { @class = "form-control csClaculate", @id = "txtLoanInterest", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.Interest, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+            <div class="form-group row pt-2 col-12">
+                <label class="control-label pt-2 col-4 required">Others</label>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.Others, new { @class = "form-control csClaculate", @id = "txtOthers", min = 0, autocomplete = "off", @maxlength = "10" })
+                    @Html.ValidationMessageFor(model => model.Others, "", new { @class = "text-danger pt-2" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+        $('#txtSDate').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            closeOnDateSelect: true
+        });
+
+        $("#txtSDate").focus();
+    });
+
+    $(".csClaculate").on("change", function () {
+        var LPrem = $("#txtLPremium").val(); var LPInt = $("#txtLPIntrest").val(); var Lon = $("#txtLoan").val();
+        var LoanInt = $("#txtLoanInterest").val(); var LoanOth = $("#txtOthers").val();
+        if (LPrem == "") {
+            LPrem = 0;
+        } if (LPInt == "") {
+            LPInt = 0;
+        } if (Lon == "") {
+            Lon = 0;
+        } if (LoanInt == "") {
+            LoanInt = 0;
+        } if (LoanOth == "") {
+            LoanOth = 0;
+        }
+        $("#txtLDeduction").text((parseFloat(LPrem) + parseFloat(LPInt) + parseFloat(Lon) + parseFloat(LoanInt) + parseFloat(LoanOth)).toFixed(2));
+        $("#hdnBranchAdjustment").val((parseFloat(LPrem) + parseFloat(LPInt) + parseFloat(Lon) + parseFloat(LoanInt) + parseFloat(LoanOth)).toFixed(2));
+        var GRAmt = $("#txtGLAmount").val();
+        var LDAmt = $("#hdnBranchAdjustment").val();
+        if (GRAmt == "") {
+            GRAmt = 0;
+        }
+
+        $("#txtNetAmount").text((parseFloat(GRAmt) - parseFloat(LDAmt)).toFixed(2));
+        $("#hdnNetAmount").val((parseFloat(GRAmt) - parseFloat(LDAmt)).toFixed(2));
+        var totalInstallments = $("#txtLoanPeriod").val();
+        var installmentAmount = (GRAmt / totalInstallments).toFixed(2);
+
+        $("#txtInstallmentAmount").text(installmentAmount);
+        $("#hdnInstalmentAmount").val(installmentAmount);
+    });
+
+    $('input').keypress(function (e) {
+        if (e.which == 13) {
+            alertify.confirm("Are you sure you want to save the changes?", function () {
+                $('#btnSave').trigger("click");
+                e.preventDefault();
+            }).setHeader("Confirm Changes");
+        }
+    });
+
+    function ClearField(isPolicyClear) {
+        $("#txtHRMSName").val("");
+        $("#txtEmpNumber").val("");
+        $("#txtFirstPolicyNumber").val("");
+        $("#txtInsuredName").val("");
+        $("#txtGLAmount").val("");
+        $("#txtLPremium").val("");
+        $("#txtSDate").val("");
+        $("#txtLPIntrest").val("");
+        $("#txtLDeduction").text("0");
+        $("#hdnBranchAdjustment").val("0");
+        $("#txtLoan").val("");
+        $("#txtNetAmount").text("0");
+        $("#hdnNetAmount").val("0");
+        $("#txtLoanInterest").val("");
+        if ($("#txtLoanPeriod").val() !== 40) {
+            $("#txtLoanPeriod").val("40");
+        }
+        if (isPolicyClear) {
+            $("#txtPolicyNumber").val("");
+        }
+        $("#txtOthers").val("");
+    }
+
+    function DateValid() {
+        if ($("#txtHRMSName").val() == "") {
+            $('#txtVPolicyNumber').text('Please enter a valid policy number!');
+            return false;
+        }
+
+        var GRAmt = $("#txtGLAmount").val();
+        var LDAmt = $("#hdnBranchAdjustment").val();
+        if (GRAmt == "") {
+            GRAmt = 0;
+        }
+        if (parseFloat(GRAmt) < parseFloat(LDAmt)) {
+            $('#txtVLDeduction').text('Branch Adjustment should not be greater than Gross Loan Amount!');
+            return false;
+        }
+
+        var dateString = document.getElementById('txtSDate').value;
+        if (dateString == "") {
+            $('#txtVSDate').text('Please Enter Sanctioned Date');
+            return false;
+        }
+        var dat = dateString.split("-");
+        var d = dat[1] + "-" + dat[0] + "-" + dat[2];
+        var myDate = new Date(d);
+        if (myDate == "Invalid Date") {
+            $('#txtVSDate').text('Please enter valid date format(dd-mm-yyyy)!');
+            return false;
+        }
+        var today = new Date();
+        if (myDate > today) {
+            $('#txtVSDate').text('You cannot enter a future date!');
+            return false;
+        }
+
+        return true;
+    }
+
+    function ValidateAndSubmit() {
+        if (DateValid() && $("#frmSaveLoanDetails").valid()) {
+            var formData = new FormData($("#frmSaveLoanDetails").get(0));
+            $.ajax({
+                url: '/Loan/SaveLoanDetails',
+                data: formData,
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.IsSuccess) {
+                        alertify.success(response.Message);
+                        $("#mdLoanDetail").modal("hide");
+                        GetSubsequentLoanDetails();
+                    }
+                    else {
+                        alertify.error(response.Message);
+                    }
+                },
+                error: function (response) {
+                    alertify.error(response.Message);
+                }
+            });
+        }
+    }
+</script>

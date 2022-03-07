@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "Upload Employee Details";
+}
+<style type="text/css">
+    #tblUploadedEmployeeDetails_wrapper {
+        width: 100% !important;
+    }
+</style>
+<script src="~/Scripts/moment.js"></script>
+
+@*@using (Html.BeginForm("UploadExcelDataNew", "Upload", FormMethod.Post, new { @id = "frmUpload", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Upload New Employee Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row col-md-6">
+                            <div class="form-group col-md-6">
+                                <label for="postedFile">Select File To Upload</label>
+                                <input id="frmExcelUpload" type="file" name="postedFile" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <span></span>
+                                <a id="logdownload" href="" target="_blank" style="display:none;"></a>
+                                <input type="button" id="btnupload" value="Upload" class="btn btn-primary" style="margin-top: 20%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@
+@using (Html.BeginForm("UploadExcelDataNew", "Upload", FormMethod.Post, new { @id = "frmUploadExcelData", enctype = "multipart/form-data" }))
+{
+    @*<form id="frmUploadExcelData" enctype="multipart/form-data">*@
+    @Html.AntiForgeryToken();
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4" style="font-size: 14px;">
+                        <div class="row">
+                            <div class="form-group col-9" style="font-size: 14px;">
+                                <label>Master Data Sheet To Upload <b>"New Employee Details"</b></label><br />
+                                <a href="~/uploads/DDO UPLOAD FILE/DDO FILE UPLOAD.xlsx" id="a_ddoupload" target="_blank" style="text-decoration:underline;color: #0056b3;">Click Here to Download</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-4" style="font-size: 14px;">
+                        <div class="row">
+                            <div class="form-group col-9" style="font-size: 14px;">
+                                <label>Master Data Sheet To Upload <b>"Sample Employee Details Data"</b></label><br />
+                                <a href="~/uploads/DDO UPLOAD FILE/SAMPLE DDO FILE UPLOAD.xlsx" id="a_ddoupload" target="_blank" style="text-decoration: underline;color: #0056b3;">Click Here to Download</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group col-3">
+            <div class="row">
+                <div class="form-group col-12" style="font-size:14px;">
+                    DDO Code :<b>@ViewBag.DDOCode</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12" style="font-size:14px;">
+                    DEPT Code : <b>@ViewBag.DEPTCode</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12" style="font-size:14px;">
+                    Place Of Posting : <b>@ViewBag.POP</b>
+                </div>
+            </div>
+        </div>*@
+                    <div class="form-group col-4">
+                        <div class="row">
+                            <div class="form-group col-9" style="font-size: 14px;">
+                                <label><b>Designation Master Data Sheet</b></label><br />
+                                <a href="~/uploads/DDO UPLOAD FILE/Designation Master.csv" id="a_ddoupload" target="_blank" style="text-decoration: underline;color: #0056b3;">Click Here to Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    
+                    <label class="knlan control-label">ಮನವಿದಾರರ ವಿವರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label>
+                    <label class="Enlan control-label">Upload Employee Data</label>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="forms-sample">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="knlan control-label" for="postedFile">ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲು ಕಡತವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</label>
+                            <label class="Enlan control-label" for="postedFile">Select File To Upload</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                            <label class="err text-danger col-12 pt-2" hidden id="lblUploadErr">Please select file to upload.</label>
+                        </div>
+                        <div class="form-group col-md-1" style="font-size: 20px;">
+                            OR
+                        </div>
+                        <div class="form-group col-md-5" style="font-size: 20px;">
+                            <a class="btn btn-info" href="@Url.Action("AddEmployeeDetails", "Employee", new { area = "" })"><label class="knlan control-label">ಹೊಸ ಮನವಿದಾರರನ್ನು ಸೇರಿಸಿ</label> <label class="Enlan control-label">Add New Employee</label></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="button" value="Upload" class="col-sm-12 btn btn-primary" id="btnupload" title="Bulk Upload Option is to register more/multiple Employees" />
+                        @*<button id="btnupload" class="btn btn-primary">Upload</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@*</form>*@
+@using (Html.BeginForm("DownloadXLS", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    if (Session["dtError"] != null)
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header"><h4 class="card-title">Download Error List</h4></div>
+                <div class="card-body">
+                    <div class="forms-sample">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="Import"></label>
+                                <input type="submit" value="Download Error File" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (TempData["Message"] != null && Session["dtDuplicate"] == null)
+    {
+        if (TempData["Message"].ToString() == "Succesfully Uploaded")
+        {
+            <input type="hidden" value="Employee data uploaded successfully" id="hdnUploadMsg" />
+        }
+        else
+        {
+            <input type="hidden" value="Error occured while uploading data" id="hdnUploadMsg" />
+        }
+    }
+}
+@using (Html.BeginForm("DownloadDuplicateXLS", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (Session["dtDuplicate"] != null)
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header"><h4 class="card-title">Download Duplicate List</h4></div>
+                <div class="card-body">
+                    <div class="forms-sample">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="Import"></label>
+                                <input type="submit" value="Download Duplicate File" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">                    
+                    <label class="knlan control-label">ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾದ ಮನವಿದಾರರ ವಿವರಗಳು</label>
+                    <label class="Enlan control-label">Uploaded Employee Details</label>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <table id="tblUploadedEmployeeDetails" class="table table-striped " cellspacing="0" style="width: 100%;"
+                           data-url="@Url.Action("GetEmployeeData", "Upload", new { area = "" })"
+                           data-edit-url="@Url.Action("EditUploadEmployeeDetails", "Employee", new { area = "" })"
+                           data-delete-url="@Url.Action("DeleteUploadEmployeeDetails", "Upload", new { area = "" })">
+                        <thead>
+                            <tr>
+                                <th><label class="knlan">ದಿನಾಂಕ</label><label class="Enlan">Date</label></th>
+                                <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label><label class="Enlan">SL. NO.</label></th>
+                                <th><label class="knlan">ಮನವಿದಾರರ ಹೆಸರು</label><label class="Enlan">Employee Name</label></th>
+                                <th><label class="knlan">ಜನ್ಮ ದಿನಾಂಕ</label><label class="Enlan">Date of Birth</label></th>
+                                <th><label class="knlan">ಲಿಂಗ</label><label class="Enlan">Gender</label></th>
+                                <th><label class="knlan">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Mobile Number</label></th>
+                                <th><label class="knlan">ಇಮೇಲ್</label><label class="Enlan">Email</label></th>
+                                <th><label class="knlan">ತಂದೆಯ ಹೆಸರು</label><label class="Enlan">Father Name</label></th>
+                                <th><label class="knlan">ಇಲಾಖೆಯ ಹೆಸರು</label><label class="Enlan">Department Name</label></th>
+                                <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myUploadModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Excel Data Upload</h4>
+                <button type="button" id="btnmodalUploadClose" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h6 id="hUploadResult"></h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnUploadClose" class="" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@{Html.RenderPartial("_ModalPopup");}
+
+
+<script src="~/Scripts/DDOUpload/DDOUpload.js"></script>

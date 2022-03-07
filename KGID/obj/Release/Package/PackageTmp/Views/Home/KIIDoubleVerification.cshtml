@@ -1,0 +1,113 @@
+﻿@model KGID_Models.KGID_Master.DoubleVerificationDataResponseKII
+@{
+    ViewBag.Title = "KIIDoubleVerification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>KII Double Verification Result</h2>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Challa nRefNo:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.deptRefNum, new { @id = "txtchnrefno", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Challan Amount:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.paidAmount, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Bank Name:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.bankName, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+                Bank Transaction No:
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => Model.BankTransactionNo, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>*@
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Payment Mode:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.pymntMode, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Status Code:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.pymntstatus, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Status:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.status, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            Transaction DateTime:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => Model.currentTimeStamp, new { @id = "txtchnamt", @readonly = "readonly", required = "required", @class = "form-control" })
+            @*<input type="text" class="form-control" required />*@
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>

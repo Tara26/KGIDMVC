@@ -1,0 +1,273 @@
+﻿@model KGID_Models.NBApplication.VM_MedicalLeaveDetails
+
+@Html.Hidden("emld_application_id", Session["UId"], new { id = "hdnPReferanceNo" })
+@Html.Hidden("hdnDOJ", Model.JoiningDate, new { id = "hdnDOJ" })
+
+<div id="divMedLeaveDetails">
+    <div class="form-group">
+        <input type="hidden" value="" id="hdnRowNumber" />
+        <div class="row col-12">
+            <div class="row col-6">
+                <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ರಜೆ ಪ್ರಾರಂಭದ ದಿನಾಂಕ:</label>
+                <label class="Enlan control-label col-4 pt-2">Medical Leave Start Date:</label>
+                <div class="col-8">
+                    @Html.TextBox("FromDate", "", new { id = "txtMedFromDate", @class = "form-control date-picker", placeholder = "DD-MM-YYYY", autocomplete = "off" })
+                </div><label id="errFromDate" class="text-danger mederr" hidden></label>
+            </div>
+            <div class="row col-6">
+                <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ರಜೆ ಅಂತಿಮ ದಿನಾಂಕ:</label>
+                <label class="Enlan control-label col-4 pt-2">Medical Leave End Date:</label>
+                <div class="col-8">
+                    @Html.TextBox("ToDate", "", new { id = "txtMedToDate", @class = "form-control date-picker", placeholder = "DD-MM-YYYY", autocomplete = "off" })
+                </div>
+                <label id="errToDate" class="text-danger mederr" hidden></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row col-12">
+            <div class="row col-6">
+                <label class="knlan control-label col-4 pt-2">ಉಪಯೋಗಿಸಿಕೊಂಡಿರುವ ವೈದ್ಯಕೀಯ ರಜೆಗಳು:</label>
+                <label class="Enlan control-label col-4 pt-2">Number Of Leaves Availed:</label>
+                <div class="col-8">
+                    @Html.TextBox("TotalLeaves", "", new { id = "txtMedTotalLeaves", @class = "form-control", @readonly = true })
+                </div>
+            </div>
+            <div class="row col-6">
+                <label class="knlan control-label col-4 pt-2">ಷರಾ:</label>
+                <label class="Enlan control-label col-4 pt-2">Remarks:</label>
+                <div class="col-8">
+                    @Html.TextBox("MedLeaveRemarks", "", new { id = "txtMedRemarks", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row col-12">
+            <div class="row col-6">
+                <label class="knlan control-label col-4 pt-2">ಪೂರಕ ದಾಖಲೆಗಳು:</label>
+                <label class="Enlan control-label col-4 pt-2">Supporting Document:</label>
+                @Html.TextBox("SupportingDocument", "", new { id = "flMedSupportingDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errSuppDoc')" })
+                <label id="errSuppDoc" class="text-danger mederr" hidden></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row col-12">
+            <div class="row col-6">
+                <label class="knlan control-label col-4">ವೈದ್ಯಕೀಯ ಮರುಪಾವತಿ ಮಾಡಲಾಗಿದೆಯೇ?</label>
+                <label class="Enlan control-label col-4">Is Medical Reimbursed?</label>
+                <label class="col-2">
+                    @Html.RadioButton("rbtnMedReimburse", true, new { @id = "rbtnYMed", @class = "rd-btn-reimburse", onchange = "ReimburseChange()" }) <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-2">
+                    @Html.RadioButton("rbtnMedReimburse", false, new { @id = "rbtnNMed", @class = "rd-btn-reimburse", onchange = "ReimburseChange()" }) <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+            </div>
+            <div hidden class="row col-6 divreimbursedoc">
+                <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ಮರುಪಾವತಿ ಮಾಡಿದ ದಾಖಲೆ</label>
+                <label class="Enlan control-label col-4 pt-2">Medical Reimbursed Document</label>
+                @Html.TextBox("ReimbursedDocument", "", new { id = "flReimburseSupportingDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errReimbursedoc')" })
+                <label id="errReimbursedoc" class="text-danger mederr" hidden></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-12 text-center">
+            @*<button id="btnAdd" class="btn-primary btn btnMLeave" onclick="AddMedicalLeave();">Add</button>*@
+            <input type="button" id="btnAdd" value="Add" class="btn btn-primary" onclick="AddMedicalLeave();" />
+        </div>
+    </div>
+</div>
+<div class="form-group" id="divMedLeave">
+    <table id="tblMedicalLeaveDetails" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            @if (Model.MedicalLeaveDetails.Any())
+            {
+                var firstrow = 1;
+                foreach (var medLeave in Model.MedicalLeaveDetails)
+                {
+                    if (firstrow == 1)
+                    {
+                        <tr>
+                            <th><label class="knlan">ರಜೆ ಇಲ್ಲಿಂದ </label><label class="Enlan">Leave From</label></th>
+                            <th><label class="knlan">ರಜೆ ವರೆಗೆ </label><label class="Enlan">Leave To</label></th>
+                            <th><label class="knlan">ದಿನಗಳ ಸಂಖ್ಯೆ</label><label class="Enlan">Number Of Days</label></th>
+                            <th><label class="knlan">ಷರಾ</label><label class="Enlan">Remarks</label></th>
+                            <th><label class="knlan">ಸಹಾಯಕ ದಾಖಲೆಗಳು(ಯಾವುದಾದರೂ ಇದ್ದರೆ)</label><label class="Enlan">Supporting Document (if any)</label></th>
+                            <th><label class="knlan">ಮರುಪಾವತಿ ದಾಖಲೆ (ಯಾವುದಾದರೂ ಇದ್ದರೆ)</label><label class="Enlan">Reimbursement Document (if any)</label></th>
+                            @if (@medLeave.Type == "DDO")
+                            {
+                                <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                            }
+                            <th hidden>IsReimbursed</th>
+                            <th hidden>IsReimbursed</th>
+                            <th hidden>supdoc</th>
+                            <th hidden>reimdoc</th>
+                            <th hidden>leaveid</th>
+                        </tr>
+                        firstrow = 0;
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <th><label class="knlan">ರಜೆ ಇಲ್ಲಿಂದ </label><label class="Enlan">Leave From</label></th>
+                    <th><label class="knlan">ರಜೆ ಇಲ್ಲಿಯವರೆಗೆ </label><label class="Enlan">Leave To</label></th>
+                    <th><label class="knlan">ದಿನಗಳ ಸಂಖ್ಯೆ</label><label class="Enlan">Number Of Days</label></th>
+                    <th><label class="knlan">ಷರಾ</label><label class="Enlan">Remarks</label></th>
+                    <th><label class="knlan">ಪೂರಕ ದಾಖಲೆಗಳು(ಯಾವುದಾದರೂ ಇದ್ದರೆ)</label><label class="Enlan">Supporting Document (if any)</label></th>
+                    <th><label class="knlan">ಮರುಪಾವತಿ ದಾಖಲೆ (ಯಾವುದಾದರೂ ಇದ್ದರೆ)</label><label class="Enlan">Reimbursement Document (if any)</label></th>
+                    <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                    <th hidden>IsReimbursed</th>
+                    <th hidden>supdoc</th>
+                    <th hidden>reimdoc</th>
+                    <th hidden>leaveid</th>
+                </tr>
+            }
+        </thead>
+        <tbody>
+            @if (Model.MedicalLeaveDetails.Any())
+            {
+                foreach (var medLeave in Model.MedicalLeaveDetails)
+                {
+                    <tr data-row-number="@medLeave.emld_medical_leave_id">
+                        <td>@medLeave.startdate</td>
+                        <td>@medLeave.enddate</td>
+                        <td>@medLeave.emld_no_of_days</td>
+                        <td>@medLeave.emld_leave_reason</td>
+                        @if (@medLeave.supportingdocpath != null && @medLeave.supportingdocpath != "")
+                        {
+                    @*<td><a href="@medLeave.emld_upload_document_path" target="_blank"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a></td>*@
+                    <td> @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @medLeave.emld_upload_document_path }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (@medLeave.reimbursedocpath != null && @medLeave.reimbursedocpath != "")
+                {
+                    @*<td><a href="@medLeave.emld_medical_reimbursement_doc" target="_blank"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document@*</label></a></td>*@
+                    <td> @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @medLeave.emld_medical_reimbursement_doc }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (@medLeave.Type == "DDO")
+                {
+                    <td><a href="javascript: void(0);" class="btn-sm btn-primary" onclick="EditMedLeaveDetail(@medLeave.emld_medical_leave_id);">Edit</a>&nbsp;<a href="javascript: void(0);" class="btn-sm btn-danger" onclick="DeleteMedLeaveRow(@medLeave.emld_medical_leave_id);">Delete</a></td>
+                }
+                <td hidden>@medLeave.emld_medical_reimbursement</td>
+                <td hidden>@medLeave.supportingdocpath</td>
+                <td hidden>@medLeave.reimbursedocpath</td>
+                <td hidden>@medLeave.emld_medical_leave_id</td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="mdUpdateMedicalLeave" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="updateMedicalLeaveLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateMedicalLeaveLabel"><label class="knlan">ವೈದ್ಯಕೀಯ ರಜೆ ವಿವರವನ್ನು ಸಂಪಾದಿಸಿ</label><label class="Enlan">Edit Medical Leave Detail</label></h5>
+                <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="" id="hdnMedLeaveRowNumber" />
+                <div class="form-group">
+                    <div class="row col-12">
+                        <div class="row col-6">
+                            <input type="hidden" id="txt_leaveid" />
+                            <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ರಜೆಯ ಪ್ರಾರಂಭದ ದಿನಾಂಕ:</label>
+                            <label class="Enlan control-label col-4 pt-2">Medical Leave Start Date:</label>
+                            @Html.TextBox("FromDate", "", new { id = "txtEditMedFromDate", @class = "form-control col-6", placeholder = "DD-MM-YYYY", autocomplete = "off" })
+                            <label id="errEditFromDate" class="text-danger err-edit" hidden></label>
+                        </div>
+                        <div class="row col-6">
+                            <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ರಜೆಯ ಅಂತಿಮ ದಿನಾಂಕ:</label>
+                            <label class="Enlan control-label col-4 pt-2">Medical Leave End Date:</label>
+                            @Html.TextBox("ToDate", "", new { id = "txtEditMedToDate", @class = "form-control col-6", placeholder = "DD-MM-YYYY", autocomplete = "off" })
+                            <label id="errEditToDate" class="text-danger err-edit" hidden></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row col-12">
+                        <div class="row col-6">
+                            <label class="knlan control-label col-4 pt-2">ಉಪಯೋಗಿಸಿಕೊಂಡಿರುವ ವೈದ್ಯಕೀಯ ರಜೆಗಳು</label>
+                            <label class="Enlan control-label col-4 pt-2">Number Of Leaves Availed:</label>
+                            @Html.TextBox("TotalLeaves", "", new { id = "txtEditMedTotalLeaves", @class = "form-control col-6", @readonly = true })
+                        </div>
+                        <div class="row col-6">
+                            <label class="knlan control-label col-4 pt-2">ಷರಾ</label>
+                            <label class="Enlan control-label col-4 pt-2">Remarks:</label>
+                            @Html.TextBox("EditMedRemarks", "", new { id = "txtEditMedRemarks", @class = "form-control col-6" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row col-12">
+                        <div class="row col-6">
+                            <label class="knlan control-label col-4 pt-2">ಪೂರಕ ದಾಖಲೆಗಳು:</label>
+                            <label class="Enlan control-label col-4 pt-2">Supporting Document:</label>
+                            @Html.Hidden("hdnMedSupportingDoc")
+                            @Html.TextBox("SupportingDocument", "", new { id = "flEditMedSupportingDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errEditSuppDoc')" })
+                            <label id="errEditSuppDoc" class="text-danger err-edit" hidden></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row col-12">
+                        <div class="row col-6">
+                            <label class="knlan control-label col-4">ವೈದ್ಯಕೀಯ ಮರುಪಾವತಿ ಮಾಡಲಾಗಿದೆಯೇ?</label>
+                            <label class="Enlan control-label col-4">Is Medical Reimbursed?</label>
+                            <label class="col-2">
+                                @Html.RadioButton("rbtnEditMedReimburse", true, new { @id = "rbtnEditYMed", @class = "rd-btn-editreimburse", onchange = "EditToggleReimburseDetails()" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                            </label>
+                            <label class="col-2">
+                                @Html.RadioButton("rbtnEditMedReimburse", false, new { @id = "rbtnEditNMed", @class = "rd-btn-editreimburse", onchange = "EditToggleReimburseDetails()" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                            </label>
+                        </div>
+                        <div class="row col-6 diveditreimbursedoc">
+                            <label class="knlan control-label col-4 pt-2">ವೈದ್ಯಕೀಯ ಮರುಪಾವತಿ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan control-label col-4 pt-2">Medical Reimbursed Document</label>
+                            @Html.Hidden("hdnReimbursedDocument")
+                            @Html.TextBox("ReimbursedDocument", "", new { id = "flEditReimburseSupportingDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errEditReimbursedoc')" })
+                            <label id="errEditReimbursedoc" class="text-danger err-edit" hidden></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnUpdate" value="Update" class="btn btn-primary" onclick="UpdateMedicalLeave();" />
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+    });
+</script>
+
+@*<script src="~/Scripts/ApplicationJS/NBMedicalLeaveDetails.js"></script>*@

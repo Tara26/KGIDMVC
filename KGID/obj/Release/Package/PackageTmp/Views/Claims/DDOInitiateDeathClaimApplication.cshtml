@@ -1,0 +1,300 @@
+﻿@model KGID_Models.Claim.VM_EmpDetailForDeathClaimApplication
+@using Common;
+
+@{
+
+}
+
+<style>
+    .control-label-large {
+        font-size: x-large;
+    }
+</style>
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><b>Claim Applications</b></h6>
+    </div>
+    <div class="card-body">
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <label class="col-3" style="padding-top:0.75rem !important">Search KGID:</label>
+                        <div class="col-7 p-0">
+                            <input type="search" id="txtSearch" class="form-control col-12" />
+                            <label class="text-danger err pt-2" id="errSearchInput" style="display:none;">Please enter valid KGID number</label>
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn" onclick="DisplayEmpDetails();" value="GO" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divEmpDetails" style="display:none;">
+            <hr />
+            @using (Html.BeginForm("GetEmployeeDetailsForDDOPrematureClaims", "Claims", FormMethod.Post, new { id = "frmEmpClaimApp", enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.Id, new { id = "hdnEmpId" })
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label-large">Employee Name:</label>
+                            <label id="lblEmpName" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpName" name="Name" />
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label-large">Designation:</label>
+                            <label id="lblEmpDesignation" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpDesignation" name="Designation" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label-large">Department:</label>
+                            <label id="lblEmpDepartment" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpDepartment" name="Department" />
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label-large">Age:</label>
+                            <label id="lblEmpAge" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpAge" name="Age" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row">
+                        @Html.Hidden("ClaimTypeId", (int)ClaimTypes.DEATH)
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="control-label">Claim Sub-Type:</label>
+                                @Html.DropDownListFor(m => m.ClaimSubTypeId, new SelectList(Model.ClaimSubTypes, "Value", "Text"), "-- Select claim sub-type --", new { id = "ddlClaimSubType", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="claimApplicationForm">
+                </div>
+
+                <script>
+                    $("input[type='text']").attr("autocomplete", "off");
+
+
+                </script>
+
+                
+            }
+
+            <div id="divForwardButton" class="row" style="display:none;">
+                <div class="from-group col-12 text-right">
+                    <button id="btnClear" onclick="ClearFields();" class="btn">Clear</button>
+                    <button id="btnForward" onclick="ForwardApplication();" class="btn" data-url="@Url.Action("ClaimRequiredDocuments", "Claims", new { area = "" })">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var today = new Date();
+        var options = {
+            timepicker: false,
+            format: 'd-m-Y',
+            autoClose: true,
+            maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            defaultDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            closeOnDateSelect: true
+        };
+
+        $('.date-picker').datetimepicker(options);
+
+
+        jQuery.validator.methods.date = function (value, element) {
+            var value = window.navigator.userLanguage || window.navigator.language;
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            } else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+    });
+
+
+
+    function ClearFields() {
+        $('#frmEmpClaimApp')[0].reset();
+    }
+
+    function HideDivAndClearFields() {
+        $('#frmEmpClaimApp')[0].reset();
+        $("#claimApplicationForm").html("");
+        $("#claimApplicationForm").hide();
+    }
+
+    function DisplayEmpDetails() {
+        $("#errSearchInput").hide();
+        if ($("#txtSearch").val() !== "") {
+            HideDivAndClearFields();
+            var kgidNumber = $("#txtSearch").val();
+            $.ajax({
+                url: '/Claims/GetEmployeeDetailsForDDOPrematureClaims',
+                data: JSON.stringify({ "kgidNumber": kgidNumber }),
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                success: function (response) {
+                    if (response.EmpDetail !== null) {
+                        $("#txtEmpName").val(response.EmpDetail.Name);
+                        $("#hdnEmpId").val(response.EmpDetail.Id);
+                        $("#txtEmpDepartment").val(response.EmpDetail.Department);
+                        $("#txtEmpDesignation").val(response.EmpDetail.Designation);
+                        $("#txtEmpAge").val(response.EmpDetail.Age);
+
+                        $("#lblEmpName").text(response.EmpDetail.Name);
+                        $("#lblEmpDepartment").text(response.EmpDetail.Department);
+                        $("#lblEmpDesignation").text(response.EmpDetail.Designation);
+                        $("#lblEmpAge").text(response.EmpDetail.Age);
+
+                        $("#divEmpDetails").show();
+                        $("#claimApplicationForm").show();
+                        ClearFields();
+                    }
+                    else {
+                        HideDivAndClearFields();
+                        alertify.error("Could not fetch employee details");
+                    }
+                }, error: function (result) {
+                    HideDivAndClearFields();
+                    alertify.error("Could not fetch employee details");
+                }
+            });
+        }
+        else {
+            $("#errSearchInput").show();
+        }
+    }
+
+    //$("#ddlClaimType").change(function () {
+    //    if ($("#ddlClaimType option:selected").val() === "2") {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"), new Option("Voluntary Retirement", "1"), new Option("Termination from Service", "2"));
+    //    }
+    //    else if ($("#ddlClaimType option:selected").val() === "3") {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"), new Option("Illness", "1"), new Option("Unnatural Death", "2"));
+    //    }
+    //    else {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"));
+    //    }
+    //});
+
+    $("#ddlClaimSubType").change(function () {
+        var claimSubTypeId = $("#ddlClaimSubType option:selected").val();
+        if (claimSubTypeId !== "") {
+            $.ajax({
+                url: '/Claims/GetDeathClaimApplicationForm',
+                data: JSON.stringify({ "claimSubTypeId": parseInt(claimSubTypeId) }),
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                success: function (data) {
+                    $("#claimApplicationForm").html("");
+                    $("#claimApplicationForm").html(data);
+                    InitiateDatePicker();
+                    ResetFormValidation();
+                    $("#txtNameOfDeceased").val($("#txtEmpName").val());
+                    $("#divForwardButton").show();
+                }, error: function (result) {
+                    alertify.error("Could not get application form");
+                }
+            });
+        }
+        else {
+            $("#claimApplicationForm").html("");
+            $("#divForwardButton").hide();
+        }
+    });
+
+    function ForwardApplication() {
+        var formData = new FormData($("#frmEmpClaimApp").get(0));
+
+        if ($("#frmEmpClaimApp").valid()) {
+            $.ajax({
+                url: '/Claims/SaveApplicationDetails',
+                data: formData,
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.IsSuccess) {
+                        alertify.success(response.Message);
+                        window.location.href = $("#btnForward").data("url") + "?claimSubTypeId=" + response.ClaimSubTypeId + "&empId=" + response.EmpId;
+                    }
+                    else if (response.IsAlreadyInitiated) {
+                        alertify.warning(response.Message);
+                    }
+                    else {
+                        alertify.error("Could not save application details");
+                    }
+                }, error: function (result) {
+                    alertify.error("Could not save application details");
+                }
+            });
+        }
+    }
+
+    function InitiateDatePicker() {
+        var today = new Date();
+        var options = {
+            timepicker: false,
+            format: 'd-m-Y',
+            autoClose: true,
+            maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            defaultDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            closeOnDateSelect: true
+        };
+
+        $('.date-picker').datetimepicker("destroy");
+        $('.date-picker').datetimepicker(options);
+
+        jQuery.validator.methods.date = function (value, element) {
+            var value = window.navigator.userLanguage || window.navigator.language;
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            } else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+    }
+
+    function ResetFormValidation() {
+        $("#frmEmpClaimApp").removeData("validator").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse("#frmEmpClaimApp");
+    }
+
+</script>

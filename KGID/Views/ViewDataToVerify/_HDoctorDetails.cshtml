@@ -1,0 +1,112 @@
+﻿@model KGID_Models.NBApplication.VM_DoctorDetails
+
+<div id="divDoctorDetails">
+    @*<div class="row form-group">
+        <div class="col-12">
+            <div class="row">
+                <div class="row col-2">
+                    @Html.RadioButtonFor(model => model.emdd_is_kmc_doctor, true, new { @id = "rbtnKMCDr", @class = "col-1 rd-btn-hodd", @disabled = "true" })
+                    <label class="knlan col-11">ರಾಜ್ಯದ ವೈದ್ಯರು</label> 
+                    <label class="Enlan col-11">Within state doctor</label>
+                </div>
+                <div class="row col-2">
+                    @Html.RadioButtonFor(model => model.emdd_is_kmc_doctor, false, new { @id = "rbtnOtherDr", @class = "col-1 rd-btn-hodd", @disabled = "true" })
+                    <label class="knlan col-11">ಇತರ ರಾಜ್ಯದ ವೈದ್ಯರು</label>
+                    <label class="Enlan col-11">Other state doctor</label>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="knlan control-label col-sm-4 pt-2-5" for="txtKMCCode"><b>ಕೆಎಂಸಿ ಕೋಡ್ </b></label>
+                    <label class="Enlan control-label col-sm-4 pt-2-5" for="txtKMCCode"><b>KMC Code </b></label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnKMCCode">@Html.DisplayFor(model => model.KMCCode)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtDocName" class="knlan control-label col-sm-4 pt-2-5"><b>ವೈದ್ಯರ ಹೆಸರು </b></label>
+                    <label for="txtDocName" class="Enlan control-label col-sm-4 pt-2-5"><b>Doctor Name </b></label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnDocName">@Html.DisplayFor(model => model.NameOfDoctor)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="knlan control-label col-sm-4 pt-2-5" for="txtKgid"><b>ವೈದ್ಯರ ಕೆಜಿಐಡಿ </b></label>
+                    <label class="Enlan control-label col-sm-4 pt-2-5" for="txtKgid"><b>Doctor KGID </b></label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnKgid">@Html.DisplayFor(model => model.KGIDOfDoctor)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtDesignation" class="knlan control-label col-sm-4 pt-2-5"><b>ಹುದ್ದೆ </b></label>
+                    <label for="txtDesignation" class="Enlan control-label col-sm-4 pt-2-5"><b>Designation </b></label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnDesignation">@Html.DisplayFor(model => model.Designation)</span>
+                </div>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="knlan control-label col-sm-4 pt-2-5" for="txtDctrOff"><b>ವೈದ್ಯರ ಕಚೇರಿಯ ಹೆಸರು </b></label>
+                <label class="Enlan control-label col-sm-4 pt-2-5" for="txtDctrOff"><b>Name of Office:</b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnDctrOffice" style="display: block;width: 150px;word-wrap: break-word;">@Html.DisplayFor(model => model.NameOfHospital)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label class="knlan control-label col-sm-4 pt-2-5" for="txtDctrOff"><b>ಕಛೇರಿಯ ಸ್ಥಳ:</b></label>
+                <label class="Enlan control-label col-sm-4 pt-2-5" for="txtDctrOff"><b>Place of Office:</b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnDctrPOP" style="display: block;width: 150px;word-wrap: break-word;">@Html.DisplayFor(model => model.PlaceOfHospital)</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+@if (Model.emdd_is_kmc_doctor == false)
+{
+<div id="divDctrBnkDetails">
+    <div class="form-group row">
+        <h6>
+            <label class="knlan">
+
+                ವೈದ್ಯ ಬ್ಯಾಂಕ್ ವಿವರಗಳು:
+            </label><label class="Enlan">Doctor Bank Details :</label>
+        </h6>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="knlan control-label col-sm-4 pt-2-5" for="txtKMCCode"><b>ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ </b></label>
+                <label class="Enlan control-label col-sm-4 pt-2-5" for="txtKMCCode"><b>Bank account number </b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnKMCCode">@Html.DisplayFor(model => model.BankAccNumber)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtDocName" class="knlan control-label col-sm-4 pt-2-5"><b>ಐಎಫ್‌ಎಸ್‌ಸಿ ಕೋಡ್ </b></label>
+                <label for="txtDocName" class="Enlan control-label col-sm-4 pt-2-5"><b>IFSC Code </b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnDocName">@Html.DisplayFor(model => model.IFSCCode)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="knlan control-label col-sm-4 pt-2-5" for="txtKgid"><b>ಎಂಐಸಿಆರ ಕೋಡ್ </b></label>
+                <label class="Enlan control-label col-sm-4 pt-2-5" for="txtKgid"><b>MICR Code </b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnKgid">@Html.DisplayFor(model => model.MICRCode)</span>
+            </div>
+        </div>
+    </div>
+</div>
+}

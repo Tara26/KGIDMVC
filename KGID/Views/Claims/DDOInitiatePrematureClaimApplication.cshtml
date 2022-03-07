@@ -1,0 +1,456 @@
+﻿@model KGID_Models.Claim.VM_EmpDetailForPrematureClaimApplication
+@using Common;
+
+@{
+
+}
+
+<style>
+    .control-label-large {
+        font-size: x-large;
+    }
+</style>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><b>Claim Applications</b></h6>
+      
+    </div>
+    <div class="card-body">
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <label class="col-3" style="padding-top:0.75rem !important">Search KGID:</label>
+                        <div class="col-7 p-0">
+                            <input type="search" id="txtSearch" class="form-control col-12" />
+                            <label class="text-danger err pt-2" id="errSearchInput" style="display:none;">Please enter valid KGID number</label>
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn" onclick="DisplayEmpDetails();" value="GO" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divEmpDetails" style="display:none;">
+            <hr />
+            @using (Html.BeginForm("GetEmployeeDetailsForDDOPrematureClaims", "Claims", FormMethod.Post, new { id = "frmEmpClaimApp", enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" id="hdnEmpId" name="Id" />
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label-large">Employee Name:</label>
+                            <label id="lblEmpName" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpName" name="Name" />
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label-large">Designation:</label>
+                            <label id="lblEmpDesignation" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpDesignation" name="Designation" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label-large">Department:</label>
+                            <label id="lblEmpDepartment" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpDepartment" name="Department" />
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label-large">Age:</label>
+                            <label id="lblEmpAge" class="control-label-large"></label>
+                            <input type="hidden" id="txtEmpAge" name="Age" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <div class="row">
+                        @Html.Hidden("ClaimTypeId", (int)ClaimTypes.PREMATURITY)
+                        <div class="col-6">
+                            <label class="control-label">Claim Sub-Type:</label>
+                            @Html.DropDownListFor(m => m.ClaimSubTypeId, new SelectList(Model.ClaimSubTypes, "Value", "Text"), "-- Select claim sub-type --", new { id = "ddlClaimSubType", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div id="divVoluntaryRetirement" style="display:none;">
+                    <div class="form-group col-12">
+                        <div class="row">
+                           
+                            <div class="col-6">
+
+                                <label class="control-label">Date of Resignation:</label>
+                                @Html.TextBoxFor(m => m.DateOfResignation, new { id = "txtDateOfResignation", @class = "form-control date-picker disable-keyboard", @onchange = "date_validation()" })
+                                @Html.ValidationMessageFor(m => m.DateOfResignation, "", new { @class = "text-danger row col-12" })
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label">Resignation Letter:</label>
+                                <label class="text-danger col-12 medium err-login" id="errMobile" style="display:none"></label>
+                                @Html.TextBoxFor(m => m.ResignationLetterDoc, new { type = "file", id = "docResignationLetter", @class = "col-5 form-control border-0", accept = "application/pdf", onchange = "file_validation(this)" })
+                                @Html.ValidationMessageFor(m => m.ResignationLetterDoc, "", new { @class = "text-danger row col-12" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="control-label">Date of Resignation Acceptance:</label>
+                                @Html.TextBoxFor(m => m.DateOfAcceptanceOfResignation, new { id = "txtDateOfResignationAcceptance", @class = "form-control date-picker disable-keyboard", @onchange = "date_validation()" })
+                                @Html.ValidationMessageFor(m => m.DateOfAcceptanceOfResignation, "", new { @class = "text-danger row col-12" })
+                                <label class="text-danger col-12 medium err-login" id="errKGIDREG_Acceptance" style="display:none;">Date of Resignation Acceptance should not less than Date of Resignation.</label>
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label">Resignation Acceptance Letter:</label>
+                            
+                                @Html.TextBoxFor(m => m.ResignationAcceptanceLetterDoc, new { type = "file", id = "docResignationAcceptanceLetter", @class = "col-5 form-control border-0", accept = "application/pdf", onchange = "file_validation(this)" })
+                                @Html.ValidationMessageFor(m => m.ResignationAcceptanceLetterDoc, "", new { @class = "text-danger row col-12" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="control-label">Date of Relieving:</label>
+                                @Html.TextBoxFor(m => m.DateOfRelieving, new { id = "txtDateOfRelieving", @class = "form-control date-picker disable-keyboard", @onchange = "date_validation()" })
+                                @Html.ValidationMessageFor(m => m.DateOfRelieving, "", new { @class = "text-danger row col-12" })
+                                <label class="text-danger col-12 medium err-login" id="errKGIDRelieving" style="display:none;">Date of Relieving should not less than Date of Resignation Acceptance</label>
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label">Relieving Letter:</label>
+                               
+                                @Html.TextBoxFor(m => m.RelievingLetterDoc, new { type = "file", id = "docRelievingLetter", @class = "col-5 form-control border-0", accept = "application/pdf", onchange = "file_validation(this)" })
+                                @Html.ValidationMessageFor(m => m.RelievingLetterDoc, "", new { @class = "text-danger row col-12" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divTerminationFromService" style="display:none;">
+                    <div class="form-group col-12">
+                        <div class="row">
+                            <div class="col-6">
+                               
+                                <label class="control-label">Date of Termination:</label>
+                                @Html.TextBoxFor(m => m.DateOfTermination, new { id = "txtDateOfTermination", @class = "form-control date-picker disable-keyboard" })
+                                @Html.ValidationMessageFor(m => m.DateOfTermination, "", new { @class = "text-danger row col-12" })
+                            </div>
+                            <div class="col-6">
+                                <label class="text-danger col-12 medium err-login" id="errTermination" style="display:none"></label>
+                                <label class="control-label">Termination Letter:</label>
+                                @Html.TextBoxFor(m => m.TerminationLetterDoc, new { type = "file", id = "docTerminationLetter", @class = "col-5 form-control border-0", accept = "application/pdf", onchange = "file_validation(this)" })
+                                @Html.ValidationMessageFor(m => m.TerminationLetterDoc, "", new { @class = "text-danger row col-12" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="control-label">Date of Relieving:</label>
+                                @Html.TextBoxFor(m => m.DateOfRelieving, new { id = "txtDateOfRelieving", @class = "form-control date-picker disable-keyboard" })
+                                @Html.ValidationMessageFor(m => m.DateOfRelieving, "", new { @class = "text-danger row col-12" })
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label">Relieving Letter:</label>
+                                @Html.TextBoxFor(m => m.RelievingLetterDoc, new { type = "file", id = "docRelievingLetter", @class = "col-5 form-control border-0", accept = "application/pdf", onchange = "file_validation(this)" })
+                                @Html.ValidationMessageFor(m => m.RelievingLetterDoc, "", new { @class = "text-danger row col-12" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div id="divForwardButton" class="row" style="display:none;">
+                <div class="from-group col-12 text-right">
+                    <button id="btnClear" onclick="ClearFields();" class="btn">Clear</button>
+                    <button id="btnForward" onclick="ForwardApplication();" class="btn">Forward</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("input[type='text']").attr("autocomplete", "off");
+        var today = new Date();
+        var options = {
+            timepicker: false,
+            format: 'd-m-Y',
+            autoClose: true,
+            maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            defaultDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            closeOnDateSelect: true
+        };
+
+        $('.date-picker').datetimepicker(options);
+
+        jQuery.validator.methods.date = function (value, element) {
+            var value = window.navigator.userLanguage || window.navigator.language;
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            } else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+    });
+
+    function ClearFields() {
+        $('#frmEmpClaimApp')[0].reset();
+    }
+
+    function HideDivAndClearFields() {
+        $('#frmEmpClaimApp')[0].reset();
+        $("#divVoluntaryRetirement").hide();
+        $("#divTerminationFromService").hide();
+        $("#divEmpDetails").hide();
+    }
+
+    function DisplayEmpDetails() {
+        $("#errSearchInput").hide();
+        if ($("#txtSearch").val() !== "") {
+            var kgidNumber = $("#txtSearch").val();
+            HideDivAndClearFields();
+            $.ajax({
+                url: '/Claims/GetEmployeeDetailsForDDOPrematureClaims',
+                data: JSON.stringify({ "kgidNumber": kgidNumber }),
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                success: function (response) {
+                    if (response.EmpDetail !== null) {
+                        $("#txtEmpName").val(response.EmpDetail.Name);
+                        $("#hdnEmpId").val(response.EmpDetail.Id);
+                        $("#txtEmpDepartment").val(response.EmpDetail.Department);
+                        $("#txtEmpDesignation").val(response.EmpDetail.Designation);
+                        $("#txtEmpAge").val(response.EmpDetail.Age);
+
+                        $("#lblEmpName").text(response.EmpDetail.Name);
+                        $("#lblEmpDepartment").text(response.EmpDetail.Department);
+                        $("#lblEmpDesignation").text(response.EmpDetail.Designation);
+                        $("#lblEmpAge").text(response.EmpDetail.Age);
+
+                        $("#divEmpDetails").show();
+                        ClearFields();
+                    }
+                    else {
+                        HideDivAndClearFields();
+                        alertify.error("Could not fetch employee details");
+                    }
+                }, error: function (result) {
+                    HideDivAndClearFields();
+                    alertify.error("Could not fetch employee details");
+                }
+            });
+        }
+        else {
+            $("#errSearchInput").show();
+        }
+    }
+
+    //$("#ddlClaimType").change(function () {
+    //    if ($("#ddlClaimType option:selected").val() === "2") {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"), new Option("Voluntary Retirement", "1"), new Option("Termination from Service", "2"));
+    //    }
+    //    else if ($("#ddlClaimType option:selected").val() === "3") {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"), new Option("Illness", "1"), new Option("Unnatural Death", "2"));
+    //    }
+    //    else {
+    //        $("#ddlClaimSubType").empty();
+    //        $("#ddlClaimSubType").append(new Option("-- Select Claim sub-type --", "0"));
+    //    }
+    //});
+
+    $("#ddlClaimSubType").change(function () {
+        if ($("#ddlClaimSubType option:selected").val() === "1") {
+            $("#divVoluntaryRetirement").show();
+            $("#divTerminationFromService").hide();
+            $("#divForwardButton").show();
+        }
+        else if ($("#ddlClaimSubType option:selected").val() === "2") {
+            $("#divTerminationFromService").show();
+            $("#divVoluntaryRetirement").hide();
+            $("#divForwardButton").show();
+        }
+        else {
+            $("#divForwardButton").hide();
+        }
+        
+    });
+
+    function ForwardApplication() {
+
+
+        var formData = new FormData($("#frmEmpClaimApp").get(0));
+
+        if ($("#frmEmpClaimApp").valid()) {
+            $.ajax({
+                url: '/Claims/ForwardApplicationToCaseworker',
+                data: formData,
+                async: false,
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.IsCreated) {
+                        alertify.success(response.Message);
+                        HideDivAndClearFields();
+                    }
+                    else if (response.IsAlreadyInitiated) {
+                        alertify.warning(response.Message);
+                    }
+                    else {
+                        alertify.error(response.Message);
+                    }
+                }, error: function (response) {
+                    HideDivAndClearFields();
+                    alertify.error("Could not forward the application to caseworker");
+                }
+            });
+        }
+    }
+
+    $(".disable-keyboard").on("keypress", function (e) {
+        return false;
+    });
+    function date_validation() {
+        debugger;
+        var result = true;
+        var date = $("#txtDateOfResignation").val();
+        var dateArray = date.split('-');
+        var modify_date = dateArray[1] + "-" + dateArray[0] + "-" + dateArray[2];
+        var dateOfResignation = new Date(modify_date);
+
+        var date1 = $("#txtDateOfResignationAcceptance").val();
+        var dateArray1 = date1.split('-');
+        var modify_date1 = dateArray1[1] + "-" + dateArray1[0] + "-" + dateArray1[2];
+        var dateOfAcceptance = new Date(modify_date1);
+
+
+
+
+        var date2 = $("#txtDateOfRelieving").val();
+        var dateArray2 = date2.split('-');
+        var modify_date2 = dateArray2[1] + "-" + dateArray2[0] + "-" + dateArray2[2];
+        var dateOf_Relieving = new Date(modify_date2);
+
+        if (dateOfAcceptance < dateOfResignation) {
+            //bootbox.alert("Date of Resignation Acceptance should not less than Date of Resignation");
+
+            $("#errKGIDREG_Acceptance").show();
+            result = false;
+
+        }
+        else {
+            $("#errKGIDREG_Acceptance").hide();
+            result = true;
+
+        }
+       
+
+        if (dateOf_Relieving < dateOfAcceptance) {
+           // bootbox.alert("Date of Relieving should not less than Date of Resignation Acceptance");
+            $("#errKGIDRelieving").show();
+            result = false;
+        }
+        else {
+            $("#errKGIDRelieving").hide();
+            result = true;
+
+
+        }
+        return result;
+           
+        
+
+    }
+
+    function file_validation(file) {
+
+        $("#errMobile").hide();
+        $("#errTermination").hide();
+        
+        debugger;
+        var count = 0;
+        myfile = $(file).val();
+
+        var ext = myfile.split('.').pop();
+
+        if (ext == "pdf") {
+            //const fi = document.getElementById(file);
+            // Check if any file is selected.
+            //var FileSize = file.files[0].size / 1024 
+            //{
+            //    alert(FileSize);
+
+            //}
+
+            if (file.files.length > 0) {
+
+                
+                var FileSize = file.files[0].size
+                {
+
+
+                    const file = Math.round((FileSize / 1024));
+                    // The size of the file.
+
+                    if (FileSize > 4766573) {
+
+                        count = 1;
+
+
+                    }
+
+                }
+
+                if (count == 1) {
+
+                    $(file).val('');
+                   
+                    //alert(
+                    //    "File too Big, please select a file less than 5mb");
+                    $("#errMobile").show();
+                    $("#errMobile").text("File too Big, please select a file less than 5mb");
+                    $("#errTermination").show();
+                    $("#errTermination").text("File too Big, please select a file less than 5mb");
+                }
+
+                //for (const i = 0; i <= file.files.length - 1; i++) {
+
+                //    const fsize = file.files[i].size;
+
+                //    const file = Math.round((fsize / 1024));
+                //    // The size of the file.
+
+                //    if (file >= 4096) {
+                //        alert(
+                //            "File too Big, please select a file less than 4mb");
+                //    } 
+                //}
+            }
+        } else {
+            $("#errMobile").show();
+            $("#errMobile").text("please select a  pdf File");
+            $("#errTermination").show();
+            $("#errTermination").text("please select a  pdf File");
+            $(file).val('');
+            
+        }
+
+
+
+    }
+</script>

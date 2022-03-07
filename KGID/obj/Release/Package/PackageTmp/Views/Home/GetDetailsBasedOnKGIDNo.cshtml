@@ -1,0 +1,83 @@
+﻿
+@model KGID_Models.Dashboard.VM_ListOfPolicyDetails
+
+@{
+
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b></b></h6>
+            </div>
+            <div class="card-body">
+
+
+                <div id="DivDscData">
+
+                    <div class="form-group">
+                        <table id="tblDashBoardPolicyDetails" class="table table-striped table-bordered" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th hidden>PolicyID</th>
+                                    <th hidden>EmpID</th>
+                                    <th>KGID Policy Number</th>
+                                    <th>Risk Date</th>
+                                    <th>Premium Amount</th>
+                                    <th>Sum Assured</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.listDashboardData.Any())
+                                {
+                                if (Session["ApplyNewFlag"]!=null && Convert.ToBoolean(Session["ApplyNewFlag"])== false)
+                                {
+                                <tr>
+                                    <td colspan="5" style="text-align:center;color:red">Other Policies are still in process</td>
+                                </tr>
+                                }
+                                
+                                    foreach (var item in Model.listDashboardData)
+                                    {
+                                        var riskdate = Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.RiskDate));
+
+                                        if (@item.status == "Verified")
+                                        {
+                                            <tr>
+
+                                                <td hidden>@item.KGIDfirstHRMS</td>
+                                                <td>@item.PolicyID</td>
+                                                <td>@riskdate</td>
+                                                <td>@item.PremiumAmt</td>
+                                                <td>@item.SumAssured</td>
+
+                                                <td>@item.status</td>
+
+                                            </tr>
+                                        }
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#tblDashBoardPolicyDetails").DataTable();
+    });
+
+</script>
+
+

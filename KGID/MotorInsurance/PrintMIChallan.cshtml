@@ -1,0 +1,230 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_DDOVerificationDetailsMI
+@{
+    ViewBag.Title = "PrintMIChallan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var totalpolicyamt = Convert.ToDouble(Model.ChallanAmount);
+}
+
+<div class="row" id="divSOPDetails">
+    <form id="FormPrintChallan" enctype="multipart/form-data" class="col-12">
+        <section>
+            <div class="form-group col-12">
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12 text-center">
+                        <img src="~/Content/NewUI/img/gok-logo.png" height="100px" />
+                    </div>
+                    <div class="col-12" style="margin-top:5px; margin-bottom:5px">
+                        <h6 style="text-align:center; color: #ff0000; font-family:'Times New Roman'">GOVERNMENT OF KARNATAKA</h6>
+                        <h5 style="text-align:center; color: #ff0000; font-family:'Times New Roman'">
+                            KARNATAKA GOVERNMENT INSURANCE DEPARTMENT<br />
+                            MOTOR INSURANCE
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        GSTIN NO :
+                    </div>
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        Generation  Date : @Model.CHALLAN_DATE
+                    </div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        <table style="border-collapse:collapse;border:none;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>CHALLAN REF No./ BILL REF No.</p>
+                                    </td>
+                                    <td>
+                                        <p>@Model.RefNos</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>SANCTION ORDER NUMBER</p>
+                                    </td>
+                                    <td>
+                                        <p>@Model.SAN_ORDER_NO</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>SANCTION ORDER DATE</p>
+                                    </td>
+                                    <td>
+                                        <p>@Model.SAN_DATE_DISP</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>VOUCHER NUMBER</p>
+                                    </td>
+                                    <td>
+                                        <p>@Model.VOUCHERNO</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6" style="margin-top:10px; margin-bottom:10px;">
+                        <table style="float: right;border-collapse:collapse;border:none;margin-left:6.75pt;margin-right: 6.75pt;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>REMITTER OFFICE CODE</p>
+                                    </td>
+                                    <td>
+                                        <p><strong>@Model.DDOCODE</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>REMITTER &nbsp;OFFICE ADDRESS</p>
+                                    </td>
+                                    <td>
+                                        <p><strong>@Model.RO_ADDRES</strong></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row" style="border:1px solid #111;">
+                    <div class="col-12" style="margin-top:10px; margin-bottom:10px;">
+                        <table class="table table-striped table-bordered" id="tblPremiumList" style="width:100%">
+                            <thead style="background: #308385;color: #fff;">
+                                <tr>
+                                    <th rowspan="2">Sl. No.</th>
+                                    <th rowspan="2">Proposal No./ Policy No.</th>
+                                    <th rowspan="2">Chasis No.</th>
+                                    <th rowspan="2">Engine No.</th>
+                                    <th rowspan="2">Vehicle Type</th>
+                                    <th rowspan="2"> Fresh / Renewal</th>
+                                    <th colspan="3" class="text-center">Premium (in Rupees)</th>
+                                </tr>
+                                <tr>
+                                    <th>Amount</th>
+                                    <th>CGST -9%</th>
+                                    <th>SGST-9%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PolicyPremiumDetailMI != null && Model.PolicyPremiumDetailMI.Count > 0)
+                                {
+                                    var rowcount = 1;
+
+                                    foreach (var item in Model.PolicyPremiumDetailMI)
+                                    {
+                                        <tr>
+
+                                            <td class="text-right">@rowcount</td>
+                                            <td>@item.ApplicationNumber</td>
+                                            <td>@item.ChasisNo.ToUpper()</td>
+                                            <td>@((item.EngineNo == null) ? "" : item.EngineNo)</td>
+                                            <td>Vehicle Type</td>
+                                            <td>NEW</td>
+                                            <td class="text-right">@(item.PolicyPremiumAmount * .82)</td>
+                                            <td class="text-right">@(item.PolicyPremiumAmount * .09)</td>
+                                            <td class="text-right">@(item.PolicyPremiumAmount * .09)</td>
+                                        </tr>
+                                        rowcount++;
+
+                                    }
+                                }
+                            </tbody>
+                            <tfoot1>
+                                <tr>
+                                    <td colspan="6" style="text-align: right !important;">
+                                        <label style="font-weight: bold;font-size:larger;">TOTAL</label>
+                                    </td>
+                                    <td class="text-right"><label ID="txttotal" style="font-weight: bold;font-size:large;" name="">@(totalpolicyamt * .82)</label></td>
+                                    <td class="text-right"><label ID="txttotal" style="font-weight: bold;font-size:large;" name="">@(totalpolicyamt * .09)</label></td>
+                                    <td class="text-right"><label ID="txttotal" style="font-weight: bold;font-size:large;" name="">@(totalpolicyamt * .09)</label></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"> <label style="font-weight: bold;font-size:larger;">Amount In Words : @Model.AMT_IN_WORD</label>  </td>
+                                    <td style="text-align: right !important;"><label style="font-weight: bold;font-size:larger;">GRAND TOTAL</label></td>
+                                    <td colspan="3"><label ID="txttotal" style="font-weight: bold;font-size:large;" name="">@totalpolicyamt</label></td>
+                                </tr>
+
+                            </tfoot1>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid #111;">
+                    
+                    <div class="col-8" style="padding-top:55px">
+                        
+                    </div>
+                    <div class="col-4" style="padding-top:55px">
+                        <p style="text-align:center"><label style="font-weight: bold;font-size:larger;">For Director<br />Motor Insurance, <br />Karnataka Government Insurance Department</label></p>
+                    </div>
+                </div>
+                @*<div class="row" style="border:1px solid #111;">
+                    <div class="col-8"></div>
+                    <div class="col-4" style="margin-top:10px; margin-bottom:10px;">
+                        <table>
+                            <tr>
+                                <td class="text-center">______________</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><label style="font-weight: bold;font-size:larger;">For Director</label></td>
+                            </tr>
+                            <tr>
+
+                                <td class="text-center">
+                                    <label style="font-weight: bold;font-size:larger;"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>*@
+
+            </div>
+        </section>
+    </form>
+</div>
+<div class="row form-group">
+    
+    <div class="form-group col-12">
+        <div class="text-center">
+            <input type="submit" id="btnMIBPrint" value="Print" onclick="printChallan();return false;" class="btn btn-primary pull-right">
+        </div>
+    </div>
+    <div class="form-group col-4"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        printChallan();
+    });
+    function printChallan() {
+        var contents = '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2></h2></div><div class="form-group col-4"></div></div>' + $("#divSOPDetails").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title></title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+        return null;
+    }
+</script>

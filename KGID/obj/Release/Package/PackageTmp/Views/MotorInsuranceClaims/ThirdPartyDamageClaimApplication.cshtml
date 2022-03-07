@@ -1,0 +1,58 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_MIOwnDamageClaimDetails
+@{
+    ViewBag.Title = "ThirdPartyDamageClaimApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="text-align:center">Motor Insurance Third Party Damage Claim Application</h3><br />
+<!--//ThirdPartyDamageClaim Details// -->
+<section>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-bordered" id="tblApplicationList" cellspacing="0">
+                <thead style="background: #308385;color: #fff;">
+                    <tr>
+                        @*<th>Policy ID</th>*@
+                        <th>Vehicle Reg.Number</th>
+                        <th>Vehicle Details</th>
+                        <th>Policy Number</th>
+                        <th>Policy Premium Amount</th>
+                        <th>Policy From Date</th>
+                        <th>Policy To Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.MIOwnDamageClaimDetails != null && Model.MIOwnDamageClaimDetails.Count > 0)
+                    {
+                        foreach (var item in Model.MIOwnDamageClaimDetails)
+                        {
+                            <tr>
+                                @*<td>@item.MIPolicyId</td>*@
+                                <td>@item.MIVehicleRegistrationNumber</td>
+                                <td>@item.MIVehicleManufactureName @item.MIVehicleModelName</td>
+                                <td>@item.MIPolicyNumber</td>
+                                <td>@item.MIPremium</td>
+                                <td>@item.MIPolicyFromDate.Value.ToString("dd MMM yyyy")</td>
+                                <td>@item.MIPolicyToDate.Value.ToString("dd MMM yyyy")</td>
+
+                                @*@if (item.MIRenewalApplicationNumber == 0)
+                                    {
+                                        <td>
+                                            <a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="Renewal", refNo = item.MIApplicationNumber, category=item.MIUserCategoryId }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Renewal Application</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="@Url.Action("MotorInsuranceRenewalApplication", "MotorInsurance", new RouteValueDictionary(new { @PageType ="EditRenewal", @refNo = item.MIApplicationNumber, @category=item.MIUserCategoryId,@renewalRefNo=item.MIRenewalApplicationNumber }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Edit Renewal Application</a></td>
+                                    }*@
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!--//ThirdPartyDamageClaim Details END//-->

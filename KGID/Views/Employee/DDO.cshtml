@@ -1,0 +1,283 @@
+﻿@model KGID_Models.KGIDNBApplication.VM_DDOVerificationDetails
+
+@{
+    ViewBag.Title = "DDO";
+}
+<style type="text/css">
+    /*.stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+        height: 100%;
+    }*/
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+</style>
+<script src="~/Content/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts/pie.js"></script>
+<script>
+    var chart;
+    var legend;
+
+    var chartData = [
+        @*{
+            "application": "Total Received Applications",
+            "count": @Model.TotalReceived
+        },*@
+        {
+            "application": "Processed Applications",
+            "count": ((@Model.TotalReceived)-(@Model.PendingApplications))
+        },
+        @*{
+            "application": "Sent Back Applications",
+            "count": @Model.SentBackApplication
+        },*@
+        {
+            "application": "Pending Applications",
+            "count": @Model.PendingApplications
+        }
+    ];
+
+    AmCharts.ready(function () {
+        // PIE CHART
+        chart = new AmCharts.AmPieChart();
+        chart.dataProvider = chartData;
+        chart.titleField = "application";
+        chart.valueField = "count";
+        chart.colors = ["#007bff", "#B0DE09", "#dc3545", "#FF6F91"];
+
+        chart.outlineColor = "#FFFFFF";
+        chart.outlineAlpha = 0.8;
+        chart.outlineThickness = 2;
+        chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
+        // this makes the chart 3D
+        chart.depth3D = 15;
+        chart.angle = 30;
+        //chart
+        chart.legend = chartData;
+    chart.legend.position = "right";
+        // WRITE
+        chart.write("divApplicationChart");
+    });
+
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary"><b><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಲ್ಲಿಸಲಾದ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Submitted Application For Verification</label></b></h5>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 stat-style">
+                        <div class="text-center font-weight-bold m-2"><h4><label class="knlan">ಸ್ವೀಕರಿಸಿದ ಒಟ್ಟು ಪ್ರಸ್ತಾವನೆಗಳು:</label><label class="Enlan">Total Received Applications :</label> @Model.TotalReceived</h4></div>
+                        <div id="divApplicationChart" style="width: 100%; height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <nav id="navmenu">
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a id="nav-tab-Form" class="nav-item nav-link active" data-toggle="tab" href="#pendingForm" role="tab" aria-controls="pendingForm" aria-selected="true"><b><label class="knlan">ಬಾಕಿ ಉಳಿದಿರುವ ಪ್ರಸ್ತಾವನೆಗಳು </label><label class="Enlan">Pending Application</label></b></a>
+                        <a id="nav-tab-ApproveApp" class="nav-item nav-link" data-toggle="tab" href="#ApproveApp" role="tab" aria-controls="ApproveApp" aria-selected="false"><b><label class="knlan">ಅನುಮೋದಿತ ಪ್ರಸ್ತಾವನೆಗಳು</label> <label class="Enlan">Approved Application</label></b></a>
+                        <a id="nav-tab-CurrentStatus" class="nav-item nav-link" data-toggle="tab" href="#CurrentStatus" role="tab" aria-controls="CurrentStatus" aria-selected="false"><b><label class="knlan">ಪ್ರಸ್ತಾವನೆಯ ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ</label><label class="Enlan">Current Status of Application</label></b></a>
+                    </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                    <div class="tab-pane fade show active" id="pendingForm" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divPendingApp" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped table-bordered" id="tblNewDDOData" cellspacing="0">
+                                            <thead class="t_head">
+                                                <tr>
+                                                    <th hidden></th>
+                                                    <th><label class="knlan">ಹೆಸರು</label> <label class="Enlan">Name</label></th>
+                                                    <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Application Reference Number</label></th>
+                                                    <th><label class="knlan">ಜಿಲ್ಲೆ </label><label class="Enlan">District</label></th>
+                                                    <th><label class="knlan">ಇಲಾಖೆ</label><label class="Enlan">Department</label></th>
+                                                    <th><label class="knlan">ಆದ್ಯತೆ</label> <label class="Enlan">Priority</label></th>
+                                                    <th><label class="knlan">ಸ್ಥಿತಿ</label> <label class="Enlan">Status</label></th>
+                                                    <th><label class="knlan">ಕ್ರಮ</label> <label class="Enlan">Action</label></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.EmployeeVerificationDetails != null && Model.EmployeeVerificationDetails.Count > 0)
+                                                {
+                                                    foreach (var item in Model.EmployeeVerificationDetails)
+                                                    {
+                                                <tr>
+                                                    <td class="selected" hidden>@item.RowNum</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.District</td>
+                                                    <td>@item.Department</td>
+                                                    @if (@item.Priority == 2)
+                                                    {
+                                                        @*<td><label class="knlan">ಹೊಸ ಪ್ರಸ್ತಾಪಕ</label>  <label class="Enlan">New Employee</label></td>*@
+                                                        <td>New Employee</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        @*<td><label class="knlan">ವಿಮೆ ಹೊಂದಿದ ಪ್ರಸ್ತಾಪಕ</label> <label class="Enlan">Insured Employee</label></td>*@
+                                                        <td>Insured Employee</td>
+                                                    }
+                                                    <td>@item.Status</td>
+                                                    <td><a href="@Url.Action("DDOVerification", "VerifyDetails", new RouteValueDictionary(new { @empId = item.EmployeeCode, applicationId = item.ApplicationId }))" class="btn btn-info btn-sm btnViewDetails" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                        <table class="table table-striped table-bordered" id="tblInsuredDDOData" cellspacing="0">
+                                            <thead class="t_head">
+                                                <tr>
+                                                    <th hidden></th>
+                                                    <th><label class="knlan">ಹೆಸರು</label><label class="Enlan">Name</label></th>
+                                                    <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Application Reference Number</label></th>
+                                                    <th><label class="knlan">ಜಿಲ್ಲೆ</label>  <label class="Enlan">District</label></th>
+                                                    <th><label class="knlan">ಇಲಾಖೆ</label> <label class="Enlan">Department</label></th>
+                                                    <th><label class="knlan">ಆದ್ಯತೆ</label><label class="Enlan">Priority</label></th>
+                                                    <th><label class="knlan">ಸ್ಥಿತಿ</label> <label class="Enlan">Status</label></th>
+                                                    <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.IEmployeeVerificationDetails != null && Model.IEmployeeVerificationDetails.Count > 0)
+                                                {
+                                                    foreach (var item in Model.IEmployeeVerificationDetails)
+                                                    {
+                                                <tr>
+                                                    <td  class="selected" hidden>@item.RowNum</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    <td>@item.District</td>
+                                                    <td>@item.Department</td>
+                                                    @if (@item.Priority == 2)
+                                                    {
+                                                        @*<td><label class="knlan">ಹೊಸ ಪ್ರಸ್ತಾಪಕ</label>  <label class="Enlan">New Employee</label></td>*@
+                                                        <td>New Employee</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        @*<td><label class="knlan">ವಿಮೆ ಹೊಂದಿದ ಪ್ರಸ್ತಾಪಕ</label> <label class="Enlan">Insured Employee</label></td>*@
+                                                        <td>Insured Employee</td>
+                                                    }
+                                                    <td>@item.Status</td>
+                                                    <td><a href="@Url.Action("DDOVerification", "VerifyDetails", new RouteValueDictionary(new { @empId = item.EmployeeCode, applicationId = item.ApplicationId }))" class="btn btn-info btn-sm btnIEViewDetails" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="ApproveApp" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divApprovedApp" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped table-bordered" id="tblDDOApprovedData" cellspacing="0">
+                                            <thead class="t_head">
+                                                <tr>
+                                                    <th><label class="knlan">ಹೆಸರು </label><label class="Enlan">Name</label></th>
+                                                    <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ </label><label class="Enlan">Application Referance Number</label></th>
+                                                    <th><label class="knlan">ವಿಮಾ ಮೊತ್ತ</label>  <label class="Enlan">Premium Amount</label></th>
+                                                    <th><label class="knlan">ಸ್ಥಿತಿ</label> <label class="Enlan">Status</label></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.ApprovedEmployeeStatus != null && Model.ApprovedEmployeeStatus.Count > 0)
+                                                {
+                                                    foreach (var item in Model.ApprovedEmployeeStatus)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.ApplicationNumber</td>
+                                                            <td>@item.Premium</td>
+                                                            <td>@item.Status</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="CurrentStatus" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div id="divCurrentStatus" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped table-bordered" id="tblDDOApplicationStatus" cellspacing="0">
+                                            <thead class="t_head">
+                                                <tr>
+                                                    <th><label class="knlan">ಹೆಸರು</label> <label class="Enlan">Name</label></th>
+                                                    <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ರೆಫರೆನ್ಸ್ ಸಂಖ್ಯೆ</label> <label class="Enlan">Application Referance Number</label></th>
+                                                    <th><label class="knlan">ಸ್ಥಿತಿ</label> <label class="Enlan">Status</label></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.LastUpdatedStatusForEmployees != null && Model.LastUpdatedStatusForEmployees.Count > 0)
+                                                {
+                                                    foreach (var item in Model.LastUpdatedStatusForEmployees)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.ApplicationNumber</td>
+                                                            <td>@item.Status</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblNewDDOData').DataTable({
+            "ordering": false
+        });
+        $('#tblInsuredDDOData').DataTable({
+            "ordering": false
+        });
+        
+        $('#tblDDOApprovedData').DataTable({
+            "ordering": false
+        });
+        $('#tblDDOApplicationStatus').DataTable({
+            "ordering": false
+        });
+    });
+</script>

@@ -1,0 +1,104 @@
+{
+
+  "ValidationData": [
+    //{
+    //  "Column": "hrms_employee_code",
+    //  "Validation": "^[0-9]*$",
+    //  "errorMsg": "Employee Code should not be null or in invalid format."
+    //},
+    {
+      "Column": "dept_employee_code",
+      "Validation": "^([0-9]*)([A-Z]*)$",
+      "errorMsg": "Department emp code should not be null or in invalid format."
+    },
+    {
+      "Column": "gender",
+      "Validation": "",
+      "errorMsg": "Gender should not be null."
+    },
+    {
+      "Column": "place_of_birth",
+      "Validation": "",
+      "errorMsg": "Place of birth should not be null."
+    },
+    {
+      "Column": "employee_name",
+      "Validation": "^[A-Z a-z]*$",
+      "errorMsg": "Employee name should not be null or in invalid format."
+    },
+    {
+      "Column": "father_name",
+      "Validation": "^[A-Z a-z]*$",
+      "errorMsg": "Father name should not be null or in invalid format."
+    },
+    {
+      "Column": "date_of_birth",
+      //"Validation": "^([0-2][0-9]|(3)[0-1])([\\/]|[-])(((0)[0-9])|((1)[0-2]))([\\/]|[-])\\d{4}| (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$",
+      "Validation": "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$",
+      "errorMsg": "Date of birth is in invalid date format."
+    },
+    {
+      "Column": "date_of_appointment",
+      //"Validation": "^([0-2][0-9]|(3)[0-1])([\\/]|[-])(((0)[0-9])|((1)[0-2]))([\\/]|[-])\\d{4}| (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$",
+      "Validation": "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$",
+      "errorMsg": "Date of appointment is in invalid date format."
+    },
+    {
+      "Column": "pan_number",
+      //"Validation": "^[A-Z]{5}[0-9]{4}[A-Z]{1}$",
+      "Validation": "^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$",
+      "errorMsg": "Pan number should not be null or in invalid format."
+    },
+    {
+      "Column": "mobile_number",
+      "Validation": "^([0-9]{10})$",
+      "errorMsg": "Mobile number should not be null or in invalid format."
+    },
+    {
+      "Column": "email_id",
+      "Validation": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+      "errorMsg": "Email id should not be null or in invalid format."
+    },
+    {
+      "Column": "ewd_date_of_joining",
+      //"Validation": "^([0-2][0-9]|(3)[0-1])([\\/]|[-])(((0)[0-9])|((1)[0-2]))([\\/]|[-])\\d{4}| (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$",
+      "Validation": "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$",
+      "errorMsg": "Joining date should not be null or in invalid format."
+    },
+    {
+      "Column": "ewd_group",
+      "Validation": "^[A-Z a-z]*$",
+      "errorMsg": "Group should not be null or in invalid format."
+    },
+    {
+      "Column": "ewd_place_of_posting",
+      "Validation": "^[A-Z a-z]*$",
+      "errorMsg": "Place of posting should not be null or in invalid format."
+    },
+    {
+      "Column": "ewd_ddo",
+      "Validation": "",
+      "errorMsg": "DDO code should not be null."
+    },
+    {
+      "Column": "ewd_payscale",
+      "Validation": "",
+      "errorMsg": "Payscale should not be null."
+    },
+    {
+      "Column": "ewd_employment_type",
+      "Validation": "",
+      "errorMsg": "Employment Type should not be null."
+    },
+    {
+      "Column": "ewd_designation",
+      "Validation": "",
+      "errorMsg": "Designation should not be null."
+    },
+    {
+      "Column": "ewd_group",
+      "Validation": "",
+      "errorMsg": "Group should not be null."
+    }
+  ]
+}

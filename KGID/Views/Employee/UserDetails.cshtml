@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row text-center">
+                    <h5 class="col-12 text-black-100 font-weight-bold">
+                        <b>
+                            <label class="Enlan">Update User Details</label><label class="knlan">ಬಳಕೆದಾರರ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label>
+                        </b>
+                    </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-5">
+                        <label for="lblkgidno" class="control-label Enlan">KGID Number:</label>
+                        <label for="lblkgidno" class="control-label knlan">ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtKGIDNO" name="txtKGIDNO" type="text" maxlength="7" placeholder="Enter KGID Number">
+
+                        <label id="errKGIDNo" class="col-form-label-sm text-danger err" hidden>Please Enter KGID Number</label>
+                    </div>
+                    <div class="form-group col-2">
+                        <br />
+                        <input type="button" value="View" class="btn btn-primary" id="btnShowDetails" />
+
+                        @*<input type="button" value="get details" class="btn btn-primary" id="btngetdetails" onclick="getdetails();" />*@
+                        @*<a id="btnShowDetails" class="btn btn-primary">View</a>*@
+                    </div>
+
+
+                </div>
+                <br />
+
+                <div class="row"> <h6 style="margin-left:250px;"> (or)</h6></div>  <br />
+                <div class="row">
+                    <div class="form-group col-5">
+                        <label for="lblkgidno" class="control-label Enlan">Mobile Number:</label>
+                        <label for="lblkgidno" class="control-label knlan">ಮೊಬೈಲ್ ನಂಬರ:</label>
+                        <input class="form-control  form-control-sm ClNum" id="txtSearchOnMobileNo" name="txtSearchOnMobileNo" maxlength="10" placeholder="Enter Mobile Number">
+                        <label id="errMobNumber" class="col-form-label-sm text-danger err" hidden>Please Enter Mobile Numver</label>
+                    </div>
+                    <div class="form-group col-2">
+                        <br />
+                        <input type="submit" value="View" class="btn btn-primary" id="btnShowDetailsBasedOnMobile" onclick="showdetails();" />
+                        @*<a id="btnShowDetails" class="btn btn-primary">View  </a>*@
+                    </div>
+                </div>
+
+                <div class="row" id="divUserDetails">
+                    <div class="form-group col-5">
+                        <label for="lblmblno" class="control-label Enlan">Mobile Number:</label>
+                        <label for="lblmblno" class="control-label knlan">ಮೊಬೈಲ್ ನಂಬರ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtMBLNO" name="txtMBLNO" type="text" maxlength="10" placeholder="Enter Mobile Number">
+                        <input id="hdnEmpId" name="hdnEmpId" type="hidden">
+                        <label id="errMBLNo" class="col-form-label-sm text-danger err" hidden>Please Enter Mobile Number</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="lblemailid" class="control-label Enlan">Email ID:</label>
+                        <label for="lblemailid" class="control-label knlan">ಇಮೇಲ್:</label>
+                        <input class="form-control form-control-sm preventSpace" id="txtEmailID" name="txtEmailID" type="email" placeholder="Enter Email ID">
+                        <label id="errEmailID" class="col-form-label-sm text-danger err" hidden>Please Enter Mail ID</label>
+                    </div>
+                    <div class="form-group col-2">
+                        <br />
+                        <input type="submit" value="Update" class="btn btn-primary" id="btnUpdateDetails" />
+                        @*<a id="btnUpdateDetails" class="btn btn-primary">Update</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/ApplicationJS/UserDetails.js"></script>
+
+<script>
+
+
+
+    $("#btnShowDetailsBasedOnMobile").click(function () {
+
+        $(".err").attr("hidden", true);
+        $("#txtMBLNO").val("");
+        $("#txtEmailID").val("");
+        var moblineNumber = $("#txtSearchOnMobileNo").val().length;
+        if ($("#txtSearchOnMobileNo").val() == "" || $("#txtSearchOnMobileNo").val() == null) {
+            $("#errMobNumber").removeAttr('hidden');
+        }
+        if (moblineNumber < 10) {
+            $('#errMobNumber').removeAttr('hidden');
+            $('#errMobNumber').text("Please enter correct Mobile number.")
+
+        }
+        else {
+            $("#errMobNumber").attr('hidden', true);
+        }
+        if ($(".err:visible").length == 0) {
+            $.ajax({
+                type: 'get',
+                url: '/get-user-details-basedOnMobNum/',
+                data: { MobileNumber: $("#txtSearchOnMobileNo").val() },
+                success: function (result) {
+                    $("#hdnEmpId").val(result.EmployeeId);
+                    if (result.KgidNum != 0) { $("#txtKGIDNO").val(result.KgidNum); }
+                    else { $("#txtKGIDNO").val("");}
+                    if (result.MobileNumber == "0" && result.EmilID == "0") {
+                        $("#divUserDetails").hide();
+                        $("#txtKGIDNO").val("");
+                        $("#txtSearchOnMobileNo").val("");
+                        alertify.error("Mobile Number does not exists in table");
+                    }
+                    else {
+                        $("#txtMBLNO").val(result.MobileNumber);
+                        $("#txtEmailID").val(result.EmilID);
+                        $("#divUserDetails").show();
+                    }
+                }
+            })
+        }
+        else {
+            $("#divUserDetails").hide();
+            return false;
+        }
+    });
+
+  
+
+
+
+</script>

@@ -1,0 +1,487 @@
+﻿
+@{
+    ViewBag.Title = "Verify Employee Application";
+}
+
+<link href="~/Content/StepsDemo/css/jquery.steps.css" rel="stylesheet" />
+<script src="~/Content/StepsDemo/js/jquery.steps.min.js"></script>
+<style type="text/css">
+    .wizard > .content > .body {
+        position: relative;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    .application-tab .steps ul li {
+        width: 15% !important;
+    }
+
+    #MedicalTab .steps ul li {
+        width: 15% !important;
+    }
+
+    #btnASave {
+        cursor: pointer;
+    }
+
+    #btnPSave {
+        cursor: pointer;
+    }
+
+    #btnMSave {
+        cursor: pointer;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .error {
+        font-size: 0.75rem !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    #btnMedicalPrint, #btnAllPrint {
+        background: #2184be;
+        color: #fff;
+        display: block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        outline: 0;
+    }
+</style>
+
+
+<div id="divApplication" data-eid="@Session["UID"]">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><b>Verify Employee Application</b></h6>
+
+                </div>
+                <div class="card-body">
+                    <nav id="navmenu">
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b>Application Details</b></a>
+                            <a id="nav-Payment-tab" class="nav-item nav-link" data-toggle="tab" href="#nav-Payment" role="tab" aria-controls="nav-Payment" aria-selected="false"><b>Initial Deposit Payment</b></a>
+                            <a id="nav-Medical-tab" class="nav-item nav-link " data-toggle="tab" href="#nav-Medical" role="tab" aria-controls="nav-Medical" aria-selected="false"><b>Medical Report</b></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                        <div class="tab-pane fade show active" id="nav-Application" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="ApplicationTab" class="application-tab">
+                                <h2>Basic Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("BasicDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                                <h2>KGID Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("KGIDDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                                <h2>Family Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("FamilyDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                                <h2>Nominee Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("NomineeDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                                <h2>Personal Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("PersonalDetailsToView", "ViewDataToVerify")
+                                    }
+
+                                </section>
+                                <h2>Medical Leave Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("MedicalLeaveDetailsToView", "ViewDataToVerify")
+                                    }
+
+                                </section>
+
+                                <h2>Declaration</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("DeclarationDetailsToView", "ViewDataToVerify")
+                                    }
+
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Payment" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div id="PaymentTab" class="Payment-tab">
+                                <h2>Initial Deposit Payment</h2>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Payment Amount</label>
+                                                <input type="text" id="txtPayAmount" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Payment Reference No</label>
+                                                <input type="text" id="txtpaymentrefno" class="form-control" value="" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Purpose</label>
+                                                <input type="text" id="txtPurpose" class="form-control" value="KGID Premium" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Sub Purpose</label>
+                                                <input type="text" id="txtSubPurpose" class="form-control" value="Initial Payment" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">DDO Code</label>
+                                                <input type="text" id="txtDistrictOfffice" class="form-control" value="12027O" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">HOA</label>
+                                                <input type="text" id="txtHOA" class="form-control" value="Revenue Head of Account" disabled />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Date</label>
+                                                <input type="text" id="txtdateofpayment" class="form-control">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-primary">Pay Through KII</button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-primary">Retry</button>
+                                                    <a class="btn btn-success" onclick="SaveChallanDetails();">Save</a>
+                                                </div>
+                                                @*<div class="col-md-4">
+                                                        <a href="#next" id="btnNext" role="menuitem">Next</a>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <br />
+                                            <br />
+                                            <a class="btn btn-info" onclick="GenerateChallan();">Generate Challan</a>
+                                        </div>
+                                    </div>
+                                </section>
+                                <h2>Payment Status</h2>
+                                <section class="container" id="PaymentStatus">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtChallen">Reference No.</label>
+                                                <input type="text" id="txtRefNo" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Amount</label>
+                                                <input type="text" id="txtPayAmount" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Transaction No</label>
+                                                <input type="text" id="txttransactionno1" class="form-control" value="113001150541">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="txtChallen">Date of Payment</label>
+                                                <input type="text" placeholder="DD/MM/YYYY" id="txtdateofpayment1" class="form-control">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a class="btn btn-primary" onclick="PrintChallanDetails();">Print</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-primary">Retrive For KII</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Medical" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div id="MedicalTab">
+                                <h2>Basic Details</h2>
+                                <section class="container">
+                                    @{
+                                        @Html.Action("HBasicDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+
+                                <h2>Physical Details</h2>
+                                <section id="buildyourform">
+                                    @{
+                                        @Html.Action("HPhysicalDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+
+                                <h2>Other Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("HOtherDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+
+                                <h2>Health Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("HHealthDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+
+                                <h2>Doctor Details</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("HDoctorDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                                <h2>Declaration</h2>
+                                <section>
+                                    @{
+                                        @Html.Action("HDeclarationDetailsToView", "ViewDataToVerify")
+                                    }
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var RefNumber = $("#spnBReferanceNo").text();
+        if (RefNumber != null) {
+            $("#spnKReferanceNo").text(RefNumber);
+            $("#spnFReferanceNo").text(RefNumber);
+            $("#spnNReferanceNo").text(RefNumber);
+            $("#spnPReferanceNo").text(RefNumber);
+            $("#spnDReferanceNo").text(RefNumber);
+
+            $("#spnHBReferanceNo").text(RefNumber);
+            $("#spnHHPReferanceNo").text(RefNumber);
+            $("#spnHOReferanceNo").text(RefNumber);
+            $("#spnHHDReferanceNo").text(RefNumber);
+            $("#spnHDDReferanceNo").text(RefNumber);
+            $("#spnHDReferanceNo").text(RefNumber);
+
+            $("#spnPayscale").text($("#txtPayscleCode").val());
+        }
+        var eid = $("#divApplication").data("eid");
+        $("#ApplicationTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true;
+                } else {
+                    if (currentIndex == 0) {
+                        var RefNumber = $("#spnBReferanceNo").text();
+                        if (RefNumber != null) {
+                            $("#spnKReferanceNo").text(RefNumber);
+                            $("#spnFReferanceNo").text(RefNumber);
+                            $("#spnNReferanceNo").text(RefNumber);
+                            $("#spnPReferanceNo").text(RefNumber);
+                            $("#spnDReferanceNo").text(RefNumber);
+
+                            $("#spnHBReferanceNo").text(RefNumber);
+                            $("#spnHHPReferanceNo").text(RefNumber);
+                            $("#spnHOReferanceNo").text(RefNumber);
+                            $("#spnHHDReferanceNo").text(RefNumber);
+                            $("#spnHDDReferanceNo").text(RefNumber);
+                            $("#spnHDReferanceNo").text(RefNumber);
+
+                            $("#spnPayscale").text($("#txtPayscale").val());
+                        }
+                        //return SaveBasicDetails(eid);
+                        return true;//BserverResponse;
+                    }
+                    else if (currentIndex == 1) {
+                        var KGIDPremium = $("#txtMPremium").val();
+                        var EnteredAmount = $("#txtAmount").val();
+                        $("#txtPayAmount").val(EnteredAmount);
+                        $("#hdnKgidPremiumAmount").val(EnteredAmount);
+
+
+
+                        return true;//KserverResponse;
+                    }
+                    else if (currentIndex == 2) {
+
+                        return true;
+
+                        //return FserverResponse;
+                    }
+                    else if (currentIndex == 3) {
+
+                        return true;//NserverResponse;
+                    }
+                    else if (currentIndex == 4) {
+
+                        return true;//PserverResponse;
+
+
+                    }
+                    else if (currentIndex == 5) {
+                        return true;//DserverResponse;
+                    }
+                    return true;
+                }
+            },
+            onFinished: function (event, currentIndex) {
+                //alert("Application Submitted!");
+                return true;
+            }
+        });
+        $("#PaymentTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+                else {
+                    if (currentIndex == 0) {
+                        //return SaveChallanDetails(eid);
+                        return true;//CserverResponse;
+                    }
+                }
+                return true;
+            },
+            onFinished: function (event, currentIndex) {
+                
+                $('#nav-Medical-tab').removeClass("disabled");
+                return true;
+            }
+        });
+        $("#MedicalTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+                else {
+                    if (currentIndex == 1) {
+                        return true;
+                    }
+                    else if (currentIndex == 2) {
+                        return true;
+                    }
+                    else if (currentIndex == 3) {
+                        return true;
+                    }
+                    else if (currentIndex == 4) {
+                        return true;
+                    }
+                    else if (currentIndex == 5) {
+                        return true;
+                    }
+                }
+                return true;
+            },
+            onFinished: function (event, currentIndex) {
+                return true;
+            }
+        });
+        
+    });
+
+    function FormSubmitted() {
+        var eid = $("#divApplication").data("eid");
+
+        if ($('#nav-ApplicationForm-tab').hasClass('active')) {
+            var StepNo = $("#app .current .step-number").text();
+            if (StepNo == 6) {
+                alertify.confirm("Are you sure you want to submit the application?", function () {
+                    SaveDeclarationDetails(eid);
+                }, function () { return false; });
+            }
+        }
+        else if ($('#nav-MedicalReport-tab').hasClass('active')) {
+            var StepNo = $("#medical .current .step-number").text();
+            if (StepNo == 5 && confirm("Are you sure you want to submit medical details?")) {
+                SubmitMedicalForm(eid);
+            }
+        }
+    }
+    function rebindValidation() {
+        $('form').each(function (i, f) {
+            $form = $(f);
+            $form.removeData('validator');
+            $form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse($form);
+        });
+    }
+    $(document).ready(function () {
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (mm == 12) {
+            mm = '01';
+            yyyy = yyyy + 1;
+        } else {
+            mm = parseInt(mm) + 1;
+            mm = String(mm).padStart(2, '0');
+        }
+        var timerdate = dd + '/' + mm + '/' + yyyy;
+        // For demo preview end
+
+
+        //$("#ApplicationTab ul[aria-label=Pagination] li:nth-child(1)").after('<li><a id="btnASave" role="menuitem" onclick="ApplicationDetailsSave()">Save</a></li>');
+        //$("#PaymentTab ul[aria-label=Pagination] li:nth-child(1)").after('<li><a id="btnPSave" role="menuitem" onclick="PaymentDetailsSave()">Save</a></li>');
+        //$("#MedicalTab ul[aria-label=Pagination] li:nth-child(1)").after('<li><a id="btnMSave" role="menuitem" onclick="MedicalDetailsSave()">Save</a></li>');
+
+        //$("a[href*='next']").html("Save & Next");
+        $("#txtdateofpayment").val(timerdate);
+        $("#txtdateofpayment1").val(timerdate);
+        if ($("#txtServiceType").val().toLowerCase() === "temporary") {
+            $("a[href*='next']").parent("li").addClass("disabled");
+            $("a[href*='next']").parent("li").attr("aria-disabled", true);
+            $("a[href*='next']").removeAttr("href");
+            $("a[href*='previous']").removeAttr("href");
+        }
+
+        var eid = $("#divApplication").data("eid");
+
+        $("#spnName").text($("#txtProposerName").val());
+
+        ShowNomineeType();
+    });
+    
+</script>

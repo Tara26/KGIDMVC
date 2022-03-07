@@ -1,0 +1,482 @@
+﻿
+
+
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsurancePreviousHistoryDetails
+
+    <style>
+        #tblPPers p {
+            font-size: 14px;
+            line-height: 18px;
+            color: black;
+        }
+    </style>
+
+	<div id="divpermi">
+		@*<p style="text-align: center; margin-top:20px;"><strong>PREVIOUS HISTORY DETAILS:</strong></p>*@
+		<table style="border:none; width: 0%; height: 744px;" id="tblPPers">
+
+			<tbody>
+				<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;"><p>  Date of purchase of the vehicle by the proposer </p></td>
+					<td style="width: 9.2384%; height: 34px;">
+						<p>
+							:&nbsp;
+							@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_DateOfPurchaseOfVehicle))
+						</p>
+					</td>
+
+				</tr>
+				<tr style="height: 34px;">
+					<td style="width: 1%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;"><p>  Whether the vehicle is new or already used at present :</p></td>
+					<td style="width: 38%; height: 34px;">
+						<p>
+							:&nbsp;
+							@if (Model.ph_PurchaseType == true)
+							{
+								<span class="spPurchaseType ">Previously Insured</span>
+							}
+							else
+							{
+
+								<span class="spPurchaseType ">New</span>
+
+							}
+						</p>
+					</td>
+				</tr>
+
+				
+					<tr style="height: 70px;">
+						<td style="width: 5%; height: 70px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 70px;">
+							<p>
+								Will the vehicle be used exclusively for, <br />
+								a. Private, Social, Domestic, Pleasure & Professional purposes:
+							</p>
+						</td>
+						<td style="width: 18.2384%; height: 70px;">
+							<p>
+								: &nbsp;
+
+								@if (Model.ph_VehicleUsedPurposeA == true)
+								{
+									<span class="spVehicleUsedA">Yes</span>
+								}
+								else
+								{
+
+									<span class="spnVehicleUsedA">No</span>
+
+								}
+							</p>
+						</td>
+
+					</tr>
+					<tr style="height: 70px;">
+						<td style="width: 1%; height: 70px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 70px;"><p>b. Carriage of goods other than samples or personal luggage </p></td>
+						<td style="width: 18.2384%; height: 70px;">
+							<p>
+								: &nbsp;
+
+								@if (Model.ph_VehicleUsedPurposeB == true)
+								{
+									<span class="spVehicleUsedB ">Yes</span>
+								}
+								else
+								{
+
+									<span class="spnVehicleUsedB ">No</span>
+
+								}
+							</p>
+						</td>
+
+					</tr>
+
+				
+				@{
+					if (Model.ph_PurchaseType == true)
+					{
+						<tr style="height: 52px;">
+							<td style="width: 5%; height: 52px;"><p></p></td>
+							<td style="width: 50.7616%; height: 52px;"><p>Is the vehicle in good condition ?</p></td>
+							<td style="width: 18.2384%; height: 52px;">
+								<p>
+									: &nbsp;
+
+									@if (Model.ph_vehicleCondition == false)
+									{
+										<span class="spvehicleCondition ">Yes</span>
+									}
+									else
+									{
+
+										<span class="spnvehicleCondition ">No</span>
+
+									}
+								</p>
+							</td>
+						</tr>
+						if (Model.ph_vehicleCondition == true)
+						{
+							<tr style="height: 52px;">
+								<td style="width: 5%; height: 52px;"><p>&nbsp;</p></td>
+								<td style="width: 50.7616%; height: 52px;">
+									<p>
+										If 'no' please give full details
+									</p>
+
+								</td>
+								<td style="width: 18.2384%; height: 52px;">
+									<p>
+										: &nbsp;
+
+										@Html.DisplayFor(model => model.ph_VehicleConditionReason)
+									</p>
+								</td>
+
+							</tr>
+
+						}
+						<tr style="height: 34px;">
+							<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+							<td style="width: 50.7616%; height: 34px;"><p>Name and address of the previous insurer</p></td>
+							<td style="width: 18.2384%; height: 34px;">
+								<p>
+									: &nbsp;
+
+									@Html.DisplayFor(model => model.ph_previousinsurerDetails)
+								</p>
+							</td>
+
+						</tr>
+						<tr style="height: 52px;">
+							<td style="width: 5%; height: 52px;"><p>&nbsp;</p></td>
+							<td style="width: 50.7616%; height: 52px;"><p>Previous Policy Number  </p></td>
+							<td style="width: 18.2384%; height: 52px;">
+								<p>
+									: &nbsp;
+
+									@Html.DisplayFor(model => model.ph_previousinsurerNo)
+								</p>
+							</td>
+
+						</tr>
+						<tr style="height: 52px;">
+							<td style="width: 5%; height: 52px;"><p>&nbsp;</p></td>
+							<td style="width: 50.7616%; height: 52px;">
+								<p>
+									Period of latest insurance from
+								</p>
+							</td>
+							<td style="width: 18.2384%; height: 52px;">
+								<p>
+									: &nbsp;
+
+									@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_insuranceFromDt))
+									&nbsp;<b>to</b> &nbsp;
+									@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_insuranceToDt))
+								</p>
+							</td>
+
+						</tr>
+					}
+
+				}
+
+
+
+
+				@*<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</td>
+					<td style="width: 50.7616%; height: 34px;"><p>  Type of Cover  </td>
+					<td style="width: 18.2384%; height: 34px;">
+						<p>
+							: &nbsp;
+							@Html.DisplayFor(model => model.ph_TypeOfCover)
+						</p>
+					</td>
+
+				</tr>*@
+				
+					<tr style="height: 34px;">
+						<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 34px;">
+							<p>
+								Has any insurance company ever :<br />
+								a. Declined the proposal
+							</p>
+						</td>
+						<td style="width: 18.2384%; height: 34px;">
+							<p>
+								: &nbsp;
+
+								@if (Model.ph_InsuranceDeclined == true)
+								{
+									<span id="spnInsuranceDeclined ">Yes</span>
+								}
+								else
+								{
+
+									<span class="spnInsuranceDeclined ">No</span>
+
+								}
+						</td>
+
+					</tr>
+					<tr>
+
+						<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 34px;"><p>b. Cancelled and refused to renew </p></td>
+						<td style="width: 18.2384%; height: 34px;">
+							<p>
+								:&nbsp;
+								@if (Model.ph_InsuranceCancelled == true)
+								{
+									<span id="spnInsuranceCancelled">Yes</span>
+								}
+								else
+								{
+
+									<span class="spnInsuranceCancelled ">No</span>
+
+								}
+							</p>
+						</td>
+
+					</tr>
+					@if (Model.ph_InsuranceCancelled == true)
+					{
+						<tr style="height: 70px;">
+							<td style="width: 5%; height: 70px;"><p>&nbsp;</p></td>
+							<td style="width: 50.7616%; height: 70px;">
+
+								<p> If yes, reasons there of </p>
+
+							</td>
+							<td style="width: 38%; height: 70px;">
+								<p>
+									: &nbsp;
+
+									@Html.DisplayFor(model => model.ph_CancelledReason)
+								</p>
+							</td>
+
+						</tr>
+					}
+					<tr>
+						<td style="width: 5%; height: 52px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 34px;">
+							<p>
+								c. Imposed special condition of excess
+
+							</p>
+						</td>
+						<td style="width: 18.2384%; height: 34px;">
+							<p>
+								: &nbsp;
+								@if (Model.ph_InsuranceImposed == true)
+								{
+									<span id="spnInsuranceImposed">Yes</span>
+								}
+								else
+								{
+
+									<span class="spnInsuranceImposed ">No</span>
+
+								}
+							</p>
+						</td>
+
+					</tr>
+					@if (Model.ph_InsuranceImposed == true)
+					{
+
+						<tr style="height: 52px;">
+							<td style="width: 5%; height: 52px;"><p>&nbsp;</p></td>
+							<td style="width: 50.7616%; height: 52px;"><p> If yes, reasons there of</p></td>
+							<td style="width: 18.2384%; height: 52px;">
+								<p>
+									: &nbsp;
+
+									@Html.DisplayFor(model => model.ph_ImposedReason)
+								</p>
+							</td>
+
+						</tr>
+					}
+				
+
+				<tr>
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 45%; height: 34px;">
+						<p>
+							Details of Hire Purchase / Hypothecation / Lease <br />
+							a. If the vehicle proposed for insurance
+						</p>
+					</td>
+					<td style="width: 18.2384%; height: 34px;"></td>
+				</tr>
+
+
+				<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;">
+						<p>
+							Under Hire Purchase
+						</p>
+					</td>
+					<td style="width: 38%; height: 34px;">
+						<p>
+							: &nbsp;
+							@if (Model.ph_Hire == true)
+							{
+								<span id="spnhire ">Yes</span>
+							}
+							else
+							{
+
+								<span class="spnhire ">No</span>
+
+							}
+						</p>
+					</td>
+				</tr>
+				<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;">
+						<p>
+							Under Lease agreement
+						</p>
+					</td>
+					<td style="width: 38%; height: 34px;">
+						<p>
+							: &nbsp;
+							@if (Model.ph_Lease == true)
+							{
+								<span id="spnlease ">Yes</span>
+							}
+							else
+							{
+
+								<span class="spnlease ">No</span>
+
+							}
+						</p>
+					</td>
+				</tr>
+				<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;">
+						<p>
+							Under Hypothecation Agreement
+						</p>
+					</td>
+					<td style="width: 38%; height: 34px;">
+						<p>
+							: &nbsp;
+							@if (Model.ph_Hypothecation == true)
+							{
+								<span id="spnHypothecation ">Yes</span>
+							}
+							else
+							{
+
+								<span class="spnHypothecation ">No</span>
+
+							}
+						</p>
+					</td>
+				</tr>
+
+				@if (Model.ph_Hypothecation == true || Model.ph_Lease == true || Model.ph_Hire == true)
+				{
+					<tr style="height: 34px;">
+						<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+						<td style="width: 50.7616%; height: 34px;">
+
+							<p> b. If yes, give name and address of concerned parties</p>
+
+						</td>
+						<td style="width: 18.2384%; height: 52px;">
+							<p>
+								: &nbsp;
+
+								@Html.DisplayFor(model => model.ph_HReason)
+							</p>
+						</td>
+
+					</tr>
+				}
+
+				<tr style="height: 34px;">
+					<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+					<td style="width: 50.7616%; height: 34px;">
+						<p>
+							Any other relevant information
+						</p>
+					</td>
+					<td style="width: 38%; height: 34px;"><p>:&nbsp;@Html.DisplayFor(model => model.ph_OtherInfo)</p></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+		<hr />
+		@*<br />*@
+		@*<br />*@
+		@*<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />*@
+		@*<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />*@
+
+		<p style="text-align: center;"><strong>DECLARATION:</strong></p>
+		<ul>
+			<li>
+				<div class="row">
+
+					<p class=" form-group col-12 pl-2" style="line-height: 20px;">
+						I / We hereby declare that the statement made by me / us in this proposal form are true to the best of
+						my /our knowledge and belief and I / we here by agree that this declaration shall from the basis of the contact
+						between me / us and the Karnataka Government Insurance Department.
+					</p>
+
+				</div>
+				
+				<div class="row">
+					<p class=" form-group col-12 pl-2" style="line-height:20px;">
+						I / We also declare that any additions or alterations are carried out after the submission of this proposal form,
+					@*</p>
+					<p>*@
+						the same would be conveyed to the insurers immediately. Received a copy of the proposal form duly
+
+						filled and
+					@*<p>*@
+						signed by me/ on my behalf.
+					@*</p>*@
+					</p>
+				</div>
+			</li>
+
+		</ul>
+		<p>
+			☑ I agree to the terms and condition mentioned above.
+		</p>
+	</div>
+
+
+

@@ -1,0 +1,187 @@
+﻿
+@model KGID_Models.Ticketing_Tool.TTReportProblem
+@*@using KGID_Models.Ticketing_Tool.tbl_report_problem*@
+@using KGID.Models
+
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+<div class="row" id="divNominee">
+    <div class="form-group col-12">
+        <table id="tblNomineeDetails" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label><label class="Enlan">Sl.No</label></th>
+                    <th><label class="knlan">ಟಿಕೆಟ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Ticket No</label></th>
+                    <th><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></th>
+                    <th><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></th>
+                    <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+                    <th><label class="knlan">ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Submission</label></th>
+                    <th><label class="knlan">ಪರಿಹರಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Resolve</label></th> @*
+                        <th>Remarks</th>*@
+                    <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.TicketingToolReportProblemlist.Count > 0)
+                {
+                    int counter = 1;
+                    foreach (var item in Model.TicketingToolReportProblemlist)
+                    {
+                <tr data-row-number="@counter">
+                    <td>@item.rp_id</td>
+                    <td>@item.rp_ticket_no</td>
+                    <td>@item.mt_desc</td>
+                    <td>@item.pr_description</td>
+                    <td>@item.rp_report_problem_status</td>
+                    <td>@item.rp_date_of_submission</td>
+                    <td>@item.rp_date_of_resolve</td>
+                    <td>@item.rp_asssignedto</td>
+
+
+                            <td>
+                                @*<a href="javascript:void(0);" class="anchorDetail" data-id="@item.rp_id" class="btn btn-sm btn-primary in-b-s">Details</a>*@
+                                <a class="anchorDetail" href="javascript:void(0);" data-toggle="modal" data-target="#mdlLoanBA" data-id="@item.rp_id" onclick="UpdateReportedproblem();">View Details</a>
+                                @*<a  class="anchorDetail" data-id="@item.rp_id">Details</a>*@
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlLoanBA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 725px!important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label class="knlan">ಶಾಖೆ ಹೊಂದಾಣಿಕೆಗಳು</label><label class="Enlan">Branch Adjustments</label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+
+                @if (Model.TicketingToolReportProblemlist.Count > 0)
+                {
+                    int counter = 1;
+                    foreach (var item in Model.TicketingToolReportProblemlist)
+                    {
+                        <div id="divPrintBasicDetails">
+                            <form id="frmAppBasicDetails">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Module"><b><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></b></label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @Html.HiddenFor(model => @item.rp_module_id, new { @id = "hdnmoduleStatus", @class = "col-1", @value = @item.rp_module_id })
+                                        @Html.DropDownListFor(model => @item.rp_module_id,
+                                   new SelectList(KGID.Models.TT_Mast.GetModuleList(), "mt_module_type", "mt_desc"), "-- N/A  --",
+                                   new { @id = "ddlmoduleType", @class = "form-control disabled", disabled = "disabled" })
+
+
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></b></label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @Html.HiddenFor(model => @item.rp_problem_type_id, new { @id = "hdnprobStatus", @class = "col-1", @value = @item.rp_problem_type_id })
+                                        @Html.DropDownListFor(model => @item.rp_problem_type_id,
+                                   new SelectList(KGID.Models.TT_Mast.GetProblemTypeList(), "pt_id", "pr_description"), "-- N/A  --",
+                                   new { @id = "ddlprobType", @class = "form-control disabled", disabled = "disabled" })
+
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Module"><b><label class="knlan">ಸಮಸ್ಯೆಯ ವಿವರಗಳು</label><label class="Enlan">Details of the problem</label></b></label>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(model => @item.rp_complaint_description, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullName", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Module"><b><label class="knlan">ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಸ್ಕ್ರೀನ್‌ಶಾಟ್</label><label class="Enlan">Uploaded Screenshot</label></b></label>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Status"><b><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></b></label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <select id="ddlStatus" name="ddlStatus" class="ddlStatus form-control input-small">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Resolved</option>
+                                            <option value="2">InProgress</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-1 form-group">
+                                        <label for="Comments"><b><label class="knlan">ಸಮಸ್ಯೆಯ ಕುರಿತು ಪ್ರತಿಕ್ರಿಯೆಗಳು / ಟೀಕೆಗಳು</label><label class="Enlan">Comments/Remarks on the problem</label></b></label>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <textarea class="form-control" cols="20" data-val="true" data-val-required="Please enter Comments" id="txtComments" name="Comments" rows="3" style="width:525px;height:60px"></textarea>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input type="submit" value="Update" class="btn btn-primary" id="btnupload" onclick="UpdateReportedproblem1();" />
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        counter++;
+                    }
+                }
+
+
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var table;
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblNomineeDetails')) {
+            table = $('#tblNomineeDetails').DataTable({
+                paging: false,
+                info: false,
+                searching: false
+            });
+        }
+    });
+</script>
+

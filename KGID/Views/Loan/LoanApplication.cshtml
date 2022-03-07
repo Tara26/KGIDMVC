@@ -1,0 +1,2063 @@
+﻿@model IEnumerable<KGID_Models.KGIDLoan.VM_LoanDueList>
+
+@{
+    ViewBag.Title = "Loan Eligibility Amount";
+}
+
+<style>
+    .foot-t-req {
+        padding: 10px;
+        background: #f7f7f7;
+        border: none;
+        border-radius: 20px !important;
+        box-shadow: 0px 3px 3px #d8d8d8;
+    }
+
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    .f-s-15 {
+        line-height: 18px;
+    }
+
+    table td {
+        padding: 4px !important;
+    }
+
+    .row {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .pad-0 {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .in-s {
+        height: 25px !important;
+        width: 60%;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-s-r {
+        height: 25px !important;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-b-s {
+        display: flex;
+        padding: 2px;
+        height: 25px;
+        width: 20%;
+        margin: 0px;
+    }
+</style>
+
+@if (ViewBag.IsRecentlyApplyLoan == 1)
+{
+    <p class="text-center font-size-18 foot-t-req">You applied loan recently. The application is in progress</p>
+}
+else if (ViewBag.IsRecentlyApplyLoan == 2)
+{
+    <script>
+        $(document).ready(function () {
+     
+            $(".NUM").keyup(function () {
+              this.value = this.value.replace(/[^0-9\.]/g, '');
+        });
+       
+    });
+        function PolicyList() {
+            policyList = $('#PolicyDetailsListExisting').DataTable({
+                "ordering": false,
+                "paging": false,
+                info: false,
+                "lengthMenu": [10, 25, 50, "All"],
+                "pageLength": 5000,
+                "ajax": {
+                    "url": "/loan/GetLoanPolicyDetailsExisting/",
+                    "data": {},
+                    "type": "GET",
+                    "datatype": "json",
+                    "dataSrc": "",
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<input type="checkbox" class="form-control" id="LLoanAmountValue' + data.PolicyID + '" style="display: inline;width: 20px;" onchange="loanFuntionCheckbox(\'LLoanAmountValue' + data.PolicyID + '\');"  checked>' + '<div class="LLLLoanAmountValue" id="LLLLoanAmountValue' + data.PolicyID + '" data-value="' + data.PolicyID + '" style="display: inline;">' + data.PolicyNumber + ' </div>';
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return moment(data.DateOfSanction).utcOffset(330).format('DD-MM-YYYY');
+                        }
+                    },
+                    { "data": "SumAssured", "name": "SumAssured", "autoWidth": true },
+                    { "data": "PremiumAmount", "name": "PremiumAmount", "autoWidth": true },
+                    //{ "data": "NoOfPremiums", "name": "NoOfPremiums", "autoWidth": true },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<div class="LLLoanAmountValue" id="LLLoanAmountValue' + data.PolicyID + '" data-value="' + data.EligibleLoanAmount + '" >' + data.EligibleLoanAmount + ' </div>';
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            if (data) {
+                                return '<input type="number" class="form-control NUM" id="LoanAmountValue' + data.PolicyID + '" onchange="loanFuntion(\'LoanAmountValue' + data.PolicyID + '\');" value="' + data.EnterAmount + '">';
+                            }
+                            else {
+
+                            }
+                        }
+                    }
+                ]
+
+            });
+        }
+    </script>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;"><b>Loan Application</b></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped table-bordered" id="PolicyDetailsListExisting" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Policy No.</th>
+                                        <th>Date of Sanction</th>
+                                        <th>Sum Assured</th>
+                                        <th>Premium Amount</th>
+                                        @* <th>Total Premium Installments</th>*@
+                                        <th>Eligible Loan Amount</th>
+                                        <th>Loan Amount</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br />
+                    @if (ViewBag.hrmsData)
+                    {
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Upload recent payslip (.pdf):</label>
+                            <div class="col-8 pl-0 pr-0" id="fileUpload">
+                                <input type="file" class="form-control in-s" id="HrmsPaySlip" name="HrmsPaySlip" />
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="1" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped table-bordered" id="HRMSPayScaleList" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            @* <th>HRMS Pay Id.</th>*@
+                                            <th>Emp Id</th>
+                                            <th>Month</th>
+                                            <th>Year</th>
+                                            <th>Gross Pay</th>
+                                            <th>Deductions</th>
+                                            <th>Net Pay</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="0" />
+                    }
+                    <br />
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">If Spouse Govt Emp:</label>
+                            <div class="col-8 pl-0 pl-0 text-left">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio1" value="yes">
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input active" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio2" value="no" checked>
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row col-6 hrmspaydocument">
+                            <label class="control-label col-4 m-t-10 required f-s-15">Spouse KGID No:</label>
+                            <div class="col-8 pl-0 pr-0">
+                                <input type="text" class="form-control in-s" id="SpouseKGIDNo" name="SpouseKGIDNo" style="width: 37%;display: inline-flex;" value="" disabled>
+                                &nbsp;
+                                <a class="btn btn-sm btn-primary in-s authenticate-btn" style="padding-left:10px;color:#fff" onclick="AuthenticateSpouse();">Authenticate</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="row col-6">
+                        </div><br />
+                        <div class="row col-6 spouseotp">
+                            <label class="control-label col-4 m-t-10 required f-s-15">Enter OTP:</label>
+                            <div class="col-8 pl-0 pr-0">
+                                <input type="text" class="form-control in-s" id="SpouseOTP" name="SpouseOTP" style="width: 37%;display: inline-flex;">
+                                &nbsp;
+                                <a id="AuthenticateSubmit" class="btn btn-sm btn-primary in-s" style="padding-left:10px;color:#fff" onclick="AuthenticateSubmit();">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Enter Amount:</label>
+                            <div class="col-8 pl-0 pr-0">
+                                <input type="text" class="form-control in-s" id="EnterPolicyAmount" name="EnterPolicyAmount" value=" @ViewBag.LoanDetails.EnteredAmount" disabled>
+                            </div>
+                        </div>
+                        <div class="row col-6 ">
+                            <label class="control-label col-8 m-t-10 required  f-s-15">Total number of loan installments required:</label>
+                            <div class="col-4 pl-0 pr-0">
+                                <select name="PrincipleLoanAmountInstallments" id="PrincipleLoanAmountInstallments" class="form-control in-s-r" value="">
+                                    <option value="@ViewBag.LoanDetails.NoOfPrincipleInstallments">@ViewBag.LoanDetails.NoOfPrincipleInstallments </option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Loan amount balance:</label>
+                            <div class="col-8 pl-0 pr-0" style="display:flex">
+                                <input type="text" class="form-control in-s" id="BranchAdjustments" name="BranchAdjustments" value="@ViewBag.BranchAdjustment" disabled>
+                                &nbsp;
+                                <a class="btn btn-sm btn-primary in-b-s" href="" style="padding-left:10px;" data-toggle="modal" data-target="#LoanDueModal">Details</a>
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label col-8 m-t-10 required f-s-15">Total number of loan interest installments required:</label>
+                            <div class="col-4 pl-0 pr-0">
+                                <select name="InterestInstallments" id="InterestInstallments" class="form-control in-s-r" value="">
+                                    <option value="@ViewBag.LoanDetails.NoOfIntrestInstallments">@ViewBag.LoanDetails.NoOfIntrestInstallments</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Net Amount:</label>
+                            <div class="col-8 pl-0 pr-0">
+                                <input type="text" class="form-control in-s" id="NetAmount" name="NetAmount" value="@ViewBag.LoanDetails.NetAmount" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row col-6">
+                            <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan installment recovery amount: </label>
+                            <div class="col-4 pl-0 pr-0">
+                                <input type="text" class="form-control in-s-r" id="PrincipleAmountInstallment" name="PrincipleAmountInstallment" value="@(ViewBag.LoanDetails.NetAmount / ViewBag.LoanDetails.NoOfPrincipleInstallments)" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Purpose: </label>
+                            <div class="col-8 pl-0 pr-0">
+                                @*@Html.DropDownList("LoanPurposeList", new SelectList(ViewBag.LoanPurposeList, "lp_loan_purpose_id", "lp_purpose_desc", ViewBag.LoanDetails.PurposeName), "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList", })*@
+                                @Html.DropDownList("LoanPurposeList", ViewBag.LoanPurposeList as List<SelectListItem>, "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList", })
+
+                            </div>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan interest installments amount: </label>
+                            <div class="col-4 pl-0 pr-0">
+                                <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value=" @(ViewBag.LoanDetails.NetAmount * 0.09 / ViewBag.LoanDetails.NoOfIntrestInstallments)" disabled>
+                            </div>
+                        </div><br />
+
+                    </div>
+                    <br />
+
+                    @*@if (ViewBag.LoanDetails.FamilyRelationId == 0)
+                        {
+                            <div class="row">
+                                <div class="row col-6">
+                                    <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Are you taking loan for self:</label>
+                                    <div class="col-8 pl-0 pl-0 text-left">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input active" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes" checked>
+                                            <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                                            <label class="form-check-label" for="inlineRadio2">No</label>
+                                        </div>
+                                    </div>
+                                </div><br />
+                                <div class="row col-6">
+                                    <label class="control-label col-8 m-t-10 required f-s-15">Due amount interest: </label>
+                                    <div class="col-4 pl-0 pr-0">
+                                        @{
+                                            var dueAmount = 0;
+                                            foreach (var data in Model)
+                                            {
+                                                dueAmount = dueAmount + data.InterestAmount;
+                                            }
+
+                                        }
+                                        <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value="@dueAmount" disabled>
+                                    </div>
+                                </div>
+                                <div class="row col-6 FamilLoanPurpose">
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="row col-6 FamilLoanPurpose">
+                                    <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Family member for whom taking loan: </label>
+                                    <div class="col-8 pl-0 pr-0">
+
+                                         @Html.DropDownList("LoanFamilyRelationList", ViewBag.LoanFamilyRelationList as List<SelectListItem>, "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList", })
+
+                                    </div>
+                                </div>
+                                <div class="row col-6 FamilLoanPurpose">
+                                    <label class="control-label col-8 m-t-10 required f-s-15">Age:</label>
+                                    <div class="col-4 pl-0 pr-0">
+                                        <input type="number" class="form-control in-s-r" id="FamilyRelationAge" name="FamilyRelationAge" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="row col-6 FamilLoanPurpose">
+                                    <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Name:</label>
+                                    <div class="col-8 pl-0 pr-0">
+                                        <input type="text" class="form-control in-s" id="FamilyRelationName" name="FamilyRelationName" value="" required>
+                                    </div>
+                                </div>
+                                <div class="row col-6 FamilLoanPurpose">
+
+                                </div>
+                            </div>
+                            <br />
+                            @*}
+                                else
+                                {*@
+
+                                <div class="row">
+                                    <div class="row col-6">
+                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Are you taking loan for self:</label>
+                                        <div class="col-8 pl-0 pl-0 text-left">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input active" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no" checked>
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div><br />
+                                    <div class="row col-6 FamilLoanPurpose">
+                                        <label class="control-label col-8 m-t-10 required f-s-15">Due amount interest: </label>
+                                        <div class="col-4 pl-0 pr-0">
+                                            @{
+                                                var dueAmount = 0;
+                                                foreach (var data in Model)
+                                                {
+                                                    dueAmount = dueAmount + data.InterestAmount;
+                                                }
+
+                                            }
+                                            <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value="@dueAmount" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+
+                                <div class="row">
+                                    <div class="row col-6 FamilLoanPurpose">
+                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Family member for whom taking loan: </label>
+                                        <div class="col-8 pl-0 pr-0">
+
+                                            @*@Html.DropDownList("LoanFamilyRelationList", new SelectList(ViewBag.LoanFamilyRelationList, "lfr_loan_relation_id", "lfr_loan_relation_desc"), "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList" })*@
+                                            @Html.DropDownList("LoanFamilyRelationList", ViewBag.LoanFamilyRelationList as List<SelectListItem>, "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList", })
+
+                                        </div>
+                                    </div>
+                                    <div class="row col-6 FamilLoanPurpose">
+                                        <label class="control-label col-8 m-t-10 required f-s-15">Name:</label>
+                                        <div class="col-4 pl-0 pr-0">
+                                            <input type="text" class="form-control in-s-r alphaonly" id="FamilyRelationName" name="FamilyRelationName" value="@ViewBag.LoanDetails.FamilyRelationName" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="row col-6 FamilLoanPurpose">
+                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Age:</label>
+                                        <div class="col-8 pl-0 pr-0">
+                                            <input type="number" class="form-control in-s NUM" id="FamilyRelationAge" name="FamilyRelationAge" value="@ViewBag.LoanDetails.FamilyRelationAge" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <script>
+                                    $('.FamilLoanPurpose').show();
+                                </script>
+
+                                @*}*@
+
+                                <br />
+                                <div class="col-12">
+                                    <div class="row">
+                                        <a style="padding-top: 10px;font-size: 12px; display: flex;"><input type="checkbox" style="width: 20px;  height: 12px;" id="Acknowledgement" name="Acknowledgement">&nbsp; <span>I Agree to the terms & conditions</span><br /></a>
+                                        <div class="form-group col-12 pad-0" style="letter-spacing: 0.2px; line-height: 25px; font-size: 12px;    text-align: justify;">
+                                            <br />
+                                            I do hereby declare that the statements made by me are true to the best of knowledge and belief, and that I have not with-held or concealed any circumstance with regard to which information has been required from me. I agree that the statements made by me shall be the basis of the proposed contract for any insurance of my life and that if it shall hereafter appear that I have wilfully made any untrue statements or have fradulently concealed any circumstance which I ought to have made know, then all the premiums which shall have been paid under the said contract shall be forfelted, and the contract rendered absolutely.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <a class="btn btn-danger btn-lg" href="/home/dashboard" id="" style="font-size: 14px;color: #FFF;letter-spacing: 1px;">Cancel</a>
+                                <a class="btn btn-success btn-lg" style="font-size: 14px;color: #FFF;letter-spacing: 1px;" id="btn_submit" onclick="UpdateApplication();">Submit</a>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+
+
+                        }
+                        else
+                        {
+
+                            if (ViewBag.LoanData != null && ViewBag.LoanData == 0)
+                            {
+
+
+                                <script>
+
+                                    function PolicyList() {
+                                        policyList = $('#PolicyDetailsList').DataTable({
+                                            "ordering": false,
+                                            "paging": false,
+                                            info: false,
+                                            "lengthMenu": [10, 25, 50, "All"],
+                                            "pageLength": 5000,
+                                            "ajax": {
+                                                "url": "/loan/GetLoanPolicyDetails/",
+                                                "data": {},
+                                                "type": "GET",
+                                                "datatype": "json",
+                                                "dataSrc": "",
+                                            },
+                                            "columns": [
+                                                {
+                                                    "data": null,
+                                                    "render": function (data, type, row) {
+                                                        return '<input type="checkbox" class="form-control NUM" id="LLoanAmountValue' + data.PolicyID + '" style="display: inline;width: 20px;" onchange="loanFuntionCheckbox(\'LLoanAmountValue' + data.PolicyID + '\');" >' + '<div class="LLLLoanAmountValue" id="LLLLoanAmountValue' + data.PolicyID + '" data-value="' + data.PolicyID + '" style="display: inline;">' + data.PolicyNumber + ' </div>';
+                                                    }
+                                                },
+                                                {
+                                                    "data": null,
+                                                    "render": function (data, type, row) {
+                                                        return moment(data.DateOfSanction).utcOffset(330).format('DD-MM-YYYY');
+                                                    }
+                                                },
+                                                { "data": "SumAssured", "name": "SumAssured", "autoWidth": true },
+                                                { "data": "PremiumAmount", "name": "PremiumAmount", "autoWidth": true },
+                                                //{ "data": "NoOfPremiums", "name": "NoOfPremiums", "autoWidth": true },
+                                                {
+                                                    "data": null,
+                                                    "render": function (data, type, row) {
+                                                        return '<div class="LLLoanAmountValue" id="LLLoanAmountValue' + data.PolicyID + '" data-value="' + data.EligibleLoanAmount + '" >' + data.EligibleLoanAmount + ' </div>';
+                                                    }
+                                                },
+                                                {
+                                                    "data": null,
+                                                    "render": function (data, type, row) {
+                                                        if (data.IsPriorActive == true && data.IsPreviousLoanTakenPeriodCompleted == true) {
+                                                            return '<input type="number" class="form-control NUM" id="LoanAmountValue' + data.PolicyID + '" onchange="loanFuntion(\'LoanAmountValue' + data.PolicyID + '\');" value="">';
+                                                        }
+                                                        else {
+                                                            if (data.IsPriorActive == false) {
+                                                                return '<span  style="color:red">Current Policy should complete 3 years to apply for loan.</span>';
+                                                            }
+                                                            else if (data.IsPreviousLoanTakenPeriodCompleted == false) {
+                                                                return '<span  style="color:red">Previous loan taken should complete altleast 2 years.</span>';
+                                                            }
+                                                            else {
+                                                                return '<span  style="color:red">Not eligible to apply loan</span>';
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+
+                                        });
+                                    }
+
+                                </script>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;"><b>Loan Application</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <table class="table table-striped table-bordered" id="PolicyDetailsList" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Policy No.</th>
+                                                                    <th>Date of Sanction</th>
+                                                                    <th>Sum Assured</th>
+                                                                    <th>Premium Amount</th>
+                                                                    @* <th>Total Premium Installments</th>*@
+                                                                    <th>Eligible Loan Amount</th>
+                                                                    <th>Loan Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                @if (ViewBag.hrmsData)
+                                                {
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Upload recent payslip (.pdf):</label>
+                                                        <div class="col-8 pl-0 pr-0" id="fileUpload">
+                                                            <input type="file" class="form-control in-s" id="HrmsPaySlip" name="HrmsPaySlip" />
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="1" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <table class="table table-striped table-bordered" id="HRMSPayScaleList" cellspacing="0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        @* <th>HRMS Pay Id.</th>*@
+                                                                        <th>Emp Id</th>
+                                                                        <th>Month</th>
+                                                                        <th>Year</th>
+                                                                        <th>Gross Pay</th>
+                                                                        <th>Deductions</th>
+                                                                        <th>Net Pay</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="0" />
+                                                }
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">If Spouse Govt Emp:</label>
+                                                        <div class="col-8 pl-0 pl-0 text-left">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio1" value="yes">
+                                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input active" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio2" value="no" checked>
+                                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row col-6 hrmspaydocument">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15">Spouse KGID No:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="SpouseKGIDNo" name="SpouseKGIDNo" style="width: 37%;display: inline-flex;" value="" disabled>
+                                                            &nbsp;
+                                                            <a class="btn btn-sm btn-primary in-s authenticate-btn" style="padding-left:10px;color:#fff" onclick="AuthenticateSpouse();">Authenticate</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                    </div><br />
+                                                    <div class="row col-6 spouseotp">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15">Enter OTP:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="SpouseOTP" name="SpouseOTP" style="width: 37%;display: inline-flex;">
+                                                            &nbsp;
+                                                            <a id="AuthenticateSubmit" class="btn btn-sm btn-primary in-s" style="padding-left:10px;color:#fff" onclick="AuthenticateSubmit();">Submit</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Enter Amount:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="EnterPolicyAmount" name="EnterPolicyAmount" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 ">
+                                                        <label class="control-label col-8 m-t-10 required  f-s-15">Total number of loan installments required:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <select name="PrincipleLoanAmountInstallments" id="PrincipleLoanAmountInstallments" class="form-control in-s-r">
+                                                                <option value="">select principle installments </option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Loan amount balance:</label>
+                                                        <div class="col-8 pl-0 pr-0" style="display:flex">
+                                                            <input type="text" class="form-control in-s" id="BranchAdjustments" name="BranchAdjustments" value="@ViewBag.BranchAdjustment" disabled>
+                                                            &nbsp;
+                                                            <a class="btn btn-sm btn-primary in-b-s" href="" style="padding-left:10px;" data-toggle="modal" data-target="#LoanDueModal">Details</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Total number of loan interest installments required:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <select name="InterestInstallments" id="InterestInstallments" class="form-control in-s-r">
+                                                                <option value="">select interest installments </option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Net Amount:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="NetAmount" name="NetAmount" value="" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan installment recovery amount: </label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s-r" id="PrincipleAmountInstallment" name="PrincipleAmountInstallment" value="" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Purpose: </label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            @*@Html.DropDownList("LoanPurposeList", new SelectList(ViewBag.LoanPurposeList, "lp_loan_purpose_id", "lp_purpose_desc"), "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList" })*@
+                                                            @Html.DropDownList("LoanPurposeList", ViewBag.LoanPurposeList as List<SelectListItem>, "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList", })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan interest installments amount: </label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value="" disabled>
+                                                        </div>
+                                                    </div><br />
+
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Are you taking loan for self:</label>
+                                                        <div class="col-8 pl-0 pl-0 text-left">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input active" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes" checked>
+                                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Due amount interest: </label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            @{
+                                                                var dueAmount = 0;
+                                                                foreach (var data in Model)
+                                                                {
+                                                                    dueAmount = dueAmount + data.InterestAmount;
+                                                                }
+
+                                                            }
+                                                            <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value="@dueAmount" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 FamilLoanPurpose">
+
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Family member for whom taking loan: </label>
+                                                        <div class="col-8 pl-0 pr-0">
+
+                                                            @*@Html.DropDownList("LoanFamilyRelationList", new SelectList(ViewBag.LoanFamilyRelationList, "lfr_loan_relation_id", "lfr_loan_relation_desc"), "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList" })*@
+                                                            @Html.DropDownList("LoanFamilyRelationList", ViewBag.LoanFamilyRelationList as List<SelectListItem>, "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList", })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Age:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="number" class="form-control in-s-r" id="FamilyRelationAge" name="FamilyRelationAge" value="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Name:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="FamilyRelationName" name="FamilyRelationName" value="" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 FamilLoanPurpose">
+
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <a style="padding-top: 10px;font-size: 12px; display: flex;"><input type="checkbox" style="width: 20px;  height: 12px;" id="Acknowledgement" name="Acknowledgement">&nbsp; <span>I Agree to the terms & conditions</span><br /></a>
+                                                        <div class="form-group col-12 pad-0" style="letter-spacing: 0.2px; line-height: 25px; font-size: 12px;    text-align: justify;">
+                                                            <br />
+                                                            I do hereby declare that the statements made by me are true to the best of knowledge and belief, and that I have not with-held or concealed any circumstance with regard to which information has been required from me. I agree that the statements made by me shall be the basis of the proposed contract for any insurance of my life and that if it shall hereafter appear that I have wilfully made any untrue statements or have fradulently concealed any circumstance which I ought to have made know, then all the premiums which shall have been paid under the said contract shall be forfelted, and the contract rendered absolutely.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-right">
+                                                <a class="btn btn-danger btn-lg" href="/home/dashboard" id="" style="font-size: 14px;color: #FFF;letter-spacing: 1px;">Cancel</a>
+                                                <a class="btn btn-success btn-lg" style="font-size: 14px;color: #FFF;letter-spacing: 1px;" id="btn_submit" onclick="SubmitApplication();">Submit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $('.FamilLoanPurpose').hide();
+                                </script>
+                            }
+                            else if (ViewBag.LoanData != null && ViewBag.LoanData == 1)
+                            {
+                                <p class="text-center font-size-18 foot-t-req">You are not eligible to apply loan. your salary deductions are more than 50 % of your gross salary.</p>
+                            }
+                            else if (ViewBag.LoanData != null && ViewBag.LoanData == 2)
+                            {
+                                <p class="text-center font-size-18 foot-t-req">You are not eligible to apply loan. your age is greater than eligible age of appling loan.</p>
+                            }
+                            else if (ViewBag.LoanData != null && ViewBag.LoanData == 3)
+                            {
+                                <p class="text-center font-size-18 foot-t-req">You are not eligible to apply loan. you are not a government employee.</p>
+                            }
+                            else if (ViewBag.LoanData != null && ViewBag.LoanData == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;"><b>Loan Application</b></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <table class="table table-striped table-bordered" id="PolicyDetailsList" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Policy No.</th>
+                                                                    <th>Date of Sanction</th>
+                                                                    <th>Sum Assured</th>
+                                                                    <th>Premium Amount</th>
+                                                                    @* <th>Total Premium Installments</th>*@
+                                                                    <th>Eligible Loan Amount</th>
+                                                                    <th>Loan Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                @if (ViewBag.hrmsData)
+                                                {
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Upload recent payslip (.pdf):</label>
+                                                        <div class="col-8 pl-0 pr-0" id="fileUpload">
+                                                            <input type="file" class="form-control in-s" id="HrmsPaySlip" name="HrmsPaySlip" />
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="1" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <table class="table table-striped table-bordered" id="HRMSPayScaleList" cellspacing="0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        @* <th>HRMS Pay Id.</th>*@
+                                                                        <th>Emp Id</th>
+                                                                        <th>Month</th>
+                                                                        <th>Year</th>
+                                                                        <th>Gross Pay</th>
+                                                                        <th>Deductions</th>
+                                                                        <th>Net Pay</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="0" />
+                                                }
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">If Spouse Govt Emp:</label>
+                                                        <div class="col-8 pl-0 pl-0 text-left">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio1" value="yes">
+                                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input active" type="radio" name="payDetailsinlineRadioOptions" id="payDetailsinlineRadio2" value="no" checked>
+                                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row col-6 hrmspaydocument">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15">Spouse KGID No:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="SpouseKGIDNo" name="SpouseKGIDNo" style="width: 37%;display: inline-flex;" value="" disabled>
+                                                            &nbsp;
+                                                            <a class="btn btn-sm btn-primary in-s authenticate-btn" style="padding-left:10px;color:#fff" onclick="AuthenticateSpouse();">Authenticate</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                    </div><br />
+                                                    <div class="row col-6 spouseotp">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15">Enter OTP:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="SpouseOTP" name="SpouseOTP" style="width: 37%;display: inline-flex;">
+                                                            &nbsp;
+                                                            <a id="AuthenticateSubmit" class="btn btn-sm btn-primary in-s" style="padding-left:10px;color:#fff" onclick="AuthenticateSubmit();">Submit</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Enter Amount:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="EnterPolicyAmount" name="EnterPolicyAmount" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 ">
+                                                        <label class="control-label col-8 m-t-10 required  f-s-15">Total number of loan installments required:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <select name="PrincipleLoanAmountInstallments" id="PrincipleLoanAmountInstallments" class="form-control in-s-r">
+                                                                <option value="">select principle installments </option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Loan amount balance:</label>
+                                                        <div class="col-8 pl-0 pr-0" style="display:flex">
+                                                            <input type="text" class="form-control in-s" id="BranchAdjustments" name="BranchAdjustments" value="@ViewBag.BranchAdjustment" disabled>
+                                                            &nbsp;
+                                                            <a class="btn btn-sm btn-primary in-b-s" href="" style="padding-left:10px;" data-toggle="modal" data-target="#LoanDueModal">Details</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Total number of loan interest installments required:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <select name="InterestInstallments" id="InterestInstallments" class="form-control in-s-r">
+                                                                <option value="">select interest installments </option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Net Amount:</label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s" id="NetAmount" name="NetAmount" value="" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan installment recovery amount: </label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s-r" id="PrincipleAmountInstallment" name="PrincipleAmountInstallment" value="" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Purpose: </label>
+                                                        <div class="col-8 pl-0 pr-0">
+                                                            @*@Html.DropDownList("LoanPurposeList", new SelectList(ViewBag.LoanPurposeList, "lp_loan_purpose_id", "lp_purpose_desc"), "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList" })*@
+                                                            @Html.DropDownList("LoanPurposeList", ViewBag.LoanPurposeList as List<SelectListItem>, "Select any loan purpose", new { @class = "form-control in-s", @id = "LoanPurposeList", })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Monthly loan interest installments amount: </label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s-r" id="InterestAmountInstallment" name="InterestAmountInstallment" value="" disabled>
+                                                        </div>
+                                                    </div><br />
+
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Are you taking loan for self:</label>
+                                                        <div class="col-8 pl-0 pl-0 text-left">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input active" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="yes" checked>
+                                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div><br />
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Name:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="text" class="form-control in-s-r" id="FamilyRelationName" name="FamilyRelationName" value="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Family member for whom taking loan: </label>
+                                                        <div class="col-8 pl-0 pr-0">
+
+                                                            @*@Html.DropDownList("LoanFamilyRelationList", new SelectList(ViewBag.LoanFamilyRelationList, "lfr_loan_relation_id", "lfr_loan_relation_desc"), "Select any relation", new { @class = "form-control in-s-r", @id = "LoanFamilyRelationList" })*@
+                                                            @Html.DropDownList("LoanFamilyRelationList", ViewBag.LoanFamilyRelationList as List<SelectListItem>, "Select any relation", new { @class = "form-control in-s", @id = "LoanFamilyRelationList", })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row col-6 FamilLoanPurpose">
+                                                        <label class="control-label col-8 m-t-10 required f-s-15">Age:</label>
+                                                        <div class="col-4 pl-0 pr-0">
+                                                            <input type="number" class="form-control in-s-r" id="FamilyRelationAge" name="FamilyRelationAge" value="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <a style="padding-top: 10px;font-size: 12px; display: flex;"><input type="checkbox" style="width: 20px;  height: 12px;" id="Acknowledgement" name="Acknowledgement">&nbsp; <span>I Agree to the terms & conditions</span><br /></a>
+                                                        <div class="form-group col-12 pad-0" style="letter-spacing: 0.2px; line-height: 25px; font-size: 12px;    text-align: justify;">
+                                                            <br />
+                                                            I do hereby declare that the statements made by me are true to the best of knowledge and belief, and that I have not with-held or concealed any circumstance with regard to which information has been required from me. I agree that the statements made by me shall be the basis of the proposed contract for any insurance of my life and that if it shall hereafter appear that I have wilfully made any untrue statements or have fradulently concealed any circumstance which I ought to have made know, then all the premiums which shall have been paid under the said contract shall be forfelted, and the contract rendered absolutely.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-right">
+                                                <a class="btn btn-danger btn-lg" href="/home/dashboard" id="" style="font-size: 14px;color: #FFF;letter-spacing: 1px;">Cancel</a>
+                                                <a class="btn btn-success btn-lg" style="font-size: 14px;color: #FFF;letter-spacing: 1px;" id="btn_submit" onclick="SubmitApplication();">Submit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+<div class="modal fade" id="LoanDueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Branch Adjustments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <table class="table table-striped table-bordered" id="tblViewLoan" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Policy No</th>
+                                <th>Month</th>
+                                <th>Year</th>
+                                <th>Amount Due</th>
+                                <th>Interest Due Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td>@data.PolicyNumber</td>
+                                    <td>@data.Month</td>
+                                    <td>@data.YearId</td>
+                                    <td>@data.Amount</td>
+                                    <td>@data.InterestAmount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-primary">Pay</button>*@
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function LoanDue() {
+        var a = $('#LoanDueModal .modal-body').load('/loan/loandueList/', function (result) {
+            $("#LoanDueModal").modal('show', { backdrop: 'static', keyboard: false });
+        });
+        console.log(a);
+    }
+
+    var policyList;
+
+    var policyModel1 = new Array();
+    var result = [];
+    $(document).ready(function () {
+        var familyRelationId = 0;
+        //$('.FamilLoanPurpose').hide();
+        $('.hrmspaydocument').hide();
+        $('.spouseotp').hide();
+        PolicyList();
+        //PolicyListExisting();l
+        HRMSList();
+        @if (ViewBag.LoanDetails != null)
+        {
+             <text>
+             familyRelationId = "@ViewBag.LoanDetails.FamilyRelationId";
+           </text>
+        }
+        if (familyRelationId > 0) {
+            $('.FamilLoanPurpose').show();
+        }
+        $(".NUM").keyup(function () {
+           
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+        });
+        $(".alphaonly").on("input", function () {
+          
+            var regexp = /[^a-zA-Z]/g;
+            if ($(this).val().match(regexp)) {
+                $(this).val($(this).val().replace(regexp, ''));
+            }
+        });
+    });
+
+    $("#HrmsPaySlip").change(function () {
+        var fileExtension = ['pdf'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            bootbox.alert("Please upload valid document like '.pdf'.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+            $('#HrmsPaySlip').val('');
+        }
+    });
+
+    function AuthenticateSpouse() {
+        $('#AuthenticateSubmit').show();
+        if ($('#SpouseKGIDNo').val() == 0 || $('#SpouseKGIDNo').val() == null || $('#SpouseKGIDNo').val() == undefined) {
+            bootbox.alert("Please enter valid kgid number.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else {
+            $('.spouseotp').show();
+            $('.authenticate-btn').hide();
+        }
+    }
+
+    function AuthenticateSubmit() {
+        if ($('#SpouseOTP').val() == 0 || $('#SpouseOTP').val() == null || $('#SpouseOTP').val() == undefined) {
+            bootbox.alert("Please enter valid OTP.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else {
+            $('#SpouseKGIDNo').attr("disabled", "disabled");
+            $('#SpouseOTP').attr("disabled", "disabled");
+            $('#AuthenticateSubmit').hide();
+        }
+    }
+
+    $("input[name=inlineRadioOptions]:radio").change(function () {
+        if (this.value === 'yes') {
+            $('.FamilLoanPurpose').hide();
+        }
+        else if (this.value === 'no') {
+            $('.FamilLoanPurpose').show();
+        }
+    });
+
+
+    $("input[name=payDetailsinlineRadioOptions]:radio").change(function () {
+        if (this.value == 'yes') {
+            $('.authenticate-btn').show();
+            $('#AuthenticateSubmit-btn').show();
+
+            $.getJSON("/loan/GetSpouseKgid",
+                function (result) {
+                    if (result == "Fail") {
+                        alertify.alert('Spouse deductions more than 50% are not allowed.').setHeader("Warning !!!");
+                        $('#SpouseKGIDNo').val('');
+                        $('#payDetailsinlineRadio2').addClass("active", "active");
+                        $('#payDetailsinlineRadio1').removeClass('active');
+                        $("#payDetailsinlineRadio2").attr("checked", true);
+                        $("#payDetailsinlineRadio1").attr("checked", false);
+                    }
+                    else {
+                        $('#SpouseKGIDNo').val(result);
+                        $('.hrmspaydocument').show();
+
+                    }
+                });
+
+
+        }
+        else if (this.value == 'no') {
+            $('.hrmspaydocument').hide();
+            $('.spouseotp').hide();
+            $('.authenticate-btn').hide();
+            $('#AuthenticateSubmit-btn').hide();
+        }
+    });
+    //$("input[name=payDetailsinlineRadioOptions]:radio").change(function () {
+    //    if (this.value == 'yes') {
+    //        $('.hrmspaydocument').show();
+    //    }
+    //    else if (this.value == 'no') {
+    //        $('.hrmspaydocument').hide();
+    //    }
+    //});
+
+    function HRMSList() {
+        $('#HRMSPayScaleList').DataTable({
+            "ordering": false,
+            "paging": false,
+            "info": false,
+            "lengthMenu": [10, 25, 50, "All"],
+            "pageLength": 5000,
+            "searching": false,
+            "ajax": {
+                "url": "/loan/GetHRMSPayDetails/",
+                "data": {},
+                "type": "GET",
+                "datatype": "json",
+                "dataSrc": "",
+            },
+            "columns": [
+                //{ "data": "hrms_hrms_pay_id", "name": "hrms_hrms_pay_id", "autoWidth": true },
+                { "data": "hrms_emp_id", "name": "hrms_emp_id", "autoWidth": true },
+                { "data": "hrms_month", "name": "hrms_month", "autoWidth": true },
+                { "data": "hrms_year", "name": "hrms_year", "autoWidth": true },
+                { "data": "hrms_gross_pay", "name": "hrms_gross_pay", "autoWidth": true },
+                { "data": "hrms_deduction", "name": "hrms_deduction", "autoWidth": true },
+                { "data": "hrms_net_pay", "name": "hrms_net_pay", "autoWidth": true }
+            ]
+
+        });
+    }
+
+    function loanFuntion(value) {
+        var eligibleLoanAmount;
+        var enteredLoanAmount;
+        var enterPolicyAmount = 0;
+   
+        if ($('#L' + value).attr('checked')) {
+
+            eligibleLoanAmount = parseInt($('#LL' + value).data('value'));
+            enteredLoanAmount = parseInt($('#' + value).val());
+
+            if (eligibleLoanAmount <= enteredLoanAmount) {
+                bootbox.alert("Please enter amount less than eligible loan amount.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                $('#' + value).val('');
+                $('#PrincipleAmountInstallment').val('');
+                $('#InterestAmountInstallment').val('');
+                $('#InterestInstallments').val('');
+                $('#PrincipleLoanAmountInstallments').val('');
+            }
+            else {
+                $("input[type=checkbox]:checked").each(function () {
+                    var id = $(this).attr("id");
+                    var id1 = id;
+                    var str = id.slice(1);
+                    if ($('#' + str).val() == '' || $('#' + str).val() == undefined) {
+                        enterPolicyAmount = 0 + enterPolicyAmount;
+                    }
+                    else {
+                        enterPolicyAmount = enterPolicyAmount + parseInt($('#' + str).val())
+
+                        var policyModel = {};
+                        policyModel.EnterAmount = parseInt($('#' + str).val());
+                        policyModel.PolicyID = parseInt($('#LL' + id1).data('value'))
+                        policyModel.EligibleLoanAmount = parseInt($('#L' + id1).data('value'))
+
+                        if (policyModel1.length > 0) {
+
+                            for (var i = 0; i < policyModel1.length; i++) {
+
+                                if (policyModel1[i].PolicyID == policyModel.PolicyID) {
+                                    policyModel1.splice(i, 1);
+
+                                    policyModel1.push(policyModel);
+                                }
+                                else {
+                                    policyModel1.push(policyModel);
+                                }
+                            }
+
+                        } else {
+                            policyModel1.push(policyModel);
+                        }
+                    }
+                });
+
+                $('#EnterPolicyAmount').val(enterPolicyAmount);
+                $('#NetAmount').val(parseInt($('#EnterPolicyAmount').val() - $('#BranchAdjustments').val()))
+                $('#PrincipleAmountInstallment').val('');
+                $('#InterestAmountInstallment').val('');
+                $('#InterestInstallments').val('');
+                $('#PrincipleLoanAmountInstallments').val('');
+            }
+        }
+        else {
+            bootbox.alert("Please check the policy checkbox.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+            $('#' + value).val('');
+        }
+    }
+
+    function loanFuntionCheckbox(value) {
+        var str = value.slice(1);
+        if ($('#' + value).attr('checked')) {
+            $('#' + value).removeAttr('checked');
+            $('#EnterPolicyAmount').val(parseInt($('#EnterPolicyAmount').val() - $('#' + str).val()));
+            $('#' + str).val('');
+            $('#PrincipleAmountInstallment').val('');
+            $('#InterestAmountInstallment').val('');
+            $('#InterestInstallments').val('');
+            $('#PrincipleLoanAmountInstallments').val('');
+        }
+        else {
+            $('#' + value).attr('checked', 'checked')
+        }
+    }
+
+    $('#PrincipleLoanAmountInstallments').change(function () {
+        $('#NetAmount').val();
+        $('#PrincipleLoanAmountInstallments').val();
+        $('#PrincipleAmountInstallment').val(parseInt($('#NetAmount').val() / $('#PrincipleLoanAmountInstallments').val()));
+    })
+
+    $('#SpouseKGIDNo').change(function () {
+
+        $.getJSON("/loan/GetSpouseDeductions", { spouseKgid: $('#SpouseKGIDNo').val() },
+            function (result) {
+                if (!result) {
+                    bootbox.alert("Spouse Deductions are more than 50% not eligible.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                    $('#SpouseKGIDNo').val('');
+                }
+            });
+    })
+
+
+    $('#InterestInstallments').change(function () {
+        $('#NetAmount').val();
+        $('#InterestInstallments').val();
+        $('#InterestAmountInstallment').val(parseInt(($('#NetAmount').val() * 0.09) / $('#InterestInstallments').val()));
+    })
+
+    function UpdateApplication() {
+
+        console.log($("input[name=inlineRadioOptions]:radio").val());
+
+        if ($('#EnterPolicyAmount').val() == 0 || $('#EnterPolicyAmount').val() == null || $('#EnterPolicyAmount').val() == undefined) {
+            bootbox.alert("Please enter valid policy amount.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#BranchAdjustments').val() == null || $('#BranchAdjustments').val() == undefined) {
+            bootbox.alert("Please set branch adjustments properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#NetAmount').val() == 0 || $('#NetAmount').val() == null || $('#NetAmount').val() == undefined) {
+            bootbox.alert("Please enter valid net amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#PrincipleLoanAmountInstallments').val() == 0 || $('#PrincipleLoanAmountInstallments').val() == null || $('#PrincipleLoanAmountInstallments').val() == undefined) {
+            bootbox.alert("Please choose valid principle loan amount installments").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#InterestInstallments').val() == 0 || $('#InterestInstallments').val() == null || $('#InterestInstallments').val() == undefined) {
+            bootbox.alert("Please choose valid interest loan amount installments").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#PrincipleAmountInstallment').val() == 0 || $('#PrincipleAmountInstallment').val() == null || $('#PrincipleAmountInstallment').val() == undefined) {
+            bootbox.alert("Please enter valid premium installment amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#InterestAmountInstallment').val() == 0 || $('#InterestAmountInstallment').val() == null || $('#InterestAmountInstallment').val() == undefined) {
+            bootbox.alert("Please enter valid premium installment interest amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#LoanPurposeList').val() == 0 || $('#LoanPurposeList').val() == null || $('#LoanPurposeList').val() == undefined) {
+            bootbox.alert("Please select valid purpose").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if (!(document.getElementById("Acknowledgement").checked)) {
+            bootbox.alert("Please check terms & conditions.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else {
+            console.log(policyModel1);
+            var loanFamilyPurpose;
+            if (document.getElementById("inlineRadio2").checked) {
+                loanFamilyPurpose = true;
+            }
+            else {
+                loanFamilyPurpose = false;
+            }
+            var data = new FormData();
+            if ($('#HrmsPaySlipHidden').val() === "1") {
+                data.append('HrmsPaySlip', document.getElementById('HrmsPaySlip').files[0]);
+            }
+
+            //for (var i = 0; i < policyModel1.length; i++) {
+            //    data.append('PolicyData', policyModel1[i]);
+            //}
+            data.append('PolicyData1', JSON.stringify(policyModel1));
+            data.append('EnteredAmount', $('#EnterPolicyAmount').val());
+            data.append('Deductions', $('#BranchAdjustments').val());
+            data.append('NetAmount', $('#NetAmount').val());
+            data.append('PurposeId', $('#LoanPurposeList').val());
+            data.append('FamilyRelationId', $('#LoanFamilyRelationList').val());
+            data.append('FamilyRelationName', $("#FamilyRelationName").val());
+            data.append('FamilyRelationAge', $("#FamilyRelationAge").val());
+            data.append('NoOfPrincipleInstallments', $('#PrincipleLoanAmountInstallments').val());
+            data.append('NoOfIntrestInstallments', $('#InterestInstallments').val());
+            data.append('PrincipleInstallmentAmount', $('#PrincipleAmountInstallment').val());
+            data.append('InterestInstallmentAmount', $('#InterestAmountInstallment').val());
+            data.append('LoanFamilyPurpose', loanFamilyPurpose);
+            data.append('SpouseKgid', $('#SpouseKGIDNo').val());
+
+
+            //var data = new FormData();
+
+            //data.append('HrmsPaySlip', document.getElementById('HrmsPaySlip').files[0]);
+
+            //var loanApplicationModel = {
+            //    PolicyData: policyModel1,
+            //    EnteredAmount: $('#EnterPolicyAmount').val(),
+            //    Deductions: $('#BranchAdjustments').val(),
+            //    NetAmount: $('#NetAmount').val(),
+            //    PurposeId: $('#LoanPurposeList').val(),
+            //    FamilyRelationId: $('#LoanFamilyRelationList').val(),
+            //    FamilyRelationName: $("#FamilyRelationName").val(),
+            //    FamilyRelationAge: $("#FamilyRelationAge").val(),
+            //    NoOfPrincipleInstallments: $('#PrincipleLoanAmountInstallments').val(),
+            //    NoOfIntrestInstallments: $('#InterestInstallments').val(),
+            //    PrincipleInstallmentAmount: $('#PrincipleAmountInstallment').val(),
+            //    InterestInstallmentAmount: $('#InterestInstallments').val(),
+            //    LoanFamilyPurpose: loanFamilyPurpose,
+            //    SpouseKgid: $('#SpouseKGIDNo').val()
+
+            //}
+            if (document.getElementById("inlineRadio2").checked) {
+                if ($("#LoanFamilyRelationList").val() == '' || $("#LoanFamilyRelationList").val() == null || $("#LoanFamilyRelationList").val() == undefined) {
+                    bootbox.alert("Please select valid family relation.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else if ($("#FamilyRelationAge").val() == '' || $("#FamilyRelationAge").val() == null || $("#FamilyRelationAge").val() == undefined) {
+                    bootbox.alert("Please enter valid family relation age.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else if ($("#FamilyRelationName").val() == '' || $("#FamilyRelationName").val() == null || $("#FamilyRelationName").val() == undefined) {
+                    bootbox.alert("Please select valid family relation name.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else {
+                    if ($('#HrmsPaySlipHidden').val() === "1") {
+
+                        if ($("#HrmsPaySlip").val() == '' || $("#HrmsPaySlip").val() == null || $("#HrmsPaySlip").val() == undefined) {
+                            bootbox.alert("Please upload payslip properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                        }
+                        else {
+                            bootbox.confirm({
+                                message: "Do you want to submit loan application?",
+                                swapButtonOrder: true,
+                                buttons: {
+                                    confirm: {
+                                        label: 'Yes',
+                                        className: 'btn-success'
+                                    },
+                                    cancel: {
+                                        label: 'No',
+                                        className: 'btn-danger pull-right'
+                                    }
+                                },
+                                callback: function (result) {
+                                    if (result) {
+                                        $.ajax({
+                                            url: "/loan/LoanApplicationSubmitUpdate",
+                                            type: "POST",
+                                            enctype: 'multipart/form-data',
+                                            data: data,
+                                            datatype: "json",
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (result) {
+                                                if (result) {
+                                                    bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                    setTimeout(function () {
+                                                        window.location = '/Home/Dashboard'
+                                                    }, 2000);
+
+                                                }
+                                                else {
+                                                    bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+
+                                    }
+                                }
+                            }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                        }
+                    }
+                    else {
+                        bootbox.confirm({
+                            message: "Do you want to submit loan application?",
+                            swapButtonOrder: true,
+                            buttons: {
+                                confirm: {
+                                    label: 'Yes',
+                                    className: 'btn-success'
+                                },
+                                cancel: {
+                                    label: 'No',
+                                    className: 'btn-danger pull-right'
+                                }
+                            },
+                            callback: function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/loan/LoanApplicationSubmitUpdate",
+                                        type: "POST",
+                                        enctype: 'multipart/form-data',
+                                        data: data,
+                                        datatype: "json",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (result) {
+                                            if (result) {
+                                                bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                setTimeout(function () {
+                                                    window.location = '/Home/Dashboard'
+                                                }, 2000);
+
+                                            }
+                                            else {
+                                                bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+
+                                }
+                            }
+                        }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                    }
+
+
+                }
+            }
+            else {
+
+                if ($('#HrmsPaySlipHidden').val() === "1") {
+
+                    if ($("#HrmsPaySlip").val() == '' || $("#HrmsPaySlip").val() == null || $("#HrmsPaySlip").val() == undefined) {
+                        bootbox.alert("Please upload payslip properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                    }
+                    else {
+                        bootbox.confirm({
+                            message: "Do you want to submit loan application?",
+                            swapButtonOrder: true,
+                            buttons: {
+                                confirm: {
+                                    label: 'Yes',
+                                    className: 'btn-success'
+                                },
+                                cancel: {
+                                    label: 'No',
+                                    className: 'btn-danger pull-right'
+                                }
+                            },
+                            callback: function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/loan/LoanApplicationSubmitUpdate",
+                                        type: "POST",
+                                        enctype: 'multipart/form-data',
+                                        data: data,
+                                        datatype: "json",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+
+                                        success: function (result) {
+                                            if (result) {
+                                                bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                setTimeout(function () {
+                                                    window.location = '/Home/Dashboard'
+                                                }, 2000);
+                                            }
+                                            else {
+                                                bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+
+                                }
+                            }
+                        }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                    }
+
+                }
+                else {
+                    bootbox.confirm({
+                        message: "Do you want to submit loan application?",
+                        swapButtonOrder: true,
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger pull-right'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/loan/LoanApplicationSubmitUpdate",
+                                    type: "POST",
+                                    enctype: 'multipart/form-data',
+                                    data: data,
+                                    datatype: "json",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+
+                                    success: function (result) {
+                                        if (result) {
+                                            bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                            setTimeout(function () {
+                                                window.location = '/Home/Dashboard'
+                                            }, 2000);
+                                        }
+                                        else {
+                                            bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+
+                            }
+                        }
+                    }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                }
+
+            }
+        }
+    }
+    function SubmitApplication() {
+        console.log($("input[name=inlineRadioOptions]:radio").val());
+
+        if ($('#EnterPolicyAmount').val() == 0 || $('#EnterPolicyAmount').val() == null || $('#EnterPolicyAmount').val() == undefined) {
+            bootbox.alert("Please enter valid policy amount.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#BranchAdjustments').val() == null || $('#BranchAdjustments').val() == undefined) {
+            bootbox.alert("Please set branch adjustments properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#NetAmount').val() == 0 || $('#NetAmount').val() == null || $('#NetAmount').val() == undefined) {
+            bootbox.alert("Please enter valid net amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#PrincipleLoanAmountInstallments').val() == 0 || $('#PrincipleLoanAmountInstallments').val() == null || $('#PrincipleLoanAmountInstallments').val() == undefined) {
+            bootbox.alert("Please choose valid principle loan amount installments").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#InterestInstallments').val() == 0 || $('#InterestInstallments').val() == null || $('#InterestInstallments').val() == undefined) {
+            bootbox.alert("Please choose valid interest loan amount installments").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#PrincipleAmountInstallment').val() == 0 || $('#PrincipleAmountInstallment').val() == null || $('#PrincipleAmountInstallment').val() == undefined) {
+            bootbox.alert("Please enter valid premium installment amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#InterestAmountInstallment').val() == 0 || $('#InterestAmountInstallment').val() == null || $('#InterestAmountInstallment').val() == undefined) {
+            bootbox.alert("Please enter valid premium installment interest amount").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if ($('#LoanPurposeList').val() == 0 || $('#LoanPurposeList').val() == null || $('#LoanPurposeList').val() == undefined) {
+            bootbox.alert("Please select valid purpose").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else if (!(document.getElementById("Acknowledgement").checked)) {
+            bootbox.alert("Please check terms & conditions.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+        }
+        else {
+            console.log(policyModel1);
+            var loanFamilyPurpose;
+            if (document.getElementById("inlineRadio2").checked) {
+                loanFamilyPurpose = true;
+            }
+            else {
+                loanFamilyPurpose = false;
+            }
+            var data = new FormData();
+            if ($('#HrmsPaySlipHidden').val() === "1") {
+                data.append('HrmsPaySlip', document.getElementById('HrmsPaySlip').files[0]);
+            }
+
+            //for (var i = 0; i < policyModel1.length; i++) {
+            //    data.append('PolicyData', policyModel1[i]);
+            //}
+            data.append('PolicyData1', JSON.stringify(policyModel1));
+            data.append('EnteredAmount', $('#EnterPolicyAmount').val());
+            data.append('Deductions', $('#BranchAdjustments').val());
+            data.append('NetAmount', $('#NetAmount').val());
+            data.append('PurposeId', $('#LoanPurposeList').val());
+            data.append('FamilyRelationId', $('#LoanFamilyRelationList').val());
+            data.append('FamilyRelationName', $("#FamilyRelationName").val());
+            data.append('FamilyRelationAge', $("#FamilyRelationAge").val());
+            data.append('NoOfPrincipleInstallments', $('#PrincipleLoanAmountInstallments').val());
+            data.append('NoOfIntrestInstallments', $('#InterestInstallments').val());
+            data.append('PrincipleInstallmentAmount', $('#PrincipleAmountInstallment').val());
+            data.append('InterestInstallmentAmount', $('#InterestAmountInstallment').val());
+            data.append('LoanFamilyPurpose', loanFamilyPurpose);
+            data.append('SpouseKgid', $('#SpouseKGIDNo').val());
+
+
+            //var data = new FormData();
+
+            //data.append('HrmsPaySlip', document.getElementById('HrmsPaySlip').files[0]);
+
+            //var loanApplicationModel = {
+            //    PolicyData: policyModel1,
+            //    EnteredAmount: $('#EnterPolicyAmount').val(),
+            //    Deductions: $('#BranchAdjustments').val(),
+            //    NetAmount: $('#NetAmount').val(),
+            //    PurposeId: $('#LoanPurposeList').val(),
+            //    FamilyRelationId: $('#LoanFamilyRelationList').val(),
+            //    FamilyRelationName: $("#FamilyRelationName").val(),
+            //    FamilyRelationAge: $("#FamilyRelationAge").val(),
+            //    NoOfPrincipleInstallments: $('#PrincipleLoanAmountInstallments').val(),
+            //    NoOfIntrestInstallments: $('#InterestInstallments').val(),
+            //    PrincipleInstallmentAmount: $('#PrincipleAmountInstallment').val(),
+            //    InterestInstallmentAmount: $('#InterestInstallments').val(),
+            //    LoanFamilyPurpose: loanFamilyPurpose,
+            //    SpouseKgid: $('#SpouseKGIDNo').val()
+
+            //}
+            if (document.getElementById("inlineRadio2").checked) {
+                if ($("#LoanFamilyRelationList").val() == '' || $("#LoanFamilyRelationList").val() == null || $("#LoanFamilyRelationList").val() == undefined) {
+                    bootbox.alert("Please select valid family relation.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else if ($("#FamilyRelationAge").val() == '' || $("#FamilyRelationAge").val() == null || $("#FamilyRelationAge").val() == undefined) {
+                    bootbox.alert("Please enter valid family relation age.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else if ($("#FamilyRelationName").val() == '' || $("#FamilyRelationName").val() == null || $("#FamilyRelationName").val() == undefined) {
+                    bootbox.alert("Please select valid family relation name.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                }
+                else {
+                    if ($('#HrmsPaySlipHidden').val() === "1") {
+
+                        if ($("#HrmsPaySlip").val() == '' || $("#HrmsPaySlip").val() == null || $("#HrmsPaySlip").val() == undefined) {
+                            bootbox.alert("Please upload payslip properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                        }
+                        else {
+                            bootbox.confirm({
+                                message: "Do you want to submit loan application?",
+                                swapButtonOrder: true,
+                                buttons: {
+                                    confirm: {
+                                        label: 'Yes',
+                                        className: 'btn-success'
+                                    },
+                                    cancel: {
+                                        label: 'No',
+                                        className: 'btn-danger pull-right'
+                                    }
+                                },
+                                callback: function (result) {
+                                    if (result) {
+                                        $.ajax({
+                                            url: "/loan/LoanApplicationSubmit",
+                                            type: "POST",
+                                            enctype: 'multipart/form-data',
+                                            data: data,
+                                            datatype: "json",
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (result) {
+                                                if (result) {
+                                                    bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                    setTimeout(function () {
+                                                        window.location = '/Home/Dashboard'
+                                                    }, 2000);
+
+                                                }
+                                                else {
+                                                    bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+
+                                    }
+                                }
+                            }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                        }
+                    }
+                    else {
+                        bootbox.confirm({
+                            message: "Do you want to submit loan application?",
+                            swapButtonOrder: true,
+                            buttons: {
+                                confirm: {
+                                    label: 'Yes',
+                                    className: 'btn-success'
+                                },
+                                cancel: {
+                                    label: 'No',
+                                    className: 'btn-danger pull-right'
+                                }
+                            },
+                            callback: function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/loan/LoanApplicationSubmit",
+                                        type: "POST",
+                                        enctype: 'multipart/form-data',
+                                        data: data,
+                                        datatype: "json",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (result) {
+                                            if (result) {
+                                                bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                setTimeout(function () {
+                                                    window.location = '/Home/Dashboard'
+                                                }, 2000);
+
+                                            }
+                                            else {
+                                                bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+
+                                }
+                            }
+                        }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                    }
+
+
+                }
+            }
+            else {
+
+                if ($('#HrmsPaySlipHidden').val() === "1") {
+
+                    if ($("#HrmsPaySlip").val() == '' || $("#HrmsPaySlip").val() == null || $("#HrmsPaySlip").val() == undefined) {
+                        bootbox.alert("Please upload payslip properly.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                    }
+                    else {
+                        bootbox.confirm({
+                            message: "Do you want to submit loan application?",
+                            swapButtonOrder: true,
+                            buttons: {
+                                confirm: {
+                                    label: 'Yes',
+                                    className: 'btn-success'
+                                },
+                                cancel: {
+                                    label: 'No',
+                                    className: 'btn-danger pull-right'
+                                }
+                            },
+                            callback: function (result) {
+                                if (result) {
+                                    $.ajax({
+                                        url: "/loan/LoanApplicationSubmit",
+                                        type: "POST",
+                                        enctype: 'multipart/form-data',
+                                        data: data,
+                                        datatype: "json",
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+
+                                        success: function (result) {
+                                            if (result) {
+                                                bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                                setTimeout(function () {
+                                                    window.location = '/Home/Dashboard'
+                                                }, 2000);
+                                            }
+                                            else {
+                                                bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+
+                                }
+                            }
+                        }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                    }
+
+                }
+                else {
+                    bootbox.confirm({
+                        message: "Do you want to submit loan application?",
+                        swapButtonOrder: true,
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger pull-right'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/loan/LoanApplicationSubmit",
+                                    type: "POST",
+                                    enctype: 'multipart/form-data',
+                                    data: data,
+                                    datatype: "json",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+
+                                    success: function (result) {
+                                        if (result) {
+                                            bootbox.alert("Loan Application Submitted Successfully.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #167505' });
+                                            setTimeout(function () {
+                                                window.location = '/Home/Dashboard'
+                                            }, 2000);
+                                        }
+                                        else {
+                                            bootbox.alert("There is a problem in loan application submission.").find('.modal-content').css({ 'margin-top': '140px', border: '2px solid rgb(183, 25, 25)' });
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+
+                            }
+                        }
+                    }).find('.modal-content').css({ 'margin-top': '140px', border: '2px solid #ffbc00' });
+                }
+
+            }
+        }
+    }
+
+</script>

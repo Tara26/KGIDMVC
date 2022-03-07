@@ -1,0 +1,887 @@
+﻿@using Common;
+
+<div class="col-md-3 left_col " style="position:fixed;">
+    <div class="left_col scroll-view" style="width:100%;">
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+                <img src="~/Content/frontend/images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>
+                    @if (Session["UserName"] == null)
+                    {
+                        Response.Redirect("/Login/Index");
+                    }
+                    else
+                    {
+                        @Session["UserName"].ToString();
+                    }
+                </h2>
+            </div>
+        </div>
+
+
+
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu ">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li>
+                        <a href="/kgid-home/"><i class="fa fa-home"></i><label class="knlan">ಮುಖಪುಟ </label><label class="Enlan">Home</label></a>
+                    </li>
+
+                    @if (Session["SelectedCategory"] == null)
+                    {
+                        if (Session["Categories"] != null)
+                        {
+                            var cat = Session["Categories"].ToString();
+                            if (cat == "1" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.EMPLOYEE)))
+                            {
+                                <li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಹೊಸ ವ್ಯವಹಾರ</label><label class="Enlan">New Business</label></a>
+                                    <ul class="nav child_menu">
+                                        @if (Session["ApplyNewFlag"] == null || (Session["ApplyNewFlag"] != null && Session["ApplyNewFlag"].ToString() == "True"))
+                                        {
+                                            <li>
+                                                <a class="collapse-item collapse-item-a" href="/kgid-ins/"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ</label><label class="Enlan">Apply for KGID Policy</label></a>
+                                            </li>
+                                        }
+                                        <li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-view-app/"><label class="knlan">ಕೆಜಿಐಡಿ ಪ್ರಸ್ತಾವನೆಯನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View KGID Application</label></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                if (Session["LoginType"] != null && Session["LoginType"].ToString() == "Insured Employee")
+                                {
+                                    <li>
+                                        <a href="/kgid-pd/"> <i class="fa fa-desktop"></i><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗಳ ಪಟ್ಟಿ</label><label class="Enlan">List of policies</label><span class="fa fa-circle"></span></a>
+                                    </li>
+                                }
+                                @*if (Session["InsuredUser"] != null && Session["InsuredUser"].ToString() == "True")
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಸಾಲ</label><label class="Enlan">Loan</label></a>
+                                            <ul class="nav child_menu">
+                                                <li>
+                                                    <a class="collapse-item collapse-item-a" href="/kgid-loan-app/"><label class="knlan">ಸಾಲಕ್ಕಾಗಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ </label><label class="Enlan">Apply Loan</label></a>
+                                                </li>
+                                                <li>
+                                                    <a class="collapse-item collapse-item-a" href="/kgid-loan-app-status/"><label class="knlan">ಸಾಲ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Loan Application Status</label></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    }*@
+                                @*<li>
+                                        <a>Group Insurance</a>
+                                        <ul>
+                                            <li><a>Apply</a></li>
+                                        </ul>
+                                    </li>*@
+                                @*<li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಮೋಟಾರ್ ವಿಮೆ</label><label class="Enlan">Motor Insurance</label></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಹೊಸ ಪ್ರಸ್ತಾವನೆ </label><label class="Enlan">Fresh Application</label></a>
+                                            <ul class="nav child_menu">
+                                                <li>
+                                                    <a href="/mi-e-fa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application Form</label></a>
+                                                </li>*@
+                                @*<li>*@
+                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                @*  <a href="/mi-e-mp">Make Payment</a>*@
+                                @* </li>  *@
+                                @*<li>
+                                                <a href="/mi-e-soa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                                @*<li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ನವೀಕರಣ</label><label class="Enlan">Renewal</label></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/mi-e-re"><label class="knlan">ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Renewal Application</label></a>
+                                        </li>*@
+                                @*<li>*@
+                                @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfRenewalApplications", "MotorInsurance", new { area = "" })">Make Payment</a>*@
+                                @*<a href="/mi-dpt-r-rmp">Make Payment</a>
+                                    </li>*@
+                                @*<li>
+                                                <a href="/mi-dpt-r-rsoa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                                @*<li>
+                                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಎಂಐ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">MI Claim Application</label></a>
+                                                    <ul class="nav child_menu">
+                                                        <li>
+                                                            <a href="/mi-dpt-odc"><label class="knlan">ಸ್ವಂತ ಹಾನಿ ಕ್ಲೈಮ್</label><label class="Enlan">Own Damage Claim</label></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/mi-dpt-tpdc"><label class="knlan">ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಹಾನಿ ಕ್ಲೈಮ್</label><label class="Enlan">Third Party Damage Claim</label></a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                        </ul>
+                                    </li>*@
+                                @*<li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಎಂಐ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">MI Claim Application</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-e-odc"><label class="knlan">ಸ್ವಂತ ಹಾನಿ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Own Damage Claim Application</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-e-tpdca"><label class="knlan">ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಹಾನಿ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Third Party Damage Claim Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            }
+                            else if (cat == "11" && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+                            {
+                                @*<li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಮೋಟಾರ್ ವಿಮೆ</label><label class="Enlan">Motor Insurance</label></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಹೊಸ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Fresh Application</label></a>
+                                            <ul class="nav child_menu">
+                                                <li>
+                                                    @*<a href="@Url.Action("MIApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType = "New"}))" class="collapse-item collapse-item-a collapse-item-a-initial">Application Form</a>*@
+                                @*<a href="/mi-agy-fa/New"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application Form</label></a>*@
+                                @*</li>*@
+                                @*<li>
+                                       <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                        <a href="/mi-agy-mp">Make Payment</a>
+                                    </li>*@
+                                @*<li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MIStatusOfApplication", "MotorInsurance", new { area = "" })">Status of Application</a>*@
+                                @* <a href="/mi-agy-soa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>*@
+                                @*</li>*@
+                                @*</ul>*@
+                                @*</li>*@
+                                @*<li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ನವೀಕರಣ</label><label class="Enlan">Renewal</label></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/mi-agy-r-af"><label class="knlan">ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Renewal Application</label></a>
+                                        </li>*@
+                                @*<li>
+                                       <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfRenewalApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                        <a href="/mi-agy-r-mp">Make Payment</a>
+                                    </li>*@
+                                @*<li>
+                                                <a href="/mi-agy-r-soa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+
+                                @*</ul>*@
+                                //</li>
+                                @*<li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಮೋಟಾರ್ ವಿಮೆ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Motor Insurance Application</label></a>
+                                    <ul class="nav child_menu">
+
+                                        <li>
+                                            <a href="/mi-agy-fa/New"><label class="knlan">ಹೊಸ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Fresh Application</label></a>
+                                        </li>*@
+                                @*<li>
+                                      <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("MotorInsuranceListOfApplications", "MotorInsurance", new { area = "" })">Make Payment</a>
+                                        <a href="/mi-agy-mp">Make Payment</a>
+                                    </li>*@
+                                @*<li>
+                                                <a href="/mi-agy-soa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-agy-r-ra"><label class="knlan">ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Renewal Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                                @*<li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಎಂಐ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">MI Claim Application</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-agy-odca"><label class="knlan">ಸ್ವಂತ ಹಾನಿ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Own Damage Claim Application</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-agy-tpdca"><label class="knlan">ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಹಾನಿ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Third Party Damage Claim Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            }
+                        }
+                    }
+                    else if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Equals(Convert.ToString((int)UserCategories.EMPLOYEE)))
+                    {
+
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಹೊಸ ವ್ಯವಹಾರ</label><label class="Enlan">New Business</label></a>
+                            <ul class="nav child_menu">
+                                @if (Session["ApplyNewFlag"] == null || (Session["ApplyNewFlag"] != null && Session["ApplyNewFlag"].ToString() == "True"))
+                                {
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-app/">
+                                            <label class="knlan">
+                                                ಕೆಜಿಡ್ ವಿಮಾ ಪ್ರಸ್ಥಾವನಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ
+                                            </label><label class="Enlan">Apply for KGID Policy</label>
+                                        </a>
+                                    </li>
+                                }
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-view-app/"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View KGID Application</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-claims/">Claims</a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        if (Session["LoginType"] != null && Session["LoginType"].ToString() == "Insured Employee")
+                        {
+                            <li>
+                                <a href="/kgid-pd/"> <i class="fa fa-desktop"></i><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗಳ ಪಟ್ಟಿ</label><label class="Enlan">List of policies</label><span class="fa fa-circle"></span></a>
+                            </li>
+                        }
+
+                        @*if (Session["InsuredUser"] != null && Session["InsuredUser"].ToString() == "True")
+                            {
+                                <li>
+                                    <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಸಾಲ</label><label class="Enlan">Loan</label></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-loan-app/"><label class="knlan">ಸಾಲಕ್ಕಾಗಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ </label><label class="Enlan">Apply Loan</label></a>
+                                        </li>
+                                        <li>
+                                            <a class="collapse-item collapse-item-a" href="/kgid-view-app/"><label class="knlan">ಸಾಲ ಪ್ರಸ್ತಾವನೆಯನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Loan Application</label></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }*@
+                        @*<li>
+                                <a>Group Insurance</a>
+                                <ul>
+                                    <li><a>Apply</a></li>
+                                </ul>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DDO)))
+                    {
+                        <li>
+                            <a><label class="knlan"><i class="fa fa-edit"></i>ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan"><i class="fa fa-edit"></i>Application for verification</label><span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-ddo/">
+                                        <label class="knlan">
+                                            ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ  ಪ್ರಸ್ತಾವನೆಗಳು
+                                        </label><label class="Enlan">NB Applications for verification</label>
+                                    </a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-ddo-loan/">
+                                            <label class="knlan">
+                                                ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು
+                                            </label><label class="Enlan">Loan Applications for verification</label>
+                                        </a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/VIEW-NB-DDO-IL"><i class="fa fa-desktop"></i> <label class="knlan">ಮಾಹಿತಿ ಪತ್ರ</label><label class="Enlan">Intimation Letter</label> <span class="fa fa-circle"></span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("UploadEmployeeDetails", "Upload", new { area = "" })"> <i class="fa fa-desktop"></i><label class="knlan">ಮನವಿದಾರರ  ವಿವರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Upload Employee Details</label><span class="fa fa-circle"></span></a>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Cancellation Request</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-c-req?Type=DDO"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Policy Cancellation Request</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-loan-c-req?Type=DDO"><label class="knlan">ಸಾಲ ಪ್ರಸ್ತಾವನೆ ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Loan Cancellation Request</label></a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಮೋಟಾರ್ ವಿಮೆ</label><label class="Enlan">Motor Insurance</label></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಹೊಸ  ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Fresh Application</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-dpt-faf/New"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application Form</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dpt-mp"><label class="knlan">ಪಾವತಿ ಮಾಡಿ</label><label class="Enlan">Make Payment</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dpt-soa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ನವೀಕರಣ</label><label class="Enlan">Renewal</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-dpt-r-ra"><label class="knlan">ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Renewal Application</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dpt-r-rmp"><label class="knlan">ಪಾವತಿ ಮಾಡಿ</label><label class="Enlan">Make Payment</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dpt-r-rsoa"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ</label><label class="Enlan">Status of Application</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಎಂಐ ಕ್ಲೈಮ್ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">MI Claim Application</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-dpt-odc"><label class="knlan">ಸ್ವಂತ ಹಾನಿ ಕ್ಲೈಮ್</label><label class="Enlan">Own Damage Claim</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dpt-tpdc"><label class="knlan">ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಹಾನಿ ಕ್ಲೈಮ್</label><label class="Enlan">Third Party Damage Claim</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>*@
+
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @*<li>
+                                <a>Initiate claim application</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="@Url.Action("DDOPreMatureClaimApplication", "Claims", new { area = "" })">Prematurity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a" href="@Url.Action("DDODeathClaimApplication", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.CASEWORKER)))
+                    {
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ </label><label class="Enlan">Application for verification</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-cw/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">NB Applications for verification</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-cw-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">MI Applications for verification</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-cw-dpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-cw-agy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-cw-eply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span>
+                                            <label class="knlan">
+                                                ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆಗಳು
+                                            </label><label class="Enlan">MI Renewal Applications for verification</label>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-cw-rdpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-cw-ragy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-cw-reply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a>Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("CWDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERINTENDENT)))
+                    {
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application for verification</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-si/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ  ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">NB Applications for verification</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-si-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">MI Applications for verification</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-si-dpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-si-agy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-si-eply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span>
+                                            <label class="knlan">
+                                                ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆಗಳು
+                                            </label><label class="Enlan">MI Renewal Applications for verification</label>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-si-rdpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-si-ragy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-si-reply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @*<li>
+                                                <a>Claims</a>
+                                                <ul>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("SIDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                                    </li>
+                                                </ul>
+                            </li>*@
+                        @*<li>
+                                    <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIO)))
+                    {
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application for verification</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ  ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">NB Applications for verification</label></a>
+                                </li>
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio-prop-form/"><label class="knlan">50 ವರ್ಷಕ್ಕಿಂತ ಮೇಲ್ಪಟ್ಟ ಅರ್ಜಿಗಳು</label><label class="Enlan">Applications for above 50 years</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-dio-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Cancellation Request</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a" href="/kgid-c-req?Type=DIO"><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Policy Cancellation Request</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-loan-c-req?Type=DIO"><label class="knlan">ಸಾಲ ಪ್ರಸ್ತಾವನೆ ರದ್ದತಿ ವಿನಂತಿ</label><label class="Enlan">Loan Cancellation Request</label></a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a>Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIOMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIOPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DIODeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಡಿಎಸ್ಸಿ ಸ್ಥಾಪನೆ</label><label class="Enlan">DSC Installation</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @Html.ActionLink("DSC Installation User Manual document", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCdocumentformat.pdf" }, htmlAttributes: new { @target = "_blank", })
+                                    @*// <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ಬಿ ಅರ್ಜಿಗಳು</label><label class="Enlan">NB Applications for verification</label></a>*@
+                                </li>
+                                <li>
+                                    @Html.ActionLink("DSC Software Download", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCInstallation.zip" }, htmlAttributes: new { @target = "_blank", })
+
+                                    @*<a class="collapse-item collapse-item-a" href="/kgid-dio-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಅರ್ಜಿಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>*@
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @*<a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("VIEW-NBB-FS", "VerifyDetails", new { area = "" })">Print Bond & Facing Sheet</a>*@
+                                    <a href="/VIEW-NBB-FS"><label class="knlan">ಬಾಂಡ್ ಮತ್ತು ಮುಖಪುಟವನ್ನು ಮುದ್ರಿಸಿ</label><label class="Enlan">Print Bond & Facing Sheet</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("PrematurityClaimApplications", "Claims", new { area = "" })">Pre maturity Claims</a>
+                                    </li>*@
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DEPUTYDIRECTOR)))
+                    {
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application for verification</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dd/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ  ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">NB Applications for verification</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-dd-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">MI Applications for verification</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-dd-dpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dd-agy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label></a>
+                                            </li>
+                                            <li>
+                                               <a href="/mi-dd-eply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span>
+                                            <label class="knlan">
+                                                ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ನವೀಕರಣ ಪ್ರಸ್ತಾವನೆಗಳು
+                                            </label><label class="Enlan">MI Renewal Applications for verification</label>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/mi-dd-rdpt/2"><label class="knlan">ಇಲಾಖೆಗಾಗೆ</label><label class="Enlan">For Department</label></a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dd-ragy/11"><label class="knlan">ಏಜೆನ್ಸಿಗಾಗಿ</label><label class="Enlan">For Agency</label>For Agency</a>
+                                            </li>
+                                            <li>
+                                                <a href="/mi-dd-reply/1"><label class="knlan">ಮನವಿದಾರರಿಗಾಗಿ </label><label class="Enlan">For Employee</label></a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a>Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">DSC Installation</label><label class="Enlan">DSC Installation</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @Html.ActionLink("DSC Installation User Manual document", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCdocumentformat.pdf" }, htmlAttributes: new { @target = "_blank", })
+                                    @*// <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ಬಿ ಅರ್ಜಿಗಳು</label><label class="Enlan">NB Applications for verification</label></a>*@
+                                </li>
+                                <li>
+                                    @Html.ActionLink("DSC Software Download", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCInstallation.zip" }, htmlAttributes: new { @target = "_blank", })
+
+                                    @*<a class="collapse-item collapse-item-a" href="/kgid-dio-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಅರ್ಜಿಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>*@
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.DIRECTOR)))
+                    {
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application for verification</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-d/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ ಬಿ  ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">NB Applications for verification</label></a>
+                                </li>
+                                @*<li>
+                                        <a class="collapse-item collapse-item-a" href="/kgid-d-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ಅರ್ಜಿಗಳು</label><label class="Enlan">MI Applications for verification</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>
+                                            </li>
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>
+                                            </li>
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎಂಐ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">MI Applications for verification</label></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "2"}))">For Department</a>
+                                            </li>
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "11"}))">For Agency</a>
+                                            </li>
+                                            <li>
+                                                <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("RenewalDetailsForDVerification", "MotorInsurance", new RouteValueDictionary(new {@Category = "1"}))">For Employee</a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">DSC Installation</label><label class="Enlan">DSC Installation</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @Html.ActionLink("DSC Installation User Manual document", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCdocumentformat.pdf" }, htmlAttributes: new { @target = "_blank", })
+                                    @*// <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-dio/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಎನ್ಬಿ ಅರ್ಜಿಗಳು</label><label class="Enlan">NB Applications for verification</label></a>*@
+                                </li>
+                                <li>
+                                    @Html.ActionLink("DSC Software Download", "FileDownload", "Home", new { FilePath = "~/Documents/DSC/DSCInstallation.zip" }, htmlAttributes: new { @target = "_blank", })
+
+                                    @*<a class="collapse-item collapse-item-a" href="/kgid-dio-loan/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಸಾಲ ಅರ್ಜಿಗಳು</label><label class="Enlan">Loan Applications for verification</label></a>*@
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ವರದಿಗಳು</label><label class="Enlan">Reports</label></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    @*<a href="@Url.Action("OwnDamageClaimApplication", "MotorInsuranceClaims", new { area = "" })" class="collapse-item collapse-item-a collapse-item-a-initial">Own Damage Claim</a>*@
+                                    <a href="/APP-REP"><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ವರದಿ</label><label class="Enlan">KGID Application Report</label></a>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a>Claims</a>
+                                <ul>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DMaturityClaimApplications", "Claims", new { area = "" })">Maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DPrematurityClaimApplications", "Claims", new { area = "" })">Pre-maturity Claims</a>
+                                    </li>
+                                    <li>
+                                        <a class="collapse-item collapse-item-a collapse-item-a-initial" href="@Url.Action("DDeathClaimApplications", "Claims", new { area = "" })">Death Claims</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("LoanCancellationDetails", "Loan", new { area = "" })">Loan Cancelled Applications</a>
+                            </li>*@
+                    }
+                    @if (Session["Categories"] != null && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.ADMIN)))
+                    {
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="/kgid-search-emp/">Employee Verification</a>
+                            </li>*@
+                        <li>
+                            <a href="~/Admin/SaveDSCDetails/">
+                                <i class="fa fa-save"></i>
+                                <label class="knlan">
+                                    ಡಿಎಸ್ಸಿ ವಿವರಗಳನ್ನು ಉಳಿಸಿ
+                                </label><label class="Enlan">Save DSC Details</label>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Employee/AddUserRole/"><i class="fa fa-save"></i><label class="knlan">ಬಳಕೆದಾರರ ಪಾತ್ರವನ್ನು ಸೇರಿಸಿ</label><label class="Enlan">Add User Role</label></a>
+                        </li>
+                        <li>
+                            <a href="/ProposerTrackDetails/"><i class="fa fa-save"></i><label class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ</label><label class="Enlan">Track Proposal Number</label></a>
+                        </li>
+                        @*<li>
+                            <a href="/kgid-update-em/"><i class="fa fa-save"></i><label class="knlan">ಬಳಕೆದಾರರ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label><label class="Enlan">Update User Details</label></a>
+                        </li>*@
+                    }
+                    @if (Session["Categories"] != null && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.SUPERADMIN)))
+                    {
+                        <li>
+                            <a href="/kgid-update-em/"><i class="fa fa-save"></i><label class="knlan">ಬಳಕೆದಾರರ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label><label class="Enlan">Update User Details</label></a>
+                        </li>
+                        <li>
+                            <a href="/kgid-update-ddo/"><i class="fa fa-save"></i><label class="knlan">ಡಿಡಿಒ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label><label class="Enlan">Update DDO Details</label></a>
+                        </li>
+                        <li>
+                            <a href="/View-All-Tickets/"><i class="fa fa-save"></i><label class="knlan">ಎಲ್ಲಾ ಟಿಕೆಟ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View All Tickets</label></a>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.HELPDESK)))
+                    {
+                        <li>
+                            <a href="/kgid-AllReport-Pro/">
+                                <i class="fa fa-save"></i>
+                                <label class="knlan">
+                                    ವಿವರಗಳನ್ನು ನೀಡಿ
+                                </label><label class="Enlan">Issue Details</label>
+                            </a>
+                        </li>
+                        @*<li>
+                                <a href="/Employee/AddUserRole/"><i class="fa fa-save"></i><label class="knlan">ಬಳಕೆದಾರರ ಪಾತ್ರವನ್ನು ಸೇರಿಸಿ</label><label class="Enlan">Add User Role</label></a>
+                            </li>*@
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("Index", "Loan", new { area = "" })">Loan Update</a>
+                            </li>*@
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.AVGCASEWORKER)))
+                    {
+                        <li>
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-avg-cw/"><label class="knlan">ಪರಿಶೀಲನೆಗಾಗಿ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Application for verification</label></a>
+                        </li>
+                    }
+                    @if (Session["SelectedCategory"] != null && Session["SelectedCategory"].ToString().Contains(Convert.ToString((int)UserCategories.AGENCY)))
+                    {
+                        @*<li>
+                                <a class="collapse-item collapse-item-a" href="@Url.Action("UploadEmployeeDetails", "Upload", new { area = "" })"><label class="knlan">ಬಳಕೆದಾರ ಮಾಹಿತಿಯನ್ನು  ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Upload User Data</label></a>
+                            </li>
+                            <li>
+                                <a><i class="fa fa-edit"></i><span class="fa fa-chevron-down"></span><label class="knlan">ಮೋಟಾರ್ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗಳು</label><label class="Enlan">Motor Insurance Application</label></a>
+                                <ul class="nav child_menu">
+
+                                    <li>
+                                        <a href="/mi-agy-fa/New">
+                                            <label class="knlan">
+                                                ಹೊಸ ಪ್ರಸ್ತಾವನೆಗಳು
+                                            </label><label class="Enlan">Fresh Application</label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/mi-agy-mp">
+                                            <label class="knlan">
+                                                ಪಾವತಿ ಮಾಡಿ
+                                            </label><label class="Enlan">Make Payment</label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/mi-agy-soa">
+                                            <label class="knlan">
+                                                ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯ ಸ್ಥಿತಿ
+                                            </label><label class="Enlan">Status of Application</label>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                    }
+                    @if (Session["Categories"] != null && Session["Categories"].ToString().Contains(Convert.ToString((int)UserCategories.HELPDESK)))
+                    {
+                        <li>
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-Report-Pro/"><i class="fa fa-save"></i><label class="knlan">ನಿಯೋಜಿಸಲಾದ ಸಮಸ್ಯೆಗಳು </label><label class="Enlan">Assigned Issues</label></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="collapse-item collapse-item-a collapse-item-a-initial" href="/kgid-Report-Pro/"><i class="fa fa-save"></i><label class="knlan">ಸಮಸ್ಯೆಯನ್ನು ತಿಳಿಸಿ </label><label class="Enlan">Raise an Issue</label></a>
+                        </li>
+                    }
+                    @*<li><a><i class="fa fa-desktop"></i> Motor Insurance <span class="fa fa-circle"></span></a></li>
+                        <li><a><i class="fa fa-desktop"></i> Group Insurance <span class="fa fa-circle"></span></a></li>
+                        <li><a><i class="fa fa-desktop"></i> Family Benefit <span class="fa fa-circle"></span></a></li>
+                        <li>
+                            <a><i class="fa fa-table"></i> MIS &amp; Admin <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Standard Reports</a></li>
+                                <li><a href="#">Customised Reports</a></li>
+                                <li><a href="#">Business Intelligence Reports</a></li>
+                            </ul>
+                        </li>
+                        <li><a><i class="fa fa-desktop"></i> Contact Us<span class="fa fa-circle"></span></a></li>*@
+
+                </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+    </div>
+</div>

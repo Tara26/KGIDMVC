@@ -1,0 +1,125 @@
+﻿@model KGID_Models.KGID_Loan.VM_LoanApplicationStatus
+
+@{
+    ViewBag.Title = "Loan Application Status";
+}
+<style>
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    table td {
+        padding: 4px !important;
+    }
+
+    .stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+    }
+
+    .in-s {
+        height: 25px !important;
+        width: 70%;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-s-r {
+        height: 25px !important;
+        padding: 3px;
+        font-size: 12px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Loan Application Status</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <p class="text-center font-size-18 foot-t-req" id="p_noloanapp">No Loan applications to display.</p>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblViewLoanApplicationList" cellspacing="0">
+                            <thead class="t_head">
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th hidden>LoanID</th>
+                                    <th hidden>EmpID</th>
+                                    <th>Loan Reference Number</th>
+                                    <th>Name of Employees</th>
+                                    <th>Designation</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.listApplicationStatus.Any())
+                                {
+                                    int counter = 1;
+                                    foreach (var item in Model.listApplicationStatus)
+                                    {
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td hidden>LoanID</td>
+                                            <td hidden>EmpID</td>
+                                            <td>@item.LoanRefNo</td>
+                                            <td>@item.EmpName</td>
+                                            <td>@item.EmpDesignation</td>
+                                            <td>@item.EmpDepartment</td>
+                                            <td>@item.LoanStatus</td>
+                                            @if (item.LoanStatus == "Approved")
+                                            {
+                                                <td>Your Loan application is approved.</td>
+                                            }
+                                            else if (item.LoanStatus == "Cancel the Application")
+                                            {
+                                                <td>@item.LoanStatus.</td>
+                                            }
+                                            else if (item.LoanStatus == "Loan Cancellation Request")
+                                            {
+                                                <td>Cancellation is in progress.</td>
+                                            }
+                                            else if (item.LoanStatus == "Cancelled Loan Application")
+                                            {
+                                                <td>This Loan application is cancelled.</td>
+                                            }
+                                            else if (item.LoanStatus == "Reject the Aplication")
+                                            {
+                                                <td>This Loan application is rejected.</td>
+                                            }
+                                            else if (item.LoanStatus == "Loan cancellation request forwarded")
+                                            {
+                                                <td>This Loan cancellation request is forwarded to DIO.</td>
+                                            }
+                                            else if (item.LoanStatus == "Send Back to Employee")
+                                            {
+                                                <td><a href="@Url.Action("LoanApplicationForm", "Loan", new RouteValueDictionary(new { }))" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a class="btn btn-sm btn-danger" style="font-size: inherit;color:#fff;padding: 0px 1px 1px 1px;" onclick="CancelLoan(@item.EmpID,@item.LoanID);">Cancel Application</a></td>
+                                            }
+                                        </tr>
+                                        counter++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Loan/LoanApplicationStatus.js"></script>

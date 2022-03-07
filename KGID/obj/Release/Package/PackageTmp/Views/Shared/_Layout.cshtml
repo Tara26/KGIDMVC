@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style type="text/css">
+        .t_head {
+            background: #308385;
+            color: #fff;
+        }
+        a:hover, a:focus {
+            text-decoration: underline !important;
+            cursor:pointer !important;
+        }
+    </style>
+    <!-- Bootstrap -->
+    <link href="~/Content/frontend/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/Content/frontend/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- NProgress -->
+    <link href="~/Content/frontend/css/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/Content/frontend/css/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="~/Content/frontend/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="~/Content/frontend/css/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/Content/frontend/css/daterangepicker.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/Content/frontend/css/custom.min.css" rel="stylesheet">
+    <style>
+        .img-responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <!-- jQuery Extra-->
+
+    @*<link rel="stylesheet" type="text/css" href="~/Views/Shared/_Footerold.cshtml">*@
+    <link href="~/Scripts/DateTimePicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables/jQuery-3.5.1/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/DateTimePicker/jquery.datetimepicker.js"></script>
+    <link href="~/Content/timeout-dialog.css" rel="stylesheet" />
+    <script src="~/Scripts/timeout-dialog.js"></script>
+    <script src="~/Content/accessibility-controls/js/textResizestyle1.js"></script>
+    <script src="~/Content/accessibility-controls/js/jquery_cookie.js"></script>
+
+    <script type="text/javascript">
+            function preventBack() {window.history.forward(); }
+            setTimeout("preventBack()", 0);
+            window.onunload = function () {null};
+
+        @*$(function () {
+            var timeout = 600000;
+            $(document).bind("idle.idleTimer", function () {
+                // function you want to fire when the user goes idle
+                $.timeoutDialog({
+                    timeout: 0.25,
+                    countdown: 60,
+                    //logout_redirect_url: '/Home/Logout',
+                    //restart_on_yes: true
+                    logout_redirect_url: '@Url.Action("Logout", "Home")',
+                    keep_alive_url: '@Url.Action("Keepalive", "Home")'
+                });
+            });
+            $(document).bind("active.idleTimer", function () {
+                // function you want to fire when the user becomes active again
+                @*$.timeoutDialog({
+                    timeout: 0.25,
+                    countdown: 5,
+                    //logout_redirect_url: '/Home/Keepalive',
+                    //restart_on_yes: true
+                    logout_redirect_url: '@Url.Action("Logout", "Home")',
+                    keep_alive_url: '@Url.Action("Keepalive", "Home")'
+                });*@            
+    </script>
+    <script>
+        function printPreview(data) {
+            var type = 'application/pdf';
+            let blob = null;
+            const blobURL = URL.createObjectURL(pdfBlobConversion(data, 'application/pdf'));
+            const theWindow = window.open(blobURL);
+            const theDoc = theWindow.document;
+            const theScript = document.createElement('script');
+            function injectThis() {
+                window.print();
+            }
+            theScript.innerHTML = 'window.onload = ${injectThis.toString()};';
+            theDoc.body.appendChild(theScript);
+        }
+        //converts base64 to blob type for windows
+        function pdfBlobConversion(b64Data, contentType) {
+            contentType = contentType || '';
+            var sliceSize = 512;
+            b64Data = b64Data.replace(/^[^,]+,/, '');
+            b64Data = b64Data.replace(/\s/g, '');
+            var byteCharacters = window.atob(b64Data);
+            var byteArrays = [];
+
+            for (var offset = 0; offset < byteCharacters.length; offset = offset + sliceSize) {
+                var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            var blob = new Blob(byteArrays, { type: contentType });
+            return blob;
+        }
+    </script>
+    <!-- Session Timeout Functions End --Venkat -->
+</head>
+
+<body id="page-top" class="nav-md">
+    <input type="hidden" value="@Session["UID"]" id="hdnUID" name="hdnUID" />
+
+    <div class="container body">
+        <div class="main_container">
+
+            @{Html.RenderPartial("_Sidebar2");}
+            @{Html.RenderPartial("_Header");}
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ">
+                        <img src="
+                        ~/Content/Images/insurance-banner-small.png"class="img-responsive" />
+                    </div>
+                </div>
+
+                <!-- Page Heading -->
+                @RenderBody()
+            </div>
+            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{Html.RenderPartial("_Footer");}
+            <!-- End of Footer -->
+            <!-- End of Content Wrapper -->
+            <a id="back2Top" title="Back to top" href="#">&#10148;</a>
+
+            <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="/Home/Logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Hidden("SelectedCategory", Session["SelectedCategory"], new { id = "hdnSelectedCategories" })
+            @Html.Hidden("UserCategories", Session["Categories"], new { id = "hdnCategories", data_url = Url.Action("SelectCategory", "Login", new { area = "" }) })
+            <div class="modal fade" id="selectCategoryModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="categoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="categoryModalLabel">Select User Category</h5>
+                            <button class="close cancel" type="button" aria-label="Close" data-url="@Url.Action("Logout", "Home", new { area = "" })">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label col-12 font-weight-bold">Please select category to continue</label>
+                            <div class="form-group row col-12 category-content">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary cancel" type="button" data-url="@Url.Action("Logout", "Home", new { area = "" })">Cancel</button>
+                            <button id="btnSwitchCat" class="btn btn-primary cat-switch" data-modal-id="selectCategoryModal" data-url="@Url.Action("SwitchCategory", "Login", new { area = "" })">Switch Category</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="switchCategoryModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="categoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="categoryModalLabel">Select User Category</h5>
+                            <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label col-12 font-weight-bold">Please select category to continue</label>
+                            <div class="form-group row col-12 category-content">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <button id="btnSwitchCat" class="btn btn-primary cat-switch" data-modal-id="switchCategoryModal" data-url="@Url.Action("SwitchCategory", "Login", new { area = "" })">Switch Category</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap -->
+    <script src="~/Content/frontend/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/Content/frontend/js/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/Content/frontend/js/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="~/Content/frontend/js/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="~/Content/frontend/js/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="~/Content/frontend/js/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Content/frontend/js/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="~/Content/frontend/js/skycons.js"></script>
+    <!-- Flot -->
+    <script src="~/Content/frontend/js/jquery.flot.js"></script>
+    <script src="~/Content/frontend/js/jquery.flot.pie.js"></script>
+    <script src="~/Content/frontend/js/jquery.flot.time.js"></script>
+    <script src="~/Content/frontend/js/jquery.flot.stack.js"></script>
+    <script src="~/Content/frontend/js/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="~/Content/frontend/js/jquery.flot.orderBars.js"></script>
+    <script src="~/Content/frontend/js/jquery.flot.spline.min.js"></script>
+    <script src="~/Content/frontend/js/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="~/Content/frontend/js/date.js"></script>
+    <!-- JQVMap -->
+    <script src="~/Content/frontend/js/jquery.vmap.js"></script>
+    <script src="~/Content/frontend/js/jquery.vmap.world.js"></script>
+    <script src="~/Content/frontend/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="~/Content/frontend/js/moment.min.js"></script>
+    <script src="~/Content/frontend/js/daterangepicker.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/Content/frontend/js/custom.min.js"></script>
+
+    @*<script src="~/Scripts/DataTables/Bootstrap-4-4.1.1/js/bootstrap.min.js"></script>*@
+    <script src="~/Scripts/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/ApplicationJS/Login.js"></script>
+    <script src="~/Content/NewUI/js/jquery-ui.min.js"></script>
+    @*<script src="~/Content/NewUI/js/jquery.countdown.min.js"></script>
+        <script src="~/Content/NewUI/js/jquery.nice-select.min.js"></script>
+        <script src="~/Content/NewUI/js/jquery.zoom.min.js"></script>
+        <script src="~/Content/NewUI/js/jquery.dd.min.js"></script>
+        <script src="~/Content/NewUI/js/jquery.slicknav.js"></script>
+        <script src="~/Content/NewUI/js/owl.carousel.min.js"></script>
+        <script src="~/Content/NewUI/js/main.js"></script>*@
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Content/printThis.js"></script>
+    <script src="~/Scripts/alertify/alertify.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    @*<script type="text/javascript" src="~/Content/NewUI/js/stellarnav.min.js"></script>*@
+    @*<script src="~/Content/NewUI/accessibility-controls/js/jquery_cookie.js"></script>*@
+    <script src="~/Scripts/ApplicationJS/Language.js"></script>
+    <link href="~/Content/alertifyjs/alertify.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/kgid-custom.css" rel="stylesheet" />
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            //detect_browser();
+            //$(".overlay").hide();
+            if ($("#hdnSelectedCategories").val() === '') {
+                DisplayCategories($("#selectCategoryModal"));
+            }
+
+            jQuery('.stellarnav').stellarNav({
+                theme: 'dark',
+                breakpoint: 960,
+                position: 'right',
+                phoneBtn: '18009997788',
+                locationBtn: 'https://www.google.com/maps'
+            });
+            var loc = window.location.pathname;
+            $("a[href*='" + loc + "']").addClass('active');
+            $("#PageName").text($("a[href*='" + loc + "']").text());
+        });
+
+        /*Scroll to top when arrow up clicked BEGIN*/
+        $(window).scroll(function () {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
+            } else {
+                $('#back2Top').fadeOut();
+            }
+        });
+        $(document).ready(function () {
+            $("#back2Top").click(function (event) {
+                event.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                return false;
+            });
+
+        });
+        function DisplayCategories($modal) {
+            var categoryString = $("#hdnCategories").val();
+            var url = $("#hdnCategories").data("url");
+
+            if ($("#hdnSelectedCategories").val() !== '') {
+                var selectedCategory = $("#hdnSelectedCategories").val();
+            }
+
+            var categories = categoryString.split(',');
+            var numberOfCategories = categories.length;
+            if (numberOfCategories > 1) {
+                $.get(url).done(function (response) {
+                    var i = 0;
+                    var html = '';
+                    $modal.find(".modal-body .category-content").html('');
+
+                    for (i = 0; i < categories.length; i++) {
+                        for (var item in response) {
+                            if (response[item].Key === parseInt(categories[i])) {
+                                if (response[item].Key === parseInt(selectedCategory)) {
+                                    html = "<label class='col-4'><input class='mr-2 align-bottom category-option' type='radio' name='Category' value='" + response[item].Key + "' checked/>" + response[item].Value + "</label >";
+                                }
+                                else {
+                                    html = "<label class='col-4'><input class='mr-2 align-bottom category-option' type='radio' name='Category' value='" + response[item].Key + "' />" + response[item].Value + "</label >";
+                                }
+                                $modal.find(".modal-body .category-content").append(html);
+                            }
+                        }
+                    }
+
+                    $modal.modal('show');
+                    $modal.css("background", "rgba(0, 0, 0, 0.97)");
+                });
+            }
+            else {
+                $("#categorySwitchPanel").hide();
+            }
+        }
+
+        $(".cancel").click(function () {
+            var $control = $(this);
+            var url = $control.data("url");
+            window.location.href = url;
+        });
+
+        $(".cat-switch").click(function () {
+            var url = $(this).data("url");
+            var _selectedCategory = $(".category-option:checked").val();
+            var modelId = $(this).data("modal-id");
+
+            $.post(url, { selectedCategory: _selectedCategory }).done(function (response) {
+                if (response.IsSuccess) {
+                    $("#" + modelId).modal('hide');
+                    alertify.success("Category switched successfully");
+                    //window.setTimeout(function () { $(".overlay").show(); }, 800);
+                    //window.setTimeout(function () { location.reload(true); window.location.href = "/Home/Dashboard"; }, 3500);
+                   
+                    window.location.href = response.RedirectUrl;
+                    //window.location.href = "/Employee/ApplicationForm";
+                }
+                else {
+                    alertify.error("Could not switch category");
+                }
+            });
+        });
+
+        $("#categorySwitchPanel").click(function () {
+            DisplayCategories($("#switchCategoryModal"));
+        });
+                   
+   	// Session timeout message popup
+        var setTO = "";
+        $(function () {
+            if (localStorage.checkInTimer == "true") {
+                localStorage['checkInTimer'] = "true";
+            }
+            else {
+                localStorage['checkInTimer'] = "false";
+                var timeout = @(Session.Timeout) * 60;
+                localStorage['sesscountdown'] = timeout;
+                clearInterval(setTO);
+                setTO = setInterval(function () {
+                    if (localStorage.sesscountdown < 2) {
+                        localStorage.sesscountdown = 0;
+                        localStorage['checkInTimer'] = "false";
+                        window.location.href = "/Login/SessionTimeout";
+                    }
+                    localStorage.sesscountdown -= 1;
+                }, 1000);
+            }
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,862 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceOtherDetails
+<style>
+#tblPOther p {
+            font-size: 14px;
+            line-height: 25px;
+            color: black;
+        }
+</style>
+ 
+<div id="divper">
+
+    <table style="border:none; width: 0%; height: 744px;" id="tblPOther">
+
+        <tbody>
+            <tr style="height: 34px;">
+                <td class='pslnoid1 pslnoid2' style="display:none;">1. </td>
+                <td style="width: 1%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Whether the vehicle is driven by non-conventional source of power(if Yes, Please give details)</p></td>
+                <td style="width: 9.2384%; height: 34px;">
+                    <p>
+                        :
+                        @if (Model.miod_is_non_conventioanal_source == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+                @*<td style="width: 38%; height: 34px;"><p>@Html.DisplayFor(model => model.MedicalAdviceDetails)</p></td>*@
+            </tr>
+            @if (Model.miod_is_non_conventioanal_source == true)
+            {
+                <tr style="height: 34px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;"><p>  if Yes,Please give details</p></td>
+                    <td style="width: 38%; height: 34px;"><p> : &nbsp;@Html.DisplayFor(model => model.miod_is_non_conventioanal_source_details)</p></td>
+                </tr>
+            }
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Whether the vehicle is used for driving tuitions :</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_driving_tuitions == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            <tr style="height: 34px;">
+                <td style="width: 1%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p>Whether extension of geographical area to the following countries required? </p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_geographical == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+
+            @if (Model.miod_is_geographical == true)
+            {
+                <tr style="height: 34px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            (i) First Country
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;">
+
+                        @if (Model.miod_geographical_ext1 == "1")
+                        {
+                            <p> : &nbsp; Bangladesh </p>
+                        }
+                        @if (Model.miod_geographical_ext1 == "2")
+                        {
+                            <p> : &nbsp; Bhutan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext1 == "3")
+                        {<p> : &nbsp; Maldives </p>
+
+                        }
+                        @if (Model.miod_geographical_ext1 == "4")
+                        {<p> : &nbsp; Nepal </p>
+
+                        }
+                        @if (Model.miod_geographical_ext1 == "5")
+                        {<p> : &nbsp; Pakistan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext1 == "6")
+                        {<p> : &nbsp; Srilanka </p>
+
+                        }
+
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            (ii)Second Country
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;">
+
+                        @if (Model.miod_geographical_ext2 == "1")
+                        {
+                            <p> : &nbsp; Bangladesh </p>
+                        }
+                        @if (Model.miod_geographical_ext2 == "2")
+                        {
+                            <p> : &nbsp; Bhutan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext2 == "3")
+                        {<p> : &nbsp; Maldives </p>
+
+                        }
+                        @if (Model.miod_geographical_ext2 == "4")
+                        {<p> : &nbsp; Nepal </p>
+
+                        }
+                        @if (Model.miod_geographical_ext2 == "5")
+                        {<p> : &nbsp; Pakistan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext2 == "6")
+                        {<p> : &nbsp; Srilanka </p>
+
+                        }
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            (ii)Third Country
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;">
+
+                        @if (Model.miod_geographical_ext3 == "1")
+                        {
+                            <p> : &nbsp; Bangladesh </p>
+                        }
+                        @if (Model.miod_geographical_ext3 == "2")
+                        {
+                            <p> : &nbsp; Bhutan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext3 == "3")
+                        {<p> : &nbsp; Maldives </p>
+
+                        }
+                        @if (Model.miod_geographical_ext3 == "4")
+                        {<p> : &nbsp; Nepal </p>
+
+                        }
+                        @if (Model.miod_geographical_ext3 == "5")
+                        {<p> : &nbsp; Pakistan </p>
+
+                        }
+                        @if (Model.miod_geographical_ext3 == "6")
+                        {<p> : &nbsp; Srilanka </p>
+
+                        }
+                    </td>
+                </tr>
+            }
+
+
+
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Whether the use of vehicle is limited to your own premises?</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_own_premises == false)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr style="height: 34px;">
+                @if (Model.miod_vehicle_type_id == 1)
+                {
+                    <td style="width: 1%; height: 34px;"><p><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+
+                        <p>Whether the  vehicle is used for commercial purpose?</p>
+                    </td>
+                }
+                else
+                {
+                    <td style="width: 1%; height: 34px;"><p><span class='pslnoid2'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            Whether the commerical vehicle is also used for Private Purpose (excluding use for hire or reward)?
+                        </p>
+                    </td>
+                }
+
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+
+                        @if (Model.miod_is_commercial_purpose == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Whether the vehicle belongs to foreign embassy/consulate?</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_foreign_embasy == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+
+            @if (Model.miod_vehicle_type_id == 1)
+            {
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;"><p>Whether the car is certified as Vintage car or Classic car by Vintage car and Classic car club of India?</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+
+                            @if (Model.miod_is_vintage_car == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+            }
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p>Whether the vehicle is designed for use of Blind/Handicapped/Mentally Challenged persons and duly endorsed as such by RTA.</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_for_blind_or_ph == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Whether the vehicle is fitted with fibre glass tank?</td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_fibre_glass_tank == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            @if (Model.miod_vehicle_type_id == 1)
+            {
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;"><p> Whether the vehicle is fitted with bi-fuel system such as petrol/diesel and CNG/LPG permitted by concerned RTA?</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+
+                            @if (Model.miod_is_bi_fuel_system == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                    </td>
+
+                </tr>
+                <tr>
+                    @if (Model.miod_is_bi_fuel_system == true)
+                    {
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;"><p>  if Yes, Value Rs. </p></td>
+                        <td style="width: 38%; height: 34px;"><p> :@Html.DisplayFor(model => model.miod_bi_fuel_amount)</p></td>
+                    }
+                </tr>
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;"><p> Do you wish to opt for higher deductible over and above the Compulsory deductible (Rs. 50 for two wheelers and Rs. 500/- Rs. 1000/- for private cars)</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+
+                            @if (Model.miod_is_higher_deductible == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+                <tr>
+                    @if (Model.miod_is_higher_deductible == true)
+                    {
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                If Yes, please specify the amount <br /> (for two wheelers) Rs.500/750/1000/3000<br />
+                                (For private cars) Rs.2500/5000/7500/15000:
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> :@Html.DisplayFor(model => model.miod_higher_deductible_amount)</p></td>
+                    }
+                </tr>
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;"><p>  Are you a member of Automobile Association of India?</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+
+                            @if (Model.miod_is_automobile_association_of_india == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+
+
+                if (Model.miod_is_automobile_association_of_india == true)
+                {
+                    <tr>
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 38%; height: 34px;"><p>If Yes, please state </p></td>
+                        <td style="width: 18.2384%; height: 52px;"></td>
+                    </tr>
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 52px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                a. Name of Association
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_name_of_association)</p></td>
+                    </tr>
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 52px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                b. Membership No.
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_membership_no)</p></td>
+                    </tr>
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 52px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                c. Date of Expiry
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_date_of_expiry)</p></td>
+                    </tr>
+                }
+            }
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p> Do you wish to cover Legal Liability to?</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_cover_legal_liability == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            @if (Model.miod_is_cover_legal_liability == true)
+            {
+                <tr style="height: 52px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            A) For Driver / Conductor / Cleaner? (No. of persons)
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;"><p>  : &nbsp;  @Html.DisplayFor(model => model.miod_cll_driver_conductor_count)</p></td>
+                </tr>
+                <tr style="height: 52px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            B) Other Employees? (No. of persons)
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_cll_other_emp_count)</p></td>
+                </tr>
+                <tr style="height: 52px;">
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            C) Non fare paying passengers? (No. of persons)
+                        </p>
+                    </td>
+                    <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_cll_non_fare_passengers_count)</p></td>
+                </tr>
+            }
+            <tr style="height: 34px;">
+                <td style="width: 5%; height: 34px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                <td style="width: 50.7616%; height: 34px;"><p>Are you entitled to No Claim Bonus? If yes, Please submit Proof thereof</p></td>
+                <td style="width: 18.2384%; height: 34px;">
+                    <p>
+                        : &nbsp;
+
+                        @if (Model.miod_is_no_claim_bonus == true)
+                        {
+                            <span>Yes</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td style="width: 1%; height: 34px;"><p></p></td>
+                <td style="width: 50.7616%; height: 34px;">
+                    @if (!string.IsNullOrEmpty(Model.Miod_is_no_claim_bonus_doc_filename))
+                    {
+                        <p><b>Previously uploaded Document</b> : <a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a> </p>
+                    }
+                </td>
+                <td style="width: 18.2384%; height: 70px;"></td>
+
+            </tr>
+
+            <tr style="height: 34px; margin-top: 5px;">
+                @if (Model.miod_vehicle_type_id == 2)
+                {
+                    <td style="width: 5%; height: 34px;"><p style="margin-top:-20px;"><span class='pslnoid2'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+
+                        <p>
+                            Liability to Third Parties?
+                            The policy provides Third Party property Damage (TPPD) of Rs.1Lakh (Two Wheelers) and Rs. 7.5Lakhs (other class vehicles). Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000/- only?
+                        </p>
+                    </td>
+                }
+                else
+                {
+                    <td style="width: 5%; height: 34px;"><p style="margin-top:-20px;"><span class='pslnoid1'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        <p>
+                            Liability to Third Parties?
+                            The policy provides Third Party property Damage (TPPD) of Rs.1Lakh (Two Wheelers) and Rs. 7.5Lakhs (Private Cars). Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000/- only?
+                        </p>
+                    </td>
+                        }
+
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p style="margin-top:20px;">
+                            : &nbsp;
+
+                            @if (Model.miod_is_liability_third_parties == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+            </tr>
+            @if (Model.miod_vehicle_type_id == 1)
+            {
+
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p>16.</p> </td>
+                    <td style="width: 50.7616%; height: 34px;"><p>Whether higher towing charges is opted over and above the limit prescribed in the policy?</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+                            @if (Model.miod_is_higher_towing_charges == true)
+                            {
+                                <span>Yes</span>
+                            }
+
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+                <tr>
+                    @if (Model.miod_is_higher_towing_charges == true)
+                    {
+                        <td style="width: 5%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                If yes, the amount opted Rs.
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> :@Html.DisplayFor(model => model.miod_is_higher_towing_charges_amount)</p></td>
+                    }
+                </tr>
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p><span class='pslnoid1'>slno</span></p> </td>
+                    <td style="width: 50.7616%; height: 34px;"><p> Do you wish to include Personal Accident (P.A.) Cover for name and persons?</p></td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p>
+                            : &nbsp;
+                            @if (Model.miod_is_include_personal_accident == true)
+                            {
+                                <span>Yes</span>
+                            }
+
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+
+
+                if (Model.miod_is_include_personal_accident == true)
+                {
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                A) For Driver(No. of persons)
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp;   @Html.DisplayFor(model => model.miod_pa_driver_conductor_count)</p></td>
+                    </tr>
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                B) Other Employees?(No. of persons)
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp;  @Html.DisplayFor(model => model.miod_pa_other_emp_count)</p></td>
+                    </tr>
+                    <tr style="height: 52px;">
+                        <td style="width: 1%; height: 34px;"><p></p></td>
+                        <td style="width: 50.7616%; height: 34px;">
+                            <p>
+                                C) Unnamed passengers (No. of persons)
+                            </p>
+                        </td>
+                        <td style="width: 38%; height: 34px;"><p> : &nbsp; @Html.DisplayFor(model => model.miod_pa_unnamed_passengers_count)</p></td>
+                    </tr>
+                }
+
+            }
+            <tr style="height: 17px;">
+                <td style="width: 5%; height: 17px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p> </td>
+                <td style="width: 50.7616%; height: 17px;"><p> Do you wish to include Personal Accident P.A. Cover for Name and Persons?</p></td>
+                <td style="width: 18.2384%; height: 17px;">
+                    <p>
+                        : &nbsp;
+                        @if (Model.miod_is_include_personal_accident_for_persons == true)
+                        {
+                            <span>Yes</span>
+                        }
+
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+
+
+            @if (Model.miod_is_include_personal_accident_for_persons == true)
+            {
+                <tr>
+                    <td style="width: 1%; height: 52px;"><p></p></td>
+                    <td style="width: 38%; height: 34px;"><p>If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers</p></td>
+                    <td style="width: 18.2384%; height: 52px;"></td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"><p> </p></td>
+                    <td style="width: 50.7616%; height: 17px;"><p>Name</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            CSI Opted (Rs)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"></td>
+                    <td style="width: 50.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipap_name1)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipap_name1_amount)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"></td>
+                    <td style="width: 50.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipap_name2)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipaun_name2_amount)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"></td>
+                    <td style="width: 50.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipap_name3)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipap_name3_amount)
+                        </p>
+                    </td>
+                </tr>
+            }
+            <tr style="height: 17px;">
+                <td style="width: 5%; height: 17px;"><p><span class='pslnoid1 pslnoid2'>slno</span></p> </td>
+                <td style="width: 50.7616%; height: 17px;"><p>  Do you wish to include P.A. Cover for unnamed persons / hire / pillion passenger (two wheelers)?</p></td>
+                <td style="width: 18.2384%; height: 17px;">
+                    <p>
+                        : &nbsp;
+                        @if (Model.miod_is_include_pa_cover_for_unnamed_persons == true)
+                        {
+                            <span>Yes</span>
+                        }
+
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </p>
+                </td>
+
+            </tr>
+            @if (Model.miod_is_include_pa_cover_for_unnamed_persons == true)
+            {
+                <tr>
+                    <td style="width: 1%; height: 52px;"><p></p></td>
+                    <td style="width: 38%; height: 34px;"><p>If Yes, give name and Capital Sum Insured(CSI) opted for. The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers </p></td>
+                    <td style="width: 18.2384%; height: 52px;"></td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"><p></p>  </td>
+                    <td style="width: 45.7616%; height: 17px;"><p>Numbers of Persons </p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            CSI Opted (Rs)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"></td>
+                    <td style="width: 45.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipaun_name1)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipaun_name1_amount)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"> </td>
+                    <td style="width: 45.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipaun_name2)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipaun_name2_amount)
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 52px;">
+
+                    <td style="width: 5%; height: 17px;"></td>
+                    <td style="width: 45.7616%; height: 17px;"><p> @Html.DisplayFor(model => model.miod_ipaun_name3)</p></td>
+                    <td style="width: 18.2384%; height: 17px;">
+                        <p>
+                            @Html.DisplayFor(model => model.miod_ipaun_name3_amount)
+                        </p>
+                    </td>
+                </tr>
+            }
+
+            @if (Model.miod_vehicle_type_id == 2)
+            {
+                <tr style="height: 34px;">
+                    <td style="width: 5%; height: 34px;"><p style="margin-top:-20px;"><span class='pslnoid1 pslnoid2'>slno</span></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+					<p>
+						Is the vehicle fitted with the any Anti-theft device approved by the AARI. Pune? @*<br />*@
+						If yes, attach Certificate of Installation in the Vehicle issued by Automobile Association of India.
+					</p>
+					</td>
+                    <td style="width: 18.2384%; height: 34px;">
+                        <p style="margin-top:15px;">
+                            : &nbsp;
+
+                            @if (Model.miod_is_anti_theft == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 1%; height: 34px;"><p></p></td>
+                    <td style="width: 50.7616%; height: 34px;">
+                        @if (!string.IsNullOrEmpty(Model.Miod_is_anti_theft_doc_filename))
+                        {
+                            <p><b>Previously uploaded Document</b> : <a href="@Model.Miod_is_anti_theft_doc_filename" target="_blank" class="doc-uploaded">Click Here</a> </p>
+                        }
+                    </td>
+                    <td style="width: 18.2384%; height: 34px;"></td>
+
+                </tr>
+            }
+
+            </tbody>
+    </table>
+
+
+   
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        debugger;
+
+        var vtype = $('#ddlVehType').val();
+
+        if (vtype == 1) {
+            var list = document.getElementsByClassName("pslnoid1");
+            for (var i = 1; i <= list.length - 1; i++) {
+                list[i].innerHTML = i;
+            }
+        }
+        else {
+            var list = document.getElementsByClassName("pslnoid2");
+            for (var i = 1; i <= list.length - 1; i++) {
+                list[i].innerHTML = i;
+            }
+        }
+
+    });
+</script>
+
+
+

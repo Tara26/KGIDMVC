@@ -1,0 +1,112 @@
+﻿@model KGID_Models.NBApplication.VM_PolicyDetails
+@using KGID_Models.NBApplication;
+@*, @readonly = true*@
+<div id="divVKGID">
+    <div class="row">
+        <div class="form-group col-12">
+            <label class="control-label col-sm-4 pt-2-5" for="txtPayScale">
+                <b>
+                    <label class="knlan">ಪ್ರಸ್ತಾಪಕರ ವೇತನ ಶ್ರೇಣಿ :</label>
+                    <label class="Enlan">Employee Pay Scale :</label>
+                </b>
+            </label>
+            <span id="spnPayscale"></span>
+        </div>
+    </div>
+    @Html.Hidden("IsMedicalRequired", "", new { id = "hdnMedicalRequired" })
+
+    <div class="row">
+        <div class="form-group col-12">
+            <span>
+                <b>
+                    <label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಕಂತು ವಿವರಗಳು</label>
+                    <label class="Enlan">KGID Premium Details</label>
+                </b>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <table id="tblKgidPremium" class="table table-striped table-bordered" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಪತ್ರ ಸಂಖ್ಯೆ: / ಅರ್ಜಿ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ</label><label class="Enlan">KGID Policy Number / Application Ref Number</label></th>
+                        <th><label class="knlan">ಮಂಜೂರಾತಿ ದಿನಾಂಕ</label><label class="Enlan">Sanction Date</label></th>
+                        <th><label class="knlan">ಕೆಜಿಐಡಿ ವಿಮಾ ಕಂತು</label><label class="Enlan">KGID Premium</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.KGIDPolicyList != null)
+                    {
+                        foreach (VM_PolicyDetails item in Model.KGIDPolicyList)
+                        {
+                            <tr>
+                                @if (!string.IsNullOrEmpty(item.p_kgid_policy_number.ToString()))
+                                {
+                                    <td>@item.p_kgid_policy_number</td>
+                                }
+                                else
+                                {
+                                    <td>@item.p_kgid_policy_number</td>
+                                }
+                                <td>@item.p_sanction_date</td>
+                                <td>@item.p_premium</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot> <tr> <th colspan="2" style="text-align:right"><label class="knlan">ಒಟ್ಟು:</label><label class="Enlan">Total:</label></th> <th class="csTotal"></th> </tr> </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var tablePremium;
+    $("#divVKGID label").attr("style", "font-weight:600;");
+    $(document).ready(function () {
+        $("#spnPayscale").text($("#spnPrePayScale").text());
+
+        $("#spnPayscale").text($("#txtPayscleCode").val());
+        if ($.fn.dataTable.isDataTable('#tblKgidPremium')) {
+            tablePremium = $('#tblKgidPremium').DataTable();
+        }
+        else {
+            tablePremium = $("#tblKgidPremium").DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(2, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    // Update footer
+                    $(api.column(2).footer()).html(
+                        parseFloat(pageTotal)
+                    );
+                }
+            });
+        }
+    });
+</script>

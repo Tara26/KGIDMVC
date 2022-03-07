@@ -1,0 +1,286 @@
+﻿@model KGID_Models.KGID_MB_Claim.VM_ODClaimWorkOrderDetails
+@{
+    ViewBag.Title = "ODClaimWorkOrderView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h3>ODClaim Work Order</h3></center>
+<div id="WorkOrderPrint">
+    <br /><br />
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label>Karnataka Government Insurance Department</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>Bangalore-1</label>
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <label>From</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"><label>&ensp; &ensp;The Director</label></div>
+        @*<div class="col-md-"></div>*@
+
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"><label>(Motor Branch)</label></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label>Karnataka Government Insurance Department</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>P.B. No. 325. Bangalore-1</label>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label>TO</label><br />
+            <label style="text-align:right">
+                &ensp; &ensp;M/s. @Model.ProposerName<br />&ensp; &ensp;@Model.DdoOffice
+                <br />&ensp; &ensp;@Model.ProposerAddress
+
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label><u>No MTB. 1.</u></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label>Encls:-   &ensp;&ensp; Claim Discharge Form</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label style="text-align:right">Date: @Model.WorkOrderDate</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>
+                Dear Sirs.
+            </label><br />
+            <label style="text-align:right">
+                &ensp;&ensp; SUBJECT:- Accident to Vehicle No. <b>@Model.Odca_vehicle_number</b>  Owned by Sri <b>@Model.ProposerName</b>
+                &ensp;&ensp;<b>@Model.Odca_place_of_accident</b> on <b>@Model.Odca_date_time_of_accident</b> Policy No. <b>@Model.Odca_policy_number</b>
+            </label><br />
+        </div>
+    </div>
+    <div style="text-align:center"><b>------O------</b></div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <label style="text-align:left">
+                &ensp; With reference to your Estimate No. <b>@Model.Odca_claim_app_no</b> dated <b>@Model.Odca_date_time_of_accident</b> for RS. <b>@Model.Odca_damage_cost</b>
+                I am to request you kindly to carry out the repairs to the vehicle subject to the following terms and conditions:-
+            </label><br />
+        </div>
+    </div>
+    <br />
+    <!--Approved Components Cost Details-->
+    <section>
+        <table class="table table-striped table-bordered" id="tblDDApprovedData" cellspacing="0">
+            <thead style="background:#808080;color: #fff;">
+                <tr>
+                    <th>S.No.</th>
+                    <th>Component Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ClaimComponentListDetails != null && Model.ClaimComponentListDetails.Count > 0)
+                {
+                    int i = 0;
+                    foreach (var item in Model.ClaimComponentListDetails)
+                    {
+                <tr>
+                    <td>@(i = i + 1)</td>
+                    <td>@item.Type</td>
+                    @*<td><input type="number" class="form-control form-control-sm camnt" min="1" oncopy="return false" onpaste="return false" placeholder="Please Enter Amount" value="@item.Value"></td>*@
+                    <td><span class="camnt">@item.Value</span></td>
+                </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Total Amount</th>
+                    @*<th><input type="text" class="form-control form-control-sm" id='sum1' name="input" disabled /></th>*@
+                    <th><span id='sum1'></span></th>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <div class="row">
+        <div class="col-md-12">
+            <label>
+                (1) &ensp;10 percent rebate on labour charges may please be allowed. as it is a concession allowed to this Department by all the
+                Garages
+            </label>
+            <label>
+                (2) &ensp;Percent depreciation has to be allowed on parts and the same may please be collected from the Insured as it represents the depreciated
+                value of Parts removed and replaced and as the vehicle is of @Model.vy_vehicle_year year Model.
+            </label>
+            <label>
+                (3) &ensp;50 percent of the cost of the Electrical goods,Battery,Wiring,Lights,Pistons,Bearings,Tyres and Tubes will be
+                paid bt this Department. the balance being recovered from the Insured.
+            </label>
+            <label>
+                (4) &ensp;First Rs. @Model.micw_approved_damage_cost in the Bill has to be collected from the Insured as per policy conditions as the
+                vehicle is subject to special Exclusions/Restrictions/Insured bearing portion of claim.
+            </label>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <label style="text-align:left">
+                &ensp;After completion of repairs of the vehicle as per conditions stipulated above. Bill of repairs and damageded parts may kindly be
+                arranged to be sent along with the enclosed Claim Discharge Form duly signed by the Insured for taking further action.
+            </label><br />
+        </div>
+    </div><br /><br />
+    <div style="text-align:center"><label>Thanking You. </label></div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>Yours faithfully.</label>
+        </div>
+    </div><br /><br />
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>&emsp;For Director.</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"><label style="text-align:left">E. & O.E.</label></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>Insurance Department.</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label style="text-align:left">Copy to:-</label>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>
+                &emsp;Sri <b>@Model.ProposerName</b> , <b>@Model.ProposerAddress</b>
+                for favour of information. He is requested to send the final result of the Police investigation report of accident for
+                takes future action. And also send --- along with ---- and signature after repair photos of vehicle and also send account details of Garage
+            </label>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>&emsp;For Director.</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>Insurance Department.</label>
+        </div>
+    </div>
+
+</div>
+<hr />
+<div class="form-group col-12">
+    <div class="row col-12">
+        <div class="col-1"></div>
+        <div class="col-10 text-right"><input type="button" class="btn btn-primary" value="Print" onclick="PrintWorkOrder();" /></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var sum = 0;
+        $(".camnt").each(function () {
+            //add only if the value is number
+            if (!isNaN(this.textContent) && this.textContent.length != 0) {
+                sum += parseFloat(this.textContent);
+                //$(this).css("background-color", "#FEFFB0");
+            }
+            else if (this.textContent.length != 0) {
+               // $(this).css("background-color", "red");
+            }
+        });
+
+        //$("#sum1").val(sum.toFixed(2));
+        $("#sum1").text(sum.toFixed(2));
+    });
+
+
+    function PrintWorkOrder() {
+        var contents = $("#WorkOrderPrint").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Work Order</title><style>.control-label-larger{font-size: 1.15rem !important;}.bigger-text{font-size: 1rem !important;}.line-height{line-height: 1.5 !important;}</style>');
+        frameDoc.document.write('</head><body class="container">');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

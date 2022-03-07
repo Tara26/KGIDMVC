@@ -1,0 +1,916 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceOtherDetails
+
+<div class="row" id="divPersonal">
+
+    <form id="FormOtherDetails" enctype="multipart/form-data" class="col-12">
+
+        @if (Model.miod_vehicle_type_id == 1)
+
+        {
+            <p style="text-align: center;"><strong>PROPOSAL FORM-I</strong></p>
+        }
+        else
+        {
+            <p style="text-align: center;"><strong>PROPOSAL FORM - II </strong></p>
+        }
+        @Html.Hidden("miod_emp_id", Session["UId"], new { id = "hdnmivdEmpID" })
+        @*@Html.Hidden("miod_application_id", new { id = "spnMIReferanceNo" })*@
+        @Html.HiddenFor(m => m.miod_application_id, new { @id = "hdnMIReferanceNo" })
+        @Html.HiddenFor(m => m.miod_vehicle_type_id, new { @id = "hdnVehicleTypeId" })
+
+        <span class='slnoid1 slnoid2' style="display:none;">1</span>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is driven by non-conventional source of power(if Yes, Please give details)<br />Permitted by the concerned RTA </b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_non_conventioanal_source == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is used for driving tutions </b> :</label>
+            </div>
+
+            <div class="form-group col-2">
+                @if (Model.miod_is_driving_tuitions == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether extension of geographical area to the following countries required ? </b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_geographical == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+        </div>
+
+        <div class="geographical-details">
+            <div class="row">
+                <div class="form-group col-4 divMargYrs">
+                    @*<label class="control-label col-6"><b>(i) First Country? </b>: </label>*@
+                    <div class="input-group">
+                        @if (Model.miod_geographical_ext1 == "1")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Bangladesh </label>
+                        }
+                        @if (Model.miod_geographical_ext1 == "2")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Bhutan </label>
+                        }
+                        @if (Model.miod_geographical_ext1 == "3")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Maldives </label>
+                        }
+                        @if (Model.miod_geographical_ext1 == "4")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Nepal </label>
+                        }
+                        @if (Model.miod_geographical_ext1 == "5")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Pakistan </label>
+                        }
+                        @if (Model.miod_geographical_ext1 == "6")
+                        {
+                            <label style="left:20px"><b>(i) First Country:</b> Srilanka </label>
+                        }
+                    </div>
+                </div>
+                <div class="form-group col-4 divOccuAddr">
+                    @*<label class="control-label col-6"><b>(ii)Second Country</b> : </label>*@
+                    <div class="input-group">
+                        @if (Model.miod_geographical_ext2 == "1")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Bangladesh </label>
+                        }
+                        @if (Model.miod_geographical_ext2 == "2")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Bhutan </label>
+                        }
+                        @if (Model.miod_geographical_ext2 == "3")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Maldives </label>
+                        }
+                        @if (Model.miod_geographical_ext2 == "4")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Nepal </label>
+                        }
+                        @if (Model.miod_geographical_ext2 == "5")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Pakistan </label>
+                        }
+                        @if (Model.miod_geographical_ext2 == "6")
+                        {
+                            <label style="left:20px"><b>(i) Second Country:</b> Srilanka </label>
+                        }
+                    </div>
+                </div>
+                <div class="form-group col-4 divOccuAddr">
+                    @*<label class="control-label col-6"><b>(ii)Third Country</b> : </label>*@
+                    <div class="input-group">
+                        @if (Model.miod_geographical_ext3 == "1")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Bangladesh </label>
+                        }
+                        @if (Model.miod_geographical_ext3 == "2")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Bhutan </label>
+                        }
+                        @if (Model.miod_geographical_ext3 == "3")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Maldives </label>
+                        }
+                        @if (Model.miod_geographical_ext3 == "4")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Nepal </label>
+                        }
+                        @if (Model.miod_geographical_ext3 == "5")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Pakistan </label>
+                        }
+                        @if (Model.miod_geographical_ext3 == "6")
+                        {
+                            <label style="left:20px"><b>(i) Third Country:</b> Srilanka </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the use of vehicle is limited to your own premises? </b> :</label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_own_premises == false)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+
+                @if (Model.miod_vehicle_type_id == 1)
+                {
+                    <label class="control-label text-justify"><b><span class='slnoid1'>slno</span>. Whether the vehicle is used for commercial purpose? </b> :</label>
+                }
+                else
+                {
+                    <label class="control-label text-justify"><b><span class='slnoid2'>slno</span>. Whether the commerical vehicle is also used for Private Purpose (excluding use for hire or reward)? </b> :</label>
+                }
+
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_commercial_purpose == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle belongs to foreign embassy/consulate?</b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_foreign_embasy == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+
+        @if (Model.miod_vehicle_type_id == 1)
+        {
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify"><b><span class='slnoid1'>slno</span>. Whether the car is certified as Vintage car or Classic car by Vintage car and Classic car club of India?</b> : </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_vintage_car == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+
+            </div>
+        }
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is designed for use of Blind/Handicaped/Mentally Challenged persons and duly endorsed as such by RTA.</b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_for_blind_or_ph == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Whether the vehicle is fitted with fibre glass tank?</b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_fibre_glass_tank == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+        @if (Model.miod_vehicle_type_id == 1)
+        {
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify"><b><span class='slnoid1'>slno</span>. Whether the vehicle is fitted with bi-fuel system such as petrol/diesl and CNG/LPG permitted by concerned RTA? </b> : </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_bi_fuel_system == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+
+            </div>
+            <div class="bi-fuel-system-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        <b> If Yes,Value Rs.</b>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_bi_fuel_amount)
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <b>
+                            <span class='slnoid1'>slno</span>. Do you wish to opt for higher deductible over and above the Compulsory deductible (Rs. 50 for two wheelers and Rs. 500/- Rs. 1000/- for private cars)
+                        </b> :
+                    </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_higher_deductible == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+
+            </div>
+            <div class="higher-deductible-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        <b>
+                            If Yes, please specify the amount <br />(for two wheelers) Rs.500/750/1000/3000<br />
+                            (for private cars) Rs.2500/5000/7500/15000
+                        </b> :
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_higher_deductible_amount)
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <b>
+                            <span class='slnoid1'>slno</span>. Are you a member of Automobile Association of India?
+                        </b> :
+                    </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_automobile_association_of_india == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+
+            </div>
+            <div class="automobile-association-details">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <b>  If Yes, please state.</b>
+                    </div>
+                    <div class="form-group col-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        <b> a. Name of Association </b>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_name_of_association)
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        <b>  b. Membership No. </b>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_membership_no)
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-2">
+                        <b>  c. Date of Expiry </b>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_date_of_expiry)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <b>
+                        <span class='slnoid1 slnoid2'>slno</span>. Do you wish to cover Legal Liability to ?
+                    </b> :
+                </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_cover_legal_liability == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+        <div class="legal_liability-details">
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>   A) For Driver / Conductor / Cleaner? (No. of persons) </b>:
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_cll_driver_conductor_count)
+
+                </div>
+            </div>
+
+            <!-- ///////////////////////////////////////////////////////////// -->
+
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>  B) Other Employees? (No. of persons) </b>:
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_cll_other_emp_count)
+
+                </div>
+            </div>
+            <!-- ///////////////////////////////////////////////////////////// -->
+
+            <div class="row">
+                <div class="form-group col-1">
+                </div>
+                <div class="form-group col-4">
+                    <b>   C) Non fare paying passengers? ( No. of persons)</b>:
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_cll_non_fare_passengers_count)
+
+                </div>
+            </div>
+            <!-- ///////////////////////////////////////////////////////////// -->
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify"><b><span class='slnoid1 slnoid2'>slno</span>. Are you entitled to No Claim Bonus? If yes, Please submit Proof thereof</b> : </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_no_claim_bonus == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+        </div>
+        <div class="no-claim-bonus-details">
+            <div class="form-group col-6 pl-0 pr-0">
+                @if (!string.IsNullOrEmpty(Model.Miod_is_no_claim_bonus_doc_filename))
+                {
+                    <label class="col-12 prevdoc"><b>Previously uploaded Document</b> : <a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a> </label>
+                    @*@Html.TextBoxFor(m => m.PlaceChangeDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded" })*@
+                    @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                }
+                @Html.DisplayFor(m => m.miod_is_no_claim_bonus_doc)
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+
+
+                    @if (Model.miod_vehicle_type_id == 2)
+                    {
+                        <b>
+                            <span class='slnoid2'>slno</span>.Liability to Third Parties ?<br />
+                            The policy provides Third Party property Damage(TPPD) of Rs.1Lakh(Two Wheelers) and Rs. 7.5Lakhs(Other class veh).Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000 / -only ?
+                        </b> }
+                    else
+                    {
+                        <b>
+                            <span class='slnoid1'>slno</span>.Liability to Third Parties ?<br />
+                            The policy provides Third Party property Damage(TPPD) of Rs.1Lakh(Two Wheelers) and Rs. 7.5Lakhs(Private Cars).Do you wish to restrict the above the limits to statutory TPPD Liability, Limit of Rs. 6000 / -only ?
+                        </b>
+                    }
+                    :
+                </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_liability_third_parties == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+
+        </div>
+        @if (Model.miod_vehicle_type_id == 1)
+        {
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <b>
+                            <span class='slnoid1'>slno</span>. Whether higher towing charges is opted over and above the limit prescribed in the policy?
+                        </b> :
+                    </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_higher_towing_charges == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+            </div>
+            <div class="higher-towing-charges-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        <b> If Yes, the amount opted Rs. </b>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_is_higher_towing_charges_amount)
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <b>
+                            <span class='slnoid1'>slno</span>. Do you wish to include Personal Accident (P.A.)Cover for name and persons?
+                        </b> :
+                    </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_include_personal_accident == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+
+            </div>
+            <div class="personal-accident-details">
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        <b>  A) For Driver(No. of persons) </b>:
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_pa_driver_conductor_count)
+
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        <b>  B) Other Employees? (No. of persons) </b>:
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_pa_other_emp_count)
+
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        <b>  C) Unnamed passengers? (No. of persons) </b>:
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.DisplayFor(model => model.miod_pa_unnamed_passengers_count)
+
+                    </div>
+                </div>
+                <!-- ///////////////////////////////////////////////////////////// -->
+            </div>
+
+        }
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <b>
+                        <span class='slnoid1 slnoid2'>slno</span>. Do you wish to include Personal Accident P.A. Cover for Name and Persons?
+                    </b> :
+                </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_include_personal_accident_for_persons == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+
+        </div>
+        <div class="pa-for-persons-details">
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    <b>If Yes, give name and Capital Sum Insured(CSI) opted for.The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers </b>
+                </div>
+                <div class="form-group col-4">
+                    <strong>Name</strong>
+                </div>
+                <div class="form-group col-4">
+                    <strong>CSI Opted(Rs)</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    1).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name1)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name1_amount)
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    2).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name2)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name2_amount)
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    3).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name3)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipap_name3_amount)
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-10">
+                <label class="control-label text-justify">
+                    <b>
+                        <span class='slnoid1 slnoid2'>slno</span>. Do you wish to include P.A. Cover for unnamed persons / hire / pillion passenger (two wheelers)?
+                    </b> :
+                </label>
+            </div>
+            <div class="form-group col-2">
+                @if (Model.miod_is_include_pa_cover_for_unnamed_persons == true)
+                {
+                    <span class="spvehicleCondition col-11">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition col-11">No</span>
+                }
+            </div>
+            <br />
+        </div>
+        <div class="pa-for-un-persons-details">
+            <div class="row">
+                <div class="form-group col-4">
+                    <b>If Yes, give name and Capital Sum Insured(CSI) opted for.The maximum CSI available per person is Rs.2 Lakhs in the case of private cars and Rs.1 Lakh in the case of motorised two wheelers </b>
+                </div>
+                <div class="form-group col-4">
+                    <strong>Numbers of Persons</strong>
+                </div>
+                <div class="form-group col-4">
+                    <strong>CSI Opted(Rs)</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    1).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name1)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name1_amount)
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    2).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name2)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name2_amount)
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4" style="text-align:center">
+                    3).
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name3)
+
+                </div>
+                <div class="form-group col-4">
+                    @Html.DisplayFor(model => model.miod_ipaun_name3_amount)
+
+                </div>
+            </div>
+
+        </div>
+        @if (Model.miod_vehicle_type_id == 2)
+        {
+            <div class="row">
+                <div class="form-group col-10">
+                    <label class="control-label text-justify">
+                        <b>
+                            <span class='slnoid1 slnoid2'>slno</span>. Is the vehicle fitted with the any Anti-theft device approved by the AARI. Pune?<br />
+                            If yes,attach Certificate of Installation in the Vehicle issued by Automobile Association of India.
+                        </b> :
+                    </label>
+                </div>
+                <div class="form-group col-2">
+                    @if (Model.miod_is_anti_theft == true)
+                    {
+                        <span class="spvehicleCondition col-11">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnvehicleCondition col-11">No</span>
+                    }
+                </div>
+                <br />
+            </div>
+            <div class="antitheft-details">
+                <div class="form-group col-6 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.Miod_is_anti_theft_doc_filename))
+                    {
+                        <label class="col-12 prevdoc"><b>Previously uploaded Document</b> : <a href="@Model.Miod_is_anti_theft_doc_filename" target="_blank" class="doc-uploaded">Click Here</a> </label>
+                        @*@Html.TextBoxFor(m => m.PlaceChangeDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded" })*@
+                        @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                    }
+                    @Html.DisplayFor(m => m.miod_is_anti_theft_doc)
+
+                </div>
+            </div>
+        }
+
+
+    </form>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var geo = '@Model.miod_is_geographical';
+        var ncb = '@Model.miod_is_no_claim_bonus';
+         var antitheft = '@Model.miod_is_anti_theft';
+        var biofuel = '@Model.miod_is_bi_fuel_system';
+        var hd = '@Model.miod_is_higher_deductible';
+        var htc = '@Model.miod_is_higher_towing_charges';
+        var aai = '@Model.miod_is_automobile_association_of_india';
+        var cll = '@Model.miod_is_cover_legal_liability';
+        var ipa = '@Model.miod_is_include_personal_accident';
+        var ipap = '@Model.miod_is_include_personal_accident_for_persons';
+        var ipaun = '@Model.miod_is_include_pa_cover_for_unnamed_persons';
+        //alert(name);
+        //$('#hdnMIVDReferanceNo').val() = $('#spnMIReferanceNo').text();
+        if (geo == "True") {
+            $(".geographical-details").show();
+        }
+        else {
+            $(".geographical-details").hide();
+        }
+        if (ncb == "True") {
+            $(".no-claim-bonus-details").show();
+        }
+        else {
+            $(".no-claim-bonus-details").hide();
+        }
+        if (biofuel == "True") {
+            $(".bi-fuel-system-details").show();
+        }
+        else {
+            $(".bi-fuel-system-details").hide();
+        }
+        if (hd == "True") {
+            $(".higher-deductible-details").show();
+        }
+        else {
+            $(".higher-deductible-details").hide();
+        }
+        if (htc == "True") {
+            $(".higher-towing-charges-details").show();
+        }
+        else {
+            $(".higher-towing-charges-details").hide();
+        }
+        if (aai == "True") {
+            $(".automobile-association-details").show();
+        }
+        else {
+            $(".automobile-association-details").hide();
+        }
+        if (cll == "True") {
+            $(".legal_liability-details").show();
+        }
+        else {
+            $(".legal_liability-details").hide();
+        }
+        if (ipa == "True") {
+            $(".personal-accident-details").show();
+        }
+        else {
+            $(".personal-accident-details").hide();
+        }
+        if (ipap == "True") {
+            $(".pa-for-persons-details").show();
+        }
+        else {
+            $(".pa-for-persons-details").hide();
+        }
+        if (ipaun == "True") {
+            $(".pa-for-un-persons-details").show();
+        }
+        else {
+            $(".pa-for-un-persons-details").hide();
+        }
+
+        if (antitheft == "True") {
+            $(".antitheft-details").show();
+        }
+        else {
+            $(".antitheft-details").hide();
+        }
+    });
+
+</script>

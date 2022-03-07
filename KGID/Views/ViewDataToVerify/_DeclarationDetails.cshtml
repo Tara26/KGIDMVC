@@ -1,0 +1,20 @@
+﻿@model KGID_Models.KGIDEmployee.tbl_nb_declaration_master
+
+<div class="container" id="divDeclaration">
+    <div class="row">
+        <div class="form-group col-6">
+            Reference Number : <b><span id="spnDReferanceNo"></span></b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            @Html.CheckBoxFor(model => model.ndm_declaration_status, new { @id = "chkDeclaration", @disabled = true })
+            I <span id="lblEmployeeName" class="font-weight-normal"></span>  hereby declare that the particulars noted above are true and correct to the best of my knowledge and I abide by the same.
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <span><b>Date : @DateTime.Now.ToString("dd-MM-yyyy")</b></span><span></span>
+        </div>
+    </div>
+</div>

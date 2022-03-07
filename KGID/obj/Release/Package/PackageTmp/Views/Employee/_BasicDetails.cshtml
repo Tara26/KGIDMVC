@@ -1,0 +1,365 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+@using KGID.Models
+
+
+
+<div id="divPrintBasicDetails">
+    <form id="frmAppBasicDetails">
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnNetSalary" })
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnAddEmpCode" })
+        @*@Html.HiddenFor(m => m.nebd_sys_emp_code, new { id = "hdnBasicEmpCode" })*@
+        @Html.HiddenFor(model => model.kad_kgid_application_number, new { id = "hdnBReferanceNo" })
+        @Html.HiddenFor(m => m.QRCode, new { id = "hdnQRCode" })
+        @Html.HiddenFor(m => m.kad_application_id, new { id = "hdnAppID" })
+        @Html.HiddenFor(m => m.first_kgid_policy_no, new { id = "hdnfirstpolno" })
+        @Html.HiddenFor(m => m.dr_id, new { id = "hdnmarriedstatus" })
+        <div class="row" id="divShowQRCode" style="display:none;">
+            <div class="form-group col-6">
+                <label class="knlan">ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ :</label><label class="Enlan">Reference Number :</label> <b><span id="spnBReferanceNo"></span></b>
+            </div>
+            <div class="form-group col-6" id="refNo" style="display:block;">
+                <img src="@Html.DisplayFor(model => model.QRCode)" id="imgBQRCode" alt="" style="height:150px;width:150px" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtProposerName">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು ಇಂಗ್ಲಿಷ್ (ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)</label>
+                <label class="Enlan" for="txtProposerName">Proposer Name English (As per SSC Memo/Service Record)</label>
+                @Html.TextBoxFor(model => model.employee_name, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullName", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label class="Enlan" for="txtProposerName">Proposer Name Kannada(As per SSC Memo/Service Record)</label>
+                <label class="knlan" for="txtProposerName">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು ಕನ್ನಡ (ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)</label>
+                @Html.TextBoxFor(model => model.employee_name_kannada, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullNameKN", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="knlan control-label">ಪ್ರಸ್ತುತ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತಿರುವ ಕಛೇರಿ</label>
+                <label class="Enlan control-label">Present Working Office</label>
+                @Html.TextAreaFor(Model => Model.ewd_place_of_posting, new { @class = "form-control form-control-sm col-12", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtFatherName">ತಂದೆಯ ಹೆಸರು (ಇಂಗ್ಲಿಷ್)</label>
+                <label class="Enlan" for="txtFatherName">Father Name (English)</label>
+                @Html.TextBoxFor(Model => Model.father_name, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label class="knlan" for="txtProposerName">ತಂದೆಯ ಹೆಸರು (ಕನ್ನಡ)</label>
+                <label class="Enlan" for="txtProposerName">Father Name (Kannada)</label>
+                @Html.TextBoxFor(model => model.father_name_kannada, new { @class = "form-control form-control-sm", @id = "txtFatherNameKN", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtGender">ಲಿಂಗ</label>
+                <label class="Enlan" for="txtGender">Gender</label>
+                @Html.TextBoxFor(Model => Model.gender_desc, new { @class = "form-control", @id = "txtGender", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label for="txtDOB" class="knlan control-label">ಜನ್ಮ ದಿನಾಂಕ</label>
+                <label for="txtDOB" class="Enlan control-label">Date of Birth</label>
+                <div class="input-group">
+                    @Html.TextBoxFor(Model => Model.date_of_birth, new { @id = "txtBasicDateOfBirth", @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtPlaceOfBirth">ಜನ್ಮ ಸ್ಥಳ</label>
+                <label class="Enlan" for="txtPlaceOfBirth">Place of Birth</label>
+                @Html.TextBoxFor(Model => Model.place_of_birth, new { @class = "form-control", @id = "txtPlaceofbirth", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label class="knlan" for="txtPhone">ದೂರವಾಣಿ</label>
+                <label class="Enlan" for="txtPhone">Phone</label>
+                @Html.TextBoxFor(Model => Model.mobile_number, new { @class = "form-control", @id = "txtMobileNumber", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtEmail">ಇಮೇಲ್</label>
+                <label class="Enlan" for="txtEmail">Email</label>
+                @Html.TextBoxFor(Model => Model.email_id, new { @class = "form-control", @id = "txtEmailId", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label class="knlan" for="txtPan">ಪಾನ್ ಸಂಖ್ಯೆ</label>
+                <label class="Enlan" for="txtPan">PAN Number</label>
+                @Html.TextBoxFor(Model => Model.pan_number, new { @class = "form-control", @id = "txtPanNumber", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="knlan" for="txtAddress">ಮನೆಯ ವಿಳಾಸ</label>
+                <label class="Enlan" for="txtAddress">Residential Address</label>
+                @Html.TextAreaFor(Model => Model.ead_address, new { @class = "form-control col-12 ClAlphaNumC", @id = "txtEAddress", @maxlength = "500" })
+                @Html.ValidationMessageFor(Model => Model.ead_address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="txtPin" class="knlan control-label">ಪಿನ್‍ ಕೋಡ್‍</label>
+                <label for="txtPin" class="Enlan control-label">Pincode</label>
+                @Html.TextBoxFor(Model => Model.ead_pincode, new { @class = "form-control ClAlphaNum", @id = "txtEPin" })
+                @Html.ValidationMessageFor(x => x.ead_pincode, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-6">
+                <label class="knlan" for="txtGroup">ಗ್ರೂಪ್‍</label>
+                <label class="Enlan" for="txtGroup">Group</label>
+                @Html.TextBoxFor(Model => Model.eg_group_desc, new { @class = "form-control", @readonly = "readonly", @id = "txtGroup" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtServiceDtl">ಸರ್ಕಾರಿ ಸೇವೆಗೆ ಸೇರಿದ ದಿನಾಂಕ</label>
+                <label class="Enlan" for="txtServiceDtl">Joining Date of Government Service</label>
+                <div class="input-group">
+                    @Html.TextBoxFor(Model => Model.ewd_date_of_joining, "{0:dd-MM-yyyy}", new { @class = "form-control", @id = "txtDateOfJoining", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtServiceType" class="knlan control-label">ಖಾಯಂ/ತಾತ್ಕಾಲಿಕ </label>
+                <label for="txtServiceType" class="Enlan control-label">Permanent / Temporary </label>
+                @Html.TextBoxFor(Model => Model.et_employee_type_desc, new { @class = "form-control", id = "txtServiceType", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="html2pdf__page-break"></div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="knlan" for="txtDesignation">ಈಗಿನ ಹುದ್ದೆಯ ಹೆಸರು</label>
+                <label class="Enlan" for="txtDesignation">Present Designation</label>
+                @Html.TextBoxFor(Model => Model.d_designation_desc, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="form-group col-6">
+                <label for="txtPay" class="knlan control-label">ಈಗಿನ ವೇತನ ಶ್ರೇಣಿ </label>
+                <label for="txtPay" class="Enlan control-label">Present Pay Scale </label>
+                @Html.TextBoxFor(Model => Model.payscle_code, new { @class = "form-control", @id = "txtPayscleCode", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6 p-3">
+                <div class="form-group row">
+                    <label class="knlan col-4">ವೈವಾಹಿಕ ಸ್ಥಿತಿ</label>
+                    <label class="Enlan col-4">Marital Status</label>
+                    <div class="row col-4">
+                        @Html.HiddenFor(model => model.eod_emp_married, new { @id = "hdnMStatus", @class = "col-1", @value = Model.eod_emp_married })
+                        @Html.RadioButtonFor(model => model.eod_emp_married, true, new { @id = "rbtnMarried", @class = "col-1 rd-btn-mstatus", @onclick = "MShandleClick(1);" })
+                        <label class="knlan col-11">ವಿವಾಹಿತರೇ</label>
+                        <label class="Enlan col-11">Married</label>
+                    </div>
+                    <div class="row col-4">
+                        @Html.RadioButtonFor(model => model.eod_emp_married, false, new { @id = "rbtnUnmarried", @class = "col-1 rd-btn-mstatus", @onclick = "MShandleClick(2);" })
+                        <label class="knlan col-11">ಅವಿವಾಹಿತರೇ</label>
+                        <label class="Enlan col-11">Unmarried</label>
+                    </div>
+                    <div class="row col-12">
+                        <div class="col-2"></div>
+                        @*<label class="knlan text-danger err" id="errMarritalStatusReq" hidden>ವೈವಾಹಿಕ ಸ್ಥಿತಿಯನ್ನು ಆಯ್ಕ ಮಾಡಿ</label>*@
+                        <label class="text-danger err" id="errMarritalStatusReq" hidden>Please select marital status</label>
+                    </div>
+                </div>
+                @*<div class="row">
+                        <label for="txtSpouseName" class="knlan col-4 control-label">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು</label>
+                        <label for="txtSpouseName" class="Enlan col-4 control-label">Spouse Name</label>
+                        @Html.TextBoxFor(Model => Model.spouse_name, new { @class = "col-6 form-control form-control-sm", @id = "txtSpouseName", @readonly = "readonly" })
+                        <label class="knlan text-danger err" id="errSpouseName" hidden>ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು</label>
+                        <label class="text-danger err" id="errSpouseName" hidden>Please enter spouse name</label>
+                    </div>*@
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                        <label class="Enlan" for="txtSpouseName">Spouse Name (English)</label>
+                        <label class="knlan" for="txtSpouseName">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು (ಇಂಗ್ಲಿಷ್)</label>
+                        @Html.TextBoxFor(Model => Model.spouse_name, new { @class = "form-control form-control-sm", @id = "txtSpouseName", @readonly = "readonly" })
+                        <label class="text-danger err" id="errSpouseName" hidden>Please enter spouse name</label>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="Enlan" for="txtSpouseName">Spouse Name (Kannada)</label>
+                        <label class="knlan" for="txtSpouseName">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು (ಕನ್ನಡ)</label>
+                        @Html.TextBoxFor(model => model.spouse_name_kannada, new { @class = "form-control form-control-sm", @id = "txtSpouseNameKN", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-6">
+                <div class="row">
+                    <div class="form-group col-6">
+
+                        <label class="knlan">ವಿಚ್ಛೇದನ/ಮರುಮದುವೆ</label>
+                        <label class="Enlan">Divorce / Remarried</label>
+
+                        @Html.HiddenFor(model => model.dr_id, new { @id = "hdnDRStatus", @class = "col-1", @value = Model.dr_id })
+                        @Html.DropDownListFor(model => model.dr_id,
+                   new SelectList(KGID.Models.VM_DRTypes.GetDRTypeList(), "Value", "Text"),"-- N/A  --",
+                   new { @id = "ddlDRType", @class = "form-control" ,@onchange="ChangeCurrentMarriedSts()"})
+
+                    </div>
+                    <div class="form-group col-6">
+                        <div id="divCSpouse" style="display:none;">
+                            <label class="knlan" for="txtGroup">ಪ್ರಸ್ತುತ ಪತಿ/ ಪತ್ನಿಯ ಹೆಸರು</label>
+                            <label class="Enlan" for="txtGroup">Current Spouse Name</label>
+                            @Html.TextBoxFor(Model => Model.Current_spouse_name, new { @class = "form-control ClAlpha", @id = "txtCS" })
+                        </div>
+                        <div id="divdrSuppDoc" style="display:none;">
+                            <label class="knlan" for="txtGroup">ಪೂರಕ ದಾಖಲೆ</label>
+                            <label class="Enlan" for="txtGroup">Supporting Document</label>
+                            @Html.TextBoxFor(Model => Model.divorced_upload_doc, new { @id = "flDivSupportingDoc", @class = "form-control", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errCurrMarritalStatusReq')" })
+                            @*@Html.TextBoxFor(Model => Model.divorced_upload_doc, new { @id = "flDivSupportingDoc", @class = "form-control", type = "file", accept = "application/pdf", style = "border:0;background:transparent" })*@
+                            @Html.ValidationMessageFor(Model => Model.divorced_upload_doc)
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="col-6"></div>
+                        @*<label class="knlan text-danger err" id="errCurrMarritalStatusReq" hidden>ಪ್ರಸ್ತುತ ಪತಿ / ಪತ್ನಿಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.</label>*@
+                        <label class="text-danger err" id="errCurrMarritalStatusReq" hidden>Please enter current spouse name.</label>
+                    </div>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.divorced_upload_doc_path))
+                {
+                    <div class="row" id="divdrDocUpload">
+                        <div class="form-group col-6">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="knlan col-12 prevdoc">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan col-12 prevdoc">Previously uploaded Document</label>
+                            @*<a href="@Model.divorced_upload_doc_path" target="_blank" class="doc-uploaded drupload">Click Here</a>*@
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.divorced_upload_doc_path }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="divMarriedOptions" style="display:none;">
+            <div class="row form-group">
+                <div class="col-12">
+                    <div class="row">
+                        <label class="knlan col-2">ಪತಿ/ಪತ್ನಿಯು ಸರ್ಕಾರಿ ನೌಕರರೇ?</label>
+                        <label class="Enlan col-2">Is Spouse Government Employee?</label>
+                        <div class="row col-2">
+                            @Html.RadioButtonFor(model => model.eod_spouse_govt_emp, true, new { @id = "rbtnGovtEmp", @class = "col-1 rd-btn-govt" })
+                            <label class="knlan col-11">ಹೌದು</label>
+                            <label class="Enlan col-11">Yes</label>
+                        </div>
+                        <div class="row col-2">
+                            @Html.RadioButtonFor(model => model.eod_spouse_govt_emp, false, new { @id = "rbtnNonGovtEmp", @class = "col-1 rd-btn-govt" })
+                            <label class="knlan col-11">ಇಲ್ಲ</label>
+                            <label class="Enlan col-11">No</label>
+                        </div>
+                        <div class="row col-12">
+                            <div class="col-2"></div>
+                            @*<label class="knlan text-danger err" id="errGovtEmpStatusReq" hidden>ಪತಿ/ಪತ್ನಿಯು ಸರ್ಕಾರಿ ನೌಕರರೇ? ಅಥವಾ ಅಲ್ಲವೇ ಆಯ್ಕೆ ಕ್ಲಿಕ್ಕಿಸಿ</label>*@
+                            <label class="text-danger err" id="errGovtEmpStatusReq" hidden>Please select whether spouse is government employee or not</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divOrphanOptions" style="display:none;">
+            <div class="row form-group">
+                <div class="col-12">
+                    <div class="row">
+                        <label class="knlan col-2">ನೀವು ಅನಾಥರೇ?</label>
+                        <label class="Enlan col-2">Are you an orphan?</label>
+                        <div class="row col-2">
+                            @Html.HiddenFor(model => model.eod_emp_orphan, new { @id = "hdnOrphan", @class = "col-1", @value = Model.eod_emp_orphan })
+                            @Html.RadioButtonFor(model => model.eod_emp_orphan, true, new { @id = "rbtnOrphan", @class = "col-1 rd-btn-orphan" })
+                            <label class="knlan col-11">ಹೌದು</label>
+                            <label class="Enlan col-11">Yes</label>
+                        </div>
+                        <div class="row col-2">
+                            @Html.RadioButtonFor(model => model.eod_emp_orphan, false, new { @id = "rbtnNotOrphan", @class = "col-1 rd-btn-orphan" })
+                            <label class="knlan col-11">ಇಲ್ಲ</label>
+                            <label class="Enlan col-11">No</label>
+                        </div>
+                        <div class="row col-12">
+                            <div class="col-2"></div>
+                            @*<label class="knlan text-danger err" id="errOrphanStatusReq" hidden>ನೀವು ಅನಾಥರೇ? ಅಲ್ಲವೇ ಎಂಬುದನ್ನು ಸೂಚಿಸಿ</label>*@
+                            <label class="text-danger err" id="errOrphanStatusReq" hidden>Please specify whether orphan or not</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divIDNumber" style="display:none;">
+            <div class="row form-group">
+                <div class="col-12">
+                    <div class="row">
+                        <label class="knlan col-2">ಆಯ್ಕೆಮಾಡಿ</label>
+                        <label class="Enlan col-2">Please Select</label>
+                        <div class="row col-2">
+                            @Html.RadioButtonFor(model => model.isKGIDPAN, true, new { @id = "rbtnPAN", @class = "col-1 rd-btn-kgidpan" })
+                            @*<input type="radio" id="rbtnPan" class="csKGIDPan" name="KGIDPAN" checked/>*@
+                            <label class="knlan col-11">ಪಾನ್‌ ಸಂಖ್ಯೆ</label>
+                            <label class="Enlan col-11">PAN Number</label>
+                        </div>
+                        <div class="row col-2">
+                            @Html.RadioButtonFor(model => model.isKGIDPAN, false, new { @id = "rbtnKGID", @class = "col-1 rd-btn-kgidpan" })
+                            @*<input type="radio" id="rbtnKGID" class="csKGIDPan" name="KGIDPAN" />*@
+                            <label class="knlan col-11">ಕೆ.ಜಿ.ಐ.ಡಿ. ಸಂಖ್ಯೆ</label>
+                            <label class="Enlan col-11">KGID Number</label>
+                        </div>
+                        <div class="row col-12">
+                            <div class="col-2"></div>
+                            @*<label class="knlan text-danger err" id="errOrphanStatusReq" hidden>ಐ.ಡಿ. ಸಂಖ್ಯೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</label>*@
+                            <label class="text-danger err" id="errOrphanStatusReq" hidden>Please select ID Number</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divSpouseKGID" style="display:none;">
+            <div class="row form-group">
+                <div class="col-12">
+                    <div class="row" id="divKGIDNumber" style="display:none;">
+                        <label class="knlan col-2 pt-2">ಪತಿ/ಪತ್ನಿಯ ಕೆ.ಜಿ.ಐ.ಡಿ. ಸಂಖ್ಯೆ</label>
+                        <label class="Enlan col-2 pt-2">Spouse KGID Number</label>
+                        <div class="row col-3">
+                            @Html.TextBoxFor(m => m.eod_spouse_kgid_number, new { id = "txtSpouseKGIDNumber", @class = "form-control ClAlphaNum tocaps", @maxlength = "15" })
+                        </div>
+                        <div class="row col-12 pt-2">
+                            <div class="col-2"></div>
+                            @*<label class="knlan text-danger err" id="errSpouseKGIDNumberReq" hidden>ಪತಿ/ಪತ್ನಿಯ ಕೆ.ಜಿ.ಐ.ಡಿ. ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</label>*@
+                            <label class="text-danger err" id="errSpouseKGIDNumberReq" hidden>Please Enter Spouse KGID Number</label>
+                        </div>
+                    </div>
+                    <div class="row" id="divPANNumber" style="display:none;">
+                        <label class="knlan col-2 pt-2">ಪತಿ/ಪತ್ನಿಯ ಪಾನ್‌ ಸಂಖ್ಯೆ</label>
+                        <label class="Enlan col-2 pt-2">Spouse PAN Number</label>
+                        <div class="row col-3">
+                            @Html.TextBoxFor(m => m.eod_spouse_pan_number, new { id = "txtSpousePanNumber", @class = "form-control ClAlphaNum tocaps", @maxlength = "10" })
+                        </div>
+                        <div class="row col-12 pt-2">
+                            <div class="col-2"></div>
+                            @*<label class="knlan text-danger err" id="errSpousePANNumberReq" hidden>ಪತಿ/ಪತ್ನಿಯ ಪಾನ್‌ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿರಿ</label>*@
+                            <label class="text-danger err" id="errSpousePANNumberReq" hidden>Please Enter Spouse PAN Number</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script src="~/Scripts/ApplicationJS/NBBasicDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNumC').keyup(function () {
+            debugger
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9,-]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9,-\s]/gi, '');
+            }
+        });
+    });
+</script>

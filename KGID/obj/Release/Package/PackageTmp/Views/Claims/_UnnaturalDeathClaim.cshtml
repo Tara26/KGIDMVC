@@ -1,0 +1,86 @@
+﻿@model KGID_Models.Claim.VM_EmpDetailForDeathClaimApplication
+
+<div id="divUnnaturalDeath">
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Name of deceased:</label>
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtNameOfDeceased", @class = "form-control", disabled = true })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cause of death:</label>
+                    @*@Html.TextBoxFor(m => m.CauseOfDeath, new { id = "txtCauseOfDeath", @class = "form-control" })*@
+                    <select class="form-control" name="CauseOfDeath">
+                        <option value="0">-- Select Cause of Death --</option>
+                        <option value="1">Road Traffic Accident</option>
+                        <option value="2">Drowning</option>
+                        <option value="3">Snake Bite</option>
+                        <option value="4">Electric Shock</option>
+                        <option value="5">Murder</option>
+                        <option value="6">Suicide</option>
+                    </select>
+                    @Html.ValidationMessageFor(m => m.CauseOfDeath, "", new { @class = "text-danger row col-12" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Date Of Death:</label>
+                    @Html.TextBoxFor(m => m.DateOfDeath, new { id = "txtDateOfDeath", @class = "form-control date-picker", autocomplete = "off" })
+                    @Html.ValidationMessageFor(m => m.DateOfDeath, "", new { @class = "text-danger row col-12" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Marital Status of Deceased (at the time of death):</label>
+                    @Html.RadioButtonFor(m => m.IsMarried, true, new { id = "rbMarried" }) Married
+                    @Html.RadioButtonFor(m => m.IsMarried, false, new { id = "rbUnmarried" }) Unmarried
+                    @Html.ValidationMessageFor(m => m.IsMarried, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name of Nominee:</label>
+                    @Html.TextBoxFor(m => m.NameOfNominee, new { id = "txtNameOfNominee", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NameOfNominee, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Age of Nominee:</label>
+                    @Html.TextBoxFor(m => m.AgeOfNominee, new { id = "txtRelationShipWithDeceased", @class = "form-control", maxlength = "2" })
+                    @Html.ValidationMessageFor(m => m.AgeOfNominee, "", new { @class = "text-danger row col-12" })
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label">Whether Nominee Alive? :</label>
+                    @Html.RadioButtonFor(m => m.IsNomineeAlive, true, new { id = "rbNomineeAlive" }) Yes
+                    @Html.RadioButtonFor(m => m.IsNomineeAlive, false, new { id = "rbNomineeAlive" }) No
+                    @Html.ValidationMessageFor(m => m.IsNomineeAlive, "", new { @class = "text-danger row col-12" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Relation with Deceased:</label>
+                    @Html.TextBoxFor(m => m.NomineeRelation, new { id = "txtRelationShipWithDeceased", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NomineeRelation, "", new { @class = "text-danger row col-12" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".disable-keyboard").on("keypress", function (e) {
+        return false;
+    });
+
+    $(".number-only").on("keypress", function (e) {
+        var isValid = false;
+        var regex = /^\d*$/;
+        isValid = regex.test(e.originalEvent.key);
+        if (!isValid)
+            e.preventDefault();
+    });
+</script>
+

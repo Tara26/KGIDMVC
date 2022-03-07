@@ -1,0 +1,361 @@
+@model KGID_Models.KGID_Loan.VM_LoanApplicationForm
+
+@{
+    /**/
+    ViewBag.Title = "Loan Application";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4" style="width: 90%; margin: 0 auto;">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 15px;"><b>Loan Application</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblExistingLoanDetails" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th hidden>PolicyNo</th>
+                                    <th></th>
+                                    <th>Policy No.</th>
+                                    <th>Date of Sanction</th>
+                                    <th>Sum Assured</th>
+                                    <th>Premium Amount</th>
+                                    <th>Eligible Loan Amount</th>
+                                    <th>Loan Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.listPolicyDetails.Any())
+                                {
+                                    foreach (var item in Model.listPolicyDetails)
+                                    {
+                                        <tr data-row-number="@item.PolicyNo">
+                                            <td hidden>@item.PolicyNo</td>
+                                            <td><input type="checkbox" class="form-control" id=@item.PolicyNo style="display: inline;width: 20px;" onchange="loanFuntionCheckbox(@item.PolicyNo);"> </td>
+                                            <td>@item.PolicyNo</td>
+                                            <td>@item.SanctionDate</td>
+                                            <td>@item.SumAssured</td>
+                                            <td>@item.PremiumAmount</td>
+                                            <td>@item.EligibleLoanAmount</td>
+                                            @if (item.LoanAmount == "0")
+                                            {
+                                                <td class="clsLoanAmt"><input type="text" class="form-control txtLA ClNum" id="txtLoan_@item.PolicyNo" value='' onchange="LoanAmtChange('txtLoan_'+@item.PolicyNo,@item.PolicyNo)" disabled /></td> @*onkeyup = "LoanAmtkeyup(txtLoan_@item.PolicyNo)"*@
+                                            }
+                                            @*else if (item.LoanAmount > 0)
+                                                {
+                                                    <td class="clsLoanAmt"><input type="text" class="form-control txtLA" id="txtLoan_' + @item.PolicyNo + '" value='@item.LoanAmount' /></td>
+                                                }*@
+                                            else
+                                            {
+                                                <td class="clsLoanAmt" style="color:red;">@item.LoanAmount</td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <br />
+                @if (Model.listHRMSPayDetails.Count() > 0)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped table-bordered" id="tblHRMSPayScaleList" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th hidden>Emp Id</th>
+                                        <th>Month</th>
+                                        <th>Year</th>
+                                        <th>Gross Pay</th>
+                                        <th>Deductions</th>
+                                        <th>Net Pay</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.listHRMSPayDetails.Any())
+                                    {
+                                        foreach (var item in Model.listHRMSPayDetails)
+                                        {
+                                            <tr data-row-number="@item.EmpID">
+                                                <td hidden> @item.EmpID </td>
+                                                <td>@item.PrevMonth</td>
+                                                <td>@item.CurrYear</td>
+                                                <td>@item.GrossPay</td>
+                                                <td>@item.Deductions</td>
+                                                <td>@item.NetPay</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="0" />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="row col-6">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">Upload recent payslip (.pdf)</label>
+                            <div class="col-8 pl-0 pr-0" id="fileUpload">
+                                <input type="file" class="form-control in-s" id="docHrmsPaySlip" name="docHrmsPaySlip" accept="application/pdf" onchange = 'DocFileChange(this.id,"errDocHrmsPaySlip")' />
+                                <label id="errDocHrmsPaySlip" class="col-form-label-sm text-danger err" hidden>Please upload recent payslip.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control in-s" id="HrmsPaySlipHidden" name="HrmsPaySlipHidden" value="1" />
+                }
+                <div class="row">
+                    <div class="form-group col-6">
+                        <div class="row">
+                            <label class="control-label col-4 m-t-10 required f-s-15 pad-0">If Spouse Govt Emp</label>
+                            <div class="col-8 pl-0 pl-0 text-left">
+                                <div class="form-check form-check-inline">
+                                    @*@Html.RadioButtonFor(model => model.IsSpouseGovtEmp, true, new { @id = "rbtnIsGovtEmp", name = "rbtnKGIDNum", @class = "col-1 rd-btn-mstatus" })*@
+                                    <input class="form-check-input" type="radio" name="rbtnKGIDNum" id="rbtnYIsGovtEmp" value="true">
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    @*@Html.RadioButtonFor(model => model.IsSpouseGovtEmp, false, new { @id = "rbtnIsGovtEmp", name = "rbtnKGIDNum", @class = "col-1 rd-btn-mstatus" })*@
+                                    <input class="form-check-input" type="radio" name="rbtnKGIDNum" id="rbtnNIsGovtEmp" value="false">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6" id="divspKGID">
+                        <label class="control-label col-4 m-t-10 required f-s-15">Spouse KGID No:</label>
+                        <div class="col-8 pl-0 pr-0">
+                            <input type="text" class="form-control in-s form-control-sm" id="txtSpouseKGIDNo" name="SpouseKGIDNo" style="width: 37%;display: inline-flex;" value="" disabled>
+                            <label id="errAuthenticateSpouseKGID" class="col-form-label-sm text-danger err" hidden>Please authenticate spouse kgid number.</label>
+                            &nbsp;
+                            <a class="btn btn-sm btn-primary in-s authenticate-btn" id="btnAuthenticateSpouseKGID" style="padding-left:10px;color:#fff" onclick="AuthenticateSpouseKGID();">Authenticate</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                    </div>
+                    <div class="form-group col-6" id="divSpouseAuthentication">
+                        <label class="control-label col-4 m-t-10 required f-s-15">Enter OTP</label>
+                        <div class="col-8 pl-0 pr-0">
+                            <input type="text" class="form-control in-s" id="txtSpouseOTP" name="SpouseOTP" style="width: 37%;display: inline-flex;">
+                            <label id="errAuthenticateSpouseOTP" class="col-form-label-sm text-danger err" hidden>Please authenticate spouse kgid number.</label>
+                            &nbsp;
+                            <a id="btnAuthenticateSubmit" class="btn btn-sm btn-primary in-s" style="padding-left:10px;color:#fff" onclick="AuthenticateSpouseOTP();">Submit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="control-label m-t-10 required">Total Entered Loan Amount</label>
+                        <input type="text" class="form-control form-control-sm" id="txtTotLoanAmt" name="txtTotLoanAmt" value="0" disabled>
+                    </div>
+                    <div class="form-group col-6 ">
+                        <label class="control-label">Total number of loan installments required</label>
+
+                        <select name="ddlPrincipleInstallments" id="ddlPrincipleInstallments" class="form-control in-s-r form-control-sm" value="">
+                            <option value="0">Select Principal Installments </option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                        </select>
+                        <label id="errddlPrincipleInstallments" class="col-form-label-sm text-danger err" hidden>Please select loan installments.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="control-label">Loan amount balance</label>
+                        @*<input type="text" class="form-control in-s" id="txtBranchAdjustments" name="BranchAdjustments" value="" disabled>*@
+                        <div class="row">
+                            <div class="col-10">
+                                @Html.TextBoxFor(model => model.Deductions, new { @class = "form-control form-control-sm", @id = "txtBranchAdjustments", @readonly = "readonly" })
+                            </div>
+                            <div class="col-2">
+                                <a class="btn btn-sm btn-primary in-b-s" href="" data-toggle="modal" data-target="#mdlLoanBA" onclick="ViewLoanBA()">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="control-label">Total number of loan interest installments required</label>
+                        <select name="ddlInterestInstallments" id="ddlInterestInstallments" class="form-control form-control-sm in-s-r" value="">
+                            <option value="0">Select Intrest Installments</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                        <label id="errddlInterestInstallments" class="col-form-label-sm text-danger err" hidden>Please select interest installments.</label>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="control-label">Net Amount</label>
+                        <input type="text" class="form-control form-control-sm in-s" id="txtNetAmount" name="NetAmount" value="" disabled>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="control-label">Monthly loan installment recovery amount</label>
+                        <input type="text" class="form-control form-control-sm" id="PrincipleAmountInstallment" name="PrincipleAmountInstallment" value="" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="control-label">Purpose</label>
+                        @Html.DropDownListFor(model => model.PurposeID,
+                        new SelectList(KGID.Models.VM_LoanSelectList.GetLoanPurposeList(), "Value", "Text"),
+                        new { @id = "ddlLoanPurposeList", @class = "form-control form-control-sm" })
+                        <label id="errddlLoanPurposeList" class="col-form-label-sm text-danger err" hidden>Please select purpose of loan.</label>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="control-label">Monthly loan interest installments amount</label>
+                        <input type="text" class="form-control in-s-r form-control-sm" id="InterestAmountInstallment" name="InterestAmountInstallment" value="" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="control-label">Are you taking loan for self </label>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input active" type="radio" name="inlineRadioOptions" id="rbtn_self" value="true">
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbtn_others" value="false" checked>
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6 FamilLoanPurpose">
+                        <label class="control-label">Family member for whom taking loan</label>
+                        @Html.DropDownListFor(model => model.FamilyRelationID,
+                        new SelectList(KGID.Models.VM_LoanSelectList.GetLoanFamilyRelationList(), "Value", "Text"),
+                        new { @id = "ddlFamilyList", @class = "form-control form-control-sm" })
+                        <label id="errddlFamilyList" class="col-form-label-sm text-danger err" hidden>Please select member for whom taking loan.</label>
+                    </div>
+                    <div class="form-group col-6 FamilLoanPurpose">
+                        <label class="control-label">Name</label>
+                        <input type="text" class="form-control form-control-sm in-s-r ClAlpha" id="txtRelationName" name="FamilyRelationName" value="" required>
+                        <label id="errtxtRelationName" class="col-form-label-sm text-danger err" hidden>Please enter name of family member.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6 FamilLoanPurpose">
+                        <label class="control-label">Age</label>
+                        @*<input type="number" class="form-control form-control-sm in-s NUM" id="txtRelationAge" name="FamilyRelationAge" value="" min="0" max="150" required>*@
+                        @*<input type="number" class="form-control form-control-sm" id="txtRelationAge" name="txtRelationAge" min="10" max="100" value="">*@
+                        <input type="text" maxlength="3" id="txtRelationAge" name="txtRelationAge" class="form-control form-control-sm in-s ClAgeNum" />
+                        <label id="errtxtRelationAge" class="col-form-label-sm text-danger err" hidden>Please enter age of family member.</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <a style="padding-top: 10px;font-size: 12px; display: flex;"><input type="checkbox" style="width: 20px;  height: 12px;" id="chk_Acknowledgement" name="Acknowledgement">&nbsp; <span>I Agree to the terms & conditions</span><br /></a>
+                        <div class="form-group col-12 pad-0" style="letter-spacing: 0.2px; line-height: 25px; font-size: 12px;    text-align: justify;">
+                            <br />
+                            I do hereby declare that the statements made by me are true to the best of knowledge and belief, and that I have not with-held or concealed any circumstance with regard to which information has been required from me. I agree that the statements made by me shall be the basis of the proposed contract for any insurance of my life and that if it shall hereafter appear that I have wilfully made any untrue statements or have fradulently concealed any circumstance which I ought to have made know, then all the premiums which shall have been paid under the said contract shall be forfelted, and the contract rendered absolutely.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                @*<a class="btn btn-danger btn-sm" href="/home/dashboard" id="btn_cancel" style="font-size: 14px;color: #FFF;letter-spacing: 1px;">Cancel</a>*@
+                <button class="btn btn-success btn-sm " style="font-size: 14px;color: #FFF;letter-spacing: 1px;" id="btn_submit" onclick="SubmitApplication();" disabled>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlLoanBA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 725px!important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Branch Adjustments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <table class="table table-striped table-bordered" id="tblLoanBA" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Policy No</th>
+                                <th>Month</th>
+                                <th>Year</th>
+                                <th>Loan Due</th>
+                                <th>Loan Interest Due</th>
+                                <th>Premium Due</th>
+                                <th>Premium Interest Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Loan/LoanApplicationForm.js"></script>

@@ -1,0 +1,91 @@
+﻿@model KGID_Models.NBApplication.VM_PolicyDetails
+@using KGID_Models.NBApplication;
+
+<table style="width:100%;">
+    <tr>
+        <td><p>Employee Pay Scale : <span id="spnPayscalep"></span></p></td>
+    </tr>
+</table>
+  
+<table id="tblPKgidPremium" class="" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p>KGID Policy Number / Application Ref Number</p></th>
+            <th><p>Sanction Date</p></th>
+            <th><p>KGID Premium</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.KGIDPolicyList != null)
+        {
+            foreach (VM_PolicyDetails item in Model.KGIDPolicyList)
+            {
+                <tr>
+                    @if (!string.IsNullOrEmpty(item.p_kgid_policy_number.ToString()))
+                    {
+                        <td><p>@item.p_kgid_policy_number</p></td>
+                    }
+                    else
+                    {
+                        <td><p>@item.p_kgid_policy_number</p></td>
+                    }
+                    <td><p>@item.p_sanction_date</p></td>
+                    <td style="color: black;">@item.p_premium</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot> <tr> <th colspan="2" style="text-align:right">Total:</th> <th class="csPTotal"  style="color: black;"></th> </tr> </tfoot>
+</table>
+
+<script type="text/javascript">
+    var tablePremiumP;
+    //$("#divVKGID label").attr("style", "font-weight:600;");
+    $(document).ready(function () {
+        $("#spnPayscalep").text($("#spnPrePayScale").text());
+
+        $("#spnPayscalep").text($("#txtPayscleCode").val());
+        if ($.fn.dataTable.isDataTable('#tblPKgidPremium')) {
+            tablePremiumP = $('#tblPKgidPremium').DataTable();
+        }
+        else {
+            tablePremiumP = $("#tblPKgidPremium").DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false,
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(2, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    // Update footer
+                    $(api.column(2).footer()).html(
+                        parseFloat(pageTotal)
+                    );
+                }
+            });
+        }
+    });
+</script>
+

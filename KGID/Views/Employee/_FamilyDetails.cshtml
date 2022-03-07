@@ -1,0 +1,327 @@
+﻿@model KGID_Models.NBApplication.VM_FamilyDetails
+@using KGID_Models.KGIDNBApplication;
+@Html.HiddenFor(m => m.EmployeeId, new { id = "hdnEmployeeId" })
+@Html.HiddenFor(m => m.IsOrphan, new { id = "hdnIsOrphan" })
+@Html.HiddenFor(m => m.IsMarried, new { id = "hdnIsMarried" })
+<style>
+    .spousealert {
+        color: red;
+    }
+</style>
+<div class="form-group row" id="divNote">
+    <span class="spousealert">Note : If no family members alive, Please add None in relation.</span>
+</div>
+<div class="row">
+    <div class="form-group col-6">
+        <label class="knlan control-label required">ಸಂಬಂಧ</label>
+        <label class="Enlan control-label required">Relation</label>
+        @*<select id="ddlRelation" class="form-control">
+                <option value="select">-- Select --</option>
+            </select>*@
+        @Html.DropDownListFor(m => m.FamilyRelationList, new SelectList(Model.FamilyRelationList, "Value", "Text"), "-- Select Relation --", new { id = "ddlRelation", @class = "form-control" })
+
+        <label id="errRelationReq" class="col-form-label-sm text-danger err" hidden>Please mention relation with employee / insured</label>
+        <label id="errMember" class="col-form-label-sm text-danger err" hidden></label>
+    </div>
+    <div class="form-group col-6">
+        <label for="txtMemberName" class="knlan control-label required">ಕುಟುಂಬ ಸದಸ್ಯರ ಹೆಸರು </label>
+        <label for="txtMemberName" class="Enlan control-label required">Name of Family Member</label>
+        <input type="text" id="txtMemberName" class="form-control ClAlphaNum">
+        <label id="errMemberNameReq" class="col-form-label-sm text-danger err" hidden>Please enter family member name.</label>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-6">
+        <label for="txtDOB" class="knlan control-label required">ಜನ್ಮ ದಿನಾಂಕ</label>
+        <label for="txtDOB" class="Enlan control-label required">Date of Birth</label>
+        <div class="input-group">
+            <input type="text" id="txtDOB" class="form-control disable-keyboard" autocomplete="off">
+        </div>
+        <label id="errDOBReq" class="col-form-label-sm text-danger err" hidden></label>
+    </div>
+    <div class="form-group col-6">
+        <label for="txtDAge" class="knlan control-label required">ವಯಸ್ಸು </label>
+        <label for="txtDAge" class="Enlan control-label required">Age</label>
+        <input type="text" id="txtDAge" class="form-control ClAlphaNum" readonly>
+        <label id="errDeathAgeReq" class="col-form-label-sm text-danger err" hidden>Please mention the age of family member</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-6">
+        <label for="txtLiving" class="knlan control-label required">ಜೀವಂತ/ಮೃತರು</label>
+        <label for="txtLiving" class="Enlan control-label required">Alive / Dead</label>
+        <div class="row">
+            <label class="col-4"><input type="radio" id="rbtnAlive" value="Alive" name="txtLiving" onchange="AliveDead('Alive');" class="float-left chkAlive" /> <span class="float-left ml-1"><label class="knlan">ಜೀವಂತ</label><label class="Enlan">Alive</label></span></label>
+            <label class="col-4"><input type="radio" id="rbtnDead" value="Dead" name="txtLiving" onchange="AliveDead('Dead');" class="float-left chkAlive" /> <span class="float-left ml-1"><label class="knlan">ಮೃತರು</label><label class="Enlan">Dead</label></span></label>
+        </div>
+        <label id="errLivingReq" class="col-form-label-sm text-danger err" hidden>Please mention whether family member is dead or alive.</label>
+    </div>
+    <div id="divSiblingMarried" class="form-group col-sm-6" style="display:none;">
+        <br />
+        <div class="row">
+            <label class="knlan control-label col-3" id="lblBrotherMarriedKN" style="display:none;">ಸಹೋದರ ವಿವಾಹಿತನೇ?</label>
+            <label class="Enlan control-label col-3" id="lblBrotherMarriedEN" style="display:none;">Is Brother Married?</label>
+            <label class="knlan control-label col-3" id="lblSisterMarriedKN" style="display:none;">ಸೋದರಿ ವಿವಾಹಿತಳೇ?</label>
+            <label class="Enlan control-label col-3" id="lblSisterMarriedEN" style="display:none;">Is Sister Married?</label>
+            <input type="checkbox" id="chkSiblingMarried" class="col-1" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-6">
+        <label for="txtHealth" class="knlan control-label required">ಆರೋಗ್ಯ</label>
+        <label for="txtHealth" class="Enlan control-label required">Health</label>
+        <input type="text" id="txtHealth" class="form-control ClAlpha">
+        <label id="errHealthReq" class="col-form-label-sm text-danger err" hidden>Please mention health condition of family member.</label>
+    </div>
+</div>
+
+<div id="divDead">
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="txtDeathDate" class="knlan control-label required">ಮರಣ ಹೊಂದಿದ ದಿನಾಂಕ</label>
+            <label for="txtDeathDate" class="Enlan control-label required">Date of Death</label>
+            <input type="text" id="txtDeathDate" class="form-control disable-keyboard" autocomplete="off">
+            @*<label id="errDateDeathReq" class="col-form-label-sm text-danger err" hidden>Please mention date at which member died.</label>*@
+            <label id="errDateDeathReq" class="col-form-label-sm text-danger err" hidden>Please mention family member's date of death.</label>
+        </div>
+        <div class="form-group col-6">
+            <label for="txtDead" class="knlan control-label required">ಮರಣದ ಕಾರಣ</label>
+            <label for="txtDead" class="Enlan control-label required">Death Reason</label>
+
+            <input type="text" id="txtDead" class="form-control ClAlpha">
+            <label id="errDeathReasonReq" class="col-form-label-sm text-danger err" hidden>Please mention reason of death of family member.</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-5">
+    </div>
+    <div class="form-group col-2 text-center">
+        <button type="button" id="btnAdd" class="btn btn-info" onclick="SaveFamilyMember('Add');">Add</button>
+    </div>
+    <div class="form-group col-5">
+    </div>
+</div>
+<div id="divFamily">
+    <div class="form-group">
+        <table id="tblFamilyDetails" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th><label class="knlan">ಕುಟುಂಬ ಸದಸ್ಯರ ಹೆಸರು</label><label class="Enlan">Name Of Family Member</label></th>
+                    <th><label class="knlan">ಸಂಬಂಧ</label><label class="Enlan">Relation</label></th>
+                    <th><label class="knlan">ಜನ್ಮ ದಿನಾಂಕ</label><label class="Enlan">Date of Birth</label></th>
+                    <th><label class="knlan">
+                          ಕುಟುಂಬ ಸದಸ್ಯರ ವಯಸ್ಸು
+                       </label><label class="Enlan">Age of Family Member</label></th>
+                    <th><label class="knlan">ಜೀವಂತ/ಮೃತರು</label><label class="Enlan">Alive / Dead</label></th>
+                    <th><label class="knlan">ಒಡಹುಟ್ಟಿದವರು ಮದುವೆಯಾಗಿದ್ದಾರೆಯೇ?</label><label class="Enlan">Is Sibling Married?</label></th>
+                    <th><label class="knlan">ಜೀವಂತ (ಆರೋಗ್ಯದ ಸ್ಥಿತಿ)</label><label class="Enlan">Alive (Health Condition)</label></th>
+                    <th><label class="knlan">ಮರಣ ಹೊಂದಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Death</label></th>
+                    <th><label class="knlan">ಮರಣ (ಮರಣದ ಕಾರಣ)</label><label class="Enlan">Dead (Death Reason)</label></th>
+                    <th class="action"><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                    <th hidden>insertcheck</th>
+                    <th hidden>btncheck</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.FamilyDetails.Any())
+                {
+                    foreach (var item in Model.FamilyDetails)
+                    {
+                        <tr data-row-number="@item.Id" data-fd-id="@item.Id">
+                            <td class="tdName">@item.NameOfMember</td>
+                            <td class="tdRelation">@item.Relation</td>
+                            <td class="tdDateOfBirth">@item.DateOfBirth</td>
+                            @{
+                                string aliveDead = item.AliveDead.HasValue && item.AliveDead.Value ? "Alive" : "Dead";
+                            }
+                            @if (item.Relation == "None")
+                            {
+                                <td class="tdAge"></td>
+                                <td class="tdLivingStatus"></td>
+                            }
+                            else
+                            {
+                                <td class="tdAge">@item.Age</td>
+                                <td class="tdLivingStatus">@aliveDead</td>
+                            }
+                            @{ string isSiblingMarried = (item.Relation == "Brother" || item.Relation == "Sister") ? (item.IsSiblingMarried == true) ? "Married" : "UnMarried" : "N/A"; }
+                            <td>@isSiblingMarried</td>
+                            <td>@item.HealthCondition</td>
+                            <td>@item.DateOfDeath</td>
+                            <td>@item.ReasonOfDeath</td>
+                            @*if (item.Relation == "None")
+                                {
+                                    <td>        </td>
+                                }*@
+                            @if ((item.AppliactionSentBack || item.ApplicationInsured) && item.EditDeleteStatus != "None" && item.EditDeleteStatus != "New")
+                            {
+                                <td class="action"><a href="javascript: void(0);" class="btn-sm btn-primary" onclick="EditFamilyDetail(@item.Id);">Edit</a></td>
+                            }
+                            else if (item.EditDeleteStatus == "None")
+                            {
+                                <td class="action"></td>
+                            }
+                            else if (item.Relation == "None")
+                            {
+                                <td class="action"><a href="javascript: void(0);" class="btn-sm btn-danger" onclick="DeleteFamilyRow(@item.Id);">Delete</a></td>
+                            }
+                            else
+                            {
+                                <td class="action"><a href="javascript: void(0);" class="btn-sm btn-primary" onclick="EditFamilyDetail(@item.Id);">Edit</a>&nbsp;<a href="javascript: void(0);" class="btn-sm btn-danger" onclick="DeleteFamilyRow(@item.Id);">Delete</a></td>
+                            }
+                            <td class="tdInsert" hidden>true</td>
+                            <td hidden>@item.EditDeleteStatus</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class="knlan control-label col-sm-4 pt-2-5">ಸಹೋದರರ ಸಂಖ್ಯೆ</label>
+                <label for="txtNBrother" class="Enlan control-label col-sm-4 pt-2-5">Number of Brother's</label>
+                @Html.TextBoxFor(model => model.NoOfBrother, new { @class = "form-control col-sm-2", @id = "txtNoOfBrother", disabled = "disabled" })
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class="knlan control-label col-sm-4 pt-2-5">ಸಹೋದರಿಯರ ಸಂಖ್ಯೆ</label>
+                <label for="txtNBrother" class="Enlan control-label col-sm-4 pt-2-5">Number of Sister's</label>
+                @Html.TextBoxFor(model => model.NoOfSister, new { @class = "form-control col-sm-2", @id = "txtNoOfSister", disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label for="txtNBrother" class="knlan control-label col-sm-4 pt-2-5">ಮಕ್ಕಳ ಸಂಖ್ಯೆ</label>
+                <label for="txtNBrother" class="Enlan control-label col-sm-4 pt-2-5">Number of Children</label>
+                @Html.TextBoxFor(model => model.NoOfChildren, new { @class = "form-control col-sm-2", @id = "txtChildren", disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdUpdateFamily" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="updateFamilyLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateFamilyLabel"><label class="knlan">ಕುಟುಂಬ ವಿವರವನ್ನು ತಿದ್ದು</label><label class="Enlan">Edit Family Detail</label></h5>
+                <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" value="" id="hdnFamilyRowNumber" />
+                    <div class="form-group col-6">
+                        <label class="knlan control-label required">ಸಂಬಂಧ</label>
+                        <label class="Enlan control-label required">Relation</label>
+                        @*<select id="ddlEditRelation" class="form-control" disabled>
+                                <option value="select">-- Select --</option>
+                            </select>*@
+                        @Html.DropDownListFor(m => m.FamilyRelationList, new SelectList(Model.FamilyRelationList, "Value", "Text"), "-- Select Relation --", new { id = "ddlEditRelation", @class = "form-control" })
+                        <label id="errEditRelationReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention relation with employee / insured</label>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="txtEditMemberName" class="knlan control-label required">ಕುಟುಂಬ ಸದಸ್ಯರ ಹೆಸರು</label>
+                        <label for="txtEditMemberName" class="Enlan control-label required">Name of Family Member</label>
+                        <input type="text" id="txtEditMemberName" class="form-control ClAlphaNum">
+                        <label id="errEditMemberNameReq" class="col-form-label-sm text-danger err" hidden>Please enter family member name.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="txtEditDOB" class="knlan control-label required">ಜನ್ಮ ದಿನಾಂಕ</label>
+                        <label for="txtEditDOB" class="Enlan control-label required">Date of Birth</label>
+                        <div class="input-group">
+                            <input type="text" id="txtEditDOB" class="form-control disable-keyboard" autocomplete="off">
+                        </div>
+                        <label id="errEditDOBReq" class="col-form-label-sm text-danger err-edit" hidden></label>
+                    </div>
+                    <div class="form-group col-6">
+                        @*<label for="txtEditDAge" class=" control-label required">Age at which family member Died</label>*@
+                        <label for="txtEditDAge" class="knlan control-label required">ಕುಟುಂಬ ಸದಸ್ಯರ ವಯಸ್ಸು</label>
+                        <label for="txtEditDAge" class="Enlan control-label required">Age of the Family Member</label>
+                        <input type="text" id="txtEditDAge" class="form-control" readonly>
+                        <label id="errEditDeathAgeReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention the age of the family member.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="txtEditLiving" class="knlan control-label required">ಜೀವಂತ/ಮೃತರು</label>
+                        <label for="txtEditLiving" class="Enlan control-label required">Alive / Dead</label>
+                        <div class="row">
+                            <label class="col-4"><input type="radio" id="rbtnEditAlive" value="Alive" name="txtEditLiving" onchange="AliveEditDead('Alive');" class="float-left chkEditAlive" /> <span class="float-left ml-1"><label class="knlan">ಜೀವಂತ</label><label class="Enlan">Alive</label></span></label>
+                            <label class="col-4"><input type="radio" id="rbtnEditDead" value="Dead" name="txtEditLiving" onchange="AliveEditDead('Dead');" class="float-left chkEditAlive" /> <span class="float-left ml-1"><label class="knlan">ಮೃತರು</label><label class="Enlan">Dead</label></span></label>
+                        </div>
+                        <label id="errEditLivingReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention whether family member is dead or alive.</label>
+                    </div>
+                    <div id="divEditSiblingMarried" class="form-group col-sm-6" style="display:none;">
+                        <br />
+                        <div class="row">
+                            <label class="knlan control-label col-3" id="lblEditBrotherMarriedKN" style="display:none;">ಸಹೋದರ ವಿವಾಹಿತನೇ?</label>
+                            <label class="Enlan control-label col-3" id="lblEditBrotherMarriedEN" style="display:none;">Is Brother Married?</label>
+                            <label class="knlan control-label col-3" id="lblEditSisterMarriedKN" style="display:none;">ಸೋದರಿ ವಿವಾಹಿತಳೇ?</label>
+                            <label class="Enlan control-label col-3" id="lblEditSisterMarriedEN" style="display:none;">Is Sister Married?</label>
+                            <input type="checkbox" id="chkEditSiblingMarried" class="col-1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="txtEditHealth" class="knlan control-label required">ಆರೋಗ್ಯ</label>
+                        <label for="txtEditHealth" class="Enlan control-label required">Health</label>
+                        <input type="text" id="txtEditHealth" class="form-control ClAlphaNum">
+                        <label id="errEditHealthReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention health condition of family member.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="txtEditDeathDate" class="knlan control-label required">ಮರಣ ಹೊಂದಿದ ದಿನಾಂಕ</label>
+                        <label for="txtEditDeathDate" class="Enlan control-label required">Date of Death</label>
+                        <input type="text" id="txtEditDeathDate" class="form-control disable-keyboard" autocomplete="off">
+                        <label id="errEditDateDeathReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention family member's date of death.</label>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="txtEditDead" class="knlan control-label required">ಮರಣದ ಕಾರಣ</label>
+                        <label for="txtEditDead" class="Enlan control-label required">Death Reason</label>
+
+                        <input type="text" id="txtEditDead" class="form-control ClAlpha">
+                        <label id="errEditDeathReasonReq" class="col-form-label-sm text-danger err-edit" hidden>Please mention reason of death of family member.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnUpdate" value="Update" class="btn btn-primary" onclick="SaveFamilyMember('Update');" />
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ApplicationJS/NBFamilyDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+        $('.ClAlpha').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z\s]/gi, '');
+            }
+        });
+    });
+</script>

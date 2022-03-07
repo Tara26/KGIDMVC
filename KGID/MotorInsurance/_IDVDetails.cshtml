@@ -1,0 +1,958 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceIDVDetails
+
+<style>
+    /*.modal-body-wrapper {
+        overflow-y: scroll;
+        height: 60vh;
+    }*/
+
+    @@media screen {
+        #printSection {
+            display: none;
+        }
+    }
+
+    @@media print {
+        body * {
+            visibility: hidden;
+            overflow: hidden;
+        }
+
+        #printSection, #printSection * {
+            visibility: visible;
+        }
+
+        #printSection {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+
+<div class="row" id="divIDVDetails">
+    <form id="FormIDVDetails" enctype="multipart/form-data" class="col-12">
+        @Html.Hidden("miidv_emp_id", Session["UId"], new { id = "hdnmivdEmpID" })
+        @Html.Hidden("miidv_application_id", new { id = "hdnMIVDReferanceNo" })
+        @Html.HiddenFor(m => m.miidv_pagetype, new { id = "hdnIdvPageType" })
+        <!--//IDV Details// -->
+        <div class="idv-details">
+            @if (Model.miidv_pagetype == "Renewal" || Model.miidv_pagetype == "EditRenewal")
+            {
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Vaahan Cost Price Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_vaahanidvamount, new
+                        {
+                            @id = "vaahanidvamount",
+                            @class = "form-control csIsidvovamnt ClNum",
+                            @readonly = "readonly",
+                            oncopy = "return false",
+                            onpaste = "return false"
+                   })
+                        <label id="errIsidvamountvalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Cost Price as per Invoice Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_insured_redeclared_value_amount, new
+                        {
+                            @id = "txtenteredidvovamnt",
+                            @class = "form-control csIsidvovamnt ClNum",
+                            onkeyup = "ValidateIDVAmount()",
+                            @maxlength = "10",
+                            oncopy = "return false",
+                            onpaste = "return false"
+                   })
+                        <label id="errIsidvredeclarevalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Re-Enter Cost Price as per Invoice Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtidvovamnt", @class = "form-control csIsidvovamnt ClNum", @maxlength = "10", oncopy = "return false", onpaste = "return false" })@*// onkeyup = "sum()"*@
+                        <label id="errIsidvdeclarevalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                        <div class="form-group col-1">
+                        </div>
+                        <div class="form-group col-4">
+                            Insured's Declared value of Vehicle Rs.
+                        </div>
+                        <div class="form-group col-4">
+                            @Html.TextBoxFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtidvovamnt", @class = "form-control csIsidvovamnt ClNum", @maxlength = "10" })
+                            <label id="errIsidvvalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Non-electrical accessories fitted to the vehicle Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_non_electrical_accessories_amount, new { @id = "txtnoneleaccamnt", @class = "form-control csIsnoneleaccamnt ClNum", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Electrical and electronic accessories fitted to the vehicle Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_electrical_accessories_amount, new { @id = "txteleaccamnt", @class = "form-control csIseleaccamnt ClNum", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Side car (Two wheeler Trailer(Pvt cars)) Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_side_car_trailer_amount, new { @id = "txtsidecaramnt", @class = "form-control csIssidecaramnt ClNum", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Value of CNG / LPG KIT Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_value_of_cng_lpg_amount, new { @id = "txtcngamnt", @class = "form-control csIscngamnt ClNum", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                @*<div class="row">
+                        <div class="form-group col-1">
+                        </div>
+                        <div class="form-group col-4">
+
+                        </div>
+                        <div class="form-group col-4">
+                            <input type="text" id="vaahanidvamount" class="form-control" style="pointer-events:none" />
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Vaahan Cost Price Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_vaahanidvamount, new
+                        {
+                            @id = "vaahanidvamount",
+                            @class = "form-control csIsidvovamnt ClNum",
+                            @readonly = "readonly",
+                            oncopy = "return false",
+                            onpaste = "return false"
+                   })
+                        <label id="errIsidvamountvalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Cost Price as per Invoice Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_insured_redeclared_value_amount, new
+                        {
+                            @id = "txtenteredidvovamnt",
+                            @class = "form-control csIsidvovamnt ClNum",
+                            onkeyup = "ValidateIDVAmount()",
+                            @maxlength = "10",
+                            oncopy = "return false",
+                            onpaste = "return false"
+                   })
+                        <label id="errIsidvredeclarevalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Re-Enter Cost Price as per Invoice Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtidvovamnt", @class = "form-control csIsidvovamnt ClNum", @maxlength = "10", oncopy = "return false", onpaste = "return false" })@*// onkeyup = "sum()"*@
+                        <label id="errIsidvdeclarevalue" class="col-form-label-sm text-danger err" hidden>Please Enter IDV Value</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Non-electrical accessories fitted to the vehicle Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_non_electrical_accessories_amount, new { @id = "txtnoneleaccamnt", @class = "form-control csIsnoneleaccamnt ClNum", onkeyup = "sum()", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Electrical and electronic accessories fitted to the vehicle Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_electrical_accessories_amount, new { @id = "txteleaccamnt", @class = "form-control csIseleaccamnt ClNum", onkeyup = "sum()", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Side car (Two wheeler Trailer(Pvt cars)) Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_side_car_trailer_amount, new { @id = "txtsidecaramnt", @class = "form-control csIssidecaramnt ClNum", onkeyup = "sum()", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-1">
+                    </div>
+                    <div class="form-group col-4">
+                        Value of CNG / LPG KIT Rs.
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(model => model.miidv_value_of_cng_lpg_amount, new { @id = "txtcngamnt", @class = "form-control csIscngamnt ClNum", onkeyup = "sum()", @maxlength = "6" })
+                        <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                    </div>
+                </div>
+
+            }
+
+
+
+            <div class="row">
+                <div class="form-group col-1">
+                    @*@Html.TextBoxFor(model => model.midv_own_damage_value, new { @id = "txtowndamage", @class = "form-control csIstotamnt", @readonly = "readonly", style = "font-weight: bold;" })*@
+                </div>
+                <div class="form-group col-4">
+                    Insured Declared Value Rs.
+                </div>
+                <div class="form-group col-4">
+                    @Html.TextBoxFor(model => model.miidv_total_amount, new { @id = "txttotamnt", @class = "form-control csIstotamnt ClNum", @readonly = "readonly", style = "font-weight: bold;" })
+                    <label id="errIsRheumaticFever" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+            </div>
+        </div>
+
+        <!--//IDV Details END//-->
+    </form>
+</div>
+@*<div class="hiddenMaDate">
+        <input type="text" id="txthiddenMaDate" class="form-control" hidden />
+    </div>*@
+<hr />
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+        <h3>Total Amount Payable Rs.</h3>
+    </div>
+    <div class="col-4">
+        <input type="text" id="txtTotalPremium" style="font-weight: bold;" class="form-control" readonly />
+    </div>
+    <div class="col-2">
+        @*<input type="submit" id="btnMIPremiumDetails" value="View Premium Details" class="btn btn-link btn-sm pull-right">*@
+        @*<button id='btnMIPremiumDetails'>View Premium Details</button>*@
+        @*<a href="javascript:void(0);" class="btn-sm btn-secondary" onclick="ViewPremiumModalPopup();">View Premium Details</a>*@
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#ViewPremiumModal">View Premium Details</button>
+        @*<button id="btnPrint" type="button" class="btn btn-info">Print</button>*@
+    </div>
+</div>
+<!-- Modal -->
+<section>
+    <div id="ViewPremiumModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content" data-keyboard="false" data-backdrop="static">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    @*<h4 class="modal-title">Modal Header</h4>*@
+                </div>
+                <div class="modal-body">
+
+                    <div id="Premiumdetails111" style="display:block">
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 style="text-align:center;font-weight:bold;">KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</h6>
+                                <h6 style="text-align:center;font-weight:bold;">MOTOR INSURANCE</h6>
+                                <h6 style="text-align:center;font-weight:bold;">PREMIUM NOTICE</h6>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-6">*@
+                        <div class="row">
+                            <div class="col-4">
+                                Application Ref No.:<input type="text" id="txtAppRefNumber" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                Chassis Number: <input type="text" id="txtChassisNumber" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                Engine Number:<input type="text" id="txtEngineNumber" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                        </div>
+                        @*</div>
+                            </div>*@
+
+                        @*<div class="row">
+                            <div class="col-6">*@
+                        <div class="row">
+                            <div class="col-4">
+                                Make of vehicle: <input type="text" id="txtMOV" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                Year of Manufacture:<input type="text" id="txtYOM" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                Vehicle Type:<input type="text" id="txtVehicleType" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                        </div>
+                        @*</div>
+                            <div class="col-6">*@
+                        <div class="row">
+                            <div class="col-4">
+                                Cubic Capacity:<input type="text" id="txtCubicCapacity" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                GVW(In Kgs):<input type="text" id="txtGVW" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-4">
+                                Seating Capacity:<input type="text" id="txtSC" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                        </div>
+                        @*</div>
+                            </div>*@
+                        @*<br />*@
+                        @*<div class="row">
+                            <div class="col-12">*@
+                        <div class="row">
+                            <div class="col-3">
+                                Policy Type:<input type="text" id="txtPolicyType" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-3">
+                                Insured Declared Value Rs.:<input type="text" id="txtTotalPvvTop" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-3">
+                                Depreciation (%):<input type="text" id="txtIDVDepreciation" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                            <div class="col-3">
+                                Zone:<input type="text" id="txtZone" style="font-size: 12px;" class="form-control" readonly />
+                            </div>
+                        </div>
+                        @*</div>
+                            </div>*@
+                        <hr />
+                        @*<h6 style="text-align:center;font-weight:bold;">SCHEDULE OF PREMIUM</h6>
+                            <hr />*@
+                        <div class="row"></div>
+                        <section>
+                            <div class="row">
+                                <div class="col-6">
+                                    <b>A: OWN DAMAGES</b>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />Basic Premium
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtbp" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Add (<span id="idvpercent"></span>)% on IDV
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtbpidv" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtidvsubtot" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />O.D. Premium
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtodp" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Less Govt Rebate(20)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlgrod" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtrebatetotod" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />
+                                            Add
+                                            <br />
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />(a).Electrical Accessories(4)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txteleacc" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(b).LPG Kit Amount (4)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlpgkitod" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(c).Imported Vehicles ()%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtiv" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(d).Fibre Glass Fuel Tank
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtfgft" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(e).Driving Institution (60)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtdiod" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(f)Others (4)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtaddodothers" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtsubtotlpgod" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />
+                                            Less
+                                            <br />
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />
+                                            (a).Automobile Assn Member(5)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlaam" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(b).Handicapped (1)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txth" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(c).Anti Theft Device ()%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtatd" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtsubtotextra" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Add Malus (<span id="idvmaluspercent"></span>)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtamod" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Less NCB (<span id="idvncbpercent"></span>)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlessncb" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Others(25)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtothers" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtodtot" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <b>B: LIABILITY TO PUBLIC RISK</b>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br />Liability to Public Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Less Govt Rebate (20)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlgrlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtsubtotlpr" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Add
+                                        </div>
+                                        <div class="col-6">
+                                            <br /><br />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Driving Institution (60)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtdilpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />LPG Kit Amount
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlpgkitlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Sub Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtsubtotlpglpr" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Add
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(a).Driver's Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtdrlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(b).Pillion Rider's Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtprrlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(c).Passenger's Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtprlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(d).Cleaner's Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtclrlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />(e).Coolie's Risk
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtcorlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br />Add Malus (<span id="liamaluspercent"></span>)%
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtamlpr" class="form-control" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top:415px">
+                                        <div class="col-6">
+                                            <br /><br /><b>Total</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlprtot" style="font-weight: bold;" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <hr />
+                        <section>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /><b>Total of A</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtodtotA" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><br /> <b>Total of B </b>
+                                        </div>
+                                        <div class="col-6">
+                                            <br />
+                                            <input type="text" id="txtlprtotB" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <hr />
+                        <section>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>Total of A &nbsp;&&nbsp; B</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txttotAB" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>Previous Year's Difference</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtpyd" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>Current Year's Difference</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtcyd" class="form-control" value="0.00" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <hr />
+                        <section>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>SGST(9%)</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtsgstamt" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>CGST(9%)</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txtcgstamt" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <br /><b>Total Current Receipt</b>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" id="txttotalcrpremium" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <hr />
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <h2><b>Total Amount Payable</b></h2>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" id="txtTotalPremiumAmt" style="font-weight: bold;" class="form-control" readonly />
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </section>
+                        <hr />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPrint" type="button" class="btn btn-info">Print</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="background-color: #ff0000">Close</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#divIDVDetails input').attr("tabindex", "-1");
+        $('.csIsidvovamnt').bind('copy paste cut', function (e) {
+            e.preventDefault();
+
+        });
+        $(document).keydown(function (objEvent) {
+            if (objEvent.ctrlKey) {
+                if (objEvent.keyCode == 65) {
+
+                    return false;
+                }
+            }
+        });
+
+
+
+        var vaahanresponsevalue = $('#vaahanidvamount').val();
+        if (vaahanresponsevalue == "" || vaahanresponsevalue == "0") {
+            //document.getElementById("vaahanidvamount").setAttribute("readonly", "false");
+            //document.getElementById("vaahanidvamount").setAttribute("pointer-events", "auto");
+            $('#vaahanidvamount').attr("readonly", true);
+            $('#vaahanidvamount').val(0);
+        }
+        else {
+            $('#vaahanidvamount').attr("readonly", true);
+        }
+    });
+    if ($("#hdnPagetype").val() == "Renewal" || $("#hdnPagetype").val() == "EditRenewal") {
+        $("#FormIDVDetails").find("input, button, submit, textarea, select, input[type='radio']").attr('readonly', true);
+        $('#divIDVDetails input').attr("tabindex", "-1");
+    }
+    else {
+        $("#FormIDVDetails").find("input, button, submit, textarea, select,input[type='radio']").attr('readonly', false);
+        $("#txttotamnt").attr('readonly', true);
+    }
+    ////
+    $("#Premiumdetails").dialog({
+        modal: true,
+        autoOpen: false,
+        title: "Premium Details",
+        width: 1200,
+        height: 500
+    });
+
+    //var button = document.getElementById('btnMIPremiumDetails');
+    //button.onclick = function () {
+    //    var div = document.getElementById('Premiumdetails');
+    //    if (div.style.display !== 'none') {
+    //        div.style.display = 'none';
+    //        $('#Premiumdetails').dialog('open');
+    //    }
+    //    else {
+    //        div.style.display = 'block';
+    //    }
+    //};
+
+    $('.ClNum').keyup(function () {
+        var input_val = $(this).val();
+        var inputRGEX = /^[0-9]*$/;
+        var inputResult = inputRGEX.test(input_val);
+        if (!(inputResult)) {
+            this.value = this.value.replace(/[^0-9\s]/gi, '');
+        }
+
+    });
+    function ViewPremiumModalPopup() {
+        //$("#ViewPremiumModal").find(".modal-body").html();
+        //$("#modalPopup").find(".modal-header").find("h2").html("Edit employee details");
+        $(".pdetails").addClass("modal-open");
+        $("#ViewPremiumModal").show();
+    }
+    document.getElementById("btnPrint").onclick = function () {
+        printElement(document.getElementById("Premiumdetails111"));
+    }
+
+    function printElement(elem) {
+        var domClone = elem.cloneNode(true);
+
+        var $printSection = document.getElementById("printSection");
+
+        if (!$printSection) {
+            var $printSection = document.createElement("div");
+            $printSection.id = "printSection";
+            document.body.appendChild($printSection);
+        }
+
+        $printSection.innerHTML = "";
+        $printSection.appendChild(domClone);
+        window.print();
+    }
+
+</script>

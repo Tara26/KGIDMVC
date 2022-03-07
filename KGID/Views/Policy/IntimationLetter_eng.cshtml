@@ -1,0 +1,273 @@
+﻿@model KGID_Models.KGID_Policy.VM_InitimationLetter
+
+<style>
+    .control-label-larger {
+        font-size: 1.15rem !important;
+    }
+
+    .bigger-text {
+        font-size: 1rem !important;
+    }
+
+    .line-height {
+        line-height: 1.5 !important;
+    }
+</style>
+
+<div id="divIntimationLetter">
+    <div class="row">
+        <div class="form-group col-4">
+            <div class="border p-3 text-center line-height bigger-text font-weight-bold">
+                IN REPLY PLEASE QUOTE THIS OFFICE <br />
+                POLICY No. <span class="p-1" style="border-bottom: 0.12rem solid black;">@Model.KGIDNumber</span>
+            </div>
+        </div>
+        <div class="form-group col-8">
+            <h4 class="text-black-50 col-12 text-center font-weight-bold">OFFICE OF THE DIRECTOR,<br />KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</h4>
+            <h5 class="text-black-50 col-12 text-center font-weight-bold">Dated <span class="p-1" style="border-bottom: 0.12rem solid black;">@DateTime.Now.ToString("dd-MM-yyyy")</span></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-12">
+            <div class="row col-12">
+                <div class="col-6">
+                    <label class="control-label-larger">To,</label>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-6">
+                    <div class="col-12">
+                        <label class="control-label-larger text-uppercase">Officer Incharge</label>
+                        <br />
+                        <div class="row">
+                            <label class="col-8 control-label-larger line-height text-uppercase">@Model.DDOAddress<span class="control-label-larger line-height">.</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-12">
+            <div class="row col-12">
+                <div class="col-1">
+                    <p class="bigger-text">Sir/Madam,</p>
+                </div>
+                <div class="col-1">
+
+                </div>
+                <div class="col-9">
+                    <label class="bigger-text line-height"><span class="p-1" style="border-bottom: 0.12rem solid black;">Regarding :- <b>Acceptance of proposal of Sri/Smt. @Model.NameOfPolicyHolder &emsp; &emsp; @Model.Designation</b></span></label>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        The first premium reciept attached below is for your kind intimation and infromation delivered to the Official named therein, under an acknowledgement, which may be sent to this office of reference.
+                    </p>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        As monthly premia in Official Branch are to be paid in advance the subsequent monthly premia at &#x20B9; <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.MonthlyPremium</span> may be deducted regularly,
+                        commencing from the pay of the official for <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.RiskDate.ToString("MMM-yyyy")</span> to be disbursed in the month of <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.CommencementMonth</span> quoting the above policy number. If the pay bill of your
+                        establishment for the month of <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.RiskDate.ToString("MMM-yyyy")</span> has already been prepared and sent to the Treasury, an additional amount of &#x20B9; <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">
+                            @Model.MonthlyPremium
+                        </span> may be deducted along with the usual monthly premium due for <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.RiskDate.AddMonths(2).ToString("MMM-yyyy")</span>, out of the pay of the official for <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">
+                            @Model.CommencementMonth
+                        </span> to be disbursed in <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.RiskDate.AddMonths(2).ToString("MMM-yyyy")</span>.
+                    </p>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        If the official is under transfer / already transferred to some other establishment, this letter may kindly be forwarded to his present official superior, under intimation to this office.
+                    </p>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        A sum of &#x20B9; <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">&emsp;&emsp;&emsp;</span> paid in excess by the insured may be adjust by short recovery in any subsequent month.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="row col-9">
+            <div class="col-2">
+            </div>
+            <div class="col-10">
+                <p class="bigger-text line-height">
+                    Thanking you.
+                </p>
+            </div>            
+        </div>
+        <div class="col-3">
+            <div class="mb-5">
+                <p class="bigger-text text-center line-height">
+                    Yours faithfully,
+                </p>
+            </div>
+            <div>
+                <p class="bigger-text text-center line-height">
+                    <i>For Director</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="form-group col-4">
+            <div class="border p-3 text-center line-height bigger-text font-weight-bold">
+                IN REPLY PLEASE QUOTE THIS OFFICE <br />
+                POLICY No. <span class="p-1" style="border-bottom: 0.12rem solid black;">@Model.KGIDNumber</span>
+            </div>
+        </div>
+        <div class="form-group col-8">
+            <h4 class="text-black-50 col-12 text-center font-weight-bold">OFFICE OF THE DIRECTOR,<br />KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</h4>
+            <h5 class="text-black-50 col-12 text-center font-weight-bold">Dated <span class="p-1" style="border-bottom: 0.12rem solid black;">@DateTime.Now.ToString("dd-MM-yyyy")</span></h5>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="form-group col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label-larger">To,</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="control-label-larger line-height text-right col-2">
+                                Sri/Smt.
+                            </div>
+                            <div class="col-10">
+                                <div class="control-label-larger line-height" style="border-bottom: 0.12rem solid black">
+                                    @Model.NameOfPolicyHolder
+                                </div>
+                                <div class="control-label-larger line-height text-right" style="border-bottom: 0.12rem solid black">
+                                    @Model.Designation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="control-label-larger line-height col-12">
+                                <div class="row">
+                                    S/o/D/o&mdash;Sri/Smt. &nbsp;
+                                    <div class="control-label-larger line-height col-7" style="border-bottom: 0.12rem solid black;">
+                                        @Model.ParentName
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="control-label-larger line-height" style="border-bottom: 0.12rem solid black;min-height:28.91px;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-12 text-center">
+            <h4><span class="p-1 font-weight-bold" style="border-bottom: 0.12rem solid black;">ACCEPTANCE-cum-FIRST PREMIUM RECEIPT</span></h4>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-12">
+            <div class="col-1">
+                <p class="bigger-text">Sir/Madam,</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-12">
+            <p class="bigger-text line-height" style="text-indent: 50px;">
+                The proposal on your life under non-Medical/Medical Insurance, has been accepted, and a sum of &#x20B9; <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.MonthlyPremium</span>
+                remitted by you has been adjusted towards the first premium due for the month of <span style="padding: 0.15rem;border-bottom: 0.12rem solid black;">@Model.RiskDate.ToString("MMM-yyyy")</span>. As premia in official branch are to be paid
+                in advance, you are requested kindly to see that the recovery of subsequent monthly premia are effected regularly.
+            </p>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-12">
+            <p class="bigger-text line-height" style="text-indent: 50px;">
+                Policy bond will be sent to you through your official superior in due course.
+            </p>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="col-9">
+        </div>
+        <div class="col-3">
+            <div class="mb-5">
+                <p class="bigger-text text-center line-height">
+                    Yours faithfully,
+                </p>
+            </div>
+            <div>
+                <p class="bigger-text text-center line-height">
+                    <i>For Director</i>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<hr />
+<div class="form-group col-12">
+    <div class="row col-12">
+        <div class="col-1"></div>
+        <div class="col-10 text-right"><input type="button" class="btn btn-primary" value="Print" onclick="PrintLetter();" /></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function PrintLetter() {
+        var contents = $("#divIntimationLetter").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Intimation Letter</title><style>.control-label-larger{font-size: 1.15rem !important;}.bigger-text{font-size: 1rem !important;}.line-height{line-height: 1.5 !important;}</style>');
+        frameDoc.document.write('</head><body class="container">');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

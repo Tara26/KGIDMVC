@@ -1,0 +1,94 @@
+﻿
+
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceProposerDetails
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+<div id="divMIProposerDetails" data-submit-url="@Url.Action("", "", new { area = "" })">
+
+    @Html.HiddenFor(model => model.mipd_kgid_application_number, new { id = "hdnMIReferanceNo" })
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtProposerName"><b>Proposer's Full Name  </b>: </label>
+                <span class="" id="spnPProposerName">@Html.DisplayFor(model => model.mipd_proposer_fullname)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtPEmail" class="control-label col-sm-4 pt-2-5"><b>Email </b>: </label>
+                <span class="" id="spnPEmail">@Html.DisplayFor(model => model.mipd_email)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtPPinCode"><b>PinCode  </b>: </label>
+                <span class="" id="spnPPincode">@Html.DisplayFor(model => model.mipd_pincode)</span>
+            </div>
+            <div class="row col-sm-6">
+    <label class="control-label col-sm-4 pt-2-5" for="txtPPinCode"><b>Telephone No  </b>: </label>
+    <span class="" id="spnPTelephone">@Html.DisplayFor(model => model.mipd_telephone_no)</span>
+</div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtPAddress"><b>Address  </b>: </label>
+                <span class="" id="spnPAddress">@Html.DisplayFor(model => model.mipd_address)</span>
+            </div>
+
+            
+
+            <div class="row col-sm-6">
+                <label for="txtPOccupation" class="control-label col-sm-4 pt-2-5"><b>Occupation </b>: </label>
+                <span class="" id="spnPOccupation">@Html.DisplayFor(model => model.mipd_occupation)</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+          
+            @*<div class="row col-sm-6">
+                <label for="txtPOccupation" class="control-label col-sm-4 pt-2-5"><b>Type Of Cover </b>: </label>
+                <span class="" id="spnPCover">@Html.DisplayFor(model => model.mipd_type_of_cover)</span>
+            </div>*@
+        </div>
+    </div>
+    @if (Model.mipd_pagetype == "Renewal")
+    {
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-4 pt-2-5" for="txtPPinCode"><b>Policy Start Date  </b>: </label>
+                    <span class="" id="spnPTelephone">@Html.DisplayFor(model => model.mipd_policystartdate)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtPOccupation" class="control-label col-sm-4 pt-2-5"><b>Policy End Date </b>: </label>
+                    <span class="" id="spnPCover">@Html.DisplayFor(model => model.mipd_policyenddate)</span>
+                </div>
+            </div>
+        </div>  
+    }
+
+
+
+
+
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var RefNumber = $("#hdnMIReferanceNo").val();
+        if (RefNumber != null) {
+            $("#spnMIReferanceNo").text(RefNumber);
+
+        }
+    });
+</script>
+
+

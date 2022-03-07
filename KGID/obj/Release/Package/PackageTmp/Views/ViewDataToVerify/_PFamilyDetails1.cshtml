@@ -1,0 +1,80 @@
+﻿@model KGID_Models.NBApplication.VM_FamilyDetails
+@using KGID_Models.KGIDNBApplication;
+
+
+<table id="tblPFamilyDetails" class="table-bordered" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p>Name</p></th>
+            <th><p>Relation</p></th>
+            <th><p>Date of Birth</p></th>
+            <th><p>Age</p></th>
+            <th><p>Alive / Dead</p></th>
+            <th><p>Is Sibling Married?</p></th>
+            <th><p>Health Condition</p></th>
+            <th><p>Date of Death</p></th>
+            <th><p>Death Reason</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.FamilyDetails.Any())
+        {
+            foreach (var item in Model.FamilyDetails)
+            {
+                <tr data-row-number="@item.Id" data-fd-id="@item.Id">
+                    <td class="tdName"><p>@item.NameOfMember</p></td>
+                    <td class="tdRelation"><p>@item.Relation</p></td>
+                    <td class="tdDateOfBirth"><p>@item.DateOfBirth</p></td>
+                    @{
+                        string aliveDead = item.AliveDead.HasValue && item.AliveDead.Value ? "Alive" : "Dead";
+                    }
+                    @if (item.Relation == "None")
+                    {
+                        <td class="tdAge"></td>
+                        <td class="tdLivingStatus"></td>
+                    }
+                    else
+                    {
+                        <td class="tdAge"><p>@item.Age</p></td>
+                        <td class="tdLivingStatus"><p>@aliveDead</p></td>
+                    }
+                    @{ string isSiblingMarried = (item.Relation == "Brother" || item.Relation == "Sister") ? (item.IsSiblingMarried == true) ? "Married" : "UnMarried" : "N/A"; }
+                    <td><p>@isSiblingMarried</p></td>
+                    <td><p>@item.HealthCondition</p></td>
+                    <td><p>@item.DateOfDeath</p></td>
+                    <td><p>@item.ReasonOfDeath</p></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<table style="width:100%;margin-top:5px;">
+    <tr>
+        <td>
+            <p>Number of Brother's : @Html.DisplayFor(model => model.NoOfBrother)</p>
+        </td>
+        <td>
+            <p>Number of Sister's : @Html.DisplayFor(model => model.NoOfSister)</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>Number of Children's : @Html.DisplayFor(model => model.NoOfChildren)</p>
+        </td>
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblviewFamilyDetails')) {
+            table = $('#tblviewFamilyDetails').DataTable({
+                paging: false,
+                info: false,
+                searching: false
+            });
+        }
+    });
+</script>

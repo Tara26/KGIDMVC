@@ -1,0 +1,84 @@
+﻿@model KGID_Models.NBApplication.VM_MPhysicalDetails
+<div id="divHPhysicalDetails">
+    <form id="frmMedHPhysicalDetailsBasicDetails">
+        <div class="row">
+
+            @Html.HiddenFor(m => m.employee_id, new { id = "hdfEmployeeId" })
+            @Html.HiddenFor(m => m.application_id, new { id = "hdfApplicationId" })
+            @Html.HiddenFor(m => m.empd_ismedicalreqd, new { id = "hdfIsMedicalRequired" })
+            @Html.HiddenFor(m => m.emp_gender, new { id = "hdnMGender" })
+            <div class="form-group col-6">
+                <label for="txtPHeight" class="knlan control-label field-required">ಪ್ರಸ್ತಾಪಕರ ಎತ್ತರ (ಸೆಂ)</label>
+                <label for="txtPHeight" class="Enlan control-label field-required">Proposer's Height (cms)</label>
+                @Html.TextBoxFor(model => model.empd_height, new { @class = "form-control Num", @id = "txtPHeight", @maxlength = "2" })
+                <label id="errPHeightReq" class="col-form-label-sm text-danger err" hidden>Please enter your height.</label>
+                <label id="errPHHeightReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtWEIGHT" class="knlan control-label field-required">ಪ್ರಸ್ತಾಪಕರ ತೂಕ (ಕೆಜಿ)</label>
+                <label for="txtWEIGHT" class="Enlan control-label field-required">Proposer's Weight (Kgs)</label>
+                @Html.TextBoxFor(model => model.empd_weight, new { @class = "form-control Num", @id = "txtPWEIGHT", @maxlength = "3" })
+                <label id="errPWeightReq" class="col-form-label-sm text-danger err" hidden>Please enter your weight.</label>
+                <label id="errPHWeightReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtPulseRatePerMin" class="knlan control-label field-required">ಪ್ರಸ್ತಾಪಕರ ನಾಡಿ ದರ (nos./min)</label>
+                <label for="txtPulseRatePerMin" class="Enlan control-label field-required">Proposer's Pulse Rate (nos./min)</label>
+                @Html.TextBoxFor(model => model.empd_pulse_rate, new { @class = "form-control Num", @id = "txtPulseRatePerMin", @maxlength = "3" })
+                <label id="errPulseRatePMReq" class="col-form-label-sm text-danger err" hidden>Please enter your pulse rate per minute.</label>
+                <label id="errPulseRatePHMReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtBreathRatePerMin" class="knlan control-label field-required">ಪ್ರಸ್ತಾಪಕರ ಉಸಿರಾಟದ ದರ (nos./min)</label>
+                <label for="txtBreathRatePerMin" class="Enlan control-label field-required">Proposer's Breathing Rate (nos./min)</label>
+                @Html.TextBoxFor(model => model.empd_breathing_rate, new { @class = "form-control Num", @id = "txtBreathRatePerMin", @maxlength = "3" })
+                <label id="errBreathRatePMReq" class="col-form-label-sm text-danger err" hidden>Please enter your breath rate per minute.</label>
+                <label id="errBreathRatePHMReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtPBP" class="knlan control-label field-required">ಪ್ರಸ್ತಾಪಕರ ರಕ್ತದೊತ್ತಡ</label>
+                <label for="txtPBP" class="Enlan control-label field-required">Proposer's Blood Pressure</label>
+                @Html.TextBoxFor(model => model.empd_blood_pressure, new { @class = "form-control Num", @id = "txtPBP", @maxlength = "3" })
+                <label id="errBPReq" class="col-form-label-sm text-danger err" hidden>Please enter your blood pressure.</label>
+                <label id="errBPHReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtLowDystolic" class="knlan control-label field-required">ಕುಗ್ಗಿದಾಗ</label>
+                <label for="txtLowDystolic" class="Enlan control-label field-required">Low / Dystolic</label>
+                @Html.TextBoxFor(model => model.empd_low_dystolic, new { @class = "form-control Num", @id = "txtLowDystolic", @maxlength = "3" })
+                <label id="errfDystolicReq" class="col-form-label-sm text-danger err" hidden>Please enter your Dystolic.</label>
+                <label id="errfDystolicHReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            @*<div class="form-group col-6">
+                    <label for="txtPulseRate" class="control-label field-required">Pulse Rate</label>
+                    @Html.TextBoxFor(model => model.empd_pulse_rate, new { @class = "form-control", @id = "txtPulseRate" })
+                    <label id="errPulseRateReq" class="col-form-label-sm text-danger err" hidden>Please enter your pulse rate.</label>
+                </div>*@
+            <div class="form-group col-6">
+                <label for="txtHighSystolic" class="knlan control-label field-required">ಹಿಗ್ಗಿದಾಗ</label>
+                <label for="txtHighSystolic" class="Enlan control-label field-required">High / Systolic</label>
+                @Html.TextBoxFor(model => model.empd_high_systolic, new { @class = "form-control Num", @id = "txtHighSystolic", @maxlength = "3" })
+                <label id="errSystolicReq" class="col-form-label-sm text-danger err" hidden>Please enter your Systolic.</label>
+                <label id="errSystolicReq" class="col-form-label-sm text-danger err" hidden></label>
+            </div>
+            <div class="form-group col-6">
+                <label for="txtRemarks" class="knlan control-label">ಷರ</label>
+                <label for="txtRemarks" class="Enlan control-label">Remarks</label>
+                @Html.TextBoxFor(model => model.empd_remarks, new { @class = "form-control ClAlphaNum", @id = "txtRemarks", @maxlength = "200" })
+            </div>
+        </div>
+    </form>
+</div>
+<script src="~/Scripts/ApplicationJS/NBHPhysicalDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,39 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+@using KGID_Models.NBApplication
+<div id="divHBasicDetails">
+    @*<div class="row">
+            <div class="form-group col-6">
+                Reference Number : <b><span id="spnHBReferanceNo"></span></b>
+            </div>
+            <div class="form-group col-6" id="refNo">
+                <img src="@Html.DisplayFor(model => model.QRCode)" alt="" style="height:150px;width:150px" />
+            </div>
+        </div>*@
+
+    <div class="row">
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-4 pt-2-5" for="txtProposerName"><b>Proposer Name </b>: </label>
+                    <span class="" id="spnProposerName">@Html.DisplayFor(model => model.employee_name)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtAddress" class="control-label col-sm-4 pt-2-5"><b>Full Address </b>: </label>
+                    <span class="" id="spnAddress">@Html.DisplayFor(model => model.ead_address)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-4 pt-2-5" for="txtPin"><b>Pincode </b>: </label>
+                    <span class="" id="spnEmpName">@Html.DisplayFor(model => model.ead_pincode)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtPhone" class="control-label col-sm-4 pt-2-5"><b>Phone </b>: </label>
+                    <span class="" id="spnAddress">@Html.DisplayFor(model => model.mobile_number)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+﻿@model KGID_Models.KGIDLoan.VM_LoanVerificationDetails
+
+@{
+    ViewBag.Title = "Loan Cancel Applications";
+}
+<style>
+    .m-t-10 {
+        margin-top: 10px;
+    }
+
+    table td {
+        padding: 4px !important;
+    }
+
+    .stat-style {
+        margin: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        box-shadow: 0px 2px 6px 0px #8cbad2;
+    }
+
+    .in-s {
+        height: 25px !important;
+        width: 70%;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .in-s-r {
+        height: 25px !important;
+        padding: 3px;
+        font-size: 12px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Loan Applications</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" id="tblLoanApplicationStatus" cellspacing="0">
+                            <thead style="background: #308385;color: #fff;">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Loan Reference Number</th>
+                                    <th>Cancelled Date</th>
+                                    @*<th>Employee Type</th>*@
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.CancelLoanReport != null && Model.CancelLoanReport.Count > 0)
+                                {
+                                    foreach (var item in Model.CancelLoanReport)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.ApplicationNumber</td>
+                                            <td>@item.LastUpdatedDate</td>
+                                            @*<td>@item.</td>*@
+                                            <td>@item.Status</td>
+                                            <td>
+                                                @if (item.Type == "DDO")
+                                                {
+                                                    <a onclick="CancelApplication(@item.ApplicationId,@item.EmployeeCode,'Cancel','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Approve</a>
+                                                    <a onclick="CancelApplication(@item.ApplicationId,@item.EmployeeCode,'Forward','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Forward</a>
+                                                }
+                                                else
+                                                {
+                                                    <a onclick="CancelApplication(@item.ApplicationId,@item.EmployeeCode,'Cancel','@item.Type')" class="btn btn-info btn-sm" style="font-size: inherit;color: #FFF;padding: 0px 1px 1px 1px;">Approve</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblLoanApplicationStatus").DataTable();
+    });
+
+    function CancelApplication(ApplicationId, EmployeeId, Action, Type) {
+        alertify.confirm((Action == "Cancel") ? "Are you sure to approve this loan cancellation" : "Are you sure to forward this loan cancellation request to DIO", function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Loan/NBLoanCancelRequestAction',
+                data: JSON.stringify({ 'AppId': ApplicationId, 'EmpId': EmployeeId, 'Action': Action }),
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "/kgid-loan-c-req?Type=" + Type;
+                    }
+                    else
+                        alertify.error("Error occured in sending cancellation request");
+                }
+            })
+        }).setHeader("Confirmation");
+    }
+</script>

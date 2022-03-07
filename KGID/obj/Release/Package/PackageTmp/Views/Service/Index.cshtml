@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div>
+    @ViewBag.Response
+</div><br />
+<hr />
+<div class="m-2">
+    @ViewBag.Response1
+</div>
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            // Call SOAP-XML web services directly
+            var SoapMessage = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
+                '<soap: Header>'+
+                  '<UserCredentials xmlns="http://103.138.196.44/">'+
+          '<userName>kgid</userName>'+
+          '<password>Kg!d$123</password>'+
+        '</UserCredentials>'+
+      '</soap: Header>'+
+                '<soap:Body>' +
+                ' <Basic_vehicle_details xmlns="http://103.138.196.44/">' +
+                '<Request_ref_no>kgid0001</Request_ref_no>' +
+                '<chasis_no>ME3U3S5F2LA831540</chasis_no>' +
+                '<Engine_no>U3S5F1LA974596</Engine_no>' +
+                '<Webservice_id>0001</Webservice_id>' +
+                '</Basic_vehicle_details>' +
+                '</soap:Body>' +
+                '</soap:Envelope>';
+            $.ajax({
+                url: "http://103.138.196.44/kgidservices/kgid.asmx?op=Basic_vehicle_details",
+                type: "POST",
+                dataType: "xml",
+                data: SoapMessage,
+                complete: ShowResult,
+                contentType: "text/xml; charset=utf-8"
+            });
+        });
+        function ShowResult(xmlHttpRequest, status) {
+            var SoapResponse = $(xmlHttpRequest.responseXML).find('Basic_vehicle_detailsResult').text();
+            $('#divSum5').html(SoapResponse);
+        }
+    </script>*@
+

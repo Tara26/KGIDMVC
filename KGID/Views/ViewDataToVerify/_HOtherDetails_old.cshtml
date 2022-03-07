@@ -1,0 +1,104 @@
+﻿@model KGID_Models.NBApplication.VM_MOtherDetails
+
+<div id="divOtherDetails">
+    <form id="frmOtherDetails" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="row">
+                <label for="txtWAS" class="control-label col-2">Was Proposer Admitted To Hospital?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdmittedToHospital, true, new { @id = "rbtnAHYes", @class = "csAdmittedToHospitalY", onchange = "Hcheckboxchange(this.id,'txtAdmittedToHospital')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdmittedToHospital, false, new { @id = "rbtnAHNo", @class = "csAdmittedToHospitalN", onchange = "Hcheckboxchange(this.id,'txtAdmittedToHospital')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AdmittedToHospitalDesc, new { @id = "txtAdmittedToHospital", @class = "form-control", rows = "3" })
+                    <label id="errAdmitted" class="col-form-label-sm text-danger err" hidden>Please enter details about admission to hospital.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AdmittedToHospitalDocFileName))
+                    {
+                        <label class="col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AdmittedToHospitalDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-OD" })
+                    }
+                    @Html.TextBoxFor(m => m.AdmittedToHospitalDoc, new { @id = "txtAdmittedToHospitalDoc", type = "file", @class = "form-control display-as-label-upload fuAdmittedToHospital" })
+                    <label id="errAdmittedToHospitalDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for admission to hospital.</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtACCIDENT" class="control-label col-2">Has Proposer Met With an Accident?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Accident, true, new { @id = "rbtnPAYes", @class = "csAccidentY", onchange = "Hcheckboxchange(this.id,'txtAccident')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Accident, false, new { @id = "rbtnPANo", @class = "csAccidentN", onchange = "Hcheckboxchange(this.id,'txtAccident')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AccidentDesc, new { @id = "txtAccident", @class = "form-control", rows = "3" })
+                    <label id="errAccident" class="col-form-label-sm text-danger err" hidden>Please enter details about accident.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AccidentDocFileName))
+                    {
+                        <label class="col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AccidentDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-OD" })
+                    }
+                    @Html.TextBoxFor(m => m.AccidentDoc, new { @id = "txtAccidentDoc", type = "file", @class = "form-control display-as-label-upload fuAccident" })
+                    <label id="errStomachDiseaseDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for accident.</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtUNDERGONE" class="control-label col-2">Has Proposer Undergone Test Like Ecg, X-Ray, Lasseray?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneTest, true, new { @id = "rbtnUTYes", @class = "csUndergoneTestY", onchange = "Hcheckboxchange(this.id,'txtUndergoneTest')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneTest, false, new { @id = "rbtnUTNo", @class = "csUndergoneTestN", onchange = "Hcheckboxchange(this.id,'txtUndergoneTest')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.UndergoneTestDesc, new { @id = "txtUndergoneTest", @class = "form-control", rows = "3" })
+                    <label id="errTest" class="col-form-label-sm text-danger err" hidden>Please enter details about tests.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.UndergoneTestDocFileName))
+                    {
+                        <label class="col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.UndergoneTestDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-OD" })
+                    }
+                    @Html.TextBoxFor(m => m.UndergoneTestDoc, new { @id = "txtUndergoneTestDoc", type = "file", @class = "form-control display-as-label-upload fuUndergoneTest" })
+                    <label id="errUndergoneTestDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for accident.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtANY" class="control-label col-2">At Present Has Proposer Undergone Any Treatment?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneAnyTreatment, true, new { @id = "rbtnUATYes", @class = "csUndergoneAnyTreatmentY", onchange = "Hcheckboxchange(this.id,'txtUndergoneAnyTreatment')" })Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneAnyTreatment, false, new { @id = "rbtnUATNo", @class = "csUndergoneAnyTreatmentN", onchange = "Hcheckboxchange(this.id,'txtUndergoneAnyTreatment')" })No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.UndergoneAnyTreatmentDesc, new { @id = "txtUndergoneAnyTreatment", @class = "form-control", rows = "3" })
+                    <label id="errTreatment" class="col-form-label-sm text-danger err" hidden>Please enter details about treatment.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.UndergoneAnyTreatmentDocFileName))
+                    {
+                        <label class="col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.UndergoneAnyTreatmentDocFileName, new { @class = "display-as-label form-label col-12 doc-uploaded-OD" })
+                    }
+                    @Html.TextBoxFor(m => m.UndergoneAnyTreatmentDoc, new { @id = "txtUndergoneAnyTreatmentDoc", type = "file", @class = "form-control display-as-label-upload fuUndergoneAnyTreatment" })
+                    <label id="errUndergoneAnyTreatmentDoc" class="col-form-label-sm text-danger err" hidden>Please upload document for accident.</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,759 @@
+﻿@model KGID_Models.NBApplication.VM_MOtherDetails
+
+<style>
+    .doc-uploaded {
+        cursor: pointer;
+        color: #007bff !important;
+        text-decoration: none;
+        background-color: transparent;
+    }
+</style>
+<div id="divHealthDetails">
+    <form id="frmHealthDetails" enctype="multipart/form-data">
+        @Html.HiddenFor(m => m.gender_id, new { id = "hdngender" })
+        <div class="form-group">
+            <div class="row">
+                <label for="txtWAS" class="knlan control-label col-12">
+                    ಈ ಕೆಳಕಂಡ ಪ್ರಶ್ನೆಗಳಿಗೆ (ಪ್ರಶ್ನೆ ಸಂಖ್ಯೆ 4 ರಿಂದ 15 ರವರೆಗಿನ) ಉತ್ತರ ʼಹೌದುʼ ಎಂದಿದ್ದರೆ ಪೂರ್ಣ ವಿವರ ಕೊಡಿ (ಆರೋಗ್ಯ ಸುಸ್ಥಿತಿಯಲ್ಲಿಲ್ಲದಿದ್ದಲ್ಲಿ, ಅನಾರೋಗ್ಯದ ಬಗ್ಗೆ ಪೂರಕ
+                    ದಾಖಲೆಗಳನ್ನು ಅಪ-ಲೋಡ್ ಮಾಡತಕ್ಕದ್ದು)
+                </label>
+                <label for="txtWAS" class="Enlan control-label col-12">
+                    If the answer to following questions (Q. number 4 to 15) is “YES” then provide detailed information
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+
+            @if (Model.HavingIllnessinChest == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            4) ಎದೆ, ಹೃದಯ ಅಥವಾ ಶ್ವಾಸಕೋಶದಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಯಾವುದಾದರೂ ಲಕ್ಷಣ ಕಂಡು ಬರುವುದೇ
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            4) Is there any symptoms of having
+                            illness in chest, heart and lungs?
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.HavingIllnessinChestDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.HavingIllnessinChestDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.HavingIllnessinChestDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            4) ಎದೆ, ಹೃದಯ ಅಥವಾ ಶ್ವಾಸಕೋಶದಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಯಾವುದಾದರೂ ಲಕ್ಷಣ ಕಂಡು ಬರುವುದೇ
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            4) Is there any symptoms of having
+                            illness in chest, heart and lungs?
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+            @if (Model.HavingIllnessinTeeth == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            5) ಹಲ್ಲು, ಒಸಡು, ನಾಲಿಗೆ, ಕಿವಿ, ಮೂಗು, ಗಂಟಲು ಅಥವಾ ಕಣ್ಣುಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಚಿಹ್ನೆ ಕಂಡು ಬರುವುದೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            5) Is there any symptoms of disease in teeth
+                            gums,tongue,ear,nose,Throat, eyes?
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.HavingIllnessinTeethDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.HavingIllnessinTeethDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.HavingIllnessinTeethDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            5) ಹಲ್ಲು, ಒಸಡು, ನಾಲಿಗೆ, ಕಿವಿ, ಮೂಗು, ಗಂಟಲು ಅಥವಾ ಕಣ್ಣುಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯದ ಚಿಹ್ನೆ ಕಂಡು ಬರುವುದೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            5) Is there any symptoms of disease in teeth
+                            gums,tongue,ear,nose,Throat, eyes?
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+            @if (Model.Disability == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            6) ಮನವಿದಾರರಲ್ಲಿ ಯಾವುದಾದರೂ ಕೊರತೆ ಅಥವಾ ಅಂಗವಿಕಾರವಿದೆಯೇ?
+                            ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            6) Does the Proposer have any
+                            deficieancy or disability
+                            Does the Proposer have Thyroid,lymph
+                            node in joint, or have scars from surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.DisabilityDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.DisabilityDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.DisabilityDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            6) ಮನವಿದಾರರಲ್ಲಿ ಯಾವುದಾದರೂ ಕೊರತೆ ಅಥವಾ ಅಂಗವಿಕಾರವಿದೆಯೇ?
+                            ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            6) Does the Proposer have any
+                            deficieancy or disability
+                            Does the Proposer have Thyroid,lymph
+                            node in joint, or have scars from surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+            @*@if (Model.HaveThyroid == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            Does the Proposer have Thyroid,lymph
+                            node in joint, or have scars from surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.HaveThyroidDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.HaveThyroidDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.HaveThyroidDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            ಕೀಲುಗಳಲ್ಲಿ ಕೀವು ಸೋರುವಿಕೆ, ಥೈರಾಯಿಡ್ ಅಥವಾ ದುಗ್ದ ಗ್ರಂಥಿಗಳು ಊದುವಿಕೆ ಅಥವಾ ಗಾಯದ ಅಥವಾ ಶಸ್ತ್ರ ಚಿಕಿತ್ಸೆಯ ಕಲೆಗಳಿವೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            Does the Proposer have Thyroid,lymph
+                            node in joint, or have scars from surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }*@
+            @if (Model.EnlargementSpleenLiver == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            7) ಲಿವರ್ ಅಥವಾ ಸ್ಪ್ಲೀನ್ ದೊಡ್ಡದಾಗಿರುವ ಯಾವುದಾದರೂ ಗುರುತಿದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            7) Any indication of enlargement of
+                            Spleen or Liver
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.EnlargementSpleenLiverDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.EnlargementSpleenLiverDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.EnlargementSpleenLiverDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            7) ಲಿವರ್ ಅಥವಾ ಸ್ಪ್ಲೀನ್ ದೊಡ್ಡದಾಗಿರುವ ಯಾವುದಾದರೂ ಗುರುತಿದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            7) Any indication of enlargement of
+                            Spleen or Liver
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+            @if (Model.GastroIntestinateTrack == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            8) ಹೊಟ್ಟೆ ಅಥವಾ ಜೀರ್ಣಾಗದ ಯಾವುದೇ ಭಾಗದಲ್ಲಿ ಯಾವುದಾದರೂ ಅಸಹಜತೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            8) Is there any abnormality in any part of the
+                            Gastrointestinal track
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.GastroIntestinateTrackDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.GastroIntestinateTrackDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.GastroIntestinateTrackDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            8) ಹೊಟ್ಟೆ ಅಥವಾ ಜೀರ್ಣಾಗದ ಯಾವುದೇ ಭಾಗದಲ್ಲಿ ಯಾವುದಾದರೂ ಅಸಹಜತೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            8) Is there any abnormality in any part of the
+                            Gastrointestinal track
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+            @if (Model.SufferFromHernia == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">9) ಹರ್ನಿಯಾ ಇದೆಯೇ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">9) Does proposer suffer from Hernia?</label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.SufferFromHerniaDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.SufferFromHerniaDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.SufferFromHerniaDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">9) ಹರ್ನಿಯಾ ಇದೆಯೇ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">9) Does proposer suffer from Hernia?</label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+
+            @*===========================================================================================*@
+
+
+            @if (Model.SufferFromUrinaryTract == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            10) ಜನನಾಂಗ, ಮೂತ್ರಾಂಗಗಳಲ್ಲಿ ಅಸಹಜತೆ ಹಾಗೂ ಕಾಯಿಲೆ ಏನಾದರೂ ಕಂಡು ಬರುವುದೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            10) Is there any abnormalities found in the
+                            urinary tract
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.SufferFromUrinaryTractDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.SufferFromUrinaryTractDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.SufferFromUrinaryTractDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            10) ಜನನಾಂಗ, ಮೂತ್ರಾಂಗಗಳಲ್ಲಿ ಅಸಹಜತೆ ಹಾಗೂ ಕಾಯಿಲೆ ಏನಾದರೂ ಕಂಡು ಬರುವುದೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            10) Is there any abnormalities found in the
+                            urinary tract
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+            @if (Model.NervousSystemDisease == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            11) ನರವ್ಯೂಹಕ್ಕೆ ಸಂಬಂಧಪಟ್ಟ ಯಾವುದಾದರೂ ಅನಾರೋಗ್ಯದಿಂದ ಪೀಡಿತರಾಗಿರುವ ಯಾವುದೇ ಸೂಚನೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            11) Does the proposer have any indication
+                            of having diseases or ailments with respect
+                            to the Nervous System
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.NervousSystemDiseaseDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.NervousSystemDiseaseDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.NervousSystemDiseaseDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            11) ನರವ್ಯೂಹಕ್ಕೆ ಸಂಬಂಧಪಟ್ಟ ಯಾವುದಾದರೂ ಅನಾರೋಗ್ಯದಿಂದ ಪೀಡಿತರಾಗಿರುವ ಯಾವುದೇ ಸೂಚನೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            11) Does the proposer have any indication
+                            of having diseases or ailments with respect
+                            to the Nervous System
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+            @if (Model.UndergoneSurgery == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            12) ಮನವಿದಾರರು ಶಸ್ತ್ರಚಿಕಿತ್ಸೆ ಮಾಡಿಸಿಕೊಂಡಿರುವ ಬಗ್ಗೆ ಯಾವುದಾದರೂ ಸೂಚನೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            12) Does the proposer have any indication
+                            of having undergone a surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.UndergoneSurgeryDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.UndergoneSurgeryDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.UndergoneSurgeryDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            12) ಮನವಿದಾರರು ಶಸ್ತ್ರಚಿಕಿತ್ಸೆ ಮಾಡಿಸಿಕೊಂಡಿರುವ ಬಗ್ಗೆ ಯಾವುದಾದರೂ ಸೂಚನೆ ಇದೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            12) Does the proposer have any indication
+                            of having undergone a surgery
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+            @if (Model.AccidentWoundMarks == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            13) ಮನವಿದಾರರಲ್ಲಿ ಆಕಸ್ಮಿಕ ಅಥವಾ ಬೇರಾವುದೇ ಕಾರಣದಿಂದ ಆದ ಗಾಯದ ಗುರುತಿದೆಯೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            13) Does the proposer have any marks of
+                            which might have occured accidentally,or
+                            done due to any other reason
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.AccidentWoundMarksDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.AccidentWoundMarksDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AccidentWoundMarksDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            13) ಮನವಿದಾರರಲ್ಲಿ ಆಕಸ್ಮಿಕ ಅಥವಾ ಬೇರಾವುದೇ ಕಾರಣದಿಂದ ಆದ ಗಾಯದ ಗುರುತಿದೆಯೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            13) Does the proposer have any marks of
+                            which might have occured accidentally,or
+                            done due to any other reason
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+            @if (Model.AdverseSymptomInHealth == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            14) ಮನವಿದಾರರ ಆರೋಗ್ಯ ಅಥವಾ ಸ್ವಭಾವದಲ್ಲಿ ಮುಖ್ಯವಾದ  ಪ್ರತಿಕೂಲ ಲಕ್ಷಣಗಳೇನಾದರೂ ಕಂಡುಬರುವುದೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            14) Is there any important adverse symptom
+                            in the very nature of the proposer's health
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.AdverseSymptomInHealthDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.AdverseSymptomInHealthDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AdverseSymptomInHealthDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            14) ಮನವಿದಾರರ ಆರೋಗ್ಯ ಅಥವಾ ಸ್ವಭಾವದಲ್ಲಿ ಮುಖ್ಯವಾದ  ಪ್ರತಿಕೂಲ ಲಕ್ಷಣಗಳೇನಾದರೂ ಕಂಡುಬರುವುದೇ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">
+                            14) Is there any important adverse symptom
+                            in the very nature of the proposer's health
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+
+           <div id="divMedicalFemaleDetails">
+
+               @if (Model.BreastIllness == true)
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                               15 ಅ) ಸ್ತನಗಳಿಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ಯಾವುದಾದರೂ ಕಾಯಿಲೆ ಇದೆಯೇ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                               15 a) Do they have any illness with regards to
+                                breast
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.BreastIllnessDesc)</span>
+                        </div>
+                        <div class="form-group col-2">
+                            @if (!string.IsNullOrEmpty(Model.BreastIllnessDocFileName))
+                            {
+                                <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.BreastIllnessDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                               15 ಅ) ಸ್ತನಗಳಿಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ಯಾವುದಾದರೂ ಕಾಯಿಲೆ ಇದೆಯೇ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                               15 a) Do they have any illness with regards to
+                                breast
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.BreastCancer == true)
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">ಆ)ಪ್ರಸ್ತಾಪಕರಿಗೆ ಸ್ತನ ಕ್ಯಾನ್ಸರ್ ಇದೆಯೇ?</label>
+                            <label class="Enlan control-label col-sm-10 text-justify">b) Do the Proposer have breast Cancer</label>
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.BreastCancerDesc)</span>
+                        </div>
+                        <div class="form-group col-2">
+                            @if (!string.IsNullOrEmpty(Model.BreastCancerDocFileName))
+                            {
+                                <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.BreastCancerDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">ಆ)ಪ್ರಸ್ತಾಪಕರಿಗೆ ಸ್ತನ ಕ್ಯಾನ್ಸರ್ ಇದೆಯೇ?</label>
+                            <label class="Enlan control-label col-sm-10 text-justify">b) Do the Proposer have breast Cancer</label>
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        </div>
+                    </div>
+                }
+
+                @if(Model.ClueInPregancy == true)
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                                ಇ) ಗರ್ಭ ಧರಿಸಿದ ಯಾವುದೇ ಸುಳಿವು ಅಥವಾ ಸಂಶಯ ನಿಮಗೆ ಕಂಡುಬಂದಿದೆಯೆ? ಆಗಿದ್ದರೆ ಅವಧಿ ತಿಳಿಸಿ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                                c) Do you have any clue or doubt about
+                                Proposer getting pregnant
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.ClueInPregancyDesc)</span>
+                        </div>
+                        <div class="form-group col-2">
+                            @if (!string.IsNullOrEmpty(Model.ClueInPregancyDocFileName))
+                            {
+                                <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.ClueInPregancyDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                                ಇ) ಗರ್ಭ ಧರಿಸಿದ ಯಾವುದೇ ಸುಳಿವು ಅಥವಾ ಸಂಶಯ ನಿಮಗೆ ಕಂಡುಬಂದಿದೆಯೆ? ಆಗಿದ್ದರೆ ಅವಧಿ ತಿಳಿಸಿ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                                c) Do you have any clue or doubt about
+                                Proposer getting pregnant
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.BiologicalIllness == true)
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                                ಈ) ಜೈವಿಕ ಅನಾರೋಗ್ಯದ ಅಥವಾ ಅಂಡಾಶಯ ಅಥವಾ ಗರ್ಭಕೋಶದ ರೋಗ ಲಕ್ಷಣಗಳೇನಾದರೂ ಗುರುತಿಸುವಿರಾ?
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                                d) Do you identify any biological illness,
+                                symptoms of ovarian or uterian disease
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.BiologicalIllnessDesc)</span>
+                        </div>
+                        <div class="form-group col-2">
+                            @if (!string.IsNullOrEmpty(Model.BiologicalIllnessDocFileName))
+                            {
+                                <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.BiologicalIllnessDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                                ಈ) ಜೈವಿಕ ಅನಾರೋಗ್ಯದ ಅಥವಾ ಅಂಡಾಶಯ ಅಥವಾ ಗರ್ಭಕೋಶದ ರೋಗ ಲಕ್ಷಣಗಳೇನಾದರೂ ಗುರುತಿಸುವಿರಾ?
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                                d) Do you identify any biological illness,
+                                symptoms of ovarian or uterian disease
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        </div>
+                    </div>
+                }
+           </div>
+                @if (Model.GoodLifeCycle == false)
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                               16) ಮನವಿದಾರರ ಜೀವವನ್ನು ಉತ್ತಮವೆಂದು ನೀವು ಪರಿಗಣಿಸುವಿರಾ? ಹಾಗಿಲ್ಲದಿದ್ದರೆ ನಿಮ್ಮ ಅಭಿಪ್ರಾಯಕ್ಕೆ ಸ್ಷಷ್ಟ ಕಾರಣಗಳನ್ನು ತಿಳಿಸಿ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                               16) Does the Proposer have a good life
+                                cycle?
+                                If not, please give the specific reason
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.GoodLifeCycleDesc)</span>
+                        </div>
+                        <div class="form-group col-2">
+                            @if (!string.IsNullOrEmpty(Model.GoodLifeCycleDocFileName))
+                            {
+                                <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.GoodLifeCycleDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="knlan control-label col-sm-10 text-justify">
+                               16) ಮನವಿದಾರರ ಜೀವವನ್ನು ಉತ್ತಮವೆಂದು ನೀವು ಪರಿಗಣಿಸುವಿರಾ? ಹಾಗಿಲ್ಲದಿದ್ದರೆ ನಿಮ್ಮ ಅಭಿಪ್ರಾಯಕ್ಕೆ ಸ್ಷಷ್ಟ ಕಾರಣಗಳನ್ನು ತಿಳಿಸಿ
+                            </label>
+                            <label class="Enlan control-label col-sm-10 text-justify">
+                               16) Does the Proposer have a good life
+                                cycle?
+                                If not, please give the specific reason
+                            </label>
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+</form>
+</div>
+
+<script>
+    function OpenSidebar(filename) {
+        $("#iViewApp")[0].src = window.location.origin + filename;
+        $("#viewSidebar")[0].style.display = "block";
+        $("#viewSidebar")[0].style.width = "500px";
+        $("#applicationFormTab")[0].style.marginRight = "500px";
+        $("#viewSidebar")[0].style.marginTop = "0px";
+    }
+
+
+    $(document).ready(function () {
+      
+        
+        if ($("#hdngender").val() === "2") {
+            $("#divMedicalFemaleDetails").show();
+        }
+        else {
+            $("#divMedicalFemaleDetails").hide();
+        }
+    });
+
+</script>

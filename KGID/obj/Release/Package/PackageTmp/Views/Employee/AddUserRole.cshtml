@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "AdddUserRole";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row text-center"><h5 class="col-12 text-black-100 font-weight-bold"><b>Add User Role</b></h5></div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-7">
+                        <label for="lblkgidno" class="control-label">KGID NO:</label>
+                        <input class="form-control form-control-sm" id="txtKHIGNUM" name="txtKHIGNUM" type="text" placeholder="Enter KGID No.">
+                    </div>
+                    <div class="form-group col-5">
+                        <br />
+                        <a id="btnShow" class="btn btn-info">View</a>
+                    </div>
+                </div>
+                <div id="roledisplay" style="display:none">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <b>Employee Name:</b>
+                            <span id="spnName"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <b>Designation:</b>
+                            <span id="spnDesg"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <b>Department:</b>
+                            <span id="spnDept"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkDDO" /> DDO
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkCW" /> CW
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkAVGCW" /> AVG CW
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkSUP" /> SUP
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkDIO" /> DIO
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkDD" /> DD
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkD" /> D
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group col-2">
+                            Module Type:
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkNB" /> NB
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkLoan" /> Loan
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkClaims" /> Claims
+                        </div>
+                        <div class="form-group col-1">
+                            <input type="checkbox" id="chkMotor" /> Motor
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkODClaims" /> OD Claims
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="checkbox" id="chkMvcClaims" /> MVC Claims
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer" id="footersubmit" style="display:none">
+                <div class="form-group col-10">
+                </div>
+                <div class="form-group col-2">
+                    <a id="btnSave" class="btn btn-primary">Submit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btnShow').click(function () {
+        $("#chkDDO").prop("checked", false);
+        $("#chkCW").prop("checked", false);
+        $("#chkAVGCW").prop("checked", false);
+        $("#chkSUP").prop("checked", false);
+        $("#chkDIO").prop("checked", false);
+        $("#chkDD").prop("checked", false);
+        $("#chkD").prop("checked", false);
+        //ModuleType
+        $("#chkNB").prop("checked", false);
+        $("#chkLoan").prop("checked", false);
+        $("#chkClaims").prop("checked", false);
+        $("#chkMotor").prop("checked", false);
+        $("#chkODClaims").prop("checked", false);
+        $("#chkMvcClaims").prop("checked", false);
+        var kgidNumber = $("#txtKHIGNUM").val();
+        $.ajax({
+            url: '/Employee/GetEmpDetails',
+            data: JSON.stringify({ kgidnum: kgidNumber }),
+            async: false,
+            type: 'POST',
+            cache: false,
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.EmpDetail.employee_name == null || result.EmpDetail.employee_name == "") {
+                    alertify.error("Please Enter Valid KGID No.");
+                    $("#roledisplay").hide();
+                    $("#footersubmit").hide();
+                }
+                else {
+
+                    $("#spnName").text(result.EmpDetail.employee_name);
+                    $("#spnDesg").text(result.EmpDetail.designation);
+                    $("#spnDept").text(result.EmpDetail.department);
+                    //$("#chkCW").prop("checked", true);
+                    var CTYP = result.EmpDetail.user_category_id.split(',');
+                    for (var i = 0; i < CTYP.length; i++) {
+                        var CAt = CTYP[i];
+                        if (CAt == 2) {
+                            $("#chkDDO").prop("checked", true);
+                        } if (CAt == 3) {
+                            $("#chkCW").prop("checked", true);
+                        } if (CAt == 4) {
+                            $("#chkSUP").prop("checked", true);
+                        } if (CAt == 5) {
+                            $("#chkDIO").prop("checked", true);
+                        } if (CAt == 6) {
+                            $("#chkDD").prop("checked", true);
+                        } if (CAt == 7) {
+                            $("#chkD").prop("checked", true);
+                        } if (CAt == 10) {
+                            $("#chkAVGCW").prop("checked", true);
+                        }
+                    }
+                    $("#roledisplay").show();
+                    $("#footersubmit").show();
+                }
+                //alertify.success("Role");
+            }, error: function (result) {
+                alertify.error("Could not save roles");
+            }
+        });
+    });
+
+    $('#btnSave').click(function () {
+        var pddo = 0, pcw = 0, pavgcw = 0, psup = 0, pdio = 0, pdd = 0, pd = 0;
+        var pnb = 0, ploan = 0, pclaims = 0, pmotor = 0, podclaims = 0, pmvcclaims = 0;
+        if ($("#chkDDO").prop("checked") == true) {
+            pddo = 1;
+        }
+        if ($("#chkCW").prop("checked") == true) {
+            pcw = 1;
+        }
+        if ($("#chkAVGCW").prop("checked") == true) {
+            pavgcw = 1;
+        }
+        if ($("#chkSUP").prop("checked") == true) {
+            psup = 1;
+        }
+        if ($("#chkDIO").prop("checked") == true) {
+            pdio = 1;
+        }
+        if ($("#chkDD").prop("checked") == true) {
+            pdd = 1;
+        }
+        if ($("#chkD").prop("checked") == true) {
+            pd = 1;
+        }
+        //ModuleType
+        if ($("#chkNB").prop("checked") == true) {
+            pnb = 1;
+        }
+        if ($("#chkLoan").prop("checked") == true) {
+            ploan = 1;
+        }
+        if ($("#chkClaims").prop("checked") == true) {
+            pclaims = 1;
+        }
+        if ($("#chkMotor").prop("checked") == true) {
+            pmotor = 1;
+        }
+        if ($("#chkODClaims").prop("checked") == true) {
+            podclaims = 1;
+        }
+        if ($("#chkMvcClaims").prop("checked") == true) {
+            pmvcclaims = 1;
+        }
+        //
+        $.ajax({
+            url: '/Employee/SaveUserRole',
+            data: JSON.stringify({
+                kgidnum: $("#txtKHIGNUM").val(), ddo: pddo, cw: pcw, avgcw: pavgcw, sup: psup, dio: pdio, dd: pdd, d: pd, nb: pnb, loan: ploan, claims: pclaims, motor: pmotor, odclaims: podclaims, mvcclaims: pmvcclaims
+            }),
+            async: false,
+            type: 'POST',
+            cache: false,
+            contentType: 'application/json',
+            success: function (result) {
+                var a = result;
+                if (result == 2) {
+                    alertify.success("Role details saved successful");
+                    $("#chkDDO").prop("checked", false);
+                    $("#chkCW").prop("checked", false);
+                    $("#chkAVGCW").prop("checked", false);
+                    $("#chkSUP").prop("checked", false);
+                    $("#chkDIO").prop("checked", false);
+                    $("#chkDD").prop("checked", false);
+                    $("#chkD").prop("checked", false);
+                    //ModuleType
+                    $("#chkNB").prop("checked", false);
+                    $("#chkLoan").prop("checked", false);
+                    $("#chkClaims").prop("checked", false);
+                    $("#chkMotor").prop("checked", false);
+                    $("#chkODClaims").prop("checked", false);
+                    $("#chkMvcClaims").prop("checked", false);
+                    //
+                    $("#spnName").text("");
+                    $("#spnDesg").text("");
+                    $("#spnDept").text("");
+                    $("#txtKHIGNUM").val("");
+
+                    $("#roledisplay").hide();
+                    $("#footersubmit").hide();
+                }
+                else if (result == 0) {
+                    alertify.error("Could not save Role.");
+                }
+                //result
+            }, error: function (result) {
+                alertify.error("Could not save Role.");
+            }
+        });
+    });
+</script>

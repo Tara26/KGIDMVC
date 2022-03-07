@@ -1,0 +1,247 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+
+<div id="divEditEmpPopup"
+     data-save-url="@Url.Action("SaveEmployeeBasicDetails", "Employee", new { area = "" })">
+    <div class="row col-12">
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnEmpID" })
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.employee_name, "ಪ್ರಸ್ರಾವನೆದಾರರ ಹೆಸರು (ಸೇವಾ ಪುಸ್ತಕ/ಎಸ್‍.ಎಸ್‍.ಸಿ.ಮೆಮೊ ಪ್ರಕಾರ)", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.employee_name, "Proposer Name (As per SSC Memo/Service Record)", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.employee_name, new { @class = "form-control ClAlpha", id = "txtName",@maxlength="200" })
+            <label id="errEmpName" class="col-form-label-sm text-danger err" hidden>Please mention employee name</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.father_name, "ತಂದೆಯ ಹೆಸರು", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.father_name, "Father name(English)", new { @class = "Enlan control-label" })<font color="red" id="asteriskEF" style="display:none">*</font>
+
+            @Html.TextBoxFor(m => m.father_name, new { @class = "form-control ClAlpha", id = "txtFatherName",@maxlength = "200" })
+            <label id="errFatherName" class="col-form-label-sm text-danger err" hidden>Please mention father name</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.spouse_name, "ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.spouse_name, "Spouse name", new { @class = "Enlan control-label" })<font color="red" id="asteriskES" style="display:none">*</font>
+            @Html.TextBoxFor(m => m.spouse_name, new { @class = "form-control ClAlpha", id = "txtSpouseName", @maxlength = "200" })
+            <label id="errSpouseEName" class="col-form-label-sm text-danger err" hidden>Please mention spouse name</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.employee_name_kannada, "ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು ಕನ್ನಡ (ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)", new { @class = "knlan control-label" })
+                @Html.LabelFor(m => m.employee_name_kannada, "Proposer Name Kannada(As per SSC Memo/Service Record)", new { @class = "Enlan control-label" })<font color="red">*</font>
+                @Html.TextBoxFor(m => m.employee_name_kannada, new { @class = "form-control", id = "txtkanName", @maxlength = "200" })
+                <label id="errKEmpName" class="col-form-label-sm text-danger err" hidden>Please mention employee name (Kannada)</label>
+
+            </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.father_name_kannada, "ತಂದೆಯ ಹೆಸರು (ಕನ್ನಡ)", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.father_name_kannada, "Father's name(Kannada)", new { @class = "Enlan control-label" })<font color="red" id="asteriskkF" style="display:none">*</font>
+            @Html.TextBoxFor(m => m.father_name_kannada, new { @class = "form-control", id = "txtkanFatherName", @maxlength = "200" })
+            <label id="errFatherKannada" class="col-form-label-sm text-danger err" hidden>Please mention father name (Kannada)</label>
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.spouse_name_kannada, "ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು (ಕನ್ನಡ)", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.spouse_name_kannada, "Spouse name(Kannada)", new { @class = "Enlan control-label" })<font color="red" id="asteriskS" style="display:none">*</font>
+            @Html.TextBoxFor(m => m.spouse_name_kannada, new { @class = "form-control", id = "txtKanSpouseName", @maxlength = "200" })
+            <label id="errSpouseKName" class="col-form-label-sm text-danger err" hidden>Please mention spouse name (Kannada)</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+	@Html.LabelFor(m => m.gender_id, "ಲಿಂಗ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.gender_id, "Gender", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @Html.DropDownListFor(m => m.gender, Model.Genders, "-- Select Gender --", new { @class = "form-control", id = "ddlGender" })
+            <label id="errGender" class="col-form-label-sm text-danger err" hidden>Please mention employee gender</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.mobile_number, "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.mobile_number, "Mobile number", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.mobile_number, new { @class = "form-control ClNum preventSpace", @id = "txtMobileNumber", @maxlength = "10" })@*, @pattern = @"^(\d{10})$"*@
+            <label id="errMblNum" class="col-form-label-sm text-danger err" hidden>Please mention employee mobile number</label>
+            <label id="errMNumber" class="col-form-label-sm text-danger" style="display:none;">Please enter correct mobile number.</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.email_id, "ಇಮೇಲ್ ವಿಳಾಸ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.email_id, "Email address", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.email_id, new { @class = "form-control  preventSpace ", id = "txtEmailId", @maxlength = "100" })
+            <label id="errMailID" class="col-form-label-sm text-danger err" hidden>Please mention employee mail id</label>
+            <label id="errEMail" class="col-form-label-sm text-danger" style="display:none;">Please enter correct mail id.</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.dateofbirth, "ಜನ್ಮ ದಿನಾಂಕ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.dateofbirth, "Date of birth", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.dateofbirth, "{0:dd-MM-yyyy}", new { @class = "form-control disable-keyboard", autocomplete = "off", id = "txtDateOfBirth", @onchange = "ValidateEmpDOB(this.id)", @onkeydown = "return false"})
+            <label id="errDOB" class="col-form-label-sm text-danger err" hidden>Please mention employee date of birth</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.place_of_birth, "ಜನ್ಮ ಸ್ಥಳ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.place_of_birth, "Place of birth", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.place_of_birth, new { @class = "form-control ClAlphaNum", id = "txtPlaceOfBirth",@maxlength="50" })
+            <label id="errPOB" class="col-form-label-sm text-danger err" hidden>Please mention employee place of birth</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.department, "ಇಲಾಖೆ ಕೋಡ್", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.department, "Department code", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.DropDownListFor(m => m.department, Model.Departments, "-- Select Department --", new { @class = "form-control", id = "ddlDepartmentCode", @disabled = "true" })
+            <label id="errDeptCode" class="col-form-label-sm text-danger err" hidden>Please mention employee department code</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.ewd_ddo_id, "ಡಿಡಿಒ ಕೋಡ್", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.ewd_ddo_id, "DDO code", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.DropDownListFor(m => m.ddocode, Model.DDOCodes, "--Select DDO Code--", new { @class = "form-control", id = "ddlDDOCode", @disabled = "true" })
+            <label id="errDDOCode" class="col-form-label-sm text-danger err" hidden>Please mention employee ddo code</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.dateofappointment, "ನೇಮಕಾತಿ ದಿನಾಂಕ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.dateofappointment, "Date of appointment", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @*"{0:dd-MM-yyyy}",*@
+            @Html.TextBoxFor(m => m.dateofappointment, "{0:dd-MM-yyyy}", new { @class = "form-control disable-keyboard", autocomplete = "off", id = "txtDateOfAppointment", @onchange = "ValidateEmpDOA(this.id)", @onkeydown = "return false" })
+            <label id="errDOA" class="col-form-label-sm text-danger err" hidden>Please mention employee date of appointment</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.pan_number, "ಪ್ಯಾನ್ ಸಂಖ್ಯೆ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.pan_number, "PAN number", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.TextBoxFor(m => m.pan_number, new { @class = "form-control ClAlphaNum tocaps preventSpace", id = "txtPANNumber", @maxlength = "10" })
+            <label id="errPANNum" class="col-form-label-sm text-danger err" hidden>Please mention employee pan number</label>
+            <label id="errPNum" class="col-form-label-sm text-danger" style="display:none;">Please enter correct pan number.</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.ewddateofjoining, "ಸರ್ಕಾರಿ ಸೇವೆಗೆ ಸೇರಿದ ದಿನಾಂಕ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.ewddateofjoining, "Date of Joining Post", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @*"{0:dd-MM-yyyy}",*@
+            @Html.TextBoxFor(m => m.ewddateofjoining, "{0:dd-MM-yyyy}", new { @class = "form-control disable-keyboard", autocomplete = "off", id = "txtewd_date_of_joining_post", @onkeydown = "return false" })
+            <label id="errDOJ" class="col-form-label-sm text-danger err" hidden>Please mention employee date of joining</label>
+            <label id="errDOADOJ" class="col-form-label-sm text-danger err" hidden>Date of joining should not be prior to date of appointment</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.payscalecode, "ವೇತನ ಶ್ರೇಣಿ ಕೋಡ್ ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.payscalecode, "Pay Scale Code", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.DropDownListFor(m => m.payscalecode, Model.PayscaleCodes, "---Select Payscale code---", new { @class = "form-control", id = "ddlewd_payscle_code" })
+            <label id="errPSCode" class="col-form-label-sm text-danger err" hidden>Please mention employee payscale code</label>
+        </div>
+        <div class="form-group col-4">
+
+            @Html.LabelFor(m => m.emptype, "ಉದ್ಯೋಗದ ರೀತಿ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.emptype, "Employment Type", new { @class = "Enlan control-label" })<font color="red">*</font>
+
+            @Html.DropDownListFor(m => m.emptype, Model.EmploymentTypes, "--Select Employment Type--", new { @class = "form-control", id = "ddlewd_permanent_temporary",@disabled = "true" })
+            <label id="errEmpType" class="col-form-label-sm text-danger err" hidden>Please mention employee employment type</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.designation, "ಹುದ್ದೆಯ ಹೆಸರು", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.designation, "Designation", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @Html.DropDownListFor(m => m.designation, Model.Designations, "--Select Department--", new { @class = "form-control", id = "ddlewd_designation" })
+            <label id="errDesg" class="col-form-label-sm text-danger err" hidden>Please mention employee designation</label>
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.group, "ಗ್ರೂಪ್‍", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.group, "Group", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @Html.DropDownListFor(m => m.group, Model.Groups, "---Select Group---", new { @class = "form-control", id = "ddlewd_group" })
+            <label id="errEmpGrp" class="col-form-label-sm text-danger err" hidden>Please mention employee group</label>
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.ewd_place_of_posting, "ಸರ್ಕಾರೀ ಸೇವೆಗೆ ಸೇರಿದ ಸ್ಥಳ", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.ewd_place_of_posting, "Place of Posting", new { @class = "Enlan control-label" })<font color="red">*</font>
+            @Html.TextBoxFor(m => m.ewd_place_of_posting, new { @class = "form-control ClAlphaNum", id = "txtewd_place_of_posting", @readonly = "readonly" })
+            <label id="errPOP" class="col-form-label-sm text-danger err" hidden>Please mention place of posting</label>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.activestatus, "ಪ್ರಸ್ತಾಪಕ ಸಕ್ರೀಯರಾಗಿದ್ದಾರೆಯೇ ?", new { @class = "knlan control-label" })
+            @Html.LabelFor(m => m.activestatus, "Is employee active?", new { @class = "Enlan control-label" })
+            @Html.CheckBoxFor(m => m.activestatus, new { id = "chkIsActive" })
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ApplicationJS/NBEmployeeDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+        $('.ClAlpha').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-zA-Z\s]/gi, '');
+            }
+        });
+        $('.ClNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^0-9\s]/gi, '');
+            }
+        });
+        $('.tocaps').keyup(function (e) {
+
+
+            var input = $(this);
+            var start = input[0].selectionStart;
+            $(this).val(function (_, val) {
+                return val.toUpperCase();
+            });
+            input[0].selectionStart = input[0].selectionEnd = start;
+
+        });
+
+        $(".preventSpace").keypress(function (e) {
+            if (e.which === 32)
+                return false;
+        });
+
+    });
+    $(document).ready(function () {
+        var today = new Date();
+        $('#txtDateOfBirth,#txtewd_date_of_joining_post,#txtDateOfAppointment').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            maxDate: 0,
+            minDate: new Date(today.getFullYear() - 60, today.getMonth(), today.getDate()),
+            yearStart: today.getFullYear() - 60,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            autoclose: true,
+            closeOnDateSelect: true
+        });
+    })
+</script>

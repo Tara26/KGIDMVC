@@ -1,0 +1,268 @@
+﻿@model KGID_Models.Ticketing_Tool.TTReportProblem
+@using KGID.Models
+@{
+    ViewBag.Title = "GetAllReportProblems";
+}
+
+<h2><label class="knlan"></label>ವರದಿ ಮಾಡಲಾದ ಎಲ್ಲ ಸಮಸ್ಯೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ <label class="Enlan">View All Reported Problems</label></h2>
+<script src="~/Scripts/Ticketing_Tool/TicketingTool.js"></script>
+
+<link href="~/Content/NewUI/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/NewUI/css/jquery-ui.min.js" rel="stylesheet" />
+<script src="~/Scripts/DateTimePicker/jquery.datetimepicker.js"></script>
+<style>
+    .t_head {
+        background: #308385;
+        color: #fff;
+    }
+    table.dataTable thead tr {
+        background: #308385;
+        color: #fff;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblNomineeDetails').DataTable({
+            paging: true,
+            bSort: true,
+            searching: true,
+            scrollCollapse: true,
+            bInfo: true
+        });
+    });
+
+
+
+</script>
+<div id="divPrintBasicDetails">
+    <form id="frmAppBasicDetails">
+        <br />
+        <div class="row">
+            <div class="col-md-1 form-group">
+                <label for="Module"><b><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></b></label>
+            </div>
+
+            <div class="col-md-2">
+                <select id="ddlModuletype" name="ddlModuletype" class="ddlModuletype form-control input-small"> </select>
+
+            </div>
+
+            <div class="col-md-1 form-group">
+                <label for="Module2"><b><label class="knlan"></label>ಈ ದಿನಾಂಕದಿಂದ<label class="Enlan"></label>From Date</b></label>
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" id="txtFromDate" class="form-control form-control-sm" autocomplete="off" />
+            </div>
+            <div class="col-md-1 form-group">
+                <label for="Module1"><b><label class="knlan">ಈ ದಿನಾಂಕದವರೆಗೆ </label><label class="Enlan">To Date</label></b></label>
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" id="txtToDate" class="form-control form-control-sm" autocomplete="off" />
+                <label class="text-danger col-12 medium err" id="errddToDate" style="display:none;"></label>
+                @*@Html.TextBoxFor(model => model.mt_creation_datetime, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullName", @readonly = "readonly" })*@
+            </div>
+            <div class="col-md-1 form-group">
+                <label for="fStatus"><b>Status</b></label>
+            </div>
+
+            <div class="col-md-2">
+                <select id="ddlfStatus" name="ddlfStatus" class="ddlfStatus form-control input-small">
+                    <option value="">--Select--</option>
+                    <option value="1">Resolved</option>
+                    <option value="2">InProgress</option>
+                    <option value="2">Pending</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" align="right">
+                @*<input type="submit" value="Get Data" class="btn btn-primary" id="btnupload" onclick="GetreportedproblemsBasedonFilter();" />*@
+                <input type="submit" value="Submit" class="btn btn-primary" id="btnupload" onclick="GetreportedproblemsBasedonFilter();" />
+        </div>
+    </form>
+</div>
+<div><br /></div>
+@*<section>
+        @{
+            @Html.Action("GetReportProblemsByEmpId", "TicketingTool")
+        }
+    </section>*@
+
+
+<div class="row" id="divNominee">
+    <div class="form-group col-12">
+        <table id="tblNomineeDetails" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label><label class="Enlan">Sl.No</label></th>
+                    <th><label class="knlan">ಟಿಕೆಟ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Ticket No</label></th>
+                    <th><label class="knlan">ಘಟಕ</label><label class="Enlan">Module</label></th>
+                    <th><label class="knlan">ಸಮಸ್ಯೆ ಪ್ರಕಾರ</label><label class="Enlan">Problem Type</label></th>
+                    <th><label class="knlan">ಸ್ಥಿತಿ</label><label class="Enlan">Status</label></th>
+                    <th><label class="knlan">ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Submission</label></th>
+                    <th><label class="knlan">ಪರಿಹರಿಸಿದ ದಿನಾಂಕ</label><label class="Enlan">Date of Resolve</label></th> 
+		    <th>Asssigned to</th>
+		    @*
+                        <th>Remarks</th>*@
+                    <th><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.TicketingToolReportProblemlist.Count > 0)
+                {
+                    int counter = 1;
+                    foreach (var item in Model.TicketingToolReportProblemlist)
+                    {
+                <tr data-row-number="@counter">
+                    <td>@item.rp_id</td>
+                    <td>@item.rp_ticket_no</td>
+                    <td>@item.mt_desc</td>
+                    <td>@item.pr_description</td>
+                    <td>@item.rp_report_problem_status</td>
+                    <td>@item.SubmissionDate</td>
+                    <td>@item.rp_date_of_resolve</td>
+                    <td>@item.rp_assignedto</td>
+
+
+                            <td>
+                                @*<a href="javascript:void(0);" class="anchorDetail" data-id="@item.rp_id" class="btn btn-sm btn-primary in-b-s">Details</a>*@
+                                <a class="GetAllanchorDetail" href="javascript:void(0);" data-toggle="modal" data-target="#mdlLoanBA" data-id="@item.rp_id" onclick="UpdateReportedproblem();">View Details</a>
+                                @*<a  class="anchorDetail" data-id="@item.rp_id">Details</a>*@
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="mdlLoanBA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 725px!important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><label class="knlan">ವಿವರಗಳು</label><label class="Enlan">Details</label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="mdl_content">
+
+
+                @*<section>
+                        @{
+                            @Html.Action("GetDetailsById", "TicketingTool")
+                        }
+                    </section>*@
+
+
+
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<script>
+    var medSupportingDocs = [];
+  
+    var dates = [];
+    var rowno = 0;
+    today = new Date();
+   
+    //$('#txtFromDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    autoclose: true,
+    //    minDate: minDate,
+    //    maxDate: today,
+    //    yearStart: today.getFullYear() - 80,
+    //    yearEnd: today.getFullYear(),
+    //    beforeShowDay: function (date) {
+    //        var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+    //        return [dates.indexOf(string) == -1]
+    //    },
+    //    scrollMonth: false,
+    //    scrollInput: false,
+    //    keepOpen: false,
+    //    closeOnDateSelect: true
+    //});
+
+    //$('#txtToDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    autoclose: true,
+    //    minDate: minDate,
+    //    maxDate: today,
+    //    yearStart: today.getFullYear() - 80,
+    //    yearEnd: today.getFullYear(),
+    //    beforeShowDay: function (date) {
+    //        var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+    //        return [dates.indexOf(string) == -1]
+    //    },
+    //    scrollMonth: false,
+    //    scrollInput: false,
+    //    keepOpen: false,
+    //    closeOnDateSelect: true
+
+    //});
+    $(document).ready(function () {
+        debugger;
+        var today = new Date();
+        var dateOfMotherBirth = new Date();
+        var options = {
+            timepicker: false,
+            format: 'd-m-Y',
+            autoClose: true,
+            yearStart: today.getFullYear() - 100,
+            yearEnd: today.getFullYear() - 18,
+            defaultDate: new Date(dateOfMotherBirth.getFullYear(), dateOfMotherBirth.getMonth(), dateOfMotherBirth.getDate()),
+            //maxDate: new Date((today.getFullYear() - 18), 11, 31),
+            //minDate: new Date(today.getFullYear() - 100, 0, 1),
+            scrollMonth: false,
+            scrollInput: false,
+            closeOnDateSelect: true
+        };
+
+        $('#txtFromDate').datetimepicker("destroy");
+        $('#txtFromDate').datetimepicker(options);
+        $('#txtToDate').datetimepicker("destroy");
+        $('#txtToDate').datetimepicker(options);
+
+
+        //$(function () {
+        //    $("#txtFromDate").datepicker(
+
+        //        {
+        //            timepicker: false,
+        //            autoclose: true,
+        //            maxDate: today,
+
+        //        });
+        //});
+        //$(function () {
+        //    $("#txtToDate").datepicker(
+        //        {
+        //            timepicker: false,
+        //            autoclose: true,
+        //            maxDate: today,
+
+
+        //            //         beforeShowDay: function (date) {
+        //            //   var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+        //            //   return [dates.indexOf(string) == -1]
+        //            //},
+
+        //        }
+
+
+        //    );
+        //});
+
+    });
+
+  
+</script>

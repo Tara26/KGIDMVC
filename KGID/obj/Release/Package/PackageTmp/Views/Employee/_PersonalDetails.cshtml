@@ -1,0 +1,306 @@
+﻿@model KGID_Models.NBApplication.VM_PersonalHealthDetails
+
+
+
+<div class="row" id="divPersonal">
+
+    <form id="frmPersonalHealth" enctype="multipart/form-data" class="col-12">
+        @Html.HiddenFor(m => m.ephd_gender_id, new { id = "hdnGenderId" })
+        @Html.HiddenFor(m => m.ephd_emp_id, new { id = "hdnEmployeeId" })
+        @Html.HiddenFor(m => m.ephd_application_id, new { id = "hdnAppliactionId" })
+        @Html.HiddenFor(m => m.PeriodDate, new { id = "hdnPeriodDate" })
+        <div class="row">
+            <label class="Enlan"><b>I. Personal Details</b></label>
+            <label class="knlan"><b>I. ವೈಯಕ್ತಿಕ ವಿವರಗಳು</b></label>
+        </div>
+        <div class="row">
+            <div class="form-group col-5">
+                <label class="knlan control-label pt-2 pl-0 col-7">(a) ನಿಮ್ಮ ಆರೋಗ್ಯವು ಈಗ ಸುಸ್ಥಿತಿಯಲ್ಲಿದೆಯೆ? </label>
+                <label class="Enlan control-label pt-2 pl-0 col-7">(a) Is your health in good condition?  </label>
+                <label class="col-2">
+                    @Html.RadioButtonFor(model => model.ephd_health_condition, true, new { @id = "rbtnGood", @class = "rd-btn-HealthCondition" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-2">
+                    @Html.RadioButtonFor(model => model.ephd_health_condition, false, new { @id = "rbtnBad", @class = "rd-btn-HealthCondition" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label><br />
+                <label class="col-form-label-sm text-danger err" id="errHealthConditionReq" hidden>Please specify is your health in good.</label>
+            </div>
+
+            <div class="form-group col-2">
+                <label class="knlan required">ಎತ್ತರ (ಸೆ.ಮೀ.ಗಳಲ್ಲಿ)</label>
+                <label class="Enlan required">Height [cms]</label>
+                @Html.TextBoxFor(model => model.ephd_height, new { @id = "txtHeight", @class = "form-control NUM", onkeyup = "MDKeypress(this.id,'errHeightReq')", @maxlength = "3" })
+                <label id="errHeightReq" class="col-form-label-sm text-danger err" hidden>Please mention your height.</label>
+            </div>
+            <div id="divHeightChart" class="form-group col-2">
+                <label class="knlan required">ಅಡಿಗಳಿಂದ ಸೆಂ.ಮೀಗೆ ಪರಿವರ್ತನೆ ಚಾಟ್</label>
+                <label class="Enlan required">Feet To Cms Chart</label>
+                <a class="calclink" id="heightCalcLink" href="" data-toggle="modal" data-target="#ModalPopup" style="text-decoration: underline; color: #0056b3;"><i class="fa fa-calculator"></i> Click Here</a>
+            </div>
+            <div class="form-group col-2">
+                <label class="knlan required">ತೂಕ (ಕೆ.ಜಿ.ಗಳಲ್ಲಿ)</label>
+                <label class="Enlan required">Weight [kgs]</label>
+                @Html.TextBoxFor(model => model.ephd_weight, new { @id = "txtWeight", @class = "form-control NUM", onkeyup = "MDKeypress(this.id,'errWeightReq')", @maxlength = "3" })
+                <label id="errWeightReq" class="col-form-label-sm text-danger err" hidden>Please mention your weight.</label>
+            </div>
+        </div>
+
+        <div id="divPerHealthDetails">
+            <div class="row">
+                <div class="col-md-6 errPersonal">
+                    <label id="errPersonal" class="col-form-label-sm text-danger err" hidden>
+                        <label class="Enlan">Please mention the corresponding health issue and upload concerned medical document.</label>
+                        <label class="knlan">ದಯವಿಟ್ಟು ಅನುಗುಣವಾದ ಆರೋಗ್ಯ ಸಮಸ್ಯೆಯನ್ನು ನಮೂದಿಸಿ ಮತ್ತು ಸಂಬಂಧಿತ ವೈದ್ಯಕೀಯ ದಾಖಲೆಯನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.</label>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">(b) ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಯಾವುದೇ ಖಾಯಿಲೆಗೆ ಒಂದು ವಾರಕ್ಕಿಂತ ಹೆಚ್ಚು ಕಾಲ ಚಿಕಿತ್ಸೆ ಪಡೆದಿದ್ದಲ್ಲಿ ಅಥವಾ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗೆ ಒಳಪಟ್ಟಿದ್ದಲ್ಲಿ ಅದರ ವಿವರಗಳು</label>
+                    <label class="Enlan control-label">(b) Details regarding any treatment taken for more than 1 week for any illness or undergone any surgery in last 3 years</label>
+                </div>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsInfectiousDiseaseHouse, true, new { @id = "rbtnMAYes", @class = "csIsInfectiousDiseaseHouseY", onchange = "PDcheckboxchange(this.id,'txtIsInfectiousDiseaseHouse','IDPrevDoc')" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsInfectiousDiseaseHouse, false, new { @id = "rbtnMANo", @class = "csIsInfectiousDiseaseHouseN", onchange = "PDcheckboxchange(this.id,'txtIsInfectiousDiseaseHouse','IDPrevDoc')" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+                <div class="form-group col-4 TA">
+                    @Html.TextAreaFor(model => model.InfectiousDiseaseHouseDetails, new { @id = "txtIsInfectiousDiseaseHouse", @class = "form-control csIsInfectiousDisease ClAlphaNum", rows = "3", @maxlength = "500" })
+                    <label id="errtxtIsInfectiousDiseaseHouseReq" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-3 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.InfectiousDiseaseHouseDocFileName))
+                    {
+                    <div id="IDPrevDoc">
+                        <label class="knlan col-12 prevdoc">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                        <label class="Enlan col-12 prevdoc">Previously uploaded Document</label>
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.InfectiousDiseaseHouseDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    </div>
+                    }
+                    @Html.TextBoxFor(m => m.InfectiousDiseaseHouseDoc, new { @id = "txtIsInfectiousDiseaseHouseDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsMedicalAdvice", onchange = "PerDocFileChange(this.id,'errtxtIsInfectiousDiseaseHouseDoc')" })
+                    <label id="errtxtIsInfectiousDiseaseHouseDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">(c) ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯ ನಿಮಿತ್ತ ಕೆಲಸಕ್ಕೆ ಗೈರುಹಾಜರಾಗಿದ್ದಲ್ಲಿ ವಿವರಗಳು</label>
+                    <label class="Enlan control-label">(c) Details regarding any absence from work due to illness during the last 3 years, state when, how long and for which disease.</label>
+                </div>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsAbsent, true, new { @id = "rbtnAYes", @class = "csIsAbsentY", onchange = "PDcheckboxchange(this.id,'txtIsAbsent','ADPrevDoc')" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsAbsent, false, new { @id = "rbtnANo", @class = "csIsAbsentN", onchange = "PDcheckboxchange(this.id,'txtIsAbsent','ADPrevDoc')" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AbsentDetails, new { @id = "txtIsAbsent", @class = "form-control csIsAbsent ClAlphaNum", rows = "3", @maxlength = "500" })
+                    <label id="errtxtIsAbsentReq" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-3 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.AbsentDocFileName))
+                    {
+                        <div id="ADPrevDoc">
+                            <label class="knlan col-12 prevdoc">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan col-12 prevdoc">Previously uploaded Document</label>
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AbsentDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        </div>
+                    }
+                    @Html.TextBoxFor(m => m.AbsentDoc, new { @id = "txtIsAbsentDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsAbsent", onchange = "PerDocFileChange(this.id,'errtxtIsAbsentDoc')" })
+                    <label id="errtxtIsAbsentDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">(d) ನೀವು ಹೊಟ್ಟೆ, ಹೃದಯ, ಶ್ವಾಸಕೋಶ, ಮೂತ್ರಜನಕಾಂಗ, ಮೆದುಳು, ನರಗಳು ಅಥವಾ ಇನ್ನಾವುದೇ ಭಾಗಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ರೋಗಗಳಿಂದ ಮಧುಮೂತ್ರರೋಗ, ಕ್ಷಯ, ಹೆಚ್ಚು/ಕಡಿಮೆ ರಕ್ತದ ಒತ್ತಡ, ಕ್ಯಾನ್ಸರ್, ಮೂರ್ಛೆರೋಗ, ಕುಷ್ಟ, ಹರ್ನಿಯ ಅಂಡವಾಯು, ಹೆಪಿಟೈಟಸ್-ಬಿ ಅಥವಾ ಏಡ್ಸ್ ಖಾಯಿಲೆಗಳಿಗೆ ಒಳಗಾಗಿದ್ದರೆ ವಿವರ ನೀಡುವುದು</label>
+                    <label class="Enlan control-label">(d) Have you ever suffered from diseases of stomach (Digestive system), Lungs, Urinary tract, Brain, Nerves or any other bodily parts, Diabetes, Tuberculosis, Hyper or Hypo tension (high or low B.P), Cancer, Epilepsy (Epileptic seizures), Leprosy, Hernia, Hepatitis-B or HIV AIDS? If so provide details.</label>
+                </div>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsStomachDisease, true, new { @id = "rbtnSDYes", @class = "csIsStomachDiseaseY", onchange = "PDcheckboxchange(this.id,'txtIsStomachDisease','SDPrevDoc')" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsStomachDisease, false, new { @id = "rbtnSDNo", @class = "csIsStomachDiseaseN", onchange = "PDcheckboxchange(this.id,'txtIsStomachDisease','SDPrevDoc')" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.StomachDiseaseDetails, new { @id = "txtIsStomachDisease", @class = "form-control csIsFamilyMemberAffectedByDisease ClAlphaNum", rows = "3", @maxlength = "500" })
+                    <label id="errtxtIsStomachDiseaseReq" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-3 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.StomachDiseaseDocFileName))
+                    {
+                        <div id="SDPrevDoc">
+                            <label class="knlan col-12 prevdoc">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan col-12 prevdoc">Previously uploaded Document</label>
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.StomachDiseaseDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        </div>
+                    }
+                    @Html.TextBoxFor(m => m.StomachDiseaseDoc, new { @id = "txtIsStomachDiseaseDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsFamilyMemberAffectedByDisease ClAlphaNum", onchange = "PerDocFileChange(this.id,'errtxtIsFamilyMemberAffectedByDiseaseDoc')" })
+                    <label id="errtxtIsStomachDiseaseDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">
+                        (e) ಮದ್ಯಸಾರ ಪಾನೀಯ, ಧೂಮಪಾನ, ಗಾಂಜಾ ಅಫೀಮು ಅಥವಾ ಇತರ
+                        ಯಾವುದೇ ಮಾದಕ ದ್ರವ್ಯ / ನಿದ್ರಾಜನಕ ಔಷಧಗಳನ್ನು ಸೇವಿಸುತ್ತೀರಾ
+                        ಇಲ್ಲವೆ ಹಿಂದೆ ಎಂದಾದರೂ ಸೇವಿಸಿದ್ದುಂಟೆ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ?
+                    </label>
+                    <label class="Enlan control-label">(e) Do you drink wine, spirits or malt liquors? Are you addicted to the use of any narcotic drugs like opium, cocaine, etc. If so, give particulars, Do you smoke tobacco? If so, to what extent?</label>
+                </div>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsDrinksDrugs, true, new { @id = "rbtnDDYes", @class = "csIsDrinksDrugsY", onchange = "PDcheckboxchange(this.id,'txtIsDrinksDrugs','DDPrevDoc')" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsDrinksDrugs, false, new { @id = "rbtnDDNo", @class = "csIsDrinksDrugsN", onchange = "PDcheckboxchange(this.id,'txtIsDrinksDrugs','DDPrevDoc')" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.DrinksDrugsDetails, new { @id = "txtIsDrinksDrugs", @class = "form-control csIsDrinksDrugs ClAlphaNum", rows = "3", @maxlength = "500" })
+                    <label id="errtxtIsDrinksDrugsReq" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-3 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.DrinksDrugsDocFileName))
+                    {
+                        <div id="DDPrevDoc">
+                            <label class="knlan col-12">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan col-12">Previously uploaded Document</label>
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.DrinksDrugsDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        </div>
+                    }
+                    @Html.TextBoxFor(m => m.DrinksDrugsDoc, new { @id = "txtIsDrinksDrugsDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsDrinksDrugs", onchange = "PerDocFileChange(this.id,'errtxtIsDrinksDrugsDoc')" })
+                    <label id="errtxtIsDrinksDrugsDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">(f) ಇನ್ನಾವುದೇ ಇತರೆ ಖಾಯಿಲೆಗಳಿಂದ ಬಳಲುತ್ತಿದ್ದೀರಾ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ.</label>
+                    <label class="Enlan control-label">(f) Have you had any other illnesses considered by you to be important or not? If so, give details.</label>
+                </div>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsAnyOtherDisease, true, new { @id = "rbtnAODYes", @class = "csIsAnyOtherDiseaseY", onchange = "PDcheckboxchange(this.id,'txtIsAnyOtherDisease','AnDPrevDoc')" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.IsAnyOtherDisease, false, new { @id = "rbtnAODNo", @class = "csIsAnyOtherDiseaseN", onchange = "PDcheckboxchange(this.id,'txtIsAnyOtherDisease','AnDPrevDoc')" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AnyOtherDiseaseDetails, new { @id = "txtIsAnyOtherDisease", @class = "form-control csIsAnyOtherDisease ClAlphaNum", rows = "3", @maxlength = "500", @readonly = true })
+                    <label id="errtxtIsAnyOtherDiseaseReq" class="col-form-label-sm text-danger err" hidden>Please enter details.</label>
+                </div>
+                <div class="form-group col-3 pl-0 pr-0">
+                    @if (!string.IsNullOrEmpty(Model.AnyOtherDiseaseDocFileName))
+                    {
+                        <div id="AnDPrevDoc">
+                            <label class="knlan col-12 prevdoc">ಈ ಹಿಂದೆ ಅಪ್‌ ಲೋಡ್‌ ಮಾಡಿದ ದಾಖಲೆ</label>
+                            <label class="Enlan col-12 prevdoc">Previously uploaded Document</label>
+                            @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AnyOtherDiseaseDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                        </div>
+                    }
+                    @Html.TextBoxFor(m => m.AnyOtherDiseaseDoc, new { @id = "txtIsAnyOtherDiseaseDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuIsAnyOtherDisease", onchange = "PerDocFileChange(this.id,'errtxtIsAnyOtherDiseaseDoc')" })
+                    <label id="errtxtIsAnyOtherDiseaseDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                </div>
+            </div>
+        </div>
+        <div id="divFemaleDetails">
+            <div class="row">
+                <label class="Enlan"><b>II. To be filled by female applicants only</b></label>
+                <label class="knlan"><b>II. ಮಹಿಳಾ ಮನವಿದಾರರು ಮಾತ್ರ ಉತ್ತರಿಸಬೇಕು</b></label>
+            </div>
+            <div class="row">
+                <div class="form-group col-3">
+                    <label class="knlan control-label">
+                        (a) ನೀವು ಇತ್ತೀಚೆಗೆ ಹೊರಗಾದ ದಿನಾಂಕ
+                    </label>
+                    <label class="Enlan control-label">
+                        (a) Date of last menstrual period
+                    </label>
+                </div>
+                <div class="form-group col-2">
+
+                    @*@Html.TextBoxFor(model => model.PeriodDate, "{0:dd-MM-yyyy}", new { @id = "txtlastmensuration", @class = "form-control", placeholder = "DD-MM-YYYY", autocomplete = "off", @readonly = true })*@
+                    @Html.TextBoxFor(model => model.ephd_date_of_last_period, "{0:dd-MM-yyyy}", new { @id = "txtlastmensuration", @class = "form-control", placeholder = "DD-MM-YYYY", autocomplete = "off", @readonly = true })
+                    <label id="errLastmensuration" class="col-form-label-sm text-danger err ml-4" hidden>Please enter the  date of last mensuration.</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label class="knlan control-label pt-2 pl-0 col-6">(b) ನೀವು ಈಗ ಗರ್ಭಿಣಿಯಾಗಿದ್ದೀರಾ? </label>
+                    <label class="Enlan control-label pt-2 pl-0 col-6">(b) Are you pregnant now?</label>
+                    <label class="col-2 pt-2 pl-3">
+                        @Html.RadioButtonFor(model => model.ephd_is_pregnant, true, new { @id = "rbtnYes" })  <label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label>
+                    </label>
+                    <label class="col-2 pt-2 pl-3">
+                        @Html.RadioButtonFor(model => model.ephd_is_pregnant, false, new { @id = "rbtnNo" })  <label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label>
+                    </label><br />
+                    <label id="errIsPregnant" class="col-form-label-sm text-danger err ml-4" hidden>Please specify whether you are pregnant or not.</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="ModalPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Height Conversion Chart</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="chartImg" src="~/uploads/HeightCalculator/HeightConversion.png" alt="Height Conversion chart">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divPrintPD" style="display:none;color:#212529"></div>
+
+<script src="~/Scripts/ApplicationJS/NBPersonalDetails.js"></script>
+<script>
+    $(function () {
+        $('.ClAlphaNum').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[a-zA-Z0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^a-z0-9\s]/gi, '');
+            }
+        });
+    }); 
+    
+    $(function () {
+        $("#txtlastmensuration").val($("#hdnPeriodDate").val());
+        $('.ViewDocPathPD').click(function () {
+            var $this = $(this);
+            var docpath = $this.data('path');
+            $.ajax({
+                url: '/Home/ViewFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var path = result.Result
+                    printPreview(path)
+                }, error: function (error, res) {
+                }
+            });
+        });
+        $('#txtMarriedTenureDetails').change(function () {
+            var dob = $('#txtBasicDateOfBirth').val().split("-");
+            var dobdate = new Date(dob[2], dob[1] - 1, dob[0]);
+            var today = new Date();
+            var age = Math.floor((today - dobdate) / (365.25 * 24 * 60 * 60 * 1000));
+
+            if ((parseFloat(age) - 10) < parseFloat($('#txtMarriedTenureDetails').val())) {
+                $('#errMarriedTenure').show();
+                return false;
+            } else {
+                $('#errMarriedTenure').hide();
+            }
+        });
+    });
+</script>

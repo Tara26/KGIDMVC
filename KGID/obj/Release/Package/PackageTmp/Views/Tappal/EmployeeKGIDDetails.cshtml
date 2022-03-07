@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Employee KGID Details";
+}
+
+<style>
+    .control-label {
+        font-size: x-large;
+    }
+</style>
+
+<div class="form-group col-12">
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <label class="col-3" style="padding-top:0.75rem !important">Search KGID:</label>
+                <input type="search" class="form-control col-7" />
+                <div class="col-2">
+                    <input type="button" class="btn" onclick="DisplayEmpDetails();" value="GO" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div id="divEmpDetails">
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <label class="control-label">Employee Name:</label>
+                <label id="txtEmpName" class="control-label">Arjun</label>
+            </div>
+            <div class="col-6">
+                <label class="control-label">Designation:</label>
+                <label id="txtEmpDesignation" class="control-label">Senior Software Engineer</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <label class="control-label">Department:</label>
+                <label id="txtEmpDepartment" class="control-label">Information Technology</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-12">
+                <table id="tblEmpDetails">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Policy number</th>
+                            <th>DIO office name</th>
+                            <th>Bond received date</th>
+                            <th>Bond taken back date</th>
+                            <th>Bond received</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <tr class="text-center">
+                                <td>12345</td>
+                                <td>Bangalore Urban</td>
+                                <td>@DateTime.Now.ToString("dd-MM-yyyy")</td>
+                                <td>@DateTime.Now.AddYears(-10).ToString("dd-MM-yyyy")</td>
+                                <td><input type="checkbox" checked /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="from-group col-12 text-right">
+            <button id="btnSave" onclick="alert('Saved')" class="btn">Save</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#tblEmpDetails").DataTable();
+    });
+
+    function DisplayEmpDetails() {
+        alertify.success('Searched');
+    }
+</script>
+

@@ -1,0 +1,313 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+@using KGID_Models.KGIDNBApplication
+
+
+
+<div id="divVPrintBasicDetails">
+    <form id="frmAppBasicDetails">
+
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnAddEmpCode" })
+        @Html.HiddenFor(model => model.kad_kgid_application_number, new { id = "hdnBReferanceNo" })
+        @Html.HiddenFor(m => m.QRCode, new { id = "hdnQRCode" })
+        <div class="form-group">
+            <div class="row" id="divShowQRCode" style="display:none;">
+                <div class="row col-sm-6">
+                    Reference Number : <b><span id="spnBReferanceNo"></span></b>
+                </div>
+                <div class="row col-sm-6" id="refNo" style="display:block;">
+                    <img src="@Html.DisplayFor(model => model.QRCode)" id="imgBQRCode" alt="" style="height:150px;width:150px" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label for="txtProposerName" class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="knlan" for="txtProposerName">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು ಇಂಗ್ಲಿಷ್ (ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)</label>
+                            <label class="Enlan" for="txtProposerName">Proposer Name English (As per SSC Memo/Service Record)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span id="spnProposerName" class="">@Html.DisplayFor(model => model.employee_name, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullName", @readonly = "readonly" })</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtProposerNameKn" class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="Enlan" for="txtProposerNameKn">Proposer Name Kannada(As per SSC Memo/Service Record)</label>
+                            <label class="knlan" for="txtProposerNameKn">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು ಕನ್ನಡ (ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="">@Html.DisplayFor(model => model.employee_name_kannada, new { @class = "form-control form-control-sm", @id = "txtEmployeeFullNameKN", @readonly = "readonly" })</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label for="txtWorkingOffice" class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ಪ್ರಸ್ತುತ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತಿರುವ ಕಛೇರಿ</label><label class="Enlan">Present Working office</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnWorkingOffice" style="display: block;width: 150px;word-wrap: break-word;">@Html.DisplayFor(Model => Model.ewd_place_of_posting)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtAddress"><b><label class="knlan">ಮನೆಯ ವಿಳಾಸ</label><label class="Enlan">Residential Address</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnResAddr" style="display: block;width: 150px;word-wrap: break-word;">@Html.DisplayFor(model => model.ead_address)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label for="txtFatherNameEn" class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="knlan" for="txtFatherName">ತಂದೆಯ ಹೆಸರು (ಇಂಗ್ಲಿಷ್)</label>
+                            <label class="Enlan" for="txtFatherName">Father Name (English)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class=""> @Html.DisplayFor(Model => Model.father_name, new { @class = "form-control", @readonly = "readonly" })</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtFatherNameKn" class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="knlan" for="txtProposerName">ತಂದೆಯ ಹೆಸರು (ಕನ್ನಡ)</label>
+                            <label class="Enlan" for="txtProposerName">Father Name (Kannada)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span>@Html.DisplayFor(model => model.father_name_kannada, new { @class = "form-control form-control-sm", @id = "txtFatherNameKN", @readonly = "readonly" })</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtGender">
+                        <b>
+                            <label class="knlan" for="txtGender">ಲಿಂಗ</label>
+                            <label class="Enlan" for="txtGender">Gender</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="">@Html.DisplayFor(Model => Model.gender_desc, new { @class = "form-control", @id = "txtGender", @readonly = "readonly" })</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtDOB">
+                        <b>
+                            <label for="txtDOB" class="knlan control-label">ಜನ್ಮ ದಿನಾಂಕ</label>
+                            <label for="txtDOB" class="Enlan control-label">Date of Birth</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span>
+                        @Html.DisplayFor(Model => Model.date_of_birth, new { @id = "txtBasicDateOfBirth", @class = "form-control", @readonly = "readonly" })
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtPlaceOfBirth"><b><label class="knlan">ಜನ್ಮ ಸ್ಥಳ</label><label class="Enlan">Place of Birth</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnPlaceOfBirth">@Html.DisplayFor(model => model.place_of_birth)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtPhone"><b><label class="knlan">ದೂರವಾಣಿ</label><label class="Enlan">Phone </label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnPin">@Html.DisplayFor(model => model.mobile_number)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtPlaceOfBirth"><b><label class="knlan">ಇಮೇಲ್</label><label class="Enlan">Email</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnEmailID">@Html.DisplayFor(model => model.email_id)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtPhone"><b><label class="knlan">ಪಾನ್ ಸಂಖ್ಯೆ</label><label class="Enlan">Pan Number </label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnPanNumber">@Html.DisplayFor(model => model.pan_number)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtPin"><b><label class="knlan">ಪಿನ್‍ ಕೋಡ್‍</label><label class="Enlan">Pincode</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnPin">@Html.DisplayFor(model => model.ead_pincode)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtGroup"><b><label class="knlan">ಗ್ರೂಪ್‍</label><label class="Enlan">Group</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span id="spnGroup">@Html.DisplayFor(model => model.eg_group_desc)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtServiceDtl"><b><label class="knlan">ಸರ್ಕಾರಿ ಸೇವೆಗೆ ಸೇರಿದ ದಿನಾಂಕ</label><label class="Enlan">Joining Date of Government Service</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnJoiningDt">@Html.DisplayFor(model => model.ewd_date_of_joining)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class=" control-label col-sm-6 pt-2-5" for="txtServiceType"><b><label class="knlan">ಖಾಯಂ/ತಾತ್ಕಾಲಿಕ</label><label class="Enlan">Permanent / Temporary</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" id="spnPerTemp">@Html.DisplayFor(model => model.et_employee_type_desc)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5" for="txtDesignation"><b><label class="knlan">ಈಗಿನ ಹುದ್ದೆಯ ಹೆಸರು</label><label class="Enlan">Present Designation</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span class="" style="display: block;width: 150px;word-wrap: break-word;" id="spnPreDegn">@Html.DisplayFor(model => model.d_designation_desc)</span>
+                </div>
+                <div class="row col-sm-6">
+                    <label for="txtPay" class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ಈಗಿನ ವೇತನ ಶ್ರೇಣಿ</label><label class="Enlan">Present Pay Scale</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span id="spnPrePayScale">@Html.DisplayFor(model => model.payscle_code)</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ವೈವಾಹಿಕ ಸ್ಥಿತಿ</label><label class="Enlan">Marital Status</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    @if (Model.eod_emp_married == true)
+                    {
+                        <span id="spnMarried" class=""><label class="knlan">ವಿವಾಹಿತರೇ</label><label class="Enlan">Married</label></span>
+                    }
+                    else
+                    {
+                        <span class=""><label class="knlan">ಅವಿವಾಹಿತರೇ</label><label class="Enlan">Unmarried</label></span>
+                    }
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ವಿಚ್ಛೇದನ/ಮರುಮದುವೆ</label><label class="Enlan">Divorce / Remarried</label></b></label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    @if (Model.dr_id == 0)
+                    {
+                        <span>N/A</span>
+                    }
+                    else if (Model.dr_id == 1)
+                    {
+                        <span>Divorced</span>
+                    }
+                    else
+                    {
+                        <span>Remarried</span>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="Enlan" for="txtSpouseName">Spouse Name (English)</label>
+                            <label class="knlan" for="txtSpouseName">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು (ಇಂಗ್ಲಿಷ್)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span>
+                        @Html.DisplayFor(Model => Model.spouse_name, new { @class = "form-control form-control-sm", @id = "txtSpouseName", @readonly = "readonly" })
+                    </span>
+                </div>
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5">
+                        <b>
+                            <label class="Enlan" for="txtSpouseName">Spouse Name (Kannada)</label>
+                            <label class="knlan" for="txtSpouseName">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು (ಕನ್ನಡ)</label>
+                        </b>
+                    </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    <span>
+                        @Html.DisplayFor(model => model.spouse_name_kannada, new { @class = "form-control form-control-sm", @id = "txtSpouseNameKN", @readonly = "readonly" })
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ಪತಿ/ಪತ್ನಿಯು ಸರ್ಕಾರಿ ನೌಕರರೇ?</label><label class="Enlan">Is spouse government employee?</label> </b> </label>
+                    <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                    @if (Model.eod_spouse_govt_emp == true)
+                    {
+                        <span id="spnSpuseGovtEmp" class=""><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                    }
+                    else
+                    {
+                        <span class=""><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                    }
+                </div>
+                <div class="row col-sm-6">
+                    @if (Model.dr_id == 2)
+                    {
+                        <div id="divCSpouse" class="form-group col-6">
+                            <label for="txtGroup"><label class="knlan">ಪ್ರಸ್ತುತ ಪತಿ/ ಪತ್ನಿಯ ಹೆಸರು</label><label class="Enlan">Current Spouse Name</label></label>
+                            <span>@Html.DisplayFor(Model => Model.Current_spouse_name, new { @class = "form-control", @id = "txtCS" })</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.eod_emp_married == false)
+        {
+            <div class="form-group">
+                <div class="row">
+                    <div class="row col-sm-6">
+                        <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ನೀವು ಅನಾಥರೇ?</label><label class="Enlan">Are you an orphan?</label> </b> </label>
+                        <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                        @if (Model.eod_emp_orphan == true)
+                        {
+                            <span class=""><label class="knlan">ಹೌದು</label><label class="Enlan">Yes</label></span>
+                        }
+                        else
+                        {
+                            <span class=""><label class="knlan">ಇಲ್ಲ</label><label class="Enlan">No</label></span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <div class="row">
+                <div class="row col-sm-6">
+                    @if (!string.IsNullOrEmpty(Model.eod_spouse_kgid_number))
+                    {
+                        <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ಪತಿ/ಪತ್ನಿಯ ಕೆ.ಜಿ.ಐ.ಡಿ./ಪಾನ್‌ ಸಂಖ್ಯೆ</label><label class="Enlan">Spouse KGID/ PAN Number</label> </b>:</label>
+                        <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                        <span id="spnSpouseKgidNo">@Html.DisplayFor(model => model.eod_spouse_kgid_number)</span>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.eod_spouse_pan_number))
+                    {
+                        <label class="control-label col-sm-6 pt-2-5"><b><label class="knlan">ಪತಿ/ಪತ್ನಿಯ ಕೆ.ಜಿ.ಐ.ಡಿ./ಪಾನ್‌ ಸಂಖ್ಯೆ</label><label class="Enlan">Spouse KGID/ PAN Number</label></b>:</label>
+                        <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                        <span id="spnSpouseKgidNo">@Html.DisplayFor(model => model.eod_spouse_pan_number)</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var joiningdate = $("#spnJoiningDt").html();
+        if (joiningdate.indexOf(" ") > 0) {
+            $("#spnJoiningDt").html(joiningdate.split(' ')[0]);
+        }
+    })
+</script>

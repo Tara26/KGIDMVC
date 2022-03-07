@@ -1,0 +1,242 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceVehicleDetails
+
+ <script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+<div class="container" id="divMIDeclaration">
+
+    <div class="form-group col-12">
+
+        <div class="row">
+
+            <div class=" form-group col-12 pl-2">
+                I / We here by declare that the statements made by me / us in this proposal form are true to the best of my  /our
+                knowledge and belief and l / we here by agree that this declaration shall from the basis of the contact between
+                me / us and the Karnataka Government Insurance Department.
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class=" form-group col-12 pl-2">
+                I / We also declare that any additions or alterations are carried out after the submission of this proposal form,
+                the same would be conveyed to the insurer immediately.
+                Received a copy of the proposal form duly filled and signed by me/ on my behalf
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <input type="checkbox" id="miDeclaration" name="scales" >
+        </div>
+        <div class="form-group col-10">
+            I agree to the terms and condition mentioned above.
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="form-group col-12">
+            PLACE : <b>@Html.DisplayFor(m => m.mipd_Department)</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <span><b>DATE : @DateTime.Now.ToString("dd-MM-yyyy")</b></span><span></span>
+        </div>
+    </div>*@
+</div>
+
+
+<div id="divMIPrintForm" style="display:none;">
+    <style>
+        #wrapper {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #wrapper1 {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper1 p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #tblPers p {
+            font-size: 12px;
+            line-height: 18px;
+            color: black;
+        }
+        /*#wrapper table,
+        th,
+        td {
+          padding: 10px;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }*/
+    </style>
+    <div id="wrapper">
+        <p style="text-align: center;">
+            <img src="~/Content/Images/img.png" style="width:50px" />
+        </p>
+        <p style="text-align: center;"><strong>KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</strong></p>
+        <p style="text-align: center;"><strong>GOVERNMENT OF KARNATAKA</strong></p>
+        <p>&nbsp;</p>
+        @if (Model.mivd_vehicle_type_id == "1")
+        {
+            <p style="text-align: center;"><strong>MOTOR INSURANCE PROPOSAL FORM-I</strong></p>
+        }
+        else
+        {
+            <p style="text-align: center;"><strong>MOTOR INSURANCE PROPOSAL FORM-II</strong></p>
+        }
+        <hr />
+        @{
+            @Html.Action("PProposerDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>VEHICLE DETAILS:</strong></p>
+        @{
+            @Html.Action("PVehicleDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <div class="html2pdf__page-break"></div>
+        <p style="text-align: center;"><strong>OTHERS DETAILS:</strong></p>
+        @{
+            @Html.Action("POtherDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>IDV DETAILS:</strong></p>
+        @{
+            @Html.Action("PIDVDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>PREVIOUS HISTORY DETAILS:</strong></p>
+        @{
+            @Html.Action("PPreviousHistoryToView", "ViewDataToVerify")
+        }
+    </div>
+   
+</div>
+
+@*<!-- Renewal Print Start-->
+<div id="divMIRenewalPrintForm" style="display:none;">
+    <style>
+        #wrapper {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #wrapper1 {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper1 p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #tblPers p {
+            font-size: 12px;
+            line-height: 18px;
+            color: black;
+        }
+        /*#wrapper table,
+        th,
+        td {
+          padding: 10px;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }*/
+    </style>
+    <div id="wrapper">
+        <p style="text-align: center;">
+            <img src="~/Content/Images/img.png" style="width:50px" />
+        </p>
+        <p style="text-align: center;"><strong>KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</strong></p>
+        <p style="text-align: center;"><strong>GOVERNMENT OF KARNATAKA</strong></p>
+        <p>&nbsp;</p>
+        @if (Model.mivd_vehicle_type_id == "1")
+        {
+            <p style="text-align: center;"><strong>MOTOR INSURANCE PROPOSAL FORM-I</strong></p>
+        }
+        else
+        {
+            <p style="text-align: center;"><strong>MOTOR INSURANCE PROPOSAL FORM-II</strong></p>
+        }
+        <hr />
+        @{
+            @Html.Action("PRenewalProposerDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>VEHICLE DETAILS:</strong></p>
+        @{
+            @Html.Action("PRenewalVehicleDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <div class="html2pdf__page-break"></div>
+        <p style="text-align: center;"><strong>OTHERS DETAILS:</strong></p>
+        @{
+            @Html.Action("PRenewalOtherDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>IDV DETAILS:</strong></p>
+        @{
+            @Html.Action("PRenewalIDVDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong>PREVIOUS HISTORY DETAILS:</strong></p>
+        @{
+            @Html.Action("PRenewalPreviousHistoryToView", "ViewDataToVerify")
+        }
+    </div>
+
+</div>
+<!-- Renewal Print End-->*@

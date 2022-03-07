@@ -1,0 +1,272 @@
+﻿@model KGID_Models.KGIDEmployee.tbl_nb_declaration_master
+
+<div class="container" id="divDeclaration">
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="knlan pl-2">
+                1. <span id="lblEmployeeNameKN" class="font-weight-normal"></span>,ಆದ ನಾನು ಈ ಪ್ರಸ್ತಾವನೆಯಲ್ಲಿರುವ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳನ್ನು ಪೂರ್ಣವಾಗಿ ತಿಳಿದುಕೊಂಡು ಅವುಗಳಿಗೆ ಸತ್ಯವಾದ ಮಾಹಿತಿಗಳನ್ನೇ ಒದಗಿಸಿರುತ್ತೇನೆಂದು ಈ ಮೂಲಕ ಘೋಷಿಸುತ್ತೇನೆ.<br />
+                2. ಪ್ರಸ್ತಾವನೆ ಸಲ್ಲಿಸಿದ ದಿನದಿಂದ ಅಂಗೀಕಾರದವರೆಗಿನ ಮಧ್ಯಂತರ ಅವಧಿಯಲ್ಲಿ ನನ್ನ ಆರೋಗ್ಯದಲ್ಲಿ ವ್ಯತ್ಯಾಸ ಉಂಟಾದಲ್ಲಿ ಅವುಗಳನ್ನು ವಿಮಾ ಇಲಾಖೆಗೆ ಲಿಖಿತ ಮೂಲಕ ತಿಳಿಸುತ್ತೇನೆ.<br />
+                3. ನಾನು ನೀಡಿರುವ ಮಾಹಿತಿಗಳು ವಿಮಾ ಕರಾರಿಗೆ ಆಧಾರವಾಗಿರುವುದಾಗಿಯೂ ಸುಳ್ಳು ಮಾಹಿತಿ ನೀಡಿ ಪಾಲಿಸಿ ಪಡೆದಲ್ಲಿ ವಿಮಾ ಕರಾರು ನಿಷ್ಟರಿಣಾಮವಾಗಿ ನಾನು ಪಾವತಿಸಿದ ವಿಮಾ ಕಂತುಗಳು ಸರ್ಕಾರಕ್ಕೆ ಮುಟ್ಟುಗೋಲಾಗುತ್ತೆಂದೂ ನಾನು ತಿಳಿದಿರುತ್ತೇನೆ. <br />
+                4. ಕಡ್ಡಾಯ ಜೀವ ವಿಮಾ ನಿಯಮಾವಳಿಗಳ ಎಲ್ಲಾ ನಿಬಂಧನೆಗಳನ್ನು ನಾನು ಒಪ್ಪಿಕೊಂಡಿರುತ್ತೇನೆ.
+            </div>
+            <div class="Enlan pl-2">
+                1. <span id="lblEmployeeNameEN" class="font-weight-normal"></span>, who has put forward the mandatory life insurance policy, I declare that I have come to know all the questions in this proposal and have provided them with factual information.<br />
+                2. In the interim period from the date of submission to the date of acceptance, I will notify the insurance department in writing if there is a difference in my health.<br />
+                3. I am aware that the information I have provided is the basis for the insurance contract and that the insurance contract is infective  in paying for the false insurance policy. <br />
+                4. I agree to all the provisions of the Mandatory Insurance Regulations.
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="form-group">
+            @Html.CheckBoxFor(Model => Model.ndm_declaration_status, new { @id = "chkDeclaration", @name = "ndm_declaration_status" })
+            <label class="knlan" for="ndm_declaration_status">ಮೇಲೆ ತಿಳಿಸಿದ ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳನ್ನು ನಾನು ಒಪ್ಪುತ್ತೇನೆ.</label>
+            <label class="Enlan"for="ndm_declaration_status">I agree to the terms and condition mentioned above.</label>
+            @*<label> I agree to the terms and condition mentioned above. </label>*@
+        </div>
+    </div>
+
+
+<div id="divPrintForm" style="display:none;">
+    <style>
+        #wrapper {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #wrapper1 {
+            padding: 8px;
+            /*position: absolute;*/
+            overflow: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border: 1px solid black;
+        }
+
+
+            #wrapper1 p {
+                font-size: 14px;
+                line-height: 8px;
+                color: black;
+            }
+
+        #tblPers p {
+            font-size: 12px;
+            line-height: 18px;
+            color: black;
+        }
+        /*#wrapper table,
+        th,
+        td {
+          padding: 10px;
+          border: 1px solid black;
+          border-collapse: collapse;
+        }*/
+    </style>
+    <div id="wrapper">
+        @*<p style="text-align: center;"><strong>KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</strong></p>
+        <p style="text-align: center;"><strong>GOVERNMENT OF KARNATAKA</strong></p>
+        <p>&nbsp;</p>
+        <p style="text-align: center;"><strong>LIFE INSURANCE PROPOSAL FORM</strong></p>*@
+        <p style="text-align: center;">
+            <img src="~/Content/Images/img.png" style="width:50px" />
+        </p>
+        <p style="text-align: center;" class="Enlan"><strong>KARNATAKA GOVERNMENT INSURANCE DEPARTMENT</strong></p>
+        <p style="text-align: center;" class="knlan"><strong>ಕರ್ನಾಟಕ ಸರ್ಕಾರಿ ವಿಮಾ ಇಲಾಖೆ</strong></p>
+
+        <p style="text-align: center;" class="Enlan">
+            <strong>
+                LIFE INSURANCE PROPOSAL FORM  (Compulsory Life Insurance)
+            </strong>
+        </p>
+        <p style="text-align: center;" class="knlan">
+            <strong>
+                ಜೀವ ವಿಮಾ ಪ್ರಸ್ತಾವನೆ (ಕಡ್ಡಾಯ ಜೀವ ವಿಮೆ)
+            </strong>
+        </p>
+        <hr />
+        @{
+            @Html.Action("PBasicDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong><span class="knlan">ಕೆಜಿಐಡಿ ವಿವರಗಳು</span><span class="Enlan">KGID DETAILS</span></strong></p>
+        @{
+            @Html.Action("PKGIDDetailsToView", "ViewDataToVerify")
+        }
+        <hr />
+        <p style="text-align: center;"><strong><span class="knlan">ಕುಟುಂಬದ ವಿವರಗಳು</span><span class="Enlan">FAMILY DETAILS</span></strong></p>
+        @{
+            @Html.Action("PFamilyDetailsToView", "ViewDataToVerify")
+        }
+    </div>
+    @*<div class="html2pdf__page-break"></div>*@
+    <div style="break-after:page"></div>
+    <div id="wrapper">
+        <p style="text-align: center;"><strong><span class="knlan">ನಾಮನಿರ್ದೇಶಿತ ವಿವರಗಳು</span><span class="Enlan">NOMINEE DETAILS</span></strong></p>
+        @{
+            @Html.Action("PNomineeDetailsToView", "ViewDataToVerify")
+        }
+    </div>
+    <br />
+    @*<div class="html2pdf__page-break"></div>
+        <div style="break-after:page"></div>*@
+    <div id="wrapper">
+        <p style="text-align: center;">
+            <strong>
+                <span class="knlan">ವೈಯಕ್ತಿಕ ವಿವರಗಳು</span>
+                <span class="Enlan">PERSONAL DETAILS</span>
+            </strong>
+        </p>
+        @{
+            @Html.Action("PPersonalDetailsToView", "ViewDataToVerify")
+        }
+    </div>
+    @*<div class="html2pdf__page-break"></div>
+        <div style="break-after:page"></div>*@
+    <div style="break-after:page"></div>
+    <div id="wrapper">
+        <p style="text-align:center">
+            <strong><span class="knlan">ಮೇಲಧಿಕಾರಿಗಳ ಪ್ರಮಾಣಪತ್ರ</span></strong>
+            <strong><span class="Enlan">CERTIFICATION BY OFFICIAL SUPERIOR</span></strong>
+        </p>
+        <p>
+            <span class="knlan">
+                1. ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಮನವಿದಾರರು ವೈದ್ಯಕೀಯ ಕಾರಣದ ಮೇಲೆ ಈ ಕೆಳಕಂಡಂತೆ ರಜೆ
+                ಪಡೆದಿರುತ್ತಾರೆ.
+            </span>
+            <span class="Enlan">
+                1.Proposer has availed leave on  medical grounds during the  last 3 years, as
+                mentioned below.
+            </span>
+        </p>
+        <table width="100%" border="1">
+            <tr>
+                <td width="5%">
+                    <span class="knlan">ಸಂಖ್ಯೆ</span>
+                    <span class="Enlan">SL.No</span>
+                </td>
+                <td width="20%">
+                    <span class="knlan">ದಿನಾಂಕ ಇಂದ</span>
+                    <span class="Enlan">From Date</span>
+                </td>
+                <td width="20%">
+                    <span class="knlan">ದಿನಾಂಕ ವರೆಗೆ</span>
+                    <span class="Enlan">To Date</span>
+                </td>
+                <td width="10%">
+                    <span class="knlan">ಅವಧಿ</span>
+                    <span class="Enlan">Duration</span>
+                </td>
+                <td width="45%">
+                    <span class="knlan">ಕಾರಣ</span>
+                    <span class="Enlan">Reason</span>
+                </td>
+            </tr>
+            <tr>
+                <td width="5%" height="200px"></td>
+                <td width="20%" height="200px"></td>
+                <td width="20%" height="200px"></td>
+                <td width="10%" height="200px"></td>
+                <td width="45%" height="200px"></td>
+            </tr>
+        </table>
+        <p>
+            *<span class="knlan" style="line-height:14px;">
+                (ರಜೆ ಪಡೆಯುವಾಗ ವೈದ್ಯಕೀಯ ಪ್ರಮಾಣಪತ್ರ ನೀಡಿದ್ದರೆ ಅದರ ಒಂದು ದೃಢೀಕೃತ ಪ್ರತಿಯನ್ನು ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ಸಲ್ಲಿಸತಕ್ಕದ್ದು.)
+            </span>
+            <span class="Enlan" style="line-height:14px;">
+                (An attested copy of medical certificate, if
+                provided, has to be submitted along with
+                the proposal.)
+            </span>
+        </p>
+        <p>
+            <span class="knlan" style="line-height:14px;">
+                ಮೂಲ ವಿವರಗಳಲ್ಲಿ ನಮೂದಿಸಿದ ಮಾಹಿತಿ ಪರಿಶೀಲಿಸಲಾಗಿ ಅದು ಸರಿಯಾಗಿರುತ್ತದೆಂದು
+                ಹಾಗೂ ಮನವಿದಾರರು ಮೇಲಿನ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳಿಗೆ ಸರಿಯಾದ ಮಾಹಿತಿ ನೀಡಿರುತ್ತಾರೆಂದು ಈ
+                ಮೂಲಕ ದೃಢೀಕರಿಸುತ್ತೇನೆ.
+            </span>
+            <span class="Enlan" style="line-height:14px;">
+                I attest that the information provided <b>Basic Details</b> has been scrutinized and is true
+                and also that the proposer  has provided factual information for all the questions above.
+            </span>
+        </p>
+        <br /><br /><br /><br /><br /><br />
+        <table width="100%">
+            <tr>
+                <td width="50%">
+                    <span class="knlan">ದಿನಾಂಕ:</span><span class="Enlan">Date:</span>
+                    <br />
+                    <span class="knlan">ಸ್ಥಳ:</span><span class="Enlan">Place:</span>
+                </td>
+                <td width="50%" style="text-align:center">
+                    <span class="knlan">
+                        ಮನವಿದಾರರ ಮೇಲಧಿಕಾರಿಗಳ ಸಹಿ<br />
+                        (ವೇತನ ಬಟವಾಡೆ ಮಾಡುವ  ಅಧಿಕಾರಿ)<br />
+                        ಪದನಾಮ ಮತ್ತು ಪೂರ್ಣ ವಿಳಾಸ.(ಪಿನ್‍ ಕೋಡ್‍ ಒಳಗೊಂಡ ಮೊಹರು)
+                    </span>
+                    <span class="Enlan">
+                        Seal & Signature of the officer<br />
+                        (Drawing & Disbursing Officer)<br />
+                        Designation and address including pincode
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <p style="text-align: left;" class="knlan"><strong>ಸೂಚನೆ:</strong></p><p style="text-align: left;" class="Enlan"><strong>Note:</strong></p>
+        <ol>
+            <li>
+                <p style="line-height:14px;" class="knlan">
+                    ಈ ಪ್ರಸ್ತಾವನೆಯನ್ನು 50 ವರ್ಷ ಮೀರದ ಸರ್ಕಾರಿ ನೌಕರರು ಮಾತ್ರ ಸಲ್ಲಿಸಲು ಅರ್ಹರು.
+                </p>
+                <p style="line-height:14px;" class="Enlan">
+                    Government servant who have not crossed the age of 50 years are only eligible for
+                    submitting this proposal.
+                </p>
+            </li>
+            <li>
+                <p style="line-height:14px;" class="knlan">
+                    ಮನವಿದಾರರು 40 ವರ್ಷ ವಯಸ್ಸು  ಮೀರಿದ ಸಂದರ್ಭದಲ್ಲಿ ಅಥವಾ ಪ್ರಸ್ತಾಪಿಸಿರುವ
+                    ಪಾಲಿಸಿಯ ಮಾಸಿಕ ವಿಮಾ ಕಂತಿನ ಪಾವತಿ ರೂ. 1000 ಮೀರಿದ ಸಂದರ್ಭದಲ್ಲಿ
+                    ಮನವಿದಾರರು ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷೆಗೆ ಒಳಪಟ್ಟು ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷಕರ ವರದಿಯನ್ನು ಈ
+                    ಪ್ರಸ್ತಾವನೆಯೊಂದಿಗೆ ಸಲ್ಲಿಸತಕ್ಕದ್ದು.
+                </p>
+                <p style="line-height:14px;" class="Enlan">
+                    If the proposer is aged above 40 years or if the monthly premium of the proposed
+                    policy  is more than Rs. 1000/- in such case, the proposer has to under go a medical
+                    examination and the medical examiner’s report has to be submitted along with the
+                    proposal.
+                </p>
+            </li>
+            <li>
+                <p style="line-height:14px;" class="knlan">
+                    ಪ್ರಸ್ತಾವನೆಯನ್ನು ಇಲಾಖೆಯು ಅಂಗೀಕರಿಸಿದ ದಿನಾಂಕದಂದು ಆ ಮನವಿದಾರರ ಸರ್ಕಾರಿ
+                    ಸೇವೆಯು ಯಾವುದೇ ಕಾರಣಕ್ಕಾಗಿ ಸಮಾಪ್ತಿಯಾಗಿದ್ದಲ್ಲಿ ಅಂತಹ ಪ್ರಸ್ತಾವನೆಯು
+                    ತಾನಾಗಿಯೇ ರದ್ದಾಗುವುದು.
+                </p>
+                <p style="line-height:14px;" class="Enlan">
+                    If the proposer ceases to be in government service on the date of acceptance of his
+                    proposal by the department the proposal  stands cancelled automatically.
+                </p>
+            </li>
+
+        </ol>
+    </div>
+</div>

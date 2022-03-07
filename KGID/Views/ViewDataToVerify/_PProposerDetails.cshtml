@@ -1,0 +1,111 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceProposerDetails
+@using KGID.Models
+
+<style>
+#tblProposer p{
+    font-size: 14px;
+    line-height: 25px;
+    color: black;
+}
+
+</style>
+
+<p>Application Ref. No.: <b>@Html.DisplayFor(model => model.mipd_kgid_application_number)</b></p>
+<hr />
+
+<p style="text-align: center;"><strong>PROPOSER DETAILS:</strong></p>
+<table style="width: 100%; border:none;" id="tblProposer">
+    <tbody>
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Proposer's( Owner’s) Full Name</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(model => model.mipd_proposer_fullname)
+                </p>
+            </td>
+
+        </tr>
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Email</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_email)
+                </p>
+            </td>
+
+        </tr>
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Address (Address where vehicle is normally kept and used )</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_address)
+                </p>
+            </td>
+
+        </tr>
+        @*<tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Fax No</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_fax_no)
+                </p>
+            </td>
+
+        </tr>*@
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Pin Code</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_pincode)
+                </p>
+            </td>
+
+        </tr>
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Occupation</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_occupation)
+                </p>
+            </td>
+
+        </tr>
+        <tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Telephone No</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_telephone_no)
+                </p>
+            </td>
+
+        </tr>
+        @*<tr style="height: 34px;">
+            <td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+            <td style="width: 20%; height: 34px;"><p>Type of Cover</p></td>
+            <td style="width: 50%; height: 34px;">
+                <p>
+                    :&nbsp;
+                    @Html.DisplayFor(Model => Model.mipd_type_of_cover)
+                </p>
+            </td>
+
+        </tr>*@
+        
+    </tbody>
+</table>
+
+

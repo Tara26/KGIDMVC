@@ -1,0 +1,47 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.PolicyPremiumDetailMI
+<div class="form-group">
+    <div class="row">
+        <div class="row col-sm-6">
+            <label class="control-label col-sm-4 pt-2-5" for="txtInitialAmt"><b>Initial Amount </b>: </label>
+            <span class="" id="spnInitialAmt">@Html.DisplayFor(m => m.PolicyPremiumAmount)</span>
+        </div>
+        <div class="row col-sm-6">
+            <label for="txtRefNo" class="control-label col-sm-4 pt-2-5"><b>Payment Reference No </b>: </label>
+            <span class="" id="spnRefNo">4521027890</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="row col-sm-6">
+            <label class="control-label col-sm-4 pt-2-5" for="txtPurpose"><b>Purpose </b>: </label>
+            <span class="" id="spnPurpose">Motor Insurance</span>
+        </div>
+        <div class="row col-sm-6">
+            <label for="txtSubPurpose" class="control-label col-sm-4 pt-2-5"><b>Sub Purpose </b>: </label>
+            <span class="" id="spnSubPurpose">Premium Motor</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="row col-sm-6">
+            <label class="control-label col-sm-4 pt-2-5" for="txtDDOCode"><b>DDO Code </b>: </label>
+            <span class="" id="spnDDOCode">@Html.DisplayFor(m => m.DDOCode)</span>
+        </div>
+        <div class="row col-sm-6">
+            <label for="txtHOA" class="control-label col-sm-4 pt-2-5"><b>HOA </b>: </label>
+            <span class="" id="spnHOA">Revenue Head of Account</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="row col-sm-6">
+            <label class="control-label col-sm-4 pt-2-5" for="txtPaymentDate"><b>Date </b>: </label>
+            <span class="" id="spnPaymentDate">@Convert.ToString(string.Format("{0:dd/MM/yyyy}",Model.LastUpdatedDateTime))</span>
+        </div>
+    </div>
+</div>
+

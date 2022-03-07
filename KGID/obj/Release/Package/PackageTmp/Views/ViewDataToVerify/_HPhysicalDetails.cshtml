@@ -1,0 +1,67 @@
+﻿@model KGID_Models.NBApplication.VM_MPhysicalDetails
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="knlan control-label col-sm-4 pt-2-5" for="txtPHeight"><b>ಪ್ರಸ್ತಾಪಕರ ಎತ್ತರ (ಸೆಂ) </b> </label>
+            <label class="Enlan control-label col-sm-4 pt-2-5" for="txtPHeight"><b>Proposer's Height [Cms] </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnPHeight">@Html.DisplayFor(model => model.empd_height)</span>
+        </div>
+        <div class="col-sm-6">
+            <label for="txtWEIGHT" class="knlan control-label col-sm-4 pt-2-5"><b>ಪ್ರಸ್ತಾಪಕರ ತೂಕ (ಕೆಜಿ) </b> </label>
+            <label for="txtWEIGHT" class="Enlan control-label col-sm-4 pt-2-5"><b>Proposer's Weight [Kgs] </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnWEIGHT">@Html.DisplayFor(model => model.empd_weight)</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="knlan control-label col-sm-4 pt-2-5" for="txtPulseRatePerMin"><b>ಪ್ರಸ್ತಾಪಕರ ನಾಡಿ ದರ (nos./min) </b> </label>
+            <label class="Enlan control-label col-sm-4 pt-2-5" for="txtPulseRatePerMin"><b>Proposer's Pulse Rate [No's/Min] </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnPulseRatePerMin">@Html.DisplayFor(model => model.empd_pulse_rate)</span>
+        </div>
+        <div class="col-sm-6">
+            <label for="txtBreathRatePerMin" class="knlan control-label col-sm-4 pt-2-5"><b>ಪ್ರಸ್ತಾಪಕರ ಉಸಿರಾಟದ ದರ (nos./min) </b> </label>
+            <label for="txtBreathRatePerMin" class="Enlan control-label col-sm-4 pt-2-5"><b>Proposer's Breathing Rate [No's/MIN] </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnBreathRatePerMin">@Html.DisplayFor(model => model.empd_breathing_rate)</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="knlan control-label col-sm-4 pt-2-5" for="txtPBP"><b>ಪ್ರಸ್ತಾಪಕರ ರಕ್ತದೊತ್ತಡ </b> </label>
+            <label class="Enlan control-label col-sm-4 pt-2-5" for="txtPBP"><b>Proposer's Blood Pressure </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnPBP">@Html.DisplayFor(model => model.empd_blood_pressure)</span>
+        </div>
+        <div class="col-sm-6">
+            <label for="txtLowDystolic" class="knlan control-label col-sm-4 pt-2-5"><b>ಕುಗ್ಗಿದಾಗ </b> </label>
+            <label for="txtLowDystolic" class="Enlan control-label col-sm-4 pt-2-5"><b>Low / Dystolic </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnLowDystolic">@Html.DisplayFor(model => model.empd_low_dystolic)</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="knlan control-label col-sm-4 pt-2-5" for="txtHighSystolic"><b>ಹಿಗ್ಗಿದಾಗ </b></label>
+            <label class="Enlan control-label col-sm-4 pt-2-5" for="txtHighSystolic"><b>HIGH Systolic </b> </label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnHighSystolic">@Html.DisplayFor(model => model.empd_high_systolic)</span>
+        </div>
+        <div class="col-sm-6">
+            <label for="txtRemarks" class="knlan control-label col-sm-4 pt-2-5"><b>ಷರ </b> </label>
+            <label for="txtRemarks" class="Enlan control-label col-sm-4 pt-2-5"><b>Remarks </b></label>
+            <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+            <span class="" id="spnRemarks">@Html.DisplayFor(model => model.empd_remarks)</span>
+        </div>
+    </div>
+</div>
+

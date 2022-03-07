@@ -1,0 +1,397 @@
+﻿
+
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsurancePreviousHistoryDetails
+
+<link href="~/Content/MotorInsurance.css" rel="stylesheet" />
+
+<form id="formPreviousHistoryMI" enctype="multipart/form-data" class="col-12">
+    <b>30. Previous History</b>
+    <div id="divPreviousHistoryMI" data-submit-url="@Url.Action("", "", new { area = "" })">
+
+        @Html.HiddenFor(m => m.ph_reference, new { @id = "hdnPHReferenceNo" })
+
+        <br />
+        <div class="row">
+            <div class="form-group col-8">
+                <label class="control-label text-justify"><b>a. Date of purchase of the vehicle by the proposer  </b>: </label>
+            </div>
+            <div class="form-group col-4">
+                <span class="" id="spnPHDateOfPurchase">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_DateOfPurchaseOfVehicle))</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-8">
+                <label class="control-label text-justify"><b>b. Whether the vehicle was New or SecondHand at the time of purchase  </b>: </label>
+            </div>
+
+            <div class="form-group col-4">
+
+                @if (Model.ph_PurchaseType == true)
+                {
+                    <span class="spPurchaseType ">Second</span>
+                }
+                else
+                {
+                    <span class="spPurchaseType ">New</span>
+                }
+            </div>
+        </div>
+
+        <span><b>c. Will the vehicle be used exclusively for ,</b>  </span>
+        <br />
+        <br />
+
+        <div>
+            <div class="row">
+
+                <div class="form-group col-8">
+                    <label class="control-label " style="margin-left: 20px;"><b> A. Private, Social, Domestic, Pleaasure & Professional purposes  </b>: </label>
+                </div>
+
+                <div class="form-group col-4">
+
+                    @if (Model.ph_VehicleUsedPurposeA == true)
+                    {
+                        <span class="spVehicleUsedA">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnVehicleUsedA">No</span>
+                    }
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="form-group col-8">
+                    <label class="control-label text-justify" style="margin-left: 20px;"><b>  B. Carriage of goods other than samples or personal luggage  </b>: </label>
+                </div>
+
+                <div class="form-group col-4">
+
+                    @if (Model.ph_VehicleUsedPurposeB == true)
+                    {
+                        <span class="spVehicleUsedB ">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="spnVehicleUsedB ">No</span>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-8">
+                <label class="control-label text-justify"><b> d. Is the vehicle is in good condition ?  </b>: </label>
+            </div>
+
+            <div class="form-group col-4">
+                @if (Model.ph_vehicleCondition == false)
+                {
+                    <span class="spvehicleCondition ">Yes</span>
+                }
+                else
+                {
+                    <span class="spnvehicleCondition ">No</span>
+                }
+            </div>
+        </div>
+        @if (Model.ph_vehicleCondition == true)
+        {
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify" style="margin-left: 20px;"><b>If 'no' please give full details  </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <span class="" id="spnPHVehicleConditionReason">@Html.DisplayFor(model => model.ph_VehicleConditionReason)</span>
+                </div>
+            </div>
+        }
+
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify"><b>e. Name and address of the previous insurer  </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <span class="" id="spnPHInsurerDetails">@Html.DisplayFor(model => model.ph_previousinsurerDetails)</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify" ><b>f. Previous Policy Number   </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <span class="" id="spnPHVPolicyNo">@Html.DisplayFor(model => model.ph_previousinsurerNo)</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify" style="margin-left: 20px;"><b>Period of insurance from   </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <div class="row">
+                        <div class="form-group col-5">
+                            <span class="" id="spnPHPrevInsureddatefrom">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_insuranceFromDt))</span>
+                        </div>
+                        <div class="form-group col-2">
+                            <b>To </b>
+                        </div>
+                        <div class="form-group col-5">
+                            <span class="" id="spnPrevInsureddateTo">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.ph_insuranceToDt))</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify"><b>g. Type of Cover </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <span class="" id="spnTypeOfCover">@Html.DisplayFor(model => model.ph_TypeOfCover)</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label " style="margin-left: 15px;" ><b>l. Has any insurance company ever : </b> </label>
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="control-label text-justify" style="margin-left: 20px;">
+                                <b>
+                                    <br />
+                                    a. Declined the proposal
+                                </b>:
+                            </label>
+                        </div>
+                        <div class="form-group col-4">
+                            @if (Model.ph_InsuranceDeclined == true)
+                            {
+                                <span id="spnInsuranceDeclined ">Yes</span>
+
+                            }
+                            else
+                            {
+
+                                <span class="spnInsuranceDeclined ">No</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <div class="row">
+                                <div class="form-group col-8">
+                                    <label class="control-label text-justify" style="margin-left: 20px;">
+                                        <b>
+                                            b. Cancelled and refused to renew
+                                        </b> :
+                                    </label>
+                                </div>
+                                <div class="form-group col-4">
+                                    @if (Model.ph_InsuranceCancelled == true)
+                                    {
+                                        <div class="form-group col-2">
+                                            <span id="spnInsuranceCancelled" style="margin-left: -15px;">Yes</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="spnInsuranceCancelled " style="margin-left: -15px;">No</span>
+                                    }
+                                </div>
+
+                            </div>
+                            @if (Model.ph_InsuranceCancelled == true)
+                            {
+                                <div class="row">
+                                    <div class="form-group col-8">
+                                        <label class="control-label text-justify" style="margin-left: 20px;">
+                                            <b>
+                                                If yes,reasons there of
+
+                                            </b>:
+                                        </label>
+
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <span id="spnInsuranceCancelledReason" >@Html.DisplayFor(model => model.ph_CancelledReason)</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <div class="row">
+                                <div class="form-group col-8">
+                                    <label class="control-label text-justify" style="margin-left: 20px;">
+                                        <b>
+                                            c.  Imposed special condition of excess
+                                        </b> :
+                                    </label>
+                                </div>
+                                <div class="form-group col-4">
+                                    @if (Model.ph_InsuranceImposed == true)
+                                    {
+                                        <div class="form-group col-2">
+                                            <span id="spnInsuranceImposed" style="margin-left: -15px;">Yes</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="spnInsuranceImposed " style="margin-left: -15px;">No</span>
+                                    }
+                                </div>
+
+                            </div>
+                            @if (Model.ph_InsuranceImposed == true)
+                            {
+                                <div class="row">
+                                    <div class="form-group col-8">
+                                        <label class="control-label text-justify" style="margin-left: 20px;">
+                                            <b>
+                                                If yes,reasons there of
+
+                                            </b>:
+                                        </label>
+
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <span id="spnInsuranceImposedReason">@Html.DisplayFor(model => model.ph_ImposedReason)</span>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label " style="margin-left: 15px;">
+                    <b>
+                        31. Details of Hire Purchase / Hypothecation / Lease <br />  <br />
+                       <span style="margin-left: 15px;"> a. If the vehicle proposed for insurance</span> 
+                    </b>
+
+                </label>
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="control-label text-justify" style="margin-left: 25px;">
+                                <b>
+                                    <br />
+                                    Under Hire Purchase
+                                </b>:
+                            </label>
+                        </div>
+                        <div class="form-group col-4">
+                            @if (Model.ph_Hire == true)
+                            {
+                                <span id="spnMedicalAdviceDetails">Yes</span>
+
+                            }
+                            else
+                            {
+
+                                <span class="spnVehicleUsedA ">No</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="control-label text-justify" style="margin-left: 25px;">
+                                <b>
+                                    <br />
+                                    Under Lease agreement :
+                                </b>:
+                            </label>
+                        </div>
+                        <div class="form-group col-4">
+                            @if (Model.ph_Lease == true)
+                            {
+
+                                <span id="spnMedicalAdviceDetails">Yes</span>
+
+                            }
+                            else
+                            {
+                                <span class="spnVehicleUsedB ">No</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label class="control-label text-justify" style="margin-left: 25px;">
+                                <b>
+                                    <br />
+                                    Under Hypothecation Agreement
+                                </b>:
+                            </label>
+                        </div>
+                        <div class="form-group col-4">
+                            @if (Model.ph_Hypothecation == true)
+                            {
+                                <span id="spnMedicalAdviceDetails">Yes</span>
+
+                            }
+                            else
+                            {
+                                <span class="spnVehicleUsedB ">No</span>
+                            }
+                        </div>
+                    </div>
+                    @if (Model.ph_Hypothecation == true || Model.ph_Lease == true || Model.ph_Hire == true)
+                    {
+                        <div class="row">
+                            <div class="form-group col-8">
+                                <label class="control-label text-justify" style="margin-left: 25px;"><b>b. If yes, give name and address of concerned parties   </b>: </label>
+                            </div>
+                            <div class="form-group col-4">
+                                <span class="" id="spnPHDateOfPurchase">@Html.DisplayFor(model => model.ph_HReason)</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col-8">
+                    <label class="control-label text-justify"><b>33. Any other relevant information  </b>: </label>
+                </div>
+                <div class="form-group col-4">
+                    <span class="" id="spnPHDateOfPurchase">@Html.DisplayFor(model => model.ph_OtherInfo)</span>
+                </div>
+            </div>
+        </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+
+
+        if ($('[name="ph_InsuranceCancelled"]:checked').val() == "True") {
+            $("#divCancellation").show();
+            $("#ph_CancelledReason").addClass("txtar-personal-req");
+
+        }
+        if ($('[name="ph_vehicleCondition"]:checked').val() == "True") {
+            $("#divVehicleCondition").hide();
+            $("#txtPHReason").addClass("txtar-personal-req");
+
+        }
+        if ($('[name="ph_InsuranceImposed"]:checked').val() == "True") {
+            $("#divImposed").show();
+            $("#ph_ImposedReason").addClass("txtar-personal-req");
+
+        }
+
+    });
+</script>

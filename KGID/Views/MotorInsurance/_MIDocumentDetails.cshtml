@@ -1,0 +1,831 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MI_Upload_Documents
+<style>
+    .IsDocType {
+        box-sizing: border-box;
+        padding: 0;
+        visibility: hidden;
+    }
+   
+</style>
+<div class="col-md-12">
+    <div class="login-form shadow-lg">
+        <div class="row">
+
+            @Html.HiddenFor(a => a.MIPAgetype, new { @id="hdnDocPage"})
+            <div class="col-lg-12">
+                <div class="p-5">
+                    <div class="text-center" style="padding: 1px;border: 3px solid #096cd2;">
+                        <div class="row">
+                            @if (Model.MIPAgetype == "Renewal" || Model.MIPAgetype == "EditRenewal")
+                            {
+                                <div class="form-group col-form-label-sm col-lg-4 mb-0">
+                                    <div class=" ">
+                                       
+                                        @Html.RadioButtonFor(model => model.IsDocType, 5, new { @id = "IsRenewal", @class = "float-left IsDocType",@checked = "checked",style = "display:none;"})
+                                        <label >Renewal Upload Documents</label>
+                                    </div>
+                                </div>
+                                
+                            }
+                            else
+                            {
+                                <div class="form-group col-form-label-sm col-lg-3 mb-0">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkNewPurchasedVehicle">
+                                        @*@Html.CheckBoxFor(model => model.IsNewPurchase, new { @id = "IsNewPurchase", @class = "form-control" })*@
+                                        @Html.RadioButtonFor(model => model.IsDocType, 1, new { @id = "IsNewPurchase", @class = "float-left IsDocType" })
+                                        <label class="custom-control-label pt-1" for="chkNewPurchasedVehicle" id="lblDepartment">New Purchased Vehicle</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-form-label-sm col-lg-3 mb-0">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkPreviouslyInsuredVehicle">
+                                        @*@Html.CheckBoxFor(model => model.IsNewPurchase, new { @id = "IsNewPurchase", @class = "form-control" })*@
+                                        @Html.RadioButtonFor(model => model.IsDocType, 4, new { @id = "IsPreviouslyInsured", @class = "float-left IsDocType" })
+                                        <label class="custom-control-label pt-1" for="chkPreviouslyInsuredVehicle" id="lblDepartment">Previously Insured Vehicle</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-form-label-sm col-lg-3 mb-0">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkDonatedVehicle">
+                                        @Html.RadioButtonFor(model => model.IsDocType, 2, new { @id = "IsDonatedVehicle", @class = "float-left IsDocType" })
+                                        <label class="custom-control-label pt-1" for="chkDonatedVehicle" id="lblKGID">Donated Vehicle / Used Vehicle</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-form-label-sm col-lg-3 mb-0">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="radio" class="custom-control-input" name="loginType" id="chkSeizedVehicle">
+                                        @Html.RadioButtonFor(model => model.IsDocType, 3, new { @id = "IsSeizedVehicle", @class = "float-left IsDocType" })
+                                        <label class="custom-control-label pt-1" for="chkSeizedVehicle" id="lblNewEmp">Seized Vehicle</label>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <form id="FormMIDocumentDetails" enctype="multipart/form-data" class="col-12">
+
+                        @Html.AntiForgeryToken();
+                        @if (Model.MIPAgetype == "Renewal" || Model.MIPAgetype == "EditRenewal")
+                        {
+                            <div class="user" id="RenwalEmissionDoc" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                <div class="row form-group">
+                                    <label class="control-label col-3 required"></label>
+                                    <div class="col-9">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <br />
+                                        <label for="Emissionform" class="text-info">Emission Certificate :</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.RenewalFitnessCertificateRTODoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtRenewalFitnessCertificateRTOfilename">Previously uploaded Document: <a href="@Model.RenewalFitnessCertificateRTODoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.RenewalFitnessCertificateRTODoc_filename, new { @id = "txtHRenewalFitnessCertificateRTOfilename", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            
+                                        }
+                                        @Html.TextBoxFor(m => m.RenewalFitnessCertificateRTODoc, new { @id = "txtURenewalFitnessCertificateRTO", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", @onchange = "DocFileChange(this.id,'errRenewalFitnessCertificate')" })
+                                        <label id="errRenewalFitnessCertificate" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="user" id="NewPurchasedVehicle" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                <div class="row form-group">
+                                    <label class="control-label col-3 required"></label>
+                                    <div class="col-9">
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="display:none">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProposalForm" class="text-info">Proposal Form:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocNewPurchase_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtProposalDocNewPurchaseFileName">Previously uploaded Document: <a href="@Model.ProposalDocNewPurchase_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.ProposalDocNewPurchase_filename, new { @id = "txtHProposalDocNewPurchase", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.ProposalDocNewPurchase, new { @id = "txtProposalDocNewPurchase", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" }) @*//, @onchange = "DocFileChange(this.id,'errProposalDocNewPurchase')"*@
+                                        <label id="errProposalDocNewPurchase" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="SanctionLetter" class="text-info">Sanction Letter from Government:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.GovtSanctionDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtGovtSanctionDocFileName">Previously uploaded Document: <a href="@Model.GovtSanctionDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.GovtSanctionDoc_filename, new { @id = "txtHGovtSanctionDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.GovtSanctionDoc, new { @id = "txtGovtSanctionDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errGovtSanctionDoc')" })
+                                        <label id="errGovtSanctionDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProformaInvoice" class="text-info">Tax Invoice:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProformaInvoiceDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtProformaInvoiceDocFileName">Previously uploaded Document: <a href="@Model.ProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.ProformaInvoiceDoc_filename, new { @id = "txtHProformaInvoiceDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.ProformaInvoiceDoc, new { @id = "txtProformaInvoiceDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errProformaInvoiceDoc')" })
+                                        <label id="errProformaInvoiceDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="PSaleCertificate" class="text-info">Sale Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.PSaleCertificateDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPSaleCertificateDocFileName">Previously uploaded Document: <a href="@Model.PSaleCertificateDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.PSaleCertificateDoc_filename, new { @id = "txtHPSaleCertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.PSaleCertificateDoc, new { @id = "txtPSaleCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errPSaleCertificateDoc')" })
+                                        <label id="errPSaleCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="POtherDocuments" class="text-info">Other Documents:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.OtherDocument1_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtNPVOtherDocFileName">Previously uploaded Document: <a href="@Model.OtherDocument1_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.OtherDocument1_filename, new { @id = "txtNPVOtherDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.OtherDocument1, new { @id = "txtOtherDocument", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errNPVOtherDoc')" })
+                                        <label id="errNPVOtherDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group row">
+            <div class="col-4">
+                <br />
+                <label for="NPVOtherDocuments" class="text-info">Other Documents:</label>
+            </div>
+            <div class="col-6">
+
+                <div class='file_upload'>-->
+                                @*<input name="@Model.OtherDocumentsFile[1].OtherDocument" type='file' class="form-control col-8 display-as-label-upload" id='NPVf1' /></div>*@
+
+                                <!--<input name="OtherDocument1" type='file' class="form-control col-8 display-as-label-upload" id='NPVf1' /></div>
+                        <div id='file_tools'>
+                            <button id="btnNPVAddfile" type="button" class="btn btn-info">Add </button>
+                            <button id="btnNPVDelfile" type="button" class="btn btn-info">Delete</button>
+                        </div>
+                    </div>
+            </div>-->
+                            </div>
+                            <div class="user" id="PreviouslyInsuredVehicle" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                <div class="row form-group">
+                                    <label class="control-label col-3 required"></label>
+                                    <div class="col-9">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="SanctionLetter" class="text-info">Sanction Letter from Government:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.PIVGovtSanctionDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPIVGovtSanctionDocFileName">Previously uploaded Document: <a href="@Model.PIVGovtSanctionDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.PIVGovtSanctionDoc_filename, new { @id = "txtHPIVGovtSanctionDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.PIVGovtSanctionDoc, new { @id = "txtPIVGovtSanctionDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errPIVGovtSanctionDoc')" })
+                                        <label id="errPIVGovtSanctionDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProformaInvoice" class="text-info">Tax Invoice:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.PIVProformaInvoiceDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPIVProformaInvoiceDocFileName">Previously uploaded Document: <a href="@Model.PIVProformaInvoiceDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.PIVProformaInvoiceDoc_filename, new { @id = "txtPIVHProformaInvoiceDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.PIVProformaInvoiceDoc, new { @id = "txtPIVProformaInvoiceDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errPIVProformaInvoiceDoc')" })
+                                        <label id="errPIVProformaInvoiceDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="PSaleCertificate" class="text-info">Sale Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.PIVPSaleCertificateDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPIVPSaleCertificateDocFileName">Previously uploaded Document: <a href="@Model.PIVPSaleCertificateDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.PIVPSaleCertificateDoc_filename, new { @id = "txtPIVHPSaleCertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.PIVPSaleCertificateDoc, new { @id = "txtPIVPSaleCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errPIVPSaleCertificateDoc')" })
+                                        <label id="errPIVPSaleCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProposalForm" class="text-info">Old Insurance Certificate :</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.OldInsuranceCertificate_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPIVOldInsuranceCertificateFileName">Previously uploaded Document: <a href="@Model.OldInsuranceCertificate_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.OldInsuranceCertificate_filename, new { @id = "txtPIVHOldInsuranceCertificate", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.OldInsuranceCertificate, new { @id = "txtPIVOldInsuranceCertificate", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" }) @*//, @onchange = "DocFileChange(this.id,'errProposalDocNewPurchase')"*@
+                                        <label id="errPIVOldInsuranceCertificate" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="POtherDocuments" class="text-info">Other Documents:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.OtherDocument4_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtPIVOtherDocFileName">Previously uploaded Document: <a href="@Model.OtherDocument4_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.OtherDocument4_filename, new { @id = "txtPIVOtherDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.OtherDocument4, new { @id = "txtPIVOtherDocument", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errPIVOtherDoc')" })
+                                        <label id="errPIVOtherDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group row">
+            <div class="col-4">
+                <br />
+                <label for="NPVOtherDocuments" class="text-info">Other Documents:</label>
+            </div>
+            <div class="col-6">
+
+                <div class='file_upload'>-->
+                                @*<input name="@Model.OtherDocumentsFile[1].OtherDocument" type='file' class="form-control col-8 display-as-label-upload" id='NPVf1' /></div>*@
+
+                                <!--<input name="OtherDocument1" type='file' class="form-control col-8 display-as-label-upload" id='NPVf1' /></div>
+                        <div id='file_tools'>
+                            <button id="btnNPVAddfile" type="button" class="btn btn-info">Add </button>
+                            <button id="btnNPVDelfile" type="button" class="btn btn-info">Delete</button>
+                        </div>
+                    </div>
+            </div>-->
+                            </div>
+                            <div class="user" id="DonatedVehicle" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                <div class="row form-group">
+                                    <label class="control-label col-3 required"></label>
+                                    <div class="col-9">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="LetterofDonation" class="text-info">Letter of Donation:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.DonationDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtDonationDocFileName">Previously uploaded Document: <a href="@Model.DonationDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.DonationDoc_filename, new { @id = "txtHDonationDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.DonationDoc, new { @id = "txtDonationDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errDonationDoc')" })
+                                        <label id="errDonationDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row"  style="display:none">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProposalForm" class="text-info">Proposal Form:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocDonatedVehicle_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtProposalDocDonatedVehicleFileName">Previously uploaded Document: <a href="@Model.ProposalDocDonatedVehicle_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.ProposalDocDonatedVehicle_filename, new { @id = "txtHProposalDocDonatedVehicle", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.ProposalDocDonatedVehicle, new { @id = "txtProposalDocDonatedVehicle", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" }) @*, onchange = "DocFileChange(this.id,'errProposalDocDonatedVehicle')"*@
+                                        <label id="errProposalDocDonatedVehicle" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="SaleCertificate" class="text-info">Sale Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.SaleCertificateDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtSaleCertificateDocFileName">Previously uploaded Document: <a href="@Model.SaleCertificateDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.SaleCertificateDoc_filename, new { @id = "txtHSaleCertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.SaleCertificateDoc, new { @id = "txtSaleCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errSaleCertificateDoc')" })
+                                        <label id="errSaleCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="TaxInvoice" class="text-info">Tax Invoice:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.TaxInvoiceDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtTaxInvoiceDocFileName">Previously uploaded Document: <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.TaxInvoiceDoc_filename, new { @id = "txtHTaxInvoiceDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.TaxInvoiceDoc, new { @id = "txtTaxInvoiceDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errTaxInvoiceDoc')" })
+                                        <label id="errTaxInvoiceDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="DonatedEmissionDiv">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="DEmssionCertificate" class="text-info">Emission Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.DonatedEmissionCertificate_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtDonatedEmissionFileName">Previously uploaded Document: <a href="@Model.TaxInvoiceDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.DonatedEmissionCertificate_filename, new { @id = "txtHDonatedEmissionCertificate", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.DonatedEmissionCertificate, new { @id = "txtDonatedEmissionCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errDonatedEmissionCertificateDoc')" })
+                                        <label id="errDonatedEmissionCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="POtherDocuments" class="text-info">Other Documents:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.OtherDocument2_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtDVOtherDocFileName">Previously uploaded Document: <a href="@Model.OtherDocument2_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.OtherDocument2_filename, new { @id = "txtDVOtherDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.OtherDocument2, new { @id = "txtDVOtherDocument", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errDVOtherDoc')" })
+                                        <label id="errDVOtherDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user" id="SeizedVehicle" style="padding: 10px;border:1px solid rgb(229, 229, 229);">
+                                <div class="row form-group">
+                                    <label class="control-label col-3 required"></label>
+                                    <div class="col-9">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="cCertificate" class="text-info">“B” Extract from RTO- Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.cCertificateDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtcCertificateDocFileName">Previously uploaded Document: <a href="@Model.cCertificateDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.cCertificateDoc_filename, new { @id = "txtHcCertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.cCertificateDoc, new { @id = "txtcCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errcCertificateDoc')" })
+                                        <label id="errcCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row"  style="display:none">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="ProposalForm" class="text-info">Proposal Form:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.ProposalDocSeizedVehicle_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtProposalDocSeizedVehicleFileName">Previously uploaded Document: <a href="@Model.ProposalDocSeizedVehicle_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.ProposalDocSeizedVehicle_filename, new { @id = "txtHProposalDocSeizedVehicle", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.ProposalDocSeizedVehicle, new { @id = "txtProposalDocSeizedVehicle", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload" }) @*, onchange = "DocFileChange(this,this.id,'errProposalDocSeizedVehicle')"*@
+                                        <label id="errProposalDocSeizedVehicle" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="RTOcertificate" class="text-info">Tax Invoice from Showroom / Vehicle present Value from RTO:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.RTOcertificateDoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtRTOcertificateDocFileName">Previously uploaded Document: <a href="@Model.RTOcertificateDoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.RTOcertificateDoc_filename, new { @id = "txtHRTOcertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.RTOcertificateDoc, new { @id = "txtRTOcertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errRTOcertificateDoc')" })
+                                        <label id="errRTOcertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+
+                                        <label for="fitnesscertificate" class="text-info">Fitness Certificate from RTO:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.FitnessCertificateRTODoc_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtfitnesscertificateFileName">Previously uploaded Document: <a href="@Model.FitnessCertificateRTODoc_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.FitnessCertificateRTODoc_filename, new { @id = "txtHfitnesscertificateDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.FitnessCertificateRTODoc, new { @id = "txtfitnesscertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errfitnesscertificateDoc')" })
+                                        <label id="errfitnesscertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="SeizedEmissionDiv">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="SEmssionCertificate" class="text-info">Emission Certificate:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.SeizedEmissionCertificate_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtSeizedEmissionCertificatFileName">Previously uploaded Document: <a href="@Model.SeizedEmissionCertificate_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.SeizedEmissionCertificate_filename, new { @id = "txtHSeizedEmissionCertificate", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.SeizedEmissionCertificate, new { @id = "txtSeizedEmissionCertificateDoc", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errSeizedEmissionCertificateDoc')" })
+                                        <label id="errSeizedEmissionCertificateDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-4">
+                                        <br />
+                                        <label for="SOtherDocuments" class="text-info">Other Documents:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (!string.IsNullOrEmpty(Model.OtherDocument3_filename))
+                                        {
+                                            <label class="col-12 prevdoc" id="txtSVOtherDocFileName">Previously uploaded Document: <a href="@Model.OtherDocument3_filename" target="_blank" class="doc-uploaded" style="color:blue;text-decoration:underline">Click Here</a></label>
+                                            @Html.TextBoxFor(model => model.OtherDocument3_filename, new { @id = "txtSVOtherDoc", @class = "form-control ", @readonly = "readonly", style = "font-weight: bold;display:none;" })
+                                            @*<a href="@Model.Miod_is_no_claim_bonus_doc_filename" target="_blank" class="doc-uploaded">Click Here</a>*@
+                                        }
+                                        @Html.TextBoxFor(m => m.OtherDocument3, new { @id = "txtSVOtherDocument", type = "file", accept = "application/pdf", @class = "form-control col-8 display-as-label-upload", onchange = "DocFileChange(this.id,'errSVOtherDoc')" })
+                                        <label id="errSVOtherDoc" class="col-form-label-sm text-danger err" hidden>Please upload supporting document.</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+                    </form>
+                </div>
+
+
+          
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+
+        if ($("input[name='ph_PurchaseType']:checked").val() == "False") {
+            document.getElementById("chkNewPurchasedVehicle").checked = "true";
+            
+           $("#IsNewPurchase").prop("checked", "checked");
+            $('#NewPurchasedVehicle').show();
+            $('#DonatedVehicle').hide();
+            $('#PreviouslyInsuredVehicle').hide();
+            $('#SeizedVehicle').hide();
+           
+            
+            $('#txtHDonatedEmissionCertificate').val("");
+
+            if ($('#txtHDonatedEmissionCertificate').val()=='') {
+            $('#txtDonationDocFileName').hide();
+            $('#txtSaleCertificateDocFileName').hide();
+            $('#txtTaxInvoiceDocFileName').hide();
+            $('#txtDVOtherDocFileName').hide();
+          //  $('#txtDonatedEmissionFileName').hide('');
+            }
+
+        }
+        else if ($("input[name='ph_PurchaseType']:checked").val() == "True") {
+
+            //document.getElementById("chkSeizedVehicle").checked = "true";
+            //$("#IsSeizedVehicle").prop("checked", "checked");
+            //$('#NewPurchasedVehicle').hide();
+            //$('#PreviouslyInsuredVehicle').hide();
+            //$('#DonatedVehicle').hide();
+            //$('#SeizedVehicle').show();
+
+         
+                document.getElementById("chkPreviouslyInsuredVehicle").checked = "true";
+                $("#IsPreviouslyInsured").prop("checked", "checked");
+                $('#NewPurchasedVehicle').hide();
+                $('#DonatedVehicle').hide();
+                $('#PreviouslyInsuredVehicle').show();
+                $('#SeizedVehicle').hide();
+          
+        } 
+        SelectCheckboxbasedonFileName();
+
+    });
+
+ function SelectCheckboxbasedonFileName() {
+    debugger;
+    @*var NewPurchasedVehicle = '@Model.GovtSanctionDoc_filename';
+    var DonatedVehicle = '@Model.ProposalDocDonatedVehicle_filename';
+    var PreviouslyInsuredVehicle = '@Model.PIVGovtSanctionDoc_filename';
+    var SeizedVehicle = '@Model.ProposalDocSeizedVehicle_filename';*@
+
+   
+
+     var NewPurchasedVehicle = $('#txtHGovtSanctionDoc').val();
+     var DonatedVehicle = $('#txtHDonationDoc').val();
+     var PreviouslyInsuredVehicle = $('#txtHPIVGovtSanctionDoc').val();
+     var SeizedVehicle = $('#txtHcCertificateDoc').val();
+
+
+     if ($("input[name='ph_PurchaseType']:checked").val() == "True") {
+         if (SeizedVehicle != null && SeizedVehicle != "") {
+             document.getElementById("chkSeizedVehicle").checked = "true";
+             $('#SeizedVehicle').show();
+             $("#IsSeizedVehicle").prop("checked", "checked");
+             $('#NewPurchasedVehicle').hide();
+             $('#DonatedVehicle').hide();
+             $('#PreviouslyInsuredVehicle').hide();
+
+         }
+         else if (PreviouslyInsuredVehicle != null && PreviouslyInsuredVehicle != "") {
+             document.getElementById("chkPreviouslyInsuredVehicle").checked = "true";
+             $('#PreviouslyInsuredVehicle').show();
+             $("#IsPreviouslyInsured").prop("checked", "checked");
+             $('#NewPurchasedVehicle').hide();
+             $('#DonatedVehicle').hide();
+             $('#SeizedVehicle').hide();
+         }
+     }
+     else {
+         if (NewPurchasedVehicle != null && NewPurchasedVehicle != "") {
+             document.getElementById("chkNewPurchasedVehicle").checked = "true";
+             $('#NewPurchasedVehicle').show();
+             $("#IsNewPurchase").prop("checked", "checked");
+             $('#DonatedVehicle').hide();
+             $('#PreviouslyInsuredVehicle').hide();
+             $('#SeizedVehicle').hide();
+         }
+     } 
+     if (DonatedVehicle != null && DonatedVehicle != "") {
+         document.getElementById("chkDonatedVehicle").checked = "true";
+         $('#DonatedVehicle').show();
+         $("#IsDonatedVehicle").prop("checked", "checked");
+         $('#NewPurchasedVehicle').hide();
+         $('#PreviouslyInsuredVehicle').hide();
+         $('#SeizedVehicle').hide();
+         $('#txtDonationDocFileName').show();
+         $('#txtSaleCertificateDocFileName').show();
+         $('#txtTaxInvoiceDocFileName').show();
+         $('#txtDVOtherDocFileName').show();
+         if ($("input[name='ph_PurchaseType']:checked").val() == "True") {
+             $('#DonatedEmissionDiv').show();
+         }
+         else {
+             $('#DonatedEmissionDiv').hide();
+         }
+         // $('#txtDonatedEmissionFileName').show('');
+     }
+}
+    //$(document).ready(function () {
+    //    debugger;
+    //    var counter = 2;
+    //    $('#btnNPVDelfile').hide();
+    //    $('#btnNPVAddfile').click(function () {
+    //        if (counter < 6) {
+    //            $('#file_tools').before('<div class="file_upload" ><input name="OtherDocument'+counter+'" type="file" class="form-control col-8 display-as-label-upload" id="NPVf' + counter + '"></div>');
+    //            $('#btnNPVDelfile').fadeIn(0);
+    //            counter++;
+    //        }
+    //        else {
+    //            alertify.alert("Max no. of add on's allowed is 5").setHeader("Alert");
+    //        }
+
+    //    });
+    //    $('#btnNPVDelfile').click(function () {
+    //        if (counter == 3) {
+    //            $('#btnNPVDelfile').hide();
+    //        }
+    //        counter--;
+    //        $('#NPVf' + counter).remove();
+    //    });
+    //});
+
+
+    $('#chkNewPurchasedVehicle').click(function () {
+        if ($("input[name='ph_PurchaseType']:checked").val() == "False") {
+            $("#IsNewPurchase").prop("checked", "checked");
+            $('#DonatedVehicle').hide();
+            $('#SeizedVehicle').hide();
+            $('#PreviouslyInsuredVehicle').hide();
+            $('#NewPurchasedVehicle').show();
+            resetSeizedDonatedDocuments();
+        }
+         else {
+            alertify.alert("Applicable only for New Vehicle.").setHeader("Warning!!!");
+            document.getElementById("chkPreviouslyInsuredVehicle").checked = "true";
+            $("#IsPreviouslyInsured").prop("checked", "checked");
+            $('#NewPurchasedVehicle').hide();
+            $('#DonatedVehicle').hide();
+            $('#SeizedVehicle').hide();
+            $('#PreviouslyInsuredVehicle').show();
+            $(this).prop('checked', false);
+            SelectCheckboxbasedonFileName();
+       //document.getElementById("chkSeizedVehicle").checked = "true";
+        }
+    });
+    $('#chkDonatedVehicle').click(function () {
+        debugger;
+        $("#IsDonatedVehicle").prop("checked", "checked");
+        $('#DonatedVehicle').show();
+        $('#SeizedVehicle').hide();
+        $('#PreviouslyInsuredVehicle').hide();
+        $('#NewPurchasedVehicle').hide();
+        resetNewSeizedDocuments();
+        if ($("input[name='ph_PurchaseType']:checked").val() == "True")
+        {
+            $('#DonatedEmissionDiv').show();
+        }
+        else
+        {
+             $('#DonatedEmissionDiv').hide();
+        }
+
+    });
+    $('#chkSeizedVehicle').click(function () {
+        if ($("input[name='ph_PurchaseType']:checked").val() == "True") {
+            $("#IsSeizedVehicle").prop("checked", "checked");
+            $('#DonatedVehicle').hide();
+            $('#PreviouslyInsuredVehicle').hide();
+            $('#SeizedVehicle').show();
+            $('#NewPurchasedVehicle').hide();
+            resetNewDonatedDocuments();
+        }
+        else if ($("input[name='ph_PurchaseType']:checked").val() == "False"){
+            alertify.alert("Applicable only for Used Vehicle.").setHeader("Warning!!!");
+            document.getElementById("chkNewPurchasedVehicle").checked = "true";
+            $("#IsNewPurchase").prop("checked", "checked");
+            $('#NewPurchasedVehicle').show();
+            $('#PreviouslyInsuredVehicle').hide();
+            $('#DonatedVehicle').hide();
+            $('#SeizedVehicle').hide();
+            $(this).prop('checked', false);
+            SelectCheckboxbasedonFileName();
+
+        }
+    });
+    $('#chkPreviouslyInsuredVehicle').click(function () {
+        debugger;
+        if ($("input[name='ph_PurchaseType']:checked").val() == "True") {
+            $("#IsPreviouslyInsured").prop("checked", "checked");
+            $('#DonatedVehicle').hide();
+            $('#PreviouslyInsuredVehicle').show();
+            $('#SeizedVehicle').hide();
+            $('#NewPurchasedVehicle').hide();
+            resetNewDonatedDocuments();
+        }
+        else if ($("input[name='ph_PurchaseType']:checked").val() == "False") {
+            alertify.alert("Applicable only for Used Vehicle.").setHeader("Warning!!!");
+            document.getElementById("chkNewPurchasedVehicle").checked = "true";
+            $("#IsNewPurchase").prop("checked", "checked");
+            $('#NewPurchasedVehicle').show();
+            $('#PreviouslyInsuredVehicle').hide();
+            $('#DonatedVehicle').hide();
+            $('#SeizedVehicle').hide();
+            $(this).prop('checked', false);
+            SelectCheckboxbasedonFileName();
+        }
+    });
+    function resetNewSeizedDocuments() {
+        //New
+        $("#txtProposalDocNewPurchase").val('');
+        $("#txtGovtSanctionDoc").val('');
+        $("#txtProformaInvoiceDoc").val('');
+        $("#txtPSaleCertificateDoc").val('');
+        $("#txtOtherDocument").val('');
+
+        //Seized
+        $("#txtProposalDocSeizedVehicle").val('');
+        $("#txtcCertificateDoc").val('');
+        $("#txtRTOcertificateDoc").val('');
+        $("#FitnessCertificateRTODoc").val('');
+        $("#txtSeizedEmissionCertificateDoc").val('');
+        $("#txtSVOtherDocument").val('');
+
+        //Previously Insured
+        $("#txtPIVGovtSanctionDoc").val('');
+        $("#txtPIVProformaInvoiceDoc").val('');
+        $("#txtPIVPSaleCertificateDoc").val('');
+        $("#txtPIVOtherDocument").val('');
+        $("#txtPIVOldInsuranceCertificate").val('');
+
+
+    }
+    function resetNewDonatedDocuments() {
+        //New
+        $("#txtProposalDocNewPurchase").val('');
+        $("#txtGovtSanctionDoc").val('');
+        $("#txtProformaInvoiceDoc").val('');
+         $("#txtPSaleCertificateDoc").val('');
+        $("#txtOtherDocument").val('');
+        //Donated
+        $("#txtProposalDocDonatedVehicle").val('');
+        $("#txtDonationDoc").val('');
+        $("#txtSaleCertificateDoc").val('');
+        $("#txtTaxInvoiceDoc").val('');
+        $("#txtDonatedEmissionCertificateDoc").val('');
+        $("#txtDVOtherDocument").val('');
+
+        //Previously Insured
+        $("#txtPIVGovtSanctionDoc").val('');
+        $("#txtPIVProformaInvoiceDoc").val('');
+        $("#txtPIVPSaleCertificateDoc").val('');
+        $("#txtPIVOtherDocument").val('');
+        $("#txtPIVOldInsuranceCertificate").val('');
+    }
+    function resetSeizedDonatedDocuments() {
+        //Seized
+        $("#txtProposalDocSeizedVehicle").val('');
+        $("#txtcCertificateDoc").val('');
+        $("#txtRTOcertificateDoc").val('');
+        $("#FitnessCertificateRTODoc").val('');
+        $("#txtSeizedEmissionCertificateDoc").val('');
+        $("#txtSVOtherDocument").val('');
+
+        //Donated
+        $("#txtProposalDocDonatedVehicle").val('');
+        $("#txtDonationDoc").val('');
+        $("#txtSaleCertificateDoc").val('');
+        $("#txtTaxInvoiceDoc").val('');
+        $("#txtDonatedEmissionCertificateDoc").val('');
+        $("#txtDVOtherDocument").val('');
+
+        //Previously Insured
+       // $("#txtProposalDocNewPurchase").val('');
+        $("#txtPIVGovtSanctionDoc").val('');
+        $("#txtPIVProformaInvoiceDoc").val('');
+        $("#txtPIVPSaleCertificateDoc").val('');
+        $("#txtPIVOtherDocument").val('');
+        $("#txtPIVOldInsuranceCertificate").val('');
+    }
+  
+</script>

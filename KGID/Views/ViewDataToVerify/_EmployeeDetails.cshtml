@@ -1,0 +1,83 @@
+﻿@model KGID_Models.KGIDEmployee.VM_EditEmployeeDetails
+
+<div id="divEditEmpPopup"
+     data-save-url="@Url.Action("SaveEmployeeBasicDetails", "Employee", new { area = "" })">
+    <div class="row col-12">
+        @Html.HiddenFor(m => m.EmpId, new { id = "hdnEmpId" })
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.Name, "Name of employee", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "txtName" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.FatherName, "Father's name", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.FatherName, new { @class = "form-control", id = "txtFatherName" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.SpouseName, "Spouse name", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.SpouseName, new { @class = "form-control", id = "txtSpouseName" })
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.Gender, "Gender", new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.Gender, new SelectList(Model.Genders, "Text", "Value"), "-- Select Gender --", new { @class = "form-control", id = "ddlGender" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.MobileNumber, "Mobile number", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", id = "txtMobileNumber" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.EmailId, "Email address", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", id = "txtEmailId" })
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.DateOfBirth, "Date of birth", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.DateOfBirth, "{0:dd-MM-yyyy}", new { @class = "form-control", id = "txtDateOfBirth" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.PlaceOfBirth, "Place of birth", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.PlaceOfBirth, new { @class = "form-control", id = "txtPlaceOfBirth" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.DepartmentCode, "Department code", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.DepartmentCode, new { @class = "form-control", id = "txtDepartmentCode" })
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.DDOCode, "DDO code", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.DDOCode, new { @class = "form-control", id = "txtDDOCode" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.DateOfAppointment, "Date of appointment", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.DateOfAppointment, "{0:dd-MM-yyyy}", new { @class = "form-control", id = "txtDateOfAppointment" })
+        </div>
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.PANNumber, "PAN number", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.PANNumber, new { @class = "form-control", id = "txtPANNumber" })
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="form-group col-4">
+            @Html.LabelFor(m => m.IsActive, "Is employee active?", new { @class = "control-label" })
+            @Html.CheckBoxFor(m => m.IsActive, new { id = "chkIsActive" })
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = new Date();
+        $('#txtDateOfBirth').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            closeOnDateSelect: true
+        });
+    });
+</script>

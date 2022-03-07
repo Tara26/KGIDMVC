@@ -1,0 +1,19 @@
+﻿@model KGID_Models.KGIDNBApplication.tbl_medical_declaration
+<div class="container" id="divHDeclaration">
+    <div class="row">
+        <div class="form-group col-6">
+            Reference Number : <b><span id="spnHDReferanceNo"></span></b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            @Html.CheckBoxFor(model => model.md_declaration_status, new { @id = "chkHDeclaration", @disabled = true })
+            I do hereby declare that the proposal statements and those made by me to the Medical Officer are true to the best of knowledge and belief and that I have not with-held or concealed any circumstance with regard to which information has been required from me. I agree that the statements made by me shall be the basis of the proposed ontract for any insurance of my life and that if it shall hereafter appear that I have wilfully made any untrue statements or have fradulently concealed any circumstance which I ought to have made know, then all the premiums which shall have been paid under the said contract shall be forfelted, and the contract rendered absolutely.
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-12">
+            <span><b>Date : @DateTime.Now.ToString("dd-MM-yyyy")</b></span><span></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+﻿@using Common;
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "User manual videos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserManualVideos</title>
+    <link href="~/Content/NewUI/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/style.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/jquery-ui.min.css" rel="stylesheet" />
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+            text-align: left;
+        }
+
+        li, li > a {
+            font-size: 14px;
+            color: black
+        }
+
+        video {
+            width: 250px;
+        }
+
+        .container {
+            color: white;
+            font: bolder;
+            text-align: center;
+            font-size: 21px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class="fa fa-envelope"></i>
+                        <a href="#" style = "text-decoration: underline; color: #0056b3;">help[dot]kgid[at]karnataka[dot]gov[dot]in</a>
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +91 080 2237 3845
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logoleft" style="padding: 44px 0;">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        <div class="advanced-search">
+                            <h2><label class="knlan">ಕರ್ನಾಟಕ ಸರ್ಕಾರ ವಿಮಾ ಇಲಾಖೆ</label><label class="knlan">Karnataka Government Insurance Department</label></h2>
+                            <h5><label class="knlan">ಕರ್ನಾಟಕ ಸರ್ಕಾರ</label><label class="knlan">Government of Karnataka</label></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-nav-item">
+            <div class="container">
+                <b>User Manual and Videos</b>
+            </div>
+        </div>
+    </header>
+    <div class=" container-fluid" id="chart_container" align='center'>
+        <div class="col-12 ">
+            <div class="row" style="text-align:left;color:#2443d4">
+                <b>User Manual</b>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <div class="row" style="text-align:left;font-size:13px;color:#17a2b8">
+                        <b>English</b>
+                    </div>
+                    <ul>
+                        <li><a href="~/Uploads/UserManual/User Manual for DDO.pdf"  style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">1. User Manual for DDO</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual For New Employee.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">2. User Manual for Employee</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Case Worker.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">3. User Manual for Case Worker(KGID Office)</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Superintendent.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">4. User Manual for Superintendent</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for DIO.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">5. User Manual for DIO</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Deputy Director.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">6. User Manual for Deputy Director</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Director.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">7. User Manual for Director</a></li>
+
+                        @*<li><a href="#" onclick="javascript:window.open(this.href); return false;">4. Application verification &amp; Scrutiny(Head Office)</a></li>*@
+                    </ul>
+                </div>
+
+                <div class="form-group col-6">
+                    <div class="row" style="text-align:left;font-size:13px;color:#17a2b8">
+                        <b>ಕನ್ನಡ</b>
+                    </div>
+                    <ul>
+                        <li><a href="~/Uploads/UserManual/User Manual for DDO Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">1. ಡಿಡಿಒಗಾಗಿ ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual For New Employee Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">2. ಮನವಿದಾರರಿಗಾಗಿ  ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Caseworker Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">3. ವಿಷಯ ನಿರ್ವಾಹಕರಿಗಾಗಿ(ಕೆ ಜಿ ಐ ಡಿ ಕಛೇರಿ ) ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Superintendent Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">4. ಅಧೀಕ್ಷಕರಿಗಾಗಿ  ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for DIO Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">5. ಜಿಲ್ಲಾ ವಿಮಾಧಿಕಾರಿಗಳಿಗಾಗಿ ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Deputy Director Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">6. ಉಪ ನಿರ್ದೇಶಕರಿಗಾಗಿ ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+                        <li><a href="~/Uploads/UserManual/User Manual for Director Kannada.pdf" style = "text-decoration: underline; color: #0056b3;" onclick="javascript:window.open(this.href); return false;">7. ನಿರ್ದೇಶಕರಿಗಾಗಿ ಬಳಕೆದಾರರ ಕೈಪಿಡಿ</a></li>
+
+                        @*<li><a href="#" onclick="javascript:window.open(this.href); return false;">4. Application verification &amp; Scrutiny(Head Office)</a></li>*@
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="text-align:left;color:#2443d4">
+                <b>Videos</b>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">1. ಹೊಸ ಮನವಿದಾರರ ವಿವರಗಳನ್ನು ಅಪ್-ಲೋಡ್ ಮಾಡುವುದು</label><label class="Enlan">1. Upload of New Employee Details</label></b> </li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/DDO Upload.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಹೊಸ ಮನವಿದಾರರ ವಿವರಗಳನ್ನು ಡಿಡಿಒ  ಅಪ್-ಲೋಡ್ ಮಾಡುವುದು</label><label class="Enlan">DDO uploads New Employee Details.</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">2. ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ಭರ್ತಿ ಮಾಡುವುದು</label><label class="Enlan">2. Filling the application form</label></b></li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/New Employee.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಮನವಿದಾರರು ಹೊಸ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಗಾಗಿ  ಅರ್ಜಿ ನಮೂನೆಯನ್ನು ಭರ್ತಿ ಮಾಡುವುದು</label><label class="Enlan">Employee fills the application form for new policy.</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">3. ಡಿಡಿಒ ಪರಿಶೀಲನೆ</label><label class="Enlan">3. DDO Verify</label> &amp; <label class="knlan">ಪರಿಶೀಲನೆ</label><label class="Enlan">Scrutiny</label></b></li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/DDO Verify and Scrutiny.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಸ್ವೀಕರಿಸಿದ ಅರ್ಜಿ ನಮೂನೆಗಳನ್ನು ಡಿಡಿಒ ಪರಿಶೀಲಿಸುವುದು</label><label class="Enlan">DDO verifies the received applications forms.</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">4. ವಿಷಯ ನಿರ್ವಾಹಕರ ಪರಿಶೀಲನೆ</label><label class="Enlan">4. Caseworker Verify</label> &amp; <label class="knlan">ಪರಿಶೀಲನೆ</label><label class="Enlan">Scrutiny</label></b></li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/Caseworker Login.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಸ್ವೀಕರಿಸಿದ ಅರ್ಜಿ ನಮೂನೆಗಳನ್ನು ವಿಷಯ ನಿರ್ವಾಹಕರು ಪರಿಶೀಲಿಸುವುದು </label><label class="Enlan">Caseworker verifies the received applications forms.</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">5. ಅಧೀಕ್ಷಕರ ಪರಿಶೀಲನೆ</label><label class="Enlan">5. Superintendent Verify</label> &amp; <label class="knlan">ಪರಿಶೀಲನೆ</label><label class="Enlan">Scrutiny</label></b></li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/Superintendent.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಸ್ವೀಕರಿಸಿದ ಅರ್ಜಿ ನಮೂನೆಗಳನ್ನು ಅಧೀಕ್ಷಕರು  ಪರಿಶೀಲಿಸುವುದು</label><label class="Enlan">Superintendent verifies the received applications forms.</label>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="form-group col-4">
+                    <ul>
+                        <li><b><label class="knlan">6. ಜಿಲ್ಲಾ ವಿಮಾಧಿಕಾರಿಗಳ ಪರಿಶೀಲನೆ</label><label class="Enlan">6. DIO Verify</label> &amp; <label class="knlan">ಪರಿಶೀಲನೆ</label><label class="Enlan">Scrutiny</label></b></li>
+                        <li>
+                            <video src='@Url.Content("~/Uploads/UserManual/DIO.mp4")' controls="controls" loop="loop"></video>
+                        </li>
+                        <li>
+                            <b><label class="knlan">ವಿವರಣೆ :</label><label class="Enlan">Description :</label></b><label class="knlan">ಸ್ವೀಕರಿಸಿದ ಅರ್ಜಿ ನಮೂನೆಗಳನ್ನು ಜಿಲ್ಲಾ ವಿಮಾಧಿಕಾರಿಗಳು  ಪರಿಶೀಲಿಸುವುದು</label><label class="Enlan">DIO verifies the received applications forms.</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

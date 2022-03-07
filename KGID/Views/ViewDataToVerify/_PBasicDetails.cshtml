@@ -1,0 +1,179 @@
+﻿@model KGID_Models.NBApplication.VM_BasicDetails
+@using KGID.Models
+
+
+
+@*<hr />*@
+
+<p style="text-align: center;" class="Enlan"><strong>BASIC DETAILS</strong></p>
+<p style="text-align: center;" class="knlan"><strong>ಮೂಲ ವಿವರಗಳು</strong></p>
+<p style="text-align:left;" class="Enlan">Date of submission of proposal: @Model.ProposalSubmissionDate</p>
+<p style="text-align:left;" class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ: @Model.ProposalSubmissionDate</p>
+<table style="width: 100%; border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 52.6691%;">
+                <p><span class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ:</span><span class="Enlan">Proposal No.:</span><b>@Html.DisplayFor(model => model.kad_kgid_application_number)</b></p>
+                <p class="Enlan"><span>Proposer Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(model => model.employee_name) (@Html.DisplayFor(model => model.employee_name_kannada))</span></p>
+                <p class="knlan"><span>ಮನವಿದಾರರ ಹೆಸರು :&nbsp; @Html.DisplayFor(model => model.employee_name) (@Html.DisplayFor(model => model.employee_name_kannada))</span></p>
+
+                @*<p class="Enlan" style="font-size:12px;"><span>(As per SSC Memo Service Record)</span></p>
+                    <p class="knlan" style="font-size:12px;"><span>(ಎಸ್‌ಎಸ್‌ಸಿ ಮೆಮೊ / ಸೇವಾ ದಾಖಲೆಯ ಪ್ರಕಾರ)</span></p>*@
+
+                <p class="Enlan">Father Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.father_name) (@Html.DisplayFor(Model => Model.father_name_kannada))</p>
+                <p class="knlan">ತಂದೆಯ ಹೆಸರು:&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.father_name) (@Html.DisplayFor(Model => Model.father_name_kannada))</p>
+
+                <p class="Enlan">Gender:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.gender_desc)</p>
+                <p class="knlan">ಲಿಂಗ:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.gender_desc)</p>
+
+                <p class="Enlan">Date of Birth:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.date_of_birth)</p>
+                <p class="knlan">ಜನ್ಮ ದಿನಾಂಕ:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.date_of_birth)</p>
+
+                <p class="Enlan">Place of Birth:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.place_of_birth)</p>
+                <p class="knlan">ಜನ್ಮ ಸ್ಥಳ:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.place_of_birth)</p>
+                <p style="line-height: 18px;" class="Enlan">Residential Address: @Html.DisplayFor(Model => Model.ead_address)</p>
+                <p style="line-height: 18px;" class="knlan">ಮನೆಯ ವಿಳಾಸ: @Html.DisplayFor(Model => Model.ead_address)</p>
+
+                <p class="Enlan">Pin Code:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.ead_pincode)</p>
+                <p class="knlan">ಪಿನ್:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; @Html.DisplayFor(Model => Model.ead_pincode)</p>
+
+                <p class="Enlan">Mobile No.:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.mobile_number)</p>
+                <p class="knlan">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.mobile_number)</p>
+
+                <p class="Enlan">E-Mail:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.email_id)</p>
+                <p class="knlan">ಇ-ಮೇಲ್:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.email_id)</p>
+
+                <p class="Enlan">PAN Number:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.pan_number)</p>
+                <p class="knlan">ಪ್ಯಾನ್ ಸಂಖ್ಯೆ:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.pan_number)</p>
+
+                @*<p>Residential Address: @Html.DisplayFor(Model => Model.ead_address)</p>*@
+
+                <p class="Enlan">Group:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.DisplayFor(Model => Model.eg_group_desc)</p>
+                <p class="knlan">ಗ್ರೂಪ್‍:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; @Html.DisplayFor(Model => Model.eg_group_desc)</p>
+
+                <p>
+                    <label class="Enlan">Marital Status:</label>
+                    <label class="knlan">ವೈವಾಹಿಕ ಸ್ಥಿತಿ:</label>
+                    @if (Model.eod_emp_married == true)
+                    {
+                        <span class="">
+                            <label class="knlan">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Married@*ವಿವಾಹಿತರೇ*@</label>
+                            <label class="Enlan">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Married</label>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="">
+                            <label class="knlan">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Unmarried@*ಅವಿವಾಹಿತರೇ*@</label>
+                            <label class="Enlan">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Unmarried</label>
+                        </span>
+                    }
+                </p>
+                @if (!string.IsNullOrEmpty(Model.spouse_name))
+                {
+                    <p class="Enlan">Spouse Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.spouse_name) (@Html.DisplayFor(Model => Model.spouse_name_kannada))</p>
+                    <p class="knlan">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@Html.DisplayFor(Model => Model.spouse_name) (@Html.DisplayFor(Model => Model.spouse_name_kannada))</p>
+                }
+                else
+                {
+                    <p class="Enlan">Spouse Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N/A</p>
+                    <p class="knlan">ಪತಿ/ಪತ್ನಿಯ ಹೆಸರು:&nbsp; &nbsp; &nbsp; N/A</p>
+                }
+                @*<p>
+            <label class="Enlan"> Divorce / Remarried: </label>
+            <label class="knlan">ವಿಚ್ಛೇದನ/ಮರುಮದುವೆ: </label>
+            @if (Model.dr_id == 0)
+            {
+            <span>&nbsp; &nbsp; N/A</span>
+            }
+            else if (Model.dr_id == 1)
+            {
+            <span class="Enlan">&nbsp; &nbsp; Divorced</span>
+            <span class="knlan">&nbsp; &nbsp; ವಿಚ್ಛೇದನ</span>
+            }
+            else
+            {
+            <span class="Enlan">&nbsp; &nbsp; Remarried</span>
+            <span class="knlan">&nbsp; &nbsp; ಮರುಮದುವೆ</span>
+            }
+        </p>*@
+                @*<p>
+            <label class="Enlan">Current Spouse Name: </label>
+            <label class="knlan">
+                ಪ್ರಸ್ತುತ ಪತಿ/ ಪತ್ನಿಯ ಹೆಸರು:
+            </label>
+            @if (Model.dr_id == 2)
+            {
+            <span>&nbsp;@Html.DisplayFor(Model => Model.Current_spouse_name)</span>
+            }
+            else
+            {
+            <span>&nbsp;N/A</span>
+            }
+        </p>*@
+                @*<p>
+            <label class="Enlan">Spouse PAN / KGID:</label>
+            <label class="knlan">
+                ಪತಿ/ಪತ್ನಿಯ ಪಾನ್‌/ಕೆ.ಜಿ.ಐ.ಡಿ. ಸಂಖ್ಯೆ:
+            </label>
+            @if (!string.IsNullOrEmpty(Model.eod_spouse_kgid_number))
+            {
+            <span>&nbsp; &nbsp;@Html.DisplayFor(model => model.eod_spouse_kgid_number)</span>
+            }
+            else if (!string.IsNullOrEmpty(Model.eod_spouse_pan_number))
+            {
+            <span>&nbsp; &nbsp;@Html.DisplayFor(model => model.eod_spouse_pan_number)</span>
+            }
+            else
+            {
+            <span>&nbsp; &nbsp;N/A</span>
+            }
+        </p>*@
+            </td>
+            <td style="width: 47.3309%;">
+                <p>QR Code : <img src="@Html.DisplayFor(model => model.QRCode)" id="imgBQRCode" alt="" style="height:50px;width:50px" /></p>
+
+                <p style="line-height: 18px;" class="Enlan">Address of the District Insurance Office: @Html.DisplayFor(Model => Model.DIO_Office_Address)</p>
+                <p style="line-height: 18px;" class="knlan">ಜಿಲ್ಲಾ ವಿಮಾ ಕಛೇರಿ ವಿಳಾಸ: @Html.DisplayFor(Model => Model.DIO_Office_Address)</p>
+
+                <p style="line-height: 18px;" class="Enlan">Present Working Office: @Html.DisplayFor(Model => Model.ewd_place_of_posting)</p>
+                <p style="line-height: 18px;" class="knlan">ಪ್ರಸ್ತುತ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತಿರುವ ಕಛೇರಿ: @Html.DisplayFor(Model => Model.ewd_place_of_posting)</p>
+
+                <p class="Enlan">Date of entry into Government Service: @Html.DisplayFor(model => model.ewd_date_of_joining)</p>
+                <p class="knlan">ಸರ್ಕಾರಿ ಸೇವೆಗೆ ಸೇರಿದ ದಿನಾಂಕ: @Html.DisplayFor(model => model.ewd_date_of_joining)</p>
+
+                <p class="Enlan">Permanent / Temporary: @Html.DisplayFor(model => model.et_employee_type_desc)</p>
+                <p class="knlan">ಖಾಯಂ ಅಥವಾ ತಾತ್ಕಾಲಿಕ: @Html.DisplayFor(model => model.et_employee_type_desc)</p>
+
+                <p style="line-height: 18px;" class="Enlan">Present Designation: @Html.DisplayFor(model => model.d_designation_desc)</p>
+                <p style="line-height: 18px;" class="knlan">ಪ್ರಸ್ತುತ ಹುದ್ದೆಯ ಹೆಸರು: @Html.DisplayFor(model => model.d_designation_desc)</p>
+
+                <p class="Enlan">Present Pay Scale: @Html.DisplayFor(model => model.payscle_code)</p>
+                <p class="knlan">ಪ್ರಸ್ತುತ ವೇತನ ಶ್ರೇಣಿ: @Html.DisplayFor(model => model.payscle_code)</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><b><span class="Enlan">Initial Deposit Details:</span><span class="knlan">ಪ್ರಾರಂಭಿಕ ಠೇವಣಿ ವಿವರ:</span></b></p>
+@*<p style="line-height: 18px;">
+    <span class="Enlan">Date: @Html.DisplayFor(model => model.ChallanPaymentDate)</span><span class="knlan">ದಿನಾಂಕ: @Html.DisplayFor(model => model.ChallanPaymentDate)</span>
+    <span class="Enlan">Challan Reference No: @Html.DisplayFor(model => model.ChallanReferenceNumber)</span><span class="knlan">ಚಲನ್‌ ಸಂಖ್ಯೆ: @Html.DisplayFor(model => model.ChallanReferenceNumber)</span>
+    <span class="Enlan">Amount (Rs): @Html.DisplayFor(model => model.ChallanAmount)</span><span class="knlan">ಮೊತ್ತ (ರೂ). : @Html.DisplayFor(model => model.ChallanAmount)</span>
+</p>*@
+<table id="tblPKgidChallan" class="" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p class="knlan">ಚಲನ್‌ ಸಂಖ್ಯೆ</p><p class="Enlan">Challan Reference No</p></th>
+            <th><p class="knlan">ದಿನಾಂಕ</p><p class="Enlan">Date</p></th>
+            <th><p class="knlan">ಮೊತ್ತ (ರೂ). </p><p class="Enlan">Amount (Rs).</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td colspan="3"></td></tr>
+        <tr>
+            <td style="text-align:center"><p><span class="Enlan">@Html.DisplayFor(model => model.ChallanReferenceNumber)</span><span class="knlan">@Html.DisplayFor(model => model.ChallanReferenceNumber)</span></p></td>
+            <td style="text-align:center"><p><span class="Enlan">@Html.DisplayFor(model => model.ChallanPaymentDate)</span><span class="knlan">@Html.DisplayFor(model => model.ChallanPaymentDate)</span></p></td>
+            <td style="text-align:center"><p><span class="Enlan">@Html.DisplayFor(model => model.ChallanAmount)</span><span class="knlan">@Html.DisplayFor(model => model.ChallanAmount)</span></p></td>
+        </tr>
+    </tbody>
+</table>

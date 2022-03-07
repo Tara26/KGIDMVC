@@ -1,0 +1,150 @@
+﻿
+@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceVehicleDetails
+
+<div id="divMIVehicleDetails">
+
+    @Html.Hidden("emld_application_id", Session["UId"], new { @id = "hdnmivdEmpID" })
+    @Html.Hidden("mi_referenceno", Session["RId"], new { @id = "hdnMIVDReferanceNo" })
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDChasisNo"><b>Chassis No   </b>: </label>
+                <span class="" id="spnVDChasisNo">@Html.DisplayFor(model => model.mivd_chasis_no)</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtRegistrationNo"><b>Registration No  </b>: </label>
+                <span class="" id="spnRegistrationNo">@Html.DisplayFor(model => model.mivd_registration_no)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtMakeOfVehicle" class="control-label col-sm-4 pt-2-5"><b>Vehicle Category Type  </b>: </label>
+                <span class="" id="spnMakeOfVehicle">@Html.DisplayFor(model => model.VehicleCategoryTypedesc)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtDateOfRegistration"><b>Date of Registration  </b>: </label>
+                <span class="" id="spnDateOfRegistration">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", (Model.mivd_date_of_registration == "") ? (DateTime?)null : Convert.ToDateTime(Model.mivd_date_of_registration)))</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtTypeOfModel" class="control-label col-sm-4 pt-2-5"><b>Make of the Vehicle</b>: </label>
+                <span class="" id="spnTypeOfMANYU">@Html.DisplayFor(model => model.VehicleMakedesc)</span>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtRTO"><b>RTO </b>: </label>
+                <span class="" id="spnRTO">@Html.DisplayFor(model => model.VehicleRTOdesc)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtTypeOfModel" class="control-label col-sm-4 pt-2-5"><b>Type of Model</b>: </label>
+                <span class="" id="spnTypeOfModel">@Html.DisplayFor(model => model.mivd_type_of_model)</span>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDEngine"><b>Engine No   </b>: </label>
+                <span class="" id="spnVDEngine">@Html.DisplayFor(model => model.mivd_engine_no)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtVDYear" class="control-label col-sm-4 pt-2-5"><b>Year  &nbsp; &amp; &nbsp;Month of Manufacture</b>: </label>
+                <span class="" id="spnVDYear">@Html.DisplayFor(model => model.yeardesc)&nbsp; - &nbsp;@Html.DisplayFor(model => model.mivd_manufacturer_month_desc)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Gross Vehicle Weight in kgs</b>: </label>
+                <span class="" id="spnVDvehicle_weight">@Html.DisplayFor(model => model.mivd_vehicle_weight)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtVDFuelType" class="control-label col-sm-4 pt-2-5"><b>Vehicle Fuel type </b>: </label>
+                <span class="" id="spnVDFuelType">@Html.DisplayFor(model => model.VehicleFueldesc)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Vehicle Type   </b>: </label>
+                <span class="" id="spnVDVehicleTypedesc">@Html.DisplayFor(model => model.VehicleTypedesc)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Vehicle SubType   </b>: </label>
+                <span class="" id="spnVDVehicleSubTypedesc">@Html.DisplayFor(model => model.VehicleSubTypedesc)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Cubic Capacity (CC) / KW   </b>: </label>
+                <span class="" id="spnVDCubicCapacity">@Html.DisplayFor(model => model.mivd_cubic_capacity)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Vehicle Category  </b>: </label>
+                <span class="" id="spnVDVehicleCategorydesc">@Html.DisplayFor(model => model.VehicleCategorydesc)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDTypeOfVehicle"><b>Type of Vehicle </b>: </label>
+                <span class="" id="spnVDCubicCapacity">@Html.DisplayFor(model => model.VehicleClassdesc)</span>
+            </div>
+
+
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtVDCubicCapacity"><b>Type of cover </b>: </label>
+                <span class="" id="spnVDVehicleCategorydesc">@Html.DisplayFor(model => model.mipd_type_of_cover)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-8">
+                @if (Model.mivd_vehicle_type_id == "1")
+                {
+                    <label for="txtVDSeating" class="control-label col-sm-4 pt-2-5"><b>Seating Capacity including driver  </b>: </label>
+                }
+                else
+                {
+                    <label for="txtVDSeating" class="control-label col-sm-4 pt-2-5"><b>Max. licensed Carrying Capacity (No. of Passenger) in case of passenger carrying vehicles : </b>: </label>
+                }
+
+                <span class="" id="spnVDSeating">@Html.DisplayFor(model => model.mivd_seating_capacity_including_driver)</span>
+            </div>
+        </div>
+    </div>
+   
+
+
+
+</div>
+
+

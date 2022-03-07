@@ -1,0 +1,258 @@
+﻿@model KGID_Models.KGID_Policy.VM_InitimationLetter
+
+<style>
+    .control-label-larger {
+        font-size: 1.0rem !important;
+    }
+
+    .bigger-text {
+        font-size: 1rem !important;
+    }
+
+    .line-height {
+        line-height: 1.5 !important;
+    }
+</style>
+
+<div id="divIntimationLetter">
+    <div class="row">
+        <div class="form-group col-4">
+            <div class="border p-3 text-center line-height bigger-text">
+                <label class="">ಈ ಕಛೇರಿಯೊಡನೆ ವ್ಯವಹರಿಸುವಾಗ</label> <br />
+                <label class="">ನಮೂದಿಸಬೇಕಾದ ವಿಮಾ ಪತ್ರ ಸಂಖ್ಯೆ:</label> <span class="p-1 font-weight-bold" style="border-bottom: 0.12rem solid black;">@Model.KGIDNumber</span>
+            </div>
+        </div>
+        <div class="form-group col-8">
+            <h5 class="col-12 text-center"><label class="">@Model.DIOAddress</label></h5>
+            <h5 class="text-black-50 col-12 text-center font-weight-bold"><label class="">ದಿನಾಂಕ:</label> <span class="p-1" style="border-bottom: 0.12rem solid black;">@DateTime.Now.ToString("dd-MM-yyyy")</span></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-12">
+            <div class="row col-12">
+                <div class="col-6">
+                    <label class="control-label-larger">ಗೆ,</label>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-6">
+                    <div class="col-12">
+                        <label class="control-label-larger text-uppercase">ಉಸ್ತುವಾರಿ ಅಧಿಕಾರಿ</label>
+                        <br />
+                        <div class="row">
+                            <label class="col-8 control-label-larger line-height text-uppercase">@Model.DDOAddress<span class="control-label-larger line-height">.</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-12">
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text"><label class="">ಮಾನ್ಯರೆ,</label></p>
+                    <label class="bigger-text line-height">
+                        <span class="p-1">
+                            &emsp; &emsp; ವಿಷಯ:- ಶ್ರೀ/ಶ್ರೀಮತಿ @Model.NameOfPolicyHolderKan @Model.Designation ರವರ ವಿಮಾ
+                            ಪ್ರಸ್ತಾವನೆ ಅಂಗೀಕರಿಸಿದ ಬಗ್ಗೆ.
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        <label class=""></label>
+                    </p>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12">
+                    <p class="bigger-text line-height" style="text-indent: 50px;">
+                        @*<label class="">
+                            ಪ್ರಸ್ತಾಪಿತ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದಂತೆ ಶ್ರೀ/ಶ್ರೀಮತಿ @Model.NameOfPolicyHolder ಇವರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ಅಂಗೀಕರಿಸಲಾಗಿದ್ದು, ಅಧಿಕಾರಿ ವಿಮಾ ಶಾಖೆಯ ಮಾಸಿಕ ಕಂತುಗಳನ್ನು ಮುಂಗಡವಾಗಿ ಕಟ್ಟಬೇಕಾಗಿರುವುದರಿಂದ, ಮುಂದಿನ ವಿಮಾ ಕಂತು ರೂ &#x20B9;@Model.MonthlyPremium ಗಳನ್ನು ಸದರಿ ವಿಮಾದಾರರ  @Model.ApprovedMonth
+                            ಸನ್ @Model.CommencementMonth. ರ ಸಂಬಳವನ್ನು @Model.CommencementMonth. ಸನ್  @Model.FutureMonth. ರಲ್ಲಿ ಬಟವಾಡೆ ಮಾಡುವಾಗ ಕಟಾಯಿಸಿ ಅವರ ಸರಿಯಾದ ಪಾಲಿಸಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ ವಿಮಾ ಕಂತುಗಳನ್ನು ಪ್ರತಿ ತಿಂಗಳಿನ ಸಂಬಳದಲ್ಲಿ ತಪ್ಪದೆ ಕ್ರಮವಾಗಿ ಕಟಾಯಿಸಿ ಜಮಾ ಮಾಡುವುದು.
+                            ಒಂದು ವೇಳೆ ನಿಮ್ಮ ಸಿಬ್ಬಂದಿಯ ವೇತನದ ಬಿಲ್ಲು ಈಗಾಗಲೇ ಸಿದ್ಧಮಾಡಿ ಖಜಾನೆಗೆ ರವಾನಿಸಿದ್ದರೆ, ಮಾಮೂಲಿ ವಿಮಾ ಕಂತಿನ ಜೊತೆಗೆ ಹೆಚ್ಚುವರಿ ಕಂತು ರೂ &#x20B9;@Model.MonthlyPremium ಗಳನ್ನು @Model.ApprovedMonth ಸನ್  @Model.FutureMonth   ರ ಸಂಬಳವನ್ನು ಸನ್  @Model.FutureMonth ರಲ್ಲಿ ಪಡೆದು ಬಟವಾಡೆ ಮಾಡುವಾಗ ಜೊತೆಯಲ್ಲಿಯೇ ಕಟಾಯಿಸಿ ಕೊಳ್ಳತಕ್ಕದ್ದು.
+                        </label>*@
+                        <label>
+                            ಪ್ರಸ್ತಾಪಿತ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದಂತೆ ಶ್ರೀ/ಶ್ರೀಮತಿ <span class="p-1"> @Model.NameOfPolicyHolderKan</span> ಇವರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ಅಂಗೀಕರಿಸಲಾಗಿದ್ದು, ಅಧಿಕಾರಿ ವಿಮಾ ಶಾಖೆಯ ಮಾಸಿಕ
+                            ಕಂತುಗಳನ್ನು ಮುಂಗಡವಾಗಿ ಕಟ್ಟಬೇಕಾಗಿರುವುದರಿಂದ, ಮುಂದಿನ ವಿಮಾ ಕಂತು ರೂ.@Model.MonthlyPremium/- ಗಳನ್ನು ಸದರಿ ವಿಮಾದಾರರ @Model.ApprovedMonth ರ ಮಾಹೆಯ ವೇತನವನ್ನು
+                            @Model.ApprovedMonth ರ ಮಾಹೆಯಲ್ಲಿ ಬಟವಾಡೆ ಮಾಡುವಾಗ ಸರಿಯಾದ ಕೆ.ಜಿ.ಐ.ಡಿ. ಪಾಲಿಸಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ ಕಟಾವಣೆ ಮಾಡುವುದು. ವಿಮಾ ಕಂತುಗಳನ್ನು ಪ್ರತಿ
+                            ತಿಂಗಳಿನ ವೇತನದಲ್ಲಿ ತಪ್ಪದೆ ಕ್ರಮವಾಗಿ ಕಟಾಯಿಸಿ ಜಮಾ ಮಾಡುವುದು. ಒಂದು ವೇಳೆ ನಿಮ್ಮ ಸಿಬ್ಬಂದಿಯ ವೇತನದ ಬಿಲ್ಲನ್ನು  ಈಗಾಗಲೇ ಸಿದ್ಧಪಡಿಸಿ ಖಜಾನೆಗೆ  ಸಲ್ಲಿಸಿದ್ದರೆ,
+                            @Model.CommencementMonth  ರ ವಿಮಾ ಕಂತಿನ ಜೊತೆಗೆ   @Model.ApprovedMonth ರ ಬಾಕಿ ಕಂತು ರೂ @Model.MonthlyPremium/- ಗಳನ್ನು ಸೇರಿಸಿ  @Model.CommencementMonth  ರ ಮಾಹೆಯ  ವೇತನದಲ್ಲಿ ಒಟ್ಟು
+                            ರೂ. @Model.TwoMonthPremium/- ಗಳನ್ನು ಕಟಾವಣೆ ಮಾಡುವುದು. ಮುಂದುವರೆದು @Model.FutureMonth ರ ಮಾಹೆಯಿಂದ  ಕ್ರಮವಾಗಿ ರೂ. @Model.MonthlyPremium/- ಗಳನ್ನು ಕಟಾವಣೆ ಮಾಡತಕ್ಕದ್ದು.
+                        </label>
+                        
+                    </p>
+                </div>
+                <p class="bigger-text line-height" style="text-indent: 50px;">
+                    <label class="">ಸದರಿ ನೌಕರರು ಒಂದು ವೇಳೆ ನಿಮ್ಮ ಕಛೇರಿಯಿಂದ ಮತ್ತೊಂದು  ಕಡೆಗೆ ವರ್ಗವಾಗಿದ್ದರೆ, ಈ ಪತ್ರವನ್ನು ಅವರ ಹಾಲಿ ವಿಳಾಸಕ್ಕೆ ಕಳುಹಿಸಿ ನಮ್ಮ ಕಛೇರಿಗೆ ಮಾಹಿತಿ ನೀಡುವುದು.</label>
+                </p>
+            </div>
+        </div>
+    </div>
+
+<div class="row col-12">
+    <div class="row col-9">
+        <div class="col-2">
+        </div>
+        <div class="col-10">
+            <p class="bigger-text line-height">
+                <label class="">ವಂದನೆಗಳೊಡನೆ,</label>
+            </p>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="mb-1">
+            <p class="bigger-text text-center line-height">
+                <label class="">ನಿಮ್ಮ ನಂಬುಗೆಯ,</label>
+            </p>
+        </div>
+        <div>
+            <p class="bigger-text text-center">
+                <label>@Model.VerifiedName</label>
+            </p>
+        </div>
+        <div>
+            <p class="bigger-text text-center">
+                <label>@Model.SVerifiedDate</label>
+            </p>
+        </div>
+        @*<div>
+                <p class="bigger-text text-center line-height">
+                    <i><label class="">ನಿರ್ದೇಶಕರ ಪರವಾಗಿ,</label></i>
+                </p>
+            </div>*@
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 1.5rem;">
+    <hr />
+</div>
+
+<div class="row">
+    <div class="form-group col-4">
+        <div class="border p-3 text-center line-height bigger-text font-weight-bold">
+            <label class="">ಈ ಕಛೇರಿಯೊಡನೆ ವ್ಯವಹರಿಸುವಾಗ</label> <br />
+            <label class="">ನಮೂದಿಸಬೇಕಾದ ವಿಮಾ ಪತ್ರ ಸಂಖ್ಯೆ:</label> <span class="p-1" style="border-bottom: 0.12rem solid black;">@Model.KGIDNumber</span>
+        </div>
+    </div>
+    <div class="form-group col-8">
+        <h5 class="col-12 text-center"><label class="">@Model.DIOAddress</label></h5>
+        <h5 class="text-black-50 col-12 text-center font-weight-bold"><label class="">ದಿನಾಂಕ:</label> <span class="p-1" style="border-bottom: 0.12rem solid black;">@DateTime.Now.ToString("dd-MM-yyyy")</span></h5>
+    </div>
+</div>
+
+<div class="row col-12">
+    <div class="form-group col-12">
+        <div class="row">
+            <div class="col-6">
+                <label class="control-label-larger">ಗೆ,</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="control-label-larger line-height col-12">
+                        &nbsp;&nbsp;<label class="control-label-larger"> ಶ್ರೀ/ಶ್ರೀಮತಿ</label> <span class="p-1"> @Model.NameOfPolicyHolderKan</span>&nbsp; <label class="control-label-larger">  ಶ್ರೀ/ಶ್ರೀಮತಿ </label> <span class="p-1" > @Model.NameOfFatherKan </span> &nbsp;<label class="control-label-larger"> ರವರ ಮಗ/ಮಗಳು</label> <span class="p-1"> @Model.Designation </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row col-12">
+    <div class="col-12 text-center">
+        <h4><span class="p-1 font-weight-bold" style="border-bottom: 0.12rem solid black;"><label class="">ಅಂಗೀಕಾರ ಹಾಗೂ ಪ್ರಥಮ ಕಂತಿನ ರಸೀದಿ</label></span></h4>
+    </div>
+</div>
+
+<div class="row col-12">
+    <div class="col-12">
+        <div class="col-1">
+            <p class="bigger-text"><label class="">ಮಾನ್ಯರೆ,</label></p>
+        </div>
+    </div>
+</div>
+
+<div class="row col-12">
+    <div class="col-12">
+        <p class="bigger-text line-height" style="text-indent: 50px;">
+            @*<label class="">
+                ದಿನಾಂಕ:  @Model.ApprovedMonth
+                ರ ನಿಮ್ಮ ವೈದ್ಯಕೀಯ/ವೈದ್ಯಕೀಯೇತರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ಅಂಗೀಕರಿಸಿ ನೀವು ಪಾವತಿ ಮಾಡಿರುವ ರೂ @Model.MonthlyPremium 
+                ಗಳನ್ನು  @Model.ApprovedMonth ಸನ್ @Model.CommencementMonth ರ ಮಾಹೆಯ ವಿಮಾ ಕಂತಿಗೆ ಸರಿಪಡಿಸಿಕೊಳ್ಳಲಾಗಿದೆ. ಅಧಿಕಾರಿ ವಿಮಾ ಶಾಖೆಯಲ್ಲಿ ವಿಮಾ  ಕಂತುಗಳನ್ನು ಮುಂಗಡವಾಗಿ ಕಟ್ಟಬೇಕಾಗಿರುವುದರಿಂದ, ಮುಂದಿನ ವಿಮಾ ಕಂತುಗಳನ್ನು ಕ್ರಮವಾಗಿ ನಿಮ್ಮ ಪ್ರತಿ ತಿಂಗಳ ಸಂಬಳದಲ್ಲಿ ಕಟಾಯಿಸಿರುವುದನ್ನು ದೃಢೀಕರಿಸಿಕೊಳ್ಳುವುದು.
+            </label>*@
+            <label class="">
+                ದಿನಾಂಕ @Model.ProposalSubmissionDate ರ ನಿಮ್ಮ ವೈದ್ಯಕೀಯ/ವೈದ್ಯಕೀಯೇತರ ವಿಮಾ ಪ್ರಸ್ತಾವನೆಯನ್ನು ಅಂಗೀಕರಿಸಿ ನೀವು ಪಾವತಿ ಮಾಡಿರುವ ರೂ @Model.MonthlyPremium/- ಗಳನ್ನು @Model.ApprovedMonth ರ ಮಾಹೆಯ ವಿಮಾ 
+                ಕಂತಿಗೆ ಸರಿಪಡಿಸಿಕೊಳ್ಳಲಾಗಿದೆ. ಅಧಿಕಾರಿ ವಿಮಾ ಶಾಖೆಯಲ್ಲಿ ವಿಮಾ  ಕಂತುಗಳನ್ನು ಮುಂಗಡವಾಗಿ ಕಟ್ಟಬೇಕಾಗಿರುವುದರಿಂದ, ಮುಂದಿನ ವಿಮಾ ಕಂತುಗಳನ್ನು ಕ್ರಮವಾಗಿ ನಿಮ್ಮ ಪ್ರತಿ 
+                ತಿಂಗಳ ವೇತನದಲ್ಲಿ ಕಟಾಯಿಸಿರುವುದನ್ನು ದೃಢೀಕರಿಸಿಕೊಳ್ಳುವುದು.
+            </label>
+            
+    </div>
+</div>
+<div class="row col-12">
+    <div class="col-3">
+        <div class="mb-1">
+            <p class="bigger-text text-center line-height">
+                <label class="">ನಿಮ್ಮ ನಂಬುಗೆಯ,</label>
+            </p>
+        </div>
+        <div>
+            <p class="bigger-text text-center line-height">
+                <label>@Model.VerifiedName</label>
+            </p>
+        </div>
+        <div>
+            <p class="bigger-text text-center line-height">
+                <label>@Model.SVerifiedDate</label>
+            </p>
+        </div>
+        @*<div>
+                <p class="bigger-text text-center line-height">
+                    <i><label class="">ನಿರ್ದೇಶಕರ ಪರವಾಗಿ,</label></i>
+                </p>
+            </div>*@
+    </div>
+</div>
+
+</div>
+<hr />
+<div class="form-group col-12">
+    <div class="row col-12">
+        <div class="col-1"></div>
+        <div class="col-10 text-right"><input type="button" class="btn btn-primary" value="Print" onclick="PrintLetter();" /></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function PrintLetter() {
+        var contents = $("#divIntimationLetter").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Intimation Letter</title><style>.control-label-larger{font-size: 1.15rem !important;}.bigger-text{font-size: 1rem !important;}.line-height{line-height: 1.5 !important;}</style>');
+        frameDoc.document.write('</head><body class="container">');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+
+    }
+</script>

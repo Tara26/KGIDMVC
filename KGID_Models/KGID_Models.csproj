@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{555357AA-2C6E-4F7C-92A0-1A7222199E4F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KGID_Models</RootNamespace>
+    <AssemblyName>KGID_Models</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\VM_UpdateDSCDetails.cs" />
+    <Compile Include="Attrebute\FileTypeAttribute.cs" />
+    <Compile Include="Claim\VM_ClaimApplication.cs" />
+    <Compile Include="Claim\VM_ClaimEmployeeDetail.cs" />
+    <Compile Include="Claim\VM_ClaimRequiredDocuments.cs" />
+    <Compile Include="Claim\VM_ClaimSubType.cs" />
+    <Compile Include="Claim\VM_ClaimWorkflowDetails.cs" />
+    <Compile Include="Claim\VM_EmpDetailForPreMatureClaimApplication.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Dashboard\VM_Dashboard.cs" />
+    <Compile Include="KGIDEmployee\tbl_challan_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_challan_status.cs" />
+    <Compile Include="KGIDEmployee\tbl_emp_doctor_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_insured_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_insured_details_new.cs" />
+    <Compile Include="KGIDEmployee\tbl_medical_leave.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_application_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_declaration_master.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_family_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_nominee_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_personal_health.cs" />
+    <Compile Include="KGIDEmployee\tbl_nb_personal_health_master.cs" />
+    <Compile Include="KGIDEmployee\tbl_payment_purpose_master.cs" />
+    <Compile Include="KGIDEmployee\tbl_payment_status_details.cs" />
+    <Compile Include="KGIDEmployee\tbl_payment_subpurpose_master.cs" />
+    <Compile Include="KGIDEmployee\tbl_payscale_details.cs" />
+    <Compile Include="KGIDEmployee\VM_EditEmployeeDetails.cs" />
+    <Compile Include="KGIDEmployee\VM_Employee.cs" />
+    <Compile Include="KGIDEmployee\VM_Employeelogin.cs" />
+    <Compile Include="KGIDLoan\tbl_branch_adjustment_loan.cs" />
+    <Compile Include="KGIDLoan\tbl_branch_adjustment_policy.cs" />
+    <Compile Include="KGIDLoan\tbl_hrms_pay_details_master.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_application.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_application_workflow.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_delegation_master.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_documents.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_extraction_details.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_family_relation_master.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_payment.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_policy_mapping.cs" />
+    <Compile Include="KGIDLoan\tbl_loan_purpose_master.cs" />
+    <Compile Include="KGIDLoan\VM_LoanDetailsModel.cs" />
+    <Compile Include="KGIDMotorInsurance\GetVehicleChassisPolicyDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_geographical_extension.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_application.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_proposer_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_type_of_cover.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_vehicle_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_application_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_doc_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_petitioner_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_type_of_injury.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_workflow.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_respondent_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_od_cost_component_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_State_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_vehicle_category_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_vehicle_category_type_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_vehicle_make_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_vehicle_subtype_master.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_vehicle_type_master.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_DDOVerificationDetailsMI.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MBApplicationDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MB_Bond_Details.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MIWorkFlowDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MI_Upload_Documents.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsuranceIDVDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsuranceOtherDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsurancePaymentStatus.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsurancePolicyPrintDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsuranceProposerDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsuranceRenewalDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_MotorInsuranceVehicleDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\VM_NotificationDetailsMI.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_other_details.cs" />
+    <Compile Include="KGID_Bonus\VM_BonusArrear.cs" />
+    <Compile Include="KGID_Loan\VM_LoanApplicationForm.cs" />
+    <Compile Include="KGID_Login\tbl_agency_ddo_master.cs" />
+    <Compile Include="KGID_Login\tbl_agency_login.cs" />
+    <Compile Include="KGID_Master\DoubleVerificationDataResponseKII.cs" />
+    <Compile Include="KGID_Master\tbl_dr_master.cs" />
+    <Compile Include="KGID_Master\tbl_category_master.cs" />
+    <Compile Include="KGID_Master\tbl_dsc_master.cs" />
+    <Compile Include="KGID_Master\tbl_hoa_master.cs" />
+    <Compile Include="KGID_Master\tbl_mi_kii_challan_request.cs" />
+    <Compile Include="KGID_Master\tbl_mi_policy_details.cs" />
+    <Compile Include="KGID_Master\tbl_module_type_master.cs" />
+    <Compile Include="KGID_Master\tbl_month_master.cs" />
+    <Compile Include="KGID_Master\tbl_problem_type_master.cs" />
+    <Compile Include="KGID_Master\tbl_receipt_purpose_master.cs" />
+    <Compile Include="KGID_Master\tbl_receipt_type_master.cs" />
+    <Compile Include="KGID_Master\tbl_remarks_master.cs" />
+    <Compile Include="KGID_Master\tbl_receipt_subpurpose_master.cs" />
+    <Compile Include="KGID_Master\VM_EmployeeDscDetails.cs" />
+    <Compile Include="KGID_MB_Claim\tbl_repairer_master.cs" />
+    <Compile Include="KGID_MB_Claim\tbl_surveyor_master.cs" />
+    <Compile Include="KGID_MB_Claim\VM_MIODClaimDeptVerficationDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_MIODClaimWorkFlowDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_MIOwnDamageClaimDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_ODClaimApplicationDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_ODClaimApprovedApplicationDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_ODClaimSurveyorVerificationDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_ODClaimVerificationDetails.cs" />
+    <Compile Include="KGID_MB_Claim\VM_ODClaimWorkOrderDetails.cs" />
+    <Compile Include="KGID_Policy\VM_ChallanPrintDetails.cs" />
+    <Compile Include="KGID_Policy\VM_InitimationLetter.cs" />
+    <Compile Include="KGID_Report\VM_KGIDApplicationReport.cs" />
+    <Compile Include="KGID_User\RoleAssignCategoryModuleType.cs" />
+    <Compile Include="KGID_VerifyData\tbl_dl_factor_master.cs" />
+    <Compile Include="KGID_VerifyData\tbl_dsc_details.cs" />
+    <Compile Include="KGID_VerifyData\tbl_load_factor_master.cs" />
+    <Compile Include="KGID_VerifyData\tbl_taluka_master.cs" />
+    <Compile Include="KGID_VerifyData\VM_MotorInsuranceDeptVerficationDetails.cs" />
+    <Compile Include="NBApplication\VM_ApplicationDetail.cs" />
+    <Compile Include="NBApplication\VM_MedicalLeaveDetails.cs" />
+    <Compile Include="KGIDEmployee\VM_NBApplication.cs" />
+    <Compile Include="KGIDEmployee\VM_PersonalDetails.cs" />
+    <Compile Include="KGIDNBApplication\NomineeList.cs" />
+    <Compile Include="KGIDNBApplication\tbl_application_referenceno_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_dept_verification_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_address_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_basic_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_nominee_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_work_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_family_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_medical_declaration.cs" />
+    <Compile Include="KGIDNBApplication\tbl_medical_report_master.cs" />
+    <Compile Include="KGIDNBApplication\tbl_medical_report_tran.cs" />
+    <Compile Include="KGIDNBApplication\tbl_medical_unit_code_master.cs" />
+    <Compile Include="KGIDNBApplication\tbl_new_employee_basic_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_nominee_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_nominee_number_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_payscales_master.cs" />
+    <Compile Include="KGIDNBApplication\tbl_personal_disease_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_personal_health_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_personal_health_master.cs" />
+    <Compile Include="KGIDNBApplication\tbl_policy_details.cs" />
+    <Compile Include="KGIDNBApplication\VM_CWVerificationDetails.cs" />
+    <Compile Include="KGIDNBApplication\VM_Email.cs" />
+    <Compile Include="KGIDNBApplication\VM_HealthDetails.cs" />
+    <Compile Include="KGIDNBApplication\VM_OtherDetails.cs" />
+    <Compile Include="KGIDNBApplication\VM_DDOVerificationDetails.cs" />
+    <Compile Include="KGID_Loan\tbl_employee_loan_details.cs" />
+    <Compile Include="KGID_Loan\tbl_employee_loan_transaction.cs" />
+    <Compile Include="KGID_Loan\VM_LoanApplication.cs" />
+    <Compile Include="KGID_Loan\VM_LoanDetails.cs" />
+    <Compile Include="KGID_Login\tbl_logindetails.cs" />
+    <Compile Include="KGID_Login\VM_NewEmployeeLogin.cs" />
+    <Compile Include="KGID_Master\tbl_ddo_master.cs" />
+    <Compile Include="KGID_Master\tbl_dept_master.cs" />
+    <Compile Include="KGID_Master\tbl_designation.cs" />
+    <Compile Include="KGID_Master\tbl_doctor_master.cs" />
+    <Compile Include="KGID_Master\tbl_employee_group_master.cs" />
+    <Compile Include="KGID_Master\tbl_employment_type_master.cs" />
+    <Compile Include="KGID_Master\tbl_family_relation_master.cs" />
+    <Compile Include="KGID_Master\tbl_gender_master.cs" />
+    <Compile Include="KGID_Master\tbl_height_age_master.cs" />
+    <Compile Include="KGID_Master\tbl_kgid_mapping_details.cs" />
+    <Compile Include="KGID_Master\tbl_kgid_roles.cs" />
+    <Compile Include="KGID_Master\tbl_load_deduction_master.cs" />
+    <Compile Include="KGID_Master\tbl_post.cs" />
+    <Compile Include="KGID_Master\tbl_status_master.cs" />
+    <Compile Include="KGID_Master\tbl_weight_load_master.cs" />
+    <Compile Include="KGID_Master\tbl_weight_mapping_master.cs" />
+    <Compile Include="KGID_Policy\VM_FacingSheet.cs" />
+    <Compile Include="KGID_Upload\ExcelUpload.cs" />
+    <Compile Include="KGID_User\tbl_login_master.cs" />
+    <Compile Include="KGID_User\tbl_new_employee.cs" />
+    <Compile Include="KGID_User\tbl_OTPAuthentication.cs" />
+    <Compile Include="KGID_User\tbl_user_master.cs" />
+    <Compile Include="KGID_User\vm_kgid_user.cs" />
+    <Compile Include="KGID_Verification\tbl_kgid_application_details.cs" />
+    <Compile Include="KGID_Verification\tbl_kgid_application_workflow_details.cs" />
+    <Compile Include="KGID_VerifyData\tbl_district_master.cs" />
+    <Compile Include="KGID_VerifyData\tbl_kgid_policy_district_mapping.cs" />
+    <Compile Include="KGID_VerifyData\tbl_ranges_master.cs" />
+    <Compile Include="KGID_VerifyData\tbl_verification_details.cs" />
+    <Compile Include="KGID_VerifyData\tbl_upload_employeeform.cs" />
+    <Compile Include="KGID_VerifyData\tbl_verified_details.cs" />
+    <Compile Include="KGID_VerifyData\VM_DeptVerificationDetails.cs" />
+    <Compile Include="KGID_VerifyData\VM_EmployeeMenu.cs" />
+    <Compile Include="KGID_VerifyData\VM_NBBond.cs" />
+    <Compile Include="KGID_VerifyData\VM_Upload_EmployeeForm.cs" />
+    <Compile Include="KGID_VerifyData\VM_VerificationData.cs" />
+    <Compile Include="KGID_VerifyData\VM_VerifiedBy.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_family_details.cs" />
+    <Compile Include="KGIDNBApplication\tbl_employee_medical_doctor_details.cs" />
+    <Compile Include="NBApplication\VM_BasicDetails.cs" />
+    <Compile Include="NBApplication\VM_MPhysicalDetails.cs" />
+    <Compile Include="NBApplication\VM_MOtherDetails.cs" />
+    <Compile Include="NBApplication\VM_DoctorDetails.cs" />
+    <Compile Include="NBApplication\VM_FamilyDetails.cs" />
+    <Compile Include="NBApplication\VM_NomineeDetails.cs" />
+    <Compile Include="NBApplication\VM_NotificationDetails.cs" />
+    <Compile Include="NBApplication\VM_PaymentDetails.cs" />
+    <Compile Include="NBApplication\VM_PersonalHealthDetails.cs" />
+    <Compile Include="NBApplication\VM_PolicyCancellation.cs" />
+    <Compile Include="NBApplication\VM_PolicyDetails.cs" />
+    <Compile Include="NBApplication\VM_EmployeeBasicDetails.cs" />
+    <Compile Include="NBApplication\VM_PolicyGeneration.cs" />
+    <Compile Include="NBApplication\VM_WorkflowDetails.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticketing_Tool\tbl_module_type_master.cs" />
+    <Compile Include="Ticketing_Tool\tbl_problem_type_master.cs" />
+    <Compile Include="Ticketing_Tool\tbl_report_problem.cs" />
+    <Compile Include="Ticketing_Tool\TicketingToolReportProblem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

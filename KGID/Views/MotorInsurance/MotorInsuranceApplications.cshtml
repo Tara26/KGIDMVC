@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "MotorInsuranceApplications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Current Status of the Application</h2>
+
+@model KGID_Models.KGIDMotorInsurance.VM_DDOVerificationDetailsMI
+
+<style type="text/css">
+    td a{
+        color:blue;
+        text-decoration:underline;
+    }
+   
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+</style>
+<script src="~/Content/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts/pie.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-9">
+                     
+                    </div>
+                    <div class="col-3">
+                      
+
+                    </div>
+                </div>
+               
+            </div>
+        
+            <div class="card-body">
+
+                        <div id="divCurrentStatus" class="application-tab">
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*<div class="form-group">
+                                                <h6 class="font-weight-bold">Application Status</h6>
+                                            </div>*@
+                                        <table class="table table-striped table-bordered" id="tblMIDDOApplicationStatus" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+                                                    <th>Employee Code</th>
+                                                    <th>Name</th>
+                                                    <th>Application Reference Number</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.LastUpdatedStatusForEmployees != null && Model.LastUpdatedStatusForEmployees.Count > 0)
+                                                {
+                                                    foreach (var item in Model.LastUpdatedStatusForEmployees)
+                                                    {
+                                                <tr>
+                                                    <td>@item.EmployeeCode</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.ApplicationNumber</td>
+                                                    @*<td>@item.Premium</td>*@
+                                                    <td>@item.Status</td>
+                                                    @if(@item.AppStatusID==3|| @item.AppStatusID == 2)
+                                                    {
+                                                    <td><a href="@Url.Action("MotorInsuranceApplication", "MotorInsurance", new RouteValueDictionary(new {@PageType="",applicationId = item.ApplicationId ,refNo=item.ApplicationNumber,category=item.CategoryId}))" class="btn btn-info btn-sm" style="font-size: inherit;padding: 0px 1px 1px 1px;">Edit Application</a></td>
+                                                    }
+                                                    else
+                                                    {
+                                                    <td><a href="@Url.Action("MIViewApplication", "VerifyDetails", new RouteValueDictionary(new { @empId = item.EmployeeCode, applicationId = item.ApplicationId , refNo=item.ApplicationNumber,category=item.CategoryId}))" class="btn btn-info btn-sm" style="font-size: inherit;padding: 0px 1px 1px 1px;">View Application</a></td>
+                                                    }
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                  
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        $('#tblMIDDOApplicationStatus').DataTable();
+    });
+</script>

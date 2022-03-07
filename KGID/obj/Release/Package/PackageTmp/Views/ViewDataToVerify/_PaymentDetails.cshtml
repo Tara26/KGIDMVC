@@ -1,0 +1,68 @@
+﻿@model KGID_Models.KGID_Policy.VM_ChallanPrintDetails
+
+@Html.Hidden("EmpID", new { id = "hdnNBEmployeeID" })
+@Html.Hidden("application_id", new { id = "hdnNBAppID" })
+
+<div id="paymentdetails" class="">
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtInitialAmt">
+                    <b>
+                        <label class="knlan">ಆರಂಭಿಕ ಮೊತ್ತ</label>
+                        <label class="Enlan">Initial Amount</label>
+                    </b>
+                </label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnInitialAmt">@Html.DisplayFor(m => m.p_premium)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtRefNo" class="control-label col-sm-4 pt-2-5">
+                    <b>
+                        <label class="knlan">ಪಾವತಿ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ</label>
+                        <label class="Enlan">Payment Reference No</label>
+                    </b>
+                </label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnRefNo">@Html.DisplayFor(m => m.challan_ref_no)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtPurpose"><b><label class="knlan">ಉದ್ದೇಶ</label><label class="Enlan">Purpose </label></b> </label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnPurpose">@Html.DisplayFor(m => m.purpose_desc)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtSubPurpose" class="control-label col-sm-4 pt-2-5"><b><label class="knlan">ಉಪ ಉದ್ದೇಶ</label><label class="Enlan">Sub Purpose  </label></b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnSubPurpose">@Html.DisplayFor(m => m.sub_purpose_desc)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtDDOCode"><b><label class="knlan">ಡಿಡಿಒ ಕೋಡ್</label><label class="Enlan">DDO Code</label> </b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnDDOCode">@Html.DisplayFor(m => m.dm_ddo_code)</span>
+            </div>
+            <div class="row col-sm-6">
+                <label for="txtHOA" class="control-label col-sm-4 pt-2-5"><b><label class="knlan">ಹೆಚ್ ಓ ಎ </label><label class="Enlan">HOA</label> </b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnHOA">@Html.DisplayFor(m => m.hoa_desc)</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="row col-sm-6">
+                <label class="control-label col-sm-4 pt-2-5" for="txtPaymentDate"><b><label class="knlan">ದಿನಾಂಕ</label> <label class="Enlan">Date</label></b></label>
+                <label class="control-label col-sm-2 pt-2-5"><b>:</b> </label>
+                <span class="" id="spnPaymentDate">@Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.challan_date))</span>
+            </div>
+        </div>
+    </div>
+</div>

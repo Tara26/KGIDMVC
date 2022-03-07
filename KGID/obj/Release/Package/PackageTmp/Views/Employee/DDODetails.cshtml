@@ -1,0 +1,342 @@
+﻿
+@{
+    ViewBag.Title = "DDODetails";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row text-center">
+                    <h5 class="col-12 text-black-100 font-weight-bold">
+                        <b><label class="Enlan">Update DDO Details</label><label class="knlan">ಡಿಡಿಒ ವಿವರಗಳನ್ನು ನವೀಕರಿಸಿ</label></b>
+                    </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-7">
+                        <label for="lblkgidno" class="control-label Enlan">KGID Number:</label>
+                        <label for="lblkgidno" class="control-label knlan">ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtKGIDNO" name="txtKGIDNO" type="text" maxlength="7" placeholder="Enter KGID Number">
+
+                        <label id="errKGIDNo" class="col-form-label-sm text-danger err" hidden>Please Enter KGID Number</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <br />
+                        @*<a id="btnShowDetails" class="btn btn-primary">View</a>*@
+                        <input type="submit" value="View" class="btn btn-primary" id="btnShowDetails" />
+                    </div>
+                </div>
+                <div class="row" id="divEmpDetails" style="display:none;">
+                    <div class="form-group col-5">
+                        <label for="lblddocode" class="control-label Enlan">Employee Name:</label>
+                        <label for="lblddocode" class="control-label knlan">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು:</label>
+                        <input class="form-control form-control-sm preventSpace ClAlphaNum" id="txtEmployeeName" name="txtEmployeeName" type="text" disabled>
+                        @*<label id="errDDOCD" class="col-form-label-sm text-danger err" hidden>Please Enter DDO Code</label>*@
+                    </div>
+                    <div class="form-group col-5" id="divMobileNo">
+                        <label for="lbldioofc" class="control-label Enlan">Mobile No.:</label>
+                        <label for="lbldioofc" class="control-label knlan">ದೂರವಾಣಿ:</label>
+                        <input class="form-control form-control-sm" id="txtEmpMobile" name="txtEmpMobile" type="text" disabled>
+                        @*<label id="errDIOOfc" class="col-form-label-sm text-danger err" hidden>Please Enter DIO Office</label>*@
+                    </div>
+                </div>
+                <div class="row" id="divDDODetails">
+                    <div class="form-group col-5">
+                        <label for="lblddocode" class="control-label Enlan">DDO Code:</label>
+                        <label for="lblddocode" class="control-label knlan">ಡಿಡಿಒ ಕೋಡ್:</label>
+
+                        <input class="form-control form-control-sm preventSpace ClAlphaNum" id="txtDDOCODE" onkeyup="GetDIOOffice();" name="txtDDOCODE" type="text" maxlength="6" placeholder="Enter DDO Code " disabled>
+                        <label id="errDDOCD" class="col-form-label-sm text-danger err" hidden>Please Enter DDO Code</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="lbldioofc" class="control-label Enlan">DDO Office:</label>
+                        <label for="lbldioofc" class="control-label knlan">ಡಿಐಒ ಕಚೇರಿ:</label>
+                        <input class="form-control form-control-sm" id="txtDIOOfc" name="txtDIOOfc" type="text" placeholder="Enter DIO Office" disabled>
+                        @*<label id="errDIOOfc" class="col-form-label-sm text-danger err" hidden>Please Enter DIO Office</label>*@
+                    </div>
+                    <!--<div class="form-group col-2">
+        <br />-->
+                    @*<a id="btnUpdateDetails" class="btn btn-primary">Update</a>*@
+                    <!--<input type="submit" value="Update" class="btn btn-primary" id="btnUpdateDetails" />
+        </div>-->
+                    @*<div class="form-group col-2">
+            <br />*@
+                    @*<a id="btnUpdateDetails" class="btn btn-primary">Update</a>*@
+                    @*<input type="submit" value="Update" class="btn btn-primary" id="btnUpdateDetails" />
+            </div>*@
+                </div>
+
+                <div class="row" id="divUpdateDDO">
+                    <div class="form-group col-5">
+                        <label for="lblddocode" class="control-label Enlan">Update DDO Code:</label>
+                        <label for="lblddocode" class="control-label knlan">ಡಿಡಿಒ ಕೋಡ್:</label>
+                        <input class="form-control form-control-sm preventSpace ClAlphaNum" id="txtUpdateDDOCODE" onkeyup="GetDIOOffice();" name="txtUpdateDDOCODE" type="text" maxlength="6" placeholder="Enter DDO Code">
+                        <label id="errUpdateDDOCD" class="col-form-label-sm text-danger err" hidden>Please Enter DDO Code</label>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="lbldioofc" class="control-label Enlan">DDO Office:</label>
+                        <label for="lbldioofc" class="control-label knlan">ಡಿಡಿಒ ಕಚೇರಿ:</label>
+                        <input class="form-control form-control-sm" id="txtUpdateDIOOfc" name="txtUpdateDIOOfc" type="text" placeholder="Enter DDO Office" disabled>
+                        @*<label id="errDIOOfc" class="col-form-label-sm text-danger err" hidden>Please Enter DIO Office</label>*@
+                    </div>
+                </div>
+                <div class="row" style="display:none;" id="divDDOExists">
+                    <div class="form-group col-5">
+                        <label for="lblkgidno" class="control-label Enlan">Employee Name - KGID Number:</label>
+                        <label for="lblkgidno" class="control-label knlan">ಕೆಜಿಐಡಿ ಸಂಖ್ಯೆ:</label>
+                        <input class="form-control form-control-sm ClNum" id="txtDDOExistsKGIDNo" name="txtDDOExistsKGIDNo" type="text" disabled>
+                        @*<label id="errDDOExistsKGIDNo" class="col-form-label-sm text-danger err" hidden>Please Enter KGID Number</label>*@
+                    </div>
+                </div>
+                <div class="form-group col-2">
+                    <input type="submit" value="Update" class="btn btn-primary" id="btnUpdateDetails" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtKGIDNO").val("");
+        $("#txtDDOCODE").val("");
+        $("#txtDIOOfc").val("");
+        $("#divDDODetails").hide();
+        $("#btnUpdateDetails").hide();
+        $("#divUpdateDDO").hide();
+    })
+    $("#txtUpdateDDOCODE").keydown(function (e) {
+        if (e.keyCode == '13' || e.keyCode == '9') {
+            GetDIOOffice();
+        }
+    });
+    function GetDIOOffice() {
+        $.ajax({
+            type: 'get',
+            url: '/kgid-get-dio-ofc-details/',
+            data: { DDOCode: $("#txtUpdateDDOCODE").val(), KGIDNo: $("#txtKGIDNO").val()},
+            success: function (result) {
+                debugger;
+                if (result.DIOOffice == 'D') {
+                    $("#txtUpdateDIOOfc").val("");
+                    $("#errUpdateDDOCD").text("Please enter correct DDO code")
+                    $("#errUpdateDDOCD").removeAttr('hidden');
+                    // alertify.alert("DIO office for the DDO Code " + $("#txtUpdateDDOCODE").val()+ "is not available in table");	
+                }
+                else if (result.EmpKGIDNo == "1") {
+                    $("#divDDOExists").hide();
+                    $("#errUpdateDDOCD").attr('hidden', true);
+                    $("#txtUpdateDIOOfc").val(result.DIOOffice);
+                    // $("#divUpdateDDO").hide();	
+                    //$("#divDDOExists").hide();	
+                }
+                
+                else {
+                    
+                    $("#errUpdateDDOCD").attr('hidden', true);
+                    $("#txtUpdateDIOOfc").val(result.DIOOffice);
+                    $("#divDDOExists").show();
+                    $("#txtDDOExistsKGIDNo").val(result.EmpKGIDNo);
+                    $("#btnUpdateDetails").show();
+                }
+            }
+        })
+    }
+$(".preventSpace").keypress(function (e) {
+    if (e.which === 32)
+        return false;
+});
+$("#btnShowDetails").click(function () {
+    $(".err").attr("hidden", true);
+    $("#txtUpdateDDOCODE").val("");
+    $("#txtUpdateDIOOfc").val("");
+    $("#divDDOExists").hide();
+
+        
+
+        var kgidnoLength = $("#txtKGIDNO").val().length;
+        if ($("#txtKGIDNO").val() == "" || $("#txtKGIDNO").val() == null) {
+            $("#errKGIDNo").removeAttr('hidden');
+        }
+        if (kgidnoLength <= 4) {
+            $('#errKGIDNo').removeAttr('hidden');
+            $('#errKGIDNo').text("Please enter correct KGID number.")
+
+        }
+        else {
+            $("#errKGIDNo").attr('hidden', true);
+        }
+    //else if ($("#txtKGIDNO").val() != "" || $("#txtKGIDNO").val() != null) {
+    //    var input_val = $("#txtKGIDNO").val();
+    //    var inputRGEX = /^(\d{7})$/;
+    //    var inputResult = inputRGEX.test(input_val);
+    //    if (!(inputResult)) {
+    //        $('#errKGIDNo').removeAttr('hidden');
+    //        $('#errKGIDNo').text("Please enter correct KGID number.")
+    //    }
+    //}
+        if ($(".err:visible").length == 0) {
+            $.ajax({
+                type: 'get',
+                url: '/kgid-get-ddo-details/',
+                data: { KGIDNumber: $("#txtKGIDNO").val() },
+                success: function (result) {
+                  /*  debugger;*/
+                    if (result.DDOCode == "" && result.DIOOffice == "") {
+                        $("#divDDODetails").hide();
+                        //alertify.error("KGID Number does not exists in table");
+                        $('#errKGIDNo').removeAttr('hidden');
+                        $('#errKGIDNo').text("KGID Number does not exists in table.")
+                    }
+                    else if (result.DDOCode == "-1" && result.DIOOffice == "-1") {
+                        $("#divDDODetails").hide();
+                        //alertify.error("KGID Number is not belongs to DDO category");	
+                        $('#errKGIDNo').removeAttr('hidden');
+                        $('#errKGIDNo').text("Please enter correct KGID Number.");
+                        $("#divUpdateDDO").hide();
+                        $("#divDDOExists").hide();
+                        $("#divEmpDetails").hide();
+                    }
+                    else if (result.DDOCode == "0" && result.DIOOffice == "0") {
+                        $("#divDDODetails").hide();
+                        //alertify.error("KGID Number is not belongs to DDO category");
+                        $('#errKGIDNo').removeAttr('hidden');
+                        $('#errKGIDNo').text("KGID Number is not belongs to DDO category.");
+                        $("#divUpdateDDO").hide();
+                        $("#divDDOExists").hide();
+                        $("#divEmpDetails").hide();
+                    }
+                    else {
+                        $("#txtDDOCODE").val(result.DDOCode);
+                        $("#txtDIOOfc").val(result.DIOOffice);
+                        $("#txtEmployeeName").val(result.Employeename);
+                        if (result.EmpMobileNo == '' || result.EmpMobileNo == null)
+                            $("#divMobileNo").hide();
+                        else
+                            $("#divMobileNo").show();
+                        $("#txtEmpMobile").val(result.EmpMobileNo);
+                        $("#divDDODetails").show();
+                        $("#divEmpDetails").show();
+                        $("#btnUpdateDetails").show();
+                        $("#divUpdateDDO").show();
+                    }
+                }
+            });
+        }
+        else {
+            $("#divDDODetails").hide();
+            return false;
+        }
+    });
+    $("#btnUpdateDetails").click(function () {
+        debugger;
+        $(".err").attr("hidden", true);
+        if ($("#txtUpdateDDOCODE").val() == "" || $("#txtUpdateDDOCODE").val() == null) {
+            
+            $("#errUpdateDDOCD").removeAttr('hidden');
+        }
+        //if ($("#txtDIOOfc").val() != "" || $("#txtDIOOfc").val() != null) {
+        //    $("#errDIOOfc").removeAttr('hidden'); 
+        //}
+
+        if ($(".err:visible").length == 0) {
+            $.ajax({
+                type: 'post',
+                url: '/kgid-check-ddo-details/',
+             //   data: { KGIDNumber: $("#txtKGIDNO").val(), DDOCode: $("#txtDDOCODE").val(), DIOOffice: $("#txtDIOOfc").val() },
+                data: { KGIDNumber: $("#txtKGIDNO").val(), DDOCode: $("#txtUpdateDDOCODE").val(), DIOOffice: $("#txtUpdateDIOOfc").val() },
+                success: function (result) {
+                    if (result == "1" || result == "") {
+                        //})	
+                        debugger;
+                        alertify.confirm("DDO already present for this DDO office, Please remove the existing DDO before update.", function () {
+                            //$.ajax({	
+                            //    type: 'post',	
+                            //    url: '/kgid-update-ddo-details/',	
+                            //    data: { KGIDNumber: $("#txtKGIDNO").val(), DDOCode: $("#txtDDOCODE").val(), DIOOffice: $("#txtDIOOfc").val() },	
+                            //    success: function (result) {	
+                            //        if (result == "1") {	
+                            //            alertify.success("DDO details updated successfully");	
+                            //            $("#divDDODetails").hide();	
+                            //            $("#txtKGIDNO").val("");	
+                            //        }	
+                            //        else {	
+                            //            alertify.error("Error occured while updating data");	
+                            //        }	
+                            //    },	
+                            //    error: function () {	
+                            //        alertify.error("Error occured while updating data");	
+                            //    }	
+                            //})	
+                            $("#txtKGIDNO").val('');
+                            $("#txtDDOCODE").val('');
+                            $("#txtDIOOfc").val('');
+                            $("#txtUpdateDDOCODE").val('');
+                            $("#txtDDOExistsKGIDNo").val('');
+                            $("#txtEmployeeName").val('');
+                            $("#txtEmpMobile").val('');
+                            $("#txtUpdateDIOOfc").val('');
+                            $("#divDDODetails").hide();
+                            $("#btnUpdateDetails").hide();
+                            $("#divUpdateDDO").hide();
+                            $("#divDDOExists").hide();
+                            $("#divEmpDetails").hide();
+                        }).setHeader("Confirm changes?");
+                    }
+                    else {
+                        //alertify.error("Error occured while updating data");	
+                        $.ajax({
+                            type: 'post',
+                            url: '/kgid-update-ddo-details/',
+                            data: { KGIDNumber: $("#txtKGIDNO").val(), DDOCode: $("#txtUpdateDDOCODE").val(), DIOOffice: $("#txtUpdateDIOOfc").val() },
+                            success: function (result) {
+                                if (result == "1") {
+                                    alertify.success("DDO details updated successfully");
+                                    $("#divDDODetails").hide();
+                                    $("#divUpdateDDO").hide();
+                                    $("#divDDOExists").hide();
+                                    $("#txtKGIDNO").val("");
+                                    $("#divEmpDetails").hide();
+                                    $("#divDDODetails").hide();
+                                    $("#btnUpdateDetails").hide();
+                                    $("#divUpdateDDO").hide();
+                                    $("#divDDOExists").hide();
+                                }
+                                else {
+                                    alertify.error("Error occured while updating data");
+                                }
+                            },
+                            error: function () {
+                                alertify.error("Error occured while updating data");
+                            }
+                        })
+                    }
+                },
+                error: function () {
+                    alertify.error("Error occured while updating data");
+                }
+            })
+        }
+        else {
+            return false;
+        }
+    });
+    $('.ClAlphaNum').keyup(function () {
+        var input_val = $(this).val();
+        var inputRGEX = /^[A-Za-z0-9]*$/;
+        var inputResult = inputRGEX.test(input_val);
+        if (!(inputResult)) {
+            this.value = this.value.replace(/[^A-Za-z0-9\s]/gi, '');
+        }
+    });
+    $('.ClNum').keyup(function () {
+        var input_val = $(this).val();
+        var inputRGEX = /^[0-9]*$/;
+        var inputResult = inputRGEX.test(input_val);
+        if (!(inputResult)) {
+            this.value = this.value.replace(/[^0-9\s]/gi, '');
+        }
+    });
+                    
+</script>

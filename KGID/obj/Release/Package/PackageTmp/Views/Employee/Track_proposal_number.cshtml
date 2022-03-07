@@ -1,0 +1,148 @@
+﻿@model KGID_Models.NBApplication.VM_ApplicationDetail
+
+@{
+    var TrackDetails = ViewData.Model;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">
+                    <b>
+                        <label class="Enlan">Track Proposal Number</label>
+                    </b>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-3">
+                        <h2><label>Proposer Application Number</label></h2>
+                    </div>
+                    <div class="form-group col-4">
+                        @Html.TextBoxFor(m => m.ApplicationNumber, new { @class = "form-control ClNumeric", id = "txtApplicationNo", @maxlength = "14" })
+                        <label id="errAppNo" class="col-form-label-sm text-danger err" hidden>Please mention Application number</label>
+                    </div>
+                    <div class="form-group col-2">
+                        <button id="btnApplicationTrackSearch" class="btn btn-success">Search</button>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="proposerDetailsDiv" style="display:none;">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><b>PROPOSER DETAILS</b></h6>
+        </div>
+
+        <div class="form-group" id="divTrackDetails" style="background-color:white;">
+            <table id="tblDashboardTrackDetails" class="table table-striped table-bordered" style="width:100%;">
+                <thead class="t_head">
+                    <tr>
+                        <th><label>Sl. No.</label></th>
+                        <th><label>Application No.</label></th>
+                        <th><label>District</label></th>
+                        <th><label>Assigned To.</label></th>
+                        <th><label>Date</label></th>
+                        <th><label>Status</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@if (Model.listTrackDetails.Any())
+                    {
+                        int counter = 1;
+                        foreach (var item in Model.listTrackDetails)
+                        {
+                            <tr data-row-number="@counter">
+                                <td hidden>@counter</td>
+                                <td>@item.application_no</td>
+                                <td>@item.districtNames</td>
+                                <td>@item.kgid_policy_number</td>
+                                <td>@item.assigned_date</td>
+                                <td>@item.application_status</td>
+                            </tr>
+                            counter++;
+                        }
+                    }*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+       
+        $('.ClNumeric').keyup(function () {
+            var input_val = $(this).val();
+            var inputRGEX = /^[0-9]*$/;
+            var inputResult = inputRGEX.test(input_val);
+            if (!(inputResult)) {
+                this.value = this.value.replace(/[^0-9\s]/gi, '');
+            }
+        });
+        $("#btnApplicationTrackSearch").click(function () {
+            debugger;
+            $("#proposerDetailsDiv").hide();
+            $("#tblDashboardTrackDetails tbody tr").remove();
+            $(".err").attr('hidden', true);
+            var viewModel = {
+                'ApplicationNumber': $("#txtApplicationNo").val(),
+            };
+            if ($('.err:visible').length === 0) {
+                $.ajax({
+                    url: "/Employee/getProposerTrackDetails",
+                    data: JSON.stringify(viewModel),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+                        debugger;
+                        var rowData = '';
+                        if (response != null) {
+                            if (response.listTrackDetails.length > 0) {
+                                var counter = 1;
+                                for (var i = 0; i < response.listTrackDetails.length; i++) {
+                                    //var application_id = response.listVehicleDetails[i].kgid_policy_number;
+                                    //var vehicle_details_id = response.listVehicleDetails[i].kgid_policy_number;
+                                   
+                                    rowData += "<tr>"; 
+                                    rowData += "<td>" + counter + "</td>";
+                                    rowData += "<td>" + response.listTrackDetails[i].application_no + "</td>";
+                                    rowData += "<td>" + response.listTrackDetails[i].districtNames + "</td>";
+                                    rowData += "<td>" + response.listTrackDetails[i].kgid_policy_number + "</td>";
+                                    rowData += "<td>" + response.listTrackDetails[i].assigned_date + "</td>";
+                                    rowData += "<td>" + response.listTrackDetails[i].application_status + "</td>";
+                                    rowData += "</tr>";
+                                    counter++;
+                                }
+                                $("#tblDashboardTrackDetails tbody").append(rowData);  
+                                $("#tblDashboardTrackDetails").DataTable();
+                                $("#proposerDetailsDiv").show();
+                            } 
+                            else {
+                                var rowNoData = ''; var empStr = "No data available in table";
+                                rowNoData += "<tr>";
+                                rowNoData += "<td>" + empStr + "</td>";
+                                rowNoData += "</tr>";
+                                $("#tblDashboardTrackDetails tbody").append(rowNoData);
+                                $("#tblDashboardTrackDetails tbody tr").css("text-align", "center" , "width","100%");
+                                $("#proposerDetailsDiv").show();
+                            }
+                        }                       
+                    }, error: function (response) {
+                        var rowNoData = ''; var empStr = "No data available in table";
+                        rowNoData += "<tr>";
+                        rowNoData += "<td>" + empStr + "</td>";  
+                        rowNoData += "</tr>";
+                        $("#tblDashboardTrackDetails tbody").append(rowNoData);
+                        $("#tblDashboardTrackDetails tbody tr").css("text-align", "center", "width", "100%");
+                        $("#proposerDetailsDiv").show();
+                    }
+                });
+            }
+            else {
+                $("#errAppNo").removeAttr('hidden');
+            }
+        });
+    </script>

@@ -1,0 +1,151 @@
+﻿@using Common;
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Help Desk";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Help Desk</title>
+    <link href="~/Content/NewUI/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/style.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/NewUI/css/jquery-ui.min.css" rel="stylesheet" />
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+            text-align: left;
+        }
+
+        li, li > a {
+            font-size: 14px;
+            color: black
+        }
+
+        video {
+            width: 250px;
+        }
+
+        .container {
+            color: white;
+            font: bolder;
+            text-align: center;
+            font-size: 21px;
+        }
+
+        .divCUMN {
+            width: 350px;
+            height: 200px;
+            border: solid 0.5px #ccc;
+            background-color: #eed;
+            box-shadow: 0 0 10px 5px #ccc;
+            border-radius: 7px;
+            border-top-color: #6dade2;
+            border-top-width: 13px;
+        }
+
+        .divCUE {
+            width: 350px;
+            height: 200px;
+            border: solid 0.5px #ccc;
+            background-color: #eed;
+            box-shadow: 0 0 10px 5px #ccc;
+            border-radius: 7px;
+            border-top-color: #82de89;
+            border-top-width: 13px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class="fa fa-envelope"></i>
+                        <a href="#" style="text-decoration: underline; color: #0056b3;">help[dot]kgid[at]karnataka[dot]gov[dot]in</a>
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +91 080 2253 6183
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @*<div class="container">
+                <div class="inner-header">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2">
+                            <div class="logoleft" style="padding: 44px 0;">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <div class="advanced-search">
+                                <h2><label class="knlan">??????? ?????? ???? ?????</label><label class="Enlan">Karnataka Government Insurance Department</label></h2>
+                                <h5><label class="knlan">??????? ??????</label><label class="Enlan">Government of Karnataka</label></h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        <div class="head-nav-item">
+            <div class="container">
+                <b><label class="knlan">ಸಹಾಯವಾಣಿ ಕೇಂದ್ರ</label><label class="Enlan">Help Desk</label></b>
+            </div>
+        </div>
+    </header>
+    <div class=" container-fluid" id="chart_container" align='center'>
+        <div class="row">
+            <div class="col-12" style="text-align:center;color:#2443d4;font-size:25px;">
+                <b><label class="knlan">ಯಾವುದೇ ಪ್ರಶ್ನೆಗಳಿವೆಯೇ?</label><label class="Enlan">Have any questions?</label></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="text-align:center;color:#2443d4;font-size:20px;">
+                <b><label class="knlan">ಸಂಪರ್ಕದಲ್ಲಿರಲು!</label><label class="Enlan">Get in touch!</label></b>
+            </div>
+        </div>
+        <div style="margin-bottom: 50px;" class="row"></div>
+        <div class="container-fluid">
+            <div class="row col-12"></div>
+            <div class="row col-12"></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <label class="knlan"><b>ನಿರ್ವಹಣೆ ಸಂಬಂಧಿತ ಸಮಸ್ಯೆಗಳಿಗಾಗಿ ದಯವಿಟ್ಟು ಜಿಲ್ಲಾ ಕೆಜಿಐಡಿ ಕಚೇರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ</b></label><label class="Enlan"><b>For Admin Related Issues please contact District KGID Office</b></label>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-sm-4 divCUMN">
+                    <p style="border-bottom: 1px solid #ccc;"><label class="knlan">ತಾಂತ್ರಿಕ ಸಂಬಂಧಿತ ಸಮಸ್ಯೆಗಳಿಗೆ ಸಹಾಯವಾಣಿ ಸಂಖ್ಯೆಗಳು</label><label class="Enlan">Helpline Numbers for Technical Related Issues</label></p>
+                    <ul style="padding:5px;">
+                        <li><p class="fa fa-phone"></p> 080-22866754</li>
+                        <li><p class="fa fa-phone"></p> 080-22866755</li>
+                        <li><p class="fa fa-phone"></p> 080-22868114</li>
+                        <li><p class="fa fa-phone"></p> 080-22868115</li>
+                    </ul>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4 divCUE">
+                    <p style="border-bottom: 1px solid #ccc;"><label class="knlan">ತಾಂತ್ರಿಕ ಸಂಬಂಧಿತ ಸಮಸ್ಯೆಗಳಿಗಾಗಿ ಸಹಾಯವಾಣಿ ಇಮೇಲ್</label><label class="Enlan">Helpline Email for Technical Related Issues</label></p>
+                    <ul style="padding:5px;">
+                        <li><p class="fa fa-envelope"></p> <a href="mailto:kgidhelpdesk@karnataka.gov.in" target="_blank">kgidhelpdesk@karnataka.gov.in</a></li>
+                        <li><p class="fa fa-envelope"></p> <a href="mailto:kgidhelpdesk1@karnataka.gov.in" target="_blank">kgidhelpdesk1@karnataka.gov.in</a></li>
+                        <li><p class="fa fa-envelope"></p> <a href="mailto:kgidhelpdesk2@karnataka.gov.in" target="_blank">kgidhelpdesk2@karnataka.gov.in</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

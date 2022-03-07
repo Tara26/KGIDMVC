@@ -1,0 +1,126 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceIDVDetails
+<div class="form-group col-12">
+
+	@Html.Hidden("miidv_emp_id", Session["UId"], new { id = "hdnmivdEmpID" })
+	@*@Html.Hidden("miidv_application_id", new { id = "hdnMIVDReferanceNo" })*@
+	@Html.HiddenFor(m => m.miidv_application_id, new { @id = "hdnMIIDVReferanceNo" })
+	<!--//IDV Details// -->
+
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b> Vaahan Cost Price Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_vaahanidvamount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b>Cost Price as per Invoice Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_insured_redeclared_value_amount, new { @id = "txtenteredidvovamnt" })
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b> Re-entered Cost Price as per Invoice Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_insured_declared_value_amount, new { @id = "txtidvovamnt" })
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b> Non-electrical accessories fitted to the vehicle Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_non_electrical_accessories_amount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b>  Electrical and electronic accessories fitted to the vehicle Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_electrical_accessories_amount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b> Side car (Two wheeler Trailer(Pvt cars)) Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_side_car_trailer_amount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b>  Value of CNG / LPG KIT Rs.&nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_value_of_cng_lpg_amount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b>   Total value Rs. &nbsp;</b>:
+		</div>
+		<div class="form-group col-4">
+			@Html.DisplayFor(model => model.miidv_total_amount)
+
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="form-group col-6">
+			<b> Total Amount Payable Rs. &nbsp;</b>:
+		</div>
+        <div class="form-group col-4">
+
+            @Html.DisplayFor(model => model.miidv_idv_premium_amount)
+        </div>
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#txtenteredidvovamnt").inputFilter(function (value) {
+            return /^\d*$/.test(value);
+
+            $("#txtidvovamnt").inputFilter(function (value) {
+                return /^\d*$/.test(value);
+           
+        $('#hdnMIIDVReferanceNo').val() = $('#spnMIReferanceNo').text();
+    });
+    function sum() {
+        var txtidvovamntValue = document.getElementById('txtidvovamnt').value || 0;
+        var txtnoneleaccamntValue = document.getElementById('txtnoneleaccamnt').value || 0;
+        var txteleaccamntValue = document.getElementById('txteleaccamnt').value || 0;
+        var txtsidecaramntValue = document.getElementById('txtsidecaramnt').value || 0;
+        var txtcngamntrValue = document.getElementById('txtcngamnt').value || 0;
+        var result = parseFloat(txtidvovamntValue) + parseFloat(txtnoneleaccamntValue) + parseFloat(txteleaccamntValue) + parseFloat(txtsidecaramntValue) + parseFloat(txtcngamntrValue);
+        if (!isNaN(result)) {
+            var res = parseFloat(result).toFixed(2)
+            document.getElementById('txttotamnt').value = res;
+        }
+}
+</script>

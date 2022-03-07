@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm("UploadExcelDataNew", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Master Data Sheet To Upload "Employee Details"</label><br />
+                        <a href="#" target="_blank">Click Here to Download</a>
+                    </div>
+                    <div class="form-group col-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <marquee behavior="alternate" scrollamount="15">
+                        <div style="width:fit-content;">
+                            <h1 class="text-center font-weight-bold text-danger" style="font-size:20px">
+                                <strong>PLEASE DELETE THE EMPTY ROWS FROM THE EXCEL SHEET</strong>
+                            </h1>
+                        </div>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-header"><h4 class="card-title">Upload Employee Details</h4></div>
+            <div class="card-body">
+                <div class="forms-sample">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="postedFile">Select File To Upload</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                            @*<span id="spnFileError" class="text-danger displayNone">Please Select Upload File.</span>*@
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="form-group col-md-10">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="submit" value="Upload" class="btn btn-primary" onclick="return validate();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@using (Html.BeginForm("DownloadXLS", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    if (Session["dtError"] != null)
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header"><h4 class="card-title">Download Error List</h4></div>
+                <div class="card-body">
+                    <div class="forms-sample">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="Import"></label>
+                                <input type="submit" value="Download Error File" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (ViewBag.error == "Succesfully Uploaded")
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card" style="text-align:center;background-color: #38b33854;">
+                <label><h5>Data Uploaded Succesfully...</h5></label>
+            </div>
+        </div>
+    }
+    if (ViewBag.message != null)
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card bg-danger" style="text-align:center;">
+                <label><h5>@ViewBag.message</h5></label>
+            </div>
+        </div>
+    }
+}
+@using (Html.BeginForm("DownloadDuplicateXLS", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (Session["dtDuplicate"] != null)
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header"><h4 class="card-title">Download Duplicate List</h4></div>
+                <div class="card-body">
+                    <div class="forms-sample">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="Import"></label>
+                                <input type="submit" value="Download Duplicate File" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

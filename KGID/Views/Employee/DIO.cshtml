@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "DIO";
+}
+
+<div class="container">
+    <div id="dio1">
+        <div class="card shadow mb-4" style="width: 66.6rem">
+            <div class="card-body">
+                @*<div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-center text-gray-600">District Insurance Officer</h6>
+                    </div>*@
+                <table class="table table-bordered table-striped" cellspacing="0" style="border-left: none;border-bottom:none;width: 700px;margin-left: 210px" c>
+                    <thead>
+                        <tr>
+                            <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label> <label class="Enlan">SL. NO.</label></th>
+                            <th><label class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ </label><label class="Enlan">Application Number</label></th>
+                            <th><label class="knlan">ಕಡತದ ಹೆಸರು</label> <label class="Enlan">Name of the File</label></th>
+                            <th><label class="knlan">ಸ್ಥಿತಿ</label> <label class="Enlan">Status</label></th>
+                            <th style="width: 200px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="height: 43px">01</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button>View application</button></td>
+                        </tr>
+                        <tr>
+                            <td style="height: 43px">02</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button>View application</button></td>
+                        </tr>
+                        <tr>
+                            <td style="height: 43px"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="height: 43px"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" id="btn113" value="Next" name="next" class="btn btn-info" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dio2">
+        <div class="card shadow mb-4" style="width: 66.6rem">
+            <div class="card-body">
+                <form class="bg-gray-100">
+                    <div class="card-header py-3">
+                        <h5 class="m-0 font-weight-bold text-center text-gray-600"><label class="knlan">ಜಿಲ್ಲಾ ವಿಮಾ ಅಧಿಕಾರಿ</label><label class="Enlan">District Insurance Officer</label></h5>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-7">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="txtFormNo"><label class="knlan">ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ </label><label class="Enlan">Application Number</label></label>
+                            <input type="text" id="txtFormNo" name="ApplicationNo" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-8">
+                            <label for="txtApplicationMedical"><label class="knlan">ಪ್ರಸ್ತಾವನೆ ವಿವರಗಳು / ವೈದ್ಯಕೀಯ ವಿವರಗಳು </label><label class="Enlan">Application Details/Medical Details</label></label>
+                            <textarea class="form-control" rows="5" id="txtApplicationMedical" name="Application Details/Medical Details"></textarea>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="txtCW"> <label class="knlan">ವಿಷಯ ನಿರ್ವಾಹಕರ ಷರಾ</label> <label class="Enlan">CaseWorker Remarks </label></label>
+                            <textarea class="form-control" rows="2" id="txtCW" name="CW Remarks"></textarea>
+                            <label for="txtRemarks"><label class="knlan">ಅಧೀಕ್ಷಕ ಷರಾ</label> <label class="Enlan">Superintendent Remarks </label></label>
+                            <textarea class="form-control" rows="1" id="txtCW" name="Remarks"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label><label class="knlan">ಸ್ವೀಕಾರ ಪ್ರಕಾರ:</label> <label class="Enlan">Acceptence Type: </label></label>
+                            <select>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" name="Send to DHO" value="Send to DHO" style="margin-bottom: 8px;" class=" btn btn-info" /><br />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="txtCWR"><label class="knlan">ಷರಾ </label><label class="Enlan">Remarks</label></label>
+                            <textarea class="form-control" rows="2" id="txtCWR" name="CaseWorker Remarks"></textarea>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" name="New Medical Report" class="btn btn-info" value="New Medical Report" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" name="New Application" class="btn btn-info" value="New Application" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            <label>Health Option:</label>
+                            <select>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" name="Send back" value="Send Back" class=" btn btn-info" />
+                        </div>
+                        <div class="col-md-3">
+                            <select>
+                                <option value="subtd">Subtd</option>
+                                <option value="application">Application</option>
+                                <option value=">dept ddo">Dept DDo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <input type="button" name="Forword" class="btn btn-info" value="Forward" />
+                            <input type="button" name="Appearance" class="btn btn-success" value="DSC Sign-in" />
+                            <input type="button" name="Appearance" class="btn btn-success" value="Approve" hidden/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#dio2").hide();
+        $("#btn113").click(function (event) {
+            $("#dio2").show();
+            $("#dio1").hide();
+        });
+    });
+</script>

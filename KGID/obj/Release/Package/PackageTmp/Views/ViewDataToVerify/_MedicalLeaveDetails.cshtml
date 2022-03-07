@@ -1,0 +1,46 @@
+﻿@model KGID_Models.NBApplication.VM_MedicalLeaveDetails
+
+<div class="row" id="divMedLeave">
+    <div class="form-group col-12">
+        <table id="tblMedicalLeaveDetails" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Leave from</th>
+                    <th>Leave to</th>
+                    <th>Number of days</th>
+                    <th>Remarks</th>
+                    <th>Supporting document (if any)</th>
+                    <th>Reimbursement document (if any)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.MedicalLeaveDetails.Any())
+                {
+                    foreach (var medLeave in Model.MedicalLeaveDetails)
+                    {
+                        <tr>
+                            <td>@medLeave.startdate</td>
+                            <td>@medLeave.enddate</td>
+                            <td>@medLeave.emld_no_of_days</td>
+                            <td>@medLeave.emld_leave_reason</td>
+                            @*<td><a href='@medLeave.emld_upload_document_path' target="_blank">View Document</a></td>*@
+                            <td>@Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @medLeave.emld_upload_document_path }, htmlAttributes: new { @target = "_blank", style="text-decoration: underline; color: #0056b3;" })</td>
+                            <td>@medLeave.emld_medical_reimbursement_doc</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblMedicalLeaveDetails')) {
+            table = $('#tblMedicalLeaveDetails').DataTable({
+                paging: false,
+                info: false,
+                searching: false
+            });
+        }
+    });
+</script>

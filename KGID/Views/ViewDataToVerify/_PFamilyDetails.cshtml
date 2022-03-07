@@ -1,0 +1,89 @@
+﻿@model KGID_Models.NBApplication.VM_FamilyDetails
+@using KGID_Models.KGIDNBApplication;
+
+<style>
+    #tblPFamilyDetails p {
+  line-height : 14px;
+}
+</style>
+<table id="tblPFamilyDetails" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p class="knlan">ಹೆಸರು</p><p class="Enlan">Name</p></th>
+            <th><p class="knlan">ಸಂಬಂಧ</p><p class="Enlan">Relation</p></th>
+            <th><p class="knlan">ಜನ್ಮ ದಿನಾಂಕ</p><p class="Enlan">Date of Birth</p></th>
+            <th><p class="knlan">ವಯಸ್ಸು</p><p class="Enlan">Age</p></th>
+            <th><p class="knlan">ಜೀವಂತ / ಮರಣ</p><p class="Enlan">Alive / Dead</p></th>
+            <th><p class="knlan">ಸೋದರರು / ಸೋದರಿಯರು ವಿವಾಹಿತರೇ?</p><p class="Enlan">Is Sibling Married?</p></th>
+            <th><p class="knlan">ಆರೋಗ್ಯ ಸ್ಥಿತಿ</p><p class="Enlan">Health Condition</p></th>
+            <th><p class="knlan">ಮರಣದ ದಿನಾಂಕ</p><p class="Enlan">Date of Death</p></th>
+            <th><p class="knlan">ಮರಣದ ಕಾರಣ</p><p class="Enlan">Death Reason</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.FamilyDetails.Any())
+        {
+            foreach (var item in Model.FamilyDetails)
+            {
+                <tr data-row-number="@item.Id" data-fd-id="@item.Id">
+                    <td class="tdName"><p>@item.NameOfMember</p></td>
+                    <td class="tdRelation" style="text-align:center"><p>@item.Relation</p></td>
+                    <td class="tdDateOfBirth" style="white-space:nowrap;"><p>@item.DateOfBirth</p></td>
+                    @{
+                        string aliveDead = item.AliveDead.HasValue && item.AliveDead.Value ? "Alive" : "Dead";
+                    }
+                    @if (item.Relation == "None")
+                    {
+                        <td class="tdAge" style="text-align:center"></td>
+                        <td class="tdLivingStatus" style="text-align:center"></td>
+                    }
+                    else
+                    {
+                        <td class="tdAge" style="text-align:center"><p>@item.Age</p></td>
+                        <td class="tdLivingStatus" style="text-align:center"><p>@aliveDead</p></td>
+                    }
+                    @{ string isSiblingMarried = (item.Relation == "Brother" || item.Relation == "Sister") ? (item.IsSiblingMarried == true) ? "Married" : "UnMarried" : "N/A"; }
+                    <td style="text-align:center"><p>@isSiblingMarried</p></td>
+                    <td style="text-align:center"><p>@item.HealthCondition</p></td>
+                    <td style="white-space:nowrap;"><p>@item.DateOfDeath</p></td>
+                    <td style="text-align:right"><p>@item.ReasonOfDeath</p></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<table style="width:100%;margin-top:5px;">
+    <tr>
+        <td>
+            <p class="knlan">ಸೋದರರ ಸಂಖ್ಯೆ : @Html.DisplayFor(model => model.NoOfBrother)</p>
+            <p class="Enlan">Number of Brother's : @Html.DisplayFor(model => model.NoOfBrother)</p>
+        </td>
+        <td>
+            <p class="knlan">ಸೋದರಿಯರ ಸಂಖ್ಯೆ : @Html.DisplayFor(model => model.NoOfSister)</p>
+            <p class="Enlan">Number of Sister's : @Html.DisplayFor(model => model.NoOfSister)</p>
+
+        </td>
+    </tr>
+    <tr >
+        <td colspan="2">
+            <p class="knlan" style="margin-top:10px;">ಮಕ್ಕಳ ಸಂಖ್ಯೆ : @Html.DisplayFor(model => model.NoOfChildren)</p>
+            <p class="Enlan" style="margin-top:10px;">Number of Children's : @Html.DisplayFor(model => model.NoOfChildren)</p>
+        </td>
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblPFamilyDetails')) {
+            table = $('#tblPFamilyDetails').DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false
+            });
+        }
+    });
+</script>

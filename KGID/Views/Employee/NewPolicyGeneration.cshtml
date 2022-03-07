@@ -1,0 +1,146 @@
+﻿@model KGID_Models.NBApplication.VM_PolicyGeneration
+@{
+    ViewBag.Title = "Application Form";
+}
+<form id="frmPolicyGeneration" enctype="multipart/form-data">
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.anp_emp_id, new { id = "hdnEmpId" })
+    @Html.HiddenFor(m => m.Status, new { id = "hdnStatus" })
+    <div class="card">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <label class="knlan">ಮನವಿದಾರರ ಪ್ರಸ್ತಾವನೆ</label><label class="Enlan">Employee Application</label>
+            </h6>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <input type="hidden" value="" id="hdnRowNumber" />
+            <div class="row col-12">
+                @*<div class="row col-6">
+            <label class="control-label col-4 pt-2">Date of Birth:</label>
+            <div class="col-8">
+                @Html.TextBox("anp_dob", "", new { id = "txtDOB", @class = "form-control date-picker", placeholder = "DD-MM-YYYY", autocomplete = "off" })
+            </div><label id="errEmpDOB" class="text-danger err" hidden>Please enter Date of Birth</label>
+        </div>*@
+                <div class="row col-6">
+                    <label class="control-label col-4 pt-2 Enlan">Birth certificate:</label>
+                    <label class="control-label col-4 pt-2 knlan">ಜನನ ಪ್ರಮಾಣಪತ್ರ:</label>
+                    @Html.TextBox("DOBDoc", "", new { id = "flDOBDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errDOBDoc')" })
+                    <label id="errDOBDoc" class="text-danger err" hidden>Please upload birth certificate</label>
+                </div>
+                <div class="row col-6">
+                    <label class="control-label col-4 pt-2 Enlan">Appointment Letter:</label>
+                    <label class="control-label col-4 pt-2 knlan">ನೇಮಕಾತಿ ಪತ್ರ:</label>
+                    @Html.TextBox("AppointmentLetterDoc", "", new { id = "flApptDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errAppDoc')" })
+                    <label id="errAppDoc" class="text-danger err" hidden>Please upload appointment letter</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row col-12">
+                <div class="row col-6">
+                    <label class="control-label col-4 pt-2 Enlan">Joining Letter:</label>
+                    <label class="control-label col-4 pt-2 knlan">ಸೇರುವ ಪತ್ರ:</label>
+                    @Html.TextBox("JoiningLetterDoc", "", new { id = "flJoinDoc", @class = "form-control col-6 pl-0", type = "file", accept = "application/pdf", style = "border:0;background:transparent", onchange = "DocFileChange(this.id,'errJoinDoc')" })
+                    <label id="errJoinDoc" class="text-danger err" hidden>Please upload joining letter</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col-2">
+                    <input value="Submit" class="col-sm-12 btn btn-primary" id="btnsubmit" type="button" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var today = new Date();
+    $(document).ready(function () {
+        var dob = $("#hdnDOB").val();
+        $('#txtDOB').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            minDate: new Date(today.getFullYear() - 80, 0, 1),
+            maxDate: today,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+           
+            scrollMonth: false,
+            scrollInput: false,
+            keepOpen: false,
+            closeOnDateSelect: true
+        });
+        $('#txtDOB').val(dob);
+        if ($("#hdnStatus").val() != "") {
+            if ($("#hdnStatus").val() == "Saved") {
+                alertify.alert("Policy Generated Successfully");
+            }
+            else {
+                alertify.alert("Error occured while generating policy");
+            }
+        }
+    })
+    function DocFileChange(id, errLbl) {
+        if ($("#" + id).get(0).files[0] != undefined) {
+            var fileType = $("#" + id).get(0).files[0].type;
+            if (fileType == 'application/pdf') {
+                $("#" + errLbl).attr("hidden", true);
+            }
+            else {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("Please upload document in pdf format");
+                $("#" + id).val("");
+                return false;
+            }
+            const fsize = $("#" + id).get(0).files[0].size;
+            const maxAllowedSize = 5 * 1024 * 1024;
+            // The size of the file.
+            if (fsize > maxAllowedSize) {
+                $("#" + errLbl).removeAttr("hidden");
+                $("#" + errLbl).text("File too Big, please select a file less than 5 MB");
+                $("#" + id).val("");
+            }
+        }
+    }
+    $("#btnsubmit").click(function () {
+        $(".err").attr("hidden", true);
+        if ($("#flDOBDoc").val().length == 0) {
+            $("#errDOBDoc").removeAttr("hidden");
+        }
+        if ($("#flApptDoc").val().length == 0) {
+            $("#errAppDoc").removeAttr("hidden");
+        }
+        if ($("#flJoinDoc").val().length == 0) {
+            $("#errJoinDoc").removeAttr("hidden");
+        }
+        if ($(".err:visible").length == 0) {
+            alertify.confirm("Are you sure you want to apply for policy?", function () {
+                //$("#frmPolicyGeneration").submit();
+                var obj = new FormData($("#frmPolicyGeneration").get(0));
+                $.ajax({
+                    type: 'POST',
+                    url: '/SavePG/',
+                    data: obj,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        alertify.alert("Confirmation", "Your application for kgid number forwarded to DIO", function () {
+                            window.location.href = result.RedirectUrl;
+                        });
+                    }
+                });
+            }).setHeader("Confirm changes?");
+        }
+    })
+</script>

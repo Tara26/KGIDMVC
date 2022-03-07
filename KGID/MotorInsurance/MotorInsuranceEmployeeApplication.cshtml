@@ -1,0 +1,655 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MIApplicationDetails
+@{
+    ViewBag.Title = "MotorInsuranceEmployeeApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/StepsDemo/css/jquery.steps.css" rel="stylesheet" />
+<script src="~/Content/StepsDemo/js/jquery.steps.min.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/MotorInsurance.js"></script>
+<script src="~/Scripts/html2canvas/html2canvas.js"></script>
+<script src="~/Scripts/html2pdf/html2pdf.bundle.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/KGIDMotorInsurance/Common.js"></script>
+
+
+
+<style type="text/css">
+    .wizard > .content > .body {
+        position: relative;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    .application-tab .steps ul li {
+        width: 14% !important;
+    }
+
+    .application-tab #ApplicationTab-t-5 {
+        font-size: 11.5px;
+        padding: 1.1em 1em;
+    }
+
+    #MedicalTab .steps ul li {
+        width: 15% !important;
+    }
+
+    #btnASave {
+        cursor: pointer;
+    }
+
+    #btnPSave {
+        cursor: pointer;
+    }
+
+    #btnMSave {
+        cursor: pointer;
+    }
+
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #ffffff !important;
+        background-color: #2184bed1 !important;
+        border-color: #dee2e6 #dee2e6 #2184be !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .error {
+        font-size: 0.75rem !important;
+    }
+
+    #navmenu .nav-link {
+        border: 1px solid #d8d8d885 !important;
+        margin: .5px;
+    }
+
+    #btnMedicalPrint {
+        background: #2184be;
+        color: #fff;
+        display: block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .btnPayment {
+        float: right;
+    }
+
+    .calclink {
+        display: block;
+        width: 100%;
+        padding: 6px 2px 6px 6px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+</style>
+
+@{
+    if (ViewBag.Message != null)
+    {
+
+        <script>
+            $(document).ready(function () {
+                alertify.confirm("Are you sure you have taken the vehicle loan.If so, please enter the details.", function () {
+                    $('#divMILoanDetails').show();
+                }).setHeader("Confirmation..!!");
+            })
+
+
+        </script>
+
+        <div id="divMILoanDetails" data-submit-url="@Url.Action("InsertEmployeeLoanDetails", "MotorInsurance", new { area = "" })" style="display:none" data-eid="@Session["UID"]">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="lblLoanID" class="control-label field-required">Loan ID :</label>
+                                    @Html.TextBoxFor(m => m.vehicleLoanId, new { @class = "form-control  alphanumericOnly", @style = "text-transform:uppercase", @id = "txtVehicleLoanID", @maxlength = "10" })
+                                    @Html.ValidationMessageFor(m => m.vehicleLoanId, "Please enter Loan ID.", new { @class = "text-danger col-form-label-sm err", id = "errVDLoanIDReq", hidden = "hidden" })
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="lblVLAmt" class="control-label field-required">Loan Amount :</label>
+                                    @Html.TextBoxFor(model => model.MI_Loan_Amount, new { @class = "form-control numbersonly", @id = "txtLoanAmount", @maxlength = "10" })
+                                    @Html.ValidationMessageFor(m => m.MI_Loan_Amount, "Please enter Loan Amount.", new { @class = "text-danger col-form-label-sm err", id = "errVDLoanAmountReq", hidden = "hidden" })
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label for="lblLED" class="control-label field-required">Loan start date :</label>
+                                    @Html.TextBoxFor(model => model.MI_Loan_start_date, "{0:dd/MM/yyyy}", new { @id = "txtVLSD", @class = "form-control", @onchange = "AutopopulateEndDate(this.id)" })
+
+                                    @Html.ValidationMessageFor(m => m.MI_Loan_start_date, "Please enter Loan end Date.", new { @class = "text-danger col-form-label-sm err", id = "errVDLEDsReq", hidden = "hidden" })
+
+                                </div>
+                                <div class="form-group col-6">
+
+                                    <label for="lblLSD" class="control-label field-required"> Loan end date :</label>
+                                    @Html.TextBoxFor(model => model.MI_Loan_end_date, "{0:dd/MM/yyyy}", new { @id = "txtVLED", @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(m => m.MI_Loan_end_date, "Please enter loan start date .", new { @class = "text-danger col-form-label-sm err", id = "errVDLSDReq", hidden = "hidden" })
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-8">
+                                    <b>@Html.ValidationMessage("FinalMsg", new { @class = "text-danger col-form-label-sm err", id = "errerrorReq", hidden = "hidden" })</b>
+                                </div>
+                                <div class="form-group col-6">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-info btn-sm" onclick="SaveLoanDetailsMI()" id="btnSaveLoan">Save</button>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div id="divApplicationMI" data-eid="@Session["UID"]">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="row">
+                                <h5 class="m-0 text-black-100 font-weight-bold col-3"><b>Motor Insurance Application</b></h5>
+                                <div class="col-6 text-left col-6 pt-2" style="font-size:20px;">
+                                    Reference Number : <b><span id="spnMIReferanceNo"></span></b>
+                                </div>
+                                <div class="col-2 text-right" id="refNo" style="display:none;">
+                                    <img alt="" style="height:60px;width:60px" id="imgQRCode" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <nav id="navmenu">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a id="nav-Application-tab" class="nav-item nav-link active" data-toggle="tab" href="#nav-Application" role="tab" aria-controls="nav-Application" aria-selected="true"><b>Proposal Form</b></a>
+                                    <a id="nav-Document-tab" class="nav-item nav-link disabled" data-toggle="tab" href="#nav-Document" role="tab" aria-controls="nav-Document" aria-selected="false"><b>Upload Required Documents</b></a>
+                                </div>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+                                <div class="tab-pane fade show active" id="nav-Application" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div id="ApplicationTab" class="application-tab">
+
+                                        <h2>Proposer Details</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("ProposerDetailsToView", "MotorInsurance", new { PageType = "" })
+                                            }
+                                        </section>
+                                        <h2>Vehicle Details</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("VehicleDetailsToView", "MotorInsurance")
+                                            }
+                                            <input type="text" id="txtDOM" style="font-weight: bold;" class="form-control" readonly hidden />
+                                            <input type="text" id="txtODV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                            <input type="text" id="txtPLV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                            <input type="text" id="txtDPV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                        </section>
+                                        <h2>Other Details</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("OtherDetailsToView", "MotorInsurance")
+                                            }
+                                            <input type="text" id="txtPV" style="font-weight: bold;" class="form-control" readonly hidden />
+                                        </section>
+
+                                        <h2>Previous History</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("PreviousHistoryToView", "MotorInsurance")
+                                            }
+
+                                        </section>
+                                        <h2>IDV Details</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("IDVDetailsToView", "MotorInsurance")
+                                            }
+
+                                        </section>
+                                        <h2>Declaration</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("DeclarationToView", "MotorInsurance")
+                                            }
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-Document" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div id="DocumentTab" class="Document-tab">
+                                        <h2>Upload Required Documents</h2>
+                                        <section>
+                                            @{
+                                                @Html.Action("MIDocumentDetailsToView", "MotorInsurance")
+                                            }
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+
+
+<script type="text/javascript">
+
+    var PDserverResponse = false;
+    var VDserverResponse = false;
+    var ODserverResponse = false;
+    var IDVserverResponse = false;
+    var PHDserverResponse = false;
+    var MIDOCserverResponse = false;
+    $(document).ready(function () {
+        //$('#hdnMIVDReferanceNo').val() = $('#spnMIReferanceNo').text();
+        var RefNumber = $("#hdnMIReferanceNo").val();
+        if (RefNumber != null) {
+            $("#spnMIReferanceNo").text(RefNumber);
+        }
+        $("#imgQRCode").attr('src', $("#hdnQRCode").val());
+        $(".geographical-details").hide();
+        //$(".bi-fuel-system-details").hide();
+        $(".higher-deductible-details").hide();
+        $(".automobile-association-details").hide();
+        /////// LegalLiabilityDetails Start
+        $(".legal_liability-details").hide();
+        /////// LegalLiabilityDetails End
+        //$(".no-claim-bonus-details").hide();
+        $(".higher-towing-charges-details").hide();
+        /////// PersonalAccidentDetails Start
+        $(".personal-accident-details").hide();
+        /////// PersonalAccidentDetails End
+        //$(".pa-for-persons-details").hide();
+
+
+        $("#ApplicationTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                $('#btnAllPrint').remove();
+                if (currentIndex > newIndex) {
+
+                    return true;
+                }
+                else {
+                    if (currentIndex == 0) {
+
+                    }
+                    else if (currentIndex == 1) {
+                        ValidateVehicleDetails();
+                        ValidateSeatingCubicWeightCapacity("ddlVehCat");
+                        if ($('.err:visible').length === 0) {
+                            SaveVehicleDetails();
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                    else if (currentIndex == 2) {
+                        ValidateOtherDetails();
+                        if ($('.err:visible').length === 0) {
+                            return SaveOtherDetails();
+                            debugger;
+                            var manufactureryear = $('#ddlVDManufacturerYear option:selected').text();
+                            var manufacturermonth = $('#ddlManufacturMonth option:selected').val();
+
+                            //alertify.success(manufactureryear)
+                            //alertify.success(manufacturermonth)
+
+                            //debugger;
+                            var today = new Date();
+                            jQuery('#txtPHDateOfPurchase').datetimepicker({
+                                defaultDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+                                timepicker: false,
+                                format: 'd-m-Y',
+                                minDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+                                maxDate: new Date(),
+                                yearStart: manufactureryear,
+                                scrollMonth: false,
+                                scrollInput: false,
+                                closeOnDateSelect: true,
+                                useCurrent: false,
+                            });
+
+                            $("#txtPHDateOfPurchase").on("keydown keypress keyup", false);
+                            $("#txtPHVToDate").on("keydown keypress keyup", false);
+                            $("#txtPHfromDt").on("keydown keypress keyup", false);
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (currentIndex == 3) {
+                         $('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "none");
+
+                        ValidatePreviousHistoryDetails();
+                        if ($('.err:visible').length === 0) {
+                            return SavePreviousHistoryDetails();
+                        }
+                        else {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                    else if (currentIndex == 4) {
+                        var idvamount = $("#txtidvovamnt").val();
+                        if (idvamount == "") {
+                            $("#errIsidvvalue").removeAttr("hidden");
+                            alertify.error("Please Enter IDV Value..!!");
+                            return false;
+                        }
+                        else if (idvamount != null || idvamount == undefined) {
+                            $('#errIsidvvalue').hide();
+                            debugger;
+                            SaveIDVDetails();
+                            //debugger
+
+                            return true;
+                        }
+                    }
+                    else if (currentIndex == 5) {
+                        $('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "block");
+                        return true;
+                    }
+                    return true;
+                }
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                if (currentIndex === 3 && priorIndex === 4) {
+                    debugger;
+                    var manufactureryear = $('#ddlVDManufacturerYear option:selected').text();
+                    var manufacturermonth = $('#ddlManufacturMonth option:selected').val();
+
+                    //alertify.success(manufactureryear)
+                    //alertify.success(manufacturermonth)
+
+                    debugger;
+                    var today = new Date();
+                    jQuery('#txtPHDateOfPurchase').datetimepicker({
+                        defaultDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+                        timepicker: false,
+                        format: 'd-m-Y',
+                        minDate: new Date(manufactureryear, manufacturermonth - 1, 01),
+                        maxDate: new Date(),
+                        yearStart: manufactureryear,
+                        scrollMonth: false,
+                        scrollInput: false,
+                        closeOnDateSelect: true,
+                        useCurrent: false,
+                    });
+
+                    $("#txtPHDateOfPurchase").on("keydown keypress keyup", false);
+                    $("#txtPHVToDate").on("keydown keypress keyup", false);
+                    $("#txtPHfromDt").on("keydown keypress keyup", false);
+                }
+            },
+            onFinished: function (event, currentIndex) {
+                if (currentIndex == 5) {
+                    var isChecked = $("#miDeclaration").is(":checked");
+                    if (isChecked) {
+                        alertify.confirm("Are you sure you want to submit the proposal form?", function () {
+                            //$("#divShowQRCode").show();
+                            if (PDserverResponse == false) {
+                                SaveMIProposerDetails();
+                            }
+                            if (VDserverResponse == false) {
+                                if ($('.err:visible').length === 0) {
+                                    SaveVehicleDetails();
+                                }
+                            }
+                            if (ODserverResponse == false) {
+                                SaveOtherDetails();
+                            }
+                            if (IDVserverResponse == false) {
+                                SaveIDVDetails();
+                            }
+                            if (PHDserverResponse == false) {
+                                SavePreviousHistoryDetails();
+                            }
+
+
+                            DownloadApplicationForm()
+                            $('#nav-Document-tab').removeClass("disabled");
+                            $("#nav-Document-tab").click();
+                        }).setHeader("Submit Application?");
+                    }
+                    else {
+                        alertify.alert("Please agree to the terms and condition.").setHeader("Warning !!!");
+                        return false;
+                    }
+
+                }
+            }
+        });
+
+        $("#ApplicationTab ul[aria-label=Pagination] li:nth-child(1)").after('<li><a id="btnASave" role="menuitem" onclick="ApplicationDetailsSave()">Save</a></li>');
+
+        $("#DocumentTab").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+
+            },
+            onFinished: function (event, currentIndex) {
+                //var label = $('#txtProposalDocNewPurchaseFileName').text();
+                //alert(label);
+                if ($('#chkNewPurchasedVehicle').is(":checked") || $('#chkDonatedVehicle').is(":checked") || $('#chkSeizedVehicle').is(":checked")) {
+
+                    if ($('#chkNewPurchasedVehicle').is(":checked")) {
+                        //if ($("#txtProposalDocNewPurchase").val().length == 0 && $("#txtProposalDocNewPurchaseFileName").text() != "Previously uploaded Document: Click Here") {
+                        //    alertify.alert("Please upload proposal application form").setHeader("warning!!!");
+                        //    return false;
+                        //}
+                        if ($("#txtGovtSanctionDoc").val().length == 0 && $("#txtGovtSanctionDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload sanction Letter from Government").setHeader("warning!!!");
+                            return false;
+                        }
+                        if ($("#txtProformaInvoiceDoc").val().length == 0 && $("#txtProformaInvoiceDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload proforma Invoice").setHeader("warning!!!");
+                            return false;
+                        }
+                    }
+                    if ($('#chkDonatedVehicle').is(":checked")) {
+                        //if ($("#txtProposalDocDonatedVehicle").val().length == 0 && $("#txtProposalDocDonatedVehicleFileName").text() != "Previously uploaded Document: Click Here") {
+                        //    alertify.alert("Please upload proposal application form").setHeader("warning!!!");
+                        //    return false;
+                        //}
+                        if ($("#txtDonationDoc").val().length == 0 && $("#txtDonationDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload Letter of Donation").setHeader("warning!!!");
+                            return false;
+                        }
+                        if ($("#txtSaleCertificateDoc").val().length == 0 && $("#txtSaleCertificateDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload Sale Certificate").setHeader("warning!!!");
+                            return false;
+                        }
+                        if ($("#txtTaxInvoiceDoc").val().length == 0 && $("#txtTaxInvoiceDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Tax Invoice").setHeader("warning!!!");
+                            return false;
+                        }
+                         if(document.getElementById('rbtnVPurchaseTypYes').checked) {
+                            if ($("#txtDonatedEmissionCertificateDoc").val().length == 0) {
+                                alertify.alert("Please upload Emission Certificate").setHeader("Warning!!!");
+                                return false;
+                            }
+                        }
+                    }
+                    if ($('#chkSeizedVehicle').is(":checked")) {
+                        //if ($("#txtProposalDocSeizedVehicle").val().length == 0 && $("#txtProposalDocSeizedVehicleFileName").text() != "Previously uploaded Document: Click Here") {
+                        //    alertify.alert("Please upload proposal application form").setHeader("warning!!!");
+                        //    return false;
+                        //}
+                        if ($("#txtcCertificateDoc").val().length == 0 && $("#txtcCertificateDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload “C” Certificate issued by Court").setHeader("warning!!!");
+                            return false;
+                        }
+                        if ($("#txtRTOcertificateDoc").val().length == 0 && $("#txtRTOcertificateDocFileName").text() != "Previously uploaded Document: Click Here") {
+                            alertify.alert("Please upload RTO certificate on vehicle value").setHeader("warning!!!");
+                            return false;
+                        }
+                        if ($("#txtSeizedEmissionCertificateDoc").val().length == 0) {
+                            alertify.alert("Please upload Emission Certificate").setHeader("Warning!!!");
+                            return false;
+                        }
+                    }
+                }
+                else {
+                    alertify.alert("Please Select Document Option").setHeader("Warning!!!");
+                    return false;
+                }
+                SaveMIDocumentDetails();
+                //window.location.href = "/MotorInsurance/MotorInsuranceListOfApplications";
+            }
+        });
+
+
+        var today = new Date();
+        $('#txtVLED').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            dateFormat: 'dd-mm-yy',
+        });
+        //txtPHVToDate txtPHfromDt
+        $('#txtVLSD').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            autoclose: true,
+            maxDate: 0,
+            yearStart: today.getFullYear() - 80,
+            yearEnd: today.getFullYear(),
+            scrollMonth: false,
+            scrollInput: false,
+            dateFormat: 'dd-mm-yy',
+        });
+
+        $("#txtVLED").on("keydown keypress keyup", false);
+        $("#txtVLSD").on("keydown keypress keyup", false);
+
+    });
+
+    function DownloadApplicationForm() {
+    debugger
+    var Applicationcontents = "";
+
+    Applicationcontents = $('#divMIPrintForm').html();
+    
+    var date = new Date().getDate() + '_' + (parseInt(new Date().getMonth()) + parseInt(1)) + '_' + new Date().getFullYear();
+
+    let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+    mywindow.document.write(`<html><head><title>Print Application</title>`);
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(Applicationcontents);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+
+}
+    
+    function printApplicationForm() {
+        //if ($("#chkDeclaration").prop("checked") == false) {
+        //    alertify.alert("Please agree to the terms and condition.").setHeader("Warning !!!");
+        //    return false;
+        //}
+        $("#spnBReferanceNo").text($("#hdnMIReferanceNo").val());
+        $("#imgBQRCode").attr("src", $("#hdnQRCode").val());
+        $("#divShowQRCode").show();
+        var contents = '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Proposer Details </h2></div></div>' + $("#divMIProposerDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Vehicle Details</h2></div></div>' + $("#divMIVehicleDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Other Details</h2></div></div>' + $("#divOtherDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">IDV Details</h2></div></div>' + $("#divIDVDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-12"><h2 style="text-align:center">Previous History Details</h2></div></div>' + $("#divPreviousHistoryDetails").html() + "<hr/>";
+        contents = contents + '<div class="row"><div class="form-group col-5"></div><div class="form-group col-3"><h2>Declaration</h2></div><div class="form-group col-4"></div></div>' + $("#divMIDeclaration").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Motor Insurance Application Form</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        //frameDoc.document.write('<link href="/Content/Custom/sb-admin-2.min.css" rel="stylesheet" />');
+        frameDoc.document.write('<link href="/Scripts/DataTables/Bootstrap-4-4.1.1/css/bootstrap.min.css" rel="stylesheet" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+        $('#ApplicationTab ul[aria-label=Pagination] li a[href="#finish"]').css("display", "block");
+    }
+
+    function AutopopulateEndDate() {
+        //var dateFormat = $("#txtVLSD").val();
+        //var fromdate = $.datepicker.formatDate('MM dd, yy', new Date(dateFormat));
+        //if (fromdate != null) {
+        //    var dd = fromdate.getDate();
+        //    var mm = fromdate.getMonth() + 1; //January is 0!
+        //    var yyyy = fromdate.getFullYear();
+        //    $("#txtVLED").val(c)
+
+        //}
+        //else {
+        //    $("#errVDLEDsReq").removeAttr("hidden");
+        //    return false;
+        //}
+
+    }
+
+
+
+
+</script>

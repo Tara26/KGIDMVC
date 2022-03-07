@@ -1,0 +1,244 @@
+﻿
+@{
+    ViewBag.Title = "UploadEmployeeDetails";
+}
+<style type="text/css">
+    #tblUploadedEmployeeDetails_wrapper {
+        width: 100% !important;
+    }
+</style>
+<script src="~/Scripts/moment.js"></script>
+@using (Html.BeginForm("UploadExcelData", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><label class="knlan">ಹೊಸ ಮನವಿದಾರರ ವಿವರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</label><label class="Enlan">Upload New Employee Details</label></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row col-md-6">
+                        <div class="form-group col-md-6">
+                            <label class="knlan" for="postedFile">
+                                ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಕಡತವನ್ನು  ಆಯ್ಕೆಮಾಡಿ
+                            </label>
+                            <label class="Enlan" for="postedFile">Select File To Upload</label>
+                            <input type="file" name="postedFile" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <span></span>
+                            <input type="submit" value="Upload" class="btn btn-primary" style="margin-top: 20%;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><label class="knlan">ಅಪ್‍ಲೋಡ್‍ ಮಾಡಲಾದ ಮನವಿದಾರರ ವಿವರಗಳು</label><label class="Enlan">Uploaded Employee Details</label></h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <table id="tblUploadedEmployeeDetails" class="table table-striped " cellspacing="0" style="width: 100%;"
+                           data-url="@Url.Action("GetEmployeeData", "Upload", new { area = "" })"
+                           data-edit-url="@Url.Action("EditUploadEmployeeDetails", "Employee", new { area = "" })">
+                        <thead>
+                            <tr>
+                                <th><label class="knlan">ಕ್ರಮ ಸಂಖ್ಯೆ</label> <label class="Enlan">SL. NO.</label></th>
+                                <th><label class="knlan">ಪ್ರಸ್ತಾಪಕರ ಕೋಡ್</label> <label class="Enlan">Employee Code</label></th>
+                                <th><label class="knlan">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು</label> <label class="Enlan">Employee Name</label></th>
+                                <th><label class="knlan">ಜನ್ಮ ನಾಂಕ</label> <label class="Enlan">Date of Birth</label></th>
+                                <th><label class="knlan">ಲಿಂಗ</label> <label class="Enlan">Gender</label></th>
+                                <th><label class="knlan">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</label> <label class="Enlan">Mobile Number</label></th>
+                                <th><label class="knlan">ಇಮೇಲ್</label> <label class="Enlan">Email</label></th>
+                                <th><label class="knlan">ತಂದೆಯ ಹೆಸರು</label> <label class="Enlan">Father Name</label></th>
+                                <th><label class="knlan"> ಕ್ರಮ</label> <label class="Enlan">Action</label></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myUploadModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><label class="knlan"></label><label class="Enlan">Excel Data Upload Success</label></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h6 id="hUploadResult"></h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@{Html.RenderPartial("_ModalPopup");}
+
+
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('excelUploaded');
+        var uploadData = "fail";
+        uploadData = myParam;
+        if (uploadData != null) {
+            $('#myUploadModal').modal('show');
+            $('#hUploadResult')[0].innerHTML = uploadData;
+        }
+        console.log(uploadData);
+        var uri = window.location.toString();
+        if (uri.indexOf("?") > 0) {
+            var clean_uri = uri.substring(0, uri.indexOf("?"));
+            window.history.replaceState({}, document.title, clean_uri);
+        }
+
+        table = $('#tblUploadedEmployeeDetails').DataTable({
+            "ajax": {
+                "LengthMenu": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                "url": $('#tblUploadedEmployeeDetails').data('url'),
+                "type": "GET",
+                "datatype": "json",
+                "dataSrc": "",
+                "serverprocessing": false,
+                "paging": true,
+                "retrieve": true
+            },
+            "columns": [
+                { "data": "employee_id", "name": "employee_id", "autoWidth": true },
+                { "data": "hrms_employee_code", "name": "hrms_employee_code", "autoWidth": true },
+                { "data": "employee_name", "name": "employee_name", "autoWidth": true },
+                { "data": "dateofbirth", "name": "dateofbirth", "autoWidth": true },
+                { "data": "gender", "name": "gender", "autoWidth": true },
+                { "data": "mobile_number", "name": "mobile_number", "autoWidth": true },
+                { "data": "email_id", "name": "email_id", "autoWidth": true, },
+                { "data": "father_name", "name": "father_name", "autoWidth": true },
+                {
+                    data: null, render: function (data, type, row) {
+                        debugger;
+                        return '<a href="javascript:void(0);" class="btn-sm btn-secondary" onclick="EditEmployee(' + data.hrms_employee_code + ');">Edit</a>';
+                    }
+                }
+            ],
+            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                $("td:first", nRow).html(iDisplayIndex + 1);
+                return nRow;
+            },
+        });
+    });
+
+    function EditEmployee(empId) {
+        $(".err").attr('hidden');
+        var url = $("#tblUploadedEmployeeDetails").data("edit-url");
+        url = url + "?empId=" + empId;
+        $.get(url).done(function (data) {
+            $("#modalPopup").find(".modal-body").html(data);
+            $("#modalPopup").find(".modal-header").find("h2").html("Edit employee details");
+            $("body").addClass("modal-open");
+            $("#modalPopup").show();
+        });
+    }
+
+    $(".modal-save").click(function () {
+        $(".err").attr('hidden');
+        var url = $("#divEditEmpPopup").data("save-url");
+        var viewModel = {
+            'employee_name': $("#txtName").val(), 'father_name': $("#txtFatherName").val(), 'spouse_name': $("#txtSpouseName").val(),
+            'gender': $("#ddlGender").val(), 'dateofbirth': moment($("#txtDateOfBirth").val()).utcOffset(330).format('DD-MM-YYYY'), 'place_of_birth': $("#txtPlaceOfBirth").val(),
+            'pan_number': $("#txtPANNumber").val(), 'mobile_number': $("#txtMobileNumber").val(), 'email_id': $("#txtEmailId").val(),
+            'dateofappointment': moment($("#txtDateOfAppointment").val()).utcOffset(330).format('DD-MM-YYYY'), 'active_status': $("#chkIsActive").is(":checked"), 'ddocode': $("#ddlDDOCode").val(),
+            'department': $("#ddlDepartmentCode").val(), 'employee_id': $("#hdnEmpID").val(),
+            'ewddateofjoining': moment($("#txtewd_date_of_joining_post").val()).utcOffset(330).format('DD-MM-YYYY'), 'payscalecode': $("#ddlewd_payscle_code").val(), 'emptype': $("#ddlewd_permanent_temporary").val(),
+            'designation': $("#ddlewd_designation").val(), 'group': $("#ddlewd_group").val(), 'ewd_place_of_posting': $("#txtewd_place_of_posting").val()
+        };
+
+        if (Date.parse($("#txtewd_date_of_joining_post").val()) < Date.parse($("#txtDateOfAppointment").val())) {
+            $("#errDOADOJ").removeAttr('hidden'); return;
+        }
+        if (ValidateEmpDetails(viewModel)) {
+            $.ajax({
+                url: url,
+                data: JSON.stringify(viewModel),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (response.IsSuccess) {
+                        ClosePopup();
+                        table.ajax.reload();
+                    }
+                }, error: function (result) {
+
+                }
+            });
+        }
+    });
+    function ValidateEmpDetails(viewModel) {
+        if (viewModel.employee_name == "" || viewModel.employee_name == null) {
+            $("#errEmpName").removeAttr('hidden'); return false;
+        }
+        //else if (viewModel.father_name == "" || viewModel.father_name == null) {
+        //    $("#errFatherName").removeAttr('hidden'); return false;
+        //}
+        else if (viewModel.gender == "" || viewModel.gender == null) {
+            $("#errGender").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.mobile_number == "" || viewModel.mobile_number == null) {
+            $("#errMblNum").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.email_id == "" || viewModel.email_id == null) {
+            $("#errMailID").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.date_of_birth == "" || viewModel.date_of_birth == null) {
+            $("#errDOB").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.place_of_birth == "" || viewModel.place_of_birth == null) {
+            $("#errPOB").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.department == "" || viewModel.department == null) {
+            $("#errDeptCode").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.ddocode == "" || viewModel.ddocode == null) {
+            $("#errDDOCode").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.date_of_appointment == "" || viewModel.date_of_appointment == null) {
+            $("#errDOA").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.pan_number == "" || viewModel.pan_number == null) {
+            $("#errPANNum").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.ewd_date_of_joining == "" || viewModel.ewd_date_of_joining == null) {
+            $("#errDOJ").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.payscalecode == "" || viewModel.payscalecode == null) {
+            $("#errPSCode").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.emptype == "" || viewModel.emptype == null) {
+            $("#errEmpType").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.designation == "" || viewModel.designation == null) {
+            $("#errDesg").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.group == "" || viewModel.group == null) {
+            $("#errEmpGrp").removeAttr('hidden'); return false;
+        }
+        else if (viewModel.ewd_place_of_posting == "" || viewModel.ewd_place_of_posting == null) {
+            $("#errPOP").removeAttr('hidden'); return false;
+        }
+        return true;
+    }
+</script>

@@ -1,0 +1,158 @@
+﻿@model KGID_Models.NBApplication.VM_MOtherDetails
+
+<div id="divOtherDetails">
+    <form id="frmOtherDetails" enctype="multipart/form-data">
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnEmployeeId" })
+        @Html.HiddenFor(m => m.application_id, new { id = "hdnApplicationId" })
+        <div class="form-group">
+            <div class="row">
+                <label for="txtWAS" class="knlan control-label col-12">3. ಮನವಿದಾರರಿಂದ ಖಚಿತಪಡಿಸಿಕೊಂಡು ಈ ಕೆಳಕಂಡ ಪ್ರಶ್ನೆಗಳಿಗೆ ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷಕರು ಉತ್ತರಿಸುವುದು:</label>
+                <label for="txtWAS" class="Enlan control-label col-12">
+                    3. Medical examiner to answer the following questions based on the confirmed replies of Proposer.:
+                </label>
+            </div>
+            <div class="row">
+                <label for="txtWAS" class="knlan control-label col-2">(a) ಮನವಿದಾರರು ಯಾವಾಗಲಾದರೂ ಆಸ್ಪತ್ರೆಗೆ ದಾಖಲಾಗಿದ್ದರೆ?</label>
+                <label for="txtWAS" class="Enlan control-label col-2">(a) Was Proposer Admitted To Hospital?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdmittedToHospital, true, new { @id = "rbtnAHYes", @class = "csAdmittedToHospitalY", onchange = "Hcheckboxchange(this.id,'txtAdmittedToHospital')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.AdmittedToHospital, false, new { @id = "rbtnAHNo", @class = "csAdmittedToHospitalN", onchange = "Hcheckboxchange(this.id,'txtAdmittedToHospital')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AdmittedToHospitalDesc, new { @id = "txtAdmittedToHospital", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtAdmittedToHospitalReq" class="col-form-label-sm text-danger err" hidden>Please enter details about admission to hospital.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AdmittedToHospitalDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AdmittedToHospitalDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.AdmittedToHospitalDocFileName" target="_blank" class="doc-uploaded-OD">Click Here</a>*@
+                        @*<a class="ViewDocPathHOD" href="javascript:;" data-path="@Model.AdmittedToHospitalDocFileName">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AdmittedToHospitalDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.AdmittedToHospitalDoc, new { @id = "txtAdmittedToHospitalDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAdmittedToHospital", onchange = "ODocFileSize(this.id,'errtxtAdmittedToHospitalDoc')" })
+                    <label id="errtxtAdmittedToHospitalDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtACCIDENT" class="knlan control-label col-2">(b) ಅಪಘಾತಕ್ಕೆ ಈಡಾಗಿದ್ದರೇ?</label>
+                <label for="txtACCIDENT" class="Enlan control-label col-2">(b) Has Proposer Met With an Accident?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Accident, true, new { @id = "rbtnPAYes", @class = "csAccidentY", onchange = "Hcheckboxchange(this.id,'txtAccident')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.Accident, false, new { @id = "rbtnPANo", @class = "csAccidentN", onchange = "Hcheckboxchange(this.id,'txtAccident')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.AccidentDesc, new { @id = "txtAccident", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtAccidentReq" class="col-form-label-sm text-danger err" hidden>Please enter details about accident.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.AccidentDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.AccidentDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.AccidentDocFileName" target="_blank" class="doc-uploaded-OD">Click Here</a>*@
+                        @*<a class="ViewDocPathHOD" href="javascript:;" data-path="@Model.AccidentDocFileName">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.AccidentDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.AccidentDoc, new { @id = "txtAccidentDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuAccident", onchange = "ODocFileSize(this.id,'errtxtAccidentDoc')" })
+                    <label id="errtxtAccidentDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label for="txtUNDERGONE" class="knlan control-label col-2">
+                    (c) ಅವರು ಯಾವಾಗಲಾದರೂ ಎಲೆಕ್ಟ್ರೋಕಾರ್ಡಿಯೋಗ್ರಾಂ, ಇ.ಇ.ಜಿ,
+                    ಕ್ಷಕಿರಣ, ಸಿಟಿ ಸ್ಕ್ಯಾನ್, ಎಂ.ರ್.ಐ. ಸ್ಕ್ಯಾನ್,  ಅಗೋಚರ ಕಿರಣ ದರ್ಶಕದ
+                    ಪರೀಕ್ಷೆಯನ್ನು ಮಾಡಿಸಿಕೊಂಡಿದ್ದಾರೆಯೆ?
+                </label>
+                <label for="txtUNDERGONE" class="Enlan control-label col-2">(c) Has Proposer Undergone Test Like Ecg, X-Ray, Laser Ray?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneTest, true, new { @id = "rbtnUTYes", @class = "csUndergoneTestY", onchange = "Hcheckboxchange(this.id,'txtUndergoneTest')" })  Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneTest, false, new { @id = "rbtnUTNo", @class = "csUndergoneTestN", onchange = "Hcheckboxchange(this.id,'txtUndergoneTest')" })  No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.UndergoneTestDesc, new { @id = "txtUndergoneTest", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtUndergoneTestReq" class="col-form-label-sm text-danger err" hidden>Please enter details about tests.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.UndergoneTestDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.UndergoneTestDocFileName, new { @class = "display-as-label form-label col-12 ", @style = "display:none;" })
+                        @*<a href="@Model.UndergoneTestDocFileName" target="_blank" class="doc-uploaded-OD">Click Here</a>*@
+                        @*<a class="ViewDocPathHOD" href="javascript:;" data-path="@Model.UndergoneTestDocFileName">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.UndergoneTestDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.UndergoneTestDoc, new { @id = "txtUndergoneTestDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuUndergoneTest", onchange = "ODocFileSize(this.id,'errtxtUndergoneTestDoc')" })
+                    <label id="errtxtUndergoneTestDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <label for="txtANY" class="knlan control-label col-2">(d) ಪ್ರಸ್ತುತದಲ್ಲಿ ಅವರು ಯಾವುದಾದರೂ ಚಿಕಿತ್ಸೆಗೆ ಒಳಗಾಗಿದ್ದಾರೆಯೆ?</label>
+                <label for="txtANY" class="Enlan control-label col-2">(d) At Present Has Proposer Undergone Any Treatment?</label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneAnyTreatment, true, new { @id = "rbtnUATYes", @class = "csUndergoneAnyTreatmentY", onchange = "Hcheckboxchange(this.id,'txtUndergoneAnyTreatment')" })Yes
+                </label>
+                <label class="col-1">
+                    @Html.RadioButtonFor(model => model.UndergoneAnyTreatment, false, new { @id = "rbtnUATNo", @class = "csUndergoneAnyTreatmentN", onchange = "Hcheckboxchange(this.id,'txtUndergoneAnyTreatment')" })No
+                </label>
+                <div class="form-group col-4">
+                    @Html.TextAreaFor(model => model.UndergoneAnyTreatmentDesc, new { @id = "txtUndergoneAnyTreatment", @class = "form-control ClAlphaNum", rows = "3" })
+                    <label id="errtxtUndergoneAnyTreatmentReq" class="col-form-label-sm text-danger err" hidden>Please enter details about treatment.</label>
+                </div>
+                <div class="form-group col-4 pl-0">
+                    @if (!string.IsNullOrEmpty(Model.UndergoneAnyTreatmentDocFileName))
+                    {
+                    <label class="knlan col-12">ಹಿಂದೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ದಾಖಲೆಗಳು</label>
+                        <label class="Enlan col-12">Previously uploaded Document</label>
+                        @Html.TextBoxFor(m => m.UndergoneAnyTreatmentDocFileName, new { @class = "display-as-label form-label col-12", @style = "display:none;" })
+                        @*<a href="@Model.UndergoneAnyTreatmentDocFileName" target="_blank" class="doc-uploaded-OD">Click Here</a>*@
+                        @*<a class="ViewDocPathHOD" href="javascript:;" data-path="@Model.UndergoneAnyTreatmentDocFileName">Click Here</a>*@
+                        @Html.ActionLink("Click Here", "ViewFilePath", "Home", new { FilePath = @Model.UndergoneAnyTreatmentDocFileName }, htmlAttributes: new { @target = "_blank", @style = "text-decoration: underline; color: #0056b3;" })
+                    }
+                    @Html.TextBoxFor(m => m.UndergoneAnyTreatmentDoc, new { @id = "txtUndergoneAnyTreatmentDoc", type = "file", accept = "application/pdf", @class = "form-control display-as-label-upload fuUndergoneAnyTreatment", onchange = "ODocFileSize(this.id,'errtxtUndergoneAnyTreatmentDoc')" })
+                    <label id="errtxtUndergoneAnyTreatmentDoc" class="col-form-label-sm text-danger err" hidden></label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="~/Scripts/ApplicationJS/NBHOtherDetails.js"></script>
+<script>
+    $(function () {
+        $('.ViewDocPathHOD').click(function () {
+            debugger
+            var $this = $(this);
+            var docpath = $this.data('path');
+            $.ajax({
+                url: '/Home/ViewFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    debugger
+                    var path = result.Result
+                    printPreview(path)
+                }
+            });
+        });
+    });
+</script>

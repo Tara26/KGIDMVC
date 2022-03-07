@@ -1,0 +1,175 @@
+﻿@model KGID_Models.NBApplication.VM_MOtherDetails
+
+<style>
+    .doc-uploaded {
+        cursor: pointer;
+        color: #007bff !important;
+        text-decoration: none;
+        background-color: transparent;
+    }
+</style>
+<div id="divOtherDetails">
+    <form id="frmOtherDetails" enctype="multipart/form-data">
+        @Html.HiddenFor(m => m.employee_id, new { id = "hdnEmployeeId" })
+        @Html.HiddenFor(m => m.application_id, new { id = "hdnApplicationId" })
+        <div class="form-group">
+            <div class="row">
+                <label for="txtWAS" class="knlan control-label col-12">3. ಮನವಿದಾರರಿಂದ ಖಚಿತಪಡಿಸಿಕೊಂಡು ಈ ಕೆಳಕಂಡ ಪ್ರಶ್ನೆಗಳಿಗೆ ವೈದ್ಯಕೀಯ ಪರೀಕ್ಷಕರು ಉತ್ತರಿಸುವುದು:</label>
+                <label for="txtWAS" class="Enlan control-label col-12">
+                    3. Medical examiner to answer the following questions based on the confirmed replies of Proposer.
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            
+            @if (Model.AdmittedToHospital == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಮನವಿದಾರರು ಯಾವಾಗಲಾದರೂ ಆಸ್ಪತ್ರೆಗೆ ದಾಖಲಾಗಿದ್ದರೆ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Was Proposer Admitted To Hospital?</label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.AdmittedToHospitalDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.AdmittedToHospitalDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AdmittedToHospitalDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಮನವಿದಾರರು ಯಾವಾಗಲಾದರೂ ಆಸ್ಪತ್ರೆಗೆ ದಾಖಲಾಗಿದ್ದರೆ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Was Proposer Admitted To Hospital?</label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            @if (Model.Accident == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಅಪಘಾತಕ್ಕೆ ಈಡಾಗಿದ್ದರೇ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Has Proposer Met With an Accident?</label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.AccidentDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.AccidentDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AccidentDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಅಪಘಾತಕ್ಕೆ ಈಡಾಗಿದ್ದರೇ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Has Proposer Met With an Accident?</label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            @if (Model.UndergoneTest == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            ಅವರು ಯಾವಾಗಲಾದರೂ ಎಲೆಕ್ಟ್ರೋಕಾರ್ಡಿಯೋಗ್ರಾಂ, ಇ.ಇ.ಜಿ,
+                            ಕ್ಷಕಿರಣ, ಸಿಟಿ ಸ್ಕ್ಯಾನ್, ಎಂ.ರ್.ಐ. ಸ್ಕ್ಯಾನ್,  ಅಗೋಚರ ಕಿರಣ ದರ್ಶಕದ
+                            ಪರೀಕ್ಷೆಯನ್ನು ಮಾಡಿಸಿಕೊಂಡಿದ್ದಾರೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Has Proposer Undergone Test Like Ecg, X-Ray, Lasseray?</label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.UndergoneTestDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.UndergoneTestDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.UndergoneTestDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">
+                            ಅವರು ಯಾವಾಗಲಾದರೂ ಎಲೆಕ್ಟ್ರೋಕಾರ್ಡಿಯೋಗ್ರಾಂ, ಇ.ಇ.ಜಿ,
+                            ಕ್ಷಕಿರಣ, ಸಿಟಿ ಸ್ಕ್ಯಾನ್, ಎಂ.ರ್.ಐ. ಸ್ಕ್ಯಾನ್,  ಅಗೋಚರ ಕಿರಣ ದರ್ಶಕದ
+                            ಪರೀಕ್ಷೆಯನ್ನು ಮಾಡಿಸಿಕೊಂಡಿದ್ದಾರೆಯೆ?
+                        </label>
+                        <label class="Enlan control-label col-sm-10 text-justify">Has Proposer Undergone Test Like Ecg, X-Ray, Lasseray?</label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            @if (Model.UndergoneAnyTreatment == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಪ್ರಸ್ತುತದಲ್ಲಿ ಅವರು ಯಾವುದಾದರೂ ಚಿಕಿತ್ಸೆಗೆ ಒಳಗಾಗಿದ್ದಾರೆಯೆ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">At Present Has Proposer Undergone Any Treatment?</label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnMedicalAdviceDetails">@Html.DisplayFor(model => model.UndergoneAnyTreatmentDesc)</span>
+                    </div>
+                    <div class="form-group col-2">
+                        @if (!string.IsNullOrEmpty(Model.UndergoneAnyTreatmentDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.UndergoneAnyTreatmentDocFileName')" class="doc-uploaded" style = "text-decoration: underline; color: #0056b3;"><label class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label col-sm-10 text-justify">ಪ್ರಸ್ತುತದಲ್ಲಿ ಅವರು ಯಾವುದಾದರೂ ಚಿಕಿತ್ಸೆಗೆ ಒಳಗಾಗಿದ್ದಾರೆಯೆ?</label>
+                        <label class="Enlan control-label col-sm-10 text-justify">At Present Has Proposer Undergone Any Treatment?</label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+<script>
+    function OpenSidebar(filename) {
+        $("#iViewApp")[0].src = window.location.origin + filename;
+        $("#viewSidebar")[0].style.display = "block";
+        $("#viewSidebar")[0].style.width = "500px";
+        $("#applicationFormTab")[0].style.marginRight = "500px";
+        $("#viewSidebar")[0].style.marginTop = "0px";
+    }
+</script>

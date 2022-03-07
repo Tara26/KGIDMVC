@@ -1,0 +1,54 @@
+﻿
+@model KGID_Models.NBApplication.VM_NomineeDetails
+@using KGID_Models.NBApplication
+
+<style>
+    #tblPNomineeDetails p {
+        line-height: 14px;
+    }
+</style>
+
+<table id="tblPNomineeDetails" class="" style="width:100%;border:1px solid #111;">
+    <thead>
+        <tr>
+            <th><p class="knlan">ಹೆಸರು</p><p class="Enlan">Name</p></th>
+            @*<th><p class="knlan">ನಾಮ ನಿರ್ದೇಶಿತರ ವಯಸ್ಸು</p><p class="Enlan">Nominee Age</p></th>*@
+            <th><p class="knlan">ವಯಸ್ಸು</p><p class="Enlan">Nominee Age</p></th>
+            <th><p class="knlan">ಸಂಬಂಧ</p><p class="Enlan">Relation</p></th>
+            @*<th><p class="knlan">% ಶೇಕಡ</p><p class="Enlan">% Share</p></th>*@
+            <th><p class="knlan">ಪೋಷಕರ ಹೆಸರು</p><p class="Enlan">Guardian Name</p></th>
+            <th><p class="knlan">ಪೋಷಕರ ಸಂಬಂಧ</p><p class="Enlan">Guardian Relation</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.EmployeeId != 0)
+        {
+            int counter = 1;
+            foreach (var item in Model.NomineeDetails)
+            {
+                <tr data-row-number="@counter">
+                    <td><p>@item.NameOfNominee</p></td>
+                    <td style="text-align:center"><p>@item.Age</p></td>
+                    <td style="text-align:center"><p>@item.Relation</p></td>
+                    @*<td style="text-align:center"><p>@item.PercentageShare</p></td>*@
+                    <td style="text-align:center"><p>@item.NameOfGaurdian</p></td>
+                    <td style="text-align:center"><p>@item.GaurdianRelation</p></td>
+                </tr>
+                counter++;
+            }
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        if (!$.fn.dataTable.isDataTable('#tblPNomineeDetails')) {
+            table = $('#tblPNomineeDetails').DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": false
+            });
+        }
+    });
+</script>

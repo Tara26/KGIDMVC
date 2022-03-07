@@ -1,0 +1,233 @@
+﻿@model KGID_Models.KGIDMotorInsurance.VM_MotorInsuranceVehicleDetails
+
+    <style>
+        #tblvehdiv p {
+    font-size: 14px;
+    line-height: 25px;
+    color: black;
+        }
+    </style>
+
+<table style="width: 100%; border:none;" id="tblvehdiv">
+	<tbody>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Chassis No</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_chasis_no)
+				</p>
+			</td>
+
+		</tr>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Registration No</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(a => a.mivd_registration_no)
+				</p>
+			</td>
+
+		</tr>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Vehicle Category type</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleCategoryTypedesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Date of Registration</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_date_of_registration)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Make of Vehicle</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleMakedesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Type of Model</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(model => model.mivd_type_of_model)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>RTO</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleRTOdesc)
+				</p>
+			</td>
+
+		</tr>
+	
+	
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Year &nbsp;-&nbsp; Month of Manufacture</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.yeardesc)&nbsp;-&nbsp; @Html.DisplayFor(Model => Model.mivd_manufacturer_month_desc)
+				</p>
+			</td>
+
+		</tr>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Type of Fuel</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleFueldesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Engine No</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_engine_no)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;">
+				@if (Model.mivd_vehicle_type_id == "1")
+				{
+					<p id="pPrivate">Seating Capacity Including Driver :</p>
+				}
+				else
+				{
+					<p id="pCommerical">Max. lincensed Carrying Capacity (No. of Passenger) in case of passenger carrying vehicles </p>
+				}
+
+			</td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_seating_capacity_including_driver)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Gross Vehicle Weight in (kgs)</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_vehicle_weight)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Vehicle Category</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleCategorydesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Vehicle Type</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleTypedesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Vehicle SubType</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleSubTypedesc)
+				</p>
+			</td>
+
+		</tr>
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Cubic Capacity (CC) / KW</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mivd_cubic_capacity)
+				</p>
+			</td>
+
+		</tr>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Type of Cover</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.mipd_type_of_cover)
+				</p>
+			</td>
+
+		</tr>
+
+		<tr style="height: 34px;">
+			<td style="width: 5%; height: 34px;"><p>&nbsp;</p></td>
+			<td style="width: 20%; height: 34px;"><p>Type of Vehicle</p></td>
+			<td style="width: 50%; height: 34px;">
+				<p>
+					:&nbsp;
+					@Html.DisplayFor(Model => Model.VehicleClassdesc)
+				</p>
+			</td>
+
+		</tr>
+
+	
+
+	</tbody>
+</table>
+

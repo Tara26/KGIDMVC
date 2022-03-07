@@ -1,0 +1,195 @@
+﻿@model KGID_Models.NBApplication.VM_NomineeDetails
+@using KGID_Models.KGIDNBApplication
+
+
+@Html.Hidden("emld_application_id", Session["UId"], new { id = "hdnPReferanceNo" })
+<div class="row" id="divNRNominee">
+    <div class="form-group col-sm-6" id="divOne">
+        <label for="ddlNomineeName" class="knlan control-label required" id="labelNomineeName">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಯ ಹೆಸರು</label>
+        <label for="ddlNomineeName" class="Enlan control-label required" id="labelNomineeName">Name of Nominee</label>
+        <div id="divNomineeName">
+            <select id="ddlNomineeName" class="form-control">
+                
+            </select>
+            <input type="text" id="txtNomineeName" class="form-control alphaonly" maxlength="100">
+        </div>
+        <label id="errNomNameReq" class="col-form-label-sm text-danger err" hidden>Please enter name of nominee</label>
+    </div>
+    <div class="form-group col-sm-6" id="divTwo">
+        <label for="ddlNomineeRelation" class="knlan control-label required">ಸಂಬಂಧ</label>
+        <label for="ddlNomineeRelation" class="Enlan control-label required">Relation</label>
+        <select id="ddlNomineeRelation" class="form-control">
+            <option value="Select">-- Select --</option>
+        </select>
+        <label id="errNomRelationReq" class="col-form-label-sm text-danger err" hidden>Please enter relation of nominee with employee/insured.</label>
+    </div>
+</div>
+<div class="row">
+    <div id="divAge" class="form-group col-sm-6">
+        <label for="txtNomineeAge" class="knlan control-label required" id="labelAge">ವಯಸ್ಸು</label>
+        <label for="txtNomineeAge" class="Enlan control-label required" id="labelAge">Age</label>
+        <input type="number" id="txtNomineeAge" class="form-control disable-first-zero" onchange="Nominee()" readonly min="18" />
+        <label id="errNomineeAgeReq" class="col-form-label-sm text-danger err" hidden>Please enter age.</label>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="txtNomineeShare" class="knlan control-label required">% ಶೇಕಡ</label>
+        <label for="txtNomineeShare" class="Enlan control-label required">% Share</label>
+        <input type="number" id="txtNomineeShare" class="form-control disable-first-zero" onkeydown="return setMaxNumberLength(event, this, 3);" min="1">
+        <label id="errNomineeShareReq" class="col-form-label-sm text-danger err" hidden>Please enter share for nominee.</label>
+        <label id="errNomineeSharePercent" class="col-form-label-sm text-danger err" hidden>Percentage share for nominees should be 100 %.</label>
+    </div>
+</div>
+
+<div id="section-minor">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label for="ddlGuardianRelation" class="knlan control-label required" id="lblGuardianRelation">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಗೂ ಪೋಷಕರಿಗೂ ಇರುವ ಸಂಬಂಧ</label>
+            <label for="ddlGuardianRelation" class="Enlan control-label required" id="lblGuardianRelation">Guardian Relation With Nominee</label>
+            <select id="ddlGuardianRelation" class="form-control"></select>
+            @*@Html.DropDownListFor(m => m.GuardianList, new SelectList(Model.GuardianList, "Value", "Text"), "-- Select Guardian --", new { id = "ddlGuardianRelation", @class = "form-control" })*@
+            <label id="errGuardianRelationReq" class="col-form-label-sm text-danger err" hidden>Please select relation of gaurdian</label>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="txtGuardianName" class="knlan control-label required">ಪೋಷಕರ ಹೆಸರು</label>
+            <label for="txtGuardianName" class="Enlan control-label required">Name of Guardian</label>
+            <input type="text" id="txtGuardianName" class="form-control alphaonly">
+            <label id="errGardNomineeNameReq" class="col-form-label-sm text-danger err" hidden>Please enter gaurdian name.</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-sm-5">
+    </div>
+    <div class="form-group col-sm-2">
+        <button type="button" id="btnNomAdd" class="btn btn-info" onclick="addNomineeDetails();">Add</button>
+    </div>
+    <div class="form-group col-sm-5">
+    </div>
+</div>
+
+<div id="divNominee">
+    <table id="tblNomineeDetails" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th hidden><label class="knlan">ಐಡಿ</label><label class="Enlan">Id</label></th>
+                <th><label class="knlan">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಯ ಹೆಸರು</label><label class="Enlan">Name of Nominee</label></th>
+                <th><label class="knlan">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಯ ವಯಸ್ಸು</label><label class="Enlan">Age of Nominee</label></th>
+                <th><label class="knlan">ಸಂಬಂಧ</label><label class="Enlan">Relation</label></th>
+                <th><label class="knlan">% ಶೇಕಡ</label><label class="Enlan">% Share</label></th>
+                <th><label class="knlan">
+                        ಪೋಷಕರ ಹೆಸರು
+                  </label><label class="Enlan">Name of Guardian</label></th>
+                <th><label class="knlan">ಪೋಷಕರ ಜೊತೆ ಸಂಬಂಧ</label><label class="Enlan">Relation with Guardian</label></th>
+                <th class="action"><label class="knlan">ಕ್ರಮ</label><label class="Enlan">Action</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.EmployeeId != 0)
+            {
+                int counter = 1;
+                foreach (var item in Model.NomineeDetails)
+                {
+                    <tr data-row-number="@counter">
+                        <td hidden>@item.Id</td>
+                        <td class="nName">@item.NameOfNominee</td>
+                        @{ string Age = (item.Age.ToString() == "0") ? "0" : item.Age.ToString(); }
+                        <td>@Age</td>
+                        <td class="nRelation">@item.Relation</td>
+                        <td class="val-share">@item.PercentageShare</td>
+                        <td>@item.NameOfGaurdian</td>
+                        <td class="gRelation">@item.GaurdianRelation</td>
+                        <td class="action"><a href="javascript: void(0);" class="btn-sm btn-primary" onclick="EditNomineeDetails(@counter,@item.Id);">Edit</a>&nbsp;<a href="javascript: void(0);" class="btn-sm btn-danger" onclick="DeleteNomineeDetails(@item.Id,@counter);">Delete</a></td>
+                    </tr>
+                    counter++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="mdUpdateNominee" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="updateNomineeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateNomineeLabel"><label class="knlan">
+                        ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಯ ವಿವರಗಳು
+                  </label><label class="Enlan">Nominee Details</label></h5>
+                <button class="close" type="button" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" value="" id="hdnRowNumber" />
+                    <input type="hidden" value="" id="hdnId" />
+                    <div class="form-group col-sm-6">
+                        <label for="ddlEditNomineeName" class="knlan control-label required" id="labelEditNomineeName">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಯ ಹೆಸರು</label>
+                        <label for="ddlEditNomineeName" class="Enlan control-label required" id="labelEditNomineeName">Name of Nominee</label>
+                        <div id="divEditNomineeName">
+                            <select id="ddlEditNomineeName" class="form-control" disabled>
+                                <option value="Select">-- Select --</option>
+                            </select>
+                            <input type="text" id="txtEditNomineeName" class="form-control alphaonly">
+                        </div>
+                    </div>
+                    <label id="errNomNameReq" class="col-form-label-sm text-danger err" hidden>Please enter name of nominee</label>
+                    <div class="form-group col-sm-6">
+                        <label for="ddlEditNomineeRelation" class="knlan control-label required">ಸಂಬಂಧ</label>
+                        <label for="ddlEditNomineeRelation" class="Enlan control-label required">Relation</label>
+                        <select id="ddlEditNomineeRelation" class="form-control" disabled>
+                            <option value="Select">-- Select --</option>
+                        </select>
+                        <label id="errEditNomRelationReq" class="col-form-label-sm text-danger err-edit" hidden>Please enter relation of nominee with employee/insured.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 divEditAge">
+                        <label for="txtEditNomineeAge" class="knlan control-label required" id="labelEditAge">ವಯಸ್ಸು</label>
+                        <label for="txtEditNomineeAge" class="Enlan control-label required" id="labelEditAge">Age</label>
+                        <input type="number" id="txtEditNomineeAge" class="form-control disable-first-zero" readonly>
+                        <label id="errEditNomineeAgeReq" class="col-form-label-sm text-danger err-edit" hidden>Please enter age.</label>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="txtEditNomineeShare" class="knlan control-label required">ಶೇಕಡ</label>
+                        <label for="txtEditNomineeShare" class="Enlan control-label required">% Share</label>
+                        <input type="number" id="txtEditNomineeShare" class="form-control disable-first-zero" onkeydown="return setMaxNumberLength(event, this, 3);" min="1">
+                        <label id="errEditNomineeShareReq" class="col-form-label-sm text-danger err-edit" hidden>Please enter share for nominee.</label>
+                        <label id="errEditNomineeSharePercent" class="col-form-label-sm text-danger err-edit" hidden>Percentage share for nominees should be 100 %.</label>
+                    </div>
+                </div>
+
+                <div id="section-minor-edit">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="ddlEditGuardianRelation" class="knlan control-label required">ನಾಮ ನಿರ್ದಿಷ್ಠ ವ್ಯಕ್ತಿಗೂ ಪೋಷಕರಿಗೂ ಇರುವ ಸಂಬಂಧ</label>
+                            <label for="ddlEditGuardianRelation" class="Enlan control-label required">Relation With Guardian</label>
+                            <select id="ddlEditGuardianRelation" class="form-control">
+                                <option value="Select">-- Select --</option>
+                            </select>
+                            <label id="errEditGardNomineeRelationReq" class="col-form-label-sm text-danger err-edit" hidden>Please select relation of gaurdian with nominee</label>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="txtEditGuardianName" class="knlan control-label required">ಪೋಷಕರ ಹೆಸರು</label>
+                            <label for="txtEditGuardianName" class="Enlan control-label required">Name of Guardian</label>
+                            <input type="text" id="txtEditGuardianName" class="form-control alphaonly">
+                            @*<input type="text" id="txtEditGuardianName" class="form-control" onkeyup="value=value.replace(/[^a-zA-Z]/g,'')">*@
+                            <label id="errEditGardNomineeNameReq" class="col-form-label-sm text-danger err-edit" hidden>Please enter gaurdian name for nominee.</label>
+                        </div>
+                        @*<div class="form-group col-sm-6">
+                                <label for="txtEditGuardianRelation" class="control-label required">Relation With Guardian</label>
+                                <input type="text" id="txtEditGuardianRelation" class="form-control">
+                                <label id="errEditGardNomineeRelationReq" class="col-form-label-sm text-danger err-edit" hidden>Please enter relation of gaurdian with nominee.</label>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnUpdate" value="Update" class="btn btn-primary" onclick="UpdateNomineeDetails();" />
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ApplicationJS/NBNomineeDetails.js"></script>

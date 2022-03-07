@@ -1,0 +1,299 @@
+﻿@model KGID_Models.NBApplication.VM_PersonalHealthDetails
+
+<style>
+    .doc-uploaded {
+        cursor: pointer;
+        color: #007bff !important;
+        text-decoration: none;
+        background-color: transparent;
+    }
+</style>
+<div class="row" id="divVPersonal">
+
+    <form id="frmPersonalHealth" enctype="multipart/form-data" class="col-12">
+        @Html.Hidden("ephd_emp_id", Session["UId"], new { id = "hdnPersonalEmpId" })
+        @Html.Hidden("ephd_application_id", new { id = "hdnApplicationId" })
+        @Html.HiddenFor(m => m.ephd_gender_id, new { id = "hdnGenderId" })
+        <div class="row">
+            <label class="Enlan"><b>I. Personal Details</b></label>
+            <label class="knlan"><b>I. ವೈಯಕ್ತಿಕ ವಿವರಗಳು</b></label>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="control-label col-8"><b><label class="knlan">(ಎ) ನಿಮ್ಮ ಆರೋಗ್ಯವು ಈಗ ಸುಸ್ಥಿತಿಯಲ್ಲಿದೆಯೆ? </label><label class="Enlan">(a) Is your health in good condition</label></b> :</label>
+                @if (Model.ephd_health_condition != null && Model.ephd_health_condition == true)
+                {
+                    <span class="knlan col-4">ಹೌದು</span>
+                    <span class="Enlan col-4">Yes</span>
+                }
+                else
+                {
+                    <span class="knlan col-4">ಇಲ್ಲ</span>
+                    <span class="Enlan col-4">No</span>
+
+                }
+            </div>
+
+            <div class="form-group col-3">
+                <label class="required"><b><label class="knlan">ಎತ್ತರ (ಸೆ.ಮೀ.ಗಳಲ್ಲಿ)</label><label class="Enlan">Height [cms]</label></b> :</label> <span id="spnHeight">@Html.DisplayFor(model => model.ephd_height)</span>
+            </div>
+            <div class="form-group col-3">
+                <label class="required"><b><label class="knlan">ತೂಕ (ಕೆ.ಜಿ.ಗಳಲ್ಲಿ)</label><label class="Enlan">Weight [kgs]</label></b> :</label> <span id="spnHeight">@Html.DisplayFor(model => model.ephd_weight)</span>
+            </div>
+        </div>
+
+        <div id="divPerHealthDetails">
+            <div class="form-group col-12">
+                <div class="row">
+                    <label class="control-label col-8 text-justify"><b><label class="knlan">ಆರೋಗ್ಯದ ವಿವರಗಳು</label><label class="Enlan">Health Details</label></b></label>
+                    <label class="control-label col-2 text-justify clsdoc"><b><label class="knlan">ಷರಾ </label><label class="Enlan">Comments</label></b></label>
+                    <label class="control-label col-2 text-justify clsdoc"><b><label class="knlan">ದಾಖಲೆಗಳು (ಯಾವುದಾದರೂ ಇದ್ದರೆ)</label><label class="Enlan">Documents(if any)</label></b></label>
+                </div>
+            </div>
+
+            @if (Model.IsInfectiousDiseaseHouse == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಬೌ) ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಯಾವುದೇ ಖಾಯಿಲೆಗೆ ಒಂದು ವಾರಕ್ಕಿಂತ ಹೆಚ್ಚು ಕಾಲ ಚಿಕಿತ್ಸೆ ಪಡೆದಿದ್ದಲ್ಲಿ ಅಥವಾ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗೆ ಒಳಪಟ್ಟಿದ್ದಲ್ಲಿ ಅದರ ವಿವರಗಳು</label>
+                            <label class="Enlan control-label text-justify">(b) Details regarding any treatment taken for more than 1 week for any illness or undergone any surgery in last 3 years</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnInfectiousDiseaseHouseDetails">@Html.DisplayFor(model => model.InfectiousDiseaseHouseDetails)</span>
+                    </div>
+                    <div class="form-group col-2 clsdoc">
+                        @if (!string.IsNullOrEmpty(Model.InfectiousDiseaseHouseDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.InfectiousDiseaseHouseDocFileName')" class="doc-uploaded clsdoc"><label class="knlan" style="text-decoration: underline; color: #0056b3;">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan" style="text-decoration: underline; color: #0056b3;">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಬೌ) ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಯಾವುದೇ ಖಾಯಿಲೆಗೆ ಒಂದು ವಾರಕ್ಕಿಂತ ಹೆಚ್ಚು ಕಾಲ ಚಿಕಿತ್ಸೆ ಪಡೆದಿದ್ದಲ್ಲಿ ಅಥವಾ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗೆ ಒಳಪಟ್ಟಿದ್ದಲ್ಲಿ ಅದರ ವಿವರಗಳು</label>
+                            <label class="Enlan control-label text-justify">(b) Details regarding any treatment taken for more than 1 week for any illness or undergone any surgery in last 3 years</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+
+                    </div>
+                </div>
+            }
+            @if (Model.IsAbsent == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಎ) ಕಳೆದ ಮೂರು ವರ್ಷಗಳಲ್ಲಿ ಅನಾರೋಗ್ಯ ನಿಮಿತ್ತ ಕೆಲಸಕ್ಕೆ ಗೈರುಹಾಜರಾಗಿದ್ದಲ್ಲಿ ವಿವರಗಳು</label>
+                            <label class="Enlan control-label text-justify">(c) Details regarding any absence from work due to illness during the last 3 years, state when, how long and for which disease.</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnAbsentDetails">@Html.DisplayFor(model => model.AbsentDetails)</span>
+                    </div>
+                    <div class="form-group col-2 clsdoc">
+                        @if (!string.IsNullOrEmpty(Model.AbsentDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AbsentDocFileName')" class="doc-uploaded clsdoc"><label class="knlan" style="text-decoration: underline; color: #0056b3;">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label style="text-decoration: underline; color: #0056b3;" class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಎ) ಕಳೆದ 3 ವರ್ಷಗಳಲ್ಲಿ ಆರೋಗ್ಯದ ಆಧಾರದ ಮೇಲೆ ನಿಮ್ಮ ಕೆಲಸಕ್ಕೆ ನೀವು ಗೈರುಹಾಜರಾಗಿದ್ದೀರಾ? ಹಾಗಿದ್ದಲ್ಲಿ, ಯಾವಾಗ, ಎಷ್ಟು ಸಮಯದವರೆಗೆ ಮತ್ತು ಯಾವ ಕಾಯಿಲೆಗಳನ್ನು ತಿಳಿಸಿ?</label>
+                            <label class="Enlan control-label text-justify">(c) Details regarding any absence from work due to illness during the last 3 years, state when, how long and for which disease.</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+
+                    </div>
+                </div>
+            }
+            @if (Model.IsStomachDisease == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಡಿ) ನೀವು ಹೊಟ್ಟೆ,ಹೃದಯ, ಶ್ವಾಸಕೋಶ, ಮೂತ್ರಜನಕಾಂಗ, ಮೆದುಳು, ನರಗಳು ಅಥವಾ ಇನ್ನಾವುದೇ ಭಾಗಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ರೋಗಗಳಿಂದ ಮಧುಮೂತ್ರರೋಗ, ಕ್ಷಯ, ಹೆಚ್ಚು/ಕಡಿಮೆ ರಕ್ತದ ಒತ್ತಡ, ಕ್ಯಾನ್ಸರ್, ಮೂರ್ಛೆರೋಗ, ಕುಷ್ಟ, ಹರ್ನಿಯ ಅಂಡವಾಯು, ಹೆಪಿಟೈಟಸ್-ಬಿ ಅಥವಾ ಏಡ್ಸ್ ಖಾಯಿಲೆಗಳಿಗೆ ಒಳಗಾಗಿದ್ದರೆ ವಿವರ ನೀಡುವುದು</label>
+                            <label class="Enlan control-label text-justify">(d) Have you ever suffered from diseases of stomach(Digestive system),Lungs,Urinary tract,Brain,Nerves or any other bodily parts, Diabetes, Tuberculosis, Hyper or Hypo tension(high or low B.P), Cancer, Epilepsy(Epileptic seizures),Leprosy, Hernia, Hepatitis-B or HIV AIDS? If so provide details.</label>
+                        </label>
+
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnStomachDiseaseDetails">@Html.DisplayFor(model => model.StomachDiseaseDetails)</span>
+                    </div>
+                    <div class="form-group col-2 clsdoc">
+                        @if (!string.IsNullOrEmpty(Model.StomachDiseaseDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.StomachDiseaseDocFileName')" class="doc-uploaded clsdoc"><label class="knlan" style="text-decoration: underline; color: #0056b3;">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan" style="text-decoration: underline; color: #0056b3;">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಡಿ) ನೀವು ಹೊಟ್ಟೆ,ಹೃದಯ, ಶ್ವಾಸಕೋಶ, ಮೂತ್ರಜನಕಾಂಗ, ಮೆದುಳು, ನರಗಳು ಅಥವಾ ಇನ್ನಾವುದೇ ಭಾಗಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ರೋಗಗಳಿಂದ ಮಧುಮೂತ್ರರೋಗ, ಕ್ಷಯ, ಹೆಚ್ಚು/ಕಡಿಮೆ ರಕ್ತದ ಒತ್ತಡ, ಕ್ಯಾನ್ಸರ್, ಮೂರ್ಛೆರೋಗ, ಕುಷ್ಟ, ಹರ್ನಿಯ ಅಂಡವಾಯು, ಹೆಪಿಟೈಟಸ್-ಬಿ ಅಥವಾ ಏಡ್ಸ್ ಖಾಯಿಲೆಗಳಿಗೆ ಒಳಗಾಗಿದ್ದರೆ ವಿವರ ನೀಡುವುದು</label>
+                            <label class="Enlan control-label text-justify">(d) Have you ever suffered from diseases of stomach(Digestive system),Lungs,Urinary tract,Brain,Nerves or any other bodily parts, Diabetes, Tuberculosis, Hyper or Hypo tension(high or low B.P), Cancer, Epilepsy(Epileptic seizures),Leprosy, Hernia, Hepatitis-B or HIV AIDS? If so provide details.</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+
+                    </div>
+                </div>
+            }
+            <div class="html2pdf__page-break"></div>
+            @if (Model.IsDrinksDrugs == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="knlan control-label text-justify">
+                            (ಇ) ಮದ್ಯಸಾರ ಪಾನೀಯ, ಧೂಮಪಾನ, ಗಾಂಜಾ ಅಫೀಮು ಅಥವಾ ಇತರ ಯಾವುದೇ ಮಾದಕ ದ್ರವ್ಯ / ನಿದ್ರಾಜನಕ ಔಷಧಗಳನ್ನು ಸೇವಿಸುತ್ತೀರಾ ಇಲ್ಲವೆ ಹಿಂದೆ ಎಂದಾದರೂ ಸೇವಿಸಿದ್ದುಂಟೆ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ
+                        </label>
+                        <label class="Enlan control-label text-justify">(e)  Do you drink wine, spirits or malt liquors? Are you addicted to the use of any narcotic drugs like opium, cocaine, etc. If so, give particulars, Do you smoke tobacco? If so, to what extent? </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnDrinksDrugsDetails">@Html.DisplayFor(model => model.DrinksDrugsDetails)</span>
+                    </div>
+
+                    <div class="form-group col-2 clsdoc">
+                        @if (!string.IsNullOrEmpty(Model.DrinksDrugsDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.DrinksDrugsDocFileName')" class="doc-uploaded clsdoc"><label style="text-decoration: underline; color: #0056b3;" class="knlan">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan" style="text-decoration: underline; color: #0056b3;">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">
+                                (ಇ) ಮದ್ಯಸಾರ ಪಾನೀಯ, ಧೂಮಪಾನ, ಗಾಂಜಾ ಅಫೀಮು ಅಥವಾ ಇತರ ಯಾವುದೇ ಮಾದಕ ದ್ರವ್ಯ / ನಿದ್ರಾಜನಕ ಔಷಧಗಳನ್ನು ಸೇವಿಸುತ್ತೀರಾ ಇಲ್ಲವೆ ಹಿಂದೆ ಎಂದಾದರೂ ಸೇವಿಸಿದ್ದುಂಟೆ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ
+                            </label>
+                            <label class="Enlan control-label text-justify">(e)  Do you drink wine, spirits or malt liquors? Are you addicted to the use of any narcotic drugs like opium, cocaine, etc. If so, give particulars, Do you smoke tobacco? If so, to what extent? </label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+
+                    </div>
+                </div>
+            }
+            @if (Model.IsAnyOtherDisease == true)
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಎಫ್) ಇನ್ನಾವುದೇ ಇತರೆ ಖಾಯಿಲೆಗಳಿಂದ ಬಳಲುತ್ತಿದ್ದೀರಾ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ.</label>
+                            <label class="Enlan control-label text-justify">(f) Have you had any other illnesses considered by you to be important or not? If so, give details.</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                        <span class="Enlan col-sm-2 text-center">Yes</span>
+
+                    </div>
+                    <div class="form-group col-2">
+                        <span id="spnAnyOtherDiseaseDetails">@Html.DisplayFor(model => model.AnyOtherDiseaseDetails)</span>
+                    </div>
+
+                    <div class="form-group col-2 clsdoc">
+                        @if (!string.IsNullOrEmpty(Model.AnyOtherDiseaseDocFileName))
+                        {
+                            <a onclick="OpenSidebar('/Home/ViewFilePath?FilePath='+'@Model.AnyOtherDiseaseDocFileName')" class="doc-uploaded clsdoc"><label class="knlan" style="text-decoration: underline; color: #0056b3;">ದಾಖಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ</label><label style="text-decoration: underline; color: #0056b3;" class="Enlan">View Document</label></a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label class="control-label col-sm-10 text-justify">
+                            <label class="knlan control-label text-justify">(ಎಫ್) ಇನ್ನಾವುದೇ ಇತರೆ ಖಾಯಿಲೆಗಳಿಂದ ಬಳಲುತ್ತಿದ್ದೀರಾ? ಹಾಗಿದ್ದಲ್ಲಿ ವಿವರಿಸಿ.</label>
+                            <label class="Enlan control-label text-justify">(f) Have you had any other illnesses considered by you to be important or not? If so, give details.</label>
+                        </label>
+                        <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                        <span class="Enlan col-sm-2 text-center">No</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="divFemaleDetails">
+            <div class="row">
+                <label class="Enlan"><b>II. To be filled by female applicants only</b></label>
+                <label class="knlan"><b>II. ಮಹಿಳಾ ಮನವಿದಾರರು ಮಾತ್ರ ಉತ್ತರಿಸಬೇಕು</b></label>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label class="knlan control-label col-sm-3 text-justify">
+                        (ಎ) ನೀವು ಇತ್ತೀಚೆಗೆ ಹೊರಗಾದ ದಿನಾಂಕ
+                    </label>
+                    <label class="Enlan control-label col-sm-3 text-justify">
+                        (a) Date of last Menstrual period
+                    </label>
+                    <label class="col-sm-4">
+                        @Html.DisplayFor(model => model.PeriodDate, new { @id = "txtPD" })
+                    </label>
+                </div>
+
+                <div class="form-group col-12">
+                    <label class="knlan control-label col-sm-3 text-justify">(ಬೌ) ನೀವು ಈಗ ಗರ್ಭಿಣಿಯಾಗಿದ್ದೀರಾ? </label>
+                    <label class="Enlan control-label col-sm-3 text-justify">(b) Are you pregnant now?</label>
+                    <label class="col-sm-4">
+                        @if (Model.ephd_is_pregnant == true)
+                        {
+                            <span class="knlan col-sm-2 text-center">ಹೌದು</span>
+                            <span class="Enlan col-sm-2 text-center">Yes</span>
+                        }
+                        else
+                        {
+                            <span class="knlan col-sm-2 text-center">ಇಲ್ಲ</span>
+                            <span class="Enlan col-sm-2 text-center">No</span>
+                        }
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#hdnGenderId").val() === "2") {
+            $("#divFemaleDetails").show();
+        }
+        else {
+            $("#divFemaleDetails").hide();
+        }
+    });
+    function OpenSidebar(filename) {
+        $("#iViewApp")[0].src = window.location.origin + filename;
+        $("#viewSidebar")[0].style.display = "block";
+        $("#viewSidebar")[0].style.width = "500px";
+        $("#applicationFormTab")[0].style.marginRight = "500px";
+        $("#viewSidebar")[0].style.marginTop = "0px";
+    }  
+</script>

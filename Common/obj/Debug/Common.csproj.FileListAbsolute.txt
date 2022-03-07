@@ -1,0 +1,375 @@
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\bin\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\bin\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\obj\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 9-June-2020\KGID\Common\obj\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\bin\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\bin\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\obj\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID_Ujwal\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\bin\Debug\Common.dll
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\obj\Debug\Common.dll
+D:\CSG\KGID\03 Jun\Marge Data\KGID_Ujwal\KGID\Common\obj\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\bin\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\bin\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\obj\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 22-June-2020\KGID\Common\obj\Debug\Common.pdb
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\bin\Debug\Common.dll
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\bin\Debug\Common.pdb
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\obj\Debug\Common.dll
+F:\CSG\KGID\KGID 03RD Aug\KGID\Common\obj\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\bin\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\bin\Debug\Common.pdb
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\obj\Debug\Common.dll
+D:\WorkSpace\Projects\KGID\Source Code\KGID 05RD Aug\KGID 03RD Aug\KGID\Common\obj\Debug\Common.pdb
+F:\CSG\KGID\KGID 13-08-2020\Common\bin\Debug\Common.dll
+F:\CSG\KGID\KGID 13-08-2020\Common\bin\Debug\Common.pdb
+F:\CSG\KGID\KGID 13-08-2020\Common\obj\Debug\Common.csprojAssemblyReference.cache
+F:\CSG\KGID\KGID 13-08-2020\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\CSG\KGID\KGID 13-08-2020\Common\obj\Debug\Common.dll
+F:\CSG\KGID\KGID 13-08-2020\Common\obj\Debug\Common.pdb
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\bin\Debug\Common.dll
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\bin\Debug\Common.pdb
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\obj\Debug\Common.dll
+D:\Work\WorkSpace\Projects\KGID\Source Code\KGID 13 Aug\KGID 13 Aug\Common\obj\Debug\Common.pdb
+E:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\bin\Debug\Common.dll
+E:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\bin\Debug\Common.pdb
+E:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.csprojAssemblyReference.cache
+E:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.dll
+E:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.pdb
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\bin\Debug\Common.dll
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\bin\Debug\Common.pdb
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.dll
+D:\KGID\14thAugust\KGID 13-08-2020 Merged\Common\obj\Debug\Common.pdb
+D:\KGID\26thAugust\KGID\Common\bin\Debug\Common.dll
+D:\KGID\26thAugust\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\26thAugust\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\26thAugust\KGID\Common\obj\Debug\Common.dll
+D:\KGID\26thAugust\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\28thAugust-DDOExcelupload\Common\bin\Debug\Common.dll
+D:\KGID\28thAugust-DDOExcelupload\Common\bin\Debug\Common.pdb
+D:\KGID\28thAugust-DDOExcelupload\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\28thAugust-DDOExcelupload\Common\obj\Debug\Common.dll
+D:\KGID\28thAugust-DDOExcelupload\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\KGID_0509\KGID\Common\bin\Debug\Common.dll
+D:\CSG\KGID\KGID_0509\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\KGID_0509\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\KGID\KGID_0509\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\KGID_0509\KGID\Common\obj\Debug\Common.dll
+D:\CSG\KGID\KGID_0509\KGID\Common\obj\Debug\Common.pdb
+C:\Users\Admin\Desktop\KGID\Common\bin\Debug\Common.dll
+C:\Users\Admin\Desktop\KGID\Common\bin\Debug\Common.pdb
+C:\Users\Admin\Desktop\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\KGID\Common\obj\Debug\Common.dll
+C:\Users\Admin\Desktop\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\bin\Debug\Common.dll
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\obj\Debug\Common.dll
+D:\KGID\15thSeptember\Latest-Director\KGID\Common\obj\Debug\Common.pdb
+D:\BACKIYA_KGID\KGID_2509\25-09-2020\KGID\Common\bin\Debug\Common.dll
+D:\BACKIYA_KGID\KGID_2509\25-09-2020\KGID\Common\bin\Debug\Common.pdb
+D:\BACKIYA_KGID\KGID_2509\25-09-2020\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\BACKIYA_KGID\KGID_2509\25-09-2020\KGID\Common\obj\Debug\Common.dll
+D:\BACKIYA_KGID\KGID_2509\25-09-2020\KGID\Common\obj\Debug\Common.pdb
+F:\CSG\KGID\LOAN\KGID\KGID\Common\bin\Debug\Common.dll
+F:\CSG\KGID\LOAN\KGID\KGID\Common\bin\Debug\Common.pdb
+F:\CSG\KGID\LOAN\KGID\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+F:\CSG\KGID\LOAN\KGID\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\CSG\KGID\LOAN\KGID\KGID\Common\obj\Debug\Common.dll
+F:\CSG\KGID\LOAN\KGID\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\29-09-2020\KGID\Common\bin\Debug\Common.dll
+D:\CSG\KGID\29-09-2020\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\29-09-2020\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\KGID\29-09-2020\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\29-09-2020\KGID\Common\obj\Debug\Common.dll
+D:\CSG\KGID\29-09-2020\KGID\Common\obj\Debug\Common.pdb
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\bin\Debug\Common.dll
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\bin\Debug\Common.pdb
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\obj\Debug\Common.dll
+D:\BACKIYA_KGID\KGID_0710\Latest\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\KGID-02_11\KGID\Common\bin\Debug\Common.dll
+D:\CSG\KGID\KGID-02_11\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\KGID-02_11\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\KGID\KGID-02_11\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\KGID-02_11\KGID\Common\obj\Debug\Common.dll
+D:\CSG\KGID\KGID-02_11\KGID\Common\obj\Debug\Common.pdb
+E:\KGID\16thnov\NB\KGID\Common\bin\Debug\Common.dll
+E:\KGID\16thnov\NB\KGID\Common\bin\Debug\Common.pdb
+E:\KGID\16thnov\NB\KGID\Common\obj\Debug\Common.dll
+E:\KGID\16thnov\NB\KGID\Common\obj\Debug\Common.pdb
+E:\KGID\16thnov\NB\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\17thnov\NBLoanMotormerged\KGID\Common\bin\Debug\Common.dll
+D:\KGID\17thnov\NBLoanMotormerged\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\17thnov\NBLoanMotormerged\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\17thnov\NBLoanMotormerged\KGID\Common\obj\Debug\Common.dll
+D:\KGID\17thnov\NBLoanMotormerged\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\19thDectomerge\KGID\Common\bin\Debug\Common.dll
+D:\KGID\19thDectomerge\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\19thDectomerge\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\19thDectomerge\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\19thDectomerge\KGID\Common\obj\Debug\Common.dll
+D:\KGID\19thDectomerge\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\28thDec-Audit\KGID\KGID\Common\bin\Debug\Common.dll
+D:\KGID\28thDec-Audit\KGID\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\28thDec-Audit\KGID\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\28thDec-Audit\KGID\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\28thDec-Audit\KGID\KGID\Common\obj\Debug\Common.dll
+D:\KGID\28thDec-Audit\KGID\KGID\Common\obj\Debug\Common.pdb
+D:\6thjan\KGID\Common\bin\Debug\Common.dll
+D:\6thjan\KGID\Common\bin\Debug\Common.pdb
+D:\6thjan\KGID\Common\bin\Debug\log4net.dll
+D:\6thjan\KGID\Common\bin\Debug\log4net.xml
+D:\6thjan\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\6thjan\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\6thjan\KGID\Common\obj\Debug\Common.dll
+D:\6thjan\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\KGID\Common\bin\Debug\Common.dll
+D:\CSG\KGID\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\KGID\Common\bin\Debug\log4net.dll
+D:\CSG\KGID\KGID\Common\bin\Debug\log4net.xml
+D:\CSG\KGID\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\KGID\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\CSG\KGID\KGID\Common\obj\Debug\Common.dll
+D:\CSG\KGID\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\KGID\KGID_02022021\Common\bin\Debug\Common.dll
+D:\CSG\KGID\KGID_02022021\Common\bin\Debug\Common.pdb
+D:\CSG\KGID\KGID_02022021\Common\bin\Debug\log4net.dll
+D:\CSG\KGID\KGID_02022021\Common\bin\Debug\log4net.xml
+D:\CSG\KGID\KGID_02022021\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\KGID\KGID_02022021\Common\obj\Debug\Common.csproj.CopyComplete
+D:\CSG\KGID\KGID_02022021\Common\obj\Debug\Common.dll
+D:\CSG\KGID\KGID_02022021\Common\obj\Debug\Common.pdb
+D:\CSG\27022021\KGID\Common\bin\Debug\Common.dll
+D:\CSG\27022021\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\27022021\KGID\Common\bin\Debug\log4net.dll
+D:\CSG\27022021\KGID\Common\bin\Debug\log4net.xml
+D:\CSG\27022021\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\27022021\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\27022021\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\CSG\27022021\KGID\Common\obj\Debug\Common.dll
+D:\CSG\27022021\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\8thMarch\ToMerge\KGID\Common\bin\Debug\Common.dll
+D:\KGID\8thMarch\ToMerge\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\8thMarch\ToMerge\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\8thMarch\ToMerge\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\8thMarch\ToMerge\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\8thMarch\ToMerge\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\8thMarch\ToMerge\KGID\Common\obj\Debug\Common.dll
+D:\KGID\8thMarch\ToMerge\KGID\Common\obj\Debug\Common.pdb
+D:\CSG\10032021\KGID\Common\bin\Debug\Common.dll
+D:\CSG\10032021\KGID\Common\bin\Debug\Common.pdb
+D:\CSG\10032021\KGID\Common\bin\Debug\log4net.dll
+D:\CSG\10032021\KGID\Common\bin\Debug\log4net.xml
+D:\CSG\10032021\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\CSG\10032021\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\CSG\10032021\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\CSG\10032021\KGID\Common\obj\Debug\Common.dll
+D:\CSG\10032021\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\19thMarch\Ujwal\KGID\Common\bin\Debug\Common.dll
+D:\KGID\19thMarch\Ujwal\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\19thMarch\Ujwal\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\19thMarch\Ujwal\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\19thMarch\Ujwal\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\19thMarch\Ujwal\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\19thMarch\Ujwal\KGID\Common\obj\Debug\Common.dll
+D:\KGID\19thMarch\Ujwal\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\20thMarch\Ujwal\KGID\Common\bin\Debug\Common.dll
+D:\KGID\20thMarch\Ujwal\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\20thMarch\Ujwal\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\20thMarch\Ujwal\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\20thMarch\Ujwal\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\20thMarch\Ujwal\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\20thMarch\Ujwal\KGID\Common\obj\Debug\Common.dll
+D:\KGID\20thMarch\Ujwal\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\20thMarch\Ujwal\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\31032021-Prod\KGID\Common\bin\Debug\Common.dll
+D:\KGID\31032021-Prod\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\31032021-Prod\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\31032021-Prod\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\31032021-Prod\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\31032021-Prod\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\31032021-Prod\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\31032021-Prod\KGID\Common\obj\Debug\Common.dll
+D:\KGID\31032021-Prod\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\bin\Debug\Common.dll
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\obj\Debug\Common.dll
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\01-April-2021\LatestUAT&ProdSolution\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\26042021\KGID - PROD\KGID\Common\bin\Debug\Common.dll
+D:\26042021\KGID - PROD\KGID\Common\bin\Debug\Common.pdb
+D:\26042021\KGID - PROD\KGID\Common\bin\Debug\log4net.dll
+D:\26042021\KGID - PROD\KGID\Common\bin\Debug\log4net.xml
+D:\26042021\KGID - PROD\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\26042021\KGID - PROD\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\26042021\KGID - PROD\KGID\Common\obj\Debug\Common.dll
+D:\26042021\KGID - PROD\KGID\Common\obj\Debug\Common.pdb
+D:\26042021\KGID - PROD\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+E:\KGID\3rdMay-Prod\KGID\Common\bin\Debug\Common.dll
+E:\KGID\3rdMay-Prod\KGID\Common\bin\Debug\Common.pdb
+E:\KGID\3rdMay-Prod\KGID\Common\bin\Debug\log4net.dll
+E:\KGID\3rdMay-Prod\KGID\Common\bin\Debug\log4net.xml
+E:\KGID\3rdMay-Prod\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+E:\KGID\3rdMay-Prod\KGID\Common\obj\Debug\Common.dll
+E:\KGID\3rdMay-Prod\KGID\Common\obj\Debug\Common.pdb
+E:\KGID\3rdMay-Prod\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\23rdJune\KGID\Common\bin\Debug\Common.dll
+D:\KGID\23rdJune\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\23rdJune\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\23rdJune\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\23rdJune\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\23rdJune\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\23rdJune\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\23rdJune\KGID\Common\obj\Debug\Common.dll
+D:\KGID\23rdJune\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\29062021\KGID\Common\bin\Debug\Common.dll
+D:\KGID\29062021\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\29062021\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\29062021\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\29062021\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\29062021\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\29062021\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\29062021\KGID\Common\obj\Debug\Common.dll
+D:\KGID\29062021\KGID\Common\obj\Debug\Common.pdb
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\bin\Debug\Common.dll
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\bin\Debug\Common.pdb
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\bin\Debug\log4net.dll
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\bin\Debug\log4net.xml
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\obj\Debug\Common.dll
+F:\OFFICE\KGID\Production solution\30_06\KGID\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\01072021-prod\KGID\Common\bin\Debug\Common.dll
+D:\KGID\01072021-prod\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\01072021-prod\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\01072021-prod\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\01072021-prod\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\KGID\01072021-prod\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\01072021-prod\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\01072021-prod\KGID\Common\obj\Debug\Common.dll
+D:\KGID\01072021-prod\KGID\Common\obj\Debug\Common.pdb
+E:\KGID\5thjulyprod\KGID\Common\bin\Debug\Common.dll
+E:\KGID\5thjulyprod\KGID\Common\bin\Debug\Common.pdb
+E:\KGID\5thjulyprod\KGID\Common\bin\Debug\log4net.dll
+E:\KGID\5thjulyprod\KGID\Common\bin\Debug\log4net.xml
+E:\KGID\5thjulyprod\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+E:\KGID\5thjulyprod\KGID\Common\obj\Debug\Common.dll
+E:\KGID\5thjulyprod\KGID\Common\obj\Debug\Common.pdb
+D:\KGID - productionsolution\KGID\Common\bin\Debug\Common.dll
+D:\KGID - productionsolution\KGID\Common\bin\Debug\Common.pdb
+D:\KGID - productionsolution\KGID\Common\bin\Debug\log4net.dll
+D:\KGID - productionsolution\KGID\Common\bin\Debug\log4net.xml
+D:\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID - productionsolution\KGID\Common\obj\Debug\Common.dll
+D:\KGID - productionsolution\KGID\Common\obj\Debug\Common.pdb
+D:\New folder\KGID - productionsolution\KGID\Common\bin\Debug\Common.dll
+D:\New folder\KGID - productionsolution\KGID\Common\bin\Debug\Common.pdb
+D:\New folder\KGID - productionsolution\KGID\Common\bin\Debug\log4net.dll
+D:\New folder\KGID - productionsolution\KGID\Common\bin\Debug\log4net.xml
+D:\New folder\KGID - productionsolution\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\New folder\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\New folder\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\New folder\KGID - productionsolution\KGID\Common\obj\Debug\Common.dll
+D:\New folder\KGID - productionsolution\KGID\Common\obj\Debug\Common.pdb
+D:\build\KGID - productionsolution\KGID\Common\bin\Debug\Common.dll
+D:\build\KGID - productionsolution\KGID\Common\bin\Debug\Common.pdb
+D:\build\KGID - productionsolution\KGID\Common\bin\Debug\log4net.dll
+D:\build\KGID - productionsolution\KGID\Common\bin\Debug\log4net.xml
+D:\build\KGID - productionsolution\KGID\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\build\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\build\KGID - productionsolution\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\build\KGID - productionsolution\KGID\Common\obj\Debug\Common.dll
+D:\build\KGID - productionsolution\KGID\Common\obj\Debug\Common.pdb
+D:\build\New folder\KGID - productionsolution1\KGID\Common\bin\Debug\Common.dll
+D:\build\New folder\KGID - productionsolution1\KGID\Common\bin\Debug\Common.pdb
+D:\build\New folder\KGID - productionsolution1\KGID\Common\bin\Debug\log4net.dll
+D:\build\New folder\KGID - productionsolution1\KGID\Common\bin\Debug\log4net.xml
+D:\build\New folder\KGID - productionsolution1\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\build\New folder\KGID - productionsolution1\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\build\New folder\KGID - productionsolution1\KGID\Common\obj\Debug\Common.dll
+D:\build\New folder\KGID - productionsolution1\KGID\Common\obj\Debug\Common.pdb
+D:\KGID - productionsolution1\KGID\Common\bin\Debug\Common.dll
+D:\KGID - productionsolution1\KGID\Common\bin\Debug\Common.pdb
+D:\KGID - productionsolution1\KGID\Common\bin\Debug\log4net.dll
+D:\KGID - productionsolution1\KGID\Common\bin\Debug\log4net.xml
+D:\KGID - productionsolution1\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID - productionsolution1\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID - productionsolution1\KGID\Common\obj\Debug\Common.dll
+D:\KGID - productionsolution1\KGID\Common\obj\Debug\Common.pdb
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\bin\Debug\Common.dll
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\bin\Debug\Common.pdb
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\bin\Debug\log4net.dll
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\bin\Debug\log4net.xml
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\obj\Debug\Common.dll
+D:\Srividya\Hemanth\12-10-2021\KGID\Common\obj\Debug\Common.pdb
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\bin\Debug\Common.dll
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\bin\Debug\Common.pdb
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\bin\Debug\log4net.dll
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\bin\Debug\log4net.xml
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\obj\Debug\Common.dll
+D:\Projects\KGID\OD_Claims\KGID_25_10_2021\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\OD14022022\KGID\Common\bin\Debug\Common.dll
+D:\KGID\OD14022022\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\OD14022022\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\OD14022022\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\OD14022022\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\OD14022022\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\OD14022022\KGID\Common\obj\Debug\Common.dll
+D:\KGID\OD14022022\KGID\Common\obj\Debug\Common.pdb
+C:\Users\User\Desktop\OD14022022\KGID\Common\bin\Debug\Common.dll
+C:\Users\User\Desktop\OD14022022\KGID\Common\bin\Debug\Common.pdb
+C:\Users\User\Desktop\OD14022022\KGID\Common\bin\Debug\log4net.dll
+C:\Users\User\Desktop\OD14022022\KGID\Common\bin\Debug\log4net.xml
+C:\Users\User\Desktop\OD14022022\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\OD14022022\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\User\Desktop\OD14022022\KGID\Common\obj\Debug\Common.dll
+C:\Users\User\Desktop\OD14022022\KGID\Common\obj\Debug\Common.pdb
+F:\KGID\KGID\Common\bin\Debug\Common.dll
+F:\KGID\KGID\Common\bin\Debug\Common.pdb
+F:\KGID\KGID\Common\bin\Debug\log4net.dll
+F:\KGID\KGID\Common\bin\Debug\log4net.xml
+F:\KGID\KGID\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+F:\KGID\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\KGID\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+F:\KGID\KGID\Common\obj\Debug\Common.dll
+F:\KGID\KGID\Common\obj\Debug\Common.pdb
+D:\KGID\KGID_Git_Hub\KGID\Common\bin\Debug\Common.dll
+D:\KGID\KGID_Git_Hub\KGID\Common\bin\Debug\Common.pdb
+D:\KGID\KGID_Git_Hub\KGID\Common\bin\Debug\log4net.dll
+D:\KGID\KGID_Git_Hub\KGID\Common\bin\Debug\log4net.xml
+D:\KGID\KGID_Git_Hub\KGID\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+D:\KGID\KGID_Git_Hub\KGID\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\KGID\KGID_Git_Hub\KGID\Common\obj\Debug\Common.csproj.CopyComplete
+D:\KGID\KGID_Git_Hub\KGID\Common\obj\Debug\Common.dll
+D:\KGID\KGID_Git_Hub\KGID\Common\obj\Debug\Common.pdb

@@ -1,0 +1,70 @@
+﻿@model KGID_Models.KGID_Bonus.VM_BonusDetails
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><b>Bonus Details</b></h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label">Name of Employee:</label>
+                            <label class="control-label">@Model.NameOfEmployee</label>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label">Designation:</label>
+                            <label class="control-label">@Model.Designation</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label">Claim reference Number:</label>
+                            <label class="control-label">@Model.ClaimRefNumber</label>
+                        </div>
+                        <div class="row col-6">
+                            <label class="control-label">Date of Maturity:</label>
+                            <label class="control-label">@Model.DateOfMaturity</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <table id="tblBonusList">
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Policy Number</th>
+                                <th>Bonus Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.BonusDetails != null)
+                            {
+                                for (var i = 0; i < Model.BonusDetails.Count; i++)
+                                {
+                                    <tr>
+                                        <td>i+1</td>
+                                        <td>@Model.BonusDetails[i].PolicyNumber</td>
+                                        <td>@Model.BonusDetails[i].BonusAmount</td>
+                                        <td></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group col-12">
+                    <label class="control-label">Total bonus amount payable:</label>
+                    <label class="control-label">@Model.TotalBonusAmount</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#tblBonusList").DataTable({
+        "ordering": false
+    });
+</script>

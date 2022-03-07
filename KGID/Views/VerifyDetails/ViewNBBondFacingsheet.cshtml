@@ -1,0 +1,282 @@
+﻿@model KGID_Models.KGIDNBApplication.VM_DDOVerificationDetails
+@{
+    ViewBag.Title = "View Application Details";
+}
+<style type="text/css">
+    #tblEmployeeNBBondFS_wrapper{
+        width:100%;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><label class="knlan">ಪ್ರಸ್ತಾಪಕರ ಎನ್ ಬಿ ಬಾಂಡ್ ಮತ್ತು ಮುಖಪುಟವನ್ನು ಮುದ್ರಿಸಿ </label><label class="Enlan">Print Employee NB Bond and Facing Sheet</label></h6>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-striped table-bordered" id="tblEmployeeNBBondFS" >
+                        <thead class="t_head">
+                            <tr>
+                                <th><label class="knlan">ಪ್ರಸ್ತಾಪಕರ ಹೆಸರು</label><label class="Enlan">Employee Name</label></th>
+                                @*<th>Reference Number</th>*@
+                                <th><label class="knlan">ವಿಮಾ ಪ್ರಸ್ತಾವನೆ ಸಂಖ್ಯೆ</label><label class="Enlan">Policy Number</label></th>
+                                <th><label class="knlan">ಮಂಜೂರಾದ ದಿನಾಂಕ</label><label class="Enlan">Sanctioned Date</label></th>
+                                <th><label class="knlan">ಎನ್ ಬಿ ಬಾಂಡ್</label><label class="Enlan">NB Bond</label></th>
+                                <th><label class="knlan">ಮುಖಪುಟ</label><label class="Enlan">Facing Sheet</label></th>
+                                <th><label class="knlan">ಮಾಹಿತಿ ಪತ್ರವನ್ನು ವೀಕ್ಷಿಸಿ</label><label class="Enlan">View Intimation Letter for DDO</label></th>
+                                @*<th>Status</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.EmployeeVerificationDetails != null && Model.EmployeeVerificationDetails.Count > 0)
+                            {
+                                foreach (var item in Model.EmployeeVerificationDetails)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        @*<td>@item.ApplicationNumber</td>*@
+                                        <td>@item.PolicyNumber</td>
+                                        <td>@item.SanctionedDate</td>
+                                        <td>
+                                            @if (item.Status == "Approved")
+                                            {
+                                                @*@Html.ActionLink("View NB Bond", "PrintNBBond", "VerifyData", new { PolicyNo = item.ApplicationId }, htmlAttributes: new { @target = "_blank" })*@
+                                                @*<a href="@item.NBBondDocPath" target="_blank" class="doc-uploaded">View NB Bond</a>*@
+                                                if (item.NBSignBondDocPath == "" || item.NBSignBondDocPath == null)
+                                                {
+                                                    @*<a class="a123" href="NBSignBond(@item.ApplicationId,@item.EmployeeCode)">Sign NB Bond</a>*@
+                                                    <a class="NBSignBond" href="javascript:;" data-appid="@item.ApplicationId" data-empid="@item.EmployeeCode"><p style="color:orangered">Sign NB Bond</p></a>
+                                                }
+                                                else
+                                                {
+                                                    @*<a class="OpenDocPath" href="javascript:;" data-path="@item.NBBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View NB Bond</a>*@
+                                                    <a class="OpenDocPath" href="javascript:;" data-path="@item.NBSignBondDocPath" data-policynumber="@item.PolicyNumber" data-doctype="Bond">View NB Bond</a>
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Status == "Approved")
+                                            {
+                                                @*@Html.ActionLink("View Facing Sheet", "FacingSheet", "Policy", new { applicationId = item.ApplicationId }, htmlAttributes: new { @target = "_blank" })*@
+                                                @*<a href="@item.NBFSDocPath" target="_blank" class="doc-uploaded">View Facing Sheet</a>*@
+                                                <a class="OpenDocPath" href="javascript:;" data-path="@item.NBFSDocPath" data-policynumber="@item.PolicyNumber" data-doctype="FS">View Facing Sheet</a>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Status == "Approved")
+                                            {
+                                                @Html.ActionLink("View Initimation Letter", "GetIntimationLetter", "Policy", new { applicationId = item.ApplicationId }, htmlAttributes: new { @target = "_blank" })
+                                            }
+                                        </td>
+                                        @*<td>@item.Status</td>*@
+                                    </tr>
+                                }
+                            }
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/DigitalSignCerti.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblEmployeeNBBondFS").DataTable({
+            ordering: false
+        });
+    });
+    $(function () {
+        $('.OpenDocPath').click(function () {
+            var $this = $(this);
+            var docpath = $this.data('path');
+            var policynumber = $this.data('policynumber');
+            var doctype = $this.data('doctype');
+            $.ajax({
+                url: '/VerifyData/PrintFilePath',
+                data: JSON.stringify({ "FilePath": docpath }),
+                type: 'POST',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    if (result.IsSuccess == true) {
+                        var path = result.Result
+                        //const linkSource = `data:application/pdf;base64,${path}`;
+                        //const downloadLink = document.createElement("a");
+                        if (doctype == "Bond") {
+                            const fileName = "Bond_" + policynumber + ".pdf";
+                            //downloadLink.href = linkSource;
+                            //downloadLink.download = fileName;
+                            //downloadLink.click();
+                            // Open New Tab
+                            printPreview(path)
+                            //
+                            delete doctype;
+                        }
+                        else if (doctype == "FS") {
+                            const fileName = "FS_" + policynumber + ".pdf";
+                            //downloadLink.href = linkSource;
+                            //downloadLink.download = fileName;
+                            //downloadLink.click();
+                            // Open New Tab
+                            printPreview(path)
+                            //
+                            delete doctype;
+                        }
+                    }
+                    else {
+                        alertify.alert("Unable to get the file..! Please try Again Later..!");
+                    }
+                }
+            });
+        });
+    });
+    function printPreview(data) {
+        var type = 'application/pdf';
+        let blob = null;
+        const blobURL = URL.createObjectURL(pdfBlobConversion(data, 'application/pdf'));
+        const theWindow = window.open(blobURL);
+        const theDoc = theWindow.document;
+        const theScript = document.createElement('script');
+        function injectThis() {
+            window.print();
+        }
+        theScript.innerHTML = 'window.onload = ${injectThis.toString()};';
+        theDoc.body.appendChild(theScript);
+    }
+    //converts base64 to blob type for windows
+    function pdfBlobConversion(b64Data, contentType) {
+        contentType = contentType || '';
+        var sliceSize = 512;
+        b64Data = b64Data.replace(/^[^,]+,/, '');
+        b64Data = b64Data.replace(/\s/g, '');
+        var byteCharacters = window.atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset = offset + sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        var blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+    }
+    //Added by Venkatesh
+    $(function () {
+        $('.NBSignBond').click(function () {
+            debugger
+            var $this = $(this);
+            var ApplicationID = $this.data('appid');
+            var EmployeeID = $this.data('empid');
+            if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+                $("#ResultDisplay").html("Please Download Chrome Extension.");
+                return;
+            }
+            //////////////////////////////
+            /// DSC SIGN USER Validation
+            DSCSignRegSignedExtension.getSelectedCertificate()       //or "SHA256"
+                .then(
+                    function (CertInfo) {
+                        debugger;
+                        //Success returns Certificate Subject and Thumbprint
+                        //var data = JSON.parse(CertInfo);
+                        //alert("CertThumbPrint received " + data.CertThumbPrint);
+                        //alert(SignData);
+                        var jobj = JSON.parse(CertInfo);
+                        console.debug(CertInfo);
+                        $("#SignedToken").val(jobj.PublicKey);
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/Employee/DSCSignInDIO",
+                            type: "POST",
+                            data: JSON.stringify({ "PublicKey": jobj.PublicKey }),
+                            async: false,
+                            contentType: 'application/json; charset=utf-8',
+                            processData: false,
+                            cache: false,
+                            success: function (data) {
+                                //Signing Operation Completed
+                                debugger
+                                if (data.IsSuccess == true) {
+                                    alertify.success("DSC Mapping Available..");
+                                    ///////////////////////////////
+                                    var RefID = ApplicationID;//Application ID
+                                    var EmpID = EmployeeID;//Employee ID
+                                    //var UnSignedWS = "https://49.206.243.82/VerifyDetails/GetFileForSigning";
+                                    //var SignedWS = "https://49.206.243.82/VerifyDetails/UploadSignedFile";
+                                    var UnSignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/GetFileForSigning";
+                                    var SignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/UploadSignedFile";
+                                    //var UnSignedWS = "http://localhost:52375/VerifyDetails/GetFileForSigning";
+                                    //var SignedWS = "http://localhost:52375/VerifyDetails/UploadSignedFile";
+                                    //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+                                    //------------------------------------------//
+                                    DSCSignRegSignedExtension.signPdfHash1(RefID, EmpID, UnSignedWS, SignedWS)
+                                        .then(
+                                            function (CertInfo) {
+                                                debugger
+                                                //Success returns Certificate Subject and Thumbprint
+                                                var data = JSON.parse(CertInfo);
+                                                //alert(data);
+                                                if (data == "True") {
+                                                    console.debug(data);
+                                                    alertify.alert("Bond Generated", "Bond Signing Success..!", function () {
+                                                        window.location.reload();
+                                                    }).setHeader("Attention");
+                                                }
+                                                else if (data == "false") {
+                                                    alertify.error("DSC PDF SignIn Failed..!");
+                                                    alertify.alert("Bond Not Generated", "Bond SigningFailed..! Retry Again..!", function () {
+                                                        window.location.reload();
+                                                    }).setHeader("Attention");
+                                                }
+                                                else if (data == "Failed Code - 101") {
+                                                    alertify.error("DSC PDF SignIn Failed..!");
+                                                    alertify.alert("Bond Not Generated", "Bond Signing Failed..! Retry Again..!", function () {
+                                                        window.location.href = reload();
+                                                    }).setHeader("Attention");
+                                                }
+
+                                            },
+                                            function (errmsg)       //Signing Host Returned Error.
+                                            {
+                                                debugger
+                                                alertify.error("Bond Signing Failed..! Retry Again..!");
+                                            }
+                                        );
+
+                                }
+                                else if (data.IsSuccess == false) {
+
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                                else {
+
+                                    alertify.error("DSC SignIn Failed..!");
+                                }
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").html(errmsg.message);
+                    }
+                );
+
+        });
+    });
+</script>

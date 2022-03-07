@@ -1,0 +1,1 @@
+﻿This text file needs to be present in order to create "Documents" folder while publishing.
