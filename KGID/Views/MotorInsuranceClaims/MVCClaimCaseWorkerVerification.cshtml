@@ -724,7 +724,27 @@
                         </div>
 
                     </div>
-                   
+                    @*Authorization letter to Law Department*@
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <label class="col-sm-10 col-form-label align-center">
+                                    Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mr-2">
+                            <div id="other_document_details"></div>
+                            @foreach (var item in Model.otherDetailsData)
+                            {
+                                <div>
+                                    <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+
 
 
 </div>

@@ -1531,7 +1531,7 @@ namespace KGID.Controllers
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
             
-        //GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
+GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
             GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
             GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date).Value.ToString("dd/MM/yyyy");
