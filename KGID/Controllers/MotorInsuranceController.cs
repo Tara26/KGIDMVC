@@ -2804,6 +2804,6 @@ namespace KGID.Controllers
             return View(ApplicationDetails);
         }
 
-        //Initial commit
+        //TODO's
     }
 }
