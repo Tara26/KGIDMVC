@@ -73,6 +73,10 @@ namespace KGID_Models.KGIDMotorInsurance
         public string acdt_any_other_info { get; set; }
         public int state_id { get; set; }
         public int app_saved_status { get; set; }
+
+        public string other_state_court_dist { get; set; }
+        public string other_state_court_taluk { get; set; }
+
     }
 }
 

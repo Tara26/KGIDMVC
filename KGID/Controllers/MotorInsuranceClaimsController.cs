@@ -1781,7 +1781,114 @@ namespace KGID.Controllers
             return View(GetDetails);
         }
 
+        public JsonResult MvcClaimChangesEdit(string chassis, long Appno)
+        {
+            var loginId = Convert.ToInt64(Session["UID"]);
+        var j = 0;
+        GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
+        GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+
+            GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(Appno);
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(Appno);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno);
+            GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
+        GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(Appno);
+            GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(Appno);
+            for (int i = 0; i<GetDetails.MVCAppDocDetails.Count; i++)
+            {
+                string path = GetDetails.MVCAppDocDetails[i].Accident_details;
+
+                if (path.Contains("/Dl_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Fir_details/"))
+                {
+                                GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                            }
+            if (path.Contains("/ObjectStatement_details/"))
+            {
+                GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+            }
+            if (path.Contains("/Panchanama_details/"))
+            {
+                GetDetails.MVCAppDocDetails[0].Accident_panchnama_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+            }
+            if (path.Contains("/Rc_details/"))
+            {
+                GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+            }
+            if (path.Contains("/Summons_details/"))
+            {
+                GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+            }
+            if (path.Contains("/Petitioner_details/"))
+            {
+                GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+            }
+
+            }
+
+            return Json(GetDetails, JsonRequestBehavior.AllowGet);
+        }
+		 [Route("mvc_sup_va/{chassis}/{appid}")]
+        public ActionResult MVCClaimsuperintendedVerification(long appid, string chassis)
+        {
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+
+
+            GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_from_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
+            GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid);
+            GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
+            GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+            GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
+            {
+                string path = GetDetails.MVCAppDocDetails[i].Accident_details;
+
+                if (path.Contains("/Dl_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Fir_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/ObjectStatement_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Panchanama_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_panchnama_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Rc_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Court_Notice_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Petitioner_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
+            }
+            return View(GetDetails);
+        }
     }
-
 }

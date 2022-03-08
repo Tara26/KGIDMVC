@@ -155,7 +155,10 @@ namespace KGID_Models.KGIDMotorInsurance
 
         public string comments { get; set; }
         public  long ByID { get; set; }
- public int application_stat { get; set; }
+
+        public int application_stat { get; set; }
+        public string other_state_court_taluk { get; set; }
+        public string other_state_court_dist { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

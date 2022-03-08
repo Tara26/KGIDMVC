@@ -1585,7 +1585,7 @@ namespace DLL.MBClaimsDLL
             int abc = 0;
             try
             {
-               
+                model.MVC_claim_app_id = Convert.ToInt64(model.MVC_number);
                 tbl_mvc_application_details mvc_ = _db.tbl_mvc_application_details.Where(x => x.mvc_claim_app_id == model.MVC_claim_app_id).FirstOrDefault();
                 if (mvc_ == null)
                 {
@@ -1600,8 +1600,20 @@ namespace DLL.MBClaimsDLL
                     tbl_data.mvc_no = (model.MVC_number).ToString();
                     tbl_data.date_of_petition = Convert.ToDateTime(model.CourtTime);
                     tbl_data.name_of_court = model.Name_of_court;
+					if (model.stateID == 29)
+                {
                     tbl_data.court_district = model.District_dm_id;
                     tbl_data.court_taluk = model.Taluk_id;
+                }
+                else
+                {
+                    tbl_data.court_district = 0;
+                    tbl_data.court_taluk = 0;
+                    tbl_data.other_state_court_taluk = model.other_state_court_taluk;
+                    tbl_data.other_state_court_dist = model.other_state_court_dist;
+                }
+
+                    
                     tbl_data.name_of_petitioner = "";
                     tbl_data.petitioner_pincode = 11;
                     tbl_data.petitioner_mobile_no = 99;
@@ -1666,8 +1678,21 @@ namespace DLL.MBClaimsDLL
                     mvc_.policy_no = model.Policy_number;
                     mvc_.date_of_petition = Convert.ToDateTime(model.CourtTime);
                     mvc_.name_of_court = model.Name_of_court;
-                    mvc_.court_district = model.District_dm_id;
-                    mvc_.court_taluk = model.Taluk_id;
+                   if (model.stateID == 29)
+                {
+                    tbl_data.court_district = model.District_dm_id;
+                    tbl_data.court_taluk = model.Taluk_id;
+					 tbl_data.other_state_court_taluk = "";
+                    tbl_data.other_state_court_dist = "";
+                }
+                else
+                {
+                    tbl_data.court_district = 0;
+                    tbl_data.court_taluk = 0;
+                    tbl_data.other_state_court_taluk = model.other_state_court_taluk;
+                    tbl_data.other_state_court_dist = model.other_state_court_dist;
+                }
+
                     mvc_.name_of_petitioner = "";
                     mvc_.petitioner_pincode = 11;
                     mvc_.petitioner_mobile_no = 99;
@@ -2232,8 +2257,22 @@ namespace DLL.MBClaimsDLL
                 tbl_data.mvc_no = (((model.MVC_number).ToString() != null) ? ((model.MVC_number).ToString()) : "");
                 tbl_data.date_of_petition =  ((Convert.ToDateTime(model.CourtTime) != null) ? Convert.ToDateTime(model.CourtTime) :Convert.ToDateTime(DateTime.Now));
                 tbl_data.name_of_court = ((model.Name_of_court != null) ? model.Name_of_court : "");
-                tbl_data.court_district = ((model.District_dm_id != 0) ? model.District_dm_id : 0);
+                if (model.stateID == 29)
+                {
+              tbl_data.court_district = ((model.District_dm_id != 0) ? model.District_dm_id : 0);
                 tbl_data.court_taluk = ((model.Taluk_id != 0) ? model.Taluk_id : 0);
+                tbl_data.other_state_court_taluk = "";
+                    tbl_data.other_state_court_dist = "";
+			    }
+                else
+                {
+                    tbl_data.court_district = 0;
+                    tbl_data.court_taluk = 0;
+                    tbl_data.other_state_court_taluk = ((model.other_state_court_taluk != null) ? model.other_state_court_taluk : "");
+                    tbl_data.other_state_court_dist = ((model.other_state_court_dist != null) ? model.other_state_court_dist : "");
+                }
+				
+			
                 tbl_data.name_of_petitioner = "";
                 tbl_data.petitioner_pincode = 11;
                 tbl_data.petitioner_mobile_no = 99;
