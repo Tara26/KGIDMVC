@@ -1680,17 +1680,17 @@ namespace DLL.MBClaimsDLL
                     mvc_.name_of_court = model.Name_of_court;
                    if (model.stateID == 29)
                 {
-                    tbl_data.court_district = model.District_dm_id;
-                    tbl_data.court_taluk = model.Taluk_id;
-					 tbl_data.other_state_court_taluk = "";
-                    tbl_data.other_state_court_dist = "";
+                        mvc_.court_district = model.District_dm_id;
+                        mvc_.court_taluk = model.Taluk_id;
+                        mvc_.other_state_court_taluk = "";
+                        mvc_.other_state_court_dist = "";
                 }
                 else
                 {
-                    tbl_data.court_district = 0;
-                    tbl_data.court_taluk = 0;
-                    tbl_data.other_state_court_taluk = model.other_state_court_taluk;
-                    tbl_data.other_state_court_dist = model.other_state_court_dist;
+                        mvc_.court_district = 0;
+                        mvc_.court_taluk = 0;
+                        mvc_.other_state_court_taluk = model.other_state_court_taluk;
+                        mvc_.other_state_court_dist = model.other_state_court_dist;
                 }
 
                     mvc_.name_of_petitioner = "";
