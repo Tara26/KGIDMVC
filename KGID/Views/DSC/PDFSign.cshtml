@@ -1,0 +1,378 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        .login-box, .register-box {
+            width: 450px;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-header text-center bg-primary"> <h4>Agency Login</h4></div>
+            <div class="card-body login-card-body">
+
+                <form method="post" class="form-horizontal" id="frmLogin">
+                    <input type="hidden" id="RegSignature" name="RegSignature" value="" />
+                    <input type="hidden" id="SignedToken" name="SignedToken" value="" />
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="txtAgencyRegnNo">Agency Registration No <span style="color:red">*</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="AgencyRegnNo" class="form-control" value="" id="txtAgencyRegnNo" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-check-label" for="radio1">
+                                <input type="radio" class="form-check-input" id="radio1" name="optradio" value="DSCAuthentication" checked>DSC Authentication
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="SignInWithDSC();">Sign In</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="RegisterWithDSC();">Register</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="InitiateSignPDF();">PDF</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-check-label" for="radio2">
+                                <input type="radio" class="form-check-input" id="radio2" name="optradio" value="OTPAuthentication">OTP Authentication
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-sm">Send OTP</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary" style="margin-left:15px"> Authenticate</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <label id="ResultDisplay" style="color:red"></label>
+                </div>
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <script src="~/Content/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/DigitalSignCerti.min.js"></script>
+    <script>
+
+        function RegisterWithDSC() {
+            $("#ResultDisplay").html("");
+
+            //if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+            //    $("#ResultDisplay").html("Please Download Signer.Digital Chrome Extension. from <br/>https://signer.digital/downloads/Signer.Digital.Chrome.Host.Setup.zip <br/>Do not forget to restart Chrome after installing extension.");
+            //    return;
+            //}
+
+            //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+            DSCSignRegSignedExtension.getSelectedCertificate()
+                .then(
+                    function (CertInfo) {        //Success returns Certificate Subject and Thumbprint
+                        var data = JSON.parse(CertInfo);
+                        //alert("CertThumbPrint received " + data.CertThumbPrint);
+                        console.debug(CertInfo);
+                        $("#RegSignature").val(CertInfo);
+
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/Home/Login",
+                            type: "POST",
+                            data: {
+                                abc: CertInfo,
+                            },
+                            success: function (data) {
+                                //Signing Operation Completed
+                                $("#ResultDisplay").html(data);
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").html(errmsg.message);
+                    }
+                );
+        };
+
+
+        function SignInWithDSC() {
+            $("#ResultDisplay").html("");
+
+            if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+                $("#ResultDisplay").html("Please Download Chrome Extension.");
+                return;
+            }
+
+            //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+            var authToken = $("#txtAgencyRegnNo").val();
+            DSCSignRegSignedExtension.signAuthToken(authToken, "SHA-256")       //or "SHA256"
+                .then(
+                    function (SignData) {        //Success returns Certificate Subject and Thumbprint
+                        //var data = JSON.parse(CertInfo);
+                        //alert("CertThumbPrint received " + data.CertThumbPrint);
+                        //alert(SignData);
+                        console.debug(SignData);
+                        $("#SignedToken").val(SignData);
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/Home/Login",
+                            type: "POST",
+                            data: {
+                                abc: $("#frmLogin").serialize(),
+                            },
+                            success: function (data) {
+                                //Signing Operation Completed
+                                $("#ResultDisplay").html(data);
+                                if (data == "User Authenticated using DSC.")
+                                    window.location.href = "/PdfSigning/Index";
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").html(errmsg.message);
+                    }
+                );
+        };
+
+    </script>
+    <script>
+        var sdHub;
+        var sdHubConnectionId;
+        $(function () {
+            //$('#settingsModel').modal('show');
+            HideShowSignaturePositionChangeDiv();
+            $("#SignSettings_SignaturePosition").change(function () { HideShowSignaturePositionChangeDiv(); });
+
+            $("#ResultDisplay").removeClass().html("");
+
+            $(document).on({
+                ajaxStart: function () { $("body").addClass("loading"); },
+                ajaxStop: function () { $("body").removeClass("loading"); }
+            });
+
+            $('input[type=file]').on('change', function () { $("#txtFile").val($(this).val()); });
+
+            // Reference the auto-generated proxy for the hub.
+            sdHub = $.connection.DSCSignRegSignedExtensionHub;
+            // Create a function that the hub can call back to get Signed Data.
+            sdHub.client.GetSigndData = SignPdfHashAndReturnSignToHub;
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                sdHubConnectionId = $.connection.hub.id;
+            });
+
+            //Remove All Checkbox hidden fields
+            $("label input[type=hidden]").remove();
+        }); //Document Ready
+
+        function InitiateSignPDF() {//alert-info alert-danger alert-success
+            //$("#ResultDisplay").removeClass().html("");
+            //debugger;
+            //if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+            //    $("#ResultDisplay").addClass("alert alert-info").html("Please Download and install  Browser Extension by clicking download button.");
+            //    return;
+            //}
+
+            //if ($("#UserFile").val() == "") {
+            //    alert("Please Select PDF File");
+            //    return;
+            //}
+            //if ($("#CaptchaInputText").val() == "") {
+            //    alert("Please Enter captcha result");
+            //    return;
+            //}
+
+            //$("#frmSetting input[type=checkbox]").each(function () {
+            //    $(this).attr("value", $(this).is(":checked") ? true : false)
+            //})
+
+
+            //var Settingdata = $("#frmSetting").serializeArray();
+            //var Setting = {};
+            //for (var i = 0; i < Settingdata.length; i++) {
+            //    Setting[Settingdata[i]['name'].replace(/[^.]+\./, "")] = Settingdata[i]['value'];
+            //}
+
+            var RefID = "R123";
+            var EmpID = "EMPID";
+            var UnSignedWS = "http://localhost:54089/DSC/GetFileForSigning";
+            var SignedWS = "http://localhost:54089/DSC/UploadSignedFile";
+            //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+            DSCSignRegSignedExtension.signPdfHash1(RefID, EmpID, UnSignedWS, SignedWS)
+                .then(
+                    function (CertInfo) {        //Success returns Certificate Subject and Thumbprint
+                        var data = JSON.parse(CertInfo);
+                        //alert(JSON.stringify(data.X509Certificate2));
+                        //alert(JSON.stringify(data.SelCertAttribs));
+                        alert(data);
+                        console.debug(data);
+                        //$("#CertThumbPrint").val(data);
+                        //var formData = new FormData($("form#frmFile")[0]);
+                        //formData.append("SelCertSubject", data)
+                        //formData.append("SDHubConnectionId", sdHubConnectionId)
+                        //formData.append("SignSetting", JSON.stringify(Setting))
+                        //Call Controller Method with CertSubject and SerialNumber
+                        $.ajax({
+                            url: "/DSC/PDFSign",
+                            type: "POST",
+                            data: {
+                                certClient: JSON.stringify(data),
+                                SelCertAttribs: data.SelCertAttribs,
+                            },
+                            success: function (data) {
+                                //Signing Operation Completed
+                                if (data.success) {
+                                    $("#ResultDisplay").removeClass().addClass("alert alert-success").html(data.message);
+                                    $("#showPDF").prop("disabled", false)
+                                } else {
+                                    $("#ResultDisplay").removeClass().addClass("alert alert-danger").html(data.message);
+                                }
+                            }
+                        });
+                    },
+                    function (errmsg)       //Signing Host Returned Error.
+                    {
+                        $("#ResultDisplay").removeClass().addClass("alert alert-danger").html(errmsg);
+                    }
+                );
+        }
+
+        function ShowSignedPDF() {
+            window.open("/PdfSigning/ShowSignedPDF");
+        }
+
+        function HideShowSignaturePositionChangeDiv() {
+            var SignaturePos = $("#SignSettings_SignaturePosition").val();
+            switch (SignaturePos) {
+                case "BottomRight":
+                    {
+                        $("#divSignOffsetBottom").show();
+                        $("#divSignOffsetRight").show();
+                        $("#divSignOffsetTop").hide();
+                        $("#divSignOffsetLeft").hide();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "BottomLeft":
+                    {
+                        $("#divSignOffsetBottom").show();
+                        $("#divSignOffsetLeft").show();
+                        $("#divSignOffsetTop").hide();
+                        $("#divSignOffsetRight").hide();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "TopRight":
+                    {
+                        $("#divSignOffsetBottom").hide();
+                        $("#divSignOffsetRight").show();
+                        $("#divSignOffsetTop").show();
+                        $("#divSignOffsetLeft").hide();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "TopLeft":
+                    {
+                        $("#divSignOffsetBottom").hide();
+                        $("#divSignOffsetRight").hide();
+                        $("#divSignOffsetTop").show();
+                        $("#divSignOffsetLeft").show();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "BottomCenter":
+                    {
+                        $("#divSignOffsetBottom").show();
+                        $("#divSignOffsetRight").hide();
+                        $("#divSignOffsetTop").hide();
+                        $("#divSignOffsetLeft").show();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "TopCenter":
+                    {
+                        $("#divSignOffsetBottom").hide();
+                        $("#divSignOffsetRight").hide();
+                        $("#divSignOffsetTop").show();
+                        $("#divSignOffsetLeft").show();
+                        $("#CustomeSignPosition").hide();
+                        break;
+                    }
+                case "CustomPosition":
+                    {
+                        $("#divSignOffsetBottom").hide();
+                        $("#divSignOffsetRight").hide();
+                        $("#divSignOffsetTop").hide();
+                        $("#divSignOffsetLeft").hide();
+                        $("#CustomeSignPosition").show();
+                        break;
+                    }
+                default:
+                    {
+                        $("#divSignOffsetBottom").hide();
+                        $("#divSignOffsetRight").hide();
+                        $("#divSignOffsetTop").hide();
+                        $("#divSignOffsetLeft").hide();
+                        $("#CustomeSignPosition").show();
+                        break;
+                    }
+            }
+        }
+
+
+    </script>
+</body>
+</html>
+

@@ -76,6 +76,12 @@ namespace KGID_Models.KGIDMotorInsurance
         public string summons_detals { get; set; }
         public string petitioner_details { get; set; }
         public string petitioner_name { get; set; }
+        public string CoveringLetter { get; set; }
+        public string Prefilled_Claim_Form { get; set; }
+        public string Insurance_Copy { get; set; }
+        public string DL { get; set; }
+        public string DriverstatementandRc { get; set; }
+        
 
         public string CourtTime { get; set; }
         public string claim_Amount { get; set; }
@@ -143,6 +149,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public DateTime SubmissionDate { get; set; }
         public string From { get; set; }
         public string To { get; set; }
+        public long TO { get; set; }
 
         public string Remarks { get; set; }
 

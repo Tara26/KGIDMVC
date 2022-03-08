@@ -289,6 +289,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\CustomAuthorizeAttribute.cs" />
     <Compile Include="Controllers\DefaultCaptchaController.cs" />
+    <Compile Include="Controllers\DSCController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KIIController.cs" />
@@ -3099,6 +3100,7 @@
     <Content Include="Views\MotorInsuranceClaims\MVCClaimADApprovalProcess.cshtml" />
     <Content Include="Views\MotorInsuranceClaims\MVCClaimDirectorApprovalProcess.cshtml" />
     <Content Include="Views\MotorInsuranceClaims\MVCClaimDirectorVerification.cshtml" />
+    <Content Include="Views\DSC\PDFSign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Custom\MI\" />

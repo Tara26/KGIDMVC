@@ -2180,6 +2180,7 @@ namespace DLL.MBClaimsDLL
            List<GetVehicleChassisPolicyDetails> workFlowDetails = new List<GetVehicleChassisPolicyDetails>();
 
             workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                               join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
                                join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
                                join remarks in _db.tbl_remarks_master on work.micw_remarks equals remarks.RM_Remarks_id
 
@@ -2189,7 +2190,7 @@ namespace DLL.MBClaimsDLL
                               {
                                   SubmissionDate = work.micw_creation_datetime,
                                   ByID = work.micw_verified_by,
-                                  To = cat.cm_category_desc,
+                                  TO = work.micw_assigned_to,
                                   Remarks = remarks.RM_Remarks_Desc,
                                   comments = work.micw_comments
 
@@ -2198,12 +2199,20 @@ namespace DLL.MBClaimsDLL
             for (int i = 0; i < workFlowDetails.Count; i++)
             {
                 var ById = workFlowDetails[i].ByID;
+                int toID = Convert.ToInt32(workFlowDetails[i].TO);
                 var UserName = (from j in _db.tbl_category_master
                                 //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
                                 where j.cm_category_id == ById
                                 select j.cm_category_desc).FirstOrDefault();
                 //workFlowDetails[i].From = UserName;
-                workFlowDetails[i].From = "CaseWorker";
+                workFlowDetails[i].From = UserName;
+                //workFlowDetails[i].TO = UserName;
+
+                var TO = (from j in _db.tbl_category_master
+                                    //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                                where j.cm_category_id == toID
+                          select j.cm_category_desc).FirstOrDefault();
+                workFlowDetails[i].To = TO.ToString();
             }
 
             return workFlowDetails;

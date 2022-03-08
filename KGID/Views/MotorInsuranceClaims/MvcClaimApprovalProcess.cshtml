@@ -255,6 +255,7 @@
                                 <th>SL.No</th>
                                 <th>MVC No.</th>
                                 <th>Vehicle Chassis No</th>
+                                <th>Status</th>
                                 <th>Action</th>
                                 <th>Other Action</th>
                             </tr>
@@ -265,18 +266,19 @@
                             {
                                 foreach (var item in Model.GetVehicleChassisPolicyDetailsList)
                                 {
-                                    <tr>
-                                        <td>@(slno++)</td>
-                                        <td>@item.Court_MVC_number</td>
-                                        <td>@item.vehicle_chasis_no</td>
-                                        <td>
-                                            <a href="/mvc_sup_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
-                                        </td>
-                                        <td>
-                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat</a> <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+                            <tr>
+                                <td>@(slno++)</td>
+                                <td>@item.Court_MVC_number</td>
+                                <td>@item.vehicle_chasis_no</td>
+                                <td>Pending</td>
+                                <td>
+                                    <a href="/mvc_sup_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                </td>
+                                <td>
+                                    <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat</a> <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
 
-                                        </td>
-                                    </tr>
+                                </td>
+                            </tr>
                                 }
                             }
 
