@@ -1585,7 +1585,7 @@ namespace DLL.MBClaimsDLL
             int abc = 0;
             try
             {
-                model.MVC_claim_app_id = Convert.ToInt64(model.MVC_number);
+                
                 tbl_mvc_application_details mvc_ = _db.tbl_mvc_application_details.Where(x => x.mvc_claim_app_id == model.MVC_claim_app_id).FirstOrDefault();
                 if (mvc_ == null)
                 {
@@ -1745,7 +1745,7 @@ namespace DLL.MBClaimsDLL
                     mvc_.acdt_any_other_info = model.any_other_information_details;
                     mvc_.state_id = model.stateID;
                     mvc_.app_saved_status = model.application_stat;
-                    _db.SaveChanges();
+                   abc= _db.SaveChanges();
 
                     
                 
@@ -1763,14 +1763,14 @@ namespace DLL.MBClaimsDLL
                 //{
                 //}
 
-                return model.MVC_claim_app_id;
+               // return model.MVC_claim_app_id;
 
 
             }
             catch (Exception e)
             {
 
-                throw;
+                throw e;
             }
 
             return model.MVC_claim_app_id;
@@ -1818,23 +1818,70 @@ namespace DLL.MBClaimsDLL
         public int SavePathDetailsDLL(string path, long App_id)
         {
             int ans = 1;
+            int returnpathStatus = 0;
             if (path != null && App_id != 0)
             {
                 try
                 {
+                    List<tbl_mvc_claim_doc_details> pathData = _db.tbl_mvc_claim_doc_details.Where(x => x.mvcdd_claim_app_id == App_id).ToList();
 
-                    tbl_mvc_claim_doc_details mvc_doc = new tbl_mvc_claim_doc_details();
-                    mvc_doc.mvcdd_claim_app_id = App_id;
-                    mvc_doc.mvcdd_claim_due_id = 0;
-                    mvc_doc.mvcdd_doc_upload_path = path;
-                    mvc_doc.mvcdd_active_status = true;
-                    mvc_doc.mvcdd_creation_datetime = DateTime.Now;
-                    mvc_doc.mvcdd_updation_datetime = DateTime.Now;
-                    mvc_doc.mvcdd_updated_by = 1;
+                    if (pathData.Count() == 0)
+                    {
+                         returnpathStatus = savePathOfFile(path, App_id);
+                    }
+                    else {
+                        bool pathD = path.Contains("PrefilledClaimForm");
+                   
+                      //  if (dataP.mvcdd_doc_upload_path.Contains("/PrefilledClaimForm/") && path.Contains("/PrefilledClaimForm/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                            
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/DsRc/") && path.Contains("/DsRc/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                            
 
-                    _db.tbl_mvc_claim_doc_details.Add(mvc_doc);
-                    int abc = _db.SaveChanges();
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/Covering_Letter/") && path.Contains("/Covering_Letter/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                           
 
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/InsuranceCopy/") && path.Contains("/InsuranceCopy/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                           
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/Court_Notice_details/") && path.Contains("/Court_Notice_details/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/Petitioner_details/") && path.Contains("/Petitioner_details/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                           
+                     //       else if (dataP.mvcdd_doc_upload_path.Contains("/DL/") && path.Contains("/DL/"))
+                     //       {
+                     //           dataP.mvcdd_doc_upload_path = path;
+                     //           break;
+                     //       }
+                     //       else
+                     //       {
+                                 returnpathStatus = savePathOfFile(path, App_id);
+                            //    break;
+                            //}
+
+
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -2139,7 +2186,51 @@ namespace DLL.MBClaimsDLL
                                    
 
                               }).Distinct().ToList();
-           
+
+            if (vehicleDetails.Count() == 0)
+            {
+                vehicleDetails = (from data in _db.tbl_mvc_application_details
+                                  
+                                  join injury in _db.tbl_mvc_claim_type_of_injury on data.acdnt_type_of_injury equals injury.injury_type_id
+                                  where data.mvc_claim_app_id == App_id
+                                  select new GetVehicleChassisPolicyDetails
+                                  {
+                                      Court_DateTime = data.date_of_petition,
+                                      Court_MVC_number = data.mvc_no,
+                                      Name_of_court = data.name_of_court,
+                                      
+                                      MVC_number = (data.mvc_claim_app_id).ToString(),
+
+                                      Accident_details = data.accident_details,
+                                      claim_Amount = (data.claim_amount).ToString(),
+                                      MVC_claim_app_id = data.mvc_claim_app_id,
+                                      Name_of_injured = data.acdnt_name_of_injured_person,
+                                      Father_name = data.acdnt_person_father_name,
+                                      Spouse_name = data.acdnt_person_spouse_name,
+                                      occupation_of_injured = data.acdnt_person_occupation,
+                                      Age_of_injured = data.acdnt_person_age,
+                                      Address_of_dead_details = data.acdnt_person_full_address,
+                                      monthly_income_of_injured = (data.acdnt_person_monthly_income).ToString(),
+                                      income_tax_of_injured = (data.acdnt_comp_claimed_tax).ToString(),
+                                      employer_deceased_details = data.acdnt_emp_nameadress_deceased,
+                                      place_of_accident = data.acdnt_place_accident,
+                                      accident_DateTime = (data.acdnt_date_time_of_accident).ToString(),
+                                      police_station_of_jurisdiction = data.acdnt_police_station_details,
+                                      police_station_of_compensation = data.acdnt_compens_claimed_travelling,
+                                      injury_desc = injury.injury_type_desc,
+                                      nature_of_injuries_sustained = data.acdnt_nature_of_injury,
+                                      medical_officer = data.acdnt_medical_officer_detail,
+                                      Period_of_treatment_of_details = data.acdnt_period_treatment_expend,
+                                      Name_of_injury_caused_of_details = data.acdnt_name_of_injury_caused,
+                                      Name_and_address_of_applicant_details = data.acdnt_applicant_details,
+                                      relation_with_deceased = data.acdnt_relation_details,
+                                      title_property_deceased = data.acdnt_title_to_property,
+                                      any_other_information_details = data.acdt_any_other_info,
+
+
+                                  }).Distinct().ToList();
+
+            }
             return vehicleDetails;
         }
         public List<GetVehicleChassisPolicyDetails> GetMVCDocdetailDLL(long Appno)
@@ -2237,7 +2328,7 @@ namespace DLL.MBClaimsDLL
                                     //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
                                 where j.cm_category_id == toID
                           select j.cm_category_desc).FirstOrDefault();
-                workFlowDetails[i].To = TO.ToString();
+                workFlowDetails[i].Tooo = ""; //TO.ToString();
             }
 
             return workFlowDetails;
@@ -2334,9 +2425,10 @@ namespace DLL.MBClaimsDLL
                     int c = PetitionerRespondantDetailsDLL(model.MVC_claim_app_id, model);
                 }
 
-
-               // var returnMessage = UpdateWork_flow_Details(model);
-
+                if (model.application_stat == 2)
+                {
+                    var returnMessage = UpdateWork_flow_Details(model);
+                }
 
                 //foreach (var files in )
                 //{
@@ -2351,6 +2443,42 @@ namespace DLL.MBClaimsDLL
                 throw ex;
             }
             return model.MVC_claim_app_id;
+        }
+
+        public int savePathOfFile(string path, long App_id) {
+
+            string[] newNV = path.Split('/');
+            string pathConstant = newNV[5];
+            string otherPath = newNV[6];
+
+            
+           tbl_mvc_claim_doc_details pathData = _db.tbl_mvc_claim_doc_details.Where(x => x.mvcdd_claim_app_id == App_id && x.mvcdd_doc_upload_path.Contains(pathConstant)).FirstOrDefault();
+            if (pathData == null)
+            {
+                tbl_mvc_claim_doc_details mvc_doc = new tbl_mvc_claim_doc_details();
+                mvc_doc.mvcdd_claim_app_id = App_id;
+                mvc_doc.mvcdd_claim_due_id = 0;
+                mvc_doc.mvcdd_doc_upload_path = path;
+                mvc_doc.mvcdd_active_status = true;
+                mvc_doc.mvcdd_creation_datetime = DateTime.Now;
+                mvc_doc.mvcdd_updation_datetime = DateTime.Now;
+                mvc_doc.mvcdd_updated_by = 1;
+
+                _db.tbl_mvc_claim_doc_details.Add(mvc_doc);
+                int abc = _db.SaveChanges();
+                return 1;
+            }
+            else {
+                pathData.mvcdd_claim_due_id = 0;
+                pathData.mvcdd_doc_upload_path = path;
+                pathData.mvcdd_active_status = true;
+                pathData.mvcdd_creation_datetime = DateTime.Now;
+                pathData.mvcdd_updation_datetime = DateTime.Now;
+                pathData.mvcdd_updated_by = 1;
+                _db.SaveChanges();
+
+            }
+            return 1;
         }
         #endregion
     }

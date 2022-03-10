@@ -71,6 +71,8 @@ namespace KGID_Models.KGIDMotorInsurance
         public string Accident_rc_details { get; set; }
         public string Accident_fir_details { get; set; }
         public string Accident_dl_details { get; set; }
+        public string PreClaimedForm { get; set; }
+        public string insurancecopy { get; set; }
         public string Accident_panchnama_details { get; set; }
         public string Accident_object_statement_details { get; set; }
         public string summons_detals { get; set; }
@@ -148,7 +150,7 @@ namespace KGID_Models.KGIDMotorInsurance
 
         public DateTime SubmissionDate { get; set; }
         public string From { get; set; }
-        public string To { get; set; }
+        public string Tooo { get; set; }
         public long TO { get; set; }
 
         public string Remarks { get; set; }
@@ -159,6 +161,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public int application_stat { get; set; }
         public string other_state_court_taluk { get; set; }
         public string other_state_court_dist { get; set; }
+        public string cover_letter { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

@@ -1663,7 +1663,7 @@ namespace KGID.Controllers
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
 
-                if (path.Contains("/Covering_Letter/"))
+                if (path.Contains("/Dl_details/"))
                 {
                     GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
@@ -1748,25 +1748,25 @@ namespace KGID.Controllers
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
 
-                if (path.Contains("/Covering_Letter/"))
+                if (path.Contains("/Dl_details/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/DL/"))
+                if (path.Contains("/Fir_details/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].DL = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/InsuranceCopy/"))
+                if (path.Contains("/ObjectStatement_details/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Insurance_Copy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/DsRc/"))
+                if (path.Contains("/Panchanama_details/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].DriverstatementandRc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_panchnama_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/PrefilledClaimForm/"))
+                if (path.Contains("/Rc_details/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Prefilled_Claim_Form = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
                 if (path.Contains("/Court_Notice_details/"))
                 {
@@ -1783,11 +1783,11 @@ namespace KGID.Controllers
 
         public JsonResult MvcClaimChangesEdit(string chassis, long Appno)
         {
-            var loginId = Convert.ToInt64(Session["UID"]);
-        var j = 0;
-        GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+                  var loginId = Convert.ToInt64(Session["UID"]);
+       
+                  GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
-        GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
 
             GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(Appno);
             GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
@@ -1797,40 +1797,45 @@ namespace KGID.Controllers
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(Appno);
             GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
-        GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(Appno);
+            GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
+
+            GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(Appno);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(Appno);
             for (int i = 0; i<GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
 
-                if (path.Contains("/Dl_details/"))
+                if (path.Contains("/PrefilledClaimForm/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].PreClaimedForm = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/Fir_details/"))
+                if (path.Contains("/DsRc/"))
                 {
-                                GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-                            }
-            if (path.Contains("/ObjectStatement_details/"))
-            {
-                GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-            }
-            if (path.Contains("/Panchanama_details/"))
-            {
-                GetDetails.MVCAppDocDetails[0].Accident_panchnama_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-            }
-            if (path.Contains("/Rc_details/"))
-            {
-                GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-            }
-            if (path.Contains("/Summons_details/"))
-            {
-                GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
-            }
-            if (path.Contains("/Petitioner_details/"))
-            {
-                GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-            }
+                    GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Covering_Letter/"))
+                {
+                  GetDetails.MVCAppDocDetails[0].cover_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/InsuranceCopy/"))
+                {
+                      GetDetails.MVCAppDocDetails[0].insurancecopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                  }
+           
+                  if (path.Contains("/Court_Notice_details/"))
+                  {
+                       GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+                  }
+                  if (path.Contains("/Petitioner_details/"))
+                   {
+                          GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                     }
+            
+             //added new
+                   if (path.Contains("/DL/"))
+                    {
+                             GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+             }
 
             }
 

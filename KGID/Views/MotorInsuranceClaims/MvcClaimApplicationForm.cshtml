@@ -71,7 +71,8 @@
         <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Application Status </a>
-            </li><li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="pills-menu0-tab" data-toggle="pill" href="#pills-menu0" role="tab" aria-controls="pills-menu0" aria-selected="true">Draft Application </a>
             </li>
             <li class="nav-item">
@@ -914,6 +915,34 @@
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+                                                <label class="col-sm-10 col-form-label align-center">
+
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label> <a href="" id="inputfilefor_Court_noticeDownload" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                        </div>
+
+                                        
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                            @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                            <label> <a href="" id="petitioner_details_file" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+                                        </div>
+
+                                    </div>
                                     <div class="row" id="uploadMultipleDoc1">
                                         <div class="col-md-2">
                                             <div class="form-group row">
@@ -952,7 +981,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <input type="file" class="custom-file-input" id="inputCoveringLetter1" accept="image/png, image/jpeg">
-                                            <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                            <a href="" id="inputCoveringLetterDownload" target="_blank" value="Download"></a>
+                                            <label class="custom-file-label" for="inputGroupFile01" id="DD" style=" color:black;">Choose file</label>
                                             <a href="" id="" target="_blank" value="Download"></a>
                                         </div><div class="col-md-2">
                                             <div class="form-group row">
@@ -971,7 +1001,34 @@
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+                                                <label class="col-sm-10 col-form-label align-center">
 
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label> <a href="" id="inputfilefor_CoveringLetterDownload" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                            @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                            <label> <a href="" id="inputFileForPreClaimedForm" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+                                        </div>
+
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group row">
@@ -1002,7 +1059,34 @@
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+                                                <label class="col-sm-10 col-form-label align-center">
 
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label> <a href="" id="Driver_statement_and_RC_Request" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                            @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                            <label> <a href="" id="dl_details_file" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+                                        </div>
+
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group row">
@@ -1020,6 +1104,33 @@
 
 
                                     </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group row">
+                                                <label class="col-sm-10 col-form-label align-center">
+
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                            @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                            <label> <a href="" id="Insurancy_copy" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
 
                                 </div>
 
@@ -1682,7 +1793,7 @@
                                 Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
 
                             </label>
-                            <input type="text" class="form-control p_req" id="income_tax_of_injured" placeholder="">
+                            <input type="number" class="form-control p_req" id="income_tax_of_injured" placeholder="">
                             <label id="lbl_p_name" style="color:red" class="err" hidden>enter the filled</label>
                         </div>
                     </div>
@@ -1859,26 +1970,10 @@
                             <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter  Claim Amount</label>
                         </div>
                     </div>
-                    @*<div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Amount of compensation claimed.
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="claim_amount" required>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter  Claim Amount</span>
-                                </div>
-                            </div>
-                        </div>*@
+                 
                 </div>
                 <div class="row">
-                    @*<label for="exampleFormControlInput1">
-                            Any other Information that may be necessary or Helpful in the disposal of the claim.
-                        </label>
-                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details"></textarea>
-                        <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                            Any other Information that may be necessary or Helpful in the disposal of the claim.
-                        </label>*@
+                   
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">
@@ -2168,13 +2263,22 @@
                 }
                 if (response.MVCAppDocDetails.length > 0) {
                     debugger;
+                    $("#inputfilefor_Court_noticeDownload").empty();
+                    $("#inputfilefor_CoveringLetterDownload").empty();
+                    $("#inputFileForPreClaimedForm").empty();
+                    $("#dl_details_file").empty();
+                    $("#petitioner_details_file").empty();
+                    $("#Insurancy_copy").empty();
+                    $("#Driver_statement_and_RC_Request").empty();
+
+                    $("#inputFileForPreClaimedForm").attr("href", response.MVCAppDocDetails[0].PreClaimedForm);//
+
                     $("#dl_details_file").attr("href", response.MVCAppDocDetails[0].Accident_dl_details);
-                    $("#fir_details_file").attr("href", response.MVCAppDocDetails[0].Accident_fir_details);
-                    $("#Objection_Statement_file").attr("href", response.MVCAppDocDetails[0].Accident_object_statement_details);
-                    $("#Panchnama_details_file").attr("href", response.MVCAppDocDetails[0].Accident_panchnama_details);
+                    $("#Driver_statement_and_RC_Request").attr("href", response.MVCAppDocDetails[0].Accident_fir_details);
+                    $("#Insurancy_copy").attr("href", response.MVCAppDocDetails[0].insurancecopy);//
                     $("#petitioner_details_file").attr("href", response.MVCAppDocDetails[0].petitioner_details);
-                    $("#RC_details_file").attr("href", response.MVCAppDocDetails[0].Accident_rc_details);
-                    $("#Summons_details_file").attr("href", response.MVCAppDocDetails[0].summons_detals);
+                    $("#inputfilefor_CoveringLetterDownload").attr("href", response.MVCAppDocDetails[0].cover_letter);
+                    $("#inputfilefor_Court_noticeDownload").attr("href", response.MVCAppDocDetails[0].summons_detals);
 
 
                 }
@@ -2497,74 +2601,75 @@
                     Respondant_pincode: Respondant_pincode
                 });
 
-            });
-            model.RespondantList = respondantFamilyDetailsarr;
-            model.vehicle_chasis_no = VehicleChassisNumber;
-            model.MVC_number = MVC_number;
-            model.Policy_number = PolicyNumber;
-            model.CourtTime = PetitionDate;
-            model.Name_of_court = NameOftheCourt;
-            model.District_dm_id = Court_district;
-            model.Taluk_id = Court_taluk;
-            model.petitioner_name = nameOfPetitioner;
-            model.pincode_Of_Petitioner = pincodeOfPetitioner;
-            model.petitioner_Address = petitioner_Address;
-            model.petitioner_Mobile_no = petitioner_Mobile_no;
-            model.Respondant_name = Respondant_name;
-            model.Respondant_designation = Respondant_designation;
-            model.Respondant_department = Respondant_department;
-            model.Respondant_Agency_name = Respondant_Agency_name;
-            model.Respondant_address = Respondant_address;
-            model.Accident_district = Accident_district;
-            model.Accident_taluk = Accident_taluk;
-            model.Accident_hobli = Accident_hobli;
-            model.Accident_gramPanchayat = Accident_gramPanchayat;
-            model.Accident_village = Accident_village;
-            model.Accident_details = Accident_details;
-            model.claim_Amount = Accident_claim_amnt;
-            model.Comments_details = Comments_details;
-            model.Accident_rc_details = Accident_rc_details;
-            model.Court_DateTime = Accident_dl_details;
-            model.Accident_dl_details = Accident_panchnama_details;
-            model.summons_detals = summons_detals;
-            model.petitioner_details = petitioner_details;
-            model.Vehicle_Registration_Number = Vehicle_number;
-            model.Category_id = Category_id;
-            model.roleID  = assignedTo;
-            model.Remarks_id = RemarkSelected;
-            model.Name_of_injured = $("#Name_of_injured").val();
-            model.Father_name = $("#Father_name").val();
-            model.Spouse_name = $("#Spouse_name").val();
-            model.Address_of_dead_details = $("#Address_of_dead_details").val();
-            model.Age_of_injured = $("#Age_of_injured").val();
-            model.occupation_of_injured = $("#occupation_of_injured").val();
-            model.employer_deceased_details = $("#employer_deceased_details").val();
-            model.monthly_income_of_injured = $("#monthly_income_of_injured").val();
-            model.income_tax_of_injured = $("#income_tax_of_injured").val();
-            model.place_of_accident = $("#place_of_accident").val();
-            model.accident_DateTime = $("#accident_DateTime").val();
-            model.police_station_of_jurisdiction = $("#police_station_of_jurisdiction").val();
-            model.police_station_of_compensation = $("#police_station_of_compensation").val();
-            model.type_injury = $("#type_injury").val();
-            model.nature_of_injuries_sustained = $("#nature_of_injuries_sustained").val();
-            model.medical_officer = $("#medical_officer").val();
-            model.Period_of_treatment_of_details = $("#Period_of_treatment_of_details").val();
-            model.Name_of_injury_caused_of_details = $("#Name_of_injury_caused_of_details").val();
-            model.Name_and_address_of_applicant_details = $("#Name_and_address_of_applicant_details").val();
-            model.relation_with_deceased = $("#relation_with_deceased").val();
-            model.title_property_deceased = $("#title_property_deceased").val();
-            model.any_other_information_details = $("#any_other_information_details").val();
-           var state_id_no = $("#state_id").val();
-	     model.state_id =  $("#state_id").val();
-           if (state_id_no == 29) {
-            model.District_dm_id = Court_district;
-            model.Taluk_id = Court_taluk;
-            }
-            else {
+        });
+        model.RespondantList = respondantFamilyDetailsarr;
+        model.vehicle_chasis_no = VehicleChassisNumber;
+        model.MVC_number = MVC_number;
+        model.Policy_number = PolicyNumber;
+        model.CourtTime = PetitionDate;
+        model.Name_of_court = NameOftheCourt;
 
+        model.petitioner_name = nameOfPetitioner;
+        model.pincode_Of_Petitioner = pincodeOfPetitioner;
+        model.petitioner_Address = petitioner_Address;
+        model.petitioner_Mobile_no = petitioner_Mobile_no;
+        model.Respondant_name = Respondant_name;
+        model.Respondant_designation = Respondant_designation;
+        model.Respondant_department = Respondant_department;
+        model.Respondant_Agency_name = Respondant_Agency_name;
+        model.Respondant_address = Respondant_address;
+        model.Accident_district = Accident_district;
+        model.Accident_taluk = Accident_taluk;
+        model.Accident_hobli = Accident_hobli;
+        model.Accident_gramPanchayat = Accident_gramPanchayat;
+        model.Accident_village = Accident_village;
+        model.Accident_details = Accident_details;
+        model.claim_Amount = Accident_claim_amnt;
+        model.Comments_details = Comments_details;
+        model.Accident_rc_details = Accident_rc_details;
+        model.Court_DateTime = Accident_dl_details;
+        model.Accident_dl_details = Accident_panchnama_details;
+        model.summons_detals = summons_detals;
+        model.petitioner_details = petitioner_details;
+        model.Vehicle_Registration_Number = Vehicle_number;
+        model.Category_id = Category_id;
+        model.roleID = assignedTo;
+        model.Remarks_id = RemarkSelected;
+        model.Name_of_injured = $("#Name_of_injured").val();
+        model.Father_name = $("#Father_name").val();
+        model.Spouse_name = $("#Spouse_name").val();
+        model.Address_of_dead_details = $("#Address_of_dead_details").val();
+        model.Age_of_injured = $("#Age_of_injured").val();
+        model.occupation_of_injured = $("#occupation_of_injured").val();
+        model.employer_deceased_details = $("#employer_deceased_details").val();
+        model.monthly_income_of_injured = $("#monthly_income_of_injured").val();
+        model.income_tax_of_injured = $("#income_tax_of_injured").val();
+        model.place_of_accident = $("#place_of_accident").val();
+        model.accident_DateTime = $("#accident_DateTime").val();
+        model.police_station_of_jurisdiction = $("#police_station_of_jurisdiction").val();
+        model.police_station_of_compensation = $("#police_station_of_compensation").val();
+        model.type_injury = $("#type_injury").val();
+        model.nature_of_injuries_sustained = $("#nature_of_injuries_sustained").val();
+        model.medical_officer = $("#medical_officer").val();
+        model.Period_of_treatment_of_details = $("#Period_of_treatment_of_details").val();
+        model.Name_of_injury_caused_of_details = $("#Name_of_injury_caused_of_details").val();
+        model.Name_and_address_of_applicant_details = $("#Name_and_address_of_applicant_details").val();
+        model.relation_with_deceased = $("#relation_with_deceased").val();
+        model.title_property_deceased = $("#title_property_deceased").val();
+        model.any_other_information_details = $("#any_other_information_details").val();
+        var Court_oth_state_district = $("#other_dist").val();
+        var Court_oth_state_taluk = $("#other_taluk").val();
+        model.stateID = $("#state_id").val();
+        if (model.stateID == 29) {
+            model.District_dm_id = Court_district;
+            model.Taluk_id = Court_taluk;
+
+        } else {
+            model.District_dm_id = 0;
+            model.Taluk_id = 0;
+            model.other_state_court_taluk = Court_oth_state_taluk ;
             model.other_state_court_dist = Court_oth_state_district;
-            model.other_state_court_taluk = Court_oth_state_taluk;
-            }
+        }
         model.application_stat = app_stat;
             //model.UploadFilesList = ;
             $.ajax({
@@ -2758,12 +2863,13 @@
 
 
 
-                    alertify.success("Data Saved Successfully");
-                },
-                error: function (result) {
-                    alertify.error("Could not load details");
-                }
-            });
+                alertify.success("Data Saved Successfully");
+                window.location.replace(window.location.href);
+            },
+            error: function (result) {
+                alertify.error("Could not load details");
+            }
+        });
 
     }
 
@@ -3254,6 +3360,8 @@
         var petitioner_details = $("#inputfilefor_petitioner").val();
         var Vehicle_number = $("#VehicleRegistrationNumber1").val();
         var Comments_details = $("#Comments_details1").val();
+        var Court_oth_state_district = $("#other_dist1").val();
+        var Court_oth_state_taluk = $("#other_taluk1").val();
         var Category_id = 4;
 
         var model = {};
@@ -3321,8 +3429,8 @@
         model.Policy_number = PolicyNumber;
         model.CourtTime = PetitionDate;
         model.Name_of_court = NameOftheCourt;
-        model.District_dm_id = Court_district;
-        model.Taluk_id = Court_taluk;
+        //model.District_dm_id = Court_district;
+        //model.Taluk_id = Court_taluk;
         model.petitioner_name = nameOfPetitioner;
         model.pincode_Of_Petitioner = pincodeOfPetitioner;
         model.petitioner_Address = petitioner_Address;
@@ -3371,7 +3479,7 @@
         model.relation_with_deceased = $("#relation_with_deceased1").val();
         model.title_property_deceased = $("#title_property_deceased1").val();
         model.any_other_information_details = $("#any_other_information_details1").val();
- 	model.state_id =  $("#state_id1").val();
+        model.stateID =  $("#state_id1").val();
         var state_id_no = $("#state_id1").val();
         if (state_id_no == 29) {
             model.District_dm_id = Court_district;
@@ -3577,6 +3685,7 @@
 
 
                 alertify.success("Data Saved Successfully");
+                window.location.replace(window.location.href);
             },
             error: function (result) {
                 alertify.error("Could not load details");

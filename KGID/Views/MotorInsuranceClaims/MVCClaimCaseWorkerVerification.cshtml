@@ -2,7 +2,6 @@
     @{
         ViewBag.Title = "MVCClaimCaseWorkerVerification";
         Layout = "~/Views/Shared/_Layout.cshtml";
-        string url = @Request.RawUrl;
         string[] QueryString = url.Split('/');
         int slno = 1;
         int slnumber = 1;
@@ -57,7 +56,7 @@
                                             {
                                                 <td>@item.From</td>
                                             }
-                                            <td>@item.To</td>
+                                            <td>@item.Tooo</td>
                                             <td>@item.Remarks</td>
                                             <td>@item.comments</td>
                                             <td>Pending</td>
@@ -135,7 +134,8 @@
                                     Vehicle Model :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("TP_to", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_model, new { @class = "form-control" })                                           <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                    @Html.TextBox("TP_to", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_model, new { @class = "form-control" })                             
+                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
                         </div>
@@ -711,6 +711,25 @@
                             <div class="form-group row">
                                 <label class="col-sm-10 col-form-label align-center">
                                     Other Documents <span class="danger-text" style="color:red;"> * </span>:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mr-2">
+                            <div id="other_document_details"></div>
+                            @foreach (var item in Model.otherDetailsData) { 
+                            <div> 
+                            <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                    @*Authorization letter to Law Department*@
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <label class="col-sm-10 col-form-label align-center">
+                                    Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
                                 </label>
                             </div>
                         </div>
