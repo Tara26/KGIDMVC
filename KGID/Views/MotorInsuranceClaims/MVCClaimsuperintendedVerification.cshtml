@@ -55,8 +55,8 @@
                                         else
                                         {
                                             <td>@item.From</td>
-                                        }
-                                        <td>@item.To</td>
+}
+                                        <td>@item.Tooo</td>
                                         <td>@item.Remarks</td>
                                         <td>@item.comments</td>
                                         <td>Pending</td>
@@ -293,32 +293,6 @@
 
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Court Notice and Petition Form</b></h6>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    MVC No. :
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Date of filing of Petition
-                                    :CourtTime
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
@@ -332,20 +306,64 @@
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    District :
+                                    MVC No :
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    Taluka :
+
+                                    Date of filing of Petition
+                                    :CourtTime
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    State :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_state", Model.CourtDetailsList[0].Court_state_name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div><div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    District :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Taluk :
+                                </label>
+                                <div class="col-sm-8">
+
+                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
                                 </div>
                             </div>
                         </div>
@@ -802,11 +820,11 @@
 
 
                     </div>
-
-                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-2 mt-3">
+                    <div id="ScrutinyRow">
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 mt-3">
 
                         </div>
 
@@ -867,8 +885,8 @@
                 <button class="btn-success" id="btnTempSend">Send</button>
 
             </div>*@
+                        </div>
                     </div>
-
 
 
 </div>
@@ -904,9 +922,23 @@
             processData: false,
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                ////alert(response);
+                alertify.success("Data Sent Successfully");
+                window.location.href = "/mvc-si-adt";
             }
         });
     });
+    $(document).ready(function () {
+        $('input[type="text"]').attr('readonly', true);
+        $('textarea').attr('readonly', true);
+        $('#Comments_details').removeAttr('readonly');
 
+         var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
+
+        var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
+
+        if (scruStat != loginCategory) {
+
+             $("#ScrutinyRow").hide();
+         }
+    });
 </script>

@@ -40,6 +40,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public int District_dm_id { get; set; }
         public string Court_District_Name { get; set; }
         public string Court_Taluk_Name { get; set; }
+        public string Court_state_name { get; set; }
         public int District_dm_id1 { get; set; }
         public int Taluk_id { get; set; }
         public int Taluk_id1 { get; set; }
@@ -162,6 +163,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public string other_state_court_taluk { get; set; }
         public string other_state_court_dist { get; set; }
         public string cover_letter { get; set; }
+        public long scrutinyStatus { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

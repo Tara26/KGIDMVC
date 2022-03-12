@@ -148,10 +148,10 @@ namespace BLL.MBClaimsBLL
         {
 
             return _IMBClaimsDLL.GetMVCRespondantDetailsDLL(Appno);
-        }public  List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtBLL(long App_id)
+        }public  List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtBLL(long App_id,int category)
         {
 
-            return _IMBClaimsDLL.GetMVCdetailsofCourtDLL(App_id);
+            return _IMBClaimsDLL.GetMVCdetailsofCourtDLL(App_id,category);
         }
         public  List<GetVehicleChassisPolicyDetails> GetMVCDocdetailBLL(long App_id)
         {

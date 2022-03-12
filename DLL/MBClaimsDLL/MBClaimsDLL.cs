@@ -1782,6 +1782,15 @@ namespace DLL.MBClaimsDLL
             {
                 try
                 {
+                    List<tbl_mvc_claim_workflow> oldFlowData = _db.tbl_mvc_claim_workflow.Where(x => x.mvc_claim_app_id == model.MVC_claim_app_id).ToList();
+                    if (oldFlowData.Count() != 0)
+                    {
+                        foreach (var flow in oldFlowData)
+                        {
+                            flow.micw_active_status = false;
+
+                        }
+                    }
                     tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
                     work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
                     work_flow.micw_vehicle_number = model.Vehicle_Registration_Number;
@@ -1830,7 +1839,6 @@ namespace DLL.MBClaimsDLL
                          returnpathStatus = savePathOfFile(path, App_id);
                     }
                     else {
-                        bool pathD = path.Contains("PrefilledClaimForm");
                    
                       //  if (dataP.mvcdd_doc_upload_path.Contains("/PrefilledClaimForm/") && path.Contains("/PrefilledClaimForm/"))
                      //       {
@@ -2141,8 +2149,8 @@ namespace DLL.MBClaimsDLL
                                }).Distinct().ToList();
             return vehicleDetails;
         }
-        public List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtDLL(long App_id)
-        {
+        public List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtDLL(long App_id,int category)
+            {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
                               join item in _db.tbl_district_master on data.court_district equals item.dm_id
@@ -2183,7 +2191,7 @@ namespace DLL.MBClaimsDLL
                                    relation_with_deceased = data.acdnt_relation_details,
                                    title_property_deceased= data.acdnt_title_to_property,
                                    any_other_information_details =data.acdt_any_other_info,
-                                   
+                                   stateID= data.state_id
 
                               }).Distinct().ToList();
 
@@ -2226,11 +2234,67 @@ namespace DLL.MBClaimsDLL
                                       relation_with_deceased = data.acdnt_relation_details,
                                       title_property_deceased = data.acdnt_title_to_property,
                                       any_other_information_details = data.acdt_any_other_info,
+                                      stateID = data.state_id,
 
+                                      other_state_court_dist=data.other_state_court_dist,
+                                      other_state_court_taluk= data.other_state_court_taluk
 
                                   }).Distinct().ToList();
 
             }
+
+            for (int i = 0; i < vehicleDetails.Count; i++)
+            {
+                if (vehicleDetails[i].stateID != 29)
+                {
+                    var ById = vehicleDetails[i].stateID;
+                    var stateName = (
+                                from iti in _db.tbl_mvc_application_details
+                                join state1 in _db.tbl_State_master on iti.state_id equals state1.StateId
+                                where iti.state_id == ById
+                                select new
+                                {
+                                    StateName = state1.State
+
+                                }).FirstOrDefault();
+                    vehicleDetails[i].Court_state_name = stateName.StateName;
+                    long scruStat = GetScrutinyStatus(category, App_id);
+                    vehicleDetails[i].scrutinyStatus = scruStat;
+                }
+                else {
+
+                    var ById = vehicleDetails[i].stateID;
+                    var UserName = (
+                                    from iti in _db.tbl_mvc_application_details
+                                    join item in _db.tbl_district_master on iti.court_district equals item.dm_id
+                                    join acc_dist in _db.tbl_taluka_master on iti.court_taluk equals acc_dist.tm_id
+                                    where iti.state_id == ById
+                                    select new
+                                    {
+                                        DivisionName = item.dm_name_english,
+                                        TlukName = acc_dist.tm_englishname,
+
+                                    }).FirstOrDefault();
+                    vehicleDetails[i].other_state_court_dist = UserName.DivisionName;
+                    vehicleDetails[i].other_state_court_taluk = UserName.TlukName;
+                    var stateName = (
+                                 from iti in _db.tbl_mvc_application_details
+                                 join state1 in _db.tbl_State_master on iti.state_id equals state1.StateId
+                                 where iti.state_id == ById
+                                 select new
+                                 {
+                                     StateName = state1.State
+
+                                 }).FirstOrDefault();
+                    vehicleDetails[i].Court_state_name = stateName.StateName;
+
+                    long scruStat = GetScrutinyStatus(category, App_id);
+                    vehicleDetails[i].scrutinyStatus = scruStat;
+                }
+            }
+           
+             
+
             return vehicleDetails;
         }
         public List<GetVehicleChassisPolicyDetails> GetMVCDocdetailDLL(long Appno)
@@ -2328,7 +2392,7 @@ namespace DLL.MBClaimsDLL
                                     //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
                                 where j.cm_category_id == toID
                           select j.cm_category_desc).FirstOrDefault();
-                workFlowDetails[i].Tooo = ""; //TO.ToString();
+                workFlowDetails[i].Tooo = TO.ToString(); //TO.ToString();
             }
 
             return workFlowDetails;
@@ -2345,7 +2409,7 @@ namespace DLL.MBClaimsDLL
                 tbl_data.mvc_claim_app_id = Application_no;
                 tbl_data.chassis_no = model.vehicle_chasis_no;
                 tbl_data.policy_no = model.Policy_number;
-                tbl_data.mvc_no = (((model.MVC_number).ToString() != null) ? ((model.MVC_number).ToString()) : "");
+                tbl_data.mvc_no = (((model.MVC_number).ToString() != null) ? ((model.MVC_number).ToString()) : " ");
                 tbl_data.date_of_petition =  ((Convert.ToDateTime(model.CourtTime) != null) ? Convert.ToDateTime(model.CourtTime) :Convert.ToDateTime(DateTime.Now));
                 tbl_data.name_of_court = ((model.Name_of_court != null) ? model.Name_of_court : "");
                 if (model.stateID == 29)
@@ -2479,6 +2543,13 @@ namespace DLL.MBClaimsDLL
 
             }
             return 1;
+        }
+        public long GetScrutinyStatus(int category,long app_id) {
+            var scrut = (from mvc in _db.tbl_mvc_application_details
+                         join app in _db.tbl_mvc_claim_workflow on mvc.mvc_claim_app_id equals app.mvc_claim_app_id
+                         where app.mvc_claim_app_id == app_id && app.micw_active_status == true
+                         select app.micw_assigned_to).FirstOrDefault();
+            return scrut;
         }
         #endregion
     }

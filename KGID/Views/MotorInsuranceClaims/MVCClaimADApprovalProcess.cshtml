@@ -103,7 +103,19 @@
             });
         });
 
-
+        $('#tblSIVerifyData').DataTable({
+            paging: true,
+            info: true,
+            ordering: true,
+            //aaSorting: [[1, "desc"]],
+            searching: true
+        }); $('#tblSIVerifyData1').DataTable({
+            paging: true,
+            info: true,
+            ordering: true,
+            //aaSorting: [[1, "desc"]],
+            searching: true
+        });
     });
     function viewMVCdetailsSup(chassisno, Application_no) {
         debugger;

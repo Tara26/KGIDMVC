@@ -57,7 +57,7 @@
                                         {
                                             <td>@item.From</td>
                                         }
-                                        <td>@item.To</td>
+                                        <td>@item.Tooo</td>
                                         <td>@item.Remarks</td>
                                         <td>@item.comments</td>
                                         <td>Pending</td>
@@ -294,32 +294,6 @@
 
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Court Notice and Petition Form</b></h6>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    MVC No. :
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Date of filing of Petition
-                                    :CourtTime
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
@@ -333,20 +307,65 @@
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    District :
+                                    MVC No :
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    Taluka :
+
+                                    Date of filing of Petition
+                                    :CourtTime
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    State :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_state", Model.CourtDetailsList[0].Court_state_name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    District :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Taluk :
+                                </label>
+                                <div class="col-sm-8">
+
+                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
                                 </div>
                             </div>
                         </div>
@@ -450,7 +469,7 @@
                                     <label for="exampleFormControlInput1">
                                         Age of the person dead/injured
                                     </label>
-                                    @Html.TextBox("occupation_injured", Model.CourtDetailsList[0].Age_of_injured, new { @class = "form-control" })                                    <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
+                                    @Html.TextBox("age_injured", Model.CourtDetailsList[0].Age_of_injured, new { @class = "form-control" })                                    <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -689,7 +708,7 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].summons_detals" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].summons_detals" id="court_copy" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group row">
@@ -738,7 +757,7 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].CoveringLetter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].cover_letter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group row">
@@ -751,7 +770,7 @@
                         <div class="col-md-3">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].PreClaimedForm" id="Prefilled_Claim_Form" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
                     </div>
@@ -768,7 +787,7 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].DriverstatementandRc" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].Accident_fir_details" id="DriverstatementandRc" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group row">
@@ -781,7 +800,7 @@
                         <div class="col-md-3">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].DL" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].Accident_dl_details" id="DL" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
                     </div>
@@ -798,16 +817,17 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].insurancecopy" id="insurancecopy" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
 
                     </div>
 
-                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-2 mt-3">
+                    <div id="ScrutinyRow">
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 mt-3">
 
                         </div>
 
@@ -844,16 +864,16 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <label for="login_id"> Forward to  Director </label>
+                            <div class="col-md-3">
+                                <div class="form-check form-check-inline">
+                                    <label for="login_id"> Forward to  Case Worker </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="1688">
-                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="1688">
+                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                </div>
 
                         </div>
                         <div class="col-md-2"></div>
@@ -867,9 +887,9 @@
                         @*<div class="col-md-3">
                 <button class="btn-success" id="btnTempSend">Send</button>
 
-            </div>*@
+                                </div>*@
+                        </div>
                     </div>
-
 
 
 </div>
@@ -897,7 +917,7 @@
         model.Vehicle_Registration_Number = Vehicle_number;
         debugger;
         $.ajax({
-            url: '/MotorInsuranceClaims/MvcSendToDir',
+            url: '/MotorInsuranceClaims/MvcSendToCWFromDir',
             type: 'post',
             datatype: 'json',
             async: false,
@@ -905,10 +925,28 @@
             processData: false,
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                //alert(response);
+                alertify.success("Data Sent Successfully");
+                window.location.href = "/mvc_ad_ver";
             }
         });
     });
+    $(document).ready(function () {
+        debugger;
+        $('input[type="text"]').attr('readonly', true);
+        $('textarea').attr('readonly', true);
+        $('#Comments_details').removeAttr('readonly');
+        var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
+
+        var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
+
+        if (scruStat != loginCategory) {
+
+             $("#ScrutinyRow").hide();
+         }
+
+
+    });
+
 
 </script>
 

@@ -50,7 +50,7 @@ namespace BLL.MBClaimsBLL
         List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisBLL(string ChassisNo);
         List<GetVehicleChassisPolicyDetails> PetitionerDetailsListBLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsBLL(long Appno);
-        List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtBLL(long App_id);
+        List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtBLL(long App_id,int Category);
         List<GetVehicleChassisPolicyDetails> GetMVCDocdetailBLL(long App_id);
         List<GetVehicleChassisPolicyDetails> GetOtherDocdetailBLL(long App_id);
         SelectList GetInjuryListBLL();

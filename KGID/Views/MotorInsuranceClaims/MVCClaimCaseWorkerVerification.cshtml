@@ -88,7 +88,7 @@
                                     Vehicle Reg No. :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("hrvalue", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no, new { @class = "form-control" })
+                                    @Html.TextBox("hrvalue", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no, new { @class = "form-control", @readonly = true })
                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                     Vehicle Chassis No. :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("chassisno", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("chassisno", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                     Vehicle Category Type :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("vcatType", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control" })                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                    @Html.TextBox("vcatType", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                                     Vehicle Category :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("registNo", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control" })
+                                    @Html.TextBox("registNo", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control", @readonly = true })
                                     <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                                     Vehicle Model :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("TP_to", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_model, new { @class = "form-control" })                             
+                                    @Html.TextBox("TP_to", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_model, new { @class = "form-control", @readonly = true })
                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                     Owner of Vehicle :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("vehicle_owner", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle, new { @class = "form-control" })readonly>
+                                    @Html.TextBox("vehicle_owner", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle, new { @class = "form-control" })
                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
@@ -294,32 +294,6 @@
 
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Court Notice and Petition Form</b></h6>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    MVC No. :
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Date of filing of Petition
-                                    :CourtTime
-                                </label>
-                                <div class="col-sm-6">
-                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
@@ -333,24 +307,72 @@
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    District :
+                                    MVC No :
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("mvc_no", Model.CourtDetailsList[0].MVC_number, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label align-center">
-                                    Taluka :
+
+                                    Date of filing of Petition
+                                    :CourtTime
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.TextBox("courtTime", Model.CourtDetailsList[0].CourtTime, new { @class = "form-control" })                                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Details of Court</b></h6>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    State :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_state", Model.CourtDetailsList[0].Court_state_name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    District :
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Taluk :
+                                </label>
+                                <div class="col-sm-8">
+
+                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Petitioner Details</b></h6>
                     <div class="row">
                         <table class="table table-striped table-bordered" id="petitioner_table">
@@ -716,9 +738,10 @@
                         </div>
                         <div class="col-md-3 mr-2">
                             <div id="other_document_details"></div>
-                            @foreach (var item in Model.otherDetailsData) { 
-                            <div> 
-                            <a href="@item.OtherDocument" target="_blank">View Document</a>
+                            @foreach (var item in Model.otherDetailsData)
+                            {
+                                <div>
+                                    <a href="@item.OtherDocument" target="_blank">View Document</a>
                                 </div>
                             }
                         </div>
@@ -729,7 +752,7 @@
                         <div class="col-md-2">
                             <div class="form-group row">
                                 <label class="col-sm-10 col-form-label align-center">
-                                    Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+
                                 </label>
                             </div>
                         </div>
@@ -820,8 +843,75 @@
 
                             <a href="@Model.Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
-                        
 
+
+                    </div>
+                    <div id="ScrutinyRow">
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 mt-3">
+
+                            </div>
+
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label align-center">
+                                        Remarks:
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <select name="remarks" id="remarks" style="width: 100%; height: 33px;font-weight:normal;">
+                                            <option value="0">--Select--</option>
+                                            <option value="1">Issue in application form</option>
+                                            <option value="2">Issue in </option>
+                                            <option value="3"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label align-center">
+                                        Comments :
+                                    </label>
+                                    <div class="col-sm-6 mr-8">
+                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-check form-check-inline">
+                                    <label for="login_id"> Forward to  Case Worker </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="1688">
+                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-4 mt-1">
+                                <button class="btn-success" id="btnsendToHierarchy">Send</button>
+                            </div>
+                            @*<div class="col-md-3">
+                    <button class="btn-success" id="btnTempSend">Send</button>
+
+                </div>*@
+                        </div>
                     </div>
 
 
@@ -844,5 +934,19 @@
          $("#pills-home").removeClass("active");
          $("#pills-home").addClass("active");
         $("#pills-home").removeClass("active");
+     });
+    $(document).ready(function () {
+        $('input[type="text"]').attr('readonly', true);
+        $('textarea').attr('readonly', true);
+        $('#Comments_details').removeAttr('readonly');
+
+        var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
+
+        var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
+
+        if (scruStat != loginCategory) {
+
+             $("#ScrutinyRow").hide();
+         }
     });
 </script>

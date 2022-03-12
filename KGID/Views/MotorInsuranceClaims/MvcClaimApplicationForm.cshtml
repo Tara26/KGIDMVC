@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="col-12">
 
-                        <table class="table table-striped table-bordered" id="tblSIVerifyData" cellspacing="0">
+                        <table class="table table-striped table-bordered" id="tblSIVerifyData1" cellspacing="0">
                             <thead style="background: #308385;color: #fff;">
                                 <tr>
 
@@ -346,8 +346,8 @@
                                                         MVC No. :
                                                     </label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control alphaOnly" id="mvc_no11" required>
-                                                        <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter MVC No.</span>
+                                                        <input type="text" class="form-control alphaOnly d_C_req" id="mvc_no11" required>
+                                                        <span id="lblErrorTeacherName" class="err" style="color:red" hidden>Please Enter MVC No.</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -357,8 +357,8 @@
                                                         Name of Court :
                                                     </label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control alphaOnly" id="name_of_court1" required>
-                                                        <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Court Name</span>
+                                                        <input type="text" class="form-control alphaOnly d_C_req" id="name_of_court1" required>
+                                                        <span id="lblErrorTeacherName" class="err" style="color:red" hidden>Enter Court Name</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,8 +369,8 @@
                                                         :
                                                     </label>
                                                     <div class="col-sm-7">
-                                                        <input type="date" class="form-control alphaOnly" id="date_of_petition1" required>
-                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                        <input type="date" class="form-control alphaOnly d_C_req" id="date_of_petition1" required>
+                                                        <span id="lblErrorDesignation" class="err" style="color:red" hidden>select notice date</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,8 +383,8 @@
                                                         State :
                                                     </label>
                                                     <div class="col-sm-8">
-                                                        @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control", id = "state_id1" })
-                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                        @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control d_C_req", id = "state_id1" })
+                                                        <span id="lblErrorDesignation" style="color:red;" class="err" hidden> select state</span>
                                                     </div>
                                                 </div>
                                             </div> <div class="col-md-4">
@@ -394,8 +394,8 @@
                                                             District :
                                                         </label>
                                                         <div class="col-sm-8">
-                                                            @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control", id = "Dm_id1" })
-                                                            <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                            @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control d_C_req", id = "Dm_id1" })
+                                                            <span id="lblErrorDesignation" style="color:red;" class="err" hidden> select district</span>
                                                         </div>
                                                     </div>
                                                     <div id="other_dist_div1" hidden>
@@ -403,8 +403,8 @@
                                                             District :
                                                         </label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" id="other_dist1" class="form-control" />
-                                                            <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                            <input type="text" id="other_dist1" class="form-control d_C_req" />
+                                                            <span id="lblErrorDesignation" style="color:red" class="err" hidden> Enter district</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -416,8 +416,8 @@
                                                             Taluka :
                                                         </label>
                                                         <div class="col-sm-8">
-                                                            @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control", id = "Taluk_id1" })
-                                                            <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                            @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control d_C_req", id = "Taluk_id1" })
+                                                            <span id="lblErrorDesignation" style="color:red;" class="err" hidden>select taluk </span>
                                                         </div>
                                                     </div>
                                                     <div id="other_tal_div1" hidden>
@@ -426,8 +426,8 @@
                                                         </label>
 
                                                         <div class="col-sm-8">
-                                                            <input type="text" id="other_taluk1" class="form-control" />
-                                                            <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                            <input type="text" id="other_taluk1" class="form-control d_C_req" />
+                                                            <span id="lblErrorDesignation" style="color:red;" class="err" hidden>Please Enter taluk</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -443,30 +443,30 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Name of Petitioner</label>
                                                 <input type="text" class="form-control p_req" id="Name_of_petitioner1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of petitioner</label>
+                                                <label id="lbl_p_name1" style="color:red" class="err" hidden>enter name of petitioner</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1 ">Pincode</label>
                                                 <input type="text" class="form-control p_req pincodeValidation" id="pincode_petitioner1" maxlength="6">
-                                                <label id="lbl_p_pincode" style="color:red" class="err" hidden>please enter Pincode</label>
-                                                <label id="lbl_p_valid_pincode" style="color:red" class="err" hidden>please enter valid Pincode</label>
+                                                <label id="lbl_p_pincode1" style="color:red" class="err" hidden>please enter Pincode</label>
+                                                <label id="lbl_p_valid_pincode1" style="color:red" class="err" hidden>please enter valid Pincode</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Address</label>
                                                 <input type="text" class="form-control p_req" id="address_petitioner1" placeholder="">
-                                                <label id="lbl_p_Address" style="color:red" class="err" hidden>Please enter Address</label>
+                                                <label id="lbl_p_Address1" style="color:red" class="err" hidden>Please enter Address</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Mobile No.</label>
                                                 <input type="text" class="form-control p_req mobileValidation" id="mobile_petitioner1" placeholder="">
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>Enter Mobile number</label>
-                                                <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>please enter valid mobile number</label>
+                                                <label id="lbl_p_mobile1" style="color:red" class="err" hidden>Enter Mobile number</label>
+                                                <label id="lbl_p_valid_Mobno1" style="color:red" class="err" hidden>please enter valid mobile number</label>
 
                                             </div>
                                         </div>
@@ -505,21 +505,21 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Name of Respondent</label>
                                                 <input type="text" class="form-control" id="Name_of_respondent1" placeholder="">
-                                                <label id="lbl_r_name" style="color:red" class="err" hidden>enter name of respondent</label>
+                                                <label id="lbl_r_name1" style="color:red" class="err" hidden>enter name of respondent</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Designation</label>
                                                 <input type="text" class="form-control" id="designation_respondent1" placeholder="">
-                                                <label id="lbl_r_designation" style="color:red" class="err" hidden>enter Designation of respondent</label>
+                                                <label id="lbl_r_designation1" style="color:red" class="err" hidden>enter Designation of respondent</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Department</label>
                                                 <input type="text" class="form-control" id="department_respondent1" placeholder="">
-                                                <label id="lbl_r_department" style="color:red" class="err" hidden>enter department of respondent</label>
+                                                <label id="lbl_r_department1" style="color:red" class="err" hidden>enter department of respondent</label>
 
                                             </div>
                                         </div>
@@ -527,7 +527,7 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Agency Name</label>
                                                 <input type="text" class="form-control" id="agency_respondent1" placeholder="">
-                                                <label id="lbl_r_AgencyName" style="color:red" class="err" hidden>enter Agency name of respondent</label>
+                                                <label id="lbl_r_AgencyName1" style="color:red" class="err" hidden>enter Agency name of respondent</label>
 
                                             </div>
                                         </div>
@@ -538,7 +538,7 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Address</label>
                                                 <input type="text" class="form-control" id="address_respondent1" placeholder="">
-                                                <label id="lbl_r_addr" style="color:red" class="err" hidden>enter address of respondent</label>
+                                                <label id="lbl_r_addr1" style="color:red" class="err" hidden>enter address of respondent</label>
 
                                             </div>
                                         </div>
@@ -546,8 +546,8 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Mobile No.</label>
                                                 <input type="text" class="form-control mobileValidation" id="mobile_respondent1" placeholder="">
-                                                <label id="lbl_r_mob" style="color:red" class="err" hidden>enter Mobile no of respondent</label>
-                                                <label id="lbl_r_valid_mob" style="color:red" class="err" hidden>enter valid Mobile number</label>
+                                                <label id="lbl_r_mob1" style="color:red" class="err" hidden>enter Mobile no of respondent</label>
+                                                <label id="lbl_r_valid_mob1" style="color:red" class="err" hidden>enter valid Mobile number</label>
 
                                             </div>
                                         </div>
@@ -555,8 +555,8 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Pincode</label>
                                                 <input type="text" class="form-control pincodeValidation" id="pincode_respondent1" placeholder="">
-                                                <label id="lbl_r_pincode" style="color:red" class="err" hidden>enter pincode of respondent</label>
-                                                <label id="lbl_r_valid_pincode" style="color:red" class="err" hidden>enter valid pincode</label>
+                                                <label id="lbl_r_pincode1" style="color:red" class="err" hidden>enter pincode of respondent</label>
+                                                <label id="lbl_r_valid_pincode1" style="color:red" class="err" hidden>enter valid pincode</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2"></div>
@@ -594,31 +594,30 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Name of dead/injured person</label>
-                                                <input type="text" class="form-control p_req" id="Name_of_injured1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
+                                                <input type="text" class="form-control d_d_req" id="Name_of_injured1" placeholder="">
+                                                <label id="name_injury77" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1 ">Father Name</label>
-                                                <input type="text" class="form-control p_req" id="Father_name1" maxlength="6">
-                                                <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter Father Name</label>
-                                                <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter valid Pincode</label>
+                                                <input type="text" class="form-control d_d_req" id="Father_name1" maxlength="6">
+                                                <label id="" style="color:red" class="err" hidden>please enter father name</label>
+
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Spouse Name</label>
-                                                <input type="text" class="form-control p_req" id="Spouse_name1" placeholder="">
-                                                <label id="lbl_p_Address" style="color:red" class="err" hidden>Please enter Spouse Name</label>
+                                                <input type="text" class="form-control d_d_req" id="Spouse_name1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>Please enter Spouse Name</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Address of the dead/injured person.</label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-                                                <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden>enter address of the dead/injured person</label>
 
                                             </div>
                                         </div>
@@ -631,8 +630,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Age of the person dead/injured
                                                 </label>
-                                                <input type="number" class="form-control p_req" id="Age_of_injured1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
+                                                <input type="number" class="form-control d_d_req" id="Age_of_injured1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>enter Age of dead/injured person</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -640,8 +639,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Occupation of the person dead/injured
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="occupation_of_injured1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
+                                                <input type="text" class="form-control d_d_req" id="occupation_of_injured1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>enter  Occupation of the person dead/injured</label>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -650,7 +649,8 @@
                                                     Name and address of the employer of the deceased or injured if any.
                                                 </label>
 
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details1"></textarea>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden>please fill above field</label>
                                             </div>
                                         </div>
 
@@ -661,7 +661,7 @@
                                                 <label for="exampleFormControlInput1">
                                                     Monthly income of the person dead/injuries
                                                 </label>
-                                                <input type="number" class="form-control p_req" id="monthly_income_of_injured1" placeholder="">
+                                                <input type="number" class="form-control d_d_req" id="monthly_income_of_injured1" placeholder="">
                                                 <label id="lbl_income_dead" style="color:red" class="err" hidden>enter Monthly income of the person dead/injuries</label>
                                             </div>
                                         </div>
@@ -671,8 +671,8 @@
                                                     Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
 
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="income_tax_of_injured1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter the filled</label>
+                                                <input type="text" class="form-control d_d_req" id="income_tax_of_injured1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>please fill above field</label>
                                             </div>
                                         </div>
 
@@ -690,8 +690,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Place of Accident :
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="place_of_accident1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter Place of Accident :</label>
+                                                <input type="text" class="form-control d_d_req" id="place_of_accident1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>enter Place of Accident :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -699,8 +699,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Accident Time:
                                                 </label>
-                                                <input type="datetime-local" class="form-control p_req" id="accident_DateTime1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                                                <input type="datetime-local" class="form-control d_d_req" id="accident_DateTime1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>enter Time of Accident :</label>
                                             </div>
                                         </div>
 
@@ -710,8 +710,8 @@
                                                     Type of Injury :
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control", id = "type_injury1" })
-                                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                                    @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control d_d_req", id = "type_injury1" })
+                                                    <span id="lblErrorTeacherName" class="err" style="color:red" hidden>select type of injury</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -744,7 +744,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Name and address of police station in whose jurisdiction the accident took place or was registered.
                                                 </label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction1"></textarea>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden> please fill above field</label>
 
                                             </div>
                                         </div>
@@ -752,9 +753,10 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">
                                                     Was the person in respect of whom compensation is claimed travelling by the vehicle involved in the accident? If son give the name of places of starting of journey.
-                                                    <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation1"></textarea>
                                                 </label>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation1" class="d_d_req"></textarea>
 
+                                                <label id="" style="color:red" class="err" hidden> please fill above field</label>
 
                                             </div>
                                         </div>
@@ -763,8 +765,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">Nature of injuries sustained and continuing effect, if any of injuries.</label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>Nature of injuries sustained and continuing effect, if any of injuries.</label>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden> please fill above field</label>
                                             </div>
                                         </div>
 
@@ -773,8 +775,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1"> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden> please fill above field</label>
 
 
                                             </div>
@@ -784,9 +786,9 @@
                                                 <label for="exampleFormControlInput1">
                                                     Name of the injury and whether it caused permanent disablement or not.
                                                 </label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                                    Name of the injury and whether it caused permanent disablement or not.
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden>
+                                                    please fill above field
                                                 </label>
 
                                             </div>
@@ -795,7 +797,11 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">
                                                     Name and address of the Medical Officer/Practitioner if any, who attend on the dead or injured.
-                                                    <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer1"></textarea>
+                                                </label>
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer1" class="d_d_req"></textarea>
+
+                                                <label id="" style="color:red" class="err" hidden>
+                                                    please fill above field
                                                 </label>
 
 
@@ -813,9 +819,9 @@
                                                 <label for="exampleFormControlInput1">
                                                     Name and address of the applicant.
                                                 </label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                                    Name and address of the applicant.
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden>
+                                                    enter name and address of the applicant.
                                                 </label>
                                             </div>
                                         </div>
@@ -826,8 +832,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Relation with the deceased :
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="relation_with_deceased1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>enter Place of Accident :</label>
+                                                <input type="text" class="form-control d_d_req" id="relation_with_deceased1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden>enter relation with the deceased</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -835,8 +841,8 @@
                                                 <label for="exampleFormControlInput1">
                                                     Title to the property of the deceased :
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="title_property_deceased1" placeholder="">
-                                                <label id="lbl_p_name" style="color:red" class="err" hidden>Title to the property of the deceased.:</label>
+                                                <input type="text" class="form-control d_d_req" id="title_property_deceased1" placeholder="">
+                                                <label id="" style="color:red" class="err" hidden> enter title to the property of the deceased</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -844,7 +850,7 @@
                                                 <label for="exampleFormControlInput1">
                                                     Amount of compensation claimed.
                                                 </label>
-                                                <input type="text" class="form-control p_req" id="claim_amount1" placeholder="">
+                                                <input type="text" class="form-control d_d_req" id="claim_amount1" placeholder="">
                                                 <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter  Claim Amount</label>
                                             </div>
                                         </div>
@@ -873,9 +879,9 @@
                                                 <label for="exampleFormControlInput1">
                                                     Any other Information that may be necessary or Helpful in the disposal of the claim.
                                                 </label>
-                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details1"></textarea>
-                                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                                    Any other Information that may be necessary or Helpful in the disposal of the claim.
+                                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details1" class="d_d_req"></textarea>
+                                                <label id="" style="color:red" class="err" hidden>
+                                                    please fill above field
                                                 </label>
                                             </div>
                                         </div>
@@ -962,7 +968,7 @@
                                             <button class="btn-success" id="btnAdd1">Add</button>
                                         </div>
                                         <div class="col-md-3"></div> <table id="tbl_other_doc1" class="table table-borderless">
-                                            <tr><td><div class="col-3" align="right"><button class="btn-danger" id="btn_other_Delete">Delete</button> </div></td></tr>
+                                            <tr><td><div class="col-3" align="right"><button class="btn-danger" id="btn_other_Delete1">Delete</button> </div></td></tr>
                                         </table>
                                     </div>
                                 </div>
@@ -1151,12 +1157,13 @@
                                                 Remarks:
                                             </label>
                                             <div class="col-sm-6">
-                                                <select name="remarks" id="remarks1" style="width: 100%; height: 33px;font-weight:normal;">
+                                                <select name="remarks" id="remarks1" style="width: 100%; height: 33px;font-weight:normal;" class="r_c_req">
                                                     <option value="0">--Select--</option>
                                                     <option value="1">Issue in application form</option>
                                                     <option value="2">Issue in </option>
                                                     <option value="3"></option>
                                                 </select>
+                                                <label class="err" style="color:red" hidden> select remarks</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1166,7 +1173,9 @@
                                                 Comments :
                                             </label>
                                             <div class="col-sm-6 mr-8">
-                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details"></textarea>
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details" class="r_c_req"></textarea>
+                                                <label class="err" style="color:red" hidden>enter comments</label>
+
                                             </div>
                                         </div>
 
@@ -1184,6 +1193,7 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
                                             <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
                                         </div>
 
                                     </div>
@@ -1219,6 +1229,7 @@
                             </label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control alphaOnly" id="txtVehiclePolicyChassisNo" required>
+                            <span style="color:red" id="txt_box1" hidden>please enter vehicle no./chassis no./policy no  </span>
                             </div>
                         </div>
                     </div>
@@ -1466,8 +1477,8 @@
                                     MVC No. :
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control alphaOnly" id="mvc_no" required>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter MVC No.</span>
+                                    <input type="text" class="form-control alphaOnly c_req" id="mvc_no" required>
+                                    <span id="lbl_mvc_no" class="err" style="color:red" hidden>Please Enter MVC No.</span>
                                 </div>
                             </div>
                         </div>
@@ -1477,8 +1488,8 @@
                                     Name of Court :
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control alphaOnly" id="name_of_court" required>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Court Name</span>
+                                    <input type="text" class="form-control alphaOnly c_req" id="name_of_court" required>
+                                    <span id="lbl_name_of_court" class="err" style="color:red" hidden>Please Enter Court Name</span>
                                 </div>
                             </div>
                         </div>
@@ -1489,8 +1500,8 @@
                                     :
                                 </label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control alphaOnly" id="date_of_petition" required>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    <input type="date" class="form-control alphaOnly c_req" id="date_of_petition" required>
+                                    <span id="lbl_date_of_petition" class="err" style="color:red" hidden>Please Enter  Notice Date</span>
                                 </div>
                             </div>
                         </div>
@@ -1503,8 +1514,8 @@
                                     State :
                                 </label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control", id = "state_id" })
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                    @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control c_req", id = "state_id" })
+                                    <span id="lbl_state_id" class="err" style="color:red" hidden>Please Select State</span>
                                 </div>
                             </div>
                         </div> <div class="col-md-4">
@@ -1514,8 +1525,8 @@
                                         District :
                                     </label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control", id = "Dm_id" })
-                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                        @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control c_req", id = "Dm_id" })
+                                        <span id="lbl_Dm_id" class="err" style="color:red" hidden>Please select district</span>
                                     </div>
                                 </div>
                                 <div id="other_dist_div" hidden>
@@ -1523,8 +1534,8 @@
                                         District :
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="text" id="other_dist" class="form-control" />
-                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                        <input type="text" id="other_dist" class="form-control c_req" />
+                                        <span id="lbl_other_dist" class="err" style="color:red" hidden>Please Enter district</span>
                                     </div>
                                 </div>
                             </div>
@@ -1536,8 +1547,8 @@
                                         Taluka :
                                     </label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control", id = "Taluk_id" })
-                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                        @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control c_req", id = "Taluk_id" })
+                                        <span id="lbl_Taluk_id" class="err" style="color:red" hidden>Please select taluk</span>
                                     </div>
                                 </div>
                                 <div id="other_tal_div" hidden>
@@ -1546,8 +1557,8 @@
                                     </label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="other_taluk" class="form-control" />
-                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                        <input type="text" id="other_taluk" class="form-control c_req" />
+                                        <span id="lbl_other_taluk" class="err" style="color:red" hidden>Please Enter taluk</span>
                                     </div>
                                 </div>
                             </div>
@@ -1716,32 +1727,29 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name of dead/injured person</label>
-                            <input type="text" class="form-control p_req" id="Name_of_injured" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
+                            <input type="text" class="form-control a_req" id="Name_of_injured" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleFormControlInput1 ">Father Name</label>
-                            <input type="text" class="form-control p_req" id="Father_name" maxlength="6">
+                            <input type="text" class="form-control a_req" id="Father_name" maxlength="6">
                             <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter Father Name</label>
-                            <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter valid Pincode</label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Spouse Name</label>
-                            <input type="text" class="form-control p_req" id="Spouse_name" placeholder="">
-                            <label id="lbl_p_Address" style="color:red" class="err" hidden>Please enter Spouse Name</label>
+                            <input type="text" class="form-control a_req" id="Spouse_name" placeholder="">
+                            <label id="lbl_Spouse_name" style="color:red" class="err" hidden>Please enter Spouse Name</label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Address of the dead/injured person.</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-                            <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details" class="a_req"></textarea>
+                            <label id="lbl_addr_inj" style="color:red" class="err" hidden>enter Address of the dead/injured person</label>
                         </div>
                     </div>
 
@@ -1753,8 +1761,8 @@
                             <label for="exampleFormControlInput1">
                                 Age of the person dead/injured
                             </label>
-                            <input type="number" class="form-control p_req" id="Age_of_injured" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
+                            <input type="number" class="form-control a_req" id="Age_of_injured" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter Age of dead/injured person</label>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -1762,8 +1770,8 @@
                             <label for="exampleFormControlInput1">
                                 Occupation of the person dead/injured
                             </label>
-                            <input type="text" class="form-control p_req" id="occupation_of_injured" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of Age of dead/injured person</label>
+                            <input type="text" class="form-control a_req" id="occupation_of_injured" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter  Occupation of the person dead/injured</label>
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -1772,7 +1780,8 @@
                                 Name and address of the employer of the deceased or injured if any.
                             </label>
 
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details"></textarea>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details" class="a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>enter Name and address of the employer of the deceased or injured if any</label>
                         </div>
                     </div>
 
@@ -1783,7 +1792,7 @@
                             <label for="exampleFormControlInput1">
                                 Monthly income of the person dead/injuries
                             </label>
-                            <input type="number" class="form-control p_req" id="monthly_income_of_injured" placeholder="">
+                            <input type="number" class="form-control a_req" id="monthly_income_of_injured" placeholder="">
                             <label id="lbl_income_dead" style="color:red" class="err" hidden>enter Monthly income of the person dead/injuries</label>
                         </div>
                     </div>
@@ -1793,8 +1802,8 @@
                                 Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
 
                             </label>
-                            <input type="number" class="form-control p_req" id="income_tax_of_injured" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter the filled</label>
+                            <input type="text" class="form-control a_req" id="income_tax_of_injured" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter fill the above fied</label>
                         </div>
                     </div>
 
@@ -1812,8 +1821,8 @@
                             <label for="exampleFormControlInput1">
                                 Place of Accident :
                             </label>
-                            <input type="text" class="form-control p_req" id="place_of_accident" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter Place of Accident :</label>
+                            <input type="text" class="form-control p_a_req" id="place_of_accident" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter Place of Accident :</label>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -1821,8 +1830,8 @@
                             <label for="exampleFormControlInput1">
                                 Accident Time:
                             </label>
-                            <input type="datetime-local" class="form-control p_req" id="accident_DateTime" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                            <input type="datetime-local" class="form-control p_a_req" id="accident_DateTime" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter Time of Accident :</label>
                         </div>
                     </div>
 
@@ -1832,8 +1841,8 @@
                                 Type of Injury :
                             </label>
                             <div class="col-sm-8">
-                                @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control", id = "type_injury" })
-                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control p_a_req", id = "type_injury" })
+                                <span id="lblErrorTeacherName" class="err" style="color:red" hidden> Enter injury type</span>
                             </div>
                         </div>
                     </div>
@@ -1866,7 +1875,8 @@
                             <label for="exampleFormControlInput1">
                                 Name and address of police station in whose jurisdiction the accident took place or was registered.
                             </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction"></textarea>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction" class="p_a_req"></textarea> <br />
+                            <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
 
                         </div>
                     </div>
@@ -1874,8 +1884,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlInput1">
                                 Was the person in respect of whom compensation is claimed travelling by the vehicle involved in the accident? If son give the name of places of starting of journey.
-                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation"></textarea>
                             </label>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation" class="p_a_req"></textarea><br />
+                            <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
 
 
                         </div>
@@ -1885,8 +1896,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nature of injuries sustained and continuing effect, if any of injuries.</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>Nature of injuries sustained and continuing effect, if any of injuries.</label>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained" class="p_a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
                         </div>
                     </div>
 
@@ -1895,8 +1906,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleFormControlInput1"> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details" class="p_a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
 
 
                         </div>
@@ -1906,10 +1917,9 @@
                             <label for="exampleFormControlInput1">
                                 Name of the injury and whether it caused permanent disablement or not.
                             </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                Name of the injury and whether it caused permanent disablement or not.
-                            </label>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details" class="p_a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
+
 
                         </div>
                     </div>
@@ -1917,7 +1927,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlInput1">
                                 Name and address of the Medical Officer/Practitioner if any, who attend on the dead or injured.
-                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer"></textarea>
+                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer" class="p_a_req"></textarea>
+                                <label id="" style="color:red" class="err" hidden>please fill above field</label>
+
                             </label>
 
 
@@ -1935,9 +1947,9 @@
                             <label for="exampleFormControlInput1">
                                 Name and address of the applicant.
                             </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                Name and address of the applicant.
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details" class="p_a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>
+                                enter name and address of the applicant.
                             </label>
                         </div>
                     </div>
@@ -1948,8 +1960,8 @@
                             <label for="exampleFormControlInput1">
                                 Relation with the deceased :
                             </label>
-                            <input type="text" class="form-control p_req" id="relation_with_deceased" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter Place of Accident :</label>
+                            <input type="text" class="form-control p_a_req" id="relation_with_deceased" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter Relation with the deceased</label>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -1957,8 +1969,8 @@
                             <label for="exampleFormControlInput1">
                                 Title to the property of the deceased :
                             </label>
-                            <input type="text" class="form-control p_req" id="title_property_deceased" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>Title to the property of the deceased.:</label>
+                            <input type="text" class="form-control p_a_req" id="title_property_deceased" placeholder="">
+                            <label id="" style="color:red" class="err" hidden>enter title to the property of the deceased</label>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -1966,8 +1978,8 @@
                             <label for="exampleFormControlInput1">
                                 Amount of compensation claimed.
                             </label>
-                            <input type="text" class="form-control p_req" id="claim_amount" placeholder="">
-                            <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter  Claim Amount</label>
+                            <input type="text" class="form-control p_a_req" id="claim_amount" placeholder="">
+                            <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter Claim Amount</label>
                         </div>
                     </div>
                  
@@ -1979,9 +1991,9 @@
                             <label for="exampleFormControlInput1">
                                 Any other Information that may be necessary or Helpful in the disposal of the claim.
                             </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details"></textarea>
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                Any other Information that may be necessary or Helpful in the disposal of the claim.
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details" class="p_a_req"></textarea>
+                            <label id="" style="color:red" class="err" hidden>
+                                enter Any other Information that may be necessary or Helpful in the disposal of the claim.
                             </label>
                         </div>
                     </div>
@@ -2001,9 +2013,10 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="inputfilefor_Court_notice" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="inputfilefor_Court_notice" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
                     </div><div class="col-md-2">
                         <div class="form-group row">
                             <label class="col-sm-10 col-form-label align-center">
@@ -2013,11 +2026,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="petitioner_details" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="petitioner_details" accept="image/png, image/jpeg">
 
                         @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
                         <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
                     </div>
 
                 </div>
@@ -2031,9 +2045,10 @@
                         </div>
                     </div>
                     <div class="col-md-3 mr-2">
-                        <input type="file" class="custom-file-input" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg" >
+                        <input type="file" class="custom-file-input doc_up" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
 
                     </div>
                     <div class="col-md-3 mr-2">
@@ -2058,10 +2073,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="inputCoveringLetter" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="inputCoveringLetter" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
-                    </div><div class="col-md-2">
+                        <span style="color:red" class="err" hidden> please choose file</span>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group row">
                             <label class="col-sm-10 col-form-label align-center">
                                 Prefilled Claim Form <span class="danger-text" style="color:red;"> * </span>:
@@ -2070,11 +2087,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="inputPrefilled_Claim_Form" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="inputPrefilled_Claim_Form" accept="image/png, image/jpeg">
 
                         @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
                         <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
                     </div>
 
                 </div>
@@ -2089,10 +2107,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="inputDsRc" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="inputDsRc" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
-                    </div><div class="col-md-2">
+                        <span style="color:red" class="err" hidden> please choose file</span>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group row">
                             <label class="col-sm-10 col-form-label align-center">
                                 DL <span class="danger-text" style="color:red;"> * </span>:
@@ -2101,11 +2121,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="inputdl" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="inputdl" accept="image/png, image/jpeg">
 
                         @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
                         <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
                     </div>
 
                 </div>
@@ -2120,9 +2141,10 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="file" class="custom-file-input" id="input_Insurance_Copy" accept="image/png, image/jpeg">
+                        <input type="file" class="custom-file-input doc_up" id="input_Insurance_Copy" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
                         <a href="" id="" target="_blank" value="Download"></a>
+                        <span style="color:red" class="err" hidden> please choose file</span>
                     </div>
                     
 
@@ -2140,7 +2162,8 @@
                                 Remarks:
                             </label>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control", id = "remarks_id" })
+                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_id" })
+                                <span style="color:red" class="err" hidden> please select remarks</span>
                             </div>
                         </div>
                     </div>
@@ -2150,7 +2173,9 @@
                                 Comments :
                             </label>
                             <div class="col-sm-6 mr-8">
-                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details"></textarea>
+                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details" class="Scrutiny_details"></textarea>
+                                <span style="color:red" class="err" hidden> please enter comments</span>
+
                             </div>
                         </div>
 
@@ -2167,22 +2192,23 @@
                     <div class="col-md-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="316277">
-                            @*<label class="form-check-label" for="exampleRadios1"> Yes </label>*@
+                            <lable class="ck_sprdnt_err" style="color:red" hidden> please select above field</lable>
                         </div>
 
                     </div>
                     <div class="col-md-2"></div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-5">
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn-success" id="btnDraft">Save draft</button>
-                        </div>
-                        <div class="col-md-4 mt-1">
-                            <button class="btn-success" id="btnsend">Send</button>
-                        </div>
-                        @*<button class="btn-success" id="btntemp">Temp</button>*@
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn-success" id="btnDraft">Save draft</button>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                        <button class="btn-success" id="btnsend">Send</button>
+                    </div>
+                    @*<button class="btn-success" id="btntemp">Temp</button>*@
 
                     <div class="col-md-3">
                     </div>
@@ -2230,7 +2256,7 @@
                 }
                 if (response.CourtDetailsList.length > 0) {
                     $('#mvc_no11').val(response.CourtDetailsList[0].Court_MVC_number);
-                    $('#date_of_petition1').val(response.CourtDetailsList[0].CourtTime);
+                    $('#date_of_petition1').val(response.CourtDetailsList[0].Court_DateTime);
                     $('#name_of_court1').val(response.CourtDetailsList[0].Name_of_court);
                     $('#CourtdistrictName1').val(response.CourtDetailsList[0].Court_District_Name);
                     $('#CourtTalukName1').val(response.CourtDetailsList[0].Court_Taluk_Name);
@@ -2337,9 +2363,12 @@
     
 
 
+    var search_result = "";
+    var search_not_empty;
         $('#btnApplicationVehicleSearch').click(function (e) {
             var textDetails = $('#txtVehiclePolicyChassisNo').val();
-            // alert(textDetails);
+
+            if (textDetails != "") {
 
             $.ajax({
                 url: '/MotorInsuranceClaims/GetVehiclePolicyAndChassisDetails',
@@ -2378,17 +2407,28 @@
                         $('#Vehicle_Seating_capacity').val(response.GetVehicleChassisPolicyDetailsList[0].seating_capacity_vehicle);
                         $('#Vehicle_subtype').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_subtype_desc);
                         $('#Vehicle_make_desc').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_make_desc);
-                    }
-                    else {
+                            search_result = "success"
+
+                        }
+                        else {
+                            alertify.error("Could not load details");
+                            search_result = "fail"
+
+                        }
+
+
+                    }, error: function (result) {
                         alertify.error("Could not load details");
+                        search_result = "fail"
+
                     }
+                });
+            }
+            else {
+                $('#txt_box1').removeAttr('hidden');
+                search_result = "fail"
 
-
-                }, error: function (result) {
-                    alertify.error("Could not load details");
-                }
-            });
-
+            }
         });
         //  $('#Dm_id').change(function (e) {
         $("#Dm_id").change(function (e) {
@@ -2481,16 +2521,163 @@
                 fileData.append("fileInput", files[i]);
             }
         });
+    //////////////////// new
 
-        $('#btnsend').click(function (e) {
-        app_stat = 2;
-        SendTohirarchy(app_stat);
+
+    $('#btnsend').click(function (e) {
+        debugger;
+        if ($('#state_id').val() == 29) {
+            $('#other_dist').val("");
+            $('#other_taluk').val("");
+        }
+        else {
+            $('#Dm_id').val("");
+            $('#Taluk_id').val("");
+        }
+        var c_notie = 0
+        $('.c_req').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                c_notie;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                c_notie +=1;
+            }
+        });
+
+        var a_details = 0
+        $('.a_req').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                a_details;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                a_details += 1;
+            }
+        });
+
+        var P_a_details = 0
+        $('.p_a_req').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                P_a_details;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                P_a_details += 1;
+            }
+        });
+
+         var doc_details = 0
+        $('.doc_up').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                doc_details;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                doc_details += 1;
+            }
+        });
+
+        var Scrutiny_details = 0
+        $('.Scrutiny_details').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                Scrutiny_details;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                Scrutiny_details += 1;
+            }
+        });
+
+        if (search_result != "success") {
+            alertify.alert("please add vehicle and policy details").setheader("Warning!");
+        }
+
+        var pet_table;
+        if ($('#petitioner_table #petitioner_table_body tr').length >= 1) {
+            pet_table = true;
+        }
+        else {
+            alertify.alert("please add Petitioner Details").setheader("Warning!");
+            pet_table = false;
+        }
+         var res_table;
+        if ($('#respondent_table #respondent_tbody tr').length >= 1) {
+            res_table = true;
+        }
+        else {
+            alertify.alert("please add Respondant Details").setheader("Warning!");
+            res_table = false;
+        }
+
+        var frwd_suprdnt;
+        if ($('#checkbox-Yes').is(':checked')) {
+            frwd_suprdnt = true;
+            $('.ck_sprdnt_err').attr('hidden',true);
+
+        }
+        else {
+            frwd_suprdnt = false;
+            $('.ck_sprdnt_err').removeAttr('hidden');
+        }
+
+        var app_stat = 2;
+        debugger;
+        if (c_notie == 6 && a_details == 9 && P_a_details == 14 && doc_details == 8 && Scrutiny_details == 2 && search_result == "success" && pet_table && res_table && frwd_suprdnt) {
+
+                SendTohirarchy(app_stat);
+        }
 
     });
     $('#btnDraft').click(function (e) {
         app_stat = 1;
-        SendTohirarchy(app_stat);
+        var acc_bool;
+        debugger;
+        var acc_val = $('#accident_DateTime').val();
 
+        if (acc_val == "") {
+            acc_bool = false;
+            alertify.alert("Please select accident date and time.!");
+        }
+        else {
+            acc_bool = true;
+        }
+
+        var notice_bool;
+        var notice_val = $('#date_of_petition').val();
+
+        if (notice_val == "") {
+            notice_bool = false;
+            alertify.alert("Please select accident date and time.!");
+        }
+        else {
+            notice_bool = true;
+        }
+        var court_mvc_no_val = $('#mvc_no').val();
+        var court_mvc_no_bool;
+
+        if (court_mvc_no_val == "") {
+            court_mvc_no_bool = false;
+            alertify.alert("Please enter mvc no.!");
+        }
+        else {
+            court_mvc_no_bool = true;
+        }
+
+
+
+
+        if (acc_bool == true && notice_bool == true && court_mvc_no_bool==true) {
+            SendTohirarchy(app_stat);
+        }
+        else {
+
+        }
     });
     $('#btnsaveandsend').click(function (e) {
         app_stat = 2;
@@ -2864,7 +3051,7 @@
 
 
                 alertify.success("Data Saved Successfully");
-                window.location.replace(window.location.href);
+                window.location.href = "/mi-dpt-odc-mvcappform";
             },
             error: function (result) {
                 alertify.error("Could not load details");
@@ -2959,6 +3146,10 @@
                     var markup = "<tr id='tbl_data'><td><input type='checkbox' name='record'></td><td>" + Name_of_petitioner + "</td><td>" + mobile_no + "</td><td>" + address + "</td><td>" + pincode + "</td></tr>";
                     $("#petitioner_table").append(markup);
 
+                    $("#Name_of_petitioner").val("");
+                    $("#pincode_petitioner").val("");
+                    $("#address_petitioner").val("");
+                    $("#mobile_petitioner").val("");
                 }
 
 
@@ -3241,6 +3432,14 @@
                     $('#div_delete_res').removeAttr('hidden');
                     var respondent_markup = "<tr><td><input type='checkbox' name='record_respondent'></td><td>" + Name_of_respondent + "</td><td>" + respondent_designation + "</td><td>" + department + "</td><td>" + agency_name + "</td><td>" + respondent_address + "</td><td>" + respondent_mobile_no + "</td><td>" + respondent_pincode + "</td></tr>";
                     $("#respondent_table").append(respondent_markup);
+
+                    $("#Name_of_respondent").val("");
+                    $("#designation_respondent").val("");
+                    $("#department_respondent").val("");
+                    $("#agency_respondent").val("");
+                    $("#address_respondent").val("");
+                    $("#mobile_respondent").val("");
+                    $("#pincode_respondent").val("");
                 }
 
             });
@@ -3252,6 +3451,22 @@
                         $(this).parents("tr").remove();
                     }
                 });
+            });
+
+
+
+            $('#tblSIVerifyData').DataTable({
+                paging: true,
+                info: true,
+                ordering: true,
+                //aaSorting: [[1, "desc"]],
+                searching: true
+            }); $('#tblSIVerifyData1').DataTable({
+                paging: true,
+                info: true,
+                ordering: true,
+                //aaSorting: [[1, "desc"]],
+                searching: true
             });
         });
         $('#btntemp').click(function (e) {
@@ -3272,7 +3487,19 @@
             });
 
         });
-   
+    $('#btn_other_Delete1').click(function (e) {
+            debugger;
+            var res = $(".input_id").length;
+
+
+            $("table").find('input[name="other"]').each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).parents("tr").remove();
+                }
+            });
+
+        });
+
     $("#state_id").change(function (e) {
         debugger;
 
@@ -3493,6 +3720,104 @@
         model.MVC_claim_app_id = mvc_appid;
         model.application_stat = 2;
         //model.UploadFilesList = ;
+        if ($('#state_id1').val() == 29) {
+            $('#other_dist1').val("");
+            $('#other_taluk1').val("");
+        }
+        else {
+            $('#Dm_id1').val("");
+            $('#Taluk_id1').val("");
+        }
+
+        var dc_notie = 0
+        debugger;
+        $('.d_C_req').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                dc_notie;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                dc_notie += 1;
+            }
+        });
+
+        var d_details=0;
+
+        $('.d_d_req').each(function () {
+            if ($(this).val() == "") {
+                $(this).siblings('.err').removeAttr('hidden');
+                d_details;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                d_details += 1;
+            }
+        });
+        debugger
+        var d_pet_table;
+        if ($('#petitioner_table1 #petitioner_table_body1 tr').length >= 1) {
+            d_pet_table = true;
+        }
+        else {
+            alertify.alert("please add Petitioner Details").setheader("Warning!");
+            d_pet_table = false;
+        }
+        var d_res_table;
+        if ($('#respondent_table1 #respondent_tbody1 tr').length >= 1) {
+            d_res_table = true;
+        }
+        else {
+            alertify.alert("please add Respondant Details").setheader("Warning!");
+            d_res_table = false;
+        }
+
+
+        var frwd_suprdnt_draft;
+        if ($('#checkbox-Yes1').is(':checked')) {
+            frwd_suprdnt_draft = true;
+            $('.frw_spr_err_draft').attr('hidden', true);
+
+        }
+        else {
+            frwd_suprdnt_draft = false;
+            $('.frw_spr_err_draft').removeAttr('hidden');
+        }
+        var r_c_val = 0;
+        $('.r_c_req').each(function () {
+            if ($(this).val() == "" || $(this).val() == 0  ) {
+                $(this).siblings('.err').removeAttr('hidden');
+                r_c_val;
+            }
+            else {
+                $(this).siblings('.err').attr('hidden', true);
+                r_c_val += 1;
+            }
+        });
+        var acc_bool;
+        var acc_val = $('#accident_DateTime').val();
+
+        if (acc_val == "") {
+            acc_bool == false;
+            alertify.alert("Please select accident date and time.!");
+        }
+        else {
+            acc_bool == true;
+        }
+
+        var notice_bool;
+        var notice_val = $('#date_of_petition').val();
+
+        if (notice_val == "") {
+            notice_bool == false;
+            alertify.alert("Please select accident date and time.!");
+        }
+        else {
+            notice_bool == true;
+        }
+        debugger;
+        if (dc_notie == 6 && d_details == 23 && d_res_table && d_pet_table && frwd_suprdnt_draft && r_c_val == 2 ) {
+
         $.ajax({
             url: '/MotorInsuranceClaims/SaveMVCClaimDetails',
             async: false,
@@ -3685,12 +4010,13 @@
 
 
                 alertify.success("Data Saved Successfully");
-                window.location.replace(window.location.href);
+                window.location.href = "/mi-dpt-odc-mvcappform";
             },
             error: function (result) {
                 alertify.error("Could not load details");
             }
         });
+      }
 
     });
    

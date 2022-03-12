@@ -48,7 +48,7 @@ namespace DLL.MBClaimsDLL
         List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisDLL(string ChassisNo);
         List<GetVehicleChassisPolicyDetails> GetMVCPetitionerDetailsDLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsDLL(long Appno);
-        List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtDLL(long App_id);
+        List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtDLL(long App_id,int category);
         List<GetVehicleChassisPolicyDetails> GetMVCDocdetailDLL(long App_id);
         List<GetVehicleChassisPolicyDetails> GetOtherDocdetailDLL(long Appno);
         SelectList GetInjuryListDLL();

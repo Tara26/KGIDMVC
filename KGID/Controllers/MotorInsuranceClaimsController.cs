@@ -979,7 +979,8 @@ namespace KGID.Controllers
         public JsonResult SaveMVCClaimDetails(GetVehicleChassisPolicyDetails model)
         {
             long result = 0;
-            model.loginId = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]); 
+            model.roleID = 4; 
             if (model.application_stat == 2) { 
                  result = _IMBClaimsBLL.SaveMVCClaimDetailsBLL(model);
                }
@@ -1444,7 +1445,7 @@ namespace KGID.Controllers
         public JsonResult GetMVCdetailsforSuperindenant(string chassis, long Appno)
         {
             var loginId = Convert.ToInt64(Session["UID"]);
-            var j = 0;
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
@@ -1455,7 +1456,7 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(Appno);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(Appno);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(Appno);
@@ -1500,8 +1501,8 @@ namespace KGID.Controllers
         {
             var loginId = Convert.ToInt64(Session["UID"]);
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
-
-            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(ApplicationNo);
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(ApplicationNo, category);
 
             return Json(GetDetails, JsonRequestBehavior.AllowGet);
         }
@@ -1530,7 +1531,8 @@ namespace KGID.Controllers
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
-            
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
             GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
             GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
@@ -1538,7 +1540,7 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
@@ -1582,6 +1584,7 @@ namespace KGID.Controllers
         public ActionResult MVCClaimsuperintendedVerification(long appid, string chassis)
         {
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
            GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
@@ -1591,10 +1594,11 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1633,9 +1637,9 @@ namespace KGID.Controllers
         }
         public JsonResult MvcSendToAd(GetVehicleChassisPolicyDetails model)
         {
-            model.loginId = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
             model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
-            model.claim_Amount = "0";
+            model.roleID =15;
               var result = _IMBClaimsBLL.UpdateWork_flow_DetailsBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1646,6 +1650,7 @@ namespace KGID.Controllers
         {
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
 
@@ -1655,7 +1660,7 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid, category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
@@ -1663,26 +1668,23 @@ namespace KGID.Controllers
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
 
-                if (path.Contains("/Dl_details/"))
+                if (path.Contains("/PrefilledClaimForm/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
-                }
-                if (path.Contains("/DL/"))
-                {
-                    GetDetails.MVCAppDocDetails[0].DL = GetDetails.MVCAppDocDetails[i].Accident_details;
-                }
-                if (path.Contains("/InsuranceCopy/"))
-                {
-                    GetDetails.MVCAppDocDetails[0].Insurance_Copy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].PreClaimedForm = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
                 if (path.Contains("/DsRc/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].DriverstatementandRc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/PrefilledClaimForm/"))
+                if (path.Contains("/Covering_Letter/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Prefilled_Claim_Form = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].cover_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
+                if (path.Contains("/InsuranceCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].insurancecopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
                 if (path.Contains("/Court_Notice_details/"))
                 {
                     GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1690,6 +1692,12 @@ namespace KGID.Controllers
                 if (path.Contains("/Petitioner_details/"))
                 {
                     GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
+                //added new
+                if (path.Contains("/DL/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
 
             }
@@ -1705,11 +1713,12 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCApplicationFormDataBLL();
             return View(GetDetails);
         }
-        public JsonResult MvcSendToDir(GetVehicleChassisPolicyDetails model)
+        public JsonResult MvcSendToCWFromDir(GetVehicleChassisPolicyDetails model)
         {
-            model.loginId = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);
             model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
             model.claim_Amount = "0";
+            model.roleID = 3;
             var result = _IMBClaimsBLL.UpdateWork_flow_DetailsBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1730,7 +1739,7 @@ namespace KGID.Controllers
         public ActionResult MVCClaimDirectorVerification(long appid, string chassis)
         {
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
-
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
 
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
@@ -1740,7 +1749,7 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(appid,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
@@ -1784,8 +1793,8 @@ namespace KGID.Controllers
         public JsonResult MvcClaimChangesEdit(string chassis, long Appno)
         {
                   var loginId = Convert.ToInt64(Session["UID"]);
-       
-                  GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
 
@@ -1795,7 +1804,7 @@ namespace KGID.Controllers
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_from_date).Value.ToString("dd/MM/yyyy");
             GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].TP_to_date).Value.ToString("dd/MM/yyyy");
             GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(Appno);
-            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
 
