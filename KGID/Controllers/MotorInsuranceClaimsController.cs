@@ -1532,6 +1532,7 @@ namespace KGID.Controllers
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
             var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
 
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
             GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
@@ -1576,7 +1577,11 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                
+                if (path.Contains("/Authorization_letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.authorization_check = 1;
+                }
             }
             return View(GetDetails);
         }
@@ -1585,6 +1590,7 @@ namespace KGID.Controllers
         {
             GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
             var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
 
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
            GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
@@ -1631,6 +1637,10 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
+                if (path.Contains("/Authorization_letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
 
             }
             return View(GetDetails);
@@ -1653,6 +1663,7 @@ namespace KGID.Controllers
             var category = Convert.ToInt32(Session["SelectedCategory"]);
             GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
 
             GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
             GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date1 = (GetDetails.GetVehicleChassisPolicyDetailsList[0].OD_to_date).Value.ToString("dd/MM/yyyy");
@@ -1698,6 +1709,10 @@ namespace KGID.Controllers
                 if (path.Contains("/DL/"))
                 {
                     GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Authorization_letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
 
             }
@@ -1757,26 +1772,23 @@ namespace KGID.Controllers
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
 
-                if (path.Contains("/Dl_details/"))
+                if (path.Contains("/PrefilledClaimForm/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].PreClaimedForm = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/Fir_details/"))
+                if (path.Contains("/DsRc/"))
                 {
                     GetDetails.MVCAppDocDetails[0].Accident_fir_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/ObjectStatement_details/"))
+                if (path.Contains("/Covering_Letter/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].cover_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/Panchanama_details/"))
+                if (path.Contains("/InsuranceCopy/"))
                 {
-                    GetDetails.MVCAppDocDetails[0].Accident_panchnama_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.MVCAppDocDetails[0].insurancecopy = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-                if (path.Contains("/Rc_details/"))
-                {
-                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
-                }
+
                 if (path.Contains("/Court_Notice_details/"))
                 {
                     GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1786,6 +1798,15 @@ namespace KGID.Controllers
                     GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
 
+                //added new
+                if (path.Contains("/DL/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_dl_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Authorization_letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
             }
             return View(GetDetails);
         }
@@ -1850,6 +1871,95 @@ namespace KGID.Controllers
 
             return Json(GetDetails, JsonRequestBehavior.AllowGet);
         }
-		
+      
+        public JsonResult StopMvcProcess(string chassis, long Appno)
+        {
+          
+        var result = _IMBClaimsBLL.stopMVCFlowOnsLokadhalatSelectBLL(Appno);
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [Route("mvc_lok_cw/{chassis}/{appid}")]
+        public ActionResult LokadhalatProcessView(string chassis, long appid)
+        {
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            GetDetails.DistrictList = _IMBClaimsBLL.GetDistrictListBLL();
+            GetDetails.TalukaList = _IMBClaimsBLL.GetTalukListBLL(0);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
+            GetDetails.InjuryList = _IMBClaimsBLL.GetInjuryListBLL();
+            GetDetails.StateList = _IMBClaimsBLL.GetstateListBLL();
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+
+            return View(GetDetails);
+        }
+        public JsonResult StopLokadhalatProcess(string chassis, long Appno)
+        {
+
+            var result = _IMBClaimsBLL.stopLokadhalatFlowOnSelectBLL(Appno);
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult uploadAuthorizationLetter(long App_id)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+
+                    string moblie_number = string.Empty;
+                    string fileDirectory = string.Empty;
+
+                    fileDirectory = "/Content//MVC_Claim_files/" + App_id + "/Authorization_letter/";
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName = file.FileName;
+                    // create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(Server.MapPath(fileDirectory));
+                    string path = Path.Combine(Server.MapPath(fileDirectory), fileName);
+                    string pathServer = fileDirectory + fileName;
+
+                    // save the file
+                    file.SaveAs(path);
+                    var res = _IMBClaimsBLL.SavePathDetailsBLL(pathServer, App_id);
+                    return Json("File uploaded successfully", JsonRequestBehavior.AllowGet);
+                }
+
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+        }
+        public JsonResult sendDetailsToHirarchy(GetVehicleChassisPolicyDetails model)
+        {
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else {
+                model.roleID = 4;
+            }
+           
+            var result = _IMBClaimsBLL.UpdateWork_flow_DetailsBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult sendParawiseRemarks(GetVehicleChassisPolicyDetails model)
+        {
+
+       
+            var result = _IMBClaimsBLL.submitParawiseRemarksBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+       
     }
 }

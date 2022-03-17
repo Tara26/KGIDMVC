@@ -59,6 +59,9 @@ namespace BLL.MBClaimsBLL
        List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsBLL(long appid, string chassis);
 long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetDraftDetailsBLL();
+        int stopMVCFlowOnsLokadhalatSelectBLL(long AppId);
+        int stopLokadhalatFlowOnSelectBLL(long AppId);
+        int submitParawiseRemarksBLL(GetVehicleChassisPolicyDetails model);
 
     }
 }

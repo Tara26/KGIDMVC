@@ -180,6 +180,15 @@ namespace BLL.MBClaimsBLL
         } public List<GetVehicleChassisPolicyDetails> GetDraftDetailsBLL()
         {
             return _IMBClaimsDLL.GetDraftDetailsDLL();
+        } public int stopMVCFlowOnsLokadhalatSelectBLL(long Appid)
+        {
+            return _IMBClaimsDLL.stopMVCFlowOnLokadhalatSelectDLL(Appid);
+        }public int stopLokadhalatFlowOnSelectBLL(long Appid)
+        {
+            return _IMBClaimsDLL.stopLokadhalatFlowOnSelectDLL(Appid);
+        }public int submitParawiseRemarksBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.submitParawiseRemarksDLL(model);
         }
     }
 }

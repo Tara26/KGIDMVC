@@ -3101,6 +3101,7 @@
     <Content Include="Views\MotorInsuranceClaims\MVCClaimDirectorApprovalProcess.cshtml" />
     <Content Include="Views\MotorInsuranceClaims\MVCClaimDirectorVerification.cshtml" />
     <Content Include="Views\DSC\PDFSign.cshtml" />
+    <Content Include="Views\MotorInsuranceClaims\LokadhalatProcessView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Custom\MI\" />

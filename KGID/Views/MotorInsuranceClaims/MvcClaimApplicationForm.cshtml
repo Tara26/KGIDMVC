@@ -78,9 +78,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="pills-menu1-tab" data-toggle="pill" href="#pills-menu1" role="tab" aria-controls="pills-menu1" aria-selected="false">New MVC Application form </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-menu2-tab" data-toggle="pill" href="#pills-menu2" role="tab" aria-controls="pills-menu2" aria-selected="false">Lokadhalat </a>
-            </li>
+           
         </ul>
     </div>
 
@@ -117,11 +115,34 @@
                                             <td>@item.Court_MVC_number</td>
                                             <td>@item.vehicle_chasis_no</td>
                                             <td>Pending</td>
-                                            <td>
-                                                <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
-                                            </td>
-                                            <td>
-                                                <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat</a> <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+                                            @if (@item.application_stat == 2)
+                                            {
+                                                <td>
+                                                    <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                                </td>
+                                            }
+                                            else 
+                                            {
+                                                <td>
+                                                    <a href="javascript:void(0);">Process Stopped</a>
+                                                    <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                                </td>
+                                            }
+                                        <td>
+                                            @if (item.application_stat != 3)
+                                            {
+                                                <button class="btn btn-primary" onclick='updateStatusToLokadhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="Lokadhalat">Lokadhalat</button>
+
+                                            }
+                                            @if (item.application_stat == 3)
+                                            {
+                                                <a href="/mvc_lok_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
+                                               
+                                                <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
+
+                                            }
+
+                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
 
                                             </td>
                                         </tr>
@@ -4019,7 +4040,48 @@
       }
 
     });
-   
 
-        
+    function updateStatusToLokadhalat(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to initiate lokadhalat for the MVC No " + CourtMvcNo +" ?\n NOTE: Once you initiate the MVC process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopMvcProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+       
+    }
+    function stopLokadhalatflow(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to stop lokhdalat and continue MVC process for the MVC No " + CourtMvcNo +" ?\n NOTE: Once you initiate the Lokadhalat process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopLokadhalatProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Successfully stopped lokhadhalat process of mvc no " + CourtMvcNo+" .");
+                },
+                complete: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+       
+    }
+  
+
 </script>

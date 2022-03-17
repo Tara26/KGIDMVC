@@ -1793,8 +1793,8 @@ namespace DLL.MBClaimsDLL
                     }
                     tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
                     work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
-                    work_flow.micw_vehicle_number = model.Vehicle_Registration_Number;
-                    work_flow.micw_policy_number = model.Policy_number;
+                    work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number!=null)?model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number );
+                    work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
                     work_flow.micw_remarks = model.Remarks_id;
                     work_flow.micw_comments = model.Comments_details;
                     work_flow.micw_verified_by = model.loginId;
@@ -2044,13 +2044,13 @@ namespace DLL.MBClaimsDLL
         {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
-                              where data.app_saved_status==2
+                              where data.app_saved_status==2 || data.app_saved_status==3
                               select new GetVehicleChassisPolicyDetails
                               {
                                   Court_MVC_number = data.mvc_no,
                                   vehicle_chasis_no = data.chassis_no,
                                   MVC_claim_app_id = data.mvc_claim_app_id,
-                                  
+                                  application_stat = data.app_saved_status
 
         }).Distinct().ToList();
           
@@ -2164,7 +2164,7 @@ namespace DLL.MBClaimsDLL
                                   Name_of_court= data.name_of_court,
                                   Court_District_Name= item.dm_name_english,
                                   Court_Taluk_Name = acc_dist.tm_englishname,
-                                  MVC_number= (data.mvc_claim_app_id).ToString(),
+                                  MVC_number= (data.mvc_no).ToString(),
                                 
                                   Accident_details= data.accident_details,
                                   claim_Amount= (data.claim_amount).ToString(),
@@ -2191,7 +2191,8 @@ namespace DLL.MBClaimsDLL
                                    relation_with_deceased = data.acdnt_relation_details,
                                    title_property_deceased= data.acdnt_title_to_property,
                                    any_other_information_details =data.acdt_any_other_info,
-                                   stateID= data.state_id
+                                   stateID= data.state_id,
+                                   court_parawise= data.court_parawise_remarks
 
                               }).Distinct().ToList();
 
@@ -2237,7 +2238,8 @@ namespace DLL.MBClaimsDLL
                                       stateID = data.state_id,
 
                                       other_state_court_dist=data.other_state_court_dist,
-                                      other_state_court_taluk= data.other_state_court_taluk
+                                      other_state_court_taluk= data.other_state_court_taluk,
+                                      court_parawise = data.court_parawise_remarks
 
                                   }).Distinct().ToList();
 
@@ -2365,7 +2367,7 @@ namespace DLL.MBClaimsDLL
                                join remarks in _db.tbl_remarks_master on work.micw_remarks equals remarks.RM_Remarks_id
 
 
-                              where work.mvc_claim_app_id == appid
+                              where work.mvc_claim_app_id == appid 
                                select new GetVehicleChassisPolicyDetails
                               {
                                   SubmissionDate = work.micw_creation_datetime,
@@ -2374,7 +2376,7 @@ namespace DLL.MBClaimsDLL
                                   Remarks = remarks.RM_Remarks_Desc,
                                   comments = work.micw_comments
 
-                              }).ToList();
+                              }).OrderByDescending(x => x.SubmissionDate).ToList();
 
             for (int i = 0; i < workFlowDetails.Count; i++)
             {
@@ -2550,6 +2552,42 @@ namespace DLL.MBClaimsDLL
                          where app.mvc_claim_app_id == app_id && app.micw_active_status == true
                          select app.micw_assigned_to).FirstOrDefault();
             return scrut;
+        }
+        public int stopMVCFlowOnLokadhalatSelectDLL(long Appid) {
+            List<GetVehicleChassisPolicyDetails> mvc_details = new List<GetVehicleChassisPolicyDetails>();
+            int result = 0;
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == Appid select n).FirstOrDefault();
+            if (mvc_tbl != null) {
+                mvc_tbl.app_saved_status = 3;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+              result = _db.SaveChanges();
+            }
+          
+            return result;
+        } public int stopLokadhalatFlowOnSelectDLL(long Appid) {
+            List<GetVehicleChassisPolicyDetails> mvc_details = new List<GetVehicleChassisPolicyDetails>();
+            int result = 0;
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == Appid select n).FirstOrDefault();
+            if (mvc_tbl != null) {
+                mvc_tbl.app_saved_status = 2;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+              result = _db.SaveChanges();
+            }
+          
+            return result;
+        }
+        public int submitParawiseRemarksDLL(GetVehicleChassisPolicyDetails model) {
+            List<GetVehicleChassisPolicyDetails> mvc_details = new List<GetVehicleChassisPolicyDetails>();
+            int result = 0;
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id ==model.MVC_claim_app_id select n).FirstOrDefault();
+            if (mvc_tbl != null) {
+                mvc_tbl.court_parawise_remarks = model.court_parawise;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+              result = _db.SaveChanges();
+            }
+           
+          
+            return result;
         }
         #endregion
     }

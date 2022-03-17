@@ -58,6 +58,9 @@ namespace DLL.MBClaimsDLL
 		List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetailsDLL(long appid, string chassis);
   long SaveAsDraftMvcDetailsDLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetDraftDetailsDLL();
+       int stopMVCFlowOnLokadhalatSelectDLL(long Appid);
+       int stopLokadhalatFlowOnSelectDLL(long Appid);
+       int submitParawiseRemarksDLL(GetVehicleChassisPolicyDetails model);
 
     }
 }

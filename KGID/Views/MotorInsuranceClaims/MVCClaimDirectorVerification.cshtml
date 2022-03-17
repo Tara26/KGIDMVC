@@ -53,7 +53,7 @@
                                        
                                             <td>@item.From</td>
                                         
-                                        <td>@item.To</td>
+                                        <td>@item.Tooo</td>
                                         <td>@item.Remarks</td>
                                         <td>@item.comments</td>
                                         <td>Pending</td>
@@ -735,7 +735,7 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].CoveringLetter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].cover_letter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group row">
@@ -748,7 +748,7 @@
                         <div class="col-md-3">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].PreClaimedForm" id="Prefilled_Claim_Form" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
                     </div>
@@ -765,7 +765,7 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].DriverstatementandRc" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].Accident_fir_details" id="DriverstatementandRc" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group row">
@@ -778,7 +778,7 @@
                         <div class="col-md-3">
 
 
-                            <a href="@Model.MVCAppDocDetails[0].DL" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].Accident_dl_details" id="DL" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
                     </div>
@@ -795,11 +795,51 @@
                         <div class="col-md-4">
 
 
-                            <a href="@Model.Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            <a href="@Model.MVCAppDocDetails[0].insurancecopy" id="insurancecopy" target="_blank" style='color: blue' value="Download">View Document</a>
                         </div>
 
 
                     </div>
+                    @if (@Model.MVCAppDocDetails[0].authorization_letter != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+
+                                <a href="@Model.MVCAppDocDetails[0].authorization_letter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            </div>
+
+
+                        </div>
+                    }
+                    @if (@Model.CourtDetailsList[0].court_parawise != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+                            @Html.TextArea("parawiseRemarksSubmitView", @Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
+
+
+
+
+                        </div>
+                    }
 
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
                     <div class="row">
@@ -906,7 +946,22 @@
             }
         });
     });
+      $(document).ready(function () {
+        debugger;
+        $('input[type="text"]').attr('readonly', true);
+        $('textarea').attr('readonly', true);
+        $('#Comments_details').removeAttr('readonly');
+        var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
+        var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
+
+        if (scruStat != loginCategory) {
+
+             $("#ScrutinyRow").hide();
+         }
+
+
+    });
 </script>
 
 

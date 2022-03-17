@@ -76,6 +76,7 @@ namespace KGID_Models.KGIDMotorInsurance
 
         public string other_state_court_dist { get; set; }
         public string other_state_court_taluk { get; set; }
+        public string court_parawise_remarks { get; set; }
 
     }
 }

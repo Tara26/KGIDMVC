@@ -164,6 +164,11 @@ namespace KGID_Models.KGIDMotorInsurance
         public string other_state_court_dist { get; set; }
         public string cover_letter { get; set; }
         public long scrutinyStatus { get; set; }
+
+        public string authorization_letter { get; set; }
+        public int authorization_check { get; set; }
+        public string court_parawise { get; set; }
+
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

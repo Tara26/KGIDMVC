@@ -79,7 +79,9 @@
         <div class="tab-pane fade" id="pills-menu1" role="tabpanel" aria-labelledby="pills-menu1-tab" style="color:black; ">
             <div class="card-body">
                 <panel id="pnlPrint" style="font-size:13px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
-
+                    <div style="display:none">
+                    @Html.TextBox("Mvc_claimId", Model.CourtDetailsList[0].MVC_claim_app_id, new { @class = "form-control" })
+                    </div>
                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Vehicle Details</b></h6>
                     <div class="row">
                         <div class="col-md-6">
@@ -820,6 +822,46 @@
 
 
                     </div>
+                    @if (@Model.MVCAppDocDetails[0].authorization_letter != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+
+                                <a href="@Model.MVCAppDocDetails[0].authorization_letter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                            </div>
+
+
+                        </div>
+                    }
+                    @if (@Model.CourtDetailsList[0].court_parawise != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+                            @Html.TextArea("parawiseRemarksSubmitView", @Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
+
+
+
+
+                        </div>
+                    }
                     <div id="ScrutinyRow">
                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
                         <div class="row">
@@ -891,13 +933,115 @@
 
 </div>
         </div>
+        <div class="tab-pane fade" id="pills-menu2" role="tabpanel" aria-labelledby="pills-menu2-tab" style="color:black; ">
+            <div class="card-body">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" style="width:100%" id="AuthorizBtn">+ Authorization letter to KGID </button>
+
+                <div class="container">
+                    <div id="demo" class="collapse">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <label> Authorization letter :</label>
+                                </div>
+                                <div class="col-md-3">
+
+                                    <a href="@Model.MVCAppDocDetails[0].authorization_letter" id="authorization_letter" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idAuth" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsAuth" class="Scrutiny_details"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnsendParawise">Send</button>
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+                </div>
+
+
+
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1" style="width:100%">+ Parawise Remarks submission to Lawyer</button>
+                <div class="container-fluid">
+                    <div id="demo1" class="collapse">
+                        
+
+
+                        <div class="card-body">
+                            <div class="row">
+                          
+                                </div>
+                        </div>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2" style="width:100%">+ Objection Statement Generation </button>
+                        <div class="container-fluid">
+                            <div id="demo2" class="collapse">
+                                gfhdfjdfjg
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3" style="width:100%">+ Ratification Letter to Law Department </button>
+                        <div class="container-fluid">
+                            <div id="demo3" class="collapse">
+                                gfhdfjdfjg
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo4" style="width:100%">+ Ratification Letter to KGID </button>
+                        <div class="container-fluid">
+                            <div id="demo4" class="collapse">
+                                gfhdfjdfjg
+                            </div>
+                        </div>
+
+
+                    </div>
+        </div>
+
     </div>
 
 </div>
 <script>
     $("#btnsendAd").click(function () {
         debugger;
-        var MVC_number = $("#mvc_no").val();
+        var MVC_number = $("#Mvc_claimId").val();
         var RemarkSelected = $("#remarks option:selected").val();
         var Comments_details = $("#Comments_details").val();
         var destination = document.getElementById("checkbox-Yes");
@@ -931,7 +1075,7 @@
         $('input[type="text"]').attr('readonly', true);
         $('textarea').attr('readonly', true);
         $('#Comments_details').removeAttr('readonly');
-
+        $("#Comments_detailsAuth").removeAttr('readonly');
          var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
         var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
@@ -939,6 +1083,40 @@
         if (scruStat != loginCategory) {
 
              $("#ScrutinyRow").hide();
-         }
+        }
+         var court_parawise =  @Model.CourtDetailsList[0].authorization_check;
+        if (court_parawise == 1) {
+            $("#AuthorizBtn").attr('disabled', true);
+
+        }
+
+    });
+
+      $('#btnsendAuthletter').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
+
+        var RemarkSelectedAuth = $("#remarks_idAuth option:selected").val();
+        var AuthComments = $("#Comments_detailsAuth").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+
+        $.ajax({
+            url: '/MotorInsuranceClaims/sendDetailsToHirarchy',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Authorization letter sent successfully");
+            }
+        });
     });
 </script>
