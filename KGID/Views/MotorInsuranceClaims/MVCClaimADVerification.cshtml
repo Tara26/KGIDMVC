@@ -159,7 +159,7 @@
                                     Owner of Vehicle :
                                 </label>
                                 <div class="col-sm-6">
-                                    @Html.TextBox("vehicle_owner", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle, new { @class = "form-control" })readonly>
+                                    @Html.TextBox("vehicle_owner", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle, new { @class = "form-control" })
                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                 </div>
                             </div>
@@ -846,23 +846,25 @@
                     }
                     @if (@Model.CourtDetailsList[0].court_parawise != null)
                     {
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
 
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <panel id="pnlPrintPara" style="font-size:13px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+                        <panel id="pnlPrintPara" style="font-size:13px; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+                           
+
+                            @Html.TextArea("parawiseRemarksSubmitView", @Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%; overflow:hidden" });
+
+                        </panel>
 
 
-                        @Html.TextArea("parawiseRemarksSubmitView", @Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;" });
-                    </panel>
 
-
-                </div>
                         <div class="row">
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-primary" onclick="Print()">Sign</button>
@@ -983,8 +985,18 @@
             processData: false,
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                alertify.success("Data Sent Successfully");
-                window.location.href = "/mvc_ad_ver";
+                alertify.success(
+                     "Data Sent Successfully"
+                   
+                );
+
+
+            },
+            complete: function (response) {
+
+              
+                    window.location.href = "/mvc_ad_ver";
+
             }
         });
     });

@@ -1067,6 +1067,8 @@
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 alertify.success("Data Sent Successfully");
+            },
+            complete: function (response)  {
                 window.location.href = "/mvc-si-adt";
             }
         });

@@ -1157,21 +1157,17 @@
                 <div class="container-fluid">
                     <div id="demo2" class="collapse">
                         <div class="row">
-                            <div class="col-md-3">
-                                <input type="file" class="form-control" id="input_objectionStatement_Form" accept="image/png, image/jpeg">
-
-                                @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                                <label> <a href="@Model.MVCAppDocDetails[0].authorization_letter" id="objectionStatement_Form" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
-
-                                <span style="color:red" class="err" hidden> please choose file</span>
+                            <div class="card-body">
+                                @Html.TextArea("objectionStatementSubmit", @Model.CourtDetailsList[0].Accident_object_statement_details, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
                             </div>
+                        </div>
                             <div class="col-md-3">
                                 <button type="button" class="btn-primary" id="submit_objectionStatement_Form">Submit</button>
 
 
                             </div>
 
-                        </div><br /><br />
+                        <br /><br />
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -1262,6 +1258,7 @@
         $('textarea').attr('readonly', true);
         $('#Comments_details').removeAttr('readonly');
         $('#parawiseRemarksSubmit').removeAttr('readonly');
+        $('#objectionStatementSubmit').removeAttr('readonly');
         $('#Comments_detailsAuth').removeAttr('readonly');
         $('#Comments_detailspara').removeAttr('readonly');
         $('#Comments_detailsObj').removeAttr('readonly');
