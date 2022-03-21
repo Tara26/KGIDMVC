@@ -24,6 +24,8 @@
     </div>
 
     <div class="tab-content" id="pills-tabContent">
+        @Html.HiddenFor(x => x.CourtDetailsList[0].MVC_claim_app_id)
+        @*// @Html.HiddenFor(x => x.Exam_Notif_Number)*@
 
         <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-menu1-tab" style="color:black; ">
 
@@ -876,6 +878,33 @@
 
                         </div>
                     }
+		    
+		    <h6 class="m-0 font-weight-bold text-primary mt-3">
+                        <b>Get Digital Signiture</b>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <label class="col-sm-10 col-form-label align-center">
+                                    Digital Signature <span class="danger-text" style="color:red;"> * </span>:
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <button type="button" class="btn btn-primary btn-sm" onclick="InitiateSignPDF();">PDF</button>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <button type="button" class="btn btn-primary btn-sm" onclick="SignedPDF();">View Signed Documents</button>
+
+                        </div>
+
+
+                    </div>
                     <div id="ScrutinyRow">
                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
                         <div class="row">
@@ -957,6 +986,7 @@
     </div>
 
 </div>
+
 <script>
     $("#btnsendDir").click(function () {
         debugger;
@@ -1028,6 +1058,235 @@
             printWindow.print();
         }, 500);
         return false;
+    }
+    
+     function RegisterWithDSC() {
+        $("#ResultDisplay").html("");
+
+        //if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+        //    $("#ResultDisplay").html("Please Download Signer.Digital Chrome Extension. from <br/>https://signer.digital/downloads/Signer.Digital.Chrome.Host.Setup.zip <br/>Do not forget to restart Chrome after installing extension.");
+        //    return;
+        //}
+
+        //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+        DSCSignRegSignedExtension.getSelectedCertificate()
+            .then(
+                function (CertInfo) {        //Success returns Certificate Subject and Thumbprint
+                    var data = JSON.parse(CertInfo);
+                    //alert("CertThumbPrint received " + data.CertThumbPrint);
+                    console.debug(CertInfo);
+                    $("#RegSignature").val(CertInfo);
+
+                    //Call Controller Method with CertSubject and SerialNumber
+                    $.ajax({
+                        url: "/Home/Login",
+                        type: "POST",
+                        data: {
+                            abc: CertInfo,
+                        },
+                        success: function (data) {
+                            //Signing Operation Completed
+                            $("#ResultDisplay").html(data);
+                        }
+                    });
+                },
+                function (errmsg)       //Signing Host Returned Error.
+                {
+                    $("#ResultDisplay").html(errmsg.message);
+                }
+            );
+    };
+    function InitiateSignPDF() {//alert-info alert-danger alert-success
+        debugger;
+       
+        var $this = $(this);
+       // var ApplicationID = $this.data('appid');
+        
+        var ApplicationID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        var EmployeeID = @Session["UID"];
+        if (!isBrowserSupportsExtension() || !isExtensionInstalled()) {
+            $("#ResultDisplay").html("Please Download Chrome Extension.");
+            return;
+        }
+        //////////////////////////////
+        /// DSC SIGN USER Validation
+        DSCSignRegSignedExtension.getSelectedCertificate()       //or "SHA256"
+            .then(
+                function (CertInfo) {
+                    alert(CertInfo)
+                    debugger;
+                    //Success returns Certificate Subject and Thumbprint
+                    //var data = JSON.parse(CertInfo);
+                    //alert("CertThumbPrint received " + data.CertThumbPrint);
+                    //alert(SignData);
+                    var jobj = JSON.parse(CertInfo);
+                    console.debug(CertInfo);
+                    $("#SignedToken").val(jobj.PublicKey);
+                    //Call Controller Method with CertSubject and SerialNumber
+                    $.ajax({
+                        url: "/Employee/DSCSignInDIO",
+                        type: "POST",
+                        data: JSON.stringify({ "PublicKey": jobj.PublicKey }),
+                        async: false,
+                        contentType: 'application/json; charset=utf-8',
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            //Signing Operation Completed
+                            debugger
+                            if (data.IsSuccess == true) {
+                                alertify.success("DSC Mapping Available..");
+                                ///////////////////////////////
+                                var RefID1 = ApplicationID;//Application ID
+                                var EmpID1 = EmployeeID;//Employee ID
+                                //var UnSignedWS = "https://49.206.243.82/VerifyDetails/GetFileForSigning";
+                                //var SignedWS = "https://49.206.243.82/VerifyDetails/UploadSignedFile";
+                                //var UnSignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/GetFileForSigning";
+                                //var SignedWS = "https://kgidonline.karnataka.gov.in/VerifyDetails/UploadSignedFile";
+                                var UnSignedWS1 = "http://localhost:52379/DSC/GetFileForSigning";
+                                var SignedWS1 = "http://localhost:52379/DSC/UploadSignedFile";
+                                //Call method from Extension DSCSignRegSignedExtension to get Selected Certificate Subject and SerialNumber
+                                //------------------------------------------//
+                                //DSCSignRegSignedExtension.signPdfHash1(RefID1, EmpID1, UnSignedWS1, SignedWS1)
+                                DSCSignRegSignedExtension.signPdfHash1(ApplicationID, EmployeeID, UnSignedWS1,SignedWS1)
+                                    .then(
+                                        function (CertInfo) {
+                                            alert(CertInfo)
+
+                                            //Success returns Certificate Subject and Thumbprint
+                                            var data = JSON.parse(CertInfo);
+                                           alert(data);
+                                            if (data == "True") {
+                                                console.debug(data);
+                                                alertify.alert("Bond Generated", "Bond Signing Success..!", function () {
+                                                    window.location.reload();
+                                                }).setHeader("Attention");
+                                            }
+                                            else if (data == "false") {
+                                                alertify.error("DSC PDF SignIn Failed..!");
+                                                alertify.alert("Bond Not Generated", "Bond SigningFailed..! Retry Again..!", function () {
+                                                    window.location.reload();
+                                                }).setHeader("Attention");
+                                            }
+                                            else if (data == "Failed Code - 101") {
+                                                alertify.error("DSC PDF SignIn Failed..!");
+                                                alertify.alert("Bond Not Generated", "Bond Signing Failed..! Retry Again..!", function () {
+                                                    window.location.href = reload();
+                                                }).setHeader("Attention");
+                                            }
+
+                                        },
+                                        function (errmsg)       //Signing Host Returned Error.
+                                        {
+                                            debugger
+                                            alertify.error("Bond Signing Failed..! Retry Again..!");
+                                        }
+                                );
+
+                                
+
+                            }
+                            else if (data.IsSuccess == false) {
+
+                                alertify.error("DSC SignIn Failed..!");
+                            }
+                            else {
+
+                                alertify.error("DSC SignIn Failed..!");
+                            }
+                        }
+                    });
+                },
+                function (errmsg)       //Signing Host Returned Error.
+                {
+                    $("#ResultDisplay").html(errmsg.message);
+                }
+            );
+    }
+
+    
+
+    function ShowSignedPDF() {
+        window.open("/PdfSigning/ShowSignedPDF");
+    }
+
+    function HideShowSignaturePositionChangeDiv() {
+        var SignaturePos = $("#SignSettings_SignaturePosition").val();
+        switch (SignaturePos) {
+            case "BottomRight":
+                {
+                    $("#divSignOffsetBottom").show();
+                    $("#divSignOffsetRight").show();
+                    $("#divSignOffsetTop").hide();
+                    $("#divSignOffsetLeft").hide();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "BottomLeft":
+                {
+                    $("#divSignOffsetBottom").show();
+                    $("#divSignOffsetLeft").show();
+                    $("#divSignOffsetTop").hide();
+                    $("#divSignOffsetRight").hide();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "TopRight":
+                {
+                    $("#divSignOffsetBottom").hide();
+                    $("#divSignOffsetRight").show();
+                    $("#divSignOffsetTop").show();
+                    $("#divSignOffsetLeft").hide();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "TopLeft":
+                {
+                    $("#divSignOffsetBottom").hide();
+                    $("#divSignOffsetRight").hide();
+                    $("#divSignOffsetTop").show();
+                    $("#divSignOffsetLeft").show();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "BottomCenter":
+                {
+                    $("#divSignOffsetBottom").show();
+                    $("#divSignOffsetRight").hide();
+                    $("#divSignOffsetTop").hide();
+                    $("#divSignOffsetLeft").show();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "TopCenter":
+                {
+                    $("#divSignOffsetBottom").hide();
+                    $("#divSignOffsetRight").hide();
+                    $("#divSignOffsetTop").show();
+                    $("#divSignOffsetLeft").show();
+                    $("#CustomeSignPosition").hide();
+                    break;
+                }
+            case "CustomPosition":
+                {
+                    $("#divSignOffsetBottom").hide();
+                    $("#divSignOffsetRight").hide();
+                    $("#divSignOffsetTop").hide();
+                    $("#divSignOffsetLeft").hide();
+                    $("#CustomeSignPosition").show();
+                    break;
+                }
+            default:
+                {
+                    $("#divSignOffsetBottom").hide();
+                    $("#divSignOffsetRight").hide();
+                    $("#divSignOffsetTop").hide();
+                    $("#divSignOffsetLeft").hide();
+                    $("#CustomeSignPosition").show();
+                    break;
+                }
+        }
     }
 
 </script>

@@ -14,12 +14,23 @@ using iTextSharp.text.pdf.security;
 using System.Text;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using BLL.MBClaimsBLL;
+using KGID_Models.KGIDMotorInsurance;
 
 namespace KGID.Controllers
 {
     public class DSCController : Controller
     {
         // GET: DSC
+        private readonly IMBClaimsBLL _IMBClaimsBLL;
+
+       // private readonly IMBClaimsBLL _IMBClaimsBLL;
+
+        public DSCController()
+        {
+            this._IMBClaimsBLL = new MBClaimsBLL();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -89,44 +100,203 @@ namespace KGID.Controllers
             return bytes; //return the byte data
         }
 
+        //public string GetFileForSigning(RequestFile requestFile)
+        //{
+        //    Image_convert_model _file_obj = new Image_convert_model();
+        //    byte[] binFile = null;
+        //    try
+        //    {
+        //        string RefID = "123";
+        //        string AppID = requestFile.RefID;
+        //        string EmpID = requestFile.RefType;
+        //        //GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+        //        string filename = System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/UnSignedNBBOND.pdf");
+        //        string pdfFilePath = filename;
+        //        byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
+
+        //        string strBytes = Convert.ToBase64String(bytes);
+
+        //        _file_obj = new Image_convert_model
+        //        {
+        //            File_Name = "UnSignedNBBOND.pdf",
+        //            File_bytes = strBytes,
+        //            File_token = "",
+        //            RefID = RefID,
+        //            RefType = "1",
+        //            DSC_user_name = ""
+        //        };
+
+        //        return _file_obj.File_bytes;
+
+        //        ////string filename = "~/UploadedFiles/sample.pdf";
+        //        ////BinaryReader binReader = new BinaryReader(System.IO.File.Open(System.Web.Hosting.HostingEnvironment.MapPath(filename), FileMode.Open, FileAccess.Read));
+        //        ////binReader.BaseStream.Position = 0;
+        //        ////binFile = binReader.ReadBytes(Convert.ToInt32(binReader.BaseStream.Length));
+        //        ////binReader.Close();
+
+        //        //System.IO.FileStream _FileStream = new System.IO.FileStream(System.Web.Hosting.HostingEnvironment.MapPath(filename), System.IO.FileMode.Open, System.IO.FileAccess.Read);
+        //        //System.IO.BinaryReader _BinaryReader = new System.IO.BinaryReader(_FileStream);
+        //        //long _TotalBytes = new System.IO.FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(filename)).Length;
+        //        //binFile = _BinaryReader.ReadBytes((Int32)_TotalBytes);
+        //        //_FileStream.Close();
+        //        //_FileStream.Dispose();
+        //        //_BinaryReader.Close();
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string msg = ex.Message;
+        //        int lineNo = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+        //        //return Request.CreateResponse(HttpStatusCode.OK, _responce_model, Configuration.Formatters.JsonFormatter);
+        //    }
+        //    return "";
+        //}
+
+        //public string UploadSignedFile(RequestFile requestFile)
+        //{
+        //    string RefID = "123";
+        //    Image_convert_model _Model = new Image_convert_model();
+        //    string filename = System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/UnSignedNBBOND.pdf");
+        //    string pdfFilePath = filename;
+        //    byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
+
+        //    string strBytes = Convert.ToBase64String(bytes);
+
+        //    _Model = new Image_convert_model
+        //    {
+        //        File_Name = "UnSignedNB.pdf",
+        //        File_bytes = strBytes,
+        //        File_token = "",
+        //        RefID = RefID,
+        //        RefType = "1",
+        //        DSC_user_name = ""
+        //    };
+
+
+        //    _Model.File_Name = "UnSignedNB.pdf";
+        //    File_Responce_model _responce_model = new File_Responce_model();
+        //    try
+        //    {
+        //        _Model.File_Path = Server.MapPath("~/TTDocuments/SignedDocuments/");
+
+        //        if (_Model.File_Name != "" && _Model.File_bytes != "")
+        //        {
+        //            string serverFileName = GenerateUniqueCode(5);
+        //            string filePathSigned = "/TTDocuments/SignedDocuments/" + serverFileName + "_Signed.pdf";
+        //            byte[] imageBytes = Convert.FromBase64String(_Model.File_bytes);
+        //            string FileName = serverFileName + "_Signed.pdf";
+        //            string path = _Model.File_Path;
+        //            string imgPath = Path.Combine(path, FileName);
+        //            //Check if directory exist
+        //            if (!System.IO.Directory.Exists(path))
+        //            {
+        //                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+        //            }
+        //            System.IO.File.WriteAllBytes(imgPath, imageBytes);
+
+
+        //            _responce_model.Status = true;
+        //            _responce_model.Message = "success"; ;
+        //            _responce_model.return_reponce = "File Upload successfully.";
+        //        }
+        //        else
+        //        {
+        //            _responce_model.Status = false;
+        //            _responce_model.Message = "failed"; ;
+        //            _responce_model.return_reponce = "File unble to upload.";
+        //        }
+
+        //        return "true";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string msg = ex.Message;
+        //        int lineNo = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
+        //        return "false";
+        //    }
+        //}
+
         public string GetFileForSigning(RequestFile requestFile)
         {
+            GetVehicleChassisPolicyDetails model = new GetVehicleChassisPolicyDetails();
+
             Image_convert_model _file_obj = new Image_convert_model();
             byte[] binFile = null;
             try
             {
-                string RefID = "123";
-                string filename = System.Web.Hosting.HostingEnvironment.MapPath("~/UploadedFiles/sample.pdf");
+                string AppID = requestFile.RefID;
+                long appid = Convert.ToInt64(AppID);
+                
+                string filename = System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/courtnoticecopy.pdf");
+
+                //string EmpID = requestFile.RefType;
+                //  model.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+
+                //for (int i = 0; i <= model.MVCAppDocDetails.Count-1; i++)
+                //{
+                //    string path = model.MVCAppDocDetails[i].Accident_details;
+                //path = Server.MapPath(path);
+
+                //filename = "courtnoticecopy.pdf";
+                //if (path.Contains("/PrefilledClaimForm/"))
+                //{
+                //    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/DsRc/"))
+                //{
+                //    model.MVCAppDocDetails[0].Accident_fir_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/Covering_Letter/"))
+                //{
+                //    model.MVCAppDocDetails[0].Accident_object_statement_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/InsuranceCopy/"))
+                //{
+                //    model.MVCAppDocDetails[0].Accident_panchnama_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/Court_Notice_details/"))
+                //{
+                //    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/DL/"))
+                //{
+                //    model.MVCAppDocDetails[0].summons_detals = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+                //if (path.Contains("/Petitioner_details/"))
+                //{
+                //    model.MVCAppDocDetails[0].petitioner_details = model.MVCAppDocDetails[i].Accident_details;
+                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                //}
+
+                //string name = Server.MapPath(path);
+                ////string filename = System.Web.Hosting.HostingEnvironment.MapPath(path);
+                // filename = Path.GetFileName(filename);
+                //string pdfFilePath = filename;
                 string pdfFilePath = filename;
-                byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
+                    byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
 
-                string strBytes = Convert.ToBase64String(bytes);
+                    string strBytes = Convert.ToBase64String(bytes);
 
-                _file_obj = new Image_convert_model
-                {
-                    File_Name = "Sample.pdf",
-                    File_bytes = strBytes,
-                    File_token = "",
-                    RefID = RefID,
-                    RefType = "1",
-                    DSC_user_name = ""
-                };
+                    _file_obj = new Image_convert_model
+                    {
+                        File_Name = "courtnoticecopy.pdf",
+                        File_bytes = strBytes,
+                        File_token = "",
+                        RefID = AppID,
+                        RefType = "1",
+                        DSC_user_name = ""
+                    };
 
+                //    UploadSignedFile(_file_obj);
+                //}
                 return _file_obj.File_bytes;
-
-                ////string filename = "~/UploadedFiles/sample.pdf";
-                ////BinaryReader binReader = new BinaryReader(System.IO.File.Open(System.Web.Hosting.HostingEnvironment.MapPath(filename), FileMode.Open, FileAccess.Read));
-                ////binReader.BaseStream.Position = 0;
-                ////binFile = binReader.ReadBytes(Convert.ToInt32(binReader.BaseStream.Length));
-                ////binReader.Close();
-
-                //System.IO.FileStream _FileStream = new System.IO.FileStream(System.Web.Hosting.HostingEnvironment.MapPath(filename), System.IO.FileMode.Open, System.IO.FileAccess.Read);
-                //System.IO.BinaryReader _BinaryReader = new System.IO.BinaryReader(_FileStream);
-                //long _TotalBytes = new System.IO.FileInfo(System.Web.Hosting.HostingEnvironment.MapPath(filename)).Length;
-                //binFile = _BinaryReader.ReadBytes((Int32)_TotalBytes);
-                //_FileStream.Close();
-                //_FileStream.Dispose();
-                //_BinaryReader.Close();
 
 
             }
@@ -144,12 +314,12 @@ namespace KGID.Controllers
             File_Responce_model _responce_model = new File_Responce_model();
             try
             {
-                _Model.File_Path = Server.MapPath("~/SignedPDFs/SignedUploaded/");
+                _Model.File_Path = Server.MapPath("~/TTDocuments/SignedDocuments/");
 
                 if (_Model.File_Name != "" && _Model.File_bytes != "")
                 {
                     string serverFileName = GenerateUniqueCode(5);
-                    string filePathSigned = "/SignedPDFs/SignedUploaded/" + serverFileName + "_Signed.pdf";
+                    string filePathSigned = "/TTDocuments/SignedDocuments/" + serverFileName + "_Signed.pdf";
                     byte[] imageBytes = Convert.FromBase64String(_Model.File_bytes);
                     string FileName = serverFileName + "_Signed.pdf";
                     string path = _Model.File_Path;
@@ -181,6 +351,51 @@ namespace KGID.Controllers
                 int lineNo = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
                 return "false";
             }
+        }
+
+
+        public string GetFileName(GetVehicleChassisPolicyDetails model)
+        {
+           
+            for (int i = 0; i < model.MVCAppDocDetails.Count; i++)
+            {
+                string path = model.MVCAppDocDetails[i].Accident_details;
+                string filename = "";
+
+                if (path.Contains("/Dl_details/"))
+                {
+                    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
+                    filename = Path.GetFileName(filename);
+                }
+                if (path.Contains("/Fir_details/"))
+                {
+                    model.MVCAppDocDetails[0].Accident_fir_details = model.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/ObjectStatement_details/"))
+                {
+                    model.MVCAppDocDetails[0].Accident_object_statement_details = model.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Panchanama_details/"))
+                {
+                    model.MVCAppDocDetails[0].Accident_panchnama_details = model.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Rc_details/"))
+                {
+                    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Summons_details/"))
+                {
+                    model.MVCAppDocDetails[0].summons_detals = model.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Petitioner_details/"))
+                {
+                    model.MVCAppDocDetails[0].petitioner_details = model.MVCAppDocDetails[i].Accident_details;
+                    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
+                }
+
+            }
+
+            return "filename";
         }
 
         public string GenerateUniqueCode(int num)
