@@ -19,5 +19,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public DateTime mvcdd_updation_datetime  { get; set; }
         public long mvcdd_created_by  { get; set; }
         public long mvcdd_updated_by  { get; set; }
+
+        public int mvcdd_signed_status { get; set; }
     }
 }

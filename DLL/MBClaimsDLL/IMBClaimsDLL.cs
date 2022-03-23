@@ -61,6 +61,8 @@ namespace DLL.MBClaimsDLL
        int stopMVCFlowOnLokadhalatSelectDLL(long Appid);
        int stopLokadhalatFlowOnSelectDLL(long Appid);
        int submitParawiseRemarksDLL(GetVehicleChassisPolicyDetails model);
-
+        List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignDLL(long docID);
+        string MVCSignedDocUploadDLL(long docID, long appId,string DocPath);
+        List<GetVehicleChassisPolicyDetails> GetSignedDocDLL(long id);
     }
 }

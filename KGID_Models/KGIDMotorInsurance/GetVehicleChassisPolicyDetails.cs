@@ -105,6 +105,8 @@ namespace KGID_Models.KGIDMotorInsurance
     
         public List<GetVehicleChassisPolicyDetails> MVCAppDocDetails { get; set; }
         public List<GetVehicleChassisPolicyDetails> CourtDetailsList { get; set; }
+
+        public List<GetVehicleChassisPolicyDetails> SignedDocList { get; set; }
         public List<GetVehicleChassisPolicyDetails> otherDetailsData { get; set; }
         public List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetails { get; set; }
         public string Court_MVC_number { get; set; }
@@ -169,6 +171,10 @@ namespace KGID_Models.KGIDMotorInsurance
         public int authorization_check { get; set; }
         public string court_parawise { get; set; }
 
+        public long Doc_ref_id { get; set; }
+        public string SavePath { get; set; }
+        public string filename { get; set; }
+       
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

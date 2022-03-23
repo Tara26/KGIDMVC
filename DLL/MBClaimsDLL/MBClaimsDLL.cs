@@ -2301,6 +2301,7 @@ namespace DLL.MBClaimsDLL
         }
         public List<GetVehicleChassisPolicyDetails> GetMVCDocdetailDLL(long Appno)
         {
+            
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
                               join item in _db.tbl_mvc_claim_doc_details on data.mvc_claim_app_id equals item.mvcdd_claim_app_id
@@ -2309,7 +2310,27 @@ namespace DLL.MBClaimsDLL
                               select new GetVehicleChassisPolicyDetails
                               {
                                   Accident_details = item.mvcdd_doc_upload_path,
-                                 
+                                  Doc_ref_id = item.mvc_claim_dd_id,
+
+                              }
+                              ).ToList();
+            return vehicleDetails;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignDLL(long docID)
+        {
+
+            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
+            vehicleDetails = (from data in _db.tbl_mvc_application_details
+                              join item in _db.tbl_mvc_claim_doc_details on data.mvc_claim_app_id equals item.mvcdd_claim_app_id
+                              where item.mvc_claim_dd_id == docID
+
+                              select new GetVehicleChassisPolicyDetails
+                              {
+                                  Accident_details = item.mvcdd_doc_upload_path,
+                                  Doc_ref_id = item.mvc_claim_dd_id,
+                                  MVC_claim_app_id = data.mvc_claim_app_id
+
                               }
                               ).ToList();
             return vehicleDetails;
@@ -2588,6 +2609,56 @@ namespace DLL.MBClaimsDLL
            
           
             return result;
+        }
+
+        public string MVCSignedDocUploadDLL(long docID, long appId, string DocPath)
+        {
+
+            try
+            {
+                tbl_mvc_claim_doc_details pathData = _db.tbl_mvc_claim_doc_details.Where(x => x.mvcdd_claim_app_id == appId && x.mvc_claim_dd_id == docID).FirstOrDefault();
+                if (pathData != null)
+                {
+                    tbl_mvc_claim_doc_details mvc_doc = new tbl_mvc_claim_doc_details();
+                    mvc_doc.mvcdd_claim_app_id = appId;
+                    mvc_doc.mvcdd_claim_due_id = 0;
+                    mvc_doc.mvcdd_doc_upload_path = DocPath;
+                    mvc_doc.mvcdd_active_status = true;
+                    mvc_doc.mvcdd_creation_datetime = DateTime.Now;
+                    mvc_doc.mvcdd_updation_datetime = DateTime.Now;
+                    mvc_doc.mvcdd_updated_by = 1;
+
+                    _db.tbl_mvc_claim_doc_details.Add(mvc_doc);
+                    _db.SaveChanges();
+
+                }
+
+                
+            }
+
+            catch(Exception ex)
+            {
+
+            }
+            return "success";
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetSignedDocDLL(long id)
+        {
+            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
+            vehicleDetails = (from data in _db.tbl_mvc_application_details
+                              join item in _db.tbl_mvc_claim_doc_details on data.mvc_claim_app_id equals item.mvcdd_claim_app_id
+                              where item.mvcdd_claim_app_id == id && item.mvcdd_signed_status == 1
+
+                              select new GetVehicleChassisPolicyDetails
+                              {
+                                  Accident_details = item.mvcdd_doc_upload_path,
+                                  Doc_ref_id = item.mvc_claim_dd_id,
+                                  MVC_claim_app_id = data.mvc_claim_app_id
+
+                              }
+                              ).ToList();
+            return vehicleDetails;
         }
         #endregion
     }

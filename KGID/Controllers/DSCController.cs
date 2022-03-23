@@ -227,75 +227,47 @@ namespace KGID.Controllers
             {
                 string AppID = requestFile.RefID;
                 long appid = Convert.ToInt64(AppID);
-                
-                string filename = System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/courtnoticecopy.pdf");
+                string AppnID = "";
+                //string Doc_ref_ID = requestFile.EmpID1;
+
+                string filename = "";// System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/courtnoticecopy.pdf");
 
                 //string EmpID = requestFile.RefType;
-                //  model.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+                model.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocfileForSignBLL(appid);
+                string path = "";
+                string pdfFilePath = "";
+                for (int i = 0; i <= model.MVCAppDocDetails.Count-1; i++)
+                {
+                    path = model.MVCAppDocDetails[i].Accident_details;
+                    pdfFilePath = System.Web.Hosting.HostingEnvironment.MapPath(path);
+                    AppnID = (model.MVCAppDocDetails[0].MVC_claim_app_id).ToString();
 
-                //for (int i = 0; i <= model.MVCAppDocDetails.Count-1; i++)
-                //{
-                //    string path = model.MVCAppDocDetails[i].Accident_details;
-                //path = Server.MapPath(path);
+                    //filename = "courtnoticecopy.pdf";
 
-                //filename = "courtnoticecopy.pdf";
-                //if (path.Contains("/PrefilledClaimForm/"))
-                //{
-                //    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/DsRc/"))
-                //{
-                //    model.MVCAppDocDetails[0].Accident_fir_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/Covering_Letter/"))
-                //{
-                //    model.MVCAppDocDetails[0].Accident_object_statement_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/InsuranceCopy/"))
-                //{
-                //    model.MVCAppDocDetails[0].Accident_panchnama_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/Court_Notice_details/"))
-                //{
-                //    model.MVCAppDocDetails[0].Accident_dl_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/DL/"))
-                //{
-                //    model.MVCAppDocDetails[0].summons_detals = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-                //if (path.Contains("/Petitioner_details/"))
-                //{
-                //    model.MVCAppDocDetails[0].petitioner_details = model.MVCAppDocDetails[i].Accident_details;
-                //    filename = Path.GetFileName(model.MVCAppDocDetails[i].Accident_details);
-                //}
-
-                //string name = Server.MapPath(path);
-                ////string filename = System.Web.Hosting.HostingEnvironment.MapPath(path);
-                // filename = Path.GetFileName(filename);
-                //string pdfFilePath = filename;
-                string pdfFilePath = filename;
-                    byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
+                }
+                    //string name = Server.MapPath(path);
+                    ////string filename = System.Web.Hosting.HostingEnvironment.MapPath(path);
+                    // filename = Path.GetFileName(filename);
+                    //string pdfFilePath = filename;
+                   
+                   filename = Path.GetFileName(path);
+                byte[] bytes = System.IO.File.ReadAllBytes(pdfFilePath);
 
                     string strBytes = Convert.ToBase64String(bytes);
 
                     _file_obj = new Image_convert_model
                     {
-                        File_Name = "courtnoticecopy.pdf",
+                        File_Name = filename,
                         File_bytes = strBytes,
                         File_token = "",
                         RefID = AppID,
                         RefType = "1",
                         DSC_user_name = ""
+                        
                     };
 
                 //    UploadSignedFile(_file_obj);
-                //}
+                
                 return _file_obj.File_bytes;
 
 
@@ -311,10 +283,26 @@ namespace KGID.Controllers
 
         public string UploadSignedFile(Image_convert_model _Model)
         {
+            GetVehicleChassisPolicyDetails model = new GetVehicleChassisPolicyDetails();
             File_Responce_model _responce_model = new File_Responce_model();
+            long docID = Convert.ToInt64(_Model.RefID);
+            string AppnID = "";
+            model.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocfileForSignBLL(docID);
+           
+            for (int i = 0; i <= model.MVCAppDocDetails.Count - 1; i++)
+            {
+                
+                AppnID = (model.MVCAppDocDetails[0].MVC_claim_app_id).ToString();
+
+                //filename = "courtnoticecopy.pdf";
+
+            }
+
+            long appId = Convert.ToInt64(AppnID);
+
             try
             {
-                _Model.File_Path = Server.MapPath("~/TTDocuments/SignedDocuments/");
+                _Model.File_Path = "/Content//MVC_Claim_files/" + AppnID + "";
 
                 if (_Model.File_Name != "" && _Model.File_bytes != "")
                 {
@@ -323,6 +311,7 @@ namespace KGID.Controllers
                     byte[] imageBytes = Convert.FromBase64String(_Model.File_bytes);
                     string FileName = serverFileName + "_Signed.pdf";
                     string path = _Model.File_Path;
+
                     string imgPath = Path.Combine(path, FileName);
                     //Check if directory exist
                     if (!System.IO.Directory.Exists(path))
@@ -335,6 +324,11 @@ namespace KGID.Controllers
                     _responce_model.Status = true;
                     _responce_model.Message = "success"; ;
                     _responce_model.return_reponce = "File Upload successfully.";
+                    string result = string.Empty;
+                    //string signedfilepath = Server.MapPath(filePathSigned);
+                    string signedfilepath = imgPath;
+                    
+                    result = _IMBClaimsBLL.MVCSignedDocUploadBLL(docID, appId,signedfilepath);
                 }
                 else
                 {
@@ -420,6 +414,27 @@ namespace KGID.Controllers
             return otp;
         }
 
+        public JsonResult ViewSignedMVCdocs(long id, HttpPostedFileBase file)
+        {
+            GetVehicleChassisPolicyDetails  model = new GetVehicleChassisPolicyDetails();
+            
+            model.SignedDocList = _IMBClaimsBLL.GetSignedDocBLL(id);
+            
+
+            string fileName = "";
+            foreach (var files in model.SignedDocList)
+            {
+                string PdfFileName = Path.GetFileNameWithoutExtension(files.Accident_details);
+                
+                files.filename = PdfFileName;
+                model.MVC_claim_app_id = files.MVC_claim_app_id;
+
+
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
     }
     public class SelCertAttribs
     {
@@ -475,6 +490,8 @@ namespace KGID.Controllers
         public string RefID { get; set; }
         public string RefType { get; set; }
         public string DSC_user_name { get; set; }
+
+        
     }
 
     public class RequestFile

@@ -158,6 +158,12 @@ namespace BLL.MBClaimsBLL
 
             return _IMBClaimsDLL.GetMVCDocdetailDLL(App_id);
         }
+
+        public List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignBLL(long docID)
+        {
+
+            return _IMBClaimsDLL.GetMVCDocfileForSignDLL(docID);
+        }
         public  List<GetVehicleChassisPolicyDetails> GetOtherDocdetailBLL(long App_id)
         {
 
@@ -189,6 +195,17 @@ namespace BLL.MBClaimsBLL
         }public int submitParawiseRemarksBLL(GetVehicleChassisPolicyDetails model)
         {
             return _IMBClaimsDLL.submitParawiseRemarksDLL(model);
+        }
+
+        public string MVCSignedDocUploadBLL(long docID, long appId, string DocPath)
+        {
+            var result = _IMBClaimsDLL.MVCSignedDocUploadDLL(docID, appId,DocPath);
+            return result;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetSignedDocBLL(long id)
+        {
+            return _IMBClaimsDLL.GetSignedDocDLL(id);
         }
     }
 }

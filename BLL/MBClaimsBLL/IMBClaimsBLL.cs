@@ -62,6 +62,11 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         int stopMVCFlowOnsLokadhalatSelectBLL(long AppId);
         int stopLokadhalatFlowOnSelectBLL(long AppId);
         int submitParawiseRemarksBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignBLL(long docID);
+        string MVCSignedDocUploadBLL(long docID, long appId,string DocPath);
+        List<GetVehicleChassisPolicyDetails> GetSignedDocBLL(long id);
+
+
 
     }
 }
