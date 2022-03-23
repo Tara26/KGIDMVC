@@ -169,6 +169,7 @@ namespace DLL.DBConnection
         public DbSet<tbl_vehicle_make_master> tbl_vehicle_make_master { get; set; }
         public DbSet<tbl_mvc_claim_type_of_injury> tbl_mvc_claim_type_of_injury { get; set; }
         public DbSet<tbl_State_master>tbl_State_master { get; set; }
+        public DbSet<tbl_mvc_claim_remarks> tbl_mvc_claim_remarks { get; set; }
 
     }
 }

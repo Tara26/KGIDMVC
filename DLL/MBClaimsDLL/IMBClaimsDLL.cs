@@ -64,5 +64,7 @@ namespace DLL.MBClaimsDLL
         List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignDLL(long docID);
         string MVCSignedDocUploadDLL(long docID, long appId,string DocPath);
         List<GetVehicleChassisPolicyDetails> GetSignedDocDLL(long id);
+int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
+       List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusDLL(string GetStatusData, long appId);
     }
 }

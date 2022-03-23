@@ -174,7 +174,10 @@ namespace KGID_Models.KGIDMotorInsurance
         public long Doc_ref_id { get; set; }
         public string SavePath { get; set; }
         public string filename { get; set; }
-       
+        public string RatificationToLawDept { get; set; }
+        public string RatificationToKgid { get; set; }
+        public List<GetVehicleChassisPolicyDetails> GetDocumentRemarksList { get; set; }
+        public string DocFileVariable { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

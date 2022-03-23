@@ -1581,6 +1581,21 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
                     GetDetails.authorization_check = 1;
+                }if (path.Contains("/ParawiseRemarksSubmissionToLawyer/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].court_parawise = GetDetails.MVCAppDocDetails[i].Accident_details;
+                   // GetDetails.authorization_check = 1;
+                }if (path.Contains("/ObjectStatement_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                   // GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/RatificationLetterLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/RatificationLetterToKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1641,7 +1656,24 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-
+                if (path.Contains("/ParawiseRemarksSubmissionToLawyer/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].court_parawise = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    // GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/ObjectStatement_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    // GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/RatificationLetterLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/RatificationLetterToKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
             }
             return View(GetDetails);
         }
@@ -1713,6 +1745,25 @@ namespace KGID.Controllers
                 if (path.Contains("/Authorization_letter/"))
                 {
                     GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/ParawiseRemarksSubmissionToLawyer/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].court_parawise = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    // GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/ObjectStatement_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Accident_object_statement_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    // GetDetails.authorization_check = 1;
+                }
+                if (path.Contains("/RatificationLetterLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/RatificationLetterToKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
 
             }
@@ -1806,6 +1857,9 @@ namespace KGID.Controllers
                 if (path.Contains("/Authorization_letter/"))
                 {
                     GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/RatificationLetterLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1959,6 +2013,101 @@ namespace KGID.Controllers
        
             var result = _IMBClaimsBLL.submitParawiseRemarksBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+    public JsonResult uploadparawiseRemarksSubmit(long App_id)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+
+                    string moblie_number = string.Empty;
+                    string fileDirectory = string.Empty;
+
+                    fileDirectory = "/Content//MVC_Claim_files/" + App_id + "/ParawiseRemarksSubmissionToLawyer/";
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName = file.FileName;
+                    // create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(Server.MapPath(fileDirectory));
+                    string path = Path.Combine(Server.MapPath(fileDirectory), fileName);
+                    string pathServer = fileDirectory + fileName;
+
+                    // save the file
+                    file.SaveAs(path);
+                    var res = _IMBClaimsBLL.SavePathDetailsBLL(pathServer, App_id);
+                    return Json("File uploaded successfully", JsonRequestBehavior.AllowGet);
+                }
+
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+
+            
+        } public JsonResult uploadFileSubmit(long App_id,string pathName)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+
+                    string moblie_number = string.Empty;
+                    string fileDirectory = string.Empty;
+
+                    fileDirectory = "/Content//MVC_Claim_files/" + App_id + "/"+ pathName + "/";
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName = file.FileName;
+                    // create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(Server.MapPath(fileDirectory));
+                    string path = Path.Combine(Server.MapPath(fileDirectory), fileName);
+                    string pathServer = fileDirectory + fileName;
+
+                    // save the file
+                    file.SaveAs(path);
+                    var res = _IMBClaimsBLL.SavePathDetailsBLL(pathServer, App_id);
+                    return Json("File uploaded successfully", JsonRequestBehavior.AllowGet);
+                }
+
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+
+            
+        }
+        public JsonResult SendDocWorkFlow(GetVehicleChassisPolicyDetails model)
+        {
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 4;
+            }
+
+            var result = _IMBClaimsBLL.UpdateDocumentWork_flow_detailsBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDocumentStatus(string GetStatusData,long appId) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+            GetDocumentDetails.GetDocumentRemarksList = _IMBClaimsBLL.GetDocumentDetailsStatusBLL(GetStatusData, appId);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+
         }
        
     }

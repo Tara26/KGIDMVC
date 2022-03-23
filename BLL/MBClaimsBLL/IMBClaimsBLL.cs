@@ -65,6 +65,8 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetMVCDocfileForSignBLL(long docID);
         string MVCSignedDocUploadBLL(long docID, long appId,string DocPath);
         List<GetVehicleChassisPolicyDetails> GetSignedDocBLL(long id);
+ int UpdateDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusBLL(string fecthDetails, long appId);
 
 
 

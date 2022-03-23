@@ -64,6 +64,9 @@
         height: 100%;
         width: 100%;
     }
+    .RemarksModal {
+        width: fit-content;
+    }
 </style>
 <div class="card-body">
 
@@ -907,12 +910,16 @@
                     </div>
                     @if (@Model.MVCAppDocDetails[0].authorization_letter != null)
                     {
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group row">
-                                    <label class="col-sm-10 col-form-label align-center">
-                                        Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
-                                    </label>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Authorization letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
 
                                 </div>
                             </div>
@@ -923,27 +930,115 @@
                             </div>
 
 
+                            </div>
                         </div>
                     }
-                    @if (@Model.CourtDetailsList[0].court_parawise != null)
+
+                    @if (@Model.MVCAppDocDetails[0].court_parawise != null)
                     {
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-10 col-form-label align-center">
-                                         Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
-                                    </label>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Parawise Remarks submission to Lawyer</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Parawise Remarks submission to Lawyer <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>                                                                  
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].court_parawise" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewCourtparawiseModal">Work flow</button>
 
                                 </div>
                             </div>
-                         
-
-                                @Html.TextArea("parawiseRemarksSubmitView", @Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
-
-                         
-
-
                         </div>
+
+
+                    } 
+                    @if (@Model.MVCAppDocDetails[0].Accident_object_statement_details != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Objection Statement Generation</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Objection Statement Generation <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].Accident_object_statement_details" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewObjectionStatementModal">Work flow</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }  @if (@Model.MVCAppDocDetails[0].RatificationToLawDept != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Ratification Letter to Law Department</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Ratification Letter to Law Department <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewRatificationToLawDeptModal">Work flow</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    } @if (@Model.MVCAppDocDetails[0].RatificationToKgid != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Ratification Letter to Law KGID</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Objection Statement Generation <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].RatificationToKgid" id="RatificationToKgid" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
                     }
 
                     <div id="ScrutinyRow">
@@ -1019,9 +1114,35 @@
 
 
 
+            </div>
+            <div class="modal RemarksModal" id="myModal1" role="dialog" style="display: none; width: 100%;">
+                <div class="modal-dialog">
 
-
-</div>
+                    <!-- Modal content-->
+                    <div class="modal-content" style="width: 150%; ">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                            <h2 class="head1">Work flow Details</h2>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-bordered" id="Tbl_doc_statusHead" cellspacing="0">
+                                <thead style="background: #308385;color: #fff;">
+                                    <tr>
+                                        @*<th>Application Referance Number</th>*@
+                                        <th>Submitted Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Remarks</th>
+                                        <th>Comments</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Tbl_doc_statusBody">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="pills-menu2" role="tabpanel" aria-labelledby="pills-menu2-tab" style="color:black; ">
             <div class="card">
@@ -1041,32 +1162,32 @@
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn-primary" id="submit_Authorizationleter">Submit</button>
+                                    <button type="button" class="btn-primary" id="submit_Authorizationleter">Upload</button>
 
 
                                 </div>
 
                             </div><br /><br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idAuth" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                            @*<div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Remarks:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idAuth" })
+                                                <span style="color:red" class="err" hidden> please select remarks</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsAuth"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Comments :
+                                            </label>
+                                            <div class="col-sm-6 mr-8">
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsAuth"></textarea>
+                                                <span style="color:red" class="err" hidden> please enter comments</span>
 
                                         </div>
                                     </div>
@@ -1087,17 +1208,17 @@
                                         <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
                                     </div>
 
+                                    </div>
+                                    <div class="col-md-2"></div>
                                 </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
-                                </div>
-                                <div class="col-md-4 mt-1">
-                                    <button class="btn-success" id="btnsendAuthletter">Send</button>
-                                </div>
-                                <br /><br />
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsendAuthletter">Send</button>
+                                    </div>
+                                    <br /><br />
+                                </div>*@
 
                         </div>
                     </div>
@@ -1107,13 +1228,17 @@
                 <div class="container-fluid">
                     <div id="demo1" class="collapse">
                         <div class="card-body">
-                            @Html.TextArea("parawiseRemarksSubmit",@Model.CourtDetailsList[0].court_parawise, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
+                            <div class="col-md-3">
+                                <input type="file" class="form-control" id="input_parawiseRemarksSubmit_Form" accept="image/png, image/jpeg">
+                                <label> <a href="@Model.MVCAppDocDetails[0].court_parawise" id="court_parawise" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                            </div>
                         </div>
 
                         <div class="col-md-6"></div>
 
                         <div class="col-md-3">
-                            <button type="button" class="btn-primary" id="submit_parawiseRemarks">Submit</button>
+                            <button type="button" class="btn-primary" id="submit_parawiseRemarks">Upload</button>
 
                         </div>
                         <br />   <br />   <br />
@@ -1158,14 +1283,20 @@
                     <div id="demo2" class="collapse">
                         <div class="row">
                             <div class="card-body">
-                                @Html.TextArea("objectionStatementSubmit", @Model.CourtDetailsList[0].Accident_object_statement_details, new { @class = "form-control", @cols = 100, @rows = 30, @style = "width:100%;border-color: coral;border-style: solid;" });
+                                <div class="col-md-3">
+                                    <input type="file" class="form-control" id="input_submit_objectionStatement_Form" accept="image/png, image/jpeg">
+                                    <label> <a href="@Model.MVCAppDocDetails[0].Accident_object_statement_details" id="court_parawise" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn-primary" id="submit_objectionStatement_Form">Upload</button>
+
+
+                                </div>
                             </div>
+
                         </div>
-                            <div class="col-md-3">
-                                <button type="button" class="btn-primary" id="submit_objectionStatement_Form">Submit</button>
 
-
-                            </div>
 
                         <br /><br />
                         <div class="row">
@@ -1224,14 +1355,112 @@
                 <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo3" style="width:100%">+ Ratification Letter to Law Department </button>
                 <div class="container-fluid">
                     <div id="demo3" class="collapse">
-                        gfhdfjdfjg
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="file" class="form-control" id="input_ratificationLetter_department_Form" accept="image/png, image/jpeg">
+
+                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                    <label> <a href="@Model.MVCAppDocDetails[0].RatificationToLawDept" id="RatificationToLawDept" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn-primary" id="submit_ratificationLetter_department">Submit</button>
+
+
+                                </div>
+
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsRatificationToLawDept"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <label for="login_id"> Forward to Superintendent  </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnRatificationToLawDept">Send</button>
+                                </div>
+                                <br /><br />
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
                 <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo4" style="width:100%">+ Ratification Letter to KGID </button>
                 <div class="container-fluid">
                     <div id="demo4" class="collapse">
-                        gfhdfjdfjg
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="file" class="form-control" id="input_RatificationToKgid_Form" accept="image/png, image/jpeg">
+
+                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                    <label> <a href="@Model.MVCAppDocDetails[0].RatificationToKgid" id="RatificationToKgid" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
+
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn-primary" id="submit_RatificationToKgid">Upload</button>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Hearing Comments :
+                                </div>
+                                <div class="col-md-3">
+                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Hearing_comments"></textarea>
+                                </div>
+
+                            </div>
+                            <br /><br />
+
+
+                        </div>
                     </div>
                 </div>
 
@@ -1262,6 +1491,7 @@
         $('#Comments_detailsAuth').removeAttr('readonly');
         $('#Comments_detailspara').removeAttr('readonly');
         $('#Comments_detailsObj').removeAttr('readonly');
+        $('#Comments_detailsRatificationToLawDept').removeAttr('readonly');
 
         var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
@@ -1271,15 +1501,10 @@
 
              $("#ScrutinyRow").hide();
         }
-        if (scruStat != loginCategory) {
-            $(".disableOnscrutiny").attr('disabled',true);
-        }
-        debugger;
-        var court_parawise =  @Model.GetVehicleChassisPolicyDetailsList[0].authorization_check;
-        if (court_parawise == 1) {
-            $("#AuthorizBtn").attr('disabled', true);
+        //if (scruStat != loginCategory) {
+        //    $(".disableOnscrutiny").attr('disabled',true);
+        //}
 
-        }
 
 
 
@@ -1344,33 +1569,32 @@
     $('#submit_parawiseRemarks').click(function (e) {
 
         debugger;
-        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
-        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
 
-        //var RemarkSelectedAuth = $("#remarks_idAuth option:selected").val();
-        //var AuthComments = $("#Comments_detailsAuth").val();
-        var court_parawise_remarks = $("#parawiseRemarksSubmit").val();
-        var model = {};
-        model.MVC_claim_app_id = Mvc_appid ;
-       // model.Comments_details = AuthComments;
-       // model.Remarks_id = RemarkSelectedAuth; btnsendObj
-        model.court_parawise = court_parawise_remarks;
-        alertify.confirm("Are you sure you want to submit parawise remarks ? ", function () {
-
-        $.ajax({
-            url: '/MotorInsuranceClaims/sendParawiseRemarks',
-            async: false,
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
-
-            success: function (response) {
-                alertify.alert("Parawise Remarks submitted successfully");
-            }
-        });
-        }).setHeader("Confirm changes?");
+        var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var fileUpload = $("#input_parawiseRemarksSubmit_Form").get(0);
+        var files = fileUpload.files;
+        var fileData = new FormData();
+        var fileslength = fileUpload.files.length;
+        if (fileslength > 0) {
+            fileData.append(files[0].name, files[0]);
+            alertify.confirm("Are you sure you want to submit parawise remarks ? ", function () {
+                $.ajax({
+                    url: '/MotorInsuranceClaims/uploadparawiseRemarksSubmit?App_id=' + responsMainID,
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        alertify.alert("Parawise Remarks submitted successfully.");
+                    }
+                });
+            }).setHeader("Confirm changes?");
+        }
+        else {
+            alertify.alert("Please select the authorization letter");
+        }
     });
     $('#btnsendParaWise').click(function (e) {
 
@@ -1384,9 +1608,9 @@
         model.MVC_claim_app_id = Mvc_appid ;
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
-
+        model.DocFileVariable = "ParawiseLawyer";
         $.ajax({
-            url: '/MotorInsuranceClaims/sendDetailsToHirarchy',
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -1399,10 +1623,37 @@
             }
         });
     });
-    $('#btnsendObj').click(function (e) {
+    $('#btnRatificationToLawDept').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
+
+        var RemarkSelectedAuth = $("#remarks_idRatificationToLawDept option:selected").val();
+        var AuthComments = $("#Comments_detailsRatificationToLawDept").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "RatificationLawDept";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Ratification letter sent successfully");
+            }
+        });
+    });
+    $('#submit_objectionStatement_Form').click(function (e) {
         debugger;
         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-        var fileUpload = $("#input_objectionStatement_Form").get(0);
+        var fileUpload = $("#input_submit_objectionStatement_Form").get(0);
         var files = fileUpload.files;
         var fileData = new FormData();
         var fileslength = fileUpload.files.length;
@@ -1417,14 +1668,162 @@
                 async: false,
                 data: fileData,
                 success: function (response) {
-                    alertify.alert("Authorization letter submitted successfully.");
+                    alertify.alert("Objection Statement  uploaded successfully.");
                 }
             });
         }
         else {
-            alertify.alert("Please select the authorization letter");
+            alertify.alert("Please select the Objection Statement ");
         }
 
 
     });
+
+     $('#submit_ratificationLetter_department').click(function (e) {
+        debugger;
+         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+         var pathSave = "RatificationLetterLawDept";
+         var fileUpload = $("#input_ratificationLetter_department_Form").get(0);
+        var files = fileUpload.files;
+        var fileData = new FormData();
+        var fileslength = fileUpload.files.length;
+        if (fileslength > 0) {
+            fileData.append(files[0].name, files[0]);
+            $.ajax({
+                url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (response) {
+                    alertify.alert("Ratification letter uploaded successfully.");
+                }
+            });
+        }
+        else {
+            alertify.alert("Please select the Ratification letter");
+        }
+
+
+     }); $('#submit_RatificationToKgid').click(function (e) {
+        debugger;
+         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+         var pathSave = "RatificationLetterToKGID";
+         var fileUpload = $("#input_RatificationToKgid_Form").get(0);
+        var files = fileUpload.files;
+        var fileData = new FormData();
+        var fileslength = fileUpload.files.length;
+        if (fileslength > 0) {
+            fileData.append(files[0].name, files[0]);
+            $.ajax({
+                url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (response) {
+                    alertify.alert("Ratification letter uploaded successfully.");
+                }
+            });
+        }
+        else {
+            alertify.alert("Please select the Ratification letter");
+        }
+
+
+     });
+    $("#viewCourtparawiseModal").click(function (e) {
+        var GetStatusDataDetails = "ParawiseLawyer";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
+    $("#viewObjectionStatementModal").click(function (e) {
+        var GetStatusDataDetails = "ObjectStatement";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewRatificationToLawDeptModal").click(function (e) {
+        var GetStatusDataDetails = "RatificationToLawDept";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
+
+
+    function GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId) {
+        debugger;
+
+
+        $.ajax({
+            url: '/MotorInsuranceClaims/GetDocumentStatus',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ GetStatusData: GetStatusDataDetails, appId: Mvc_appId }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                $("#Tbl_doc_statusBody").empty();
+                $("#myModal1").modal("show");
+                if (response.GetDocumentRemarksList.length > 0) {
+                    $.each(response.GetDocumentRemarksList, function (id, col) {
+                        var markup = "<tr><td>" + dateFormat(new Date(parseInt((col.SubmissionDate).match(/\d+/)[0]))) + "</td><td>" + col.From + "</td><td>" + col.Tooo+"</td><td>" + col.Remarks + "</td><td>" + col.comments +"</td><td>Pending</td></tr>";
+
+                        $("#Tbl_doc_statusBody").append(markup);
+                    });
+                } else {
+                    alertify.alert("No record found.");
+                }
+            }
+        });
+
+
+
+
+    }
+    function dateFormat(d) {
+        console.log(d);
+        return (d.getDate() + "").padStart(2, "0")
+            + "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
+            + "/" + d.getFullYear();
+    }
+    $('#btnsendObj').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
+
+        var RemarkSelectedAuth = $("#remarks_idObj option:selected").val();
+        var AuthComments = $("#Comments_detailsObj").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "ObjectStatement";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Object Statement sent successfully");
+            }
+        });
+    });
+    function Formattime(t) {
+        console.log(t);
+        return (t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "");//.padStart(2, "0")
+        //+ "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
+        //+ "/" + d.getFullYear();
+    }
 </script>

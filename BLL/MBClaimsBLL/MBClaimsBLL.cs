@@ -207,5 +207,12 @@ namespace BLL.MBClaimsBLL
         {
             return _IMBClaimsDLL.GetSignedDocDLL(id);
         }
+		public int UpdateDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+        }public List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusBLL(string GetStatusData, long appId)
+        {
+            return _IMBClaimsDLL.GetDocumentDetailsStatusDLL( GetStatusData, appId);
+        }
     }
 }

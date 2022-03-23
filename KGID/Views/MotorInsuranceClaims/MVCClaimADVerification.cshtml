@@ -1104,19 +1104,6 @@
 
 
     });
-    function Print() {
-        var panel = document.getElementById("pnlPrintPara");
-        var printWindow = window.open('', '', 'height=400,width=800');
-        printWindow.document.write('<html><head><title>Parawise Remarks submission to Lawyer</title>');
-        printWindow.document.write('</head><body >');
-        printWindow.document.write(panel.innerHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        setTimeout(function () {
-            printWindow.print();
-        }, 500);
-        return false;
-    }
 
      function RegisterWithDSC() {
         $("#ResultDisplay").html("");
@@ -1386,6 +1373,61 @@
 
                 }
             });
+    }
+     $("#viewCourtparawiseModal").click(function (e) {
+        var GetStatusDataDetails = "ParawiseLawyer";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
+    $("#viewObjectionStatementModal").click(function (e) {
+        var GetStatusDataDetails = "ObjectStatement";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewRatificationToLawDeptModal").click(function (e) {
+        var GetStatusDataDetails = "RatificationToLawDept";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
+    function GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId) {
+        debugger;
+
+
+        $.ajax({
+            url: '/MotorInsuranceClaims/GetDocumentStatus',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ GetStatusData: GetStatusDataDetails, appId: Mvc_appId }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                $("#Tbl_doc_statusBody").empty();
+                $("#myModal1").modal("show");
+                if (response.GetDocumentRemarksList.length > 0) {
+                    $.each(response.GetDocumentRemarksList, function (id, col) {
+                        var markup = "<tr><td>" + dateFormat(new Date(parseInt((col.SubmissionDate).match(/\d+/)[0]))) + "</td><td>" + col.From + "</td><td>" + col.Tooo + "</td><td>" + col.Remarks + "</td><td>" + col.comments + "</td><td>Pending</td></tr>";
+
+                        $("#Tbl_doc_statusBody").append(markup);
+                    });
+                } else {
+                    alertify.alert("No record found.");
+                }
+            }
+        });
+
+
+
+
+    }
+    function dateFormat(d) {
+        console.log(d);
+        return (d.getDate() + "").padStart(2, "0")
+            + "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
+            + "/" + d.getFullYear();
     }
 </script>
 

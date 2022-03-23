@@ -1562,12 +1562,12 @@ namespace DLL.MBClaimsDLL
         {
             List<SelectListItem> RemarkList = new List<SelectListItem>();
 
-            RemarkList = (from remark in _db.tbl_remarks_master
+            RemarkList = (from remark in _db.tbl_mvc_claim_remarks
 
                           select new SelectListItem
                           {
-                              Text = remark.RM_Remarks_Desc,
-                              Value = (remark.RM_Remarks_id).ToString()
+                              Text = remark.remark_desc,
+                              Value = (remark.remark_id).ToString()
                           }).ToList();
             //var RemarksIndexlist = new SelectListItem()
             //{
@@ -1806,6 +1806,7 @@ namespace DLL.MBClaimsDLL
                     work_flow.micw_creation_datetime = DateTime.Now;
                     work_flow.micw_updation_datetime = DateTime.Now;
                     work_flow.micw_assigned_to = model.roleID;
+                    work_flow.mvc_main_flow = 1;
                     _db.tbl_mvc_claim_workflow.Add(work_flow);
                     int abc = _db.SaveChanges();
 
@@ -2108,7 +2109,7 @@ namespace DLL.MBClaimsDLL
                                   seating_capacity_vehicle = item.mivd_seating_capacity_including_driver,
                                   Vehicle_subtype_desc = VSCM.vst_vehicle_subtype_desc,
                                   vehicle_make_desc = VMM.vm_vehicle_make_desc
-                              }).ToList();
+                              }).Distinct().ToList();
 
             return vehicleDetails;
         }
@@ -2385,16 +2386,16 @@ namespace DLL.MBClaimsDLL
             workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
                                join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
                                join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
-                               join remarks in _db.tbl_remarks_master on work.micw_remarks equals remarks.RM_Remarks_id
+                               join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
 
 
-                              where work.mvc_claim_app_id == appid 
+                              where work.mvc_claim_app_id == appid && work.mvc_main_flow ==1
                                select new GetVehicleChassisPolicyDetails
                               {
                                   SubmissionDate = work.micw_creation_datetime,
                                   ByID = work.micw_verified_by,
                                   TO = work.micw_assigned_to,
-                                  Remarks = remarks.RM_Remarks_Desc,
+                                  Remarks = remarks.remark_desc,
                                   comments = work.micw_comments
 
                               }).OrderByDescending(x => x.SubmissionDate).ToList();
@@ -2602,9 +2603,18 @@ namespace DLL.MBClaimsDLL
             int result = 0;
             tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id ==model.MVC_claim_app_id select n).FirstOrDefault();
             if (mvc_tbl != null) {
-                mvc_tbl.court_parawise_remarks = model.court_parawise;
-                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
-              result = _db.SaveChanges();
+                if (model.court_parawise != null) {
+                    mvc_tbl.court_parawise_remarks = model.court_parawise;
+                    mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+                    result = _db.SaveChanges();
+                }
+                if (model.Accident_object_statement_details!=null)
+                {
+                    mvc_tbl.court_parawise_remarks = model.court_parawise;
+                    mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+                    result = _db.SaveChanges();
+
+                }
             }
            
           
@@ -2659,6 +2669,182 @@ namespace DLL.MBClaimsDLL
                               }
                               ).ToList();
             return vehicleDetails;
+        }
+		   public int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model) {
+            List<tbl_mvc_claim_workflow> oldFlowData = _db.tbl_mvc_claim_workflow.Where(x => x.mvc_claim_app_id == model.MVC_claim_app_id).ToList();
+            int result = 0;
+            if (oldFlowData.Count() != 0)
+            {
+                foreach (var flow in oldFlowData)
+                {
+                    if(model.DocFileVariable == "ParawiseLawyer")
+                    {
+                        //flow.mvc_parawiseRemarkLawyer = 1;
+                        flow.mvc_parawiseRemarkLawyerStatus = false;
+                    }if(model.DocFileVariable == "ObjectStatement")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_objecttionStatementStatus = false;
+                    }if(model.DocFileVariable == "RatificationLawDept")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_objecttionStatementStatus = false;
+                    }
+                   
+                }
+            }
+            if (model.DocFileVariable == "ParawiseLawyer")
+            {
+                
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_parawiseRemarkLawyer = 1;
+                work_flow.mvc_parawiseRemarkLawyerStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                 result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "ObjectStatement") {
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_objecttionStatement = 1;
+                work_flow.mvc_objecttionStatementStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+
+            }if (model.DocFileVariable == "RatificationLawDept") {
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_ratificationLawDept = 1;
+                work_flow.mvc_ratificationLawDeptStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+
+            }
+
+            return result;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusDLL(string FetchDetails, long appid) {
+            List<GetVehicleChassisPolicyDetails> workFlowDetails = new List<GetVehicleChassisPolicyDetails>();
+
+            if (FetchDetails == "ParawiseLawyer")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_parawiseRemarkLawyer == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "ObjectStatement")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_objecttionStatement == 1 && work.mvc_main_flow!=1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            } if (FetchDetails == "RatificationToLawDept")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_ratificationLawDept == 1 && work.mvc_main_flow!=1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+                for (int i = 0; i < workFlowDetails.Count; i++)
+                {
+                    var ById = workFlowDetails[i].ByID;
+                    int toID = Convert.ToInt32(workFlowDetails[i].TO);
+                    var UserName = (from j in _db.tbl_category_master
+                                        //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                                    where j.cm_category_id == ById
+                                    select j.cm_category_desc).FirstOrDefault();
+                    //workFlowDetails[i].From = UserName;
+                    workFlowDetails[i].From = UserName;
+                    //workFlowDetails[i].TO = UserName;
+
+                    var TO = (from j in _db.tbl_category_master
+                                  //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                              where j.cm_category_id == toID
+                              select j.cm_category_desc).FirstOrDefault();
+                    workFlowDetails[i].Tooo = TO.ToString(); //TO.ToString();
+                }
+            
+            return workFlowDetails;
         }
         #endregion
     }

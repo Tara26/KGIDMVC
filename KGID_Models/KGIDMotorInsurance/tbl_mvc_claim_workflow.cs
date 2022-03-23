@@ -28,5 +28,13 @@ namespace KGID_Models.KGIDMotorInsurance
         public long micw_created_by { get; set; }
         public long micw_updated_by { get; set; }
         public long micw_assigned_to { get; set; }
+        public int? mvc_parawiseRemarkLawyer { get; set; }
+        public int mvc_main_flow { get; set; }
+        public bool? mvc_parawiseRemarkLawyerStatus { get; set; }
+        public int? mvc_objecttionStatement { get; set; }
+        public bool? mvc_objecttionStatementStatus { get; set; } 
+        public int? mvc_ratificationLawDept { get; set; }
+        public bool? mvc_ratificationLawDeptStatus { get; set; }
+
     }
 }
