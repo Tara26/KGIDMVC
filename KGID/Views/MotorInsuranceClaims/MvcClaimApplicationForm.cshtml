@@ -140,9 +140,23 @@
                                                
                                                 <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
 
-                                            }
+                                                }
+                                                @if (item.application_stat != 4)
+                                                {
+                                                    <a href='#' title='view' class='btn btn-primary' onclick='updateStatusCourtExecution("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.MVC_claim_app_id")' name="View">Court Execution</a>
 
-                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+                                                }
+
+                                                @if (item.application_stat == 4)
+                                                {
+
+                                                    <a href="/mvc_cou_exe_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='courtnoticeview("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">court Execution View</a>
+
+                                                    <button class="btn btn-primary" onclick='stopCourtExecutionflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Court Execution</button>
+
+                                                }
+
+
 
                                             </td>
                                         </tr>
@@ -182,7 +196,7 @@
                                             <tr>
                                                 <td>@(slnumberDraft++)</td>
                                                 <td>@item.Court_MVC_number</td>
-                                                <td>@item.vehicle_chasis_no</td>S
+                                                <td>@item.vehicle_chasis_no</td>
                                                 <td>
                                                     <a href="#" onclick='viewMVCdetailsModal("@item.vehicle_chasis_no","@item.MVC_claim_app_id")'>View</a>
                                                     @*<a href="/mvc_edit_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>*@
@@ -200,7 +214,7 @@
                 </section>
             </div>
             <div id="ViewModaldetailsOnChassisNumber" class="modal ">
-                <div class="modal-dialog modal-xl" style="width: 60%; margin: 30px auto; padding: 2px">
+                <div class="modal-dialog modal-xl" style="width: 75%; margin: 30px auto; padding: 2px">
                     <div class="modal-content">
 
                         <div class="card-header">
@@ -706,7 +720,7 @@
                                 <div class="card shadow-sm rounded p-3 mt-2">
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">
                                                     Place of Accident :
@@ -715,7 +729,7 @@
                                                 <label id="" style="color:red" class="err" hidden>enter Place of Accident :</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlInput1">
                                                     Accident Time:
@@ -725,7 +739,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group row">
                                                 <label class="col-sm-6 col-form-label align-center">
                                                     Type of Injury :
@@ -2277,11 +2291,48 @@
                 }
                 if (response.CourtDetailsList.length > 0) {
                     $('#mvc_no11').val(response.CourtDetailsList[0].Court_MVC_number);
-                    $('#date_of_petition1').val(response.CourtDetailsList[0].Court_DateTime);
-                    $('#name_of_court1').val(response.CourtDetailsList[0].Name_of_court);
-                    $('#CourtdistrictName1').val(response.CourtDetailsList[0].Court_District_Name);
-                    $('#CourtTalukName1').val(response.CourtDetailsList[0].Court_Taluk_Name);
+                    $('#date_of_petition1').val(response.CourtDetailsList[0].CourtTime2);
+                    /// 21-3-2022
+                    $('#state_id1').val(response.CourtDetailsList[0].stateID);
+                    var dist111 = response.CourtDetailsList[0].dist_id12;
+                    var state_no = response.CourtDetailsList[0].stateID;
+                    if (state_no == "29") {
+                        $('#Dm_id1').val(response.CourtDetailsList[0].dist_id12);
+                        $.ajax({
+                            url: '/MotorInsuranceClaims/GetTaluksOnDistrict',
+                            async: false,
+                            type: 'POST',
+                            cache: false,
+                            data: JSON.stringify({ District_dm_id: dist111 }),
+                            contentType: false,
+                            processData: false,
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (response) {
+                                if (response.length > 0) {
+                                    $("#Taluk_id").empty();
+                                    $.each(response, function (key, value) {
+                                        $("#Taluk_id1").append($("<option></option>").val(value.Value).html(value.Text));
+                                    });
+                                    $("#Taluk_id1 option:selected").index(0);
+                                    $("#Taluk_id1").trigger('change');
+                                }
+                            }
+                        });
+                        $('#Taluk_id1').val(response.CourtDetailsList[0].Taluk_id12);
+                        $('#other_dist1').val("");
+                        $('#other_taluk1').val("");
 
+                    }
+                    else {
+                        $('#Dm_id1').val("");
+                        $('#Taluk_id1').val("");
+                        $('#other_dist1').val(response.CourtDetailsList[0].other_state_court_dist);
+                        $('#other_taluk1').val(response.CourtDetailsList[0].other_state_court_taluk);
+
+                    }
+                    $('#name_of_court1').val(response.CourtDetailsList[0].Name_of_court);
+                    $('#type_injury1').val(response.CourtDetailsList[0].type_injury);
+                    ///
                     $('#claim_amount1').val(response.CourtDetailsList[0].claim_Amount);
                     $('#Name_of_injured1').val(response.CourtDetailsList[0].Name_of_injured);
                     $('#Father_name1').val(response.CourtDetailsList[0].Father_name);
@@ -2292,7 +2343,7 @@
                     $('#monthly_income_of_injured1').val(response.CourtDetailsList[0].monthly_income_of_injured);
                     $('#income_tax_of_injured1').val(response.CourtDetailsList[0].income_tax_of_injured);
                     $('#place_of_accident1').val(response.CourtDetailsList[0].place_of_accident);
-                    $('#accident_DateTime1').val(response.CourtDetailsList[0].accident_DateTime);
+                    $('#accident_DateTime1').val(response.CourtDetailsList[0].CourtTime3);
                     $('#police_station_of_jurisdiction1').val(response.CourtDetailsList[0].police_station_of_jurisdiction);
                     $('#police_station_of_compensation1').val(response.CourtDetailsList[0].police_station_of_compensation);
                     $('#nature_of_injuries_sustained1').val(response.CourtDetailsList[0].nature_of_injuries_sustained);
@@ -2371,6 +2422,23 @@
 
             },
             complete: function (response) {
+                var state12 = $("#state_id1 option:selected").val();
+                if (state12 != 0 || state12 != "" || state12 != null) {
+
+                    if (state12 == 29) {
+                        $('#kar_dist_div1').removeAttr('hidden');
+                        $('#kar_tal_div1').removeAttr('hidden');
+                        $('#other_dist_div1').attr('hidden', true);
+                        $('#other_tal_div1').attr('hidden', true);
+                    }
+                    else {
+                        $('#other_dist_div1').removeAttr('hidden');
+                        $('#other_tal_div1').removeAttr('hidden');
+                        $('#kar_dist_div1').attr('hidden', true);
+                        $('#kar_tal_div1').attr('hidden', true);
+                    }
+
+                }
                 $('#ViewModaldetailsOnChassisNumber').modal('show');
             },
             error: function (response) {
@@ -3482,7 +3550,8 @@
                 ordering: true,
                 //aaSorting: [[1, "desc"]],
                 searching: true
-            }); $('#tblSIVerifyData1').DataTable({
+            });
+            $('#tblSIVerifyData1').DataTable({
                 paging: true,
                 info: true,
                 ordering: true,
@@ -4082,6 +4151,62 @@
         }).setHeader("Confirm changes?");
        
     }
-  
+//22-03-2022
+    function updateStatusCourtExecution(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to initiate CourtExecution for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the lokadalath will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/MvcCourtExecution',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
+
+    function stopCourtExecutionflow(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to stop court Execution and continue MVC process for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the court Execution process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopCourtExecutionProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Successfully stopped lokhadhalat process of mvc no " + CourtMvcNo + " .");
+                },
+                complete: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
+
+
+    $("#date_of_petition1").change(function (e) {
+
+        alert($('#date_of_petition1').val());
+    })
+    debugger;
+
+    $("#accident_DateTime1").change(function (e) {
+
+        alert($('#accident_DateTime1').val());
+    })
+
+
 
 </script>

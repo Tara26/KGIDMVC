@@ -1882,7 +1882,8 @@ namespace KGID.Controllers
             GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCdetailsofCourtBLL(Appno,category);
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
-
+            GetDetails.CourtDetailsList[0].CourtTime2 = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("yyyy-MM-dd");
+            GetDetails.CourtDetailsList[0].CourtTime3 = Convert.ToDateTime(GetDetails.CourtDetailsList[0].accident_DateTime).ToString("yyyy-MM-ddThh:mm");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(Appno);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(Appno);
             for (int i = 0; i<GetDetails.MVCAppDocDetails.Count; i++)
@@ -2096,7 +2097,7 @@ namespace KGID.Controllers
             }
             else
             {
-                model.roleID = 4;
+                model.roleID = 3;
             }
 
             var result = _IMBClaimsBLL.UpdateDocumentWork_flow_detailsBLL(model);

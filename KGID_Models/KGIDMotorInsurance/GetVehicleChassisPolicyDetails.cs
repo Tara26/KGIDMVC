@@ -178,6 +178,10 @@ namespace KGID_Models.KGIDMotorInsurance
         public string RatificationToKgid { get; set; }
         public List<GetVehicleChassisPolicyDetails> GetDocumentRemarksList { get; set; }
         public string DocFileVariable { get; set; }
+        public string dist_id12 { get; set; }
+        public string Taluk_id12 { get; set; }
+        public string CourtTime2 { get; set; }
+        public string CourtTime3 { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }
