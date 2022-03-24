@@ -77,6 +77,15 @@ namespace KGID_Models.KGIDMotorInsurance
         public string other_state_court_dist { get; set; }
         public string other_state_court_taluk { get; set; }
         public string court_parawise_remarks { get; set; }
+        public DateTime? Ratification_hearingDate { get; set; }
+        public DateTime? Ratification_hearingNextHearingDate { get; set; }
+        public string Ratification_hearingComments { get; set; }
+        
+        public int? opinionStatusLowerCourt { get; set; }
+        
+        public DateTime? lowerCourtJudgementDate { get; set; }
+        
+      public decimal? awardedAmount_lowerCourt { get; set; }
 
     }
 }

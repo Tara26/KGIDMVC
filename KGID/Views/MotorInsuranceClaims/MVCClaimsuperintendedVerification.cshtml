@@ -930,6 +930,173 @@
                             </div>
                         </div>
                     }
+                    @if (@Model.MVCAppDocDetails[0].RatificationToKgid != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Ratification Letter to Law KGID</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Ratification Letter to Law Department : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].RatificationToKgid" id="RatificationToKgid" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Hearing date <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("CourtTime2", Model.CourtDetailsList[0].CourtTime2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Next Hearing date <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("CourtTime3", Model.CourtDetailsList[0].CourtTime3, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Hearing comments : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextArea("HearingComments_details", Model.CourtDetailsList[0].Comments_details, new { @class = "form-control" })                                    <label id="lbl_p_mobile" style="color:red" class="err" hidden>
+                                </div>
+
+                            </div>
+                            <br /><br />
+                        </div>
+
+
+                    }
+                    @if (@Model.MVCAppDocDetails[0].LowerCourtJudgementCopy != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Lower Court Judgement Copy Received at KGID</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Lower Court Judgement Copy Received at KGID <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].LowerCourtJudgementCopy" id="LowerCourtJudgementCopy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewLowerCourtJudgementCopyModal">Work flow</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    } @if (@Model.MVCAppDocDetails[0].opinionLawfromLawDept != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Opinion From Law Department Based On Lower Court Judgement</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Opinion From Law Department Based On Lower Court Judgement <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].opinionLawfromLawDept" id="LowerCourtJudgementCopy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewLoweropinionLawfromLawDeptModal">Work flow</button>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="form-group row">
+                                        <label class="col-sm-7 col-form-label align-center">
+                                            Opinion status : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    @Html.TextBox("opinionDesc", Model.CourtDetailsList[0].opinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Lower Court judgement date : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    @Html.TextBox("LowerCourtJudgementDate", Model.CourtDetailsList[0].LowerCourtJudgementDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    @Html.TextBox("awardedAmntLowCourt", Model.CourtDetailsList[0].awardedAmntLowCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    }
+
                     <div id="ScrutinyRow">
                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
                         <div class="row">
@@ -1091,53 +1258,429 @@
                                         </div>
                                     </div>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-check form-check-inline">
+                                            <label for="login_id"> Forward to Assistant Director  </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2"></div>
                                 </div>
-                                <div class="col-md-4 mt-1">
-                                    <button class="btn-success" id="btnsendParawise">Send</button>
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsendParawise">Send</button>
+                                    </div>
 
                                 </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2" style="width:100%">+ Objection Statement Generation </button>
-                        <div class="container-fluid">
-                            <div id="demo2" class="collapse">
-                                gfhdfjdfjg
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3" style="width:100%">+ Ratification Letter to Law Department </button>
-                        <div class="container-fluid">
-                            <div id="demo3" class="collapse">
-                                gfhdfjdfjg
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo4" style="width:100%">+ Ratification Letter to KGID </button>
-                        <div class="container-fluid">
-                            <div id="demo4" class="collapse">
-                                gfhdfjdfjg
                             </div>
                         </div>
 
 
                     </div>
+                </div>
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo2" style="width:100%">+ Objection Statement Generation </button>
+                
+                    <div id="demo2" class="collapse">
+                        <div class="card-body">
+                            <div class="col-md-3">
+
+                                <label> Objection Statement :</label>
+                            </div>
+                            <div class="col-md-3">
+
+                                <a href="@Model.MVCAppDocDetails[0].Accident_object_statement_details" id="Accident_object_statement_details" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                            </div>
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idObj" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsObj"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <label for="login_id">Forward to Assistant Director  </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnsendObj">Send</button>
+                                </div>
+                                <br /><br />
+                            </div>
+                        </div>
+                    </div>
+
+
+                        
+                        
+                   
+              
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo3" style="width:100%">+ Ratification Letter to Law Department </button>
+                <div class="container-fluid">
+                    <div id="demo3" class="collapse">
+                        <div class="card-body">
+                            <div class="col-md-3">
+
+                                <label> Ratification Letter to Law Department :</label>
+                            </div>
+                            <div class="col-md-3">
+
+                                <a href="@Model.MVCAppDocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                            </div>
+                            <br /><br />
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsRatificationToLawDept"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <label for="login_id"> Forward to Assistant Director  </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnRatificationToLawDept">Send</button>
+                                </div>
+                                <br /><br />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo4" style="width:100%">+ Ratification Letter to KGID </button>
+                <div class="container-fluid">
+                    <div id="demo4" class="collapse">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Hearing Date :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("CourtTime2", Model.CourtDetailsList[0].CourtTime2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                </div>
+                                <div class="col-md-1">
+                                    Next Hearing Date :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("CourtTime3", Model.CourtDetailsList[0].CourtTime3, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                </div>
+                                <div class="col-md-1">
+                                    Hearing Comments :
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.TextArea("HearingComments_details", Model.CourtDetailsList[0].Comments_details, new { @class = "form-control" })                                    <label id="lbl_p_mobile" style="color:red" class="err" hidden>
+                                </div>
+                            </div>
+                           <br /><br />
+                                        <div class="row">
+                                            <div class="col-md-3">
+
+                                                <label> Ratification Letter to KGID :</label>
+                                            </div>
+                                            <div class="col-md-3">
+
+                                                <a href="@Model.MVCAppDocDetails[0].RatificationToKgid" id="RatificationToKgid" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                            </div>
+
+                                        </div>
+
+                            <br /><br />
+
+
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo5" style="width:100%">+ Lower Court Judgement Copy Received at KGID </button>
+                <div class="container-fluid">
+                    <div id="demo5" class="collapse">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                       Lower court judgement copy :
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <a href="@Model.MVCAppDocDetails[0].LowerCourtJudgementCopy" id="LowerCourtJudgementCopy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                    </div>
+
+
+                                </div><br /><br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Remarks:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idLowerCourtJudgementCopy" })
+                                                <span style="color:red" class="err" hidden> please select remarks</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Comments :
+                                            </label>
+                                            <div class="col-sm-6 mr-8">
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsLowerCourtJudgementCopy"></textarea>
+                                                <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-check form-check-inline">
+                                            <label for="login_id"> Forward to Assistant Director  </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsubmit_LowerCourtJudgementCopy">Send</button>
+                                    </div>
+                                    <br /><br />
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo6" style="width:100%">+ Opinion From Law Department Based On Lower Court Judgement</button>
+                <div id="demo6" class="collapse">
+                    <div class="card-body">
+                        <div class="row">
+                            <br /><br />
+                            <div class="col-md-1">
+                                <div class="form-group row">
+                                    <label class="col-sm-7 col-form-label align-center">
+                                        Opinion status : <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                                @Html.TextBox("opinionDesc", Model.CourtDetailsList[0].opinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Lower Court judgement date : <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                                @Html.TextBox("LowerCourtJudgementDate", Model.CourtDetailsList[0].LowerCourtJudgementDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                                @Html.TextBox("awardedAmntLowCourt", Model.CourtDetailsList[0].awardedAmntLowCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group row">
+                                    <label class="col-sm-10 col-form-label align-center">
+                                        Opinion From Law Department Based On Lower Court Judgement <span class="danger-text" style="color:red;"> * </span>:
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="@Model.MVCAppDocDetails[0].opinionLawfromLawDept" id="LowerCourtJudgementCopy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Remarks:
+                                </label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
+                                    <span style="color:red" class="err" hidden> please select remarks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Comments :
+                                </label>
+                                <div class="col-sm-6 mr-8">
+                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept"></textarea>
+                                    <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <label for="login_id"> Forward to Superintendent  </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                        </div>
+                        <div class="col-md-4 mt-1">
+                            <button class="btn-success" id="btnsubmit_OpinionFromLowerDept">Send</button>
+                        </div>
+                        <br /><br />
+                    </div>
+
+
+                </div>
         </div>
 
     </div>
 
+</div>
 </div>
 <script>
     $("#btnsendAd").click(function () {
@@ -1180,6 +1723,15 @@
         $('#Comments_details').removeAttr('readonly');
         $("#Comments_detailsAuth").removeAttr('readonly');
         $("#Comments_detailsPara").removeAttr('readonly');
+        $('#objectionStatementSubmit').removeAttr('readonly');
+        $('#Comments_detailsAuth').removeAttr('readonly');
+        $('#Comments_detailspara').removeAttr('readonly');
+        $('#Comments_detailsObj').removeAttr('readonly');
+        $('#Comments_detailsRatificationToLawDept').removeAttr('readonly');
+        $('#Hearing_comments').removeAttr('readonly');
+        $('#Comments_detailsLowerCourtJudgementCopy').removeAttr('readonly');
+        $('#awarded_amount').removeAttr('readonly');
+        $('#Comments_detailsOpinionFromLowerDept').removeAttr('readonly');
          var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
         var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
@@ -1268,6 +1820,17 @@
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
     });
+    $("#viewLowerCourtJudgementCopyModal").click(function (e) {
+        var GetStatusDataDetails = "LowerCourtJudgementCopy";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewLoweropinionLawfromLawDeptModal").click(function (e) {
+        var GetStatusDataDetails = "opinionFromLawDept";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
     function GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId) {
         debugger;
 
@@ -1300,6 +1863,110 @@
 
 
     }
+     $('#btnsendObj').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var RemarkSelectedAuth = $("#remarks_idObj option:selected").val();
+        var AuthComments = $("#Comments_detailsObj").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "ObjectStatement";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Object Statement sent successfully");
+            }
+        });
+     });
+
+      $('#btnRatificationToLawDept').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        var RemarkSelectedAuth = $("#remarks_idRatificationToLawDept option:selected").val();
+        var AuthComments = $("#Comments_detailsRatificationToLawDept").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "RatificationLawDept";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Ratification letter sent successfully");
+            }
+        });
+      });
+     $('#btnsubmit_LowerCourtJudgementCopy').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        var RemarkSelectedAuth = $("#remarks_idLowerCourtJudgementCopy option:selected").val();
+        var AuthComments = $("#Comments_detailsLowerCourtJudgementCopy").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "LowerCourtJudgementCopy";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Lower CourtJudgement Copy sent successfully");
+            }
+        });
+     });
+    $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        var RemarkSelectedAuth = $("#remarks_idOpinionFromLowerDept option:selected").val();
+        var AuthComments = $("#Comments_detailsOpinionFromLowerDept").val();
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid ;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "OpinionFromLawDepartment";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Parawise remarks sent successfully");
+            }
+        });
+    });
 
     function dateFormat(d) {
         console.log(d);

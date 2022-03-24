@@ -36,5 +36,9 @@ namespace KGID_Models.KGIDMotorInsurance
         public int? mvc_ratificationLawDept { get; set; }
         public bool? mvc_ratificationLawDeptStatus { get; set; }
 
+        public int? mvc_lower_Court_judgementCopy { get; set; }
+        public bool? mvc_lower_Court_judgementCopyStatus { get; set; }
+        public int? mvc_OpinionFromLawDepartment { get; set; }
+        public bool? mvc_OpinionFromLawDepartmentStatus { get; set; }
     }
 }

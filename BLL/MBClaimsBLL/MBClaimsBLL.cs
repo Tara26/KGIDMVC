@@ -214,5 +214,16 @@ namespace BLL.MBClaimsBLL
         {
             return _IMBClaimsDLL.GetDocumentDetailsStatusDLL( GetStatusData, appId);
         }
+        public int saveHearingDatesAndCommentsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.saveHearingDatesAndCommentsDLL(model);
+        }
+        public SelectList GetRemarksUpperCourtBLL() {
+            return _IMBClaimsDLL.GetRemarksUpperCourtDLL();
+        }
+        public int saveLowerCourtOpinionDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.saveLowerCourtOpinionDetailsDLL(model);
+        }
     }
 }

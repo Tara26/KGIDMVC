@@ -182,6 +182,14 @@ namespace KGID_Models.KGIDMotorInsurance
         public string Taluk_id12 { get; set; }
         public string CourtTime2 { get; set; }
         public string CourtTime3 { get; set; }
+        public string LowerCourtJudgementCopy { get; set; }
+        public string opinionLawfromLawDept { get; set; }
+        public SelectList OpinionStatusList { get; set; }
+        public int OpinionId { get; set; }
+        public string opinionDesc { get; set; }
+        public string LowerCourtJudgementDate { get; set; }
+        public string awardedAmntLowCourt { get; set; }
+
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

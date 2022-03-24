@@ -12,5 +12,7 @@ namespace KGID_Models.KGIDMotorInsurance
         [Key]
         public int remark_id { get; set; }
         public string remark_desc { get; set; }
+        public int moduleType { get; set; }
+
     }
 }

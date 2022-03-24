@@ -67,7 +67,10 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetSignedDocBLL(long id);
  int UpdateDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusBLL(string fecthDetails, long appId);
+        int saveHearingDatesAndCommentsBLL(GetVehicleChassisPolicyDetails model);
+        SelectList GetRemarksUpperCourtBLL(); 
 
+       int saveLowerCourtOpinionDetailsBLL(GetVehicleChassisPolicyDetails model);
 
 
     }

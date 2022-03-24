@@ -66,5 +66,9 @@ namespace DLL.MBClaimsDLL
         List<GetVehicleChassisPolicyDetails> GetSignedDocDLL(long id);
 int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
        List<GetVehicleChassisPolicyDetails> GetDocumentDetailsStatusDLL(string GetStatusData, long appId);
+       int saveHearingDatesAndCommentsDLL(GetVehicleChassisPolicyDetails model);
+        SelectList GetRemarksUpperCourtDLL(); 
+        int saveLowerCourtOpinionDetailsDLL(GetVehicleChassisPolicyDetails model);
+
     }
 }

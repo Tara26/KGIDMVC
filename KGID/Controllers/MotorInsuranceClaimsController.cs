@@ -1545,6 +1545,7 @@ namespace KGID.Controllers
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.OpinionStatusList = _IMBClaimsBLL.GetRemarksUpperCourtBLL();
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1596,6 +1597,12 @@ namespace KGID.Controllers
                 }if (path.Contains("/RatificationLetterToKGID/"))
                 {
                     GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/LowerCourtJudgementCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].LowerCourtJudgementCopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/opinionFromLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1673,6 +1680,14 @@ namespace KGID.Controllers
                 if (path.Contains("/RatificationLetterToKGID/"))
                 {
                     GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/LowerCourtJudgementCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].LowerCourtJudgementCopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/opinionFromLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1764,6 +1779,14 @@ namespace KGID.Controllers
                 if (path.Contains("/RatificationLetterToKGID/"))
                 {
                     GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/LowerCourtJudgementCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].LowerCourtJudgementCopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/opinionFromLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
 
             }
@@ -2107,6 +2130,20 @@ namespace KGID.Controllers
             GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
 
             GetDocumentDetails.GetDocumentRemarksList = _IMBClaimsBLL.GetDocumentDetailsStatusBLL(GetStatusData, appId);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult saveHearingDatesAndComments(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+           int result = _IMBClaimsBLL.saveHearingDatesAndCommentsBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult saveLowerCourtOpinionDetails(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+           int result = _IMBClaimsBLL.saveLowerCourtOpinionDetailsBLL(model);
             return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
 
         }
