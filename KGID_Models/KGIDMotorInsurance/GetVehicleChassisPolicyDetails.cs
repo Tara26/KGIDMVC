@@ -190,6 +190,17 @@ namespace KGID_Models.KGIDMotorInsurance
         public string LowerCourtJudgementDate { get; set; }
         public string awardedAmntLowCourt { get; set; }
 
+        public string claim_settle_awardedAmt { get; set; }
+        public string claim_petitionDate { get; set; }
+        public string Claim_settle_awardedInterest { get; set; }
+        public string Claim_settle_courtcost { get; set; }
+        public string Claim_settle_AwardedTotalAmnt { get; set; }
+        public string DelayNoteHighCourt { get; set; }
+        public string CondonationOfDelay { get; set; }
+        public string StayAffidavitHighCourt { get; set; }
+        public string GroundsofAppeal { get; set; }
+        public string AmtDepositHC { get; set; }
+        public string AmtDepositLC { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

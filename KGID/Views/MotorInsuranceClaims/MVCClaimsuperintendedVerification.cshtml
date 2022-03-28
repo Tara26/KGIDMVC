@@ -1096,6 +1096,63 @@
 
 
                     }
+                    @if (@Model.CourtDetailsList[0].claim_settle_awardedAmt != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
+
+                        <div class="card">
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Awarded  Amount :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("claim_settle_awardedAmt", Model.CourtDetailsList[0].claim_settle_awardedAmt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-2">
+                                    Petition Date :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("claim_petitionDate", Model.CourtDetailsList[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Interest :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_awardedInterest", Model.CourtDetailsList[0].Claim_settle_awardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Court cost :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_courtcost", Model.CourtDetailsList[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Total Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.CourtDetailsList[0].Claim_settle_AwardedTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewClaimApprovalSettleLowModal">Work flow</button>
+
+                                </div>
+                            </div>
+
+                            <br /><br />
+                        </div>
+                    }
 
                     <div id="ScrutinyRow">
                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
@@ -1213,7 +1270,7 @@
 
                         </div>
                     </div>
-
+                </div>
 
 
                     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1" style="width:100%">+ Parawise Remarks submission to Lawyer</button>
@@ -1289,8 +1346,8 @@
                         </div>
 
 
-                    </div>
                 </div>
+
                 <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo2" style="width:100%">+ Objection Statement Generation </button>
                 
                     <div id="demo2" class="collapse">
@@ -1676,11 +1733,125 @@
 
 
                 </div>
+
+                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo7" style="width:100%">+ Claim Approval and Settlement On Lower Court Judgement</button>
+                <div id="demo7" class="collapse">
+
+                    <div class="card-body">
+
+                        @if (@Model.CourtDetailsList[0].claim_settle_awardedAmt != null)
+                        {
+
+
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Awarded  Amount :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("claim_settle_awardedAmt", Model.CourtDetailsList[0].claim_settle_awardedAmt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-2">
+                                    Petition Date :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("claim_petitionDate", Model.CourtDetailsList[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Interest :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_awardedInterest", Model.CourtDetailsList[0].Claim_settle_awardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Court cost :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_courtcost", Model.CourtDetailsList[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Total Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.CourtDetailsList[0].Claim_settle_AwardedTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+
+                            </div>
+
+                            <br /><br />
+
+                        }
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label align-center">
+                                        Remarks:
+                                    </label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idClaimApprovalsettleLower" })
+                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label align-center">
+                                        Comments :
+                                    </label>
+                                    <div class="col-sm-6 mr-8">
+                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsClaimApprovalsettleLower"></textarea>
+                                        <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-check form-check-inline">
+                                    <label for="login_id"> Forward to Superintendent  </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-4 mt-1">
+                                <button class="btn-success" id="btnsubmit_ClaimApprovalsettleLower">Send</button>
+                            </div>
+                            <br /><br />
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-
     </div>
-
-</div>
 </div>
 <script>
     $("#btnsendAd").click(function () {
@@ -1732,6 +1903,7 @@
         $('#Comments_detailsLowerCourtJudgementCopy').removeAttr('readonly');
         $('#awarded_amount').removeAttr('readonly');
         $('#Comments_detailsOpinionFromLowerDept').removeAttr('readonly');
+        $('#Comments_detailsClaimApprovalsettleLower').removeAttr('readonly');
          var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
         var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
@@ -1827,6 +1999,12 @@
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
     }); $("#viewLoweropinionLawfromLawDeptModal").click(function (e) {
         var GetStatusDataDetails = "opinionFromLawDept";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    });
+     $("#viewClaimApprovalSettleLowModal").click(function (e) {
+        var GetStatusDataDetails = "ClaimApprovalSettleLowerCourt";
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
@@ -1974,4 +2152,36 @@
             + "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
             + "/" + d.getFullYear();
     }
-</script>
+
+    $('#btnsubmit_ClaimApprovalsettleLower').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
+
+            var RemarkSelectedAuth = $("#remarks_idClaimApprovalsettleLower option:selected").val();
+            var AuthComments = $("#Comments_detailsClaimApprovalsettleLower").val();
+
+
+            var model = {};
+        model.MVC_claim_app_id = Mvc_appid;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "ClaimApprovalSettleLowerCourt";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Claim Approval and Settlement On Lower Court Judgement sent successfully");
+            }
+        });
+    });
+    </script>
+
+  

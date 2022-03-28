@@ -85,7 +85,17 @@ namespace KGID_Models.KGIDMotorInsurance
         
         public DateTime? lowerCourtJudgementDate { get; set; }
         
-      public decimal? awardedAmount_lowerCourt { get; set; }
+        public decimal? awardedAmount_lowerCourt { get; set; }
+        public decimal? mvc_claimSettleAwardedAmount { get; set; }
+        public DateTime? mvc_claimSettlePetitionDate { get; set; }
+        public decimal? mvc_claimSettleAwardedInterest { get; set; }
+        public decimal? mvc_claimSettlecourtCost { get; set; }
+        public decimal? mvc_claimSettleAwardedTotalAmount { get; set; }
+        public string mvc_InputForDelayNoteHighCourt { get; set; }
+        public decimal?  mvc_amntDepoHighCourt { get; set; }
+        public bool? mvc_amntDepoHighCourtStatus { get; set; }
+        public decimal? mvc_amntDepoLowCourt { get; set; }
+        public bool? mvc_amntDepoLowCourtStatus { get; set; }
 
     }
 }

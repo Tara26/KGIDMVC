@@ -224,6 +224,51 @@ namespace BLL.MBClaimsBLL
         public int saveLowerCourtOpinionDetailsBLL(GetVehicleChassisPolicyDetails model)
         {
             return _IMBClaimsDLL.saveLowerCourtOpinionDetailsDLL(model);
+        } public int saveClaimApprovalSettleLowerCourtJudgementBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            
+            result = _IMBClaimsDLL.saveClaimApprovalSettleLowerCourtJudgementDLL(model);
+            if (result==1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        } public int SaveDelayNoteToAdvocateHighCourtBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            
+            result = _IMBClaimsDLL.SaveDelayNoteToAdvocateHighCourtDLL(model);
+            if (result==1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        } public int saveAmountToDeposittedToHighCourtBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            
+            result = _IMBClaimsDLL.saveAmountToDeposittedToHighCourtDLL(model);
+            if (result==1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }
+        public int UploadofAmountDepositionLetterLCBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            
+            result = _IMBClaimsDLL.UploadofAmountDepositionLetterLCDLL(model);
+            if (result==1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
         }
     }
 }

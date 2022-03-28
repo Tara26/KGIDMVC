@@ -1603,6 +1603,24 @@ namespace KGID.Controllers
                 }if (path.Contains("/opinionFromLawDept/"))
                 {
                     GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/DelayNotetoGovtAdvocateHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DelayNoteHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelay/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelay = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppeal/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/AmountDepostionLetterToLowerCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmtDepositLC = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1688,6 +1706,22 @@ namespace KGID.Controllers
                 if (path.Contains("/opinionFromLawDept/"))
                 {
                     GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DelayNotetoGovtAdvocateHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DelayNoteHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelay/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelay = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppeal/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1788,7 +1822,22 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
-
+                if (path.Contains("/DelayNotetoGovtAdvocateHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DelayNoteHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelay/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelay = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppeal/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
             }
             return View(GetDetails);
         }
@@ -1883,6 +1932,34 @@ namespace KGID.Controllers
                 }if (path.Contains("/RatificationLetterLawDept/"))
                 {
                     GetDetails.MVCAppDocDetails[0].RatificationToLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/RatificationLetterToKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].RatificationToKgid = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/LowerCourtJudgementCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].LowerCourtJudgementCopy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/opinionFromLawDept/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].opinionLawfromLawDept = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DelayNotetoGovtAdvocateHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DelayNoteHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelay/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelay = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitHighCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitHighCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppeal/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -2147,6 +2224,86 @@ namespace KGID.Controllers
             return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
 
         }
-       
+        public JsonResult saveClaimApprovalSettleLowerCourtJudgement(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.saveClaimApprovalSettleLowerCourtJudgementBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        } public JsonResult saveDelayNoteToGovtHighCourt(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.SaveDelayNoteToAdvocateHighCourtBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult saveAmountToDeposittedToHighCourt(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.saveAmountToDeposittedToHighCourtBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult UploadofAmountDepositionLetterLC(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.UploadofAmountDepositionLetterLCBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

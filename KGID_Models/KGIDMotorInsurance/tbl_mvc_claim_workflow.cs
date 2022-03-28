@@ -40,5 +40,15 @@ namespace KGID_Models.KGIDMotorInsurance
         public bool? mvc_lower_Court_judgementCopyStatus { get; set; }
         public int? mvc_OpinionFromLawDepartment { get; set; }
         public bool? mvc_OpinionFromLawDepartmentStatus { get; set; }
+        public int? mvc_ClaimApprovalSettleLowerCourt { get; set; }
+        public bool? mvc_ClaimApprovalSettleLowerCourtStatus { get; set; }
+        public int? mvc_DraftForDelayNoteHighCourt { get; set; }
+        public bool? mvc_DraftForDelayNoteHighCourtStatus { get; set; }
+        public int? mvc_amntDepositToHighCourt { get; set; }
+        public bool? mvc_amntDepositToHighCourtStatus { get; set; }
+        public int? mvc_amntDepositToLowCourt { get; set; }
+        public bool? mvc_amntDepositToLowCourtStatus { get; set; }
+
+
     }
 }

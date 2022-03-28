@@ -823,7 +823,7 @@
                             @foreach (var item in Model.otherDetailsData)
                             {
                                 <div>
-                                    <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                    <a href="@item.OtherDocument" target="_blank">View Document</a>viewamountDepositToHighCourtModal
                                 </div>
                             }
                         </div>
@@ -1179,12 +1179,242 @@
                         </div>
 
 
-                       }
-                            <div id="ScrutinyRow">
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
-                                <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-2 mt-3">
+                    }
+
+                    @if (@Model.CourtDetailsList[0].claim_settle_awardedAmt != "")
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
+
+                        <div class="card">
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Awarded  Amount :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("claim_settle_awardedAmt", Model.CourtDetailsList[0].claim_settle_awardedAmt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-2">
+                                    Petition Date :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("claim_petitionDate", Model.CourtDetailsList[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Interest :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_awardedInterest", Model.CourtDetailsList[0].Claim_settle_awardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Court cost :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_courtcost", Model.CourtDetailsList[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Total Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.CourtDetailsList[0].Claim_settle_AwardedTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewClaimApprovalSettleLowModal">Work flow</button>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Payment link will Appear if approved :
+                                </div>
+                                <div class="col-md-2">
+
+
+                                </div>
+
+                            </div>
+                            <br /><br />
+                        </div>
+                    }
+
+                    @if (@Model.MVCAppDocDetails[0].DelayNoteHighCourt != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Delay Note to Govt. Advocate</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Input For Delay Note <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@Model.MVCAppDocDetails[0].DelayNoteHighCourt" id="DelayNoteHighCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewDelayNoteHighCourtModal">Work flow</button>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="form-group row">
+                                        <label class="col-sm-7 col-form-label align-center">
+                                            Delay note : <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    @Html.TextArea("DelayNoteHighCourt", Model.CourtDetailsList[0].DelayNoteHighCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    }
+                    @if (@Model.MVCAppDocDetails[0].CondonationOfDelay != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Condonation of Delay <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="@Model.MVCAppDocDetails[0].CondonationOfDelay" id="CondonationOfDelay" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Stay Affidavit <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="@Model.MVCAppDocDetails[0].StayAffidavitHighCourt" id="StayAffidavitHighCourt" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Grounds for Appeal <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="@Model.MVCAppDocDetails[0].GroundsofAppeal" id="GroundsofAppeal" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (@Model.CourtDetailsList[0].AmtDepositHC != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to High Court</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Amount Deposition to High Court <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("AmtDepositHC", Model.CourtDetailsList[0].AmtDepositHC, new { @class = "form-control" })
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewamountDepositToHighCourtModal">Work flow</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    } @if (@Model.CourtDetailsList[0].AmtDepositLC != null)
+                    {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to High Court</b></h6>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Amount Deposition to Lower Court <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("AmtDepositLC", Model.CourtDetailsList[0].AmtDepositLC, new { @class = "form-control" })
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewamountDepositToLowerCourtModal">Work flow</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div id="ScrutinyRow">
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 mt-3">
 
                             </div>
 
@@ -1739,11 +1969,407 @@
                     </div>
                 </div>
 
-          
-            </div>
+                                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo7" style="width:100%">+ Claim Approval and Settlement On Lower Court Judgement</button>
+                                <div id="demo7" class="collapse">
+                                    <div class="row">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    Awarded  Amount :
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="number" class="form-control d_d_req" id="AwardedAmountLowCourt" placeholder="Awarded Amount">
 
-        </div>
-    </div>
+
+                                                </div>
+                                                <div class="col-md-2">
+                                                    Petition Date :
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="date" class="form-control alphaOnly d_C_req" id="Petition_date" required>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    Awarded Interest :
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="number" class="form-control d_d_req" id="AwardedInterestLowCourt" placeholder="Awarded Interest">
+
+
+                                                </div>
+                                            </div><br /><br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    Court cost :
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="number" class="form-control d_d_req" id="lower_Court_cost" placeholder="Court cost">
+
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label align-center">
+                                                            With / without Formula :
+                                                        </label>
+                                                        <div class="col-sm-6">
+                                                            <select name="selectFormula" id="lowerSelectionformula" style="width: 100%; height: 33px;font-weight:normal;">
+                                                                <option value="0">--Select--</option>
+                                                                <option value="1">With Formula</option>
+                                                                <option value="2">Without Formula </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><br /><br />
+                                            <div class="row">
+                                                <div id="with_formula" style="display:none">
+                                                    <div class="col-md-10">
+                                                        Formula   :
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input type="number" class="form-control d_d_req claculatedLowerAmnt" id="totalLowerAmount" placeholder="Total Amount">
+
+
+                                                    </div>
+                                                </div>
+                                                <div id="without_formula" style="display:none">
+                                                    <div class="col-md-9">
+                                                        without  formula :
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="number" class="form-control d_d_req claculatedLowerAmnt" id="totalLowerAmount" placeholder="Total Amount">
+
+
+                                                    </div>
+                                                </div>
+                                            </div><br /><br />
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label align-center">
+                                                            Remarks:
+                                                        </label>
+                                                        <div class="col-sm-6">
+                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idClaimApprovalsettleLower" })
+                                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label align-center">
+                                                            Comments :
+                                                        </label>
+                                                        <div class="col-sm-6 mr-8">
+                                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsClaimApprovalsettleLower"></textarea>
+                                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <label for="login_id"> Forward to Superintendent  </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <button class="btn-success" id="btnsubmit_ClaimApprovalsettleLower">Send</button>
+                                                </div>
+                                                <br /><br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo8" style="width:100%">+ Delay Note to Govt. Advocate</button>
+                                <div id="demo8" class="collapse">
+                                    <div class="row">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    Input For Delay Note :
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <textarea maxlength="100" rows="5" cols="100" style="width: 245px;  font-size: 17px;" id="DelayNotetoGovt_HighCourt" class="Scrutiny_details"></textarea>
+
+
+                                                </div>
+                                                <div class="col-md-2">
+                                                    Draft to be generated :
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="file" class="form-control" id="DelayNotetoGovt_HighCourt_form" accept="image/png, image/jpeg">
+                                                </div>
+
+                                            </div><br /><br />
+
+                                            <br /><br />
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label align-center">
+                                                            Remarks:
+                                                        </label>
+                                                        <div class="col-sm-6">
+                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_HighCourt" })
+                                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label align-center">
+                                                            Comments :
+                                                        </label>
+                                                        <div class="col-sm-6 mr-8">
+                                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsDelayNotetoGovt_HighCourt"></textarea>
+                                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <label for="login_id"> Forward to Superintendent  </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <button class="btn-success" id="btnsubmit_DelayNotetoGovt_HighCourt">Send</button>
+                                                </div>
+                                                <br /><br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo9" style="width:100%">+ Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</button>
+                                <div id="demo9" class="collapse">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Condolation of Delay :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="file" class="form-control" id="Condolation_HighCourt_form" accept="image/png, image/jpeg">
+
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            Stay Affidavit :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="file" class="form-control" id="StayAffidavit_HighCourt_form" accept="image/png, image/jpeg">
+                                        </div>
+                                    </div><br /><br />
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Grounds for Appeal :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="file" class="form-control" id="Grounds_for_Appeal_HighCourt_form" accept="image/png, image/jpeg">
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn-success" id="btnsubmit_CondolationstayGrounds">Submit</button>
+                                        </div>
+
+                                    </div><br /><br />
+                                </div>
+                                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo10" style="width:100%">+ Amount Deposition to High Court</button>
+                                <div id="demo10" class="collapse">
+
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <br /><br />  <br />
+                                            <div class="col-md-2">
+                                                Amount to be depositted to Court :
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="number" class="form-control" id="amnt_Depo_highCourt">
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Remarks:
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourt" })
+                                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Comments :
+                                                    </label>
+                                                    <div class="col-sm-6 mr-8">
+                                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsamntDepoHighCourt"></textarea>
+                                                        <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="login_id"> Forward to Superintendent  </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                            </div>
+                                            <div class="col-md-4 mt-1">
+                                                <button class="btn-success" id="btnsubmit_amntDepoHighCourt">Send</button>
+                                            </div>
+                                            <br /><br />
+                                        </div>
+                                        <br /><br /><br />
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-info disableOnscrutiny" data-toggle="collapse" data-target="#demo11" style="width:100%">+ Amount Deposition to Lower Court</button>
+                                <div id="demo11" class="collapse">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Upload of Amount Deposition Letter :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="file" class="form-control" id="Upload_of_Amount_Deposition_LetterLC_form" accept="image/png, image/jpeg">
+
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            Amount to be depositted :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" id="Amount_to_be_deposittedLowerCourt" accept="image/png, image/jpeg">
+                                        </div>
+                                    </div><br /><br />
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Upload of Stay Order and Intimation to District KGID Office :
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="file" class="form-control" id="Upload_of_Stay_IntimationDistrict_form" accept="image/png, image/jpeg">
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn-success" id="btnsubmit__Amount_Deposition_LetterLC">Submit</button>
+                                        </div>
+
+                                    </div><br /><br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Remarks:
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourtLowerC" })
+                                                    <span style="color:red" class="err" hidden> please select remarks</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Comments :
+                                                </label>
+                                                <div class="col-sm-6 mr-8">
+                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsamntDepoCourtLowerC"></textarea>
+                                                    <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-check form-check-inline">
+                                                <label for="login_id"> Forward to Superintendent  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                        </div>
+                                        <div class="col-md-4 mt-1">
+                                            <button class="btn-success" id="btnsubmit_amntDepoLowerC">Send</button>
+                                        </div>
+                                        <br /><br />
+                                    </div>
+                                    <br /><br /><br />
+                                </div>
+                                </div>
+                                </div>
+                            </div>
 
     </div>
 
@@ -1771,6 +2397,12 @@
         $('#Comments_detailsLowerCourtJudgementCopy').removeAttr('readonly');
         $('#awarded_amount').removeAttr('readonly');
         $('#Comments_detailsOpinionFromLowerDept').removeAttr('readonly');
+        $('#AwardedAmountLowCourt').removeAttr('readonly');
+        $('#Comments_detailsClaimApprovalsettleLower').removeAttr('readonly');
+        $('#DelayNotetoGovt_HighCourt').removeAttr('readonly');
+        $('#Comments_detailsDelayNotetoGovt_HighCourt').removeAttr('readonly');
+        $('#Comments_detailsamntDepoHighCourt').removeAttr('readonly');
+        $('#Comments_detailsamntDepoCourtLowerC').removeAttr('readonly');
 
         var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
@@ -1780,10 +2412,23 @@
 
              $("#ScrutinyRow").hide();
         }
-        //if (scruStat != loginCategory) {
-        //    $(".disableOnscrutiny").attr('disabled',true);
-        //}
 
+        $('#lowerSelectionformula').on('change', function () {
+            if (this.value == '1')
+            //.....................^.......
+            {
+                $("#with_formula").show();
+                $("#without_formula").hide();
+
+            }
+            else if (this.value == '2') {
+                $("#with_formula").hide();
+                $("#without_formula").show();
+            } else {
+                $("#with_formula").hide();
+                $("#without_formula").hide();
+            }
+        });
 
 
 
@@ -2065,6 +2710,26 @@
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewClaimApprovalSettleLowModal").click(function (e) {
+        var GetStatusDataDetails = "ClaimApprovalSettleLowerCourt";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewDelayNoteHighCourtModal").click(function (e) {
+        var GetStatusDataDetails = "DelayNotetoGovtAdvocateHighCourt";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewamountDepositToHighCourtModal").click(function (e) {
+        var GetStatusDataDetails = "amountDepositToHighCourt";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+    }); $("#viewamountDepositToLowerCourtModal").click(function (e) {
+        var GetStatusDataDetails = "AmountDepostionLetterToLowerCourt";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
     });
 
 
@@ -2307,8 +2972,284 @@
             contentType: 'application/json; charset=utf-8',
 
             success: function (response) {
-                alertify.alert("Parawise remarks sent successfully");
+                alertify.alert(" Opinion From Law Department Based On Lower Court Judgement sent successfully");
             }
+        });
+    });
+
+        $('#btnsubmit_ClaimApprovalsettleLower').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        @*var chasisn = JSON.stringify(@Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);*@
+
+            var RemarkSelectedAuth = $("#remarks_idClaimApprovalsettleLower option:selected").val();
+            var AuthComments = $("#Comments_detailsClaimApprovalsettleLower").val();
+            var PetitionDateLow = $("#Petition_date").val();
+            var AwardedAmntlowerCourt = $("#AwardedAmountLowCourt").val();
+            var AwardedInterestlowerCourt = $("#AwardedInterestLowCourt").val();
+            var lower_Court_cost = $("#lower_Court_cost").val();
+            var calculatedLowerAmnt = $(".claculatedLowerAmnt").val();
+
+            var model = {};
+            model.MVC_claim_app_id = Mvc_appid ;
+            model.Comments_details = AuthComments;
+            model.Remarks_id = RemarkSelectedAuth;
+            model.CourtTime2 = PetitionDateLow;
+            model.claim_Amount = AwardedAmntlowerCourt;
+            model.opinionDesc = AwardedInterestlowerCourt;
+            model.injury_desc = lower_Court_cost;
+            model.awardedAmntLowCourt = calculatedLowerAmnt;
+            model.DocFileVariable = "ClaimApprovalSettleLowerCourt";
+        $.ajax({
+            url: '/MotorInsuranceClaims/saveClaimApprovalSettleLowerCourtJudgement',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                alertify.alert("Claim Approval and Settlement On Lower Court Judgement sent successfully");
+            }
+        });
+    });
+
+        //Delay Note to Govt. Advocate high court
+        $('#btnsubmit_DelayNotetoGovt_HighCourt').click(function (e) {
+            debugger;
+            if ($("#DelayNotetoGovt_HighCourt").val() != "") {
+                  var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+            var InputForDelayNote = $("#DelayNotetoGovt_HighCourt").val();
+            var AuthComments = $("#Comments_detailsDelayNotetoGovt_HighCourt").val();
+            var RemarkSelectedAuth = $("#remarks_idDelayNotetoGovt_HighCourt option:selected").val();
+
+            var model = {};
+
+            model.MVC_claim_app_id = responsMainID;
+            model.Comments_details = AuthComments;
+            model.Remarks_id = RemarkSelectedAuth;
+            model.opinionDesc = InputForDelayNote;
+            model.DocFileVariable = "DelayNotetoGovtAdvocateHighCourt";
+
+                    $.ajax({
+                        url: '/MotorInsuranceClaims/saveDelayNoteToGovtHighCourt',
+                        async: false,
+                        type: 'POST',
+                        cache: false,
+                        data: JSON.stringify({ model: model }),
+                        processData: false,
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+                            var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+                            var pathSave = "DelayNotetoGovtAdvocateHighCourt";
+                            var fileUpload = $("#DelayNotetoGovt_HighCourt_form").get(0);
+                            var files = fileUpload.files;
+                            var fileData = new FormData();
+                            var fileslength = fileUpload.files.length;
+                            if (fileslength > 0) {
+                                fileData.append(files[0].name, files[0]);
+                                $.ajax({
+                                    url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                                    type: 'post',
+                                    datatype: 'json',
+                                    contentType: false,
+                                    processData: false,
+                                    async: false,
+                                    data: fileData,
+                                    success: function (response) {
+                                        alertify.alert("Delay note uploaded successfully.");
+                                    }
+                                });
+                            }
+                            else {
+                                alertify.alert("Please select the Draft note").setHeader("Alert");
+                            }
+                        }
+
+
+                    });
+
+
+
+            } else {
+                alertify.alert("Please enter input for delay note").setHeader("Alert");
+
+            }
+        });
+
+
+
+
+
+
+        $("#btnsubmit_CondolationstayGrounds").click(function (e) {
+             debugger;
+            var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+            var fileUpload = $("#Condolation_HighCourt_form").get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();
+            var fileslength = fileUpload.files.length;
+            if (fileslength > 0) {
+                fileData.append(files[0].name, files[0]);
+                var pathSave = "CondonationOfDelay";
+                $.ajax({
+                    url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        var fileUpload = $("#StayAffidavit_HighCourt_form").get(0);
+                        var files = fileUpload.files;
+                        var fileData = new FormData();
+                        var fileslength = fileUpload.files.length;
+                        if (fileslength > 0) {
+                            fileData.append(files[0].name, files[0]);
+                            var pathSave = "StayAffidavitHighCourt";
+                            $.ajax({
+                                url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                                type: 'post',
+                                datatype: 'json',
+                                contentType: false,
+                                processData: false,
+                                async: false,
+                                data: fileData,
+                                success: function (response) {
+                                    var fileUpload = $("#StayAffidavit_HighCourt_form").get(0);
+                                    var files = fileUpload.files;
+                                    var fileData = new FormData();
+                                    var fileslength = fileUpload.files.length;
+                                    if (fileslength > 0) {
+                                        fileData.append(files[0].name, files[0]);
+                                        var pathSave = "GroundsofAppeal";
+                                        $.ajax({
+                                            url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                                            type: 'post',
+                                            datatype: 'json',
+                                            contentType: false,
+                                            processData: false,
+                                            async: false,
+                                            data: fileData,
+                                            success: function (response) {
+
+
+                                                alertify.alert("Files Uploaded Successfully");
+
+
+
+
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        alertify.alert("Please select the Grounds of Appeal file");
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            alertify.alert("Please select the Stay Affidavit file");
+                        }
+                    }
+                });
+            }
+            else {
+                alertify.alert("Please select the Condonation Of Delay file");
+            }
+
+        });
+    $("#btnsubmit_amntDepoHighCourt").click(function (e) {
+        debugger;
+        var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var  AmntDepoHighCourt = $("#amnt_Depo_highCourt").val();
+        var RemarkSelectedAuth = $("#remarks_idamntDepoHighCourt option:selected").val();
+        var AuthComments = $("#Comments_detailsamntDepoHighCourt").val();
+
+        var model = {};
+        model.awardedAmntLowCourt = AmntDepoHighCourt;
+        model.MVC_claim_app_id = responsMainID;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.DocFileVariable = "amountDepositToHighCourt";
+        if (AmntDepoHighCourt != null) {
+            $.ajax({
+                url: '/MotorInsuranceClaims/saveAmountToDeposittedToHighCourt',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ model: model }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Amount Deposition to High Court sent successfully");
+                }
+            });
+        } else {
+
+            alertify.alert("Please enter the Amount Deposition to high court");
+
+        }
+
+    });
+
+    $("#btnsubmit_amntDepoLowerC").click(function (e) {
+        debugger;
+         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var AwardedAmount = $("#Amount_to_be_deposittedLowerCourt").val();
+        var RemarkSelectedAuth = $("#remarks_idamntDepoHighCourtLowerC option:selected").val();
+        var comments = $("#Comments_detailsamntDepoCourtLowerC").val();
+        var model = {};
+        model.MVC_claim_app_id = responsMainID;
+        model.Remarks_id = RemarkSelectedAuth;
+        model.Comments_details = comments;
+        model.awardedAmntLowCourt = AwardedAmount;
+        model.DocFileVariable = "AmountDepostionLetterToLowerCourt"
+        $.ajax({
+            url: '/MotorInsuranceClaims/UploadofAmountDepositionLetterLC',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+
+                var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
+                var pathSave = "AmountDepostionLetterToLowerCourt";
+                var fileUpload = $("#Upload_of_Amount_Deposition_LetterLC_form").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                var fileslength = fileUpload.files.length;
+                if (fileslength > 0) {
+                    fileData.append(files[0].name, files[0]);
+                    $.ajax({
+                        url: '/MotorInsuranceClaims/uploadFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
+                        type: 'post',
+                        datatype: 'json',
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        data: fileData,
+                        success: function (response) {
+                            alertify.alert("Amount Deposition Letter uploaded successfully.");
+                        }
+                    });
+                }
+                else {
+                    alertify.alert("Please select the Amount Deposition Letter");
+                }
+            }
+
+
         });
     });
 </script>

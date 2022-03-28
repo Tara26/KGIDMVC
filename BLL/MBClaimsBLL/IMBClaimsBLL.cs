@@ -71,6 +71,10 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         SelectList GetRemarksUpperCourtBLL(); 
 
        int saveLowerCourtOpinionDetailsBLL(GetVehicleChassisPolicyDetails model);
+       int saveClaimApprovalSettleLowerCourtJudgementBLL(GetVehicleChassisPolicyDetails model);
+       int SaveDelayNoteToAdvocateHighCourtBLL(GetVehicleChassisPolicyDetails model);
+       int saveAmountToDeposittedToHighCourtBLL(GetVehicleChassisPolicyDetails model);
+       int UploadofAmountDepositionLetterLCBLL(GetVehicleChassisPolicyDetails model);
 
 
     }

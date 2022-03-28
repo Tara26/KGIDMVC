@@ -69,6 +69,9 @@ int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
        int saveHearingDatesAndCommentsDLL(GetVehicleChassisPolicyDetails model);
         SelectList GetRemarksUpperCourtDLL(); 
         int saveLowerCourtOpinionDetailsDLL(GetVehicleChassisPolicyDetails model);
-
+        int saveClaimApprovalSettleLowerCourtJudgementDLL(GetVehicleChassisPolicyDetails model);
+        int SaveDelayNoteToAdvocateHighCourtDLL(GetVehicleChassisPolicyDetails model);
+        int saveAmountToDeposittedToHighCourtDLL(GetVehicleChassisPolicyDetails model);
+        int UploadofAmountDepositionLetterLCDLL(GetVehicleChassisPolicyDetails model);
     }
 }
