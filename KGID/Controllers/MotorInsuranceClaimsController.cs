@@ -950,7 +950,7 @@ namespace KGID.Controllers
                 MVCClaimDetails.StateList = _IMBClaimsBLL.GetstateListBLL();
                 MVCClaimDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCApplicationFormDataBLL();
                 MVCClaimDetails.otherDetailsData = _IMBClaimsBLL.GetDraftDetailsBLL();
-
+                MVCClaimDetails.CourtExecutionMasterDetails = _IMBClaimsBLL.GetSentBackMVCDetailsBLL();
 
             }
             //ViewBag.Departments = new SelectList(MIODclaimDetails.MIOwnDamageClaimDetails(), "id", "name");
@@ -1546,6 +1546,7 @@ namespace KGID.Controllers
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
             GetDetails.OpinionStatusList = _IMBClaimsBLL.GetRemarksUpperCourtBLL();
+            GetDetails.JudgementRemarksList = _IMBClaimsBLL.RemarksJudgementBLL();
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1621,6 +1622,69 @@ namespace KGID.Controllers
                 }if (path.Contains("/AmountDepostionLetterToLowerCourt/"))
                 {
                     GetDetails.MVCAppDocDetails[0].AmtDepositLC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/AmountDepostionLetterToLowerCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtJudgementOpinion = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/High_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtDepositAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/High_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/HighCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleCost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/HighCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails2/")) 
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionJudgement2 = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/DelayNotetoGovtAdvocateSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].InputDelaySupremeCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/CondonationOfDelaySupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelaySupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/StayAffidavitSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/GroundsofAppealSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppealSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/AmountDepositiontoSupreme_Court/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/Amount_Deposition_supremeCourtTOLowercourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/Intimation_DistrictKGID_from_supremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].IntimationToDistrictCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/StayOrderfromSupremeCourtToDistrictKGIDOffice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].SupremeOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/Supreme_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Statuatory_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/Supreme_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Deposit_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/SupremeCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Total_Amount = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/SupremeCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Court_Cost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }if (path.Contains("/SupremeOpinionNoticeFromLawDept2/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].awardedAmount_highCourtClaimSttleKGID = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -1645,6 +1709,8 @@ namespace KGID.Controllers
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
             GetDetails.MvcClaimWorkFlowDetails = _IMBClaimsBLL.MvcClaimWorkFlowDetailsBLL(appid, chassis);
+            GetDetails.JudgementRemarksList = _IMBClaimsBLL.RemarksJudgementBLL();
+
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1680,6 +1746,7 @@ namespace KGID.Controllers
                 if (path.Contains("/Authorization_letter/"))
                 {
                     GetDetails.MVCAppDocDetails[0].authorization_letter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                    GetDetails.authorization_check = 1;
                 }
                 if (path.Contains("/ParawiseRemarksSubmissionToLawyer/"))
                 {
@@ -1723,6 +1790,94 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
+                if (path.Contains("/AmountDepostionLetterToLowerCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmtDepositLC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/AmountDepostionLetterToLowerCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtJudgementOpinion = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/High_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtDepositAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/High_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleCost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails2/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionJudgement2 = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DelayNotetoGovtAdvocateSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].InputDelaySupremeCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelaySupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelaySupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppealSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppealSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/AmountDepositiontoSupreme_Court/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Amount_Deposition_supremeCourtTOLowercourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Intimation_DistrictKGID_from_supremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].IntimationToDistrictCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayOrderfromSupremeCourtToDistrictKGIDOffice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].SupremeOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Supreme_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Statuatory_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Supreme_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Deposit_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Total_Amount = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Court_Cost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeOpinionNoticeFromLawDept2/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].awardedAmount_highCourtClaimSttleKGID = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
             }
             return View(GetDetails);
         }
@@ -1731,6 +1886,12 @@ namespace KGID.Controllers
             model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
             model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
             model.roleID =15;
+            var sendBack = 0;
+            if(model.Remarks_id == 20)
+            {
+                model.roleID = 3;
+                sendBack = _IMBClaimsBLL.SendBackMvcToCWBLL(model);
+            }
               var result = _IMBClaimsBLL.UpdateWork_flow_DetailsBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1756,6 +1917,8 @@ namespace KGID.Controllers
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.JudgementRemarksList = _IMBClaimsBLL.RemarksJudgementBLL();
+
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1838,10 +2001,92 @@ namespace KGID.Controllers
                 {
                     GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
+                if (path.Contains("/High_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtDepositAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/High_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleCost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails2/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionJudgement2 = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DelayNotetoGovtAdvocateSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].InputDelaySupremeCourt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/CondonationOfDelaySupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CondonationOfDelaySupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayAffidavitSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayAffidavitSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/GroundsofAppealSupremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].GroundsofAppealSupremeC = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/AmountDepositiontoSupreme_Court/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Amount_Deposition_supremeCourtTOLowercourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Intimation_DistrictKGID_from_supremeCourt/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].IntimationToDistrictCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/StayOrderfromSupremeCourtToDistrictKGIDOffice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].SupremeOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Supreme_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Statuatory_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Supreme_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Deposit_Amount_Remitted = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Total_Amount = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Supreme_Court_Cost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/SupremeOpinionNoticeFromLawDept2/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].awardedAmount_highCourtClaimSttleKGID = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtJudgementOpinionFormLawDeptDetails/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtOpinionDesc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
             }
             return View(GetDetails);
         }
         [Route("mvc_ad_ver")]
+        [Route("mvc_dd_ver")]
+
         public ActionResult MVCClaimADApprovalProcess()
         {
             ViewBag.Verifier = Verifiers.ASSITANTDIRECTOR;
@@ -1857,6 +2102,12 @@ namespace KGID.Controllers
             model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
             model.claim_Amount = "0";
             model.roleID = 3;
+            var sendBack = 0;
+            if (model.Remarks_id == 20)
+            {
+                model.roleID = 3;
+                sendBack = _IMBClaimsBLL.SendBackMvcToCWBLL(model);
+            }
             var result = _IMBClaimsBLL.UpdateWork_flow_DetailsBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1891,6 +2142,8 @@ namespace KGID.Controllers
             GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
             GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
             GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.JudgementRemarksList = _IMBClaimsBLL.RemarksJudgementBLL();
+
             for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
             {
                 string path = GetDetails.MVCAppDocDetails[i].Accident_details;
@@ -1960,6 +2213,22 @@ namespace KGID.Controllers
                 if (path.Contains("/GroundsofAppeal/"))
                 {
                     GetDetails.MVCAppDocDetails[0].GroundsofAppeal = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/High_Court_Notice/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtDepositAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/High_Court_PetitionCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtCoveringLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleCost = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/HighCourtAuthorizationLetter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt = GetDetails.MVCAppDocDetails[i].Accident_details;
                 }
             }
             return View(GetDetails);
@@ -2304,6 +2573,579 @@ namespace KGID.Controllers
             int result = _IMBClaimsBLL.UploadofAmountDepositionLetterLCBLL(model);
             return Json(result, JsonRequestBehavior.AllowGet);
 
+        }
+        public JsonResult HighCourtJudgementOpinionDetails(GetVehicleChassisPolicyDetails model)
+        {
+
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+            int result = _IMBClaimsBLL.HighCourtJudgementOpinionDetailsBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        } 
+        public JsonResult HighCourtClaimSettlementDetails(GetVehicleChassisPolicyDetails model)
+        {
+
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.HighCourtClaimSettlementDetailsBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult HighCourtJudgementOpinionDetails2(GetVehicleChassisPolicyDetails model)
+        {
+
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+            int result = _IMBClaimsBLL.HighCourtJudgementOpinionDetailsKGIDBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult HighCourtClaimSettlementDetails2(GetVehicleChassisPolicyDetails model)
+        {
+
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.HighCourtClaimSettlementDetailsKGIDBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+		//Chethan
+		  public JsonResult MvcCourtExecution(string chassis, long Appno)
+        {
+
+            var result = _IMBClaimsBLL.stopMVCandlokadhalathOnCourtExecutionSelectBLL(Appno);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("mvc_cou_exe_cw/{chassis}/{appid}")]
+        public ActionResult CourtExecutionProcessView(string chassis, long appid)
+        {
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            GetDetails.DistrictList = _IMBClaimsBLL.GetDistrictListBLL();
+            GetDetails.TalukaList = _IMBClaimsBLL.GetTalukListBLL(0);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
+            GetDetails.InjuryList = _IMBClaimsBLL.GetInjuryListBLL();
+            GetDetails.StateList = _IMBClaimsBLL.GetstateListBLL();
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCCourtExecutionBLL(appid, category);
+            GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
+            GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
+            GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
+            GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
+            GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+            GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.CE_DocDetails = _IMBClaimsBLL.GetCourtExecutionDocDetailsBLL(appid);
+            GetDetails.OpinionStatusList = _IMBClaimsBLL.GetRemarksUpperCourtBLL();
+            GetDetails.CourtExecutionMasterDetails = _IMBClaimsBLL.CourtExecutionMasterDetailsBLL(appid);
+
+            for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
+            {
+                string path = GetDetails.MVCAppDocDetails[i].Accident_details;
+
+                if (path.Contains("/Covering_Letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DL/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DL = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/InsuranceCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Insurance_Copy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DsRc/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DriverstatementandRc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/PrefilledClaimForm/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Prefilled_Claim_Form = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Court_Notice_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Petitioner_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
+            }
+            if (GetDetails.CE_DocDetails.Count > 0)
+            {
+                GetDetails.doc_len = GetDetails.CE_DocDetails.Count;
+                for (int i = 0; i < GetDetails.CE_DocDetails.Count; i++)
+                {
+                    string path = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                    if (path.Contains("/Execution_notice/"))
+                    {
+                        GetDetails.CE_DocDetails[0].Execution_notice = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                    }
+                    if (path.Contains("/judgement_copy/"))
+                    {
+                        GetDetails.CE_DocDetails[0].judgement_Copy = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                    } if (path.Contains("/CEOpinionFromLawDepartment/"))
+                    {
+                        GetDetails.CE_DocDetails[0].SupremeOpinionDesc = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                    }
+                }
+                
+            }
+            else
+            {
+                GetDetails.doc_len = 0;
+            }
+
+            int dd = GetDetails.CE_DocDetails.Count;
+            
+            string lok_policy = GetDetails.GetVehicleChassisPolicyDetailsList[0].Policy_number;
+            string lok_court_date = GetDetails.CourtDetailsList[0].CourtTime;
+            string lok_court_date2 = lok_court_date.Replace("/", "");
+            string lok_mvc_no = GetDetails.CourtDetailsList[0].MVC_number;
+            string lok_ref_no = lok_policy + "-" + lok_court_date2 + "-" + lok_mvc_no;
+            /*GetDetails.lok_ref_no = lok_ref_no;*/
+            GetDetails.GetWorkFlowCOurtExecutionList = _IMBClaimsBLL.GetWorkFlowCOurtExecutionBLL(appid, chassis);
+
+            return View(GetDetails);
+        }
+
+        public JsonResult StopCourtExecutionProcess(string chassis, long Appno)
+        {
+
+            var result = _IMBClaimsBLL.StopCourtExecutionProcessBLL(Appno);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SaveMVCCourtExecution(GetVehicleChassisPolicyDetails model)
+        {
+            long result = 0;
+            model.created_by = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);
+
+            result = _IMBClaimsBLL.SaveMVCCourtExecutionBLL(model);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult uploadCourtExecutionDoc(long App_id, string filename)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    string moblie_number = string.Empty;
+                    string fileDirectory = string.Empty;
+
+                    fileDirectory = "/Content//MVC_Claim_files/" + App_id + "/courtExecution/" + filename +"/";
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName1 = file.FileName;
+                    // create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(Server.MapPath(fileDirectory));
+                    string path = Path.Combine(Server.MapPath(fileDirectory), fileName1);
+                    string pathServer = fileDirectory + fileName1;
+
+                    // save the file
+                    file.SaveAs(path);
+                    var res = _IMBClaimsBLL.saveCourtDocBLL(pathServer, App_id, filename);
+                    return Json("File uploaded successfully", JsonRequestBehavior.AllowGet);
+                }
+
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+        }
+
+        [Route("mvc_cou_exe_sup/{chassis}/{appid}")]
+        public ActionResult CourtExecutionProcessViewSuperident(string chassis, long appid)
+        {
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            GetDetails.DistrictList = _IMBClaimsBLL.GetDistrictListBLL();
+            GetDetails.TalukaList = _IMBClaimsBLL.GetTalukListBLL(0);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
+            GetDetails.InjuryList = _IMBClaimsBLL.GetInjuryListBLL();
+            GetDetails.StateList = _IMBClaimsBLL.GetstateListBLL();
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCCourtExecutionBLL(appid, category);
+            GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
+            GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
+            GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
+            GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
+            GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+            GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.CE_DocDetails = _IMBClaimsBLL.GetCourtExecutionDocDetailsBLL(appid);
+            GetDetails.OpinionStatusList = _IMBClaimsBLL.GetRemarksUpperCourtBLL();
+            GetDetails.CourtExecutionMasterDetails = _IMBClaimsBLL.CourtExecutionMasterDetailsBLL(appid);
+            for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
+            {
+                string path = GetDetails.MVCAppDocDetails[i].Accident_details;
+
+                if (path.Contains("/Covering_Letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DL/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DL = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/InsuranceCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Insurance_Copy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DsRc/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DriverstatementandRc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/PrefilledClaimForm/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Prefilled_Claim_Form = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Court_Notice_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Petitioner_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
+            }
+
+            for (int i = 0; i < GetDetails.CE_DocDetails.Count; i++)
+            {
+                string path = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                if (path.Contains("/Execution_notice/"))
+                {
+                    GetDetails.CE_DocDetails[0].Execution_notice = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+                if (path.Contains("/judgement_copy/"))
+                {
+                    GetDetails.CE_DocDetails[0].judgement_Copy = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+                if (path.Contains("/CEOpinionFromLawDepartment/"))
+                {
+                    GetDetails.CE_DocDetails[0].SupremeOpinionDesc = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+            }
+
+            string lok_policy = GetDetails.GetVehicleChassisPolicyDetailsList[0].Policy_number;
+            string lok_court_date = GetDetails.CourtDetailsList[0].CourtTime;
+            string lok_court_date2 = lok_court_date.Replace("/", "");
+            string lok_mvc_no = GetDetails.CourtDetailsList[0].MVC_number;
+            string lok_ref_no = lok_policy + "-" + lok_court_date2 + "-" + lok_mvc_no;
+            /*GetDetails.lok_ref_no = lok_ref_no;*/
+            GetDetails.GetWorkFlowCOurtExecutionList = _IMBClaimsBLL.GetWorkFlowCOurtExecutionBLL(appid, chassis);
+
+            return View(GetDetails);
+        }
+
+        public JsonResult CESendToAd(GetVehicleChassisPolicyDetails model)
+        {
+
+            model.created_by = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);
+            var result = _IMBClaimsBLL.Update_Court_execution_Work_flow_DetailsBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+         public JsonResult CESendToDir(GetVehicleChassisPolicyDetails model)
+        {
+
+            model.created_by = Convert.ToInt64(Session["UID"]);
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);
+            //
+            var result = _IMBClaimsBLL.Update_Court_execution_Work_flow_DetailsBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("mvc_cou_exe_AD/{chassis}/{appid}")]
+        public ActionResult CourtExecutionProcessViewAD(string chassis, long appid)
+        {
+            var category = Convert.ToInt32(Session["SelectedCategory"]);
+            GetVehicleChassisPolicyDetails GetDetails = new GetVehicleChassisPolicyDetails();
+            GetDetails.DistrictList = _IMBClaimsBLL.GetDistrictListBLL();
+            GetDetails.TalukaList = _IMBClaimsBLL.GetTalukListBLL(0);
+            GetDetails.RemarksList = _IMBClaimsBLL.GetRemarksBLL();
+            GetDetails.InjuryList = _IMBClaimsBLL.GetInjuryListBLL();
+            GetDetails.StateList = _IMBClaimsBLL.GetstateListBLL();
+            GetDetails.GetVehicleChassisPolicyDetailsList = _IMBClaimsBLL.GetMVCGetDetailsOnChassisBLL(chassis);
+            GetDetails.CourtDetailsList = _IMBClaimsBLL.GetMVCCourtExecutionBLL(appid, category);
+            GetDetails.CourtDetailsList[0].CourtTime = (GetDetails.CourtDetailsList[0].Court_DateTime).ToString("dd/MM/yyyy");
+            GetDetails.CourtDetailsList[0].Court_DateTime = (GetDetails.CourtDetailsList[0].Court_DateTime);
+            GetDetails.PetitionerList = _IMBClaimsBLL.PetitionerDetailsListBLL(appid);
+            GetDetails.RespondantList = _IMBClaimsBLL.GetMVCRespondantDetailsBLL(appid);
+            GetDetails.MVCAppDocDetails = _IMBClaimsBLL.GetMVCDocdetailBLL(appid);
+            GetDetails.otherDetailsData = _IMBClaimsBLL.GetOtherDocdetailBLL(appid);
+            GetDetails.CE_DocDetails = _IMBClaimsBLL.GetCourtExecutionDocDetailsBLL(appid);
+            GetDetails.OpinionStatusList = _IMBClaimsBLL.GetRemarksUpperCourtBLL();
+            GetDetails.CourtExecutionMasterDetails = _IMBClaimsBLL.CourtExecutionMasterDetailsBLL(appid);
+            for (int i = 0; i < GetDetails.MVCAppDocDetails.Count; i++)
+            {
+                string path = GetDetails.MVCAppDocDetails[i].Accident_details;
+
+                if (path.Contains("/Covering_Letter/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].CoveringLetter = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DL/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DL = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/InsuranceCopy/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Insurance_Copy = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/DsRc/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].DriverstatementandRc = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/PrefilledClaimForm/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].Prefilled_Claim_Form = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Court_Notice_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].summons_detals = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+                if (path.Contains("/Petitioner_details/"))
+                {
+                    GetDetails.MVCAppDocDetails[0].petitioner_details = GetDetails.MVCAppDocDetails[i].Accident_details;
+                }
+
+            }
+
+            for (int i = 0; i < GetDetails.CE_DocDetails.Count; i++)
+            {
+                string path = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                if (path.Contains("/Execution_notice/"))
+                {
+                    GetDetails.CE_DocDetails[0].Execution_notice = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+                if (path.Contains("/judgement_copy/"))
+                {
+                    GetDetails.CE_DocDetails[0].judgement_Copy = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+                if (path.Contains("/CEOpinionFromLawDepartment/"))
+                {
+                    GetDetails.CE_DocDetails[0].SupremeOpinionDesc = GetDetails.CE_DocDetails[i].Court_ExecutionDetails;
+                }
+            }
+
+            string lok_policy = GetDetails.GetVehicleChassisPolicyDetailsList[0].Policy_number;
+            string lok_court_date = GetDetails.CourtDetailsList[0].CourtTime;
+            string lok_court_date2 = lok_court_date.Replace("/", "");
+            string lok_mvc_no = GetDetails.CourtDetailsList[0].MVC_number;
+            string lok_ref_no = lok_policy + "-" + lok_court_date2 + "-" + lok_mvc_no;
+            /*GetDetails.lok_ref_no = lok_ref_no;*/
+            GetDetails.GetWorkFlowCOurtExecutionList = _IMBClaimsBLL.GetWorkFlowCOurtExecutionBLL(appid, chassis);
+
+            return View(GetDetails);
+        }
+        public JsonResult saveDelayNoteToGovtSupremeCourt(GetVehicleChassisPolicyDetails model)
+        {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.SaveDelayNoteToAdvocateSupremeCourtBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SupremeCourtOpinionAndJudegementCopy(GetVehicleChassisPolicyDetails model) {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.SupremeCourtOpinionAndJudegementCopyBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SupremeCourtClaimSettlementDetails(GetVehicleChassisPolicyDetails model)
+        {
+
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.SupremeCourtClaimSettlementDetailsBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SupremeCourtOpinionAndJudegementCopy2(GetVehicleChassisPolicyDetails model)
+        {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.SupremeCourtOpinionAndJudegementCopyKGIDBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        } public JsonResult saveSupremeClaimApprovalSettlement(GetVehicleChassisPolicyDetails model)
+        {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+            int result = _IMBClaimsBLL.saveSupremeClaimApprovalSettlementBLL(model);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CEClaimApprovalMethod(GetVehicleChassisPolicyDetails model)
+        {
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+
+            var result = _IMBClaimsBLL.CEClaimsettleLawDeptBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CEUpdateOpinionLawDeptMethod(GetVehicleChassisPolicyDetails model) {
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+
+            var result = _IMBClaimsBLL.CEUpdateOpinionLawDeptBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCEDocumentStatus(string GetStatusData, long appId)
+        {
+            GetVehicleChassisPolicyDetails GetDocumentDetails = new GetVehicleChassisPolicyDetails();
+
+            GetDocumentDetails.GetDocumentRemarksList = _IMBClaimsBLL.GetCourtExecutiveDocumentDetailsStatusBLL(GetStatusData, appId);
+            return Json(GetDocumentDetails, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult SendCEWorkflow(GetVehicleChassisPolicyDetails model)
+        {
+            model.loginId = Convert.ToInt32(Session["SelectedCategory"]);//Convert.ToInt64(Session["UID"]);
+            model.Category_id = Convert.ToInt32(Session["SelectedCategory"]);
+            if (model.Category_id == 4)
+            {
+                model.roleID = 15;
+
+            }
+            else if (model.Category_id == 3)
+            {
+                model.roleID = 4;
+            }
+            else
+            {
+                model.roleID = 3;
+            }
+
+            var result = _IMBClaimsBLL.CEUpdateDocumentWork_flow_detailsBLL(model);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

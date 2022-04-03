@@ -109,6 +109,8 @@ namespace KGID_Models.KGIDMotorInsurance
         public List<GetVehicleChassisPolicyDetails> SignedDocList { get; set; }
         public List<GetVehicleChassisPolicyDetails> otherDetailsData { get; set; }
         public List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetails { get; set; }
+        public List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetails { get; set; }
+        public SelectList JudgementRemarksList { get; set; }
         public string Court_MVC_number { get; set; }
         public string OtherDocument { get; set; }
         public DateTime Accident_Time { get; set; }
@@ -201,6 +203,72 @@ namespace KGID_Models.KGIDMotorInsurance
         public string GroundsofAppeal { get; set; }
         public string AmtDepositHC { get; set; }
         public string AmtDepositLC { get; set; }
+        public string HighCourtJudgementOpinion { get; set; }
+        public int? HighCourtOpinionID { get; set; }
+        public string HighCourtjudgementDate { get; set; }
+        public string HighCourtAwardedAmount { get; set; }
+        public string HighCourtOpinionDesc { get; set; }
+        public string HighCourstatutoryAmount { get; set; }
+        public string HighCourtstatementRemittedDate { get; set; }
+        public string HighCourtDepositAmnt { get; set; }
+        public string HighCourtDepositAmntRemittedDate { get; set; }
+        public string HighCourtClaimAwardedAmnt { get; set; }
+        public string HighCourtClaimAwardedInterest { get; set; }
+        public string HighCourtClaimSettleCost { get; set; }
+        public string HighCourtClaimSettleTotalAmnt { get; set; }
+        public int? OpinionId2 { get; set; }
+        public string HighCourtOpinionDesc2 { get; set; }
+        public string HighCourtJudgementDateKGID { get; set; }
+        public string HighCourtAwardedAmountKGID { get; set; }
+        public string HighCourtOpinionJudgement2 { get; set; }
+		
+		//chethan
+		 public string Court_ExecutionDetails { get; set; }
+         public int Tooooo { get; set; }
+         public string Execution_notice { get; set; }
+        public string judgement_Copy { get; set; }
+        public int doc_len { get; set; }
+        public string lok_mvc_ref_no { get; set; }
+        public string lok_date { get; set; }
+        public long court_ref_no { get; set; }
+        public long created_by { get; set; }
+    public List<GetVehicleChassisPolicyDetails> GetWorkFlowCOurtExecutionList { get; set; }
+          public List<GetVehicleChassisPolicyDetails> CE_DocDetails { get; set; }
+
+        public string awardedAmount_highCourtClaimSttleKGID { get; set; }
+
+        public string awardedInterest_highCourtClaimSttleKGID { get; set; }
+        public string courtCost_highCourtClaimSttleKGID { get; set; }
+        public string totalAmnt_highCourtClaimSttleKGID { get; set; }
+        public string InputDelaySupremeCourt { get; set; }
+        public string CondonationOfDelaySupremeC { get; set; }
+        public string StayAffidavitSupremeC { get; set; }
+        public string GroundsofAppealSupremeC { get; set; }
+        public string AmountDepositiontoSupremeCfile { get; set; }
+        public string AmountDepositiontoSupremeCToLCfile { get; set; }
+        public string IntimationToDistrictCToLCfile { get; set; }
+        public string StayOrderToToDistrictSupremeCToLCfile { get; set; }
+        public string SupremeJudgementOpiniondate { get; set; }
+        public int? SupremeOpinionId { get; set; }
+        public string SupremeAwardedAmnt { get; set; }
+        public string SupremeOpinionDesc { get; set; }
+        public string Supreme_Statuatory_Amount { get; set; }
+        public string Statuatory_Amount_Remitted { get; set; }
+        public string Supreme_DepositAmount { get; set; }
+        public string Supreme_Deposit_Amount_Remitted { get; set; }
+        public string Supreme_Awarded_Amount { get; set; }
+        public string Supreme_Awarded_Interest { get; set; }
+        public string Supreme_Court_Cost { get; set; }
+        public string Supreme_Total_Amount { get; set; }
+        public bool? statutorypaidStatus { get; set; }
+        public string mvc_JudgementSupreme_date2 { get; set; }
+        public int? mvc_opinionSupremeStatusID2 { get; set; }
+        public string mvc_awardedSupreme_amount2 { get; set; }
+        public string mvc_opinionSupremeStatusID2Desc { get; set; }
+        public string awardedAmount_supremeCourtKGID { get; set; }
+        public string awardedInterest_supremeCourtKGID { get; set; }
+        public string courtcost_supremeCourtKGID { get; set; }
+        public string TotalAmount_supremeCourtKGID { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

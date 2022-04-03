@@ -48,6 +48,36 @@ namespace KGID_Models.KGIDMotorInsurance
         public bool? mvc_amntDepositToHighCourtStatus { get; set; }
         public int? mvc_amntDepositToLowCourt { get; set; }
         public bool? mvc_amntDepositToLowCourtStatus { get; set; }
+        public int? mvc_HighCourtJudgementOpinion { get; set; }
+        public bool? mvc_HighCourtJudgementOpinionStatus { get; set; } 
+        public int? mvc_claimsettleHighCourtJudgement { get; set; }
+        public bool? mvc_claimsettleHighCourtJudgementStatus { get; set; }
+        public int? mvc_HighCourtNoticePetition { get; set; }
+        public bool? mvc_HighCourtNoticePetitionStatus { get; set; } 
+        public int? mvc_HighCourtCoveringLetter { get; set; }
+        public bool? mvc_HighCourtCoveringLetterStatus { get; set; }
+        public int? mvc_opinionStatusHighCourtKGID { get; set; }
+        public bool? mvc_opinionStatusHighCourtKGIDStatus { get; set; }
+        public int? mvc_ClaimSettleHighCourt { get; set; }
+        public bool? mvc_ClaimSettleLowerHighStatus { get; set; }
+         public int? mvc_inputDelaysupremeCourtDraft { get; set; }
+        public bool? mvc_inputDelaysupremeCourtDraftStatus { get; set; } 
+        public int? mvc_amntDepositToSupremeC { get; set; }
+        public bool? mvc_amntDepositToSupremeCStatus { get; set; }
+         public int? mvc_amntDepositSupremeCToLC { get; set; }
+        public bool? mvc_amntDepositSupremeCToLCStatus { get; set; }
+        public int? mvc_supremeOpinionJudgement { get; set; }
+        public bool? mvc_supremeOpinionJudgementStatus { get; set; }
+        public int? mvc_supremeClaimSettle { get; set; }
+        public bool? mvc_supremeClaimSettleStatus { get; set; }
+        public int? mvc_SupremeCourtNoticePetition { get; set; }
+        public bool? mvc_SupremeCourtNoticePetitionStatus { get; set; } 
+        public int? mvc_SupremeCourtCoveringLetter { get; set; }
+        public bool? mvc_SupremeCourtCoveringLetterStatus { get; set; }
+         public int? mvc_SupremeOpinionclaimJudgmnt { get; set; }
+        public bool? mvc_SupremeOpinionclaimJudgmntstatus { get; set; }
+        public int? mvc_claimSettlesupremeCourtKGID { get; set; }
+        public bool? mvc_claimSettleSupremeCourtKGIDStatus { get; set; }
 
 
     }

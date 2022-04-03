@@ -6,6 +6,14 @@
     int slno = 1;
 }
 <style>
+    ul.nav-pills .nav-item {
+        background-color: #ccc;
+        margin: 4px;
+        border-radius: 4px;
+        color: #000000;
+        font-weight: 600;
+    }
+
     button#btnApplicationVehicleSearch {
         padding: 10px 10px;
     }
@@ -224,8 +232,88 @@
 
         });
     }
+    function stopCourtExecutionflow(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to stop court Execution and continue MVC process for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the court Execution process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopCourtExecutionProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
 
+                success: function (response) {
+                    alertify.alert("Successfully stopped lokhadhalat process of mvc no " + CourtMvcNo + " .");
+                },
+                complete: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
 
+    }
+    function updateStatusCourtExecution(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to initiate CourtExecution for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the lokadalath will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/MvcCourtExecution',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
+    function updateStatusToLokadhalat(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to initiate lokadhalat for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the MVC process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopMvcProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    window.location.href = "/mvc_dd_ver";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
+    function stopLokadhalatflow(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to stop lokhdalat and continue MVC process for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the Lokadhalat process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopLokadhalatProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Successfully stopped lokhadhalat process of mvc no " + CourtMvcNo + " .");
+                },
+                complete: function (response) {
+                    window.location.href = "/mvc_dd_ver";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
 </script>
 <style>
     button#btnsearch {
@@ -236,29 +324,17 @@
         padding: 10px 10px;
     }
 </style>
-<div class="card-body">
 
-    <div class="lms-registration-form" id="TeacherDetails">
-        <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Application Status </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" id="pills-menu2-tab" data-toggle="pill" href="#pills-menu2" role="tab" aria-controls="pills-menu2" aria-selected="false">Lokadhalat </a>
-            </li>
-        </ul>
-    </div>
-
-</div>
-<div class="tab-content" id="pills-tabContent">
-
-    <!----------------------------------------Application Status------------------->
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-        @*<label style="color:black">Please read the following the instructions carefully. / ದಯವಿಟ್ಟು ಕೆಳಗಿನ ಸೂಚನೆಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಓದಿ. </label>*@
-        <section>
-            <div class="row">
-                <div class="col-12">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary"><b>MVC Claim Application</b></h5>
+            </div>
+            <div class="card-body">
+                <section>
+                    <div class="row">
+                        <div class="col-12">
 
                     <table class="table table-striped table-bordered" id="tblSIVerifyData" cellspacing="0">
                         <thead style="background: #308385;color: #fff;">
@@ -287,8 +363,37 @@
                                             <a href="/mvc_AD_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
                                         </td>
                                         <td>
-                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat</a> <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+                                            @if (item.application_stat != 3)
+                                            {
+                                                <button class="btn btn-primary" onclick='updateStatusToLokadhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="Lokadhalat">Lokadhalat</button>
 
+                                            }
+                                            @if (item.application_stat == 3)
+                                            {
+                                                <a href="/mvc_lok_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
+
+                                                <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
+
+                                            }
+                                            @if (item.application_stat != 4)
+                                            {
+                                                <a href='#' title='view' class='btn btn-primary' onclick='updateStatusCourtExecution("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+
+                                            }
+                                            @if (item.application_stat == 4)
+                                            {
+
+
+
+                                                <a href="/mvc_cou_exe_AD/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='courtnoticeview("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">court Execution View</a>
+
+
+
+                                                <button class="btn btn-primary" onclick='stopCourtExecutionflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Court Execution</button>
+
+
+
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -299,8 +404,8 @@
                 </div>
             </div>
 
-        </section>
+                </section>
+            </div>
+        </div>
     </div>
 </div>
-
-

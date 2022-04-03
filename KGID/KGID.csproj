@@ -3102,6 +3102,9 @@
     <Content Include="Views\MotorInsuranceClaims\MVCClaimDirectorVerification.cshtml" />
     <Content Include="Views\DSC\PDFSign.cshtml" />
     <Content Include="Views\MotorInsuranceClaims\LokadhalatProcessView.cshtml" />
+    <Content Include="Views\MotorInsuranceClaims\CourtExecutionProcessViewAD.cshtml" />
+    <Content Include="Views\MotorInsuranceClaims\CourtExecutionProcessViewSuperident.cshtml" />
+    <Content Include="Views\MotorInsuranceClaims\CourtExecutionProcessView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Custom\MI\" />

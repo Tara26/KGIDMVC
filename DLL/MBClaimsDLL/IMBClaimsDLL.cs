@@ -73,5 +73,35 @@ int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
         int SaveDelayNoteToAdvocateHighCourtDLL(GetVehicleChassisPolicyDetails model);
         int saveAmountToDeposittedToHighCourtDLL(GetVehicleChassisPolicyDetails model);
         int UploadofAmountDepositionLetterLCDLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtJudgementOpinionDetailsDLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtClaimSettlementDetailsDLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtJudgementOpinionDetailsKGIDDLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtClaimAndSettlementKGIDDLL(GetVehicleChassisPolicyDetails model);
+   
+   //CHethan
+   
+     List<GetVehicleChassisPolicyDetails> GetMVCCourtExecutionDLL(long App_id, int category);
+   List<GetVehicleChassisPolicyDetails> GetCourtExecutionDocDetailsDLL(long App_id);
+  int Update_Court_execution_Work_flow_Details(GetVehicleChassisPolicyDetails model);
+  int stopMVCandlokadhalathOnCourtExecutionSelectDLL(long Appid);
+        int StopCourtExecutionProcessDLL(long Appid);
+
+        long SaveMVCCourtExecutionDLL(GetVehicleChassisPolicyDetails model);
+        int saveCourtDocDLL(string path, long Application_id, string filename);
+
+        List<GetVehicleChassisPolicyDetails> GetWorkFlowCOurtExecutionDLL(long App_id, string chassis);
+        int SaveDelayNoteToAdvocateSupremeCourtDLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtOpinionAndJudegementCopyDLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtClaimAndSettlementKGIDDLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtOpinionAndJudegementCopyKGIDDLL(GetVehicleChassisPolicyDetails model);
+        int saveSupremeClaimApprovalSettlementDLL(GetVehicleChassisPolicyDetails model);
+        int CEUpdateOpinionLawDeptDLL(GetVehicleChassisPolicyDetails model);
+        int CEUpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
+         int CEClaimsettleLawDeptDLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsDLL(long appid);
+        List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusDLL(string FetchDetails, long appid);
+        SelectList RemarksJudgementDLL();
+        int SendBackMvcToCWDLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsDLL();
     }
 }

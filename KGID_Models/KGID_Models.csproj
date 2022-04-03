@@ -110,6 +110,7 @@
     <Compile Include="KGIDLoan\tbl_loan_purpose_master.cs" />
     <Compile Include="KGIDLoan\VM_LoanDetailsModel.cs" />
     <Compile Include="KGIDMotorInsurance\GetVehicleChassisPolicyDetails.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_court_execution_document.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_geographical_extension.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_application.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_motor_insurance_proposer_details.cs" />
@@ -118,8 +119,11 @@
     <Compile Include="KGIDMotorInsurance\tbl_mvc_application_details.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_doc_details.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_petitioner_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_remarks.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_type_of_injury.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_workflow.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_court_execution.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_court_exeution_workflow.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_respondent_details.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_od_cost_component_master.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_State_master.cs" />

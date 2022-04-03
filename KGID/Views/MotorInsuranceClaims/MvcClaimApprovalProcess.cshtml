@@ -72,14 +72,7 @@
         });
 
     });
-    //$('#tblSIVerifyData').DataTable({
-    //    paging: false,
-    //    info: false,
-    //    ordering: false,
-    //    //aaSorting: [[1, "desc"]],
-    //    searching: false
-    //});
-
+   
 
     $(document).ready(function () {
         $(".add-respondent").click(function () {
@@ -103,7 +96,13 @@
             });
         });
 
-
+        $('#tblSIVerifyData').DataTable({
+            paging: false,
+            info: false,
+            ordering: false,
+            //aaSorting: [[1, "desc"]],
+            searching: false
+        });
     });
     function viewMVCdetailsSup(chassisno, Application_no) {
         debugger;
@@ -253,6 +252,47 @@
         }).setHeader("Confirm changes?");
 
     }
+    function updateStatusCourtExecution(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to initiate CourtExecution for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the lokadalath will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/MvcCourtExecution',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
+    function stopCourtExecutionflow(chassisNo, Mvc_appid, CourtMvcNo) {
+        debugger;
+        alertify.confirm("Are you sure you want to stop court Execution and continue MVC process for the MVC No " + CourtMvcNo + " ?\n NOTE: Once you initiate the court Execution process will be stopped ", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/StopCourtExecutionProcess',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ chassis: chassisNo, Appno: Mvc_appid }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Successfully stopped lokhadhalat process of mvc no " + CourtMvcNo + " .");
+                },
+                complete: function (response) {
+                    window.location.href = "/mi-dpt-odc-mvcappform";
+                }
+            });
+        }).setHeader("Confirm changes?");
+
+    }
 </script>
 <style>
     button#btnsearch {
@@ -271,9 +311,7 @@
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Application Status </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" id="pills-menu2-tab" data-toggle="pill" href="#pills-menu2" role="tab" aria-controls="pills-menu2" aria-selected="false">Lokadhalat </a>
-            </li>
+           
         </ul>
     </div>
 
@@ -335,11 +373,27 @@
 
                                                 <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
 
-                                            }
+                                        }
+                                        @if (item.application_stat != 4)
+                                        {
+                                            <a href='#' title='view' class='btn btn-primary' onclick='updateStatusCourtExecution("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="View">Court Execution</a>
 
-                                            <a href='#' title='view' class='btn btn-primary' onclick='viewMVCdetailsSup("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Court Execution</a>
+                                        }
+                                        @if (item.application_stat == 4)
+                                        {
 
-                                </td>
+
+
+                                            <a href="/mvc_cou_exe_sup/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='courtnoticeview("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">court Execution View</a>
+
+
+
+                                            <button class="btn btn-primary" onclick='stopCourtExecutionflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Court Execution</button>
+
+
+
+                                        }
+                                    </td>
                             </tr>
                                 }
                             }

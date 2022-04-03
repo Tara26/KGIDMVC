@@ -96,6 +96,48 @@ namespace KGID_Models.KGIDMotorInsurance
         public bool? mvc_amntDepoHighCourtStatus { get; set; }
         public decimal? mvc_amntDepoLowCourt { get; set; }
         public bool? mvc_amntDepoLowCourtStatus { get; set; }
+        public int? opinionStatusHighCourt { get; set; }
+
+        public DateTime? HighCourtJudgementDate { get; set; }
+
+        public decimal? awardedAmount_highCourt { get; set; }
+        public decimal? HighCourt_Statuatory_Amount { get; set; }
+        public DateTime? HighCourt_statAmnt_RemittedDate { get; set; }
+        public decimal? HighCourtDeposit_Amount { get; set; }
+        public DateTime? HighCourt_depositAmnt_RemittedDate { get; set; }
+        public decimal? HighCourtClaimAwarded_Amount { get; set; }
+        public decimal? HighCourtClaimAwarded_Interest { get; set; }
+        public decimal? HighCourtClaimSettle_cost { get; set; }
+        public decimal? HighCourtClaimSettle_TotalAmnt { get; set; }
+        public int? opinionStatusHighCourtKGID { get; set; }
+        public DateTime? HighCourtJudgementDateKGID { get; set; }
+        public decimal? awardedAmount_highCourtKGID { get; set; }
+        public decimal? awardedAmount_highCourtClaimSttleKGID { get; set; }
+        public decimal? awardedInterest_highCourtClaimSttleKGID { get; set; }
+        public decimal? courtCost_highCourtClaimSttleKGID { get; set; }
+        public decimal? totalAmnt_highCourtClaimSttleKGID { get; set; }
+        public string inputDelaysupremeCourt { get; set; }
+        public int? OpinionSupremeCourt { get; set; }
+        public DateTime? Supreme_judgement_Date { get; set; }
+        public decimal? SupremeopinionAwardAmnt { get; set; }
+        public decimal? Supreme_Statuatory_Amount { get; set; }
+        public DateTime? Statuatory_Amount_Remitted { get; set; }
+        public decimal? Supreme_DepositAmount { get; set; }
+        public DateTime? Supreme_Deposit_Amount_Remitted { get; set; }
+        public decimal? Supreme_Awarded_Amount { get; set; }
+        public decimal? Supreme_Awarded_Interest { get; set; }
+        public decimal? Supreme_Court_Cost { get; set; }
+        public decimal? Supreme_Total_Amount { get; set; }
+        public bool? statutorypaidStatus { get; set; }
+        public DateTime? mvc_JudgementSupreme_date2 { get; set; }
+        public int? mvc_opinionSupremeStatusID2 { get; set; }
+        public decimal? mvc_awardedSupreme_amount2 { get; set; } 
+        public decimal? awardedAmount_supremeCourtKGID { get; set; }
+        public decimal? awardedInterest_supremeCourtKGID { get; set; } 
+        public decimal? courtcost_supremeCourtKGID { get; set; }
+        public decimal? TotalAmount_supremeCourtKGID { get; set; }
+
+
 
     }
 }

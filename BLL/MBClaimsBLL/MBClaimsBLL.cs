@@ -270,5 +270,195 @@ namespace BLL.MBClaimsBLL
             return result;
 
         }
+        public int HighCourtJudgementOpinionDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.HighCourtJudgementOpinionDetailsDLL(model);
+        }
+        public int HighCourtClaimSettlementDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            result = _IMBClaimsDLL.HighCourtClaimSettlementDetailsDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+        }
+
+        public int HighCourtJudgementOpinionDetailsKGIDBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.HighCourtJudgementOpinionDetailsKGIDDLL(model);
+        }
+        public int HighCourtClaimSettlementDetailsKGIDBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+            result = _IMBClaimsDLL.HighCourtClaimAndSettlementKGIDDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+            
+        }
+		
+		//chethan
+		
+		public  List<GetVehicleChassisPolicyDetails> GetMVCCourtExecutionBLL(long App_id,int category)
+        {
+
+            return _IMBClaimsDLL.GetMVCCourtExecutionDLL(App_id,category);
+        }
+ public int Update_Court_execution_Work_flow_DetailsBLL(GetVehicleChassisPolicyDetails model) {
+
+            return _IMBClaimsDLL.Update_Court_execution_Work_flow_Details(model);
+        }
+//public long SaveMVCLokadalathDetailsBLL(GetVehicleChassisPolicyDetails model)
+//        {
+//            return _IMBClaimsDLL.SaveMVCLokadalathDetailsDLL(model);
+//        }
+
+        public int stopMVCandlokadhalathOnCourtExecutionSelectBLL(long Appid)
+        {
+            return _IMBClaimsDLL.stopMVCandlokadhalathOnCourtExecutionSelectDLL(Appid);
+        }
+
+        public int StopCourtExecutionProcessBLL(long Appid)
+        {
+            return _IMBClaimsDLL.StopCourtExecutionProcessDLL(Appid);
+        }
+
+        public long SaveMVCCourtExecutionBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.SaveMVCCourtExecutionDLL(model);
+        }
+
+        public int saveCourtDocBLL(string path, long Application_id, string filename)
+        {
+
+            return _IMBClaimsDLL.saveCourtDocDLL(path, Application_id, filename);
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetWorkFlowCOurtExecutionBLL(long App_id,string chassis)
+        {
+
+            return _IMBClaimsDLL.GetWorkFlowCOurtExecutionDLL(App_id, chassis);
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetCourtExecutionDocDetailsBLL(long App_id)
+        {
+
+            return _IMBClaimsDLL.GetCourtExecutionDocDetailsDLL(App_id);
+        }
+        public int SaveDelayNoteToAdvocateSupremeCourtBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+            result = _IMBClaimsDLL.SaveDelayNoteToAdvocateSupremeCourtDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }  
+        public int SupremeCourtOpinionAndJudegementCopyBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+            result = _IMBClaimsDLL.SupremeCourtOpinionAndJudegementCopyDLL(model);
+           
+            return result;
+
+        }public int SupremeCourtClaimSettlementDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+            
+            result = _IMBClaimsDLL.SupremeCourtClaimAndSettlementKGIDDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }
+        public int SupremeCourtOpinionAndJudegementCopyKGIDBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+            result = _IMBClaimsDLL.SupremeCourtOpinionAndJudegementCopyKGIDDLL(model);
+
+            return result;
+
+        }
+        public int saveSupremeClaimApprovalSettlementBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+
+            result = _IMBClaimsDLL.saveSupremeClaimApprovalSettlementDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }
+        
+        public int CEUpdateOpinionLawDeptBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+
+            result = _IMBClaimsDLL.CEUpdateOpinionLawDeptDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.CEUpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        } public int CEClaimsettleLawDeptBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+
+            result = _IMBClaimsDLL.CEClaimsettleLawDeptDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.CEUpdateDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }
+        public int CEUpdateDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            var result = _IMBClaimsDLL.CEUpdateDocumentWork_flow_detailsDLL(model);
+
+            return result;
+        }  public List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsBLL(long appid)
+        {
+           
+
+            return _IMBClaimsDLL.CourtExecutionMasterDetailsDLL(appid);
+        }
+        public List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusBLL(string GetStatusData, long appId)
+        {
+            return _IMBClaimsDLL.GetCourtExecutiveDocumentDetailsStatusDLL(GetStatusData, appId);
+        }
+        public SelectList RemarksJudgementBLL()
+        {
+            return _IMBClaimsDLL.RemarksJudgementDLL();
+        }
+        public int SendBackMvcToCWBLL(GetVehicleChassisPolicyDetails model)
+        {
+
+            return _IMBClaimsDLL.SendBackMvcToCWDLL(model);
+        }
+        public List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsBLL( )
+        {
+
+            return _IMBClaimsDLL.GetSentBackMVCDetailsDLL();
+        }
+       
     }
 }

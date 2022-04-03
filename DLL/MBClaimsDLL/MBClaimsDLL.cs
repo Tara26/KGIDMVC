@@ -2029,7 +2029,7 @@ namespace DLL.MBClaimsDLL
         {
             List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
             vehicleDetails = (from data in _db.tbl_mvc_application_details
-                              where data.app_saved_status==2 || data.app_saved_status==3
+                              where data.app_saved_status == 2 || data.app_saved_status == 3 || data.app_saved_status == 4
                               select new GetVehicleChassisPolicyDetails
                               {
                                   Court_MVC_number = data.mvc_no,
@@ -2193,6 +2193,46 @@ namespace DLL.MBClaimsDLL
                                   DelayNoteHighCourt = data.mvc_InputForDelayNoteHighCourt,
                                   AmtDepositHC = (data.mvc_amntDepoHighCourt.ToString()),
                                   AmtDepositLC = (data.mvc_amntDepoLowCourt.ToString()),
+                                  HighCourtOpinionID = data.opinionStatusHighCourt,
+                                  HighCourtjudgementDate = (data.HighCourtJudgementDate).ToString(),
+                                  HighCourtAwardedAmount = (data.awardedAmount_highCourt).ToString(),
+                                  HighCourstatutoryAmount = (data.HighCourt_Statuatory_Amount).ToString(),
+                                  HighCourtstatementRemittedDate = (data.HighCourt_statAmnt_RemittedDate).ToString(),
+                                  HighCourtDepositAmnt = (data.HighCourtDeposit_Amount).ToString(),
+                                  HighCourtDepositAmntRemittedDate = (data.HighCourt_depositAmnt_RemittedDate).ToString(),
+                                  HighCourtClaimAwardedAmnt = (data.HighCourtClaimAwarded_Amount).ToString(),
+                                  HighCourtClaimAwardedInterest = (data.HighCourtClaimAwarded_Interest).ToString(),
+                                  HighCourtClaimSettleCost = (data.HighCourtClaimSettle_cost).ToString(),
+                                  HighCourtClaimSettleTotalAmnt = (data.HighCourtClaimSettle_TotalAmnt).ToString(),
+                                  OpinionId2 = data.opinionStatusHighCourtKGID,
+                                  HighCourtJudgementDateKGID = (data.HighCourtJudgementDateKGID).ToString(),
+                                  HighCourtAwardedAmountKGID = (data.awardedAmount_highCourtKGID).ToString(),
+                                  awardedAmount_highCourtClaimSttleKGID = (data.awardedAmount_highCourtClaimSttleKGID).ToString(),
+                                  awardedInterest_highCourtClaimSttleKGID = (data.awardedInterest_highCourtClaimSttleKGID).ToString(),
+                                  courtCost_highCourtClaimSttleKGID = (data.courtCost_highCourtClaimSttleKGID).ToString(),
+                                  totalAmnt_highCourtClaimSttleKGID = (data.totalAmnt_highCourtClaimSttleKGID).ToString(),
+                                  InputDelaySupremeCourt = data.inputDelaysupremeCourt,
+                                  SupremeJudgementOpiniondate = (data.Supreme_judgement_Date).ToString(),
+                                  SupremeAwardedAmnt = (data.SupremeopinionAwardAmnt).ToString(),
+                                  SupremeOpinionId = data.OpinionSupremeCourt,
+                                  Supreme_Statuatory_Amount = (data.Supreme_Statuatory_Amount).ToString(),
+                                  Statuatory_Amount_Remitted = (data.Statuatory_Amount_Remitted).ToString(),
+                                  Supreme_DepositAmount = (data.Supreme_DepositAmount).ToString(),
+                                  Supreme_Deposit_Amount_Remitted = (data.Supreme_Deposit_Amount_Remitted).ToString(),
+                                  Supreme_Awarded_Amount = (data.Supreme_Awarded_Amount).ToString(),
+                                  Supreme_Awarded_Interest = (data.Supreme_Awarded_Interest).ToString(),
+                                  Supreme_Court_Cost = (data.Supreme_Court_Cost).ToString(),
+                                  Supreme_Total_Amount = (data.Supreme_Total_Amount).ToString(),
+                                  statutorypaidStatus = data.statutorypaidStatus,
+                                  mvc_JudgementSupreme_date2 = (data.mvc_JudgementSupreme_date2).ToString(),
+                                  mvc_opinionSupremeStatusID2 = data.mvc_opinionSupremeStatusID2,
+                                  mvc_awardedSupreme_amount2 = (data.mvc_awardedSupreme_amount2).ToString(),
+                                  awardedAmount_supremeCourtKGID = (data.awardedAmount_supremeCourtKGID).ToString(),
+                                  awardedInterest_supremeCourtKGID = (data.awardedInterest_supremeCourtKGID).ToString(),
+                                  courtcost_supremeCourtKGID = (data.courtcost_supremeCourtKGID).ToString(),
+                                  TotalAmount_supremeCourtKGID = (data.TotalAmount_supremeCourtKGID).ToString(),
+                                  dist_id12 = item.dm_code,
+                                  Taluk_id12= acc_dist.tm_code
                               }).Distinct().ToList();
 
             if (vehicleDetails.Count() == 0)
@@ -2253,7 +2293,44 @@ namespace DLL.MBClaimsDLL
                                       DelayNoteHighCourt = data.mvc_InputForDelayNoteHighCourt,
                                       AmtDepositHC = (data.mvc_amntDepoHighCourt.ToString()),
                                       AmtDepositLC = (data.mvc_amntDepoLowCourt.ToString()),
-
+                                      HighCourtOpinionID = data.opinionStatusHighCourt,
+                                      HighCourtjudgementDate = (data.HighCourtJudgementDate).ToString(),
+                                      HighCourtAwardedAmount = (data.awardedAmount_highCourt).ToString(),
+                                      HighCourstatutoryAmount = (data.HighCourt_Statuatory_Amount).ToString(),
+                                      HighCourtstatementRemittedDate = (data.HighCourt_statAmnt_RemittedDate).ToString(),
+                                      HighCourtDepositAmnt = (data.HighCourtDeposit_Amount).ToString(),
+                                      HighCourtDepositAmntRemittedDate = (data.HighCourt_depositAmnt_RemittedDate).ToString(),
+                                      HighCourtClaimAwardedAmnt = (data.HighCourtClaimAwarded_Amount).ToString(),
+                                      HighCourtClaimAwardedInterest = (data.HighCourtClaimAwarded_Interest).ToString(),
+                                      HighCourtClaimSettleCost = (data.HighCourtClaimSettle_cost).ToString(),
+                                      HighCourtClaimSettleTotalAmnt = (data.HighCourtClaimSettle_TotalAmnt).ToString(),
+                                      OpinionId2 = data.opinionStatusHighCourtKGID,
+                                      HighCourtJudgementDateKGID = (data.HighCourtJudgementDateKGID).ToString(),
+                                      HighCourtAwardedAmountKGID = (data.awardedAmount_highCourtKGID).ToString(),
+                                      awardedAmount_highCourtClaimSttleKGID = (data.awardedAmount_highCourtClaimSttleKGID).ToString(),
+                                      awardedInterest_highCourtClaimSttleKGID = (data.awardedInterest_highCourtClaimSttleKGID).ToString(),
+                                      courtCost_highCourtClaimSttleKGID = (data.courtCost_highCourtClaimSttleKGID).ToString(),
+                                      totalAmnt_highCourtClaimSttleKGID = (data.totalAmnt_highCourtClaimSttleKGID).ToString(),
+                                      InputDelaySupremeCourt = data.inputDelaysupremeCourt,
+                                      SupremeJudgementOpiniondate = (data.Supreme_judgement_Date).ToString(),
+                                      SupremeAwardedAmnt = (data.SupremeopinionAwardAmnt).ToString(),
+                                      SupremeOpinionId = data.OpinionSupremeCourt,
+                                      Supreme_Statuatory_Amount = (data.Supreme_Statuatory_Amount).ToString(),
+                                      Statuatory_Amount_Remitted = (data.Statuatory_Amount_Remitted).ToString(),
+                                      Supreme_DepositAmount = (data.Supreme_DepositAmount).ToString(),
+                                      Supreme_Deposit_Amount_Remitted = (data.Supreme_Deposit_Amount_Remitted).ToString(),
+                                      Supreme_Awarded_Amount = (data.Supreme_Awarded_Amount).ToString(),
+                                      Supreme_Awarded_Interest = (data.Supreme_Awarded_Interest).ToString(),
+                                      Supreme_Court_Cost = (data.Supreme_Court_Cost).ToString(),
+                                      Supreme_Total_Amount = (data.Supreme_Total_Amount).ToString(),
+                                      statutorypaidStatus = data.statutorypaidStatus,
+                                      mvc_JudgementSupreme_date2 = (data.mvc_JudgementSupreme_date2).ToString(),
+                                      mvc_opinionSupremeStatusID2 = data.mvc_opinionSupremeStatusID2,
+                                      mvc_awardedSupreme_amount2 = (data.mvc_awardedSupreme_amount2).ToString(),
+                                      awardedAmount_supremeCourtKGID = (data.awardedAmount_supremeCourtKGID).ToString(),
+                                      awardedInterest_supremeCourtKGID = (data.awardedInterest_supremeCourtKGID).ToString(),
+                                      courtcost_supremeCourtKGID = (data.courtcost_supremeCourtKGID).ToString(),
+                                      TotalAmount_supremeCourtKGID = (data.TotalAmount_supremeCourtKGID).ToString()
                                   }).Distinct().ToList();
 
             }
@@ -2319,6 +2396,62 @@ namespace DLL.MBClaimsDLL
                 else
                 {
                     vehicleDetails[i].opinionDesc = " ";
+
+                }
+                if (vehicleDetails[i].HighCourtOpinionID == 6)
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc = "APPEAL";
+
+                }
+                else if (vehicleDetails[i].HighCourtOpinionID == 7)
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc = "NO APPEAL";
+                }
+                else
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc = " ";
+
+                }
+                if (vehicleDetails[i].OpinionId2 == 6)
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc2 = "APPEAL";
+
+                }
+                else if (vehicleDetails[i].OpinionId2 == 7)
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc2 = "NO APPEAL";
+                }
+                else
+                {
+                    vehicleDetails[i].HighCourtOpinionDesc2 = " ";
+
+                }
+                if (vehicleDetails[i].SupremeOpinionId == 6)
+                {
+                    vehicleDetails[i].SupremeOpinionDesc = "APPEAL";
+
+                }
+                else if (vehicleDetails[i].SupremeOpinionId == 7)
+                {
+                    vehicleDetails[i].SupremeOpinionDesc = "NO APPEAL";
+                }
+                else
+                {
+                    vehicleDetails[i].SupremeOpinionDesc = " ";
+
+                }
+                if (vehicleDetails[i].mvc_opinionSupremeStatusID2 == 6)
+                {
+                    vehicleDetails[i].mvc_opinionSupremeStatusID2Desc = "APPEAL";
+
+                }
+                else if (vehicleDetails[i].mvc_opinionSupremeStatusID2 == 7)
+                {
+                    vehicleDetails[i].mvc_opinionSupremeStatusID2Desc = "NO APPEAL";
+                }
+                else
+                {
+                    vehicleDetails[i].SupremeOpinionDesc = " ";
 
                 }
             }
@@ -2755,10 +2888,86 @@ namespace DLL.MBClaimsDLL
                     {
                         //flow.mvc_objecttionStatement = 1;
                         flow.mvc_amntDepositToHighCourtStatus = false;
-                    } if (model.DocFileVariable == "AmountDepostionLetterToLowerCourt")
+                    }
+                    if (model.DocFileVariable == "AmountDepostionLetterToLowerCourt")
                     {
                         //flow.mvc_objecttionStatement = 1;
                         flow.mvc_amntDepositToLowCourtStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtJudgementOpinionFormLawDeptDetails")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_HighCourtJudgementOpinionStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtClaimSettlement")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_claimsettleHighCourtJudgementStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtNoticePetition")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_HighCourtNoticePetitionStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtCoveringLetter")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_HighCourtCoveringLetterStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtJudgementOpinionFormLawDeptDetails2")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_opinionStatusHighCourtKGIDStatus = false;
+                    }
+                    if (model.DocFileVariable == "HighCourtClaimSettlement2")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_ClaimSettleLowerHighStatus = false;
+                    }
+                    if (model.DocFileVariable == "DelayNotetoGovtAdvocateSupremeCourt")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_inputDelaysupremeCourtDraftStatus = false;
+                    }
+                    if (model.DocFileVariable == "AmountDepositiontoSupreme_Court")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_amntDepositToSupremeCStatus = false;
+                    }
+                    if (model.DocFileVariable == "Amount_Deposition_supremeCourtTOLowercourt")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_amntDepositSupremeCToLCStatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_supremeOpinionJudgementStatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeCourtClaimSettlement")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_supremeClaimSettleStatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeCourtNoticePetition")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_SupremeCourtNoticePetitionStatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeCourtCoveringLetter")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_SupremeCourtCoveringLetterStatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeOpinionNoticeFromLawDept2")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_SupremeOpinionclaimJudgmntstatus = false;
+                    }
+                    if (model.DocFileVariable == "SupremeClaimSettlement2")
+                    {
+                        //flow.mvc_objecttionStatement = 1;
+                        flow.mvc_claimSettleSupremeCourtKGIDStatus = false;
                     }
 
                 }
@@ -2954,7 +3163,8 @@ namespace DLL.MBClaimsDLL
                 work_flow.mvc_amntDepositToHighCourtStatus = true;
                 _db.tbl_mvc_claim_workflow.Add(work_flow);
                 result = _db.SaveChanges();
-            }if (model.DocFileVariable == "AmountDepostionLetterToLowerCourt")
+            }
+            if (model.DocFileVariable == "AmountDepostionLetterToLowerCourt")
             {
 
                 tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
@@ -2975,6 +3185,366 @@ namespace DLL.MBClaimsDLL
                 work_flow.mvc_main_flow = 0;
                 work_flow.mvc_amntDepositToLowCourt = 1;
                 work_flow.mvc_amntDepositToLowCourtStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtJudgementOpinionFormLawDeptDetails")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_HighCourtJudgementOpinion = 1;
+                work_flow.mvc_HighCourtJudgementOpinionStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtClaimSettlement")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_claimsettleHighCourtJudgement = 1;
+                work_flow.mvc_claimsettleHighCourtJudgementStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtNoticePetition")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_HighCourtNoticePetition = 1;
+                work_flow.mvc_HighCourtNoticePetitionStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtCoveringLetter")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_HighCourtCoveringLetter = 1;
+                work_flow.mvc_HighCourtCoveringLetterStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtJudgementOpinionFormLawDeptDetails2")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_opinionStatusHighCourtKGID = 1;
+                work_flow.mvc_opinionStatusHighCourtKGIDStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "HighCourtClaimSettlement2")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_ClaimSettleHighCourt = 1;
+                work_flow.mvc_ClaimSettleLowerHighStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "DelayNotetoGovtAdvocateSupremeCourt")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_inputDelaysupremeCourtDraft = 1;
+                work_flow.mvc_inputDelaysupremeCourtDraftStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "AmountDepositiontoSupreme_Court")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_amntDepositToSupremeC = 1;
+                work_flow.mvc_amntDepositToSupremeCStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "Amount_Deposition_supremeCourtTOLowercourt")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_amntDepositSupremeCToLC = 1;
+                work_flow.mvc_amntDepositSupremeCToLCStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_supremeOpinionJudgement = 1;
+                work_flow.mvc_supremeOpinionJudgementStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeCourtClaimSettlement")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_supremeClaimSettle = 1;
+                work_flow.mvc_supremeClaimSettleStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeCourtNoticePetition")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_SupremeCourtNoticePetition = 1;
+                work_flow.mvc_SupremeCourtNoticePetitionStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeCourtCoveringLetter")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_SupremeCourtCoveringLetter = 1;
+                work_flow.mvc_SupremeCourtCoveringLetterStatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeOpinionNoticeFromLawDept2")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_SupremeOpinionclaimJudgmnt = 1;
+                work_flow.mvc_SupremeOpinionclaimJudgmntstatus = true;
+                _db.tbl_mvc_claim_workflow.Add(work_flow);
+                result = _db.SaveChanges();
+            }
+            if (model.DocFileVariable == "SupremeClaimSettlement2")
+            {
+
+                tbl_mvc_claim_workflow work_flow = new tbl_mvc_claim_workflow();
+                work_flow.mvc_claim_app_id = model.MVC_claim_app_id;
+                work_flow.micw_vehicle_number = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].micw_vehicle_number);
+                work_flow.micw_policy_number = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].micw_policy_number);
+                work_flow.micw_remarks = model.Remarks_id;
+                work_flow.micw_comments = model.Comments_details;
+                work_flow.micw_verified_by = model.loginId;
+                work_flow.micw_checklist_status = true;
+                work_flow.micw_application_status = model.Category_id;
+                work_flow.micw_surveyor_registered = true;
+                work_flow.micw_approved_damage_cost = Convert.ToDecimal(model.claim_Amount);
+                work_flow.micw_active_status = true;
+                work_flow.micw_creation_datetime = DateTime.Now;
+                work_flow.micw_updation_datetime = DateTime.Now;
+                work_flow.micw_assigned_to = model.roleID;
+                work_flow.mvc_main_flow = 0;
+                work_flow.mvc_claimSettlesupremeCourtKGID = 1;
+                work_flow.mvc_claimSettleSupremeCourtKGIDStatus = true;
                 _db.tbl_mvc_claim_workflow.Add(work_flow);
                 result = _db.SaveChanges();
             }
@@ -3137,7 +3707,8 @@ namespace DLL.MBClaimsDLL
                                        comments = work.micw_comments
 
                                    }).OrderByDescending(x => x.SubmissionDate).ToList();
-            }if (FetchDetails == "AmountDepostionLetterToLowerCourt")
+            }
+            if (FetchDetails == "AmountDepostionLetterToLowerCourt")
             {
                 workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
                                    join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
@@ -3146,6 +3717,309 @@ namespace DLL.MBClaimsDLL
 
 
                                    where work.mvc_claim_app_id == appid && work.mvc_amntDepositToLowCourt == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtJudgementOpinionFormLawDeptDetails")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_HighCourtJudgementOpinion == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtClaimSettlement")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_claimsettleHighCourtJudgement == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtNoticePetition")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_HighCourtNoticePetition == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtCoveringLetter")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_HighCourtCoveringLetter == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtJudgementOpinionFormLawDeptDetails2")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_opinionStatusHighCourtKGID == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "HighCourtClaimSettlement2")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_ClaimSettleHighCourt == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "DelayNotetoGovtAdvocateSupremeCourt")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_inputDelaysupremeCourtDraft == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "AmountDepositiontoSupreme_Court")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_amntDepositToSupremeC == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "Amount_Deposition_supremeCourtTOLowercourt")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_amntDepositSupremeCToLC == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeCourtJudgementCopyandopinionfromLawDeptReceivedatKGID")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_supremeOpinionJudgement == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeCourtClaimSettlement")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_supremeClaimSettle == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeCourtNoticePetition")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_SupremeCourtNoticePetition == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeCourtCoveringLetter")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_SupremeCourtCoveringLetter == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeOpinionNoticeFromLawDept2")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_SupremeOpinionclaimJudgmnt == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "SupremeClaimSettlement2")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_claimSettlesupremeCourtKGID == 1 && work.mvc_main_flow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.micw_creation_datetime,
+                                       ByID = work.micw_verified_by,
+                                       TO = work.micw_assigned_to,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.micw_comments
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "viewSentBackWorkflow")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_claim_workflow
+                                   join app in _db.tbl_employee_basic_details on work.micw_verified_by equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.micw_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.micw_remarks equals remarks.remark_id
+
+                                   where work.mvc_claim_app_id == appid && work.mvc_main_flow == 1
                                    select new GetVehicleChassisPolicyDetails
                                    {
                                        SubmissionDate = work.micw_creation_datetime,
@@ -3323,6 +4197,918 @@ namespace DLL.MBClaimsDLL
 
 
         }
-        # endregion
+        public int HighCourtJudgementOpinionDetailsDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.opinionStatusHighCourt = model.Remarks_id;
+                mvc_tbl.HighCourtJudgementDate = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.awardedAmount_highCourt = Convert.ToDecimal(model.claim_Amount);
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+
+        }
+        public int HighCourtClaimSettlementDetailsDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.HighCourt_Statuatory_Amount = Convert.ToDecimal(model.claim_Amount);
+                mvc_tbl.HighCourt_statAmnt_RemittedDate = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.HighCourtDeposit_Amount = Convert.ToDecimal(model.awardedAmntLowCourt);
+                mvc_tbl.HighCourt_depositAmnt_RemittedDate = Convert.ToDateTime(model.CourtTime3);
+                mvc_tbl.HighCourtClaimAwarded_Amount = Convert.ToDecimal(model.Claim_settle_courtcost);
+
+                mvc_tbl.HighCourtClaimAwarded_Interest = Convert.ToDecimal(model.income_tax_of_injured);
+                mvc_tbl.HighCourtClaimSettle_cost = Convert.ToDecimal(model.Claim_settle_courtcost);
+                mvc_tbl.HighCourtClaimSettle_TotalAmnt = Convert.ToDecimal(model.HighCourtAwardedAmount);
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+
+        }
+        public int HighCourtJudgementOpinionDetailsKGIDDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.opinionStatusHighCourtKGID = model.Remarks_id;
+                mvc_tbl.HighCourtJudgementDateKGID = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.awardedAmount_highCourtKGID = Convert.ToDecimal(model.claim_Amount);
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+        }
+        public int HighCourtClaimAndSettlementKGIDDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.awardedAmount_highCourtClaimSttleKGID = Convert.ToDecimal(model.claim_Amount);
+                mvc_tbl.awardedInterest_highCourtClaimSttleKGID = Convert.ToDecimal(model.income_tax_of_injured);
+                mvc_tbl.courtCost_highCourtClaimSttleKGID = Convert.ToDecimal(model.Claim_settle_courtcost);
+                mvc_tbl.totalAmnt_highCourtClaimSttleKGID = Convert.ToDecimal(model.HighCourtAwardedAmount);
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+        }
+
+        //Chethan
+
+        public List<GetVehicleChassisPolicyDetails> GetMVCCourtExecutionDLL(long App_id, int category)
+        {
+            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
+            vehicleDetails = (from data in _db.tbl_mvc_application_details
+                              join item in _db.tbl_district_master on data.court_district equals item.dm_id
+                              join acc_dist in _db.tbl_taluka_master on data.court_taluk equals acc_dist.tm_id
+                              join injury in _db.tbl_mvc_claim_type_of_injury on data.acdnt_type_of_injury equals injury.injury_type_id
+                              where data.mvc_claim_app_id == App_id
+                              select new GetVehicleChassisPolicyDetails
+                              {
+                                  Court_DateTime = data.date_of_petition,
+                                  Court_MVC_number = data.mvc_no,
+                                  Name_of_court = data.name_of_court,
+                                  Court_District_Name = item.dm_name_english,
+                                  Court_Taluk_Name = acc_dist.tm_englishname,
+                                  MVC_number = (data.mvc_no).ToString(),
+
+                                  Accident_details = data.accident_details,
+                                  claim_Amount = (data.claim_amount).ToString(),
+                                  MVC_claim_app_id = data.mvc_claim_app_id,
+                                  Name_of_injured = data.acdnt_name_of_injured_person,
+                                  Father_name = data.acdnt_person_father_name,
+                                  Spouse_name = data.acdnt_person_spouse_name,
+                                  occupation_of_injured = data.acdnt_person_occupation,
+                                  Age_of_injured = data.acdnt_person_age,
+                                  Address_of_dead_details = data.acdnt_person_full_address,
+                                  monthly_income_of_injured = (data.acdnt_person_monthly_income).ToString(),
+                                  income_tax_of_injured = (data.acdnt_comp_claimed_tax).ToString(),
+                                  employer_deceased_details = data.acdnt_emp_nameadress_deceased,
+                                  place_of_accident = data.acdnt_place_accident,
+                                  accident_DateTime = (data.acdnt_date_time_of_accident).ToString(),
+                                  police_station_of_jurisdiction = data.acdnt_police_station_details,
+                                  police_station_of_compensation = data.acdnt_compens_claimed_travelling,
+                                  injury_desc = injury.injury_type_desc,
+                                  nature_of_injuries_sustained = data.acdnt_nature_of_injury,
+                                  medical_officer = data.acdnt_medical_officer_detail,
+                                  Period_of_treatment_of_details = data.acdnt_period_treatment_expend,
+                                  Name_of_injury_caused_of_details = data.acdnt_name_of_injury_caused,
+                                  Name_and_address_of_applicant_details = data.acdnt_applicant_details,
+                                  relation_with_deceased = data.acdnt_relation_details,
+                                  title_property_deceased = data.acdnt_title_to_property,
+                                  any_other_information_details = data.acdt_any_other_info,
+                                  stateID = data.state_id,
+                                  // 21-03-2022
+                                  dist_id12 = item.dm_code,
+                                  Taluk_id12 = acc_dist.tm_code,
+                                  type_injury = injury.injury_type_id,
+
+
+                                  //
+
+                              }).Distinct().ToList();
+
+
+
+            if (vehicleDetails.Count() == 0)
+            {
+                vehicleDetails = (from data in _db.tbl_mvc_application_details
+
+                                  join injury in _db.tbl_mvc_claim_type_of_injury on data.acdnt_type_of_injury equals injury.injury_type_id
+                                  where data.mvc_claim_app_id == App_id
+                                  select new GetVehicleChassisPolicyDetails
+                                  {
+                                      Court_DateTime = data.date_of_petition,
+                                      Court_MVC_number = data.mvc_no,
+                                      Name_of_court = data.name_of_court,
+
+                                      MVC_number = (data.mvc_no).ToString(),
+
+                                      Accident_details = data.accident_details,
+                                      claim_Amount = (data.claim_amount).ToString(),
+                                      MVC_claim_app_id = data.mvc_claim_app_id,
+                                      Name_of_injured = data.acdnt_name_of_injured_person,
+                                      Father_name = data.acdnt_person_father_name,
+                                      Spouse_name = data.acdnt_person_spouse_name,
+                                      occupation_of_injured = data.acdnt_person_occupation,
+                                      Age_of_injured = data.acdnt_person_age,
+                                      Address_of_dead_details = data.acdnt_person_full_address,
+                                      monthly_income_of_injured = (data.acdnt_person_monthly_income).ToString(),
+                                      income_tax_of_injured = (data.acdnt_comp_claimed_tax).ToString(),
+                                      employer_deceased_details = data.acdnt_emp_nameadress_deceased,
+                                      place_of_accident = data.acdnt_place_accident,
+                                      accident_DateTime = (data.acdnt_date_time_of_accident).ToString(),
+                                      police_station_of_jurisdiction = data.acdnt_police_station_details,
+                                      police_station_of_compensation = data.acdnt_compens_claimed_travelling,
+                                      injury_desc = injury.injury_type_desc,
+                                      nature_of_injuries_sustained = data.acdnt_nature_of_injury,
+                                      medical_officer = data.acdnt_medical_officer_detail,
+                                      Period_of_treatment_of_details = data.acdnt_period_treatment_expend,
+                                      Name_of_injury_caused_of_details = data.acdnt_name_of_injury_caused,
+                                      Name_and_address_of_applicant_details = data.acdnt_applicant_details,
+                                      relation_with_deceased = data.acdnt_relation_details,
+                                      title_property_deceased = data.acdnt_title_to_property,
+                                      any_other_information_details = data.acdt_any_other_info,
+                                      stateID = data.state_id,
+
+                                      other_state_court_dist = data.other_state_court_dist,
+                                      other_state_court_taluk = data.other_state_court_taluk,
+                                      court_parawise = data.court_parawise_remarks
+
+                                  }).Distinct().ToList();
+
+            }
+
+            for (int i = 0; i < vehicleDetails.Count; i++)
+            {
+                if (vehicleDetails[i].stateID != 29)
+                {
+                    var ById = vehicleDetails[i].stateID;
+                    var stateName = (
+                                from iti in _db.tbl_mvc_application_details
+                                join state1 in _db.tbl_State_master on iti.state_id equals state1.StateId
+                                where iti.state_id == ById
+                                select new
+                                {
+                                    StateName = state1.State
+
+                                }).FirstOrDefault();
+                    vehicleDetails[i].Court_state_name = stateName.StateName;
+                    long scruStat = GetScrutinyStatusCourtExecution(category, App_id);
+                    vehicleDetails[i].scrutinyStatus = scruStat;
+                }
+                else
+                {
+
+                    var ById = vehicleDetails[i].stateID;
+                    var UserName = (
+                                    from iti in _db.tbl_mvc_application_details
+                                    join item in _db.tbl_district_master on iti.court_district equals item.dm_id
+                                    join acc_dist in _db.tbl_taluka_master on iti.court_taluk equals acc_dist.tm_id
+                                    where iti.state_id == ById
+                                    select new
+                                    {
+                                        DivisionName = item.dm_name_english,
+                                        TlukName = acc_dist.tm_englishname,
+
+                                    }).FirstOrDefault();
+                    vehicleDetails[i].other_state_court_dist = UserName.DivisionName;
+                    vehicleDetails[i].other_state_court_taluk = UserName.TlukName;
+                    var stateName = (
+                                 from iti in _db.tbl_mvc_application_details
+                                 join state1 in _db.tbl_State_master on iti.state_id equals state1.StateId
+                                 where iti.state_id == ById
+                                 select new
+                                 {
+                                     StateName = state1.State
+
+                                 }).FirstOrDefault();
+                    vehicleDetails[i].Court_state_name = stateName.StateName;
+
+                    long scruStat = GetScrutinyStatusCourtExecution(category, App_id);
+                    vehicleDetails[i].scrutinyStatus = scruStat;
+                }
+            }
+
+
+
+            return vehicleDetails;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetCourtExecutionDocDetailsDLL(long Appno)
+        {
+            List<GetVehicleChassisPolicyDetails> vehicleDetails = new List<GetVehicleChassisPolicyDetails>();
+            vehicleDetails = (from data in _db.tbl_mvc_court_execution
+                              join item in _db.tbl_court_execution_document on data.court_mvc_ref_no equals item.mvc_ref_no
+                              where item.mvc_ref_no == Appno
+
+                              select new GetVehicleChassisPolicyDetails
+                              {
+                                  Court_ExecutionDetails = item.doc_path,
+
+                              }
+                              ).ToList();
+            return vehicleDetails;
+        }
+
+        public long GetScrutinyStatusCourtExecution(int category, long app_id)
+        {
+            var scrut = (from mvc in _db.tbl_mvc_court_execution
+                         join app in _db.tbl_mvc_court_exeution_workflow on mvc.court_mvc_ref_no equals app.mvc_court_exe_app_id
+                         where app.mvc_court_exe_app_id == app_id && app.court_active_status == true
+                         select app.assigned_To_category).FirstOrDefault();
+            if (scrut == 0)
+            {
+                scrut = 3;
+            }
+            return scrut;
+        }
+
+        public int stopMVCandlokadhalathOnCourtExecutionSelectDLL(long Appid)
+        {
+            List<GetVehicleChassisPolicyDetails> mvc_details = new List<GetVehicleChassisPolicyDetails>();
+            int result = 0;
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == Appid select n).FirstOrDefault();
+            if (mvc_tbl != null)
+            {
+                mvc_tbl.app_saved_status = 4;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+                result = _db.SaveChanges();
+            }
+
+            return result;
+        }
+        public int StopCourtExecutionProcessDLL(long Appid)
+        {
+            List<GetVehicleChassisPolicyDetails> mvc_details = new List<GetVehicleChassisPolicyDetails>();
+            int result = 0;
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == Appid select n).FirstOrDefault();
+            if (mvc_tbl != null)
+            {
+                mvc_tbl.app_saved_status = 2;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+                result = _db.SaveChanges();
+            }
+
+            return result;
+        }
+
+        public long SaveMVCCourtExecutionDLL(GetVehicleChassisPolicyDetails model)
+        {
+            long mvc_ref = Convert.ToInt64(model.court_ref_no);
+
+
+            tbl_mvc_court_execution court_ = _db.tbl_mvc_court_execution.Where(x => x.court_mvc_ref_no == mvc_ref).FirstOrDefault();
+            if (court_ == null)
+            {
+                try
+                {
+                    tbl_mvc_court_execution court_data = new tbl_mvc_court_execution();
+
+                    court_data.court_mvc_ref_no = model.court_ref_no;
+                    court_data.court_chassis_no = model.vehicle_chasis_no;
+                    court_data.court_policy_no = model.Policy_number;
+                    court_data.created_by = model.created_by;
+                    court_data.verified_by = Convert.ToInt32(model.loginId);
+                    court_data.mvc_court_creation_datetime = DateTime.Now;
+                    court_data.mvc_court_updation_datetime = DateTime.Now;
+                    court_data.status_id = true;
+
+
+                    _db.tbl_mvc_court_execution.Add(court_data);
+                    _db.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                try
+                {
+
+
+                    court_.court_mvc_ref_no = model.court_ref_no;
+                    court_.court_chassis_no = model.vehicle_chasis_no;
+                    court_.court_policy_no = model.Policy_number;
+                    court_.created_by = model.created_by;
+                    court_.verified_by = Convert.ToInt32(model.loginId);
+                    court_.mvc_court_updation_datetime = DateTime.Now;
+                    court_.status_id = true;
+
+                    _db.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            var returnMessage = Update_Court_execution_Work_flow_Details(model);
+            return model.court_ref_no;
+
+        }
+
+        public int saveCourtDocDLL(string path, long Application_id, string filename)
+        {
+
+            int returnpathStatus = 0;
+            if (path != null && Application_id != 0)
+            {
+                try
+                {
+                    List<tbl_court_execution_document> pathData = _db.tbl_court_execution_document.Where(x => x.mvc_ref_no == Application_id).ToList();
+
+                    if (pathData.Count() == 0)
+                    {
+                        returnpathStatus = saveCEPathOfFile(path, Application_id);
+                    }
+                    else
+                    {
+                        returnpathStatus = saveCEPathOfFile(path, Application_id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            else
+            {
+                return 0;
+            }
+            return 1;
+        }
+        public int saveCEPathOfFile(string path, long App_id)
+        {
+
+            string[] newNV = path.Split('/');
+            string pathConstant = newNV[6];
+            string otherPath = newNV[6];
+            int abc = 0;
+
+            tbl_court_execution_document pathData = _db.tbl_court_execution_document.Where(x => x.mvc_ref_no == App_id && x.doc_path.Contains(pathConstant)).FirstOrDefault();
+            if (pathData == null)
+            {
+                tbl_court_execution_document court_doc = new tbl_court_execution_document();
+                court_doc.mvc_ref_no = App_id;
+                court_doc.doc_path = path;
+                court_doc.active_status = true;
+                court_doc.court_doc_creation_datetime = DateTime.Now;
+                court_doc.court_doc_updation_datetime = DateTime.Now;
+
+                _db.tbl_court_execution_document.Add(court_doc);
+                abc = _db.SaveChanges();
+
+
+                return 1;
+            }
+            else
+            {
+                pathData.doc_path = path;
+                pathData.court_doc_creation_datetime = DateTime.Now;
+                pathData.court_doc_updation_datetime = DateTime.Now;
+
+
+                abc = _db.SaveChanges();
+                return abc;
+
+            }
+            return 1;
+        }
+
+
+
+
+
+        public int Update_Court_execution_Work_flow_Details(GetVehicleChassisPolicyDetails model)
+        {
+            if (model != null)
+            {
+                try
+                {
+                    List<tbl_mvc_court_exeution_workflow> oldFlowData = _db.tbl_mvc_court_exeution_workflow.Where(x => x.mvc_court_exe_app_id == model.court_ref_no).ToList();
+                    if (oldFlowData.Count() != 0)
+                    {
+                        foreach (var flow in oldFlowData)
+                        {
+                            flow.court_active_status = false;
+                        }
+                    }
+                    tbl_mvc_court_exeution_workflow work_flow = new tbl_mvc_court_exeution_workflow();
+                    work_flow.mvc_court_exe_app_id = model.court_ref_no;
+                    work_flow.court_veh_chassis_no = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].court_veh_chassis_no);
+                    work_flow.court_veh_policy_no = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].court_veh_policy_no);
+                    work_flow.court_remarks = model.Remarks_id;
+                    work_flow.court_comment = model.Comments_details;
+                    work_flow.court_verified_by = model.created_by;
+                    work_flow.court_checklist_status = true;
+                    work_flow.court_application_status = model.Category_id;
+                    work_flow.court_active_status = true;
+                    work_flow.court_creation_datetime = DateTime.Now;
+                    work_flow.court_updation_datetime = DateTime.Now;
+                    work_flow.court_assigned_to = model.roleID;
+                    work_flow.verified_by_category = model.loginId;
+                    work_flow.assigned_To_category = model.Category_id;
+                    work_flow.CE_Mainflow = 1;
+                    _db.tbl_mvc_court_exeution_workflow.Add(work_flow);
+                    int abc = _db.SaveChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+
+                }
+            }
+            else
+            {
+                return 0;
+            }
+            return 1;
+
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetWorkFlowCOurtExecutionDLL(long App_id, string chassis)
+        {
+            List<GetVehicleChassisPolicyDetails> workFlowDetails = new List<GetVehicleChassisPolicyDetails>();
+
+            workFlowDetails = (from work in _db.tbl_mvc_court_exeution_workflow
+                               join app in _db.tbl_employee_basic_details on work.court_verified_by equals app.employee_id
+                               join cat in _db.tbl_category_master on work.court_application_status equals cat.cm_category_id
+                               join remarks in _db.tbl_remarks_master on work.court_remarks equals remarks.RM_Remarks_id
+
+
+                               where work.mvc_court_exe_app_id == App_id
+                               select new GetVehicleChassisPolicyDetails
+                               {
+                                   SubmissionDate = work.court_creation_datetime,
+                                   ByID = work.verified_by_category,
+                                   TO = work.assigned_To_category,
+                                   Remarks = remarks.RM_Remarks_Desc,
+                                   comments = work.court_comment
+
+                               }).OrderByDescending(x => x.SubmissionDate).ToList();
+
+            for (int i = 0; i < workFlowDetails.Count; i++)
+            {
+                var ById = workFlowDetails[i].ByID;
+                int toID = Convert.ToInt32(workFlowDetails[i].TO);
+                var UserName = (from j in _db.tbl_category_master
+                                    //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                                where j.cm_category_id == ById
+                                select j.cm_category_desc).FirstOrDefault();
+                //workFlowDetails[i].From = UserName;
+                workFlowDetails[i].From = UserName;
+                //workFlowDetails[i].TO = UserName;
+
+                var TO = (from j in _db.tbl_category_master
+                              //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                          where j.cm_category_id == toID
+                          select j.cm_category_desc).FirstOrDefault();
+                workFlowDetails[i].Tooo = TO.ToString(); //TO.ToString();
+            }
+
+
+
+            return workFlowDetails;
+        }
+        public int SaveDelayNoteToAdvocateSupremeCourtDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.inputDelaysupremeCourt = model.opinionDesc;
+
+                result = _db.SaveChanges();
+
+
+            }
+
+
+            return result;
+
+
+        }
+        public int SupremeCourtOpinionAndJudegementCopyDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+                mvc_tbl.OpinionSupremeCourt = model.Remarks_id;
+                mvc_tbl.Supreme_judgement_Date = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.SupremeopinionAwardAmnt = Convert.ToDecimal(model.claim_Amount);
+                result = _db.SaveChanges();
+                result = 1;
+
+
+                result = _db.SaveChanges();
+
+
+            }
+
+
+            return result;
+
+
+        }
+        public int SupremeCourtClaimAndSettlementKGIDDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.Supreme_Statuatory_Amount = Convert.ToDecimal(model.claim_Amount);
+                mvc_tbl.Statuatory_Amount_Remitted = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.Supreme_DepositAmount = Convert.ToDecimal(model.awardedAmntLowCourt);
+                mvc_tbl.Supreme_Deposit_Amount_Remitted = Convert.ToDateTime(model.CourtTime3);
+                mvc_tbl.Supreme_Awarded_Amount = Convert.ToDecimal(model.claim_settle_awardedAmt);
+                mvc_tbl.Supreme_Awarded_Interest = Convert.ToDecimal(model.income_tax_of_injured);
+                mvc_tbl.Supreme_Court_Cost = Convert.ToDecimal(model.Claim_settle_courtcost);
+                mvc_tbl.Supreme_Total_Amount = Convert.ToDecimal(model.HighCourtAwardedAmount);
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+        }
+        public int SupremeCourtOpinionAndJudegementCopyKGIDDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+                mvc_tbl.mvc_opinionSupremeStatusID2 = model.Remarks_id;
+                mvc_tbl.mvc_JudgementSupreme_date2 = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.mvc_awardedSupreme_amount2 = Convert.ToDecimal(model.claim_Amount);
+                result = _db.SaveChanges();
+                result = 1;
+
+
+                result = _db.SaveChanges();
+
+
+            }
+
+
+            return result;
+
+
+        }
+        public int saveSupremeClaimApprovalSettlementDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+
+                mvc_tbl.awardedAmount_supremeCourtKGID = Convert.ToDecimal(model.claim_Amount);
+                mvc_tbl.awardedInterest_supremeCourtKGID = Convert.ToDecimal(model.awardedAmntLowCourt);
+                mvc_tbl.courtcost_supremeCourtKGID = Convert.ToDecimal(model.Claim_settle_courtcost);
+                mvc_tbl.TotalAmount_supremeCourtKGID = Convert.ToDecimal(model.HighCourtAwardedAmount);
+
+                result = _db.SaveChanges();
+                result = 1;
+
+            }
+
+
+            return result;
+
+
+        }
+        public int CEUpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model)
+        {
+            List<tbl_mvc_court_exeution_workflow> oldFlowData = _db.tbl_mvc_court_exeution_workflow.Where(x => x.mvc_court_exe_app_id == model.MVC_claim_app_id).ToList();
+            int result = 0;
+            if (oldFlowData.Count() != 0)
+            {
+                foreach (var flow in oldFlowData)
+                {
+                    if (model.DocFileVariable == "CEOpinionFromLawDepartment")
+                    {
+                        //flow.mvc_parawiseRemarkLawyer = 1;
+                        flow.CE_OpinionLawDeptStatus = false;
+                    }
+                    if (model.DocFileVariable == "CEClaimApprovalandSettlementDepartment")
+                    {
+                        //flow.mvc_parawiseRemarkLawyer = 1;
+                        flow.CE_ClaimSettleDeptStatus = false;
+                    }
+                }
+                if (model.DocFileVariable == "CEOpinionFromLawDepartment")
+                {
+
+                    tbl_mvc_court_exeution_workflow work_flow = new tbl_mvc_court_exeution_workflow();
+                    work_flow.mvc_court_exe_app_id = model.MVC_claim_app_id;
+                    work_flow.court_veh_chassis_no = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].court_veh_chassis_no);
+                    work_flow.court_veh_policy_no = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].court_veh_policy_no);
+                    work_flow.court_remarks = model.Remarks_id;
+                    work_flow.court_comment = model.Comments_details;
+                    work_flow.court_verified_by = model.created_by;
+                    work_flow.court_checklist_status = true;
+                    work_flow.court_application_status = model.Category_id;
+                    work_flow.court_active_status = true;
+                    work_flow.court_creation_datetime = DateTime.Now;
+                    work_flow.court_updation_datetime = DateTime.Now;
+                    work_flow.court_assigned_to = model.roleID;
+                    work_flow.verified_by_category = model.loginId;
+                    work_flow.assigned_To_category = model.roleID;
+                    work_flow.CE_Mainflow = 0;
+                    work_flow.CE_OpinionLawDept = 1;
+                    work_flow.CE_OpinionLawDeptStatus = true;
+                    _db.tbl_mvc_court_exeution_workflow.Add(work_flow);
+
+                    result = _db.SaveChanges();
+                    result = 1;
+                }
+                if (model.DocFileVariable == "CEClaimApprovalandSettlementDepartment")
+                {
+
+                    tbl_mvc_court_exeution_workflow work_flow = new tbl_mvc_court_exeution_workflow();
+                    work_flow.mvc_court_exe_app_id = model.MVC_claim_app_id;
+                    work_flow.court_veh_chassis_no = ((model.Vehicle_Registration_Number != null) ? model.Vehicle_Registration_Number : oldFlowData[0].court_veh_chassis_no);
+                    work_flow.court_veh_policy_no = ((model.Policy_number != null) ? model.Policy_number : oldFlowData[0].court_veh_policy_no);
+                    work_flow.court_remarks = model.Remarks_id;
+                    work_flow.court_comment = model.Comments_details;
+                    work_flow.court_verified_by = model.created_by;
+                    work_flow.court_checklist_status = true;
+                    work_flow.court_application_status = model.Category_id;
+                    work_flow.court_active_status = true;
+                    work_flow.court_creation_datetime = DateTime.Now;
+                    work_flow.court_updation_datetime = DateTime.Now;
+                    work_flow.court_assigned_to = model.roleID;
+                    work_flow.verified_by_category = model.loginId;
+                    work_flow.assigned_To_category = model.roleID;
+                    work_flow.CE_Mainflow = 0;
+
+                    work_flow.CE_ClaimSettleDept = 1;
+                    work_flow.CE_ClaimSettleDeptStatus = true;
+                    _db.tbl_mvc_court_exeution_workflow.Add(work_flow);
+
+                    result = _db.SaveChanges();
+                    result = 1;
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+            return result;
+        }
+        public int CEUpdateOpinionLawDeptDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_court_execution mvc_tbl = (from n in _db.tbl_mvc_court_execution where n.court_mvc_ref_no == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+                mvc_tbl.CE_Opinion_Status = model.OpinionId;
+                mvc_tbl.CE_JudgementDate = Convert.ToDateTime(model.CourtTime2);
+                mvc_tbl.CE_ClaimAwarded_Amount = Convert.ToDecimal(model.claim_Amount);
+                result = _db.SaveChanges();
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+            return result;
+        }
+        public int CEClaimsettleLawDeptDLL(GetVehicleChassisPolicyDetails model)
+        {
+            tbl_mvc_court_execution mvc_tbl = (from n in _db.tbl_mvc_court_execution where n.court_mvc_ref_no == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+                mvc_tbl.CE_AwardedAmount = Convert.ToDecimal(model.claim_Amount);
+                mvc_tbl.CE_AwardedInterest = Convert.ToDecimal(model.income_tax_of_injured);
+                mvc_tbl.CE_courtcost = Convert.ToDecimal(model.Claim_settle_courtcost);
+                mvc_tbl.CE_totalAmount = Convert.ToDecimal(model.HighCourtAwardedAmount);
+                result = _db.SaveChanges();
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsDLL(long appid)
+        {
+            var vehicleDetails = (from data in _db.tbl_mvc_application_details
+                                  join item in _db.tbl_mvc_court_execution on data.mvc_claim_app_id equals item.court_mvc_ref_no
+
+                                  where data.mvc_claim_app_id == appid
+                                  select new GetVehicleChassisPolicyDetails
+                                  {
+                                      HighCourtjudgementDate = (item.CE_JudgementDate).ToString(),
+                                      HighCourtAwardedAmount = (item.CE_AwardedAmount).ToString(),
+                                      HighCourtOpinionID = item.CE_Opinion_Status,
+                                      HighCourtClaimAwardedInterest = (item.CE_AwardedInterest).ToString(),
+                                      HighCourtClaimAwardedAmnt = (item.CE_ClaimAwarded_Amount).ToString(),
+                                      Claim_settle_courtcost = (item.CE_courtcost).ToString(),
+                                      HighCourtClaimSettleTotalAmnt = (item.CE_totalAmount).ToString(),
+                                  }).Distinct().ToList();
+            for (int i = 0; i < vehicleDetails.Count; i++)
+            {
+                if (vehicleDetails[i].HighCourtOpinionID == 6)
+                {
+                    vehicleDetails[i].opinionDesc = "APPEAL";
+
+                }
+                else if (vehicleDetails[i].HighCourtOpinionID == 7)
+                {
+                    vehicleDetails[i].opinionDesc = "NO APPEAL";
+                }
+                else
+                {
+                    vehicleDetails[i].opinionDesc = " ";
+
+                }
+            }
+            return vehicleDetails;
+        }
+        public List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusDLL(string FetchDetails, long appid)
+        {
+            List<GetVehicleChassisPolicyDetails> workFlowDetails = new List<GetVehicleChassisPolicyDetails>();
+
+            if (FetchDetails == "CEOpinionFromLawDepartment")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_court_exeution_workflow
+                                   join app in _db.tbl_employee_basic_details on work.verified_by_category equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.court_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.court_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_court_exe_app_id == appid && work.CE_OpinionLawDept == 1 && work.CE_Mainflow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.court_creation_datetime,
+                                       ByID = work.verified_by_category,
+                                       TO = work.assigned_To_category,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.court_comment
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            if (FetchDetails == "CEClaimApprovalandSettlementDepartment")
+            {
+                workFlowDetails = (from work in _db.tbl_mvc_court_exeution_workflow
+                                   join app in _db.tbl_employee_basic_details on work.verified_by_category equals app.employee_id
+                                   join cat in _db.tbl_category_master on work.court_application_status equals cat.cm_category_id
+                                   join remarks in _db.tbl_mvc_claim_remarks on work.court_remarks equals remarks.remark_id
+
+
+                                   where work.mvc_court_exe_app_id == appid && work.CE_ClaimSettleDept == 1 && work.CE_Mainflow != 1
+                                   select new GetVehicleChassisPolicyDetails
+                                   {
+                                       SubmissionDate = work.court_creation_datetime,
+                                       ByID = work.verified_by_category,
+                                       TO = work.assigned_To_category,
+                                       Remarks = remarks.remark_desc,
+                                       comments = work.court_comment
+
+                                   }).OrderByDescending(x => x.SubmissionDate).ToList();
+            }
+            for (int i = 0; i < workFlowDetails.Count; i++)
+            {
+                var ById = workFlowDetails[i].ByID;
+                int toID = Convert.ToInt32(workFlowDetails[i].TO);
+                var UserName = (from j in _db.tbl_category_master
+                                    //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                                where j.cm_category_id == ById
+                                select j.cm_category_desc).FirstOrDefault();
+                //workFlowDetails[i].From = UserName;
+                workFlowDetails[i].From = UserName;
+                //workFlowDetails[i].TO = UserName;
+
+                var TO = (from j in _db.tbl_category_master
+                              //join e in _db.tbl_employee_basic_details on j.cm_category_id equals e.user_category_id
+                          where j.cm_category_id == toID
+                          select j.cm_category_desc).FirstOrDefault();
+                workFlowDetails[i].Tooo = TO.ToString(); //TO.ToString();
+            }
+
+
+            return workFlowDetails;
+        }
+        public SelectList RemarksJudgementDLL()
+        {
+            List<SelectListItem> JudgementtList = new List<SelectListItem>();
+
+            JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                              where remark.moduleType==4
+                            select new SelectListItem
+                            {
+                                Text = remark.remark_desc,
+                                Value = (remark.remark_id).ToString(),
+                            }).ToList();
+            return new SelectList(JudgementtList, "Value", "Text");
+        }
+        public int  SendBackMvcToCWDLL(GetVehicleChassisPolicyDetails model) {
+            tbl_mvc_application_details mvc_tbl = (from n in _db.tbl_mvc_application_details where n.mvc_claim_app_id == model.MVC_claim_app_id select n).FirstOrDefault();
+            int result = 0;
+            if (mvc_tbl != null)
+            {
+
+                mvc_tbl.app_saved_status = 10;
+                mvc_tbl.mvc_claim_updation_datetime = DateTime.Now;
+                
+                result = _db.SaveChanges();
+                result = 1;
+
+
+                result = _db.SaveChanges();
+
+
+            }
+
+
+            return result;
+
+        }
+        public List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsDLL()
+        {
+            List<GetVehicleChassisPolicyDetails> GetDraft = new List<GetVehicleChassisPolicyDetails>();
+            GetDraft = (from CMM in _db.tbl_mvc_application_details
+                        where CMM.app_saved_status == 10
+                        select new GetVehicleChassisPolicyDetails
+                        {
+                            Court_MVC_number = CMM.mvc_no,
+                            vehicle_chasis_no = CMM.chassis_no,
+                            MVC_claim_app_id = CMM.mvc_claim_app_id,
+                        }).ToList();
+
+
+            return GetDraft;
+        }
+
     }
-}
+            #endregion
+      
+ }

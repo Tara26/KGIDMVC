@@ -75,7 +75,37 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
        int SaveDelayNoteToAdvocateHighCourtBLL(GetVehicleChassisPolicyDetails model);
        int saveAmountToDeposittedToHighCourtBLL(GetVehicleChassisPolicyDetails model);
        int UploadofAmountDepositionLetterLCBLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtJudgementOpinionDetailsBLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtClaimSettlementDetailsBLL(GetVehicleChassisPolicyDetails model);
 
+        int HighCourtJudgementOpinionDetailsKGIDBLL(GetVehicleChassisPolicyDetails model);
+        int HighCourtClaimSettlementDetailsKGIDBLL(GetVehicleChassisPolicyDetails model);
+
+        //chethan
+        List<GetVehicleChassisPolicyDetails> GetMVCCourtExecutionBLL(long App_id, int Category);
+        List<GetVehicleChassisPolicyDetails> GetCourtExecutionDocDetailsBLL(long App_id);
+
+        //long SaveMVCLokadalathDetailsBLL(GetVehicleChassisPolicyDetails model);
+        int stopMVCandlokadhalathOnCourtExecutionSelectBLL(long AppId);
+        int Update_Court_execution_Work_flow_DetailsBLL(GetVehicleChassisPolicyDetails model);
+        int StopCourtExecutionProcessBLL(long AppId);
+        long SaveMVCCourtExecutionBLL(GetVehicleChassisPolicyDetails model);
+        int saveCourtDocBLL(string path, long Application_id, string filename);
+        List<GetVehicleChassisPolicyDetails> GetWorkFlowCOurtExecutionBLL(long App_id, string chassis);
+
+        int SaveDelayNoteToAdvocateSupremeCourtBLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtOpinionAndJudegementCopyBLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtClaimSettlementDetailsBLL(GetVehicleChassisPolicyDetails model);
+        int SupremeCourtOpinionAndJudegementCopyKGIDBLL(GetVehicleChassisPolicyDetails model);
+        int saveSupremeClaimApprovalSettlementBLL(GetVehicleChassisPolicyDetails model);
+        int CEUpdateDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model);
+        int CEUpdateOpinionLawDeptBLL(GetVehicleChassisPolicyDetails model);
+        int CEClaimsettleLawDeptBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsBLL(long appid);
+        List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusBLL(string GetStatusData, long appId);
+         SelectList RemarksJudgementBLL();
+        int SendBackMvcToCWBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsBLL();
 
     }
 }
