@@ -12,32 +12,12 @@ namespace BLL.MBClaimsBLL
 {
     public interface IMBClaimsBLL
     {
-        VM_MIOwnDamageClaimDetails GetMIOwnDamageClaimDetailsBLL(long empId, int category);
-        VM_ODClaimVerificationDetails GetODClaimApplicationStatusListBLL(long empId, int category);
         List<tbl_district_master> GetDistListBLL();
         List<tbl_taluka_master> GetTalukaListBLL(int DistId);
         List<tbl_od_cost_component_master> GetComponentListBLL();
 
-        long SaveODClaimApplicationDetailsBLL(VM_ODClaimApplicationDetails objCAD);
-        VM_ODClaimApplicationDetails GetODClaimApplicationDetailsBLL(long Empid, string PolicyNumber);
-
-        #region OD Claim Workflow
-        //OD Claim Workflow
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForCWVerificationBLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForSuperintendentVerificationBLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForDDVerificationBLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForDVerificationBLL(long EmpID, string Category);
-
-        VM_MIODClaimDeptVerficationDetails GetWorkFlowDetailsBLL(long applicationId, int category);
-        string SaveVerifiedDetailsBLL(VM_MIODClaimDeptVerficationDetails objVerifyDetails);
-        #endregion
-
-        // Surveyor Workflow
-        VM_ODClaimSurveyorVerificationDetails GetEmployeeDetailsForSurveyorVerificationBLL(long EmpID);
-        // View Application
-        VM_ODClaimApprovedApplicationDetails GetApprovedApplicationListBLL(long EmpID, string Category);
-        VM_ODClaimWorkOrderDetails GetODClaimAprvdAppDetailsBLL(long Empid, string PolicyNumber, string Category);
-        List<GetVehicleChassisPolicyDetails> GetVehicleAndPolicyDetailsBLL(string textDetails);
+        
+        GetVehicleChassisPolicyDetails GetVehicleAndPolicyDetailsBLL(string textDetails);
         SelectList GetDistrictListBLL();
 
         SelectList GetTalukListBLL(int dm_code);
@@ -47,7 +27,7 @@ namespace BLL.MBClaimsBLL
         int SavePathDetailsBLL(string path, long Application_id);
 
         List<GetVehicleChassisPolicyDetails> GetMVCApplicationFormDataBLL();
-        List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisBLL(string ChassisNo);
+        GetVehicleChassisPolicyDetails GetMVCGetDetailsOnChassisBLL(string ChassisNo);
         List<GetVehicleChassisPolicyDetails> PetitionerDetailsListBLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsBLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtBLL(long App_id,int Category);
@@ -106,6 +86,22 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
          SelectList RemarksJudgementBLL();
         int SendBackMvcToCWBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsBLL();
-
+        List<GetVehicleChassisPolicyDetails> GetLokadhalathdetailsofCourtBLL(long App_id, int category);
+        long SaveMVCLokadalathDetailsBLL(GetVehicleChassisPolicyDetails model);
+        int saveLokDocBLL(string path, long Application_id, string filename);
+        List<GetVehicleChassisPolicyDetails> GetWorkFlowLokBLL(long App_id, string chassis);
+        List<GetVehicleChassisPolicyDetails> GetLokDocDetailsBLL(long Appno);
+        List<GetVehicleChassisPolicyDetails> GetLokadalathDetailsBLL(long Appno);
+        int Update_Lokadalath_Work_flow_DetailsBLL(GetVehicleChassisPolicyDetails model);
+        int saveJudgementCopyDetailsBLL(GetVehicleChassisPolicyDetails model);
+        int saveLokadhalatDocBLL(long appid, string chassis);
+        int  UpdateLokadhalatDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model);
+        int LokClaimsettleLawDeptBLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetLokadhalatMasterDetailsBLL(long appid);
+        List<GetVehicleChassisPolicyDetails> GetLokadhalatDocumentDetailsStatusBLL(string FetchDetails, long appid);
+        List<SelectListItem> GetRemarksLokadhalatCourtBLL();
+        SelectList RemarksObjectionStatementBLL(int cat);
+       SelectList RemarksPaymentStatementBLL(int category);
+       int  saveVehicleNumberBLL(string vehicle_registration_no, string chassisNo);
     }
 }

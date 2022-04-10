@@ -35,6 +35,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public string Policy_number { get; set; }
 
         public List<GetVehicleChassisPolicyDetails> GetVehicleChassisPolicyDetailsList { get; set; }
+        public GetVehicleChassisPolicyDetails VehicleChassisPolicyDetailsList { get; set; }
         public SelectList TalukaList { get; set; }
         public SelectList DistrictList { get; set; }
         public int District_dm_id { get; set; }
@@ -110,8 +111,14 @@ namespace KGID_Models.KGIDMotorInsurance
         public List<GetVehicleChassisPolicyDetails> otherDetailsData { get; set; }
         public List<GetVehicleChassisPolicyDetails> MvcClaimWorkFlowDetails { get; set; }
         public List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetails { get; set; }
+        public List<GetVehicleChassisPolicyDetails> Lok_DocDetails { get; set; }
+        public List<GetVehicleChassisPolicyDetails> GetWorkFlowLokList { get; set; }
+        public List<GetVehicleChassisPolicyDetails> LokadalathDetails { get; set; }
+        public List<GetVehicleChassisPolicyDetails> LokadhalatMasterDetails { get; set; }
         public SelectList JudgementRemarksList { get; set; }
+        public List<SelectListItem> OpinionStatusLokadhalat { get; set; }
         public string Court_MVC_number { get; set; }
+        public string Lok_doc_Details { get; set; }
         public string OtherDocument { get; set; }
         public DateTime Accident_Time { get; set; }
         public string owner_name_vehicle { get; set; }
@@ -187,7 +194,12 @@ namespace KGID_Models.KGIDMotorInsurance
         public string LowerCourtJudgementCopy { get; set; }
         public string opinionLawfromLawDept { get; set; }
         public SelectList OpinionStatusList { get; set; }
+        public SelectList ObjectStatementRemarkList { get; set; }
+        public SelectList PaymentRemarkList { get; set; }
+        public SelectList OpinionStatusList2 { get; set; }
         public int OpinionId { get; set; }
+        public int OpinionId3 { get; set; }
+        public int Remarks_id2 { get; set; }
         public string opinionDesc { get; set; }
         public string LowerCourtJudgementDate { get; set; }
         public string awardedAmntLowCourt { get; set; }
@@ -269,6 +281,17 @@ namespace KGID_Models.KGIDMotorInsurance
         public string awardedInterest_supremeCourtKGID { get; set; }
         public string courtcost_supremeCourtKGID { get; set; }
         public string TotalAmount_supremeCourtKGID { get; set; }
+        public DateTime? Lokadalath_view_date { get; set; }
+        public int lokOpinionId { get; set; }
+        public int? OpinionIdSupreme { get; set; }
+        public string OpinionIdSupremeDesc { get; set; }
+        public string Supreme_Awarded_Amount2 { get; set; }
+        public string Supreme_judgement_date2 { get; set; }
+        public string Supreme_Awarded_Amount_Claims { get; set; }
+        public string Supreme_Awarded_intrest_Claims { get; set; }
+        public string Supreme_Awarded_court_Claims { get; set; }
+        public string Supreme_Awarded_totalAmount_Claims { get; set; }
+        public string judgement_Copy_supreme { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

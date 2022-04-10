@@ -16,10 +16,7 @@
         cursor: pointer !important;
     }
 </style>
-<script src="~/Scripts/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
-
 <div class="lms-registration-form" id="TeacherDetails">
-
     <nav id="navmenu">
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
             <a id="nav-tab-Workflow" class="nav-item nav-link active" data-toggle="tab" href="#workflow" role="tab" aria-controls="workflow" aria-selected="false"><b>Workflow Details</b></a>
@@ -28,7 +25,8 @@
             @*<a id="nav-tab-Workflow" class="nav-item nav-link" data-toggle="tab" href="#supportingDocs" role="tab" aria-controls="supportingDocs" aria-selected="false"><b>Supporting Documents</b></a>*@
         </div>
     </nav>
-    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
+
+    <div class="tab-content" id="pills-tabContent" style="background: #dfddd8;padding: 2.5%!important;">
         <div class="tab-pane fade show active" id="workflow" role="tabpanel" aria-labelledby="nav-home-tab">
             <div id="workflowTab" class="application-tab">
                 <section>
@@ -674,17 +672,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 mr-2">
-                                    @if (Model.otherDetailsData.Count() > 0)
+                                    <div id="other_document_details"></div>
+                                    @foreach (var item in Model.otherDetailsData)
                                     {
-                                        <div id="other_document_details"></div>
-                                        foreach (var item in Model.otherDetailsData)
-                                        {
-                                            <div>
-                                                <a href="@item.OtherDocument" target="_blank">View Document</a>
-                                            </div>
-                                        }
+                                        <div>
+                                            <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                        </div>
                                     }
-                                    </div>
+                                </div>
                             </div>
                         </div>
                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
@@ -765,411 +760,373 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            @if (Model.Lok_DocDetails.Count > 0 && Model.LokadalathDetails.Count > 0)
+                            {
+                                <div id="view_doc_div">
+                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>lokadalath View documents </b></h6>
 
-                        <div>
-
-
-                        @if (Model.Lok_DocDetails.Count > 0 && Model.LokadalathDetails.Count > 0)
-                        {
-                            <div id="view_doc_div">
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>lokadalath View documents </b></h6>
-
-                                <div class="card shadow-sm rounded p-3 mt-2">
-                                    <div class="row">
+                                    <div class="card shadow-sm rounded p-3 mt-2">
+                                        <div class="row">
 
 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlInput1">
-                                                    Upload of Lokadalath Notice:
-                                                </label>
-                                                <a href="@Model.Lok_DocDetails[0].Lok_doc_Details" id="exe_notice" target="_blank" style='color: blue' value="Download">View Document</a>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">
+                                                        Upload of Lokadalath Notice:
+                                                    </label>
+                                                    <a href="@Model.Lok_DocDetails[0].Lok_doc_Details" id="exe_notice" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlInput1">
-                                                    Lokadalath date:
-                                                </label>
-                                                @Html.TextBox("lok_date", Model.LokadalathDetails[0].Lokadalath_view_date, new { @class = "form-control" })                                    <label id="lbl_p_mobile" style="color:red" class="err" hidden>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">
+                                                        Lokadalath date:
+                                                    </label>
+                                                    @Html.TextBox("lok_date", Model.LokadalathDetails[0].Lokadalath_view_date, new { @class = "form-control" })                                    <label id="lbl_p_mobile" style="color:red" class="err" hidden>
+                                                </div>
                                             </div>
-                                        </div>
 
                                         </div>
                                     </div>
                                 </div>
                             }
-                            else { 
-                        <div class="card shadow-sm rounded p-3 mt-2">
-                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>lokadalath Upload documents </b></h6>
+                        </div>
+                        @if (Model.LokadhalatMasterDetails.Count() > 0)
+                        {
+                        if (Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != null && Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != "")
+                        {
+                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Judgement Copy</b></h6>
+                            <div class="card shadow-sm rounded p-3 mt-2">
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Opinion status  :
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBox("SupremeOpinionDesc", Model.LokadhalatMasterDetails[0].opinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
-                            <div class="row">
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Judgement Date  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("SupremeJudgementOpiniondate", Model.LokadhalatMasterDetails[0].SupremeJudgementOpiniondate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Amount  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("SupremeAwardedAmnt", Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
 
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">
-                                            Lokadalath Notice:
-                                        </label>
-                                        <input type="file" class="form-control lok_req" id="lok_notice_file">
-                                        <label id="" style="color:red" class="err" hidden> Upload of Lokadalath Notice</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Judgement copy  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Model.Lok_DocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn-success" id="viewSupremeOpinionDescModal">Work flow</button>
+
                                     </div>
                                 </div>
+                                <br /><br />
+                            </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">
-                                            Lokadalath date:
-                                        </label>
-                                        <input type="date" class="form-control alphaOnly lok_req" id="date_of_petition1" required>
-                                        <label id="" style="color:red" class="err" hidden> Select Lokadalath date</label>
+                        }
+                        if (Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != null && Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != "")
+                        {
+                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
+
+                            <div class="card">
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Awarded  Amount :
                                     </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBox("claim_settle_awardedAmt", Model.LokadhalatMasterDetails[0].HighCourtAwardedAmount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        Awarded Interest :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("HighCourtClaimAwardedInterest", Model.LokadhalatMasterDetails[0].HighCourtClaimAwardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                </div><br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Court cost :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Claim_settle_courtcost", Model.LokadhalatMasterDetails[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Total Amount :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn-success" id="viewClaimApprovalSettleLowModal2">Work flow</button>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Payment link will Appear if approved :
+                                    </div>
+                                    <div class="col-md-2">
+
+
+                                    </div>
+
+                                </div>
+                                <br /><br />
+                            </div>
+                        }
+                        if (Model.LokadhalatMasterDetails[0].claim_petitionDate != null && Model.LokadhalatMasterDetails[0].claim_petitionDate != "")
+                        {
+                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Judgement Copy</b></h6>
+                            <div class="card shadow-sm rounded p-3 mt-2">
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Opinion status  :
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBox("HighCourtOpinionDesc", Model.LokadhalatMasterDetails[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Judgement Date  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("claim_petitionDate", Model.LokadhalatMasterDetails[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Amount  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("awardedAmount_supremeCourtKGID", Model.LokadhalatMasterDetails[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Judgement copy  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Model.Lok_DocDetails[0].judgement_Copy" id="judgement_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn-success" id="viewJudgementSupremeOpinionDescModal">Work flow</button>
+
+                                    </div>
+                                </div>
+                                <br /><br />
+                            </div>
+
+                        }
+                        if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != "")
+                        {
+                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
+
+                            <div class="card">
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Awarded  Amount :
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBox("Supreme_Awarded_Amount", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        Awarded Interest :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Supreme_Awarded_Interest", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Interest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                </div><br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Court cost :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].Supreme_Court_Cost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Total Amount :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Supreme_Total_Amount", Model.LokadhalatMasterDetails[0].Supreme_Total_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-1">
+                                        Payment link will Appear if approved :
+                                    </div>
+                                    <div class="col-md-2">
+
+
+                                    </div>
+
+                                </div>
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button class="btn-success" id="viewClaimHighCourtModal">Work flow</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != "")
+                        {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Judgement Copy Supreme Court</b></h6>
+
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Opinion status  :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("SupremeOpinionDesc2", Model.LokadhalatMasterDetails[0].OpinionIdSupremeDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-1">
+                                    Judgement Date  :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("SupremeJudgementOpiniondate2", Model.LokadhalatMasterDetails[0].Supreme_judgement_date2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Amount  :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("SupremeAwardedAmnt2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Judgement copy  :
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="@Model.Lok_DocDetails[0].judgement_Copy_supreme" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewSupremeOpinionDescModal2">Work flow</button>
+
+                                </div>
+                            </div>
+                            <br /><br />
+                        </div>
+                        }
+
+                        if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != "")
+                        {
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
+
+                        <div class="card">
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Awarded  Amount :
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBox("Supreme_Awarded_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+
+                                <div class="col-md-1">
+                                    Awarded Interest :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Awarded_Interest2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_intrest_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                            </div><br /><br />
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Court cost :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Court_Cost2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_court_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Total Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Total_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_totalAmount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn-success" id="viewSupremeCourtClaimtModal">Work flow</button>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Payment link will Appear if approved :
+                                </div>
+                                <div class="col-md-2">
+
+
                                 </div>
 
                             </div>
+                            <br /><br />
                         </div>
-                            
-                            
-                            
-                            
-                            }
-
-
-
-                        </div>
-                        @if (Model.LokadhalatMasterDetails.Count > 0)
-                        {
-                            if (Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != null && Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Judgement Copy</b></h6>
-                                <div class="card shadow-sm rounded p-3 mt-2">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Opinion status  :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("SupremeOpinionDesc", Model.LokadhalatMasterDetails[0].opinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Judgement Date  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("SupremeJudgementOpiniondate", Model.LokadhalatMasterDetails[0].SupremeJudgementOpiniondate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Amount  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("SupremeAwardedAmnt", Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Judgement copy  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="@Model.Lok_DocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewSupremeOpinionDescModal">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <br /><br />
-                                </div>
-
-                            }
-
-                            if (Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != null && Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
-
-                                <div class="card">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Awarded  Amount :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("claim_settle_awardedAmt", Model.LokadhalatMasterDetails[0].HighCourtAwardedAmount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-
-                                        <div class="col-md-1">
-                                            Awarded Interest :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("HighCourtClaimAwardedInterest", Model.LokadhalatMasterDetails[0].HighCourtClaimAwardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                    </div><br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Court cost :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Claim_settle_courtcost", Model.LokadhalatMasterDetails[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Total Amount :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewClaimApprovalSettleLowModal2">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Payment link will Appear if approved :
-                                        </div>
-                                        <div class="col-md-2">
-
-
-                                        </div>
-
-                                    </div>
-                                    <br /><br />
-                                </div>
-                            }
-
-                            if (Model.LokadhalatMasterDetails[0].claim_petitionDate != null && Model.LokadhalatMasterDetails[0].claim_petitionDate != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Judgement Copy</b></h6>
-                                <div class="card shadow-sm rounded p-3 mt-2">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Opinion status  :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("HighCourtOpinionDesc", Model.LokadhalatMasterDetails[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Judgement Date  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("claim_petitionDate", Model.LokadhalatMasterDetails[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Amount  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("awardedAmount_supremeCourtKGID", Model.LokadhalatMasterDetails[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Judgement copy  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="@Model.Lok_DocDetails[0].judgement_Copy" id="judgement_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewJudgementSupremeOpinionDescModal">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <br /><br />
-                                </div>
-
-                            }
-                            if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
-
-                                <div class="card">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Awarded  Amount :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("Supreme_Awarded_Amount", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-
-                                        <div class="col-md-1">
-                                            Awarded Interest :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Awarded_Interest", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Interest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                    </div><br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Court cost :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].Supreme_Court_Cost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Total Amount :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Total_Amount", Model.LokadhalatMasterDetails[0].Supreme_Total_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewClaimHighCourtModal">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Payment link will Appear if approved :
-                                        </div>
-                                        <div class="col-md-2">
-
-
-                                        </div>
-
-                                    </div>
-                                    <br /><br />
-                                </div>
-                            }
-                            if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Judgement Copy Supreme Court</b></h6>
-
-                                <div class="card shadow-sm rounded p-3 mt-2">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Opinion status  :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("SupremeOpinionDesc2", Model.LokadhalatMasterDetails[0].OpinionIdSupremeDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Judgement Date  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("SupremeJudgementOpiniondate2", Model.LokadhalatMasterDetails[0].Supreme_judgement_date2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Amount  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("SupremeAwardedAmnt2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Judgement copy  :
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="@Model.Lok_DocDetails[0].judgement_Copy_supreme" id="judgement_Copy_supreme" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewSupremeOpinionDescModal2">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <br /><br />
-                                </div>
-                            }
-
-                            if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != "")
-                            {
-                                <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Lower Court Judgement</b></h6>
-
-                                <div class="card">
-                                    <br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Awarded  Amount :
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.TextBox("Supreme_Awarded_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-
-                                        <div class="col-md-1">
-                                            Awarded Interest :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Awarded_Interest2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_intrest_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                    </div><br /><br />
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Court cost :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Court_Cost2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_court_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-1">
-                                            Awarded Total Amount :
-                                        </div>
-                                        <div class="col-md-2">
-                                            @Html.TextBox("Supreme_Total_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_totalAmount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewSupremeCourtClaimtModal">Work flow</button>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            Payment link will Appear if approved :
-                                        </div>
-                                        <div class="col-md-2">
-
-
-                                        </div>
-
-                                    </div>
-                                    <br /><br />
-                                </div>
-                            }
-
-
                         }
+                        }
+
                         <div id="ScrutinyRow">
                             <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
 
@@ -1205,12 +1162,12 @@
 
                                     <div class="col-md-3">
                                         <div class="form-check form-check-inline">
-                                            <label for="login_id"> Forward to Superintendent </label>
+                                            <label for="login_id"> Forward to AD/DD </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes2" value="316277">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes2" value="406661"><br />
                                             <lable id="ck_sprdnt_err2" style="color:red" hidden> please select above field</lable>
                                         </div>
 
@@ -1230,46 +1187,45 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal RemarksModal" id="myModal1" role="dialog" style="display: none; width: 100%;">
-                            <div class="modal-dialog">
+</div>
+            </div>
+            <div class="modal RemarksModal" id="myModal1" role="dialog" style="display: none; width: 100%;">
+                <div class="modal-dialog">
 
-                                <!-- Modal content-->
-                                <div class="modal-content" style="width: 150%; ">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- Modal content-->
+                    <div class="modal-content" style="width: 150%; ">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                                    <div class="modal-header">
-                                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
-                                        <h2 class="head1">Work flow Details</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table table-striped table-bordered" id="Tbl_doc_statusHead" cellspacing="0">
-                                            <thead style="background: #308385;color: #fff;">
-                                                <tr>
-                                                    @*<th>Application Referance Number</th>*@
-                                                    <th>Submitted Date</th>
-                                                    <th>From</th>
-                                                    <th>To</th>
-                                                    <th>Remarks</th>
-                                                    <th>Comments</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="Tbl_doc_statusBody">
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                            <h2 class="head1">Work flow Details</h2>
                         </div>
-                    </panel>
+                        <div class="modal-body">
+                            <table class="table table-striped table-bordered" id="Tbl_doc_statusHead" cellspacing="0">
+                                <thead style="background: #308385;color: #fff;">
+                                    <tr>
+                                        @*<th>Application Referance Number</th>*@
+                                        <th>Submitted Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Remarks</th>
+                                        <th>Comments</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Tbl_doc_statusBody">
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <div id="viewSidebar" class="sidebar" style="display:none;">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
                 <div class="clsFrame">
                     <iframe id="iViewApp" src=""></iframe>
                 </div>
             </div>
+
             <div class="card-footer">
                 <div class="row">
                     <div class="form-group col-12  text-right">
@@ -1282,17 +1238,12 @@
         <div class="tab-pane fade" id="scrutiny" role="tabpanel" aria-labelledby="nav-home-tab">
             <div id="scrutinyTab" class="application-tab">
                 <section>
-
-
                     <h2 class="mb-0">
-                        <button id="btncollapseSix" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"><i class="fa fa-plus"></i> Judgement Copy  </button>
+                        <button id="btncollapseSeven" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven"><i class="fa fa-plus"></i> Judgement Copy  </button>
                     </h2>
-                  
-                       
-                        <div id="collapseSix" class="collapse">
-
-
-
+                    <div id="collapseSeven" class="collapse">
+                        @if (@Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != null && @Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != "")
+                        {
                             <div class="card-body">
                                 <h2 class="text-center">Opinion From Law Department Based On Lower Court Judgement </h2>
                                 <hr />
@@ -1301,35 +1252,22 @@
                                         Opinion Status :
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(model => model.OpinionId, new SelectList(Model.OpinionStatusList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "opinionStatusID" })
+                                        @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].opinionDesc, new { @class = "form-control" })
+
                                     </div>
                                     <div class="col-md-2">
                                         Judgement Date :
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="date" class="form-control alphaOnly d_C_req" id="Judgement_date" required>
+                                        @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].SupremeJudgementOpiniondate, new { @class = "form-control" })
                                     </div><div class="col-md-1">
                                         Awarded Amount :
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" class="form-control alphaOnly d_C_req" id="awarded_amount" required>
+                                        @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })
                                     </div>
                                 </div>    <br /><br />    <br /><br />
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <input type="file" class="form-control" id="input_opinionLawfromLawDept_Form" accept="image/png, image/jpeg">
 
-                                        @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-
-                                        <span style="color:red" class="err" hidden> please choose file</span>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="button" class="btn-primary" id="submit_opinionLawfromLawDept">Upload</button>
-
-
-                                    </div>
-
-                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
@@ -1337,7 +1275,7 @@
                                                 Remarks:
                                             </label>
                                             <div class="col-sm-6">
-                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
+                                                @Html.DropDownListFor(model => model.Remarks_id2, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
                                                 <span style="color:red" class="err" hidden> please select remarks</span>
                                             </div>
                                         </div>
@@ -1384,630 +1322,594 @@
 
 
                             </div>
-
-
-
-
-                        </div>
-                  
-
-
+                        }
+                    </div>
 
                     <h2 class="mb-0">
                         <button id="btncollapseNINE" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNINE"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
                     </h2>
                     <div id="collapseNINE" class="collapse">
-
-
-
                         <div class="card-body">
-                            <h2 class="text-center">
-                                Claim Approval and Settlement On Lower Court Judgement
-                            </h2>
-                            <hr />
-                            <br /><br />
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Awarded  Amount :
-                                </div>
-                                <div class="col-md-3">
-                                    @Html.TextBox("awardedAmount_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                            @if (Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != null && Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt != "")
+                            {
 
 
-                                </div>
-                                <div class="col-md-1">
-                                    Awarded Interest :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBox("awardedIntrest_highCourtClaimSttleKGID", Model.CourtDetailsList[0].courtCost_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                </div>
-                                <div class="col-md-1">
-                                    Court Cost :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBox("Court_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedInterest_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
 
-                                </div>
-                            </div><br /><br />
-                            <div class="row">
-
-                                <div class="col-md-1">
-                                    Total Amount :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBox("totalAmnt_highCourtClaimSttleKGID", Model.CourtDetailsList[0].totalAmnt_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                </div>
                                 <br /><br />
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettlement2"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
                                 <div class="row">
-
+                                    <div class="col-md-1">
+                                        Awarded  Amount :
+                                    </div>
                                     <div class="col-md-3">
-                                        <div class="form-check form-check-inline">
-                                            <label for="login_id"> Forward to Superintendent  </label>
-                                        </div>
+                                        @Html.TextBox("claim_settle_awardedAmt", Model.LokadhalatMasterDetails[0].HighCourtAwardedAmount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        Awarded Interest :
                                     </div>
                                     <div class="col-md-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                        </div>
+                                        @Html.TextBox("HighCourtClaimAwardedInterest", Model.LokadhalatMasterDetails[0].HighCourtClaimAwardedInterest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
 
                                     </div>
-                                    <div class="col-md-2"></div>
-                                </div>
+                                </div><br /><br />
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-1">
+                                        Court cost :
                                     </div>
-                                    <div class="col-md-4 mt-1">
-                                        <button class="btn-success" id="btnsubmit_HighCourtClaimSettlement2">Send</button>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Claim_settle_courtcost", Model.LokadhalatMasterDetails[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Total Amount :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Remarks:
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
+                                                    <span style="color:red" class="err" hidden> please select remarks</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Comments :
+                                                </label>
+                                                <div class="col-sm-6 mr-8">
+                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettlement2"></textarea>
+                                                    <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="login_id"> Forward to Superintendent  </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                            </div>
+                                            <div class="col-md-4 mt-1">
+                                                <button class="btn-success" id="btnsubmit_HighCourtClaimSettlement2">Send</button>
+                                            </div>
+                                            <br /><br />
+                                        </div>
+
                                     </div>
                                     <br /><br />
                                 </div>
-
-                            </div>
-                            <br /><br />
-                        </div>
-
-                    </div>
-
-                    <h2 class="mb-0">
-                        <button id="btncollapeight" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight"><i class="fa fa-plus"></i> Judgement Copy </button>
-                    </h2>
-                    <div id="collapseEight" class="collapse">
-                        <div class="card-body">
-                            <h2 class="text-center">
-                                Judgement Copy
-                            </h2>
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-2">
-                                    Opinion Status :
-                                </div>
-                                <div class="col-md-2">
-                                    @*@Html.DropDownListFor(model => model.OpinionId, new SelectList(Model.OpinionStatusList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "opinionStatusID1" })*@
-                                    @Html.DropDownListFor(model => model.OpinionId3, new SelectList(Model.OpinionStatusList, "Value", "Text"), new { @class = "form-control select2", @id = "opinionStatusID1" })
-
-                                </div>
-                                <div class="col-md-2">
-                                    Judgement Date :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="date" class="form-control alphaOnly d_C_req" id="Judgement_date1" required>
-                                </div><div class="col-md-1">
-                                    Awarded Amount :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="awarded_amount1" required>
-                                </div>
-                            </div><br /><br />
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="file" class="form-control" id="input_opinionLawfromLawDept_Form1" accept="image/png, image/jpeg">
-
-                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-
-                                    <span style="color:red" class="err" hidden> please choose file</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn-primary" id="submit_opinionLawfromLawDept1">Upload</button>
-
-
-                                </div>
-
-                            </div><br /><br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept1" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept1"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-3">
-                                    <div class="form-check form -check-inline">
-                                        <label for="login_id"> Forward to Superintendent  </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
-                                </div>
-                                <div class="col-md-4 mt-1">
-                                    <button class="btn-success" id="btnsubmit_OpinionFromLowerDept1">Send</button>
-                                </div>
-                                <br /><br />
-                            </div>
-
-
-
+                            }
                         </div>
                     </div>
 
 
                     <h2 class="mb-0">
-                        <button id="btncollapseTEN" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#btncollapseTEN"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
+                        <button id="btncollapsefive" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefive"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
                     </h2>
-                    <div id="btncollapseTEN" class="collapse">
-
-
-
+                    <div id="collapsefive" class="collapse">
                         <div class="card-body">
-                            <h2 class="text-center">
-                                Claim Approval and Settlement On Lower Court Judgement
-                            </h2>
-                            <hr />
-                            <br /><br />
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Awarded  Amount :
-                                </div>
-                                <div class="col-md-3">
-
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_amount" required>
 
 
-                                </div>
-                                <div class="col-md-1">
-                                    Awarded Interest :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_interest" required>
+                            @if (Model.LokadhalatMasterDetails[0].claim_petitionDate != null && Model.LokadhalatMasterDetails[0].claim_petitionDate != "")
+                            {
 
-                                </div>
-                                <div class="col-md-1">
-                                    Court Cost :
-                                </div>
-                                <div class="col-md-2">
-
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_courtCost" required>
-
-                                </div>
-                            </div><br /><br />
-                            <div class="row">
-
-                                <div class="col-md-1">
-                                    Total Amount :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_TotalAmount" required>
-
-                                </div>
-                                <br /><br />
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettle" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                <div class="card shadow-sm rounded p-3 mt-2">
+                                    <br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Opinion status  :
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettle"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
+                                        <div class="col-md-3">
+                                            @Html.TextBox("HighCourtOpinionDesc", Model.LokadhalatMasterDetails[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
 
                                         </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-check form-check-inline">
-                                            <label for="login_id"> Forward to Superintendent  </label>
+                                        <div class="col-md-1">
+                                            Judgement Date  :
                                         </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("claim_petitionDate", Model.LokadhalatMasterDetails[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            Awarded Amount  :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("awardedAmount_supremeCourtKGID", Model.LokadhalatMasterDetails[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                        </div>
+
+
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Judgement copy  :
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="@Model.Lok_DocDetails[0].judgement_Copy" id="judgement_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
+
                                         </div>
 
                                     </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Remarks:
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idClaimApprovalsettleSupreme2" })
+                                                    <span style="color:red" class="err" hidden> please select remarks</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Comments :
+                                                </label>
+                                                <div class="col-sm-6 mr-8">
+                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsClaimApprovalsettleSupreme2"></textarea>
+                                                    <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 mt-1">
-                                        <button class="btn-success" id="btnsubmit_HighCourtClaimSettle">Send</button>
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-check form-check-inline">
+                                                <label for="login_id"> Forward to Asistant Director/Deputy Director  </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                        </div>
+                                        <div class="col-md-4 mt-1">
+                                            <button class="btn-success" id="btnsubmit_ClaimApprovalsettleSupreme2">Send</button>
+                                        </div>
+                                        <br /><br />
                                     </div>
                                     <br /><br />
                                 </div>
 
-                            </div>
-                            <br /><br />
+                            }
                         </div>
-
                     </div>
+                    <h2 class="mb-0">
+                        <button id="btncollapsefOUR" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefOUR"><i class="fa fa-plus"></i> Claim Approval and Settlement On Lower Court Judgement </button>
+                    </h2>
+                    <div id="collapsefOUR" class="collapse">
+                        <div class="card-body">
 
 
+                            @if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount != "")
+                            {
+                             
+
+                                <div class="card">
+                                    <br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Awarded  Amount :
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.TextBox("Supreme_Awarded_Amount", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            Awarded Interest :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Awarded_Interest", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Interest, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+                                    </div><br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Court cost :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].Supreme_Court_Cost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            Awarded Total Amount :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Total_Amount", Model.LokadhalatMasterDetails[0].Supreme_Total_Amount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Remarks:
+                                                </label>
+                                                <div class="col-sm-6">
+                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettle" })
+                                                    <span style="color:red" class="err" hidden> please select remarks</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Comments :
+                                                </label>
+                                                <div class="col-sm-6 mr-8">
+                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettle"></textarea>
+                                                    <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="login_id"> Forward to Superintendent  </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                            </div>
+                                            <div class="col-md-4 mt-1">
+                                                <button class="btn-success" id="btnsubmit_HighCourtClaimSettle">Send</button>
+                                            </div>
+                                            <br /><br />
+                                        </div>
+
+                                    </div>
+
+
+                                    <br /><br />
+                                </div>
+                            }
+                        </div>
+                    </div>
 
                     <h2 class="mb-0">
-                        <button id="btncollapseOne" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-plus"></i>  Judgement Copy Supreme Court </button>
+                        <button id="btncollapseEleven" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEleven"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
                     </h2>
-                    <div id="collapseOne" class="collapse">
-
-
-
+                    <div id="collapseEleven" class="collapse">
                         <div class="card-body">
-                            <h2 class="text-center">
-                                Judgement Copy Supreme Court
+                            @if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2 != "")
+                            {
 
-                            </h2>
-                            <hr />
-                            <br /><br />
-                            <div class="row">
-                                <div class="col-md-2">
-                                    Opinion Status :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.DropDownListFor(model => model.OpinionId, new SelectList(Model.OpinionStatusList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "opinionStatusIDSupreme" })
-                                </div>
-                                <div class="col-md-2">
-                                    Judgement Date :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="date" class="form-control alphaOnly d_C_req" id="Judgement_dateSupreme" required>
-                                </div><div class="col-md-1">
-                                    Awarded Amount :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="awarded_amountSupreme" required>
-                                </div>
-                            </div><br /><br />
-                            <div class="row" style="margin-top: 35px; margin-left: 30px;">
-
-                                <div class="col-md-4">
-                                    <input type="file" class="form-control" id="input_supreme_judgement_copy2" accept="image/png, image/jpeg">
-
-                                    <span style="color:red" class="err" hidden> please choose file</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn-primary" id="submit_SupremeDocument">Upload</button>
-
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                <div class="card shadow-sm rounded p-3 mt-2">
+                                    <br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Opinion status  :
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_JC_Supreme"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
+                                        <div class="col-md-3">
+                                            @Html.TextBox("SupremeOpinionDesc2", Model.LokadhalatMasterDetails[0].OpinionIdSupremeDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
 
                                         </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-check form-check-inline">
-                                            <label for="login_id"> Forward to Superintendent  </label>
+                                        <div class="col-md-1">
+                                            Judgement Date  :
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="ck_supreme" value="316277">
-                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("SupremeJudgementOpiniondate2", Model.LokadhalatMasterDetails[0].Supreme_judgement_date2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            Awarded Amount  :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("SupremeAwardedAmnt2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
                                         </div>
 
+
                                     </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                    </div>
-                                    <div class="col-md-4 mt-1">
-                                        <button class="btn-success" id="btnsubmit_judgementSupreme">Send</button>
+                                    <div class="row">
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Remarks:
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
+                                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Comments :
+                                                    </label>
+                                                    <div class="col-sm-6 mr-8">
+                                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_JC_Supreme"></textarea>
+                                                        <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <label for="login_id"> Forward to Superintendent  </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="ck_supreme" value="316277">
+                                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <button class="btn-success" id="btnsubmit_judgementSupreme">Send</button>
+                                                </div>
+                                                <br /><br />
+                                            </div>
+
+                                        </div>
+                                        <br /><br />
+
                                     </div>
                                     <br /><br />
                                 </div>
-
-                            </div>
-                            <br /><br />
+                            }
                         </div>
-
                     </div>
 
                     <h2 class="mb-0">
-                        <button id="btncollapseTwo" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
+                        <button id="btncollapseTweleve" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTweleve"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
                     </h2>
-                    <div id="collapseTwo" class="collapse">
-
+                    <div id="collapseTweleve" class="collapse">
                         <div class="card-body">
-                            <h2 class="text-center">
-                                Claim Approval and Settlement On Lower Court Judgement
-                            </h2>
-                            <hr />
-                            <br /><br />
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Awarded  Amount :
-                                </div>
-                                <div class="col-md-3">
+                            @if (Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != null && Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims != "")
+                            {
 
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_amount2" required>
-
-
-                                </div>
-                                <div class="col-md-1">
-                                    Awarded Interest :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_interest2" required>
-
-                                </div>
-                                <div class="col-md-1">
-                                    Court Cost :
-                                </div>
-                                <div class="col-md-2">
-
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_courtCost2" required>
-
-                                </div>
-                            </div><br /><br />
-                            <div class="row">
-
-                                <div class="col-md-1">
-                                    Total Amount :
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" class="form-control alphaOnly d_C_req" id="highawarded_TotalAmount2" required>
-
-                                </div>
-                                <br /><br />
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                <div class="card">
+                                    <br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Awarded  Amount :
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsSupremeClaimSettle"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
+                                        <div class="col-md-3">
+                                            @Html.TextBox("Supreme_Awarded_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_Amount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
 
                                         </div>
-                                    </div>
 
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-check form-check-inline">
-                                            <label for="login_id"> Forward to Superintendent  </label>
+                                        <div class="col-md-1">
+                                            Awarded Interest :
                                         </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Awarded_Interest2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_intrest_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+                                    </div><br /><br />
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            Court cost :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Court_Cost2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_court_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            Awarded Total Amount :
+                                        </div>
+                                        <div class="col-md-2">
+                                            @Html.TextBox("Supreme_Total_Amount2", Model.LokadhalatMasterDetails[0].Supreme_Awarded_totalAmount_Claims, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                        </div>
+                                       
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkboxSupeme" value="316277">
-                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Remarks:
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
+                                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Comments :
+                                                    </label>
+                                                    <div class="col-sm-6 mr-8">
+                                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsSupremeClaimSettle"></textarea>
+                                                        <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <label for="login_id"> Forward to Superintendent  </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkboxSupeme" value="316277">
+                                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <button class="btn-success" id="btnsubmit_SupremeClaimSettle">Send</button>
+                                                </div>
+                                                <br /><br />
+                                            </div>
+
                                         </div>
 
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                    </div>
-                                    <div class="col-md-4 mt-1">
-                                        <button class="btn-success" id="btnsubmit_SupremeClaimSettle">Send</button>
                                     </div>
                                     <br /><br />
                                 </div>
-
-                            </div>
-                            <br /><br />
+                            }
                         </div>
-
-
-
-                    </div>
-
-
-
-
-
+                        </div>
 
 
                 </section>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="form-group col-12 text-right">
-                        <a id="btnSPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
-                    </div>
+
+
+
+
+        </div>
+        @*<div class="card-footer">
+            <div class="row">
+                <div class="form-group col-12 text-right">
+                    <a id="btnSPrevious" class="btn btn-primary btn-sm text-white">Previous</a>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
+
 </div>
 
-
 <script>
-
-
 
 
     $('input[type="text"],input[type="number"],textarea').attr('readonly', true);
     $('#Comments_details2').removeAttr('readonly');
     $('#lok_claim_ref_no').removeAttr('readonly');
-    $('#awarded_amount').removeAttr('readonly');
-    $('#awarded_amount1').removeAttr('readonly');
     $('#Comments_detailsOpinionFromLowerDept').removeAttr('readonly');
-    $('#Comments_detailsOpinionFromLowerDept1').removeAttr('readonly');
-
-    $('#awardedAmount_highCourtClaimSttleKGID').removeAttr('readonly');
-    $('#totalAmnt_highCourtClaimSttleKGID').removeAttr('readonly');
-    $('#Court_highCourtClaimSttleKGID').removeAttr('readonly');
-    $('#awardedIntrest_highCourtClaimSttleKGID').removeAttr('readonly');
     $('#Comments_detailsHighCourtClaimSettlement2').removeAttr('readonly');
+    $('#Comments_detailsClaimApprovalsettleSupreme2').removeAttr('readonly');
     $('#Comments_detailsHighCourtClaimSettle').removeAttr('readonly');
-    $('#highawarded_amount').removeAttr('readonly');
-    $('#highawarded_interest').removeAttr('readonly');
-    $('#highawarded_courtCost').removeAttr('readonly');
-    $('#highawarded_TotalAmount').removeAttr('readonly');
-    $('#highawarded_amount2').removeAttr('readonly');
-    $('#highawarded_interest2').removeAttr('readonly');
-    $('#highawarded_courtCost2').removeAttr('readonly');
-    $('#highawarded_TotalAmount2').removeAttr('readonly');
-    $('#awarded_amountSupreme').removeAttr('readonly');
     $('#Comments_JC_Supreme').removeAttr('readonly');
     $('#Comments_detailsSupremeClaimSettle').removeAttr('readonly');
 
     $(document).ready(function () {
-        debugger;
 
-        var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
+         var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
         var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
         var AppStatus = @Model.CourtDetailsList[0].application_stat;
-
         if (scruStat != loginCategory) {
 
             $("#ScrutinyRow").hide();
-            $("#view_doc_div").show();
-            $("#upload_doc_div").hide();
-
         }
         else {
             $("#ScrutinyRow").show();
-            $("#view_doc_div").hide();
-            $("#upload_doc_div").show();
         }
 
-
-
-
         $('#btnsend2').click(function () {
-            var lok_notice = $('#lok_notice_file').val();
-            var lok_date = $('#date_of_petition1').val();
+
             var Remarks = $("#remarks_id2 option:selected").val();
             var lok_comments = $('#Comments_details2').val();
             var checkbox = $('#checkbox-Yes2').prop("checked");
@@ -2024,7 +1926,6 @@
                     count += 1;
                 }
             })
-
             if (checkbox) {
                 $('#ck_sprdnt_err2').attr('hidden', true);
                 isvalid = true;
@@ -2034,9 +1935,7 @@
                 isvalid = false;
             }
 
-            if (isvalid && count == 4) {
-
-
+            if (isvalid && count == 2) {
 
                 var destination = document.getElementById("checkbox-Yes2");
                 var lok_date1 = $("#date_of_petition1").val();
@@ -2049,7 +1948,7 @@
                 var comments = $('#Comments_details2').val();
                 var vehicle_no = $('#hrvalue').val();
                 var model = {};
-                var Category_id = 4;
+                var Category_id = 15;
                 var Policy_number = $('#policy_no').val();
 
                 var model = {};
@@ -2064,7 +1963,7 @@
                 model.Category_id = Category_id;
 
                 $.ajax({
-                    url: '/MotorInsuranceClaims/SaveMVCLokadalathDetails',
+                    url: '/MotorInsuranceClaims/LokSendToAd',
                     async: false,
                     type: 'POST',
                     cache: false,
@@ -2074,41 +1973,14 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (response) {
 
-                        var responsMainID = response;
-
-                        var fileUpload = $("#lok_notice_file").get(0);
-                        var files = fileUpload.files;
-                        var fileData = new FormData();
-                        var fileslength = fileUpload.files.length;
-                        var filename = "Lokadalath_notice";
-                        if (fileslength > 0) {
-                            fileData.append(files[0].name, files[0]);
-                            $.ajax({
-                                url: '/MotorInsuranceClaims/uploadLokadalathDoc?App_id=' + responsMainID + '&filename=' + filename,
-                                type: 'post',
-                                datatype: 'json',
-                                contentType: false,
-                                processData: false,
-                                async: false,
-                                data: fileData,
-                                success: function (response) {
-                                    if (response.length > 0) {
-                                        alertify.success("Lokadalath notice saved successfully");
-                                    }
-                                    else {
-                                        alertify.error("could not save Execution notice");
-                                    }
-                                }
-                            });
-                        }
                         alertify.success("data saved successfully");
-                        window.location.href = "/mi-dpt-odc-mvcappform";
+                        window.location.href = "/mvc-si-adt";
                     }
 
                 });
             }
         });
-    });
+    })
 
     $("#btnWFNext").click(function (e) {
         $("#workflow").removeClass("show active");
@@ -2147,10 +2019,7 @@
         $("#nav-tab-Scrutiny").removeClass("active");
     });
 
-
-  
-
-     $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
+      $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
 
         debugger;
         var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
@@ -2175,31 +2044,32 @@
                 alertify.alert(" Opinion From Law Department Based On Lower Court Judgement sent successfully");
             }
         });
-     });
+      });
     $("#viewSupremeOpinionDescModal").click(function (e) {
         var GetStatusDataDetails = "OpinionFromLawDepartmentLokadhalat";
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
     });
-    $("#viewJudgementSupremeOpinionDescModal").click(function (e) {
-         var GetStatusDataDetails = "JudgementOpininonSupremeCopyFromLawDept";
-        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
-
-        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
-    });
-      $("#viewClaimApprovalSettleLowModal2").click(function (e) {
+     $("#viewClaimApprovalSettleLowModal2").click(function (e) {
          var GetStatusDataDetails = "LokClaimApprovalandSettlementLowerCourt2";
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
-      }); $("#viewClaimHighCourtModal").click(function (e) {
+     });
+     $("#viewJudgementSupremeOpinionDescModal").click(function (e) {
+         var GetStatusDataDetails = "JudgementOpininonSupremeCopyFromLawDept";
+        var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
+
+        GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
+     });
+     $("#viewClaimHighCourtModal").click(function (e) {
           var GetStatusDataDetails = "LokadhalatHighCourtSettlement";
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
         GetDocumentDetailsStatus(GetStatusDataDetails, Mvc_appId);
-      });
-    $("#viewSupremeOpinionDescModal2").click(function (e) {
+     });
+     $("#viewSupremeOpinionDescModal2").click(function (e) {
         var GetStatusDataDetails = "LokJudgementSupreme";
         var Mvc_appId = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
@@ -2250,111 +2120,21 @@
             + "/" + d.getFullYear();
     }
 
-
-     $('#submit_opinionLawfromLawDept1').click(function (e) {
-        debugger;
-         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-         var AwardedAmount = $("#awarded_amount1").val();
-         var JudgementDate = $("#Judgement_date1").val();
-         var RemarkSelectedAuth = $("#opinionStatusID1 option:selected").val();
-
-        var model = {};
-         model.CourtTime2 = JudgementDate;
-         model.claim_Amount = AwardedAmount;
-        model.MVC_claim_app_id = responsMainID;
-        model.Remarks_id = RemarkSelectedAuth;
-         model.DocFileVariable = "JudgementOpininonSupremeCopyFromLawDept";
-        $.ajax({
-            url: '/MotorInsuranceClaims/saveSupremeJudgementCopyDetails',
-            async: false,
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
-
-            success: function (response) {
-
-                var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-                var pathSave = "JudgementOpininonSupremeCopyFromLawDept";
-                var fileUpload = $("#input_opinionLawfromLawDept_Form1").get(0);
-                var files = fileUpload.files;
-                var fileData = new FormData();
-                var fileslength = fileUpload.files.length;
-                if (fileslength > 0) {
-                    fileData.append(files[0].name, files[0]);
-                    $.ajax({
-                        url: '/MotorInsuranceClaims/uploadLOkFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
-                        type: 'post',
-                        datatype: 'json',
-                        contentType: false,
-                        processData: false,
-                        async: false,
-                        data: fileData,
-                        success: function (response) {
-                            alertify.alert("Opinion From Law Department uploaded successfully.");
-                        }
-                    });
-                }
-                else {
-                    alertify.alert("Please select the Opinion From Law Department letter");
-                }
-            }
-
-
-        });
-
-     });
-
-     $('#btnsubmit_OpinionFromLowerDept1').click(function (e) {
-
-        debugger;
-        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
-
-         var RemarkSelectedAuth = $("#remarks_idOpinionFromLowerDept1 option:selected").val();
-         var AuthComments = $("#Comments_detailsOpinionFromLowerDept1").val();
-        var model = {};
-        model.MVC_claim_app_id = Mvc_appid ;
-        model.Comments_details = AuthComments;
-        model.Remarks_id = RemarkSelectedAuth;
-         model.DocFileVariable = "JudgementOpininonSupremeCopyFromLawDept";
-        $.ajax({
-            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
-            async: false,
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
-
-            success: function (response) {
-                alertify.alert(" Opinion From Law Department Based On Lower Court Judgement sent successfully");
-            }
-        });
-     });
-
-
       $('#btnsubmit_HighCourtClaimSettlement2').click(function (e) {
 
         debugger;
             var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
-            var RemarkSelectedAuth = $("#remarks_idHighCourtClaimSettlement2 option:selected").val();
-            var AuthComments = $("#Comments_detailsHighCourtClaimSettlement2").val();
-          var AwardedCE_amount = $("#awardedAmount_highCourtClaimSttleKGID").val();
-          var AwardedCE_Interest = $("#awardedIntrest_highCourtClaimSttleKGID").val();
-          var AwardedCE_CourtCost = $("#Court_highCourtClaimSttleKGID").val();
-          var AwardedCE_Total_Amount = $("#totalAmnt_highCourtClaimSttleKGID").val();
+          var RemarkSelectedAuth = $("#remarks_idHighCourtClaimSettlement2 option:selected").val();
+          var AuthComments = $("#Comments_detailsHighCourtClaimSettlement2").val();
+
         var model = {};
         model.MVC_claim_app_id = Mvc_appid ;
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
-            model.claim_Amount = AwardedCE_amount;
-            model.income_tax_of_injured = AwardedCE_Interest;
-            model.Claim_settle_courtcost = AwardedCE_CourtCost;
-            model.HighCourtAwardedAmount = AwardedCE_Total_Amount;
-            model.DocFileVariable = "LokClaimApprovalandSettlementLowerCourt2";
+
+        model.DocFileVariable = "LokClaimApprovalandSettlementLowerCourt2";
         $.ajax({
-            url: '/MotorInsuranceClaims/LokClaimApprovalMethod',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2375,27 +2155,57 @@
 
         });
       })
+
+    $('#btnsubmit_ClaimApprovalsettleSupreme2').click(function (e) {
+
+        debugger;
+        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var RemarkSelectedAuth = $("#remarks_idClaimApprovalsettleSupreme2 option:selected").val();
+        var AuthComments = $("#Comments_detailsClaimApprovalsettleSupreme2").val();
+
+        var model = {};
+        model.MVC_claim_app_id = Mvc_appid;
+        model.Comments_details = AuthComments;
+        model.Remarks_id = RemarkSelectedAuth;
+
+        model.DocFileVariable = "JudgementOpininonSupremeCopyFromLawDept";
+        $.ajax({
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
+            async: false,
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ model: model }),
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                debugger;
+                if (response > 0) {
+                    alertify.success(" Claim Approval and Settlement On Lower Court Judgement sent successfully");
+                }
+                else {
+                    alertify.error("could not send Claim Approval and Settlement On Lower Court Judgement  notice");
+                }
+
+            }
+
+        });
+    });
     $('#btnsubmit_HighCourtClaimSettle').click(function (e) {
 
         debugger;
             var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
         var RemarkSelectedAuth = $("#remarks_idHighCourtClaimSettle option:selected").val();
         var AuthComments = $("#Comments_detailsHighCourtClaimSettle").val();
-        var AwardedCE_amount = $("#highawarded_amount").val();
-        var AwardedCE_Interest = $("#highawarded_interest").val();
-        var AwardedCE_CourtCost = $("#highawarded_courtCost").val();
-        var AwardedCE_Total_Amount = $("#highawarded_TotalAmount").val();
+
         var model = {};
         model.MVC_claim_app_id = Mvc_appid ;
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
-            model.claim_Amount = AwardedCE_amount;
-            model.income_tax_of_injured = AwardedCE_Interest;
-            model.Claim_settle_courtcost = AwardedCE_CourtCost;
-            model.HighCourtAwardedAmount = AwardedCE_Total_Amount;
-            model.DocFileVariable = "LokadhalatHighCourtSettlement";
+
+        model.DocFileVariable = "LokadhalatHighCourtSettlement";
         $.ajax({
-            url: '/MotorInsuranceClaims/LokClaimApprovalMethod',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2417,67 +2227,23 @@
         });
     })
 
-     $('#btnsubmit_judgementSupreme').click(function (e) {
 
-        debugger;
-            var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
-        var RemarkSelectedAuth = $("#remarks_JC_supreme option:selected").val();
-        var AuthComments = $("#Comments_JC_Supreme").val();
-        var opinion_status = $("#opinionStatusIDSupreme").val();
-        var judgement_date = $("#Judgement_dateSupreme").val();
-        var AwardedCE_Amount = $("#awarded_amountSupreme").val();
-        var model = {};
-        model.MVC_claim_app_id = Mvc_appid ;
-        model.Comments_details = AuthComments;
-        model.Remarks_id = RemarkSelectedAuth;
-        model.claim_Amount = AwardedCE_Amount;
-        model.OpinionId = opinion_status;
-        model.LowerCourtJudgementDate = judgement_date;
-            model.DocFileVariable = "LokJudgementSupreme";
-        $.ajax({
-            url: '/MotorInsuranceClaims/LokJudgementSupremeMethod',
-            async: false,
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
 
-            success: function (response) {
-                debugger;
-                if (response > 0) {
-                    alertify.success(" Claim Approval and Settlement On Lower Court Judgement sent successfully");
-                }
-                else {
-                    alertify.error("could not send Claim Approval and Settlement On Lower Court Judgement  notice");
-                }
-
-            }
-
-        });
-    })
-
-    $('#btnsubmit_SupremeClaimSettle').click(function (e) {
+      $('#btnsubmit_SupremeClaimSettle').click(function (e) {
 
         debugger;
             var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
         var RemarkSelectedAuth = $("#remarks_idSupremeClaimSettle option:selected").val();
         var AuthComments = $("#Comments_detailsSupremeClaimSettle").val();
-        var AwardedCE_amount = $("#highawarded_amount2").val();
-        var AwardedCE_Interest = $("#highawarded_interest2").val();
-        var AwardedCE_CourtCost = $("#highawarded_courtCost2").val();
-        var AwardedCE_Total_Amount = $("#highawarded_TotalAmount2").val();
+
         var model = {};
         model.MVC_claim_app_id = Mvc_appid ;
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
-            model.claim_Amount = AwardedCE_amount;
-            model.income_tax_of_injured = AwardedCE_Interest;
-            model.Claim_settle_courtcost = AwardedCE_CourtCost;
-            model.HighCourtAwardedAmount = AwardedCE_Total_Amount;
+
             model.DocFileVariable = "LokSupremeClaimApprovalandSettlement";
         $.ajax({
-            url: '/MotorInsuranceClaims/LokJudgementSupremeMethod',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2498,75 +2264,19 @@
 
         });
       })
-
-
-       $('#submit_opinionLawfromLawDept').click(function (e) {
-        debugger;
-         var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-         var AwardedAmount = $("#awarded_amount").val();
-         var JudgementDate = $("#Judgement_date").val();
-         var RemarkSelectedAuth = $("#opinionStatusID option:selected").val();
-       
-        var model = {};
-         model.CourtTime2 = JudgementDate;
-         model.claim_Amount = AwardedAmount;
-        model.MVC_claim_app_id = responsMainID;
-        model.Remarks_id = RemarkSelectedAuth;
-           model.DocFileVariable = "opinionJudgementCopyFromLawDept";
-        $.ajax({
-            url: '/MotorInsuranceClaims/saveJudgementCopyDetails',
-            async: false,
-            type: 'POST',
-            cache: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
-
-            success: function (response) {
-
-                var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-                var pathSave = "opinionJudgementCopyFromLawDept";
-                var fileUpload = $("#input_opinionLawfromLawDept_Form").get(0);
-                var files = fileUpload.files;
-                var fileData = new FormData();
-                var fileslength = fileUpload.files.length;
-                if (fileslength > 0) {
-                    fileData.append(files[0].name, files[0]);
-                    $.ajax({
-                        url: '/MotorInsuranceClaims/uploadLOkFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
-                        type: 'post',
-                        datatype: 'json',
-                        contentType: false,
-                        processData: false,
-                        async: false,
-                        data: fileData,
-                        success: function (response) {
-                            alertify.alert("Opinion From Law Department uploaded successfully.");
-                        }
-                    });
-                }
-                else {
-                    alertify.alert("Please select the Opinion From Law Department letter");
-                }
-            }
-
-
-        });
-
-     });
-
- $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
+       $('#btnsubmit_judgementSupreme').click(function (e) {
 
         debugger;
-        var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
-
-         var RemarkSelectedAuth = $("#remarks_idOpinionFromLowerDept option:selected").val();
-         var AuthComments = $("#Comments_detailsOpinionFromLowerDept").val();
+            var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
+        var RemarkSelectedAuth = $("#remarks_JC_supreme option:selected").val();
+        var AuthComments = $("#Comments_JC_Supreme").val();
+        
         var model = {};
         model.MVC_claim_app_id = Mvc_appid ;
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
-        model.DocFileVariable = "OpinionFromLawDepartmentLokadhalat";
+       
+            model.DocFileVariable = "LokJudgementSupreme";
         $.ajax({
             url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
@@ -2577,40 +2287,17 @@
             contentType: 'application/json; charset=utf-8',
 
             success: function (response) {
-                alertify.alert(" Opinion From Law Department Based On Lower Court Judgement sent successfully");
-            }
-        });
- });
-     $('#submit_SupremeDocument').click(function (e) {
-        debugger;
-
-
-                var responsMainID = @Model.CourtDetailsList[0].MVC_claim_app_id;
-                var pathSave = "JudgementCopySupremeCourt2";
-                var fileUpload = $("#input_supreme_judgement_copy2").get(0);
-                var files = fileUpload.files;
-                var fileData = new FormData();
-                var fileslength = fileUpload.files.length;
-                if (fileslength > 0) {
-                    fileData.append(files[0].name, files[0]);
-                    $.ajax({
-                        url: '/MotorInsuranceClaims/uploadLOkFileSubmit?App_id=' + responsMainID + "&PathName=" + pathSave,
-                        type: 'post',
-                        datatype: 'json',
-                        contentType: false,
-                        processData: false,
-                        async: false,
-                        data: fileData,
-                        success: function (response) {
-                            alertify.alert("Judgement Copy of Supreme Court uploaded successfully");
-                        }
-                    });
+                debugger;
+                if (response > 0) {
+                    alertify.success(" Claim Approval and Settlement On Lower Court Judgement sent successfully");
                 }
                 else {
-                    alertify.alert("Please select Judgement Copy of Supreme Court Document");
+                    alertify.error("could not send Claim Approval and Settlement On Lower Court Judgement  notice");
                 }
 
+            }
 
-     });
-
+        });
+    })
 </script>
+

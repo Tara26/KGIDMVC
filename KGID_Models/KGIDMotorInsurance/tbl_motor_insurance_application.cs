@@ -36,8 +36,8 @@ namespace KGID_Models.KGIDMotorInsurance
         public DateTime mia_updation_datetime { get; set; }
         public int mia_updated_by { get; set; }
         public int mia_type_of_cover { get; set; }
+        public string mia_address { get; set; }
         public string mia_owner_of_the_vehicle { get; set; }
 
-        public string mia_address { get; set; }
     }
 }

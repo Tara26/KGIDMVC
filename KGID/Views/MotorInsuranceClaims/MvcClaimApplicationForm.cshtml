@@ -93,133 +93,133 @@
                 </div>
 
 
-    <div class="tab-content" id="pills-tabContent">
+                <div class="tab-content" id="pills-tabContent">
 
-        <!----------------------------------------Application Status------------------->
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            @*<label style="color:black">Please read the following the instructions carefully. / ದಯವಿಟ್ಟು ಕೆಳಗಿನ ಸೂಚನೆಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಓದಿ. </label>*@
-            <section>
-                <div class="row">
-                    <div class="col-12">
+                    <!----------------------------------------Application Status------------------->
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        @*<label style="color:black">Please read the following the instructions carefully. / ದಯವಿಟ್ಟು ಕೆಳಗಿನ ಸೂಚನೆಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಓದಿ. </label>*@
+                        <section>
+                            <div class="row">
+                                <div class="col-12">
 
-                        <table class="table table-striped table-bordered" id="tblSIVerifyData1" cellspacing="0">
-                            <thead style="background: #308385;color: #fff;">
-                                <tr>
+                                    <table class="table table-striped table-bordered" id="tblSIVerifyData1" cellspacing="0">
+                                        <thead style="background: #308385;color: #fff;">
+                                            <tr>
 
-                                    <th>SL.No</th>
-                                    <th>MVC No.</th>
-                                    <th>Vehicle Chassis No</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                    <th>Other Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                                <th>SL.No</th>
+                                                <th>MVC No.</th>
+                                                <th>Vehicle Chassis No</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                                <th>Other Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                @if (Model.GetVehicleChassisPolicyDetailsList != null && Model.GetVehicleChassisPolicyDetailsList.Count > 0)
-                                {
-                                    foreach (var item in Model.GetVehicleChassisPolicyDetailsList)
-                                    {
-                                        <tr>
-                                            <td>@(slno++)</td>
-                                            <td>@item.Court_MVC_number</td>
-                                            <td>@item.vehicle_chasis_no</td>
-                                            <td>Pending</td>
-                                            @if (@item.application_stat == 2)
+                                            @if (Model.GetVehicleChassisPolicyDetailsList != null && Model.GetVehicleChassisPolicyDetailsList.Count > 0)
                                             {
-                                                <td>
-                                                    <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
-                                                </td>
-                                            }
-                                            else 
-                                            {
-                                                <td>
-                                                    <a href="javascript:void(0);">Process Stopped</a>
-                                                    <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
-                                                </td>
-                                            }
-                                        <td>
-                                            @if (item.application_stat != 3)
-                                            {
-                                                <button class="btn btn-primary" onclick='updateStatusToLokadhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="Lokadhalat">Lokadhalat</button>
+                                                foreach (var item in Model.GetVehicleChassisPolicyDetailsList)
+                                                {
+                                                    <tr>
+                                                        <td>@(slno++)</td>
+                                                        <td>@item.Court_MVC_number</td>
+                                                        <td>@item.vehicle_chasis_no</td>
+                                                        <td>Pending</td>
+                                                        @if (@item.application_stat == 2)
+                                                        {
+                                                            <td>
+                                                                <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <a href="javascript:void(0);">Process Stopped</a>
+                                                                <a href="/mvc_cw_va/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>
+                                                            </td>
+                                                        }
+                                                        <td>
+                                                            @if (item.application_stat != 3)
+                                                            {
+                                                                <button class="btn btn-primary" onclick='updateStatusToLokadhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="Lokadhalat">Lokadhalat</button>
 
-                                            }
-                                            @if (item.application_stat == 3)
-                                            {
-                                                <a href="/mvc_lok_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
-                                               
-                                                <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
+                                                            }
+                                                            @if (item.application_stat == 3)
+                                                            {
+                                                                <a href="/mvc_lok_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
+
+                                                                <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
 
                                                             }
                                                             @if (item.application_stat != 4)
                                                             {
                                                                 <a href='#' title='view' class='btn btn-primary' onclick='updateStatusCourtExecution("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="View">Court Execution</a>
 
-                                                }
+                                                            }
 
-                                                @if (item.application_stat == 4)
+                                                            @if (item.application_stat == 4)
+                                                            {
+
+                                                                <a href="/mvc_cou_exe_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='courtnoticeview("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">court Execution View</a>
+
+                                                                <button class="btn btn-primary" onclick='stopCourtExecutionflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Court Execution</button>
+
+                                                            }
+
+
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                    <!---------------------------------------Draft Application----------------------->
+                    <div class="tab-pane fade" id="pills-menu0" role="tabpanel" aria-labelledby="pills-menu0-tab" style="color:black; ">
+                        <div>
+                            <section>
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <table class="table table-striped table-bordered" id="tblSIVerifyData" cellspacing="0">
+                                            <thead style="background: #308385;color: #fff;">
+                                                <tr>
+
+                                                    <th>SL.No</th>
+                                                    <th>MVC No.</th>
+                                                    <th>Vehicle Chassis No</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @if (Model.otherDetailsData != null && Model.otherDetailsData.Count > 0)
                                                 {
+                                                    foreach (var item in Model.otherDetailsData)
+                                                    {
+                                                        <tr>
+                                                            <td>@(slnumberDraft++)</td>
+                                                            <td>@item.Court_MVC_number</td>
+                                                            <td>@item.vehicle_chasis_no</td>
+                                                            <td>
+                                                                <a href="#" onclick='viewMVCdetailsModal("@item.vehicle_chasis_no","@item.MVC_claim_app_id")'>View</a>
+                                                                @*<a href="/mvc_edit_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>*@
+                                                            </td>
 
-                                                    <a href="/mvc_cou_exe_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='courtnoticeview("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">court Execution View</a>
-
-                                                    <button class="btn btn-primary" onclick='stopCourtExecutionflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Court Execution</button>
-
+                                                        </tr>
+                                                    }
                                                 }
 
-
-
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-        <!---------------------------------------Draft Application----------------------->
-        <div class="tab-pane fade" id="pills-menu0" role="tabpanel" aria-labelledby="pills-menu0-tab" style="color:black; ">
-            <div>
-                <section>
-                    <div class="row">
-                        <div class="col-12">
-
-                            <table class="table table-striped table-bordered" id="tblSIVerifyData" cellspacing="0">
-                                <thead style="background: #308385;color: #fff;">
-                                    <tr>
-
-                                        <th>SL.No</th>
-                                        <th>MVC No.</th>
-                                        <th>Vehicle Chassis No</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @if (Model.otherDetailsData != null && Model.otherDetailsData.Count > 0)
-                                    {
-                                        foreach (var item in Model.otherDetailsData)
-                                        {
-                                            <tr>
-                                                <td>@(slnumberDraft++)</td>
-                                                <td>@item.Court_MVC_number</td>
-                                                <td>@item.vehicle_chasis_no</td>
-                                                <td>
-                                                    <a href="#" onclick='viewMVCdetailsModal("@item.vehicle_chasis_no","@item.MVC_claim_app_id")'>View</a>
-                                                    @*<a href="/mvc_edit_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id">View</a>*@
-                                                </td>
-
-                                            </tr>
-                                        }
-                                    }
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
                             </section>
                         </div>
@@ -300,8 +300,12 @@
                                             <label class="col-sm-4 col-form-label align-center">
                                                 Vehicle Reg No. :
                                             </label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" id="vehicleNumber">
                                                 <input type="text" class="form-control alphaOnly" id="VehicleRegistrationNumber" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                            <div class="col-sm-6" style="display:none" id="vehicleNumberNew">
+                                                <input type="text" class="form-control alphaOnly" id="VehicleRegistrationNumberNew" required>
                                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                                             </div>
                                         </div>
@@ -391,876 +395,883 @@
                                     </div>
                                 </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Address of the Owner of vehicle:
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="owner_Vehicle_address" required readonly>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Seating Capacity:
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="Vehicle_Seating_capacity" required readonly>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Vehicle Sub Category
-                                    :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="Vehicle_subtype" required readonly>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Make of the Vehicle:
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="Vehicle_make_desc" required readonly>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Policy Details</b></h6>
-            <form>
-                <div class="card shadow-sm rounded p-3 mt-2">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Type of Cover :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="txtTypeofCover" required readonly>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Policy No. :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="txtPolicyNo" required readonly>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    OD From Date :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="ODFromDate" required readonly>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    OD To Date :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="ODToDate" required readonly>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    TP From Date :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="TPFromDate" required readonly>
-                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    TP To Date :
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control alphaOnly" id="TPToDate" required readonly>
-                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Court Notice and Details of Court</b></h6>
-            <form>
-                <div class="card shadow-sm rounded p-3 mt-2">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    MVC No. :
-                                </label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control alphaOnly c_req" id="mvc_no" required>
-                                    <span id="lbl_mvc_no" class="err" style="color:red" hidden>Please Enter MVC No.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Name of Court :
-                                </label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control alphaOnly c_req" id="name_of_court" required>
-                                    <span id="lbl_name_of_court" class="err" style="color:red" hidden>Please Enter Court Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Notice Date
-                                    :
-                                </label>
-                                <div class="col-sm-7">
-                                    <input type="date" class="form-control alphaOnly c_req" id="date_of_petition" required>
-                                    <span id="lbl_date_of_petition" class="err" style="color:red" hidden>Please Enter  Notice Date</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    State :
-                                </label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control c_req", id = "state_id" })
-                                    <span id="lbl_state_id" class="err" style="color:red" hidden>Please Select State</span>
-                                </div>
-                            </div>
-                        </div> <div class="col-md-4">
-                            <div class="form-group row">
-                                <div id="kar_dist_div" hidden>
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        District :
-                                    </label>
-                                    <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control c_req", id = "Dm_id" })
-                                        <span id="lbl_Dm_id" class="err" style="color:red" hidden>Please select district</span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Address of the Owner of vehicle:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="owner_Vehicle_address" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Seating Capacity:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="Vehicle_Seating_capacity" required readonly>
+                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="other_dist_div" hidden>
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        District :
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="other_dist" class="form-control c_req" />
-                                        <span id="lbl_other_dist" class="err" style="color:red" hidden>Please Enter district</span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Vehicle Sub Category
+                                                :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="Vehicle_subtype" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Make of the Vehicle:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="Vehicle_make_desc" required readonly>
+                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="SavingVehicleNumber" style="display:none">
+                                    <div class="col-md-2">
+                                        <button class="btn-success" id="SaveVehicleNo" onclick="SaveVehicleNo()">Save </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Policy Details</b></h6>
+                        <form>
+                            <div class="card shadow-sm rounded p-3 mt-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Type of Cover :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="txtTypeofCover" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Policy No. :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="txtPolicyNo" required readonly>
+                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                OD From Date :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="ODFromDate" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                OD To Date :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="ODToDate" required readonly>
+                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                TP From Date :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="TPFromDate" required readonly>
+                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                TP To Date :
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control alphaOnly" id="TPToDate" required readonly>
+                                                <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </form>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Court Notice and Details of Court</b></h6>
+                        <form>
+                            <div class="card shadow-sm rounded p-3 mt-2">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                MVC No. :
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control alphaOnly c_req" id="mvc_no" required>
+                                                <span id="lbl_mvc_no" class="err" style="color:red" hidden>Please Enter MVC No.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Name of Court :
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control alphaOnly c_req" id="name_of_court" required>
+                                                <span id="lbl_name_of_court" class="err" style="color:red" hidden>Please Enter Court Name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Notice Date
+                                                :
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="date" class="form-control alphaOnly c_req" id="date_of_petition" required>
+                                                <span id="lbl_date_of_petition" class="err" style="color:red" hidden>Please Enter  Notice Date</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                State :
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.stateID, new SelectList(Model.StateList, "Value", "Text"), "-- Select State --", new { @class = "form-control c_req", id = "state_id" })
+                                                <span id="lbl_state_id" class="err" style="color:red" hidden>Please Select State</span>
+                                            </div>
+                                        </div>
+                                    </div> <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div id="kar_dist_div" hidden>
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    District :
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.District_dm_id, new SelectList(Model.DistrictList, "value", "text"), "-- select district --", new { @class = "form-control c_req", id = "Dm_id" })
+                                                    <span id="lbl_Dm_id" class="err" style="color:red" hidden>Please select district</span>
+                                                </div>
+                                            </div>
+                                            <div id="other_dist_div" hidden>
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    District :
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="other_dist" class="form-control c_req" />
+                                                    <span id="lbl_other_dist" class="err" style="color:red" hidden>Please Enter district</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div id="kar_tal_div" hidden>
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Taluka :
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control c_req", id = "Taluk_id" })
+                                                    <span id="lbl_Taluk_id" class="err" style="color:red" hidden>Please select taluk</span>
+                                                </div>
+                                            </div>
+                                            <div id="other_tal_div" hidden>
+                                                <label class="col-sm-4 col-form-label align-center">
+                                                    Taluka :
+                                                </label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="other_taluk" class="form-control c_req" />
+                                                    <span id="lbl_other_taluk" class="err" style="color:red" hidden>Please Enter taluk</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <div id="kar_tal_div" hidden>
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        Taluka :
-                                    </label>
-                                    <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.Taluk_id, new SelectList(Model.TalukaList, "Value", "Text"), "-- Select Taluk --", new { @class = "form-control c_req", id = "Taluk_id" })
-                                        <span id="lbl_Taluk_id" class="err" style="color:red" hidden>Please select taluk</span>
-                                    </div>
-                                </div>
-                                <div id="other_tal_div" hidden>
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        Taluka :
-                                    </label>
+                        </form>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Petitioner Details</b></h6>
 
-                                    <div class="col-sm-8">
-                                        <input type="text" id="other_taluk" class="form-control c_req" />
-                                        <span id="lbl_other_taluk" class="err" style="color:red" hidden>Please Enter taluk</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Petitioner Details</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Name of Petitioner</label>
-                            <input type="text" class="form-control p_req" id="Name_of_petitioner" placeholder="">
-                            <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of petitioner</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1 ">Pincode</label>
-                            <input type="text" class="form-control p_req pincodeValidation" id="pincode_petitioner" maxlength="6">
-                            <label id="lbl_p_pincode" style="color:red" class="err" hidden>please enter Pincode</label>
-                            <label id="lbl_p_valid_pincode" style="color:red" class="err" hidden>please enter valid Pincode</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Address</label>
-                            <input type="text" class="form-control p_req" id="address_petitioner" placeholder="">
-                            <label id="lbl_p_Address" style="color:red" class="err" hidden>Please enter Address</label>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Mobile No.</label>
-                            <input type="text" class="form-control p_req mobileValidation" id="mobile_petitioner" placeholder="">
-                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>Enter Mobile number</label>
-                            <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>please enter valid mobile number</label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-1 mt-4">
-                        <button type="button" class="btn btn-primary add-row" id="add_petitioner_details">Add</button>
-                    </div>
-                </div>
-
-
-                <table class="table table-striped table-bordered" id="petitioner_table" hidden>
-                    <thead class="t_head">
-                        <tr>
-                            <th>Select</th>
-                            <th>Name of the Petitioner</th>
-                            <th>Mobile No.</th>
-                            <th>Address</th>
-                            <th>Pincode</th>
-                        </tr>
-                    </thead>
-                    <tbody id="petitioner_table_body"></tbody>
-                </table>
-                <div class="row" id="div_delete_pet" hidden>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <button type="button" class="delete-row btn-danger">Delete Row</button>
-                    </div>
-                    <div class="col-md-4"></div>
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Respondent Details</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Name of Respondent</label>
-                            <input type="text" class="form-control" id="Name_of_respondent" placeholder="">
-                            <label id="lbl_r_name" style="color:red" class="err" hidden>enter name of respondent</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Designation</label>
-                            <input type="text" class="form-control" id="designation_respondent" placeholder="">
-                            <label id="lbl_r_designation" style="color:red" class="err" hidden>enter Designation of respondent</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Department</label>
-                            <input type="text" class="form-control" id="department_respondent" placeholder="">
-                            <label id="lbl_r_department" style="color:red" class="err" hidden>enter department of respondent</label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Agency Name</label>
-                            <input type="text" class="form-control" id="agency_respondent" placeholder="">
-                            <label id="lbl_r_AgencyName" style="color:red" class="err" hidden>enter Agency name of respondent</label>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Address</label>
-                            <input type="text" class="form-control" id="address_respondent" placeholder="">
-                            <label id="lbl_r_addr" style="color:red" class="err" hidden>enter address of respondent</label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Mobile No.</label>
-                            <input type="text" class="form-control mobileValidation" id="mobile_respondent" placeholder="">
-                            <label id="lbl_r_mob" style="color:red" class="err" hidden>enter Mobile no of respondent</label>
-                            <label id="lbl_r_valid_mob" style="color:red" class="err" hidden>enter valid Mobile number</label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Pincode</label>
-                            <input type="text" class="form-control pincodeValidation" id="pincode_respondent" placeholder="">
-                            <label id="lbl_r_pincode" style="color:red" class="err" hidden>enter pincode of respondent</label>
-                            <label id="lbl_r_valid_pincode" style="color:red" class="err" hidden>enter valid pincode</label>
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-1 text-center mt-4">
-                        <button type="button" class="btn btn-primary add-respondent">Add</button>
-                    </div>
-                </div>
-
-                <table class="table table-striped table-bordered" id="respondent_table" hidden>
-                    <thead class="t_head">
-                        <tr>
-                            <th>Select</th>
-                            <th>Name of Respondent</th>
-                            <th>Designation</th>
-                            <th>Department</th>
-                            <th>Agency Name</th>
-                            <th>Address</th>
-                            <th>Mobile No.</th>
-                            <th>Pincode</th>
-                        </tr>
-                    </thead>
-                    <tbody id="respondent_tbody"></tbody>
-                </table>
-                <div class="row" id="div_delete_res" hidden>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <button type="button" class="delete-row1 btn-danger">Delete Row</button>
-                    </div>
-                    <div class="col-md-4"></div>
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Accident Details</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Name of dead/injured person</label>
-                            <input type="text" class="form-control a_req" id="Name_of_injured" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1 ">Father Name</label>
-                            <input type="text" class="form-control a_req" id="Father_name" maxlength="6">
-                            <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter Father Name</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Spouse Name</label>
-                            <input type="text" class="form-control a_req" id="Spouse_name" placeholder="">
-                            <label id="lbl_Spouse_name" style="color:red" class="err" hidden>Please enter Spouse Name</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Address of the dead/injured person.</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details" class="a_req"></textarea>
-                            <label id="lbl_addr_inj" style="color:red" class="err" hidden>enter Address of the dead/injured person</label>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Age of the person dead/injured
-                            </label>
-                            <input type="number" class="form-control a_req" id="Age_of_injured" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter Age of dead/injured person</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Occupation of the person dead/injured
-                            </label>
-                            <input type="text" class="form-control a_req" id="occupation_of_injured" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter  Occupation of the person dead/injured</label>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Name and address of the employer of the deceased or injured if any.
-                            </label>
-
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details" class="a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>enter Name and address of the employer of the deceased or injured if any</label>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Monthly income of the person dead/injuries
-                            </label>
-                            <input type="number" class="form-control a_req" id="monthly_income_of_injured" placeholder="">
-                            <label id="lbl_income_dead" style="color:red" class="err" hidden>enter Monthly income of the person dead/injuries</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
-
-                            </label>
-                            <input type="text" class="form-control a_req" id="income_tax_of_injured" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter fill the above fied</label>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Place of Accident details</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Place of Accident :
-                            </label>
-                            <input type="text" class="form-control p_a_req" id="place_of_accident" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter Place of Accident :</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Accident Time:
-                            </label>
-                            <input type="datetime-local" class="form-control p_a_req" id="accident_DateTime" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter Time of Accident :</label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label align-center">
-                                Type of Injury :
-                            </label>
-                            <div class="col-sm-8">
-                                @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control p_a_req", id = "type_injury" })
-                                <span id="lblErrorTeacherName" class="err" style="color:red" hidden> Enter injury type</span>
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Name and address of police station in whose jurisdiction the accident took place or was registered.</label>
-                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction"></textarea>
-                                <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-                                <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-
-                            </div>
-                        </div>*@
-                    @*<div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">
-
-                                    Accident Time :
-                                </label>
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
                                 <div class="col-md-3">
-                                    <input type="datetime-local" class="form-control p_req" id="accident_DateTime" placeholder="">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Name of Petitioner</label>
+                                        <input type="text" class="form-control p_req" id="Name_of_petitioner" placeholder="">
+                                        <label id="lbl_p_name" style="color:red" class="err" hidden>enter name of petitioner</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1 ">Pincode</label>
+                                        <input type="text" class="form-control p_req pincodeValidation" id="pincode_petitioner" maxlength="6">
+                                        <label id="lbl_p_pincode" style="color:red" class="err" hidden>please enter Pincode</label>
+                                        <label id="lbl_p_valid_pincode" style="color:red" class="err" hidden>please enter valid Pincode</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Address</label>
+                                        <input type="text" class="form-control p_req" id="address_petitioner" placeholder="">
+                                        <label id="lbl_p_Address" style="color:red" class="err" hidden>Please enter Address</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Mobile No.</label>
+                                        <input type="text" class="form-control p_req mobileValidation" id="mobile_petitioner" placeholder="">
+                                        <label id="lbl_p_mobile" style="color:red" class="err" hidden>Enter Mobile number</label>
+                                        <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>please enter valid mobile number</label>
 
-                                </div><label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 mt-4">
+                                    <button type="button" class="btn btn-primary add-row" id="add_petitioner_details">Add</button>
+                                </div>
                             </div>
-                        </div>*@
-
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Name and address of police station in whose jurisdiction the accident took place or was registered.
-                            </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction" class="p_a_req"></textarea> <br />
-                            <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Was the person in respect of whom compensation is claimed travelling by the vehicle involved in the accident? If son give the name of places of starting of journey.
-                            </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation" class="p_a_req"></textarea><br />
-                            <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
 
 
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nature of injuries sustained and continuing effect, if any of injuries.</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained" class="p_a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1"> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details" class="p_a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
-
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Name of the injury and whether it caused permanent disablement or not.
-                            </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details" class="p_a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
-
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Name and address of the Medical Officer/Practitioner if any, who attend on the dead or injured.
-                                <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer" class="p_a_req"></textarea>
-                                <label id="" style="color:red" class="err" hidden>please fill above field</label>
-
-                            </label>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Applicant Details</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Name and address of the applicant.
-                            </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details" class="p_a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>
-                                enter name and address of the applicant.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Relation with the deceased :
-                            </label>
-                            <input type="text" class="form-control p_a_req" id="relation_with_deceased" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter Relation with the deceased</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Title to the property of the deceased :
-                            </label>
-                            <input type="text" class="form-control p_a_req" id="title_property_deceased" placeholder="">
-                            <label id="" style="color:red" class="err" hidden>enter title to the property of the deceased</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Amount of compensation claimed.
-                            </label>
-                            <input type="text" class="form-control p_a_req" id="claim_amount" placeholder="">
-                            <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter Claim Amount</label>
-                        </div>
-                    </div>
-                 
-                </div>
-                <div class="row">
-                   
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">
-                                Any other Information that may be necessary or Helpful in the disposal of the claim.
-                            </label>
-                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details" class="p_a_req"></textarea>
-                            <label id="" style="color:red" class="err" hidden>
-                                enter Any other Information that may be necessary or Helpful in the disposal of the claim.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Upload Documents</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Court notice <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="inputfilefor_Court_notice" accept="image/png, image/jpeg">
-                        <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div><div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Petitioner Details <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="petitioner_details" accept="image/png, image/jpeg">
-
-                        @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                        <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-
-                </div>
-                <div class="row" id="uploadMultipleDoc">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Other Documents <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3 mr-2">
-                        <input type="file" class="custom-file-input doc_up" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg">
-                        <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-
-                    </div>
-                    <div class="col-md-3 mr-2">
-                        <button class="btn-success" id="btnAdd">Add</button>
-                    </div>
-                    <div class="col-md-3"></div> <table id="tbl_other_doc" class="table table-borderless">
-                        <tr><td><div class="col-3" align="right"><button class="btn-danger" id="btn_other_Delete">Delete</button> </div></td></tr>
-                    </table>
-                </div>
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
-            <div class="card shadow-sm rounded p-3 mt-2">
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Covering Letter <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="inputCoveringLetter" accept="image/png, image/jpeg">
-                        <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Prefilled Claim Form <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="inputPrefilled_Claim_Form" accept="image/png, image/jpeg">
-
-                        @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                        <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Driver statement and Request to Submit RC <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="inputDsRc" accept="image/png, image/jpeg">
-                        <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                DL <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="inputdl" accept="image/png, image/jpeg">
-
-                        @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                        <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group row">
-                            <label class="col-sm-10 col-form-label align-center">
-                                Insurance Copy To Owner of the Vehicle <span class="danger-text" style="color:red;"> * </span>:
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="file" class="custom-file-input doc_up" id="input_Insurance_Copy" accept="image/png, image/jpeg">
-                        <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                        <a href="" id="" target="_blank" value="Download"></a>
-                        <span style="color:red" class="err" hidden> please choose file</span>
-                    </div>
-                    
-
-                </div>
-
-            </div>
-
-            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
-
-            <div class="card shadow-sm rounded p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label align-center">
-                                Remarks:
-                            </label>
-                            <div class="col-sm-6">
-                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_id" })
-                                <span style="color:red" class="err" hidden> please select remarks</span>
+                            <table class="table table-striped table-bordered" id="petitioner_table" hidden>
+                                <thead class="t_head">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Name of the Petitioner</th>
+                                        <th>Mobile No.</th>
+                                        <th>Address</th>
+                                        <th>Pincode</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="petitioner_table_body"></tbody>
+                            </table>
+                            <div class="row" id="div_delete_pet" hidden>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <button type="button" class="delete-row btn-danger">Delete Row</button>
+                                </div>
+                                <div class="col-md-4"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label align-center">
-                                Comments :
-                            </label>
-                            <div class="col-sm-6 mr-8">
-                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details" class="Scrutiny_details"></textarea>
-                                <span style="color:red" class="err" hidden> please enter comments</span>
+
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Respondent Details</b></h6>
+
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Name of Respondent</label>
+                                        <input type="text" class="form-control" id="Name_of_respondent" placeholder="">
+                                        <label id="lbl_r_name" style="color:red" class="err" hidden>enter name of respondent</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Designation</label>
+                                        <input type="text" class="form-control" id="designation_respondent" placeholder="">
+                                        <label id="lbl_r_designation" style="color:red" class="err" hidden>enter Designation of respondent</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Department</label>
+                                        <input type="text" class="form-control" id="department_respondent" placeholder="">
+                                        <label id="lbl_r_department" style="color:red" class="err" hidden>enter department of respondent</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Agency Name</label>
+                                        <input type="text" class="form-control" id="agency_respondent" placeholder="">
+                                        <label id="lbl_r_AgencyName" style="color:red" class="err" hidden>enter Agency name of respondent</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Address</label>
+                                        <input type="text" class="form-control" id="address_respondent" placeholder="">
+                                        <label id="lbl_r_addr" style="color:red" class="err" hidden>enter address of respondent</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Mobile No.</label>
+                                        <input type="text" class="form-control mobileValidation" id="mobile_respondent" placeholder="">
+                                        <label id="lbl_r_mob" style="color:red" class="err" hidden>enter Mobile no of respondent</label>
+                                        <label id="lbl_r_valid_mob" style="color:red" class="err" hidden>enter valid Mobile number</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Pincode</label>
+                                        <input type="text" class="form-control pincodeValidation" id="pincode_respondent" placeholder="">
+                                        <label id="lbl_r_pincode" style="color:red" class="err" hidden>enter pincode of respondent</label>
+                                        <label id="lbl_r_valid_pincode" style="color:red" class="err" hidden>enter valid pincode</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-1 text-center mt-4">
+                                    <button type="button" class="btn btn-primary add-respondent">Add</button>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-bordered" id="respondent_table" hidden>
+                                <thead class="t_head">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Name of Respondent</th>
+                                        <th>Designation</th>
+                                        <th>Department</th>
+                                        <th>Agency Name</th>
+                                        <th>Address</th>
+                                        <th>Mobile No.</th>
+                                        <th>Pincode</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="respondent_tbody"></tbody>
+                            </table>
+                            <div class="row" id="div_delete_res" hidden>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <button type="button" class="delete-row1 btn-danger">Delete Row</button>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </div>
+
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Accident Details</b></h6>
+
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Name of dead/injured person</label>
+                                        <input type="text" class="form-control a_req" id="Name_of_injured" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter name of Name of dead/injured person</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1 ">Father Name</label>
+                                        <input type="text" class="form-control a_req" id="Father_name" maxlength="6">
+                                        <label id="lbl_p_Father_name" style="color:red" class="err" hidden>please enter Father Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Spouse Name</label>
+                                        <input type="text" class="form-control a_req" id="Spouse_name" placeholder="">
+                                        <label id="lbl_Spouse_name" style="color:red" class="err" hidden>Please enter Spouse Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Address of the dead/injured person.</label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Address_of_dead_details" class="a_req"></textarea>
+                                        <label id="lbl_addr_inj" style="color:red" class="err" hidden>enter Address of the dead/injured person</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Age of the person dead/injured
+                                        </label>
+                                        <input type="number" class="form-control a_req" id="Age_of_injured" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter Age of dead/injured person</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Occupation of the person dead/injured
+                                        </label>
+                                        <input type="text" class="form-control a_req" id="occupation_of_injured" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter  Occupation of the person dead/injured</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Name and address of the employer of the deceased or injured if any.
+                                        </label>
+
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="employer_deceased_details" class="a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>enter Name and address of the employer of the deceased or injured if any</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Monthly income of the person dead/injuries
+                                        </label>
+                                        <input type="number" class="form-control a_req" id="monthly_income_of_injured" placeholder="">
+                                        <label id="lbl_income_dead" style="color:red" class="err" hidden>enter Monthly income of the person dead/injuries</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
+
+                                        </label>
+                                        <input type="text" class="form-control a_req" id="income_tax_of_injured" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter fill the above fied</label>
+                                    </div>
+                                </div>
+
 
                             </div>
                         </div>
 
-                    </div>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Place of Accident details</b></h6>
 
-                </div>
-                <div class="row">
+                        <div class="card shadow-sm rounded p-3 mt-2">
 
-                    <div class="col-md-3">
-                        <div class="form-check form-check-inline">
-                            <label for="login_id"> Forward to Superintendent </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Place of Accident :
+                                        </label>
+                                        <input type="text" class="form-control p_a_req" id="place_of_accident" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter Place of Accident :</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Accident Time:
+                                        </label>
+                                        <input type="datetime-local" class="form-control p_a_req" id="accident_DateTime" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label class="col-sm-6 col-form-label align-center">
+                                            Type of Injury :
+                                        </label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(model => model.injury_id, new SelectList(Model.InjuryList, "Value", "Text"), "-- Select type --", new { @class = "form-control p_a_req", id = "type_injury" })
+                                            <span id="lblErrorTeacherName" class="err" style="color:red" hidden> Enter injury type</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Name and address of police station in whose jurisdiction the accident took place or was registered.</label>
+                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction"></textarea>
+                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
+                            <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
+
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="316277">
-                            <lable class="ck_sprdnt_err" style="color:red" hidden> please select above field</lable>
+                    </div>*@
+                                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">
+
+                                Accident Time :
+                            </label>
+                            <div class="col-md-3">
+                                <input type="datetime-local" class="form-control p_req" id="accident_DateTime" placeholder="">
+
+                            </div><label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                        </div>
+                    </div>*@
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Name and address of police station in whose jurisdiction the accident took place or was registered.
+                                        </label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction" class="p_a_req"></textarea> <br />
+                                        <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Was the person in respect of whom compensation is claimed travelling by the vehicle involved in the accident? If son give the name of places of starting of journey.
+                                        </label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_compensation" class="p_a_req"></textarea><br />
+                                        <span id="lblErrorTeacherName" class="err" style="color:red" hidden> please fill above field</span>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Nature of injuries sustained and continuing effect, if any of injuries.</label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="nature_of_injuries_sustained" class="p_a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>please fill above field</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1"> Period of treatment and expenditure, if any, incurred thereon (to be supported by documentary evidence).</label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Period_of_treatment_of_details" class="p_a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>please fill above field</label>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Name of the injury and whether it caused permanent disablement or not.
+                                        </label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_of_injury_caused_of_details" class="p_a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>please fill above field</label>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Name and address of the Medical Officer/Practitioner if any, who attend on the dead or injured.
+                                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="medical_officer" class="p_a_req"></textarea>
+                                            <label id="" style="color:red" class="err" hidden>please fill above field</label>
+
+                                        </label>
+
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Applicant Details</b></h6>
 
-                <div class="row">
-                    <div class="col-md-5">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn-success" id="btnDraft">Save draft</button>
-                    </div>
-                    <div class="col-md-4 mt-1">
-                        <button class="btn-success" id="btnsend">Send</button>
-                    </div>
-                    @*<button class="btn-success" id="btntemp">Temp</button>*@
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Name and address of the applicant.
+                                        </label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="Name_and_address_of_applicant_details" class="p_a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>
+                                            enter name and address of the applicant.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Relation with the deceased :
+                                        </label>
+                                        <input type="text" class="form-control p_a_req" id="relation_with_deceased" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter Relation with the deceased</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Title to the property of the deceased :
+                                        </label>
+                                        <input type="text" class="form-control p_a_req" id="title_property_deceased" placeholder="">
+                                        <label id="" style="color:red" class="err" hidden>enter title to the property of the deceased</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Amount of compensation claimed.
+                                        </label>
+                                        <input type="text" class="form-control p_a_req" id="claim_amount" placeholder="">
+                                        <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter Claim Amount</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">
+                                            Any other Information that may be necessary or Helpful in the disposal of the claim.
+                                        </label>
+                                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details" class="p_a_req"></textarea>
+                                        <label id="" style="color:red" class="err" hidden>
+                                            enter Any other Information that may be necessary or Helpful in the disposal of the claim.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Upload Documents</b></h6>
+
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Court notice <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="inputfilefor_Court_notice" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div><div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Petitioner Details <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="petitioner_details" accept="image/png, image/jpeg">
+
+                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+
+                            </div>
+                            <div class="row" id="uploadMultipleDoc">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Other Documents <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mr-2">
+                                    <input type="file" class="custom-file-input doc_up" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+
+                                </div>
+                                <div class="col-md-3 mr-2">
+                                    <button class="btn-success" id="btnAdd">Add</button>
+                                </div>
+                                <div class="col-md-3"></div> <table id="tbl_other_doc" class="table table-borderless">
+                                    <tr><td><div class="col-3" align="right"><button class="btn-danger" id="btn_other_Delete">Delete</button> </div></td></tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
+                        <div class="card shadow-sm rounded p-3 mt-2">
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Covering Letter <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="inputCoveringLetter" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Prefilled Claim Form <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="inputPrefilled_Claim_Form" accept="image/png, image/jpeg">
+
+                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Driver statement and Request to Submit RC <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="inputDsRc" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            DL <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="inputdl" accept="image/png, image/jpeg">
+
+                                    @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
+                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-10 col-form-label align-center">
+                                            Insurance Copy To Owner of the Vehicle <span class="danger-text" style="color:red;"> * </span>:
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="file" class="custom-file-input doc_up" id="input_Insurance_Copy" accept="image/png, image/jpeg">
+                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
+                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <span style="color:red" class="err" hidden> please choose file</span>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+
+                        <div class="card shadow-sm rounded p-3 mt-2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_id" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details" class="Scrutiny_details"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <label for="login_id"> Forward to Superintendent </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="316277">
+                                        <lable class="ck_sprdnt_err" style="color:red" hidden> please select above field</lable>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn-success" id="btnDraft">Save draft</button>
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnsend">Send</button>
+                                </div>
+                                @*<button class="btn-success" id="btntemp">Temp</button>*@
 
                                 <div class="col-md-3">
                                 </div>
@@ -1811,26 +1822,26 @@
                                                     </div>
                                                 </div>
                                                 @*<div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">Name and address of police station in whose jurisdiction the accident took place or was registered.</label>
-                                            <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction"></textarea>
-                                            <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
-                                            <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Name and address of police station in whose jurisdiction the accident took place or was registered.</label>
+                        <textarea maxlength="100" rows="2" cols="33" style="width: 245px;  font-size: 17px;" id="police_station_of_jurisdiction"></textarea>
+                        <label id="lbl_p_mobile" style="color:red" class="err" hidden>Address of the dead/injured person</label>
+                        <label id="lbl_p_valid_Mobno" style="color:red" class="err" hidden>Address of the dead/injured person</label>
 
-                                        </div>
-                                    </div>*@
+                    </div>
+                </div>*@
                                                 @*<div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlInput1">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">
 
-                                                Accident Time :
-                                            </label>
-                                            <div class="col-md-3">
-                                                <input type="datetime-local" class="form-control p_req" id="accident_DateTime" placeholder="">
+                            Accident Time :
+                        </label>
+                        <div class="col-md-3">
+                            <input type="datetime-local" class="form-control p_req" id="accident_DateTime" placeholder="">
 
-                                            </div><label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
-                                        </div>
-                                    </div>*@
+                        </div><label id="lbl_p_name" style="color:red" class="err" hidden>enter Time of Accident :</label>
+                    </div>
+                </div>*@
 
                                             </div>
                                             <div class="row">
@@ -1950,25 +1961,25 @@
                                                     </div>
                                                 </div>
                                                 @*<div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label align-center">
-                                                Amount of compensation claimed.
-                                            </label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control alphaOnly" id="claim_amount" required>
-                                                <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter  Claim Amount</span>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label align-center">
+                            Amount of compensation claimed.
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control alphaOnly" id="claim_amount" required>
+                            <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter  Claim Amount</span>
+                        </div>
+                    </div>
+                </div>*@
                                             </div>
                                             <div class="row">
                                                 @*<label for="exampleFormControlInput1">
-                                        Any other Information that may be necessary or Helpful in the disposal of the claim.
-                                    </label>
-                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details"></textarea>
-                                    <label id="lbl_p_mobile" style="color:red" class="err" hidden>
-                                        Any other Information that may be necessary or Helpful in the disposal of the claim.
-                                    </label>*@
+                    Any other Information that may be necessary or Helpful in the disposal of the claim.
+                </label>
+                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="any_other_information_details"></textarea>
+                <label id="lbl_p_mobile" style="color:red" class="err" hidden>
+                    Any other Information that may be necessary or Helpful in the disposal of the claim.
+                </label>*@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="exampleFormControlInput1">
@@ -2234,9 +2245,10 @@
 
 
                                         </div>
-
+                                        
 
                                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+                                        <div class="card shadow-sm rounded p-3 mt-2">
                                         <div class="row">
                                             <div class="col-md-4"></div>
                                             <div class="col-md-2 mt-3">
@@ -2300,13 +2312,13 @@
                                                 <button class="btn-success" id="btnsendCW">Send</button>
                                             </div>
                                             @*<div class="col-md-3">
-                                    <button class="btn-success" id="btnTempSend">Send</button>
+                <button class="btn-success" id="btnTempSend">Send</button>
 
-                                </div>*@
+            </div>*@
                                         </div>
+</div>
 
-
-                                </div>
+</div>
                             </div>
                         </div>
                     </div>
@@ -2349,6 +2361,33 @@
     </div>
 </div>
 <script>
+    function SaveVehicleNo() {
+        debugger;
+        var vehicleNumberUpdate = $("#VehicleRegistrationNumberNew").val();
+        var chassisNo = $("#VehicleChassisNumber").val();
+        if (vehicleNumberUpdate != "") {
+            // alertify.confirm("Are you sure you want to save vehicle number " + vehicleNumberUpdate + " ?", function () {
+            $.ajax({
+                url: '/MotorInsuranceClaims/saveVehicleNumber',
+                async: false,
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({ vehicle_registration_no: vehicleNumberUpdate, chassisNo: chassisNo }),
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    alertify.alert("Successfully saved vehicle number .");
+                },
+
+            });
+            //   }).setHeader("Confirm changes?");
+        }
+        else {
+            alertify.alert("Please enter the vehicle number ")
+        }
+
+    }
 
     function viewSentBackModal(chassisno, Application_no) {
         debugger;
@@ -2368,22 +2407,22 @@
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 debugger;
-                if (response.GetVehicleChassisPolicyDetailsList.length > 0) {
+                if (response.VehicleChassisPolicyDetailsList!=null) {
 
                     //  var odToDate = (response.GetVehicleChassisPolicyDetailsList[0].OD_to_date);
-
-                    $('#VehicleRegistrationNumber1').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no);
-                    $('#VehicleChassisNumber1').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);
-                    $('#VehicleCategoryType1').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type);
-                    $('#VehicleCategory1').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_category_desc);
-                    $('#VehicleModel1').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_model);
-                    $('#VehicleType1').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Type);
-                    $('#txtTypeofCover1').val(response.GetVehicleChassisPolicyDetailsList[0].type_of_Cover);
-                    $('#txtPolicyNo1').val(response.GetVehicleChassisPolicyDetailsList[0].Policy_number);
-                    $('#ODFromDate1').val(response.GetVehicleChassisPolicyDetailsList[0].OD_from_date1);
-                    $('#ODToDate1').val(response.GetVehicleChassisPolicyDetailsList[0].OD_to_date1);
-                    $('#TPFromDate1').val(response.GetVehicleChassisPolicyDetailsList[0].TP_from_date1);
-                    $('#TPToDate1').val(response.GetVehicleChassisPolicyDetailsList[0].TP_to_date1);
+                  
+                    $('#VehicleRegistrationNumber1').val(response.VehicleChassisPolicyDetailsList.vehicle_registration_no);
+                    $('#VehicleChassisNumber1').val(response.VehicleChassisPolicyDetailsList.vehicle_chasis_no);
+                    $('#VehicleCategoryType1').val(response.VehicleChassisPolicyDetailsList.Vehicle_Category_Type);
+                    $('#VehicleCategory1').val(response.VehicleChassisPolicyDetailsList.vehicle_category_desc);
+                    $('#VehicleModel1').val(response.VehicleChassisPolicyDetailsList.vehicle_model);
+                    $('#VehicleType1').val(response.VehicleChassisPolicyDetailsList.Vehicle_Type);
+                    $('#txtTypeofCover1').val(response.VehicleChassisPolicyDetailsList.type_of_Cover);
+                    $('#txtPolicyNo1').val(response.VehicleChassisPolicyDetailsList.Policy_number);
+                    $('#ODFromDate1').val(response.VehicleChassisPolicyDetailsList.OD_from_date1);
+                    $('#ODToDate1').val(response.VehicleChassisPolicyDetailsList.OD_to_date1);
+                    $('#TPFromDate1').val(response.VehicleChassisPolicyDetailsList.TP_from_date1);
+                    $('#TPToDate1').val(response.VehicleChassisPolicyDetailsList.TP_to_date1);
 
                 }
                 if (response.CourtDetailsList.length > 0) {
@@ -2547,7 +2586,7 @@
     }
 </script>
 <script>
-    
+
 
 
     var search_result = "";
@@ -2572,28 +2611,38 @@
                     //    return a.MIApplicationNumber === AppNo;
                     //});
                     //console.log(filtered);
-                    if (response.GetVehicleChassisPolicyDetailsList.length > 0) {
-
+                    if (response.VehicleChassisPolicyDetailsList != null) {
+                        debugger;
                         //  var odToDate = (response.GetVehicleChassisPolicyDetailsList[0].OD_to_date);
+                        if (response.VehicleChassisPolicyDetailsList.vehicle_registration_no == "") {
+                            $("#vehicleNumber").hide();
+                            $("#vehicleNumberNew").show();
+                            $("#SavingVehicleNumber").show();
+                        }
+                        else {
+                            $("#vehicleNumber").show();
+                            $("#vehicleNumberNew").hide();
+                            $("#SavingVehicleNumber").hide();
 
-                        $('#VehicleRegistrationNumber').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no);
-                        $('#VehicleChassisNumber').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no);
-                        $('#VehicleCategoryType').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type);
-                        $('#VehicleCategory').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_category_desc);
-                        $('#VehicleModel').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_model);
-                        $('#VehicleType').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_Type);
-                        $('#txtTypeofCover').val(response.GetVehicleChassisPolicyDetailsList[0].type_of_Cover);
-                        $('#txtPolicyNo').val(response.GetVehicleChassisPolicyDetailsList[0].Policy_number);
-                        $('#ODFromDate').val(response.GetVehicleChassisPolicyDetailsList[0].OD_from_date1);
-                        $('#ODToDate').val(response.GetVehicleChassisPolicyDetailsList[0].OD_to_date1);
-                        $('#TPFromDate').val(response.GetVehicleChassisPolicyDetailsList[0].TP_from_date1);
-                        $('#TPToDate').val(response.GetVehicleChassisPolicyDetailsList[0].TP_to_date1);
-                        $('#owner_Vehicle').val(response.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle);
-                        $('#Vehicle_cubic_capacity').val(response.GetVehicleChassisPolicyDetailsList[0].cubic_capacity_vehicle);
-                        $('#owner_Vehicle_address').val(response.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle_address);
-                        $('#Vehicle_Seating_capacity').val(response.GetVehicleChassisPolicyDetailsList[0].seating_capacity_vehicle);
-                        $('#Vehicle_subtype').val(response.GetVehicleChassisPolicyDetailsList[0].Vehicle_subtype_desc);
-                        $('#Vehicle_make_desc').val(response.GetVehicleChassisPolicyDetailsList[0].vehicle_make_desc);
+                        }
+                        $('#VehicleRegistrationNumber').val(response.VehicleChassisPolicyDetailsList.vehicle_registration_no);
+                        $('#VehicleChassisNumber').val(response.VehicleChassisPolicyDetailsList.vehicle_chasis_no);
+                        $('#VehicleCategoryType').val(response.VehicleChassisPolicyDetailsList.Vehicle_Category_Type);
+                        $('#VehicleCategory').val(response.VehicleChassisPolicyDetailsList.vehicle_category_desc);
+                        $('#VehicleModel').val(response.VehicleChassisPolicyDetailsList.vehicle_model);
+                        $('#VehicleType').val(response.VehicleChassisPolicyDetailsList.Vehicle_Type);
+                        $('#txtTypeofCover').val(response.VehicleChassisPolicyDetailsList.type_of_Cover);
+                        $('#txtPolicyNo').val(response.VehicleChassisPolicyDetailsList.Policy_number);
+                        $('#ODFromDate').val(response.VehicleChassisPolicyDetailsList.OD_from_date1);
+                        $('#ODToDate').val(response.VehicleChassisPolicyDetailsList.OD_to_date1);
+                        $('#TPFromDate').val(response.VehicleChassisPolicyDetailsList.TP_from_date1);
+                        $('#TPToDate').val(response.VehicleChassisPolicyDetailsList.TP_to_date1);
+                        $('#owner_Vehicle').val(response.VehicleChassisPolicyDetailsList.owner_name_vehicle);
+                        $('#Vehicle_cubic_capacity').val(response.VehicleChassisPolicyDetailsList.cubic_capacity_vehicle);
+                        $('#owner_Vehicle_address').val(response.VehicleChassisPolicyDetailsList.owner_name_vehicle_address);
+                        $('#Vehicle_Seating_capacity').val(response.VehicleChassisPolicyDetailsList.seating_capacity_vehicle);
+                        $('#Vehicle_subtype').val(response.VehicleChassisPolicyDetailsList.Vehicle_subtype_desc);
+                        $('#Vehicle_make_desc').val(response.VehicleChassisPolicyDetailsList.vehicle_make_desc);
                             search_result = "success"
 
                         }
@@ -2872,7 +2921,7 @@
 
     });
     function SendTohirarchy(app_stat) {
-        
+
         debugger;
         var destination = document.getElementById("checkbox-Yes");
         debugger;
@@ -3059,7 +3108,7 @@
 
 
                     var responsMainID = response;
-                   
+
                     var fileUpload = $("#inputfilefor_Court_notice").get(0);
                     var files = fileUpload.files;
                     var fileData = new FormData();
@@ -3169,7 +3218,7 @@
                         });
                     }
 
-                    //Driver statement and Request to Submit RC 
+                    //Driver statement and Request to Submit RC
 
                     var fileUpload = $("#inputDsRc").get(0);
                     var files = fileUpload.files;
@@ -3213,7 +3262,7 @@
                         });
                     }
 
-                    //Insurance Copy To Owner of the Vehicle 
+                    //Insurance Copy To Owner of the Vehicle
 
                     var fileUpload = $("#input_Insurance_Copy").get(0);
                     var files = fileUpload.files;
@@ -3734,11 +3783,11 @@
 
     });
 
-    
-   
+
+
     $('#btnsendCW').click(function (e) {
             app_stat = 2;
-  
+
         var destination = document.getElementById("checkbox-Yes1");
         debugger;
         var assignedTo = destination.value;
@@ -4231,7 +4280,7 @@
                 }
             });
         }).setHeader("Confirm changes?");
-       
+
     }
     function stopLokadhalatflow(chassisNo, Mvc_appid, CourtMvcNo) {
         debugger;
@@ -4253,7 +4302,7 @@
                 }
             });
         }).setHeader("Confirm changes?");
-       
+
     }
 //22-03-2022
     function updateStatusCourtExecution(chassisNo, Mvc_appid, CourtMvcNo) {
@@ -4304,7 +4353,7 @@
 
         alert($('#date_of_petition1').val());
     })
-    debugger;
+ 
 
     $("#accident_DateTime1").change(function (e) {
 
@@ -4349,11 +4398,14 @@
 
 
     }
+  
+
     function dateFormat(d) {
         console.log(d);
         return (d.getDate() + "").padStart(2, "0")
             + "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
             + "/" + d.getFullYear();
     }
-
+   
 </script>
+

@@ -124,6 +124,9 @@
     <Compile Include="KGIDMotorInsurance\tbl_mvc_claim_workflow.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_court_execution.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_court_exeution_workflow.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_lokadalath_details.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_lokadalath_document.cs" />
+    <Compile Include="KGIDMotorInsurance\tbl_mvc_lokadalath_workflow.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_mvc_respondent_details.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_od_cost_component_master.cs" />
     <Compile Include="KGIDMotorInsurance\tbl_State_master.cs" />

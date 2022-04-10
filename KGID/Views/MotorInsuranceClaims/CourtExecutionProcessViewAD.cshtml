@@ -85,7 +85,7 @@
                                 Vehicle Reg No. :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("vehicle_no", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_registration_no, new { @class = "form-control", @readonly = true })
+                                @Html.TextBox("vehicle_no", Model.VehicleChassisPolicyDetailsList.vehicle_registration_no, new { @class = "form-control", @readonly = true })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                 Vehicle Chassis No. :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("chassisno", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_chasis_no, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                @Html.TextBox("chassisno", Model.VehicleChassisPolicyDetailsList.vehicle_chasis_no, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                 Vehicle Category Type :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("vcatType", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                @Html.TextBox("vcatType", Model.VehicleChassisPolicyDetailsList.Vehicle_Category_Type, new { @class = "form-control", @readonly = true })                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                 Vehicle Category :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("registNo", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Category_Type, new { @class = "form-control", @readonly = true })
+                                @Html.TextBox("registNo", Model.VehicleChassisPolicyDetailsList.Vehicle_Category_Type, new { @class = "form-control", @readonly = true })
                                 <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                 Vehicle Model :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("TP_to", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_model, new { @class = "form-control", @readonly = true })
+                                @Html.TextBox("TP_to", Model.VehicleChassisPolicyDetailsList.vehicle_model, new { @class = "form-control", @readonly = true })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                                 Vehicle Type :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("vehicle_type", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_Type, new { @class = "form-control" })                                     <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                @Html.TextBox("vehicle_type", Model.VehicleChassisPolicyDetailsList.Vehicle_Type, new { @class = "form-control" })                                     <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                                 Owner of Vehicle :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("vehicle_owner", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle, new { @class = "form-control" })
+                                @Html.TextBox("vehicle_owner", Model.VehicleChassisPolicyDetailsList.owner_name_vehicle, new { @class = "form-control" })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 Cubic capacity :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("vehicle_CC", Model.GetVehicleChassisPolicyDetailsList[0].cubic_capacity_vehicle, new { @class = "form-control" })
+                                @Html.TextBox("vehicle_CC", Model.VehicleChassisPolicyDetailsList.cubic_capacity_vehicle, new { @class = "form-control" })
                                 <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                                 Address of the Owner of vehicle:
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("owner_address", Model.GetVehicleChassisPolicyDetailsList[0].owner_name_vehicle_address, new { @class = "form-control" })
+                                @Html.TextBox("owner_address", Model.VehicleChassisPolicyDetailsList.owner_name_vehicle_address, new { @class = "form-control" })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                                 Seating Capacity:
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("seating_capacity", Model.GetVehicleChassisPolicyDetailsList[0].seating_capacity_vehicle, new { @class = "form-control" })
+                                @Html.TextBox("seating_capacity", Model.VehicleChassisPolicyDetailsList.seating_capacity_vehicle, new { @class = "form-control" })
                                 <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                                 :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("sub_cat", Model.GetVehicleChassisPolicyDetailsList[0].Vehicle_subtype_desc, new { @class = "form-control" })
+                                @Html.TextBox("sub_cat", Model.VehicleChassisPolicyDetailsList.Vehicle_subtype_desc, new { @class = "form-control" })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -215,7 +215,7 @@
                                 Make of the Vehicle:
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("make_desc", Model.GetVehicleChassisPolicyDetailsList[0].vehicle_make_desc, new { @class = "form-control" })
+                                @Html.TextBox("make_desc", Model.VehicleChassisPolicyDetailsList.vehicle_make_desc, new { @class = "form-control" })
                                 <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                 policy no :
                             </label>
                             <div class="col-sm-6">
-                                @Html.TextBox("policy_no", Model.GetVehicleChassisPolicyDetailsList[0].Policy_number, new { @class = "form-control" })
+                                @Html.TextBox("policy_no", Model.VehicleChassisPolicyDetailsList.Policy_number, new { @class = "form-control" })
                                 <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
                             </div>
                         </div>
@@ -681,14 +681,17 @@
                         </div>
                     </div>
                     <div class="col-md-3 mr-2">
-                        <div id="other_document_details"></div>
-                        @foreach (var item in Model.otherDetailsData)
+                        @if (Model.otherDetailsData.Count() > 0)
                         {
-                            <div>
-                                <a href="@item.OtherDocument" target="_blank">View Document</a>
-                            </div>
+                            <div id="other_document_details"></div>
+                            foreach (var item in Model.otherDetailsData)
+                            {
+                                <div>
+                                    <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                </div>
+                            }
                         }
-                    </div>
+                        </div>
 
                 </div>
 

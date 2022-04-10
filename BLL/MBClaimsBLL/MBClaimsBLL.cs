@@ -1,5 +1,4 @@
 ﻿using DLL.MBClaimsDLL;
-using KGID_Models.KGID_MB_Claim;
 using KGID_Models.KGID_VerifyData;
 using KGID_Models.KGIDMotorInsurance;
 using System;
@@ -20,14 +19,7 @@ namespace BLL.MBClaimsBLL
             this._IMBClaimsDLL = new MBClaimsDLL();
             //claims = new MBClaimsDLL();
         }
-        public VM_MIOwnDamageClaimDetails GetMIOwnDamageClaimDetailsBLL(long empId, int category)
-        {
-            return _IMBClaimsDLL.GetMIOwnDamageClaimDetailsDLL(empId, category);
-        }
-        public VM_ODClaimVerificationDetails GetODClaimApplicationStatusListBLL(long empId, int category)
-        {
-            return _IMBClaimsDLL.GetODClaimApplicationStatusListDLL(empId, category);
-        }
+
         //Dist List
         public List<tbl_district_master> GetDistListBLL()
         {
@@ -43,63 +35,8 @@ namespace BLL.MBClaimsBLL
         {
             return _IMBClaimsDLL.GetComponentListDLL();
         }
-        //Save OD Claim Application Details
-        public long SaveODClaimApplicationDetailsBLL(VM_ODClaimApplicationDetails objCAD)
-        {
-            return _IMBClaimsDLL.SaveODClaimApplicationDetailsDLL(objCAD);
-        }
-        //Get OD Claim Application Details
-        public VM_ODClaimApplicationDetails GetODClaimApplicationDetailsBLL(long Empid, string PolicyNumber)
-        {
-            return _IMBClaimsDLL.GetODClaimApplicationDetailsDLL(Empid, PolicyNumber);
-        }
-
-
-        #region OD Claim Workfow
-        // OD Claim Workfow
-        public VM_ODClaimVerificationDetails GetEmployeeDetailsForCWVerificationBLL(long EmpId, string Category)
-        {
-            return _IMBClaimsDLL.GetEmployeeDetailsForCWVerificationDLL(EmpId, Category);
-        }
-        public VM_ODClaimVerificationDetails GetEmployeeDetailsForSuperintendentVerificationBLL(long EmpId, string Category)
-        {
-            return _IMBClaimsDLL.GetEmployeeDetailsForSuperintendentVerificationDLL(EmpId, Category);
-        }
-        public VM_ODClaimVerificationDetails GetEmployeeDetailsForDDVerificationBLL(long EmpId, string Category)
-        {
-            return _IMBClaimsDLL.GetEmployeeDetailsForDDVerificationDLL(EmpId, Category);
-        }
-        public VM_ODClaimVerificationDetails GetEmployeeDetailsForDVerificationBLL(long EmpId, string Category)
-        {
-            return _IMBClaimsDLL.GetEmployeeDetailsForDVerificationDLL(EmpId, Category);
-        }
-
-        public VM_MIODClaimDeptVerficationDetails GetWorkFlowDetailsBLL(long applicationId, int category)
-        {
-            return _IMBClaimsDLL.GetWorkFlowDetailsDLL(applicationId, category);
-        }
-        public string SaveVerifiedDetailsBLL(VM_MIODClaimDeptVerficationDetails objVerifyDetails)
-        {
-            return _IMBClaimsDLL.SaveVerifiedDetailsDLL(objVerifyDetails);
-        }
-        #endregion
-
-        // Surveyor Workflow
-        public VM_ODClaimSurveyorVerificationDetails GetEmployeeDetailsForSurveyorVerificationBLL(long EmpId)
-        {
-            return _IMBClaimsDLL.GetEmployeeDetailsForSurveyorVerificationDLL(EmpId);
-        }
-
-        //Aproved Application Work Order View
-        public VM_ODClaimApprovedApplicationDetails GetApprovedApplicationListBLL(long EmpID, string Category)
-        {
-            return _IMBClaimsDLL.GetApprovedApplicationListDLL(EmpID,Category);
-        }
-        public VM_ODClaimWorkOrderDetails GetODClaimAprvdAppDetailsBLL(long Empid, string PolicyNumber, string Category)
-        {
-            return _IMBClaimsDLL.GetODClaimAprvdAppDetailsDLL(Empid, PolicyNumber,Category);
-        }
-        public List<GetVehicleChassisPolicyDetails> GetVehicleAndPolicyDetailsBLL(string textDetails)
+        
+        public GetVehicleChassisPolicyDetails GetVehicleAndPolicyDetailsBLL(string textDetails)
         {
             return _IMBClaimsDLL.GetVehicleAndPolicyDetailsDLL(textDetails);
 
@@ -459,6 +396,90 @@ namespace BLL.MBClaimsBLL
 
             return _IMBClaimsDLL.GetSentBackMVCDetailsDLL();
         }
-       
+        public List<GetVehicleChassisPolicyDetails> GetLokadhalathdetailsofCourtBLL(long App_id, int category)
+        {
+            return _IMBClaimsDLL.GetLokadhalathdetailsofCourtDLL(App_id, category);
+
+        }
+        public long SaveMVCLokadalathDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.SaveMVCLokadalathDetailsDLL(model);
+        }
+
+        public int saveLokDocBLL(string path, long Application_id, string filename)
+        {
+
+            return _IMBClaimsDLL.saveLokDocDLL(path, Application_id, filename);
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetWorkFlowLokBLL(long App_id, string chassis)
+        {
+
+            return _IMBClaimsDLL.GetWorkFlowLokDLL(App_id, chassis);
+        }
+
+        public List<GetVehicleChassisPolicyDetails> GetLokDocDetailsBLL(long Appno)
+        {
+            return _IMBClaimsDLL.GetLokDocDetailsDLL(Appno);
+
+        }
+        public List<GetVehicleChassisPolicyDetails> GetLokadalathDetailsBLL(long Appno)
+        {
+            return _IMBClaimsDLL.GetLokadalathDetailsDLL(Appno);
+
+        }
+        public int Update_Lokadalath_Work_flow_DetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.Update_Lokadalath_Work_flow_Details(model);
+        }public int saveJudgementCopyDetailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.saveJudgementCopyDetailsDLL(model);
+        }
+        public int saveLokadhalatDocBLL(long appid, string chassis)
+        {
+
+            return _IMBClaimsDLL.saveLokadhalatDocDLL(chassis,appid);
+        }
+        public int UpdateLokadhalatDocumentWork_flow_detailsBLL(GetVehicleChassisPolicyDetails model)
+        {
+            return _IMBClaimsDLL.UpdateLokadhalatDocumentWork_flow_detailsDLL(model);
+        }
+        public List<GetVehicleChassisPolicyDetails> GetLokadhalatMasterDetailsBLL(long App_id)
+        {
+            return _IMBClaimsDLL.GetLokadhalatMasterDetailsDLL(App_id);
+
+        } public List<GetVehicleChassisPolicyDetails> GetLokadhalatDocumentDetailsStatusBLL(string FetchDetails, long appid)
+        {
+            return _IMBClaimsDLL.GetLokadhalatDocumentDetailsStatusDLL(FetchDetails, appid);
+
+        }
+        public int LokClaimsettleLawDeptBLL(GetVehicleChassisPolicyDetails model)
+        {
+            int result = 0;
+
+
+            result = _IMBClaimsDLL.LokClaimsettleLawDeptDLL(model);
+            if (result == 1)
+            {
+                result = _IMBClaimsDLL.UpdateLokadhalatDocumentWork_flow_detailsDLL(model);
+            }
+            return result;
+
+        }
+        public List<SelectListItem> GetRemarksLokadhalatCourtBLL()
+        {
+            return _IMBClaimsDLL.GetRemarksLokadhalatCourtDLL();
+        }
+        public SelectList RemarksObjectionStatementBLL(int category)
+        {
+            return _IMBClaimsDLL.RemarksObjectionStatementDLL(category);
+        }  public SelectList RemarksPaymentStatementBLL(int category)
+        {
+            return _IMBClaimsDLL.RemarksPaymentStatementDLL(category);
+        } public int saveVehicleNumberBLL(string vehicle_registration_no, string chassisNo)
+    
+        {
+            return _IMBClaimsDLL.saveVehicleNumberDLL(vehicle_registration_no,chassisNo);
+        }
     }
 }

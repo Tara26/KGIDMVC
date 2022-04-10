@@ -1,5 +1,4 @@
-﻿using KGID_Models.KGID_MB_Claim;
-using KGID_Models.KGID_VerifyData;
+﻿using KGID_Models.KGID_VerifyData;
 using KGID_Models.KGIDMotorInsurance;
 using System;
 using System.Collections.Generic;
@@ -12,40 +11,20 @@ namespace DLL.MBClaimsDLL
 {
     public interface IMBClaimsDLL
     {
-        VM_MIOwnDamageClaimDetails GetMIOwnDamageClaimDetailsDLL(long empId, int category);
-        VM_ODClaimVerificationDetails GetODClaimApplicationStatusListDLL(long empId, int category);
-        List<tbl_district_master> GetDistListDLL();
-        List<tbl_taluka_master> GetTalukaListDLL(int DistId);
-        List<tbl_od_cost_component_master> GetComponentListDLL();
+        List<tbl_district_master> GetDistListDLL();//
+        List<tbl_taluka_master> GetTalukaListDLL(int DistId);//
+        List<tbl_od_cost_component_master> GetComponentListDLL();//
 
-        long SaveODClaimApplicationDetailsDLL(VM_ODClaimApplicationDetails objCAD);
-        VM_ODClaimApplicationDetails GetODClaimApplicationDetailsDLL(long Empid, string PolicyNumber);
-
-        //OD Claim Workflow
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForCWVerificationDLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForSuperintendentVerificationDLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForDDVerificationDLL(long EmpID, string Category);
-        VM_ODClaimVerificationDetails GetEmployeeDetailsForDVerificationDLL(long EmpID, string Category);
-
-        VM_MIODClaimDeptVerficationDetails GetWorkFlowDetailsDLL(long applicationId, int category);
-        string SaveVerifiedDetailsDLL(VM_MIODClaimDeptVerficationDetails objVerifyDetails);
-
-        // Surveyor Workflow
-        VM_ODClaimSurveyorVerificationDetails GetEmployeeDetailsForSurveyorVerificationDLL(long EmpID);
-
-        // View Application
-        VM_ODClaimApprovedApplicationDetails GetApprovedApplicationListDLL(long EmpID, string Category);
-        VM_ODClaimWorkOrderDetails GetODClaimAprvdAppDetailsDLL(long Empid, string PolicyNumber, string Category);
-        List<GetVehicleChassisPolicyDetails> GetVehicleAndPolicyDetailsDLL(string txtDetails);
-         SelectList GetDistrictListDLL();
-        SelectList GetTalukListDLL(int dm_code);
-        SelectList GetRemarksDLL();
-        long SaveMVCClaimDetailsDLL(GetVehicleChassisPolicyDetails model);
-        int SavePathDetailsDLL(string path,long Application_id);
+        GetVehicleChassisPolicyDetails GetVehicleAndPolicyDetailsDLL(string txtDetails);//
+         SelectList GetDistrictListDLL();//
+        SelectList GetTalukListDLL(int dm_code);//
+        SelectList GetRemarksDLL();//
+        long SaveMVCClaimDetailsDLL(GetVehicleChassisPolicyDetails model);//
+        int SavePathDetailsDLL(string path,long Application_id);//
 
         int PetitionerRespondantDetailsDLL(long Application_id, GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetMVCApplicationFormDataDLL();
-        List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisDLL(string ChassisNo);
+        GetVehicleChassisPolicyDetails GetMVCGetDetailsOnChassisDLL(string ChassisNo);
         List<GetVehicleChassisPolicyDetails> GetMVCPetitionerDetailsDLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCRespondantDetailsDLL(long Appno);
         List<GetVehicleChassisPolicyDetails> GetMVCdetailsofCourtDLL(long App_id,int category);
@@ -101,7 +80,24 @@ int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsDLL(long appid);
         List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusDLL(string FetchDetails, long appid);
         SelectList RemarksJudgementDLL();
+        SelectList RemarksObjectionStatementDLL(int category);
+        SelectList RemarksPaymentStatementDLL(int category);
         int SendBackMvcToCWDLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsDLL();
+        List<GetVehicleChassisPolicyDetails> GetLokadhalathdetailsofCourtDLL(long App_id, int category);
+        long SaveMVCLokadalathDetailsDLL(GetVehicleChassisPolicyDetails model);
+        int saveLokDocDLL(string path, long Application_id, string filename);
+        List<GetVehicleChassisPolicyDetails> GetWorkFlowLokDLL(long App_id, string chassis);
+        List<GetVehicleChassisPolicyDetails> GetLokDocDetailsDLL(long Appno);
+        List<GetVehicleChassisPolicyDetails> GetLokadalathDetailsDLL(long Appno);
+        int Update_Lokadalath_Work_flow_Details(GetVehicleChassisPolicyDetails model);
+        int saveJudgementCopyDetailsDLL(GetVehicleChassisPolicyDetails model);
+        int saveLokadhalatDocDLL(string path, long Application_id);
+        int UpdateLokadhalatDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
+        List<GetVehicleChassisPolicyDetails> GetLokadhalatMasterDetailsDLL(long Application_id);
+        List<GetVehicleChassisPolicyDetails> GetLokadhalatDocumentDetailsStatusDLL(string FetchDetails, long appid);
+        int LokClaimsettleLawDeptDLL(GetVehicleChassisPolicyDetails model);
+        List<SelectListItem> GetRemarksLokadhalatCourtDLL();
+        int saveVehicleNumberDLL(string vehicle_registration_no, string chassisNo);
     }
 }

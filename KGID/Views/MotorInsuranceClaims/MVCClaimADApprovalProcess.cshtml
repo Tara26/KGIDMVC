@@ -367,10 +367,10 @@
                                             {
                                                 <button class="btn btn-primary" onclick='updateStatusToLokadhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="Lokadhalat">Lokadhalat</button>
 
-                                            }
-                                            @if (item.application_stat == 3)
-                                            {
-                                                <a href="/mvc_lok_cw/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
+                                                    }
+                                                    @if (item.application_stat == 3)
+                                                    {
+                                                        <a href="/mvc_lok_AD/@item.vehicle_chasis_no/@item.MVC_claim_app_id" title='view' class='btn btn-primary' onclick='viewMVCdetailsLokaDhalat("@item.vehicle_chasis_no","@item.MVC_claim_app_id")' name="View">Lokadhalat View</a>
 
                                                 <button class="btn btn-primary" onclick='stopLokadhalatflow("@item.vehicle_chasis_no","@item.MVC_claim_app_id","@item.Court_MVC_number")' name="LokadhalatStop">Stop Lokadhalat</button>
 
