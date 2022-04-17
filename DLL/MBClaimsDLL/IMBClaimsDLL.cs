@@ -79,7 +79,7 @@ int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
          int CEClaimsettleLawDeptDLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsDLL(long appid);
         List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusDLL(string FetchDetails, long appid);
-        SelectList RemarksJudgementDLL();
+        SelectList RemarksJudgementDLL(int category);
         SelectList RemarksObjectionStatementDLL(int category);
         SelectList RemarksPaymentStatementDLL(int category);
         int SendBackMvcToCWDLL(GetVehicleChassisPolicyDetails model);
@@ -99,5 +99,9 @@ int UpdateDocumentWork_flow_detailsDLL(GetVehicleChassisPolicyDetails model);
         int LokClaimsettleLawDeptDLL(GetVehicleChassisPolicyDetails model);
         List<SelectListItem> GetRemarksLokadhalatCourtDLL();
         int saveVehicleNumberDLL(string vehicle_registration_no, string chassisNo);
+
+        SelectList RemarksRatificationDLL(int category);
+         SelectList RemarksDelayNoteDLL(int category);
+
     }
 }

@@ -116,6 +116,8 @@ namespace KGID_Models.KGIDMotorInsurance
         public List<GetVehicleChassisPolicyDetails> LokadalathDetails { get; set; }
         public List<GetVehicleChassisPolicyDetails> LokadhalatMasterDetails { get; set; }
         public SelectList JudgementRemarksList { get; set; }
+        public SelectList RatificationRemarksList { get; set; }
+        public SelectList DelayNoteRemarksList { get; set; }
         public List<SelectListItem> OpinionStatusLokadhalat { get; set; }
         public string Court_MVC_number { get; set; }
         public string Lok_doc_Details { get; set; }
@@ -292,6 +294,31 @@ namespace KGID_Models.KGIDMotorInsurance
         public string Supreme_Awarded_court_Claims { get; set; }
         public string Supreme_Awarded_totalAmount_Claims { get; set; }
         public string judgement_Copy_supreme { get; set; }
+        public long PreClaimedFormId { get; set; }
+        public long Accident_fir_detailsId { get; set; }
+        public long cover_letterId { get; set; }
+        public long insurancecopyId { get; set; }
+        public long Accident_dl_detailsId { get; set; }
+        public long court_ParawiseId { get; set; }
+        public long object_statementId { get; set; }
+        public long ratificationToLawDeptID { get; set; }
+        public long HighCourtAuthorizationLetterId { get; set; }
+        public long DelayNoteHighCourtID { get; set; }
+        public long SupremeDelayNotetoGovtAdvocateSupremeCourtID { get; set; }
+        public long SupremeCourtAuthorizationLetterID { get; set; }
+        public string Signed_document { get; set; }
+        public string CourtSigned_parawise { get; set; }
+        public string Signedobject_statement { get; set; }
+        public string SignedRatificationToLawDept { get; set; }
+        public string SignedDelayNoteHighCourt { get; set; }
+        public string SignedHighCourtAuthorizationLetter { get; set; }
+        public string SignedSupremeCourtAuthorizationLetter { get; set; }
+        public string SignedDelayNotetoGovtAdvocateSupremeCourt { get; set; }
+        public string SignedPreClaimedForm { get; set; }
+        public string SignedDsRc { get; set; }
+        public string SignedCovering_Letter { get; set; }
+        public string SignedInsuranceCopy { get; set; }
+        public string SignedAccident_dl_details { get; set; }
     }
     public class OtherDocumentS {
         public string OtherDocument { get; set; }

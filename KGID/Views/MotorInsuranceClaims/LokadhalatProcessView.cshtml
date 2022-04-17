@@ -301,7 +301,7 @@
                                                 District :
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                             </div>
                                         </div>
@@ -313,7 +313,7 @@
                                             </label>
                                             <div class="col-sm-8">
 
-                                                @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                             </div>
                                         </div>
@@ -698,11 +698,19 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
 
 
                                     <a href="@Model.MVCAppDocDetails[0].CoveringLetter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                                 </div>
+                                <div class="col-md-2">
+                                    @if (Model.MVCAppDocDetails[0].SignedCovering_Letter != null)
+                                    {
+                                        <a href="@Model.MVCAppDocDetails[0].SignedCovering_Letter" id="SignedCovering_Letter" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                    }
+                                </div>
+
                                 <div class="col-md-2">
                                     <div class="form-group row">
                                         <label class="col-sm-12 col-form-label align-center">
@@ -711,12 +719,18 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
 
 
                                     <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
                                 </div>
+                                <div class="col-md-2">
+                                    @if (Model.MVCAppDocDetails[0].SignedPreClaimedForm != null)
+                                    {
+                                        <a href="@Model.MVCAppDocDetails[0].SignedPreClaimedForm" id="SignedPreClaimedForm" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                    }
+                                </div>
                             </div>
 
                             <div class="row">
@@ -728,10 +742,17 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
 
 
                                     <a href="@Model.MVCAppDocDetails[0].DriverstatementandRc" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Model.MVCAppDocDetails[0].SignedDsRc != null)
+                                    {
+                                        <a href="@Model.MVCAppDocDetails[0].SignedDsRc" id="SignedDsRc" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                    }
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group row">
@@ -741,12 +762,18 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
 
 
                                     <a href="@Model.MVCAppDocDetails[0].DL" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
                                 </div>
+                                <div class="col-md-2">
+                                    @if (Model.MVCAppDocDetails[0].SignedAccident_dl_details != null)
+                                    {
+                                        <a href="@Model.MVCAppDocDetails[0].SignedAccident_dl_details" id="SignedAccident_dl_details" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                    }
+                                </div>
                             </div>
 
                             <div class="row">
@@ -758,10 +785,17 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
 
 
                                     <a href="@Model.MVCAppDocDetails[0].Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Model.MVCAppDocDetails[0].SignedInsuranceCopy != null)
+                                    {
+                                        <a href="@Model.MVCAppDocDetails[0].SignedInsuranceCopy" id="SignedInsuranceCopy" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -1450,7 +1484,7 @@
                                             Remarks:
                                         </label>
                                         <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                         </div>
                                     </div>
@@ -1605,9 +1639,9 @@
 
 
                     <h2 class="mb-0">
-                        <button id="btncollapseTEN" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#btncollapseTEN"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
+                        <button id="btncollapseTEN" type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTEN"><i class="fa fa-plus"></i> Opinion From Law Department Based On Lower Court Judgement </button>
                     </h2>
-                    <div id="btncollapseTEN" class="collapse">
+                    <div id="collapseTEN" class="collapse">
 
 
 
@@ -1662,7 +1696,7 @@
                                             Remarks:
                                         </label>
                                         <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettle" })
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettle" })
                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                         </div>
                                     </div>
@@ -1770,7 +1804,7 @@
                                             Remarks:
                                         </label>
                                         <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                         </div>
                                     </div>
@@ -1877,7 +1911,7 @@
                                             Remarks:
                                         </label>
                                         <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                         </div>
                                     </div>

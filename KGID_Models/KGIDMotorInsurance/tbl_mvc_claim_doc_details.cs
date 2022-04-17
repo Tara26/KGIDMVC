@@ -21,5 +21,7 @@ namespace KGID_Models.KGIDMotorInsurance
         public long mvcdd_updated_by  { get; set; }
 
         public int mvcdd_signed_status { get; set; }
+        public string mvcdd_doc_signed_upload_path { get; set; }
+
     }
 }

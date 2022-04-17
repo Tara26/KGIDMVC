@@ -1,7 +1,7 @@
 
 @model KGID_Models.KGIDMotorInsurance.GetVehicleChassisPolicyDetails
 @{
-    ViewBag.Title = "MVCLokadhalatForm";
+    ViewBag.Title = "Court Execution";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int slno = 1;
     int slnumber = 1;
@@ -609,7 +609,17 @@
                             @Html.TextBox("claim_Amount", Model.CourtDetailsList[0].claim_Amount, new { @class = "form-control" })                                    <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter  Claim Amount</label>
                         </div>
                     </div>
-                
+                    @*<div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label align-center">
+                                    Amount of compensation claimed.
+                                </label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control alphaOnly" id="claim_amount" required>
+                                    <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter  Claim Amount</span>
+                                </div>
+                            </div>
+                        </div>*@
                 </div>
                 <div class="row">
                     @*<label for="exampleFormControlInput1">
@@ -671,15 +681,15 @@
                         </div>
                     </div>
                     <div class="col-md-3 mr-2">
-                        <div id="other_document_details"></div>
                         @if (Model.otherDetailsData.Count() > 0)
                         {
-                        foreach (var item in Model.otherDetailsData)
-                        {
-                            <div>
-                                <a href="@item.OtherDocument" target="_blank">View Document</a>
-                            </div>
-                        }
+                            <div id="other_document_details"></div>
+                            foreach (var item in Model.otherDetailsData)
+                            {
+                                <div>
+                                    <a href="@item.OtherDocument" target="_blank">View Document</a>
+                                </div>
+                            }
                         }
                     </div>
 
@@ -797,8 +807,7 @@
                         </div>
                     </div>
                 </div>
-
-                <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Court Execution upload documents </b></h6>
+                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>lokadalath upload documents </b></h6>
 
                 <div class="card shadow-sm rounded p-3 mt-2">
 
@@ -808,7 +817,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">
-                                    Upload of Court Execution Notice:
+                                    Upload of Lokadalath Notice:
                                 </label>
                                 <a href="@Model.CE_DocDetails[0].Execution_notice" id="exe_notice" target="_blank" style='color: blue' value="Download">View Document</a>
                                 <label id="" style="color:red" class="err" hidden>enter relation with the deceased</label>
@@ -830,7 +839,6 @@
 
 
                 </div>
-
                 @if (Model.CourtExecutionMasterDetails.Count() > 0)
                 {
                     if (Model.CourtExecutionMasterDetails[0].HighCourtClaimAwardedAmnt != null && Model.CourtExecutionMasterDetails[0].HighCourtClaimAwardedAmnt != "")
@@ -988,16 +996,13 @@
                         <div class="row">
 
                             <div class="col-md-3">
-                                <div class="form-check form-check-inline" id="sup_Auth_ad">
-                                    <label for="login_id"> Forward to Asistant Director/Deputy Director  </label>
-                                </div>
-                                <div class="form-check form-check-inline" style="display:none" id="sup_Auth_cw">
-                                    <label for="login_id"> Send Back to Case Worker</label>
+                                <div class="form-check form-check-inline">
+                                    <label for="login_id"> Forward to Case Worker </label>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes2" value="406661">
+                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes2" value="1688">
                                     <lable class="ck_sprdnt_err2" style="color:red" hidden> please select above field</lable>
                                 </div>
 
@@ -1025,8 +1030,9 @@
 
                     <!-- Modal content-->
                     <div class="modal-content" style="width: 150%; ">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
                         <div class="modal-header">
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                             <h2 class="head1">Work flow Details</h2>
                         </div>
                         <div class="modal-body">
@@ -1071,13 +1077,13 @@
 
                                     @if (Model.CourtExecutionMasterDetails[0].HighCourtClaimAwardedAmnt != null && Model.CourtExecutionMasterDetails[0].HighCourtClaimAwardedAmnt != "")
                                     {
-                                      
+
                                         <div class="row">
                                             <div class="col-md-1">
                                                 Opinion status  :
                                             </div>
                                             <div class="col-md-3">
-                                                @Html.TextBox("opinionDesc", Model.CourtExecutionMasterDetails[0].opinionDesc, new { @class = "form-control" })                                     
+                                                @Html.TextBox("opinionDesc", Model.CourtExecutionMasterDetails[0].opinionDesc, new { @class = "form-control" })
 
 
                                             </div>
@@ -1106,65 +1112,61 @@
                                                 <a href="@Model.CE_DocDetails[0].SupremeOpinionDesc" id="UploadSupremeOpinionDesc" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                             </div>
-                                            
+
                                         </div>
-                                     
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Remarks:
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
+                                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label align-center">
+                                                        Comments :
+                                                    </label>
+                                                    <div class="col-sm-6 mr-8">
+                                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept"></textarea>
+                                                        <span style="color:red" class="err" hidden> please enter comments</span>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="login_id"> Forward to Superintendent  </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                            </div>
+                                            <div class="col-md-4 mt-1">
+                                                <button class="btn-success" id="btnsubmit_OpinionFromLowerDept">Send</button>
+                                            </div>
+                                            <br /><br />
+                                        </div>
                                     }
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Remarks:
-                                                </label>
-                                                <div class="col-sm-6">
-                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
-                                                    <span style="color:red" class="err" hidden> please select remarks</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Comments :
-                                                </label>
-                                                <div class="col-sm-6 mr-8">
-                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept"></textarea>
-                                                    <span style="color:red" class="err" hidden> please enter comments</span>
 
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <div class="form-check form-check-inline" id="objection_ad">
-                                                <label for="login_id">Forward to Assistant Director/Deputy Director  </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline" style="display:none" id="objection_cw">
-                                                <label for="login_id"> Send Back to Case Worker</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                                <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                        </div>
-                                        <div class="col-md-4 mt-1">
-                                            <button class="btn-success" id="btnsubmit_OpinionFromLowerDept">Send</button>
-                                        </div>
-                                        <br /><br />
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1261,16 +1263,15 @@
 
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                         </div>
+
+                                            </div>
+                                        </div>
                                             <div class="row">
 
                                                 <div class="col-md-3">
-                                                    <div class="form-check form-check-inline" id="rectification_ad">
-                                                        <label for="login_id"> Forward to Assistant Director/Deputy Director  </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline" style="display:none" id="rectification_cw">
+                                                  
+                                                    <div class="form-check form-check-inline"  id="rectification_cw">
                                                         <label for="login_id"> Send Back to Case Worker</label>
                                                     </div>
                                                 </div>
@@ -1293,7 +1294,7 @@
                                                 <br /><br />
                                             </div>
 
-                                       
+                                      
                                         <br /><br />
 
                                     }
@@ -1321,75 +1322,32 @@
     $('#Comments_detailsOpinionFromLowerDept').removeAttr('readonly');
     $('#Comments_detailsHighCourtClaimSettlement2').removeAttr('readonly');
 
-
     $(document).ready(function () {
+        $(".collapse.show").each(function () {
+            $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+        });
 
-            // Add minus icon for collapse element which is open by default
-            $(".collapse.show").each(function () {
-                $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
-            });
-
-            // Toggle plus minus icon on show hide of collapse element
-            $(".collapse").on('show.bs.collapse', function () {
-                $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
-            }).on('hide.bs.collapse', function () {
-                $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
-            });
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function () {
+            $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.bs.collapse', function () {
+            $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+        });
 
 
 
-
-
-
-
-
-
-         var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
+        var scruStat =@Model.CourtDetailsList[0].scrutinyStatus;
 
         var loginCategory = @Convert.ToInt32(Session["SelectedCategory"]);
         var AppStatus = @Model.CourtDetailsList[0].application_stat;
         debugger;
         if (scruStat != loginCategory) {
 
-             $("#ScrutinyRow").hide();
+            $("#ScrutinyRow").hide();
         }
-        $('#remarks_id2').change(function () {
-            debugger;
-            var RemarkSelectedAuth1 = $("#remarks_id2 option:selected").val();
-            if (RemarkSelectedAuth1 == 20) {
-                $('#sup_Auth_ad').hide();
-                $('#sup_Auth_cw').show();
-            }
-            else {
-                $('#sup_Auth_ad').show();
-                $('#sup_Auth_cw').hide();
-            }
-        })
-        $('#remarks_idOpinionFromLowerDept').change(function () {
-            debugger;
-            var RemarkSelectedAuth2 = $("#remarks_idOpinionFromLowerDept option:selected").val();
-            if (RemarkSelectedAuth2 == 20) {
-                $('#objection_ad').hide();
-                $('#objection_cw').show();
-            }
-            else {
-                $('#objection_ad').show();
-                $('#objection_cw').hide(); 
-            }
-        })
-        $('#remarks_idHighCourtClaimSettlement2').change(function () {
-            debugger;
-            var RemarkSelectedAuth3 = $("#remarks_idHighCourtClaimSettlement2 option:selected").val();
-            if (RemarkSelectedAuth3 == 20) {
-                $('#rectification_ad').hide();
-                $('#rectification_cw').show();
-            }
-            else {
-                $('#rectification_ad').show();
-                $('#rectification_cw').hide();
-            }
-        })
-        
+
+
+     
 
 
         $('#btnsend2').click(function () {
@@ -1402,8 +1360,9 @@
             var RemarkSelected = $("#remarks_id2 option:selected").val();
             var assignedTo = destination.value;
             var comments = $('#Comments_details2').val();
+            var vehicle_no = $('#vehicle_no').val();
             var model = {};
-            var Policy_number = $('#policy_no').val();
+            var Category_id = 3;
             model.court_ref_no = app_ref_no;
             model.vehicle_chasis_no = chasisno;
             model.Policy_number = Policy_number;
@@ -1412,7 +1371,7 @@
 
             debugger;
             $.ajax({
-                url: '/MotorInsuranceClaims/CESendToAd',
+                url: '/MotorInsuranceClaims/CESendToDir',
                 async: false,
                 type: 'POST',
                 cache: false,
@@ -1424,15 +1383,15 @@
 
 
                     alertify.success("data saved successfully");
-                    window.location.href = "/mvc-si-adt";
+                    window.location.href = "/mvc_ad_ver";
                 }, error: function (response) {
                     alertify.error("could not save data");
                 }
 
             });
         });
-    })
-    $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
+    });
+      $('#btnsubmit_OpinionFromLowerDept').click(function (e) {
 
         var Mvc_appid = @Model.CourtDetailsList[0].MVC_claim_app_id;
 
@@ -1535,5 +1494,8 @@
         });
 
     });
+
 </script>
+
+
 

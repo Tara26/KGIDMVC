@@ -439,7 +439,7 @@
                                                     District :
                                                 </label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                    @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                                 </div>
                                             </div>
@@ -451,7 +451,7 @@
                                                 </label>
                                                 <div class="col-sm-8">
 
-                                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                    @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                                 </div>
                                             </div>
@@ -853,11 +853,18 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
 
 
                                             <a href="@Model.MVCAppDocDetails[0].CoveringLetter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                                         </div>
+                                        @if (Model.MVCAppDocDetails[0].SignedCovering_Letter != null)
+                                        {
+                                            <div class="col-md-2">
+                                                <a href="@Model.MVCAppDocDetails[0].SignedCovering_Letter" id="SignedCovering_Letter" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                            </div>
+                                        }
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <label class="col-sm-12 col-form-label align-center">
@@ -866,12 +873,16 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
 
 
                                             <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
                                         </div>
+                                        @if (Model.MVCAppDocDetails[0].SignedPreClaimedForm != null)
+                                        {
+                                            <a href="@Model.MVCAppDocDetails[0].SignedPreClaimedForm" id="SignedPreClaimedForm" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                        }
                                     </div>
 
                                     <div class="row">
@@ -883,11 +894,16 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
 
 
                                             <a href="@Model.MVCAppDocDetails[0].DriverstatementandRc" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                                         </div>
+                                        @if (Model.MVCAppDocDetails[0].SignedDsRc != null)
+                                        {
+                                            <a href="@Model.MVCAppDocDetails[0].SignedDsRc" id="SignedDsRc" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                        }
                                         <div class="col-md-2">
                                             <div class="form-group row">
                                                 <label class="col-sm-12 col-form-label align-center">
@@ -896,13 +912,19 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
 
 
-                                            <a href="@Model.MVCAppDocDetails[0].DL" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                                            <a href="@Model.MVCAppDocDetails[0].DL" id="DL" target="_blank" style='color: blue' value="Download">View Document</a>
                                         </div>
+                                        <div class="col-md-2">
+                                            @if (Model.MVCAppDocDetails[0].SignedAccident_dl_details != null)
+                                            {
+                                                <a href="@Model.MVCAppDocDetails[0].SignedAccident_dl_details" id="SignedAccident_dl_details" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
-                                    </div>
+                                            }
+                                            </div>
+                                        </div>
 
                                     <div class="row">
                                         <div class="col-md-2">
@@ -913,15 +935,21 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
 
 
                                             <a href="@Model.MVCAppDocDetails[0].Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                                         </div>
+                                        <div class="col-md-2">
+                                            @if (Model.MVCAppDocDetails[0].SignedInsuranceCopy != null)
+                                            {
+                                                <a href="@Model.MVCAppDocDetails[0].SignedInsuranceCopy" id="SignedInsuranceCopy" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                            }
 
+                                        </div>
                                     </div>
-                                </div>
+                                    </div>
                                 @if (@Model.MVCAppDocDetails[0].authorization_letter != null)
                                 {
                                     <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
@@ -968,6 +996,14 @@
                                                 <a href="@Model.MVCAppDocDetails[0].court_parawise" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                             </div>
+                                            @if (@Model.MVCAppDocDetails[0].CourtSigned_parawise != null)
+                                            {
+
+                                                <div class="col-md-3">
+                                                    <a href="@Model.MVCAppDocDetails[0].CourtSigned_parawise" id="CourtSigned_parawise" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                </div>
+                                            }
                                             <div class="col-md-4">
                                                 <button class="btn-success" id="viewCourtparawiseModal">Work flow</button>
 
@@ -996,6 +1032,14 @@
                                                 <a href="@Model.MVCAppDocDetails[0].Accident_object_statement_details" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                             </div>
+                                            @if (@Model.MVCAppDocDetails[0].Signedobject_statement != null)
+                                            {
+
+                                                <div class="col-md-3">
+                                                    <a href="@Model.MVCAppDocDetails[0].Signedobject_statement" id="Signedobject_statement" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                </div>
+                                            }
                                             <div class="col-md-4">
                                                 <button class="btn-success" id="viewObjectionStatementModal">Work flow</button>
 
@@ -1023,6 +1067,14 @@
                                                 <a href="@Model.MVCAppDocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                             </div>
+                                            @if (Model.MVCAppDocDetails[0].SignedRatificationToLawDept != null)
+                                            {
+
+                                                <div class="col-md-3">
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedRatificationToLawDept" id="SignedRatificationToLawDept1" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                </div>
+                                            }
                                             <div class="col-md-4">
                                                 <button class="btn-success" id="viewRatificationToLawDeptModal">Work flow</button>
 
@@ -1278,1058 +1330,1082 @@
 
                                                 </div>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <a href="@Model.MVCAppDocDetails[0].DelayNoteHighCourt" id="DelayNoteHighCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                             </div>
+                                            @if (Model.MVCAppDocDetails[0].SignedDelayNoteHighCourt != null)
+                                            {
+                                                <a href="@Model.MVCAppDocDetails[0].SignedDelayNoteHighCourt" id="SignedDelayNoteHighCourt" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                            }
                                             <div class="col-md-4">
                                                 <button class="btn-success" id="viewDelayNoteHighCourtModal">Work flow</button>
 
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-7 col-form-label align-center">
-                                                        Delay note : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
+                                           
 
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
 
-                                                @Html.TextArea("DelayNoteHighCourt", Model.CourtDetailsList[0].DelayNoteHighCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
-
-
-                                }
-                                @if (@Model.MVCAppDocDetails[0].CondonationOfDelay != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Condonation of Delay <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].CondonationOfDelay" id="CondonationOfDelay" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Stay Affidavit <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].StayAffidavitHighCourt" id="StayAffidavitHighCourt" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Grounds for Appeal <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].GroundsofAppeal" id="GroundsofAppeal" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (@Model.CourtDetailsList[0].AmtDepositHC != null && @Model.CourtDetailsList[0].AmtDepositHC != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to High Court</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-3">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Amount Deposition to High Court <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("AmtDepositHC", Model.CourtDetailsList[0].AmtDepositHC, new { @class = "form-control" })
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewamountDepositToHighCourtModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                } @if (@Model.CourtDetailsList[0].AmtDepositLC != null && @Model.CourtDetailsList[0].AmtDepositLC != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to lower Court</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-3">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Amount Deposition to Lower Court <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("AmtDepositLC", Model.CourtDetailsList[0].AmtDepositLC, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-3">
-                                                Upload of Amount Deposition Letter <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].AmtDepositLC" id="AmtDepositLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewamountDepositToLowerCourtModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-                                @if (@Model.MVCAppDocDetails[0].HighCourtOpinionDesc != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b> High Court Judgement Copy and opinion from Law Dept Received at KGID</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Upload of Judgement and opinion From Law Dept <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtOpinionDesc" id="HighCourtOpinionDesc" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewHighCourtOpinionDescModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-7 col-form-label align-center">
-                                                        Opinion status : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtOpinionDesc", Model.CourtDetailsList[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Judgement Date : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtjudgementDate", Model.CourtDetailsList[0].HighCourtjudgementDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtAwardedAmount", Model.CourtDetailsList[0].HighCourtAwardedAmount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-
-                                }
-
-                                @if (@Model.CourtDetailsList[0].HighCourstatutoryAmount != null && @Model.CourtDetailsList[0].HighCourstatutoryAmount != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Claim Approval and Settlement On High Court Judgement</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Statuatory Amount <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("StatuatoryAmount", Model.CourtDetailsList[0].HighCourstatutoryAmount, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Statuatory Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtstatementRemittedDate", Model.CourtDetailsList[0].HighCourtstatementRemittedDate, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Deposit Amount <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtDepositAmnt", Model.CourtDetailsList[0].HighCourtDepositAmnt, new { @class = "form-control" })
-
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div div class="col-md-2">
-                                                Deposit Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtDepositAmntRemittedDate", Model.CourtDetailsList[0].HighCourtDepositAmntRemittedDate, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Awarded Amount <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtClaimAwardedAmnt", Model.CourtDetailsList[0].HighCourtClaimAwardedAmnt, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Awarded Interest <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtClaimAwardedInterest", Model.CourtDetailsList[0].HighCourtClaimAwardedInterest, new { @class = "form-control" })
-
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div div class="col-md-2">
-                                                Court Cost <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtClaimSettleCost", Model.CourtDetailsList[0].HighCourtClaimSettleCost, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Total Amount <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtClaimSettleTotalAmnt", Model.CourtDetailsList[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewClaimSettleHighCourtModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                }
-
-                                @if (@Model.MVCAppDocDetails[0].HighCourtDepositAmnt != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>High Court Notice, Petition Copy Received at KGID</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        High Court Notice <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtDepositAmnt" id="HighCourtNoticefile" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Petition Copy <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt" id="HighCourtPetitionCopy" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewHighCourtNoticePetitionCopyModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                }
-
-                                @if (Model.MVCAppDocDetails[0].HighCourtClaimSettleCost != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of High Court to Law Department</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Covering letter  <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtClaimSettleCost" id="HighCourtCoveringletter" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewHighCourtCoveringletterModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                }
-
-                                @if (Model.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of High Court to KGID.</b></h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-                                            <br /><br />
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Authorization letter  <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt" id="HighCourtAuthorizationletter" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-
-                                        </div><br /><br />
-                                    </div>
-
-
-
-                                }
-                                @if (Model.CourtDetailsList[0].OpinionId2 != null)
-                                {<h6 class="m-0 font-weight-bold text-primary mt-3">
-                                        <b>
-                                            High Court Judgement Copy and opinion from Law Dept Received at KGID.
-                                        </b>
-                                    </h6>
-
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-7 col-form-label align-center">
-                                                        Opinion status : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtOpinionDesc2", Model.CourtDetailsList[0].HighCourtOpinionDesc2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Judgement Date : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtJudgementDateKGID", Model.CourtDetailsList[0].HighCourtJudgementDateKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                @Html.TextBox("HighCourtAwardedAmountKGID", Model.CourtDetailsList[0].HighCourtAwardedAmountKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Upload of Judgement and opinion From Law Dept : <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-
-                                                <a href="@Model.MVCAppDocDetails[0].HighCourtOpinionJudgement2" id="HighCourtOpinionJudgement2" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewHighCourtOpinionJudgement2Modal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID != null && Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID != "")
-                                {<h6 class="m-0 font-weight-bold text-primary mt-3"><b>Claim Approval and Settlement On High Court Judgement</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Awarded  Amount :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("awardedAmount_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                            </div>
-                                            <div class="col-md-1">
-                                                Court cost :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("courtCost_highCourtClaimSttleKGID", Model.CourtDetailsList[0].courtCost_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                            </div>
-                                            <div class="col-md-1">
-                                                Awarded Interest :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("awardedInterest_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedInterest_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                            </div>
-                                        </div><br /><br />
-                                        <div class="row">
-
-                                            <div class="col-md-1">
-                                                Awarded Total Amount :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("totalAmnt_highCourtClaimSttleKGID", Model.CourtDetailsList[0].totalAmnt_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewClaimApprovalSettleHC2Modal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Payment link will Appear if approved :
-                                            </div>
-                                            <div class="col-md-2">
-
-
-                                            </div>
-
-                                        </div>
-                                        <br /><br />
-                                    </div>
-
-                                }
-                                @if (Model.CourtDetailsList[0].InputDelaySupremeCourt != null && Model.CourtDetailsList[0].InputDelaySupremeCourt != "")
-                                {<h6 class="m-0 font-weight-bold text-primary mt-3"><b>Delay Note to Supreme Court Advocate</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Input Delay  :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextArea("InputDelaySupremeCourt", Model.CourtDetailsList[0].InputDelaySupremeCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-
-                                            </div>
-                                            <div class="col-md-1">
-                                                Draft  :
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].InputDelaySupremeCourt" id="InputDelaySupremeCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewInputDelaySupremecModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-
-                                        <br /><br />
-                                    </div>
-
-                                }
-
-                                @if (Model.MVCAppDocDetails[0].CondonationOfDelaySupremeC != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Condonation of Delay <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].CondonationOfDelaySupremeC" id="CondonationOfDelaySupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Stay Affidavit <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].StayAffidavitSupremeC" id="StayAffidavitSupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Grounds for Appeal <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].GroundsofAppealSupremeC" id="GroundsofAppealSupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                }
-
-                                @if (Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile != null)
-                                {
-
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to Supreme Court</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                letter  :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile" id="AmountDepositiontoSupremeCfile" target="_blank" style='color: blue' value="Download">View Document</a>
-
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewAmountDepositiontoSupremeCfileModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-                                @if (Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile != null)
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to Lower Court</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                letter  :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile" id="AmountDepositiontoSupremeCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
-
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewAmountAmntDepositiontoSupremeCToLCfileModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            @if (Model.MVCAppDocDetails[0].IntimationToDistrictCToLCfile != null)
-                                            {
+                                            <div class="row">
                                                 <div class="col-md-1">
-                                                    Intmation letter  :
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="@Model.MVCAppDocDetails[0].IntimationToDistrictCToLCfile" id="IntimationToDistrictCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-7 col-form-label align-center">
+                                                            Delay note : <span class="danger-text" style="color:red;"> * </span>:
+                                                        </label>
 
-
+                                                    </div>
                                                 </div>
-                                            }  @if (Model.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile != null)
-                                            {
-                                                <div class="col-md-1">
-                                                    Stay Order  :
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="@Model.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile" id="StayOrderToToDistrictSupremeCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                <div class="col-md-2">
 
+                                                    @Html.TextArea("DelayNoteHighCourt", Model.CourtDetailsList[0].DelayNoteHighCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
                                                 </div>
-                                            }
 
-                                        </div>
+
+
+                                            </div>
                                     </div>
-                                }
-                                @if (Model.CourtDetailsList[0].SupremeJudgementOpiniondate != null && Model.CourtDetailsList[0].SupremeJudgementOpiniondate != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Supreme Court Judgement Copy and opinion from Law Dept Received at KGID</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Opinion status  :
+
+
+                                        }
+                                        @if (@Model.MVCAppDocDetails[0].CondonationOfDelay != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b> Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</b></h6>
+
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Condonation of Delay <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].CondonationOfDelay" id="CondonationOfDelay" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Stay Affidavit <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].StayAffidavitHighCourt" id="StayAffidavitHighCourt" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Grounds for Appeal <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].GroundsofAppeal" id="GroundsofAppeal" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("SupremeOpinionDesc", Model.CourtDetailsList[0].SupremeOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                        }
+                                        @if (@Model.CourtDetailsList[0].AmtDepositHC != null && @Model.CourtDetailsList[0].AmtDepositHC != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to High Court</b></h6>
 
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
 
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Amount Deposition to High Court <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("AmtDepositHC", Model.CourtDetailsList[0].AmtDepositHC, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewamountDepositToHighCourtModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-1">
-                                                Judgement Date  :
+                                        } @if (@Model.CourtDetailsList[0].AmtDepositLC != null && @Model.CourtDetailsList[0].AmtDepositLC != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to lower Court</b></h6>
+
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Amount Deposition to Lower Court <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("AmtDepositLC", Model.CourtDetailsList[0].AmtDepositLC, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-3">
+                                                        Upload of Amount Deposition Letter <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].AmtDepositLC" id="AmtDepositLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewamountDepositToLowerCourtModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("SupremeJudgementOpiniondate", Model.CourtDetailsList[0].SupremeJudgementOpiniondate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                        }
 
-                                            </div>
-                                            <div class="col-md-1">
-                                                Awarded Amount  :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("SupremeAwardedAmnt", Model.CourtDetailsList[0].SupremeAwardedAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                        @if (@Model.MVCAppDocDetails[0].HighCourtOpinionDesc != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b> High Court Judgement Copy and opinion from Law Dept Received at KGID</b></h6>
 
-                                            </div>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
 
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Upload of Judgement and opinion From Law Dept <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
 
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Judgement copy  :
-                                            </div>
-                                            <div class="col-md-2">
-                                                <a href="@Model.MVCAppDocDetails[0].SupremeOpinionDesc" id="SupremeOpinionDesc" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtOpinionDesc" id="HighCourtOpinionDesc" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewSupremeOpinionDescModal">Work flow</button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewHighCourtOpinionDescModal">Work flow</button>
 
-                                            </div>
-                                        </div>
-                                        <br /><br />
-                                    </div>
-                                }
-                                @if (Model.CourtDetailsList[0].Supreme_Statuatory_Amount != null && Model.CourtDetailsList[0].Supreme_Statuatory_Amount != "")
-                                {<h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Supreme Court Judgement</b></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-7 col-form-label align-center">
+                                                                Opinion status : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
 
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <div class="row">
+                                                        @Html.TextBox("HighCourtOpinionDesc", Model.CourtDetailsList[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
-                                            <div class="col-md-2">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-10 col-form-label align-center">
-                                                        Statuatory Amount <span class="danger-text" style="color:red;"> * </span>:
-                                                    </label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Judgement Date : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        @Html.TextBox("HighCourtjudgementDate", Model.CourtDetailsList[0].HighCourtjudgementDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        @Html.TextBox("HighCourtAwardedAmount", Model.CourtDetailsList[0].HighCourtAwardedAmount, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("StatuatoryAmount", Model.CourtDetailsList[0].Supreme_Statuatory_Amount, new { @class = "form-control" })
+
+
+                                        }
+
+                                        @if (@Model.CourtDetailsList[0].HighCourstatutoryAmount != null && @Model.CourtDetailsList[0].HighCourstatutoryAmount != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Claim Approval and Settlement On High Court Judgement</b></h6>
+
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Statuatory Amount <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("StatuatoryAmount", Model.CourtDetailsList[0].HighCourstatutoryAmount, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Statuatory Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtstatementRemittedDate", Model.CourtDetailsList[0].HighCourtstatementRemittedDate, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Deposit Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtDepositAmnt", Model.CourtDetailsList[0].HighCourtDepositAmnt, new { @class = "form-control" })
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div div class="col-md-2">
+                                                        Deposit Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtDepositAmntRemittedDate", Model.CourtDetailsList[0].HighCourtDepositAmntRemittedDate, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Awarded Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtClaimAwardedAmnt", Model.CourtDetailsList[0].HighCourtClaimAwardedAmnt, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Awarded Interest <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtClaimAwardedInterest", Model.CourtDetailsList[0].HighCourtClaimAwardedInterest, new { @class = "form-control" })
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div div class="col-md-2">
+                                                        Court Cost <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtClaimSettleCost", Model.CourtDetailsList[0].HighCourtClaimSettleCost, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Total Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtClaimSettleTotalAmnt", Model.CourtDetailsList[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewClaimSettleHighCourtModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <div div class="col-md-2">
-                                                Statuatory Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+                                        }
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtstatementRemittedDate", Model.CourtDetailsList[0].Statuatory_Amount_Remitted, new { @class = "form-control" })
+                                        @if (@Model.MVCAppDocDetails[0].HighCourtDepositAmnt != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>High Court Notice, Petition Copy Received at KGID</b></h6>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Deposit Amount <span class="danger-text" style="color:red;"> * </span>:
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                High Court Notice <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("HighCourtDepositAmnt", Model.CourtDetailsList[0].Supreme_DepositAmount, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtDepositAmnt" id="HighCourtNoticefile" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                            </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Petition Copy <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
 
-                                        </div>
-                                        <div class="row">
-                                            <div div class="col-md-2">
-                                                Deposit Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtClaimAwardedAmnt" id="HighCourtPetitionCopy" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("Supreme_Deposit_Amount_Remitted", Model.CourtDetailsList[0].Supreme_Deposit_Amount_Remitted, new { @class = "form-control" })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewHighCourtNoticePetitionCopyModal">Work flow</button>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Awarded Amount <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("Supreme_Awarded_Amount", Model.CourtDetailsList[0].Supreme_Awarded_Amount, new { @class = "form-control" })
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Awarded Interest <span class="danger-text" style="color:red;"> * </span>:
-
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("Supreme_Awarded_Interest", Model.CourtDetailsList[0].Supreme_Awarded_Interest, new { @class = "form-control" })
-
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                        </div>
-                                        <div class="row">
-                                            <div div class="col-md-2">
-                                                Court Cost <span class="danger-text" style="color:red;"> * </span>:
+                                        }
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].Supreme_Court_Cost, new { @class = "form-control" })
+                                        @if (Model.MVCAppDocDetails[0].HighCourtClaimSettleCost != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of High Court to Law Department</b></h6>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                Total Amount <span class="danger-text" style="color:red;"> * </span>:
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Covering letter  <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
 
-                                            </div>
-                                            <div div class="col-md-2">
-                                                @Html.TextBox("Supreme_Total_Amount", Model.CourtDetailsList[0].Supreme_Total_Amount, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtClaimSettleCost" id="HighCourtCoveringletter" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn-success" id="viewSupremeCourtClaimSettleHighCourtModal">Work flow</button>
+                                                    </div>
+                                                    @if (Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter != null)
+                                                    {
+                                                        <a href="@Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter" id="SignedHighCourtAuthorizationLetter" target="_blank" style='color: blue' value="Download">View signed Document</a>
+                                                    }
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewHighCourtCoveringletterModal">Work flow</button>
 
-                                        </div>
-                                    </div>
-
-                                }
-                                @if (Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted != null && Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Supreme Court Notice, Petition Copy Received at KGID</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Uploaded Notice :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].Supreme_Deposit_Amount_Remitted" id="Supreme_Uploaded_Notice" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div><div class="col-md-2">
-                                                Upload Petition Copy :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted" id="Supreme_uploaded_petition" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-
-
-                                            <div class="col-md-2">
-                                                <button class="btn-success" id="viewSupremeNoticePetitionModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (Model.CourtDetailsList[0].Supreme_Total_Amount != null && Model.CourtDetailsList[0].Supreme_Total_Amount != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of Supreme Court to Law Department</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Uploaded Notice :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].Supreme_Total_Amount" id="Supreme_covering_letter" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <button class="btn-success" id="viewSupremecovering_letterModal">Work flow</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (Model.CourtDetailsList[0].Supreme_Court_Cost != null && Model.CourtDetailsList[0].Supreme_Court_Cost != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of Supreme Court to KGID</b></h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Uploaded Notice :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].Supreme_Court_Cost" id="Supreme_Autho_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                }
-                                @if (Model.CourtDetailsList[0].mvc_awardedSupreme_amount2 != null && Model.CourtDetailsList[0].mvc_awardedSupreme_amount2 != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3">
-                                        <b>
-                                            Supreme Court Judgement Copy and opinion from Law Dept Received at KGID.
-                                        </b>
-                                    </h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Judgement Date :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_JudgementSupreme_date2, new { @class = "form-control" })
-
-                                            </div><div class="col-md-2">
-                                                Awarded Amount :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })
-
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Opinion status: :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_opinionSupremeStatusID2Desc, new { @class = "form-control" })
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                Upload of Judgement :
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="@Model.MVCAppDocDetails[0].awardedAmount_highCourtClaimSttleKGID" id="Supreme_Autho_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <button class="btn-success" id="viewSupreme_Court_Judgement_CopyModal">Work flow</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                }
-                                @if (Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID != null && Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID != "")
-                                {
-                                    <h6 class="m-0 font-weight-bold text-primary mt-3">
-                                        <b>
-                                            Claim Approval and Settlement On Supreme Court Judgement
-                                        </b>
-                                    </h6>
-                                    <div class="card shadow-sm rounded p-3 mt-2">
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Awarded Amount :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("awardedAmount_supremeCourtKGID", Model.CourtDetailsList[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })
-
-                                            </div><div class="col-md-2">
-                                                Awarded Interest :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("awardedInterest_supremeCourtKGID", Model.CourtDetailsList[0].awardedInterest_supremeCourtKGID, new { @class = "form-control" })
-
-
-                                            </div>
-
-                                        </div>
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                Court Cost
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("courtcost_supremeCourtKGID", Model.CourtDetailsList[0].courtcost_supremeCourtKGID, new { @class = "form-control" })
-
-
-                                            </div>
-                                            <div class="col-md-2">
-                                                Total Amount :
-                                            </div>
-                                            <div class="col-md-3">
-                                                @Html.TextBox("TotalAmount_supremeCourtKGID", Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID, new { @class = "form-control" })
-
-                                            </div>
-
-                                        </div>
-                                        <br /><br />
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <button class="btn-success" id="viewSupremeclaimSettle2Modal">Work flow</button>
+                                                    </div>
+                                                </div>
                                             </div>
 
 
-                                        </div>
-                                    </div>
 
-                                }
-                                <!--<div id="ScrutinyRow">
-                <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
-                <div class="card shadow-sm rounded p-3 mt-2">
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-2 mt-3">
+                                        }
 
-                        </div>
+                                        @if (Model.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of High Court to KGID.</b></h6>
 
-                        <div class="col-md-2"></div>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+                                                    <br /><br />
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Authorization letter  <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtClaimSettleTotalAmnt" id="HighCourtAuthorizationletter" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+
+                                                </div><br /><br />
+                                            </div>
+
+
+
+                                        }
+                                        @if (Model.CourtDetailsList[0].OpinionId2 != null)
+                                        {<h6 class="m-0 font-weight-bold text-primary mt-3">
+                                                <b>
+                                                    High Court Judgement Copy and opinion from Law Dept Received at KGID.
+                                                </b>
+                                            </h6>
+
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-7 col-form-label align-center">
+                                                                Opinion status : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        @Html.TextBox("HighCourtOpinionDesc2", Model.CourtDetailsList[0].HighCourtOpinionDesc2, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Judgement Date : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        @Html.TextBox("HighCourtJudgementDateKGID", Model.CourtDetailsList[0].HighCourtJudgementDateKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Awarded amount : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        @Html.TextBox("HighCourtAwardedAmountKGID", Model.CourtDetailsList[0].HighCourtAwardedAmountKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Upload of Judgement and opinion From Law Dept : <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        <a href="@Model.MVCAppDocDetails[0].HighCourtOpinionJudgement2" id="HighCourtOpinionJudgement2" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewHighCourtOpinionJudgement2Modal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID != null && Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID != "")
+                                        {<h6 class="m-0 font-weight-bold text-primary mt-3"><b>Claim Approval and Settlement On High Court Judgement</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        Awarded  Amount :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("awardedAmount_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedAmount_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        Court cost :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("courtCost_highCourtClaimSttleKGID", Model.CourtDetailsList[0].courtCost_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        Awarded Interest :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("awardedInterest_highCourtClaimSttleKGID", Model.CourtDetailsList[0].awardedInterest_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                                    </div>
+                                                </div><br /><br />
+                                                <div class="row">
+
+                                                    <div class="col-md-1">
+                                                        Awarded Total Amount :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("totalAmnt_highCourtClaimSttleKGID", Model.CourtDetailsList[0].totalAmnt_highCourtClaimSttleKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewClaimApprovalSettleHC2Modal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        Payment link will Appear if approved :
+                                                    </div>
+                                                    <div class="col-md-2">
+
+
+                                                    </div>
+
+                                                </div>
+                                                <br /><br />
+                                            </div>
+
+                                        }
+                                        @if (Model.CourtDetailsList[0].InputDelaySupremeCourt != null && Model.CourtDetailsList[0].InputDelaySupremeCourt != "")
+                                        {<h6 class="m-0 font-weight-bold text-primary mt-3"><b>Delay Note to Supreme Court Advocate</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                      <div class="row">
+                                                          <div class="col-md-1">
+                                                              Input Delay  :
+                                                          </div>
+                                                          <div class="col-md-3">
+                                                              @Html.TextArea("InputDelaySupremeCourt", Model.CourtDetailsList[0].InputDelaySupremeCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                                          </div>
+                                                          <div class="col-md-1">
+                                                              Draft  :
+                                                          </div>
+                                                          <div class="col-md-2">
+                                                              <a href="@Model.MVCAppDocDetails[0].InputDelaySupremeCourt" id="InputDelaySupremeCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                          </div>
+                                                          <div class="col-md-3">
+                                                              @if (Model.MVCAppDocDetails[0].SignedDelayNotetoGovtAdvocateSupremeCourt != null)
+                                                              {
+                                                                  <a href="@Model.MVCAppDocDetails[0].SignedDelayNotetoGovtAdvocateSupremeCourt" id="SignedDelayNotetoGovtAdvocateSupremeCourt" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                              }
+
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              <button class="btn-success" id="viewInputDelaySupremecModal">Work flow</button>
+
+                                                          </div>
+                                                      </div>
+
+                                                <br /><br />
+                                            </div>
+
+                                        }
+
+                                        @if (Model.MVCAppDocDetails[0].CondonationOfDelaySupremeC != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Condonation of Delay, Stay Affidavit, Grounds for Appeal - Notary</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Condonation of Delay <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].CondonationOfDelaySupremeC" id="CondonationOfDelaySupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Stay Affidavit <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].StayAffidavitSupremeC" id="StayAffidavitSupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Grounds for Appeal <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].GroundsofAppealSupremeC" id="GroundsofAppealSupremeC" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                        @if (Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile != null)
+                                        {
+
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to Supreme Court</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        letter  :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCfile" id="AmountDepositiontoSupremeCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewAmountDepositiontoSupremeCfileModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @if (Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile != null)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Amount Deposition to Lower Court</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        letter  :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].AmountDepositiontoSupremeCToLCfile" id="AmountDepositiontoSupremeCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewAmountAmntDepositiontoSupremeCToLCfileModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    @if (Model.MVCAppDocDetails[0].IntimationToDistrictCToLCfile != null)
+                                                    {
+                                                        <div class="col-md-1">
+                                                            Intmation letter  :
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a href="@Model.MVCAppDocDetails[0].IntimationToDistrictCToLCfile" id="IntimationToDistrictCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+
+                                                        </div>
+                                                    }  @if (Model.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile != null)
+                                                    {
+                                                        <div class="col-md-1">
+                                                            Stay Order  :
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a href="@Model.MVCAppDocDetails[0].StayOrderToToDistrictSupremeCToLCfile" id="StayOrderToToDistrictSupremeCToLCfile" target="_blank" style='color: blue' value="Download">View Document</a>
+
+
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (Model.CourtDetailsList[0].SupremeJudgementOpiniondate != null && Model.CourtDetailsList[0].SupremeJudgementOpiniondate != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Supreme Court Judgement Copy and opinion from Law Dept Received at KGID</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        Opinion status  :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("SupremeOpinionDesc", Model.CourtDetailsList[0].SupremeOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        Judgement Date  :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("SupremeJudgementOpiniondate", Model.CourtDetailsList[0].SupremeJudgementOpiniondate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        Awarded Amount  :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("SupremeAwardedAmnt", Model.CourtDetailsList[0].SupremeAwardedAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        Judgement copy  :
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="@Model.MVCAppDocDetails[0].SupremeOpinionDesc" id="SupremeOpinionDesc" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="btn-success" id="viewSupremeOpinionDescModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                                <br /><br />
+                                            </div>
+                                        }
+                                        @if (Model.CourtDetailsList[0].Supreme_Statuatory_Amount != null && Model.CourtDetailsList[0].Supreme_Statuatory_Amount != "")
+                                        {<h6 class="m-0 font-weight-bold text-primary mt-3"><b> Claim Approval and Settlement On Supreme Court Judgement</b></h6>
+
+
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-10 col-form-label align-center">
+                                                                Statuatory Amount <span class="danger-text" style="color:red;"> * </span>:
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBox("StatuatoryAmount", Model.CourtDetailsList[0].Supreme_Statuatory_Amount, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Statuatory Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtstatementRemittedDate", Model.CourtDetailsList[0].Statuatory_Amount_Remitted, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Deposit Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("HighCourtDepositAmnt", Model.CourtDetailsList[0].Supreme_DepositAmount, new { @class = "form-control" })
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div div class="col-md-2">
+                                                        Deposit Amount Remitted Date <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("Supreme_Deposit_Amount_Remitted", Model.CourtDetailsList[0].Supreme_Deposit_Amount_Remitted, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Awarded Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("Supreme_Awarded_Amount", Model.CourtDetailsList[0].Supreme_Awarded_Amount, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Awarded Interest <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("Supreme_Awarded_Interest", Model.CourtDetailsList[0].Supreme_Awarded_Interest, new { @class = "form-control" })
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div div class="col-md-2">
+                                                        Court Cost <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].Supreme_Court_Cost, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        Total Amount <span class="danger-text" style="color:red;"> * </span>:
+
+                                                    </div>
+                                                    <div div class="col-md-2">
+                                                        @Html.TextBox("Supreme_Total_Amount", Model.CourtDetailsList[0].Supreme_Total_Amount, new { @class = "form-control" })
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class="btn-success" id="viewSupremeCourtClaimSettleHighCourtModal">Work flow</button>
+
+                                                </div>
+                                            </div>
+
+                                        }
+                                        @if (Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted != null && Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Supreme Court Notice, Petition Copy Received at KGID</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Uploaded Notice :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].Supreme_Deposit_Amount_Remitted" id="Supreme_Uploaded_Notice" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div><div class="col-md-2">
+                                                        Upload Petition Copy :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].Statuatory_Amount_Remitted" id="Supreme_uploaded_petition" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-2">
+                                                        <button class="btn-success" id="viewSupremeNoticePetitionModal">Work flow</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (Model.MVCAppDocDetails[0].Supreme_Total_Amount != null && Model.MVCAppDocDetails[0].Supreme_Total_Amount != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of Supreme Court to Law Department</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                      <div class="row">
+                                                          <div class="col-md-2">
+                                                              Uploaded Notice :
+                                                          </div>
+                                                          <div class="col-md-3">
+                                                              <a href="@Model.MVCAppDocDetails[0].Supreme_Total_Amount" id="Supreme_covering_letter" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                          </div>
+                                                          @if (Model.MVCAppDocDetails[0].SignedSupremeCourtAuthorizationLetter != null)
+                                                          {
+                                                              <a href="@Model.MVCAppDocDetails[0].SignedSupremeCourtAuthorizationLetter" id="SignedSupremeCourtAuthorizationLetter" target="_blank" style='color: blue' value="Download">View signed Document</a>
+                                                          }
+                                                          <div class="col-md-4">
+                                                              <button class="btn-success" id="viewSupremecovering_letterModal">Work flow</button>
+
+                                                          </div>
+                                                      </div>
+                                            </div>
+                                        }
+                                        @if (Model.MVCAppDocDetails[0].Supreme_Court_Cost != null && Model.MVCAppDocDetails[0].Supreme_Court_Cost != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of Supreme Court to KGID</b></h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Uploaded Notice :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].Supreme_Court_Cost" id="Supreme_Autho_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        }
+                                        @if (Model.CourtDetailsList[0].mvc_awardedSupreme_amount2 != null && Model.CourtDetailsList[0].mvc_awardedSupreme_amount2 != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3">
+                                                <b>
+                                                    Supreme Court Judgement Copy and opinion from Law Dept Received at KGID.
+                                                </b>
+                                            </h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Judgement Date :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_JudgementSupreme_date2, new { @class = "form-control" })
+
+                                                    </div><div class="col-md-2">
+                                                        Awarded Amount :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Opinion status: :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("Supreme_Court_Cost", Model.CourtDetailsList[0].mvc_opinionSupremeStatusID2Desc, new { @class = "form-control" })
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        Upload of Judgement :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].awardedAmount_highCourtClaimSttleKGID" id="Supreme_Autho_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <button class="btn-success" id="viewSupreme_Court_Judgement_CopyModal">Work flow</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        }
+                                        @if (Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID != null && Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID != "")
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary mt-3">
+                                                <b>
+                                                    Claim Approval and Settlement On Supreme Court Judgement
+                                                </b>
+                                            </h6>
+                                            <div class="card shadow-sm rounded p-3 mt-2">
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Awarded Amount :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("awardedAmount_supremeCourtKGID", Model.CourtDetailsList[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })
+
+                                                    </div><div class="col-md-2">
+                                                        Awarded Interest :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("awardedInterest_supremeCourtKGID", Model.CourtDetailsList[0].awardedInterest_supremeCourtKGID, new { @class = "form-control" })
+
+
+                                                    </div>
+
+                                                </div>
+                                                <br /><br />
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Court Cost
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("courtcost_supremeCourtKGID", Model.CourtDetailsList[0].courtcost_supremeCourtKGID, new { @class = "form-control" })
+
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        Total Amount :
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.TextBox("TotalAmount_supremeCourtKGID", Model.CourtDetailsList[0].TotalAmount_supremeCourtKGID, new { @class = "form-control" })
+
+                                                    </div>
+
+                                                </div>
+                                                <br /><br />
+                                                <div class="row">
+
+                                                    <div class="col-md-2">
+                                                        <button class="btn-success" id="viewSupremeclaimSettle2Modal">Work flow</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        }
+                                        <!--<div id="ScrutinyRow">
+    <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Scrutiny</b></h6>
+    <div class="card shadow-sm rounded p-3 mt-2">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-2 mt-3">
+
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label align-center">
+                        Remarks:
+                    </label>
+                    <div class="col-sm-6">
+                        <select name="remarks" id="remarks" style="width: 100%; height: 33px;font-weight:normal;">
+                            <option value="0">--Select--</option>
+                            <option value="1">Issue in application form</option>
+                            <option value="2">Issue in </option>
+                            <option value="3"></option>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label align-center">
-                                    Remarks:
-                                </label>
-                                <div class="col-sm-6">
-                                    <select name="remarks" id="remarks" style="width: 100%; height: 33px;font-weight:normal;">
-                                        <option value="0">--Select--</option>
-                                        <option value="1">Issue in application form</option>
-                                        <option value="2">Issue in </option>
-                                        <option value="3"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        Comments :
-                                    </label>
-                                    <div class="col-sm-6 mr-8">
-                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details"></textarea>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <label for="login_id"> Forward to  Case Worker </label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="1688">
-                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                            </div>
-
-                        </div>
-                        <div class="col-md-2"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-4 mt-1">
-                            <button class="btn-success" id="btnsendToHierarchy">Send</button>
-                        </div>-->
-                                @*<div class="col-md-3">
-                    <button class="btn-success" id="btnTempSend">Send</button>
-
-                </div>*@
-                                <!--</div>
                 </div>
-            </div>-->
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label align-center">
+                            Comments :
+                        </label>
+                        <div class="col-sm-6 mr-8">
+                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_details"></textarea>
                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="form-check form-check-inline">
+                    <label for="login_id"> Forward to  Case Worker </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes" value="1688">
+                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-4 mt-1">
+                <button class="btn-success" id="btnsendToHierarchy">Send</button>
+            </div>-->
+                                        @*<div class="col-md-3">
+            <button class="btn-success" id="btnTempSend">Send</button>
+
+        </div>*@
+                                        <!--</div>
+        </div>
+    </div>-->
+                                    </div>
 
                         <div class="modal RemarksModal" id="myModal1" role="dialog" style="display: none; width: 100%;">
                             <div class="modal-dialog">
@@ -2352,7 +2428,7 @@
                                                     <th>To</th>
                                                     <th>Remarks</th>
                                                     <th>Comments</th>
-                                                    <th>Status</th>
+                                                
                                                 </tr>
                                             </thead>
                                             <tbody id="Tbl_doc_statusBody">
@@ -2389,11 +2465,10 @@
                                                                     <label class="col-sm-4 col-form-label align-center">
                                                                         Authorization letter :
                                                                     </label>
-                                                                    <div class="col-sm-4">
-                                                                        <input type="file" class="form-control" id="input_authorizationLetter_Form" accept="image/png, image/jpeg">
+                                                                    <div class="col-md-4">
+                                                                        <input type="file" class="form-control" id="input_authorizationLetter_Form">
 
                                                                         @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                                                                        <label> <a href="@Model.MVCAppDocDetails[0].authorization_letter" id="authorization_letter" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
 
                                                                         <span style="color:red" class="err" hidden> please choose file</span>
                                                                     </div>
@@ -2500,6 +2575,14 @@
 
 
                                                                 </div>
+                                                                @if (@Model.MVCAppDocDetails[0].Signedobject_statement != null)
+                                                                {
+
+                                                                    <div class="col-md-3">
+                                                                        <a href="@Model.MVCAppDocDetails[0].Signedobject_statement" id="Signedobject_statement" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                                    </div>
+                                                                }
                                                             </div>
 
                                                         </div>
@@ -2596,7 +2679,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RatificationRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -3052,7 +3135,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_HighCourt" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.DelayNoteRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_HighCourt" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -3173,7 +3256,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourt" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourt" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -3236,7 +3319,7 @@
                                                                 Upload of Amount Deposition Letter :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="Upload_of_Amount_Deposition_LetterLC_form" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="Upload_of_Amount_Deposition_LetterLC_form" >
 
 
                                                             </div>
@@ -3244,7 +3327,7 @@
                                                                 Amount to be depositted :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="number" class="form-control" id="Amount_to_be_deposittedLowerCourt" accept="image/png, image/jpeg">
+                                                                <input type="number" class="form-control" id="Amount_to_be_deposittedLowerCourt" >
                                                             </div>
                                                         </div><br /><br />
                                                         <div class="row">
@@ -3252,7 +3335,7 @@
                                                                 Upload of Stay Order and Intimation to District KGID Office :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="Upload_of_Stay_IntimationDistrict_form" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="Upload_of_Stay_IntimationDistrict_form" >
 
 
                                                             </div>
@@ -3268,7 +3351,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourtLowerC" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idamntDepoHighCourtLowerC" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -3348,7 +3431,7 @@
                                                         </div>    <br /><br />    <br /><br />
                                                         <div class="row">
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="input_HighCourtJudgementOpinionLDept_Form" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="input_HighCourtJudgementOpinionLDept_Form" >
 
                                                                 @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
                                                                 <label> <a href="@Model.MVCAppDocDetails[0].HighCourtJudgementOpinion" id="HighCourtJudgementOpinionLDept" class="fa fa-paperclip" target="_blank" style="width:10px"></a></label>
@@ -3956,7 +4039,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_SupremeCourt" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.DelayNoteRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_SupremeCourt" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -4153,7 +4236,7 @@
                                                                 letter :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="Amount_Deposition_to_SCourtTOLc" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="Amount_Deposition_to_SCourtTOLc">
 
 
                                                             </div>
@@ -4163,14 +4246,14 @@
                                                                 Intimation letter :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="IntimationSCourtTOLc" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="IntimationSCourtTOLc" >
 
 
                                                             </div><div class="col-md-2">
                                                                 Stay Order :
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <input type="file" class="form-control" id="Stay_Order_SCourtTOLc" accept="image/png, image/jpeg">
+                                                                <input type="file" class="form-control" id="Stay_Order_SCourtTOLc">
 
 
                                                             </div>
@@ -4187,7 +4270,7 @@
                                                                         Remarks:
                                                                     </label>
                                                                     <div class="col-sm-6">
-                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idAmount_Deposition_to_SCourtTOLc" })
+                                                                        @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idAmount_Deposition_to_SCourtTOLc" })
                                                                         <span style="color:red" class="err" hidden> please select remarks</span>
                                                                     </div>
                                                                 </div>
@@ -5452,7 +5535,7 @@
                 $("#myModal1").modal("show");
                 if (response.GetDocumentRemarksList.length > 0) {
                     $.each(response.GetDocumentRemarksList, function (id, col) {
-                        var markup = "<tr><td>" + dateFormat(new Date(parseInt((col.SubmissionDate).match(/\d+/)[0]))) + "</td><td>" + col.From + "</td><td>" + col.Tooo+"</td><td>" + col.Remarks + "</td><td>" + col.comments +"</td><td>Pending</td></tr>";
+                        var markup = "<tr><td>" + dateFormat(new Date(parseInt((col.SubmissionDate).match(/\d+/)[0]))) + "</td><td>" + col.From + "</td><td>" + col.Tooo+"</td><td>" + col.Remarks + "</td><td>" + col.comments +"</td></tr>";
 
                         $("#Tbl_doc_statusBody").append(markup);
                     });

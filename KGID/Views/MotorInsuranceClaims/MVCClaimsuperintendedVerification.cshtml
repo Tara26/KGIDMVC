@@ -374,7 +374,7 @@
                                                         District :
                                                     </label>
                                                     <div class="col-sm-8">
-                                                        @Html.TextBox("Court_dist", Model.CourtDetailsList[0].other_state_court_dist, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                        @Html.TextBox("Court_dist", Model.CourtDetailsList[0].Court_District_Name, new { @class = "form-control" })                                                        <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                                     </div>
                                                 </div>
@@ -386,7 +386,7 @@
                                                     </label>
                                                     <div class="col-sm-8">
 
-                                                        @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].other_state_court_taluk, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
+                                                        @Html.TextBox("Court_taluk", Model.CourtDetailsList[0].Court_Taluk_Name, new { @class = "form-control" })                                    <span id="lblErrorDesignation" , style="color:red;display:none;">Please Enter Designation</span>
 
                                                     </div>
                                                 </div>
@@ -787,10 +787,17 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
 
 
                                                 <a href="@Model.MVCAppDocDetails[0].CoveringLetter" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                                            </div>
+                                            <div class="col-md-2">
+                                                @if (Model.MVCAppDocDetails[0].SignedCovering_Letter != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedCovering_Letter" id="SignedCovering_Letter" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                }
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group row">
@@ -800,12 +807,18 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
 
 
-                                                <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                <a href="@Model.MVCAppDocDetails[0].Prefilled_Claim_Form" id="Prefilled_Claim_Form" target="_blank" style='color: blue' value="Download">View Document</a>
                                             </div>
+                                            <div class="col-md-2">
+                                                @if (Model.MVCAppDocDetails[0].SignedPreClaimedForm != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedPreClaimedForm" id="SignedPreClaimedForm" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                                }
+                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -817,10 +830,17 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
 
 
                                                 <a href="@Model.MVCAppDocDetails[0].DriverstatementandRc" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
+                                            </div>
+                                            <div class="col-md-2">
+                                                @if (Model.MVCAppDocDetails[0].SignedDsRc != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedDsRc" id="SignedDsRc" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                }
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group row">
@@ -830,12 +850,18 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
 
 
                                                 <a href="@Model.MVCAppDocDetails[0].DL" id="petitioner_details_file" target="_blank" style='color: blue' value="Download">View Document</a>
                                             </div>
+                                            <div class="col-md-2">
+                                                @if (Model.MVCAppDocDetails[0].SignedAccident_dl_details != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedAccident_dl_details" id="SignedAccident_dl_details" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
+                                                }
+                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -847,15 +873,20 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
 
 
                                                 <a href="@Model.MVCAppDocDetails[0].Insurance_Copy" id="idn" target="_blank" style='color: blue' value="Download">View Document</a>
                                             </div>
+                                            <div class="col-md-2">
+                                                @if (Model.MVCAppDocDetails[0].SignedInsuranceCopy != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedInsuranceCopy" id="SignedInsuranceCopy" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
-
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
+                                        </div>
                                     @if (@Model.MVCAppDocDetails[0].authorization_letter != null)
                                     {
                                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter to Law Department</b></h6>
@@ -901,6 +932,14 @@
                                                     <a href="@Model.MVCAppDocDetails[0].court_parawise" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                 </div>
+                                                @if (@Model.MVCAppDocDetails[0].CourtSigned_parawise != null)
+                                                {
+
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].CourtSigned_parawise" id="CourtSigned_parawise" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                    </div>
+                                                }
                                                 <div class="col-md-4">
                                                     <button class="btn-success" id="viewCourtparawiseModal">Work flow</button>
 
@@ -929,12 +968,23 @@
                                                     <a href="@Model.MVCAppDocDetails[0].Accident_object_statement_details" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                 </div>
-                                                <div class="col-md-4">
+                                                @if (@Model.MVCAppDocDetails[0].Signedobject_statement != null)
+                                                {
+
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].Signedobject_statement" id="Signedobject_statement" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                    </div>
+                                                }
+                                                <div class="col-md-2">
                                                     <button class="btn-success" id="viewObjectionStatementModal">Work flow</button>
 
                                                 </div>
                                             </div>
+                                          
+                                            
                                         </div>
+                                   
 
 
                                     }  @if (@Model.MVCAppDocDetails[0].RatificationToLawDept != null)
@@ -956,6 +1006,14 @@
                                                     <a href="@Model.MVCAppDocDetails[0].RatificationToLawDept" id="RatificationToLawDept" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                 </div>
+                                                @if (Model.MVCAppDocDetails[0].SignedRatificationToLawDept != null)
+                                                {
+
+                                                    <div class="col-md-3">
+                                                        <a href="@Model.MVCAppDocDetails[0].SignedRatificationToLawDept" id="SignedRatificationToLawDept1" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+
+                                                    </div>
+                                                }
                                                 <div class="col-md-4">
                                                     <button class="btn-success" id="viewRatificationToLawDeptModal">Work flow</button>
 
@@ -1211,15 +1269,24 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <a href="@Model.MVCAppDocDetails[0].DelayNoteHighCourt" id="DelayNoteHighCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <button class="btn-success" id="viewDelayNoteHighCourtModal">Work flow</button>
 
+                                                @if (Model.MVCAppDocDetails[0].SignedDelayNoteHighCourt != null)
+                                                {
+                                                    <div class="col-md-2">
+                                                                 <a href="@Model.MVCAppDocDetails[0].SignedDelayNoteHighCourt" id="SignedDelayNoteHighCourt" target="_blank" style='color: blue' value="Download">View Signed Document</a>
+                                                    </div>
+                                                 }
+
+                                                   
+                                                    <div class="col-md-2">
+                                                        <button class="btn-success" id="viewDelayNoteHighCourtModal">Work flow</button>
+
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-md-1">
                                                     <div class="form-group row">
@@ -1569,6 +1636,10 @@
                                                     <a href="@Model.MVCAppDocDetails[0].HighCourtClaimSettleCost" id="HighCourtCoveringletter" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                 </div>
+                                                @if (Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter != null)
+                                                {
+                                                    <a href="@Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter" id="SignedHighCourtAuthorizationLetter" target="_blank" style='color: blue' value="Download">View signed Document</a>
+                                                }
                                                 <div class="col-md-4">
                                                     <button class="btn-success" id="viewHighCourtCoveringletterModal">Work flow</button>
 
@@ -1742,28 +1813,36 @@
                                     {<h6 class="m-0 font-weight-bold text-primary mt-3"><b>Delay Note to Supreme Court Advocate</b></h6>
                                         <div class="card shadow-sm rounded p-3 mt-2">
                                             <br /><br />
-                                            <div class="row">
-                                                <div class="col-md-1">
-                                                    Input Delay  :
-                                                </div>
-                                                <div class="col-md-3">
-                                                    @Html.TextArea("InputDelaySupremeCourt", Model.CourtDetailsList[0].InputDelaySupremeCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                                  <div class="row">
+                                                      <div class="col-md-1">
+                                                          Input Delay  :
+                                                      </div>
+                                                      <div class="col-md-3">
+                                                          @Html.TextArea("InputDelaySupremeCourt", Model.CourtDetailsList[0].InputDelaySupremeCourt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
 
-                                                </div>
-                                                <div class="col-md-1">
-                                                    Draft  :
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="@Model.MVCAppDocDetails[0].InputDelaySupremeCourt" id="InputDelaySupremeCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                      </div>
+                                                      <div class="col-md-1">
+                                                          Draft  :
+                                                      </div>
+                                                      <div class="col-md-2">
+                                                          <a href="@Model.MVCAppDocDetails[0].InputDelaySupremeCourt" id="InputDelaySupremeCourtfile" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                                </div>
+                                                      </div>
+                                                      <div class="col-md-4">
+                                                          @if (Model.MVCAppDocDetails[0].SignedDelayNotetoGovtAdvocateSupremeCourt != null)
+                                                          {
+                                                              <a href="@Model.MVCAppDocDetails[0].SignedDelayNotetoGovtAdvocateSupremeCourt" id="SignedDelayNotetoGovtAdvocateSupremeCourt" target="_blank" style='color: blue' value="Download">View Signed Document</a>
 
-                                                <div class="col-md-4">
-                                                    <button class="btn-success" id="viewInputDelaySupremecModal">Work flow</button>
+                                                          }
 
-                                                </div>
-                                            </div>
+                                                      </div>  </div>
+                                                   <div class="row">
+                                                      <div class="col-md-4">
+                                                          <button class="btn-success" id="viewInputDelaySupremecModal">Work flow</button>
+
+                                                      </div>
+                                                  </div>
 
                                             <br /><br />
                                         </div>
@@ -2055,15 +2134,19 @@
                                         <h6 class="m-0 font-weight-bold text-primary mt-3"><b>Authorization letter of Supreme Court to Law Department</b></h6>
                                         <div class="card shadow-sm rounded p-3 mt-2">
                                             <br /><br />
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    Uploaded Notice :
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="@Model.MVCAppDocDetails[0].Supreme_Total_Amount" id="Supreme_covering_letter" target="_blank" style='color: blue' value="Download">View Document</a>
+                                                  <div class="row">
+                                                      <div class="col-md-2">
+                                                          Uploaded Notice :
+                                                      </div>
+                                                      <div class="col-md-3">
+                                                          <a href="@Model.MVCAppDocDetails[0].Supreme_Total_Amount" id="Supreme_covering_letter" target="_blank" style='color: blue' value="Download">View Document</a>
 
-                                                </div>
-                                            </div>
+                                                      </div>
+                                                      @if (Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter != null)
+                                                      {
+                                                          <a href="@Model.MVCAppDocDetails[0].SignedHighCourtAuthorizationLetter" id="SignedHighCourtAuthorizationLetter" target="_blank" style='color: blue' value="Download">View signed Document</a>
+                                                      }
+                                                  </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <button class="btn-success" id="viewSupremecovering_letterModal">Work flow</button>
@@ -2363,6 +2446,7 @@
                                                                     <a href="@Model.MVCAppDocDetails[0].court_parawise" id="court_parawise" target="_blank" style='color: blue' value="Download">View Document</a>
 
                                                                 </div>
+                                                                 
                                                             </div><br /><br />
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -2520,7 +2604,7 @@
                                                     <div class="card-body">
                                                         <h2 class="text-center">Ratification Letter to Law Department</h2>
                                                         <hr />
-                                                        @if (@Model.MVCAppDocDetails[0].Accident_object_statement_details != null)
+                                                        @if (@Model.MVCAppDocDetails[0].RatificationToLawDept != null)
                                                         {
                                                             <div class="row">
                                                                 <div class="col-md-3">
@@ -2537,7 +2621,7 @@
                                                                             Remarks:
                                                                         </label>
                                                                         <div class="col-sm-6">
-                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
+                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RatificationRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idRatificationToLawDept" })
                                                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                                                         </div>
                                                                     </div>
@@ -3005,7 +3089,7 @@
                                                                             Remarks:
                                                                         </label>
                                                                         <div class="col-sm-6">
-                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_HighCourt" })
+                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.DelayNoteRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_HighCourt" })
                                                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                                                         </div>
                                                                     </div>
@@ -4096,7 +4180,7 @@
                                                                             Remarks:
                                                                         </label>
                                                                         <div class="col-sm-6">
-                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.RemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_SupremeCourt" })
+                                                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.DelayNoteRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idDelayNotetoGovt_SupremeCourt" })
                                                                             <span style="color:red" class="err" hidden> please select remarks</span>
                                                                         </div>
                                                                     </div>
@@ -5292,7 +5376,7 @@
         </div>
 </div>
                 <script>
-    $("#btnsendAd").click(function () {
+                    $("#btnsendAd").click(function () {
                         debugger;
                         var MVC_number = $("#Mvc_claimId").val();
                         var RemarkSelected = $("#remarks option:selected").val();
@@ -5310,18 +5394,18 @@
                         model.Comments_details = Comments_details;
                         model.Vehicle_Registration_Number = Vehicle_number;
                         debugger;
-        $.ajax({
-                        url: '/MotorInsuranceClaims/MvcSendToAd',
-            type: 'post',
-            datatype: 'json',
-            async: false,
-            data: JSON.stringify({ model: model }),
-            processData: false,
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+                        $.ajax({
+                            url: '/MotorInsuranceClaims/MvcSendToAd',
+                            type: 'post',
+                            datatype: 'json',
+                            async: false,
+                            data: JSON.stringify({ model: model }),
+                            processData: false,
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (response) {
                                 alertify.success("Data Sent Successfully");
                             },
-            complete: function (response)  {
+                            complete: function (response) {
                                 window.location.href = "/mvc-si-adt";
                             }
                         });

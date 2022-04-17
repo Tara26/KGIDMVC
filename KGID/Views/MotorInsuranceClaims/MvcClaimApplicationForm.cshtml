@@ -446,7 +446,7 @@
                                 </div>
                                 <div class="row" id="SavingVehicleNumber" style="display:none">
                                     <div class="col-md-2">
-                                        <button class="btn-success" id="SaveVehicleNo" onclick="SaveVehicleNo()">Save </button>
+                                        <button class="btn-success" id="SaveVehicleNumber" onclick="SaveVehicleNo()">Save </button>
                                     </div>
 
                                 </div>
@@ -865,7 +865,7 @@
                                             Does the person in respect of whom compensation is claimed pay income tax? State the amount of income Tax (to the supported by documentary evidence).
 
                                         </label>
-                                        <input type="text" class="form-control a_req" id="income_tax_of_injured" placeholder="">
+                                        <input type="number" class="form-control a_req" id="income_tax_of_injured" placeholder="">
                                         <label id="" style="color:red" class="err" hidden>enter fill the above fied</label>
                                     </div>
                                 </div>
@@ -1041,7 +1041,7 @@
                                         <label for="exampleFormControlInput1">
                                             Amount of compensation claimed.
                                         </label>
-                                        <input type="text" class="form-control p_a_req" id="claim_amount" placeholder="">
+                                        <input type="number" class="form-control p_a_req" id="claim_amount" placeholder="">
                                         <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter Claim Amount</label>
                                     </div>
                                 </div>
@@ -1076,9 +1076,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="inputfilefor_Court_notice" accept="image/png, image/jpeg">
-                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <input type="file" class="form-control doc_up" id="inputfilefor_Court_notice">
+                                  
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div><div class="col-md-2">
                                     <div class="form-group row">
@@ -1089,11 +1088,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="petitioner_details" accept="image/png, image/jpeg">
+                                    <input type="file" class="form-control doc_up" id="petitioner_details">
 
                                     @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                   
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
 
@@ -1108,9 +1106,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 mr-2">
-                                    <input type="file" class="custom-file-input doc_up" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg">
-                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <input type="file" class="form-control doc_up" id="inputfilefor_otherdocument01">
+                                   
                                     <span style="color:red" class="err" hidden> please choose file</span>
 
                                 </div>
@@ -1136,9 +1133,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="inputCoveringLetter" accept="image/png, image/jpeg">
-                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <input type="file" class="form-control doc_up" id="inputCoveringLetter" >
+                                   
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
                                 <div class="col-md-2">
@@ -1150,11 +1146,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="inputPrefilled_Claim_Form" accept="image/png, image/jpeg">
+                                    <input type="file" class="form-control doc_up" id="inputPrefilled_Claim_Form" >
 
                                     @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                  
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
 
@@ -1170,9 +1165,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="inputDsRc" accept="image/png, image/jpeg">
-                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <input type="file" class="form-control doc_up" id="inputDsRc">
+                                  
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
                                 <div class="col-md-2">
@@ -1184,11 +1178,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="inputdl" accept="image/png, image/jpeg">
+                                    <input type="file" class="form-control doc_up" id="inputdl">
 
                                     @*<input type="file" id="inputfilefor_petitioner">*@ @*class="custom-file-input" onchange="previewsignimg(event)"*@
-                                    <label class="custom-file-label" for="inputpetitionerFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                  
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
 
@@ -1204,9 +1197,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="file" class="custom-file-input doc_up" id="input_Insurance_Copy" accept="image/png, image/jpeg">
-                                    <label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label>
-                                    <a href="" id="" target="_blank" value="Download"></a>
+                                    <input type="file" class="form-control doc_up" id="input_Insurance_Copy">
+                                    
                                     <span style="color:red" class="err" hidden> please choose file</span>
                                 </div>
 
@@ -1956,7 +1948,7 @@
                                                         <label for="exampleFormControlInput1">
                                                             Amount of compensation claimed.
                                                         </label>
-                                                        <input type="text" class="form-control d_d_req" id="claim_amount1" placeholder="">
+                                                        <input type="number" class="form-control d_d_req" id="claim_amount1" placeholder="">
                                                         <label id="lblErrorTeacherName" style="color:red" class="err" hidden>Please Enter  Claim Amount</label>
                                                     </div>
                                                 </div>
@@ -2366,7 +2358,7 @@
         var vehicleNumberUpdate = $("#VehicleRegistrationNumberNew").val();
         var chassisNo = $("#VehicleChassisNumber").val();
         if (vehicleNumberUpdate != "") {
-            // alertify.confirm("Are you sure you want to save vehicle number " + vehicleNumberUpdate + " ?", function () {
+        /*    alertify.confirm("Are you sure you want to save vehicle number " + vehicleNumberUpdate + " ?", function () {*/
             $.ajax({
                 url: '/MotorInsuranceClaims/saveVehicleNumber',
                 async: false,
@@ -2377,14 +2369,26 @@
                 contentType: 'application/json; charset=utf-8',
 
                 success: function (response) {
-                    alertify.alert("Successfully saved vehicle number .");
+                    debugger;
+                    if (response == 1) {
+                        alertify.alert("Successfully saved vehicle number .");
+                    }
+                    if(response ==2) {
+
+                        alertify.alert("Already vehicle number exist please check with entered registered number .");
+
+                    }
+                    if (response == 3) {
+                        alertify.alert("Failed to  saved vehicle number .");
+
+                    }
                 },
 
             });
-            //   }).setHeader("Confirm changes?");
+             /* }).setHeader("Confirm changes?");*/
         }
         else {
-            alertify.alert("Please enter the vehicle number ")
+            alertify.alert("Please enter the vehicle number ");
         }
 
     }
@@ -2736,7 +2740,7 @@
 
 
         $('#btnAdd').click(function (e) {
-            var row = '<tr><td><div class="row"> <div class="col-1"></div> <div class="col-1"> <input type="checkbox"class="input_id" name="other"/></input></div><div class="col-3" align="left"><input type="file" style="margin:5px;" class="custom-file-input mul12" id="inputfilefor_otherdocument01" accept="image/png, image/jpeg" ><label class="custom-file-label" for="inputGroupFile01" id="choose-file" style=" color:black;">Choose file</label><a href="" id="" target="_blank" value="Download"></a></div></div></td></tr>';
+            var row = '<tr><td><div class="row"> <div class="col-1"></div> <div class="col-1"> <input type="checkbox"class="input_id" name="other"/></input></div><div class="col-3" align="left"><input type="file" style="margin:5px;" class="form-control mul12" id="inputfilefor_otherdocument01"></a></div></div></td></tr>';
 
             $("#tbl_other_doc").prepend(row);
         });

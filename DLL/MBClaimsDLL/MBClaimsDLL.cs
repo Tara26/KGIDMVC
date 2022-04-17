@@ -937,10 +937,14 @@ namespace DLL.MBClaimsDLL
                                 where iti.state_id == ById
                                 select new
                                 {
-                                    StateName = state1.State
+                                    StateName = state1.State,
+                                    District = iti.other_state_court_dist,
+                                    Taluk = iti.other_state_court_taluk
 
                                 }).FirstOrDefault();
                     vehicleDetails[i].Court_state_name = stateName.StateName;
+                    vehicleDetails[i].Court_District_Name = stateName.District;
+                        vehicleDetails[i].Court_Taluk_Name = stateName.Taluk;
                     long scruStat = GetScrutinyStatus(category, App_id);
                     vehicleDetails[i].scrutinyStatus = scruStat;
                 }
@@ -1042,7 +1046,7 @@ namespace DLL.MBClaimsDLL
                 }
                 else
                 {
-                    vehicleDetails[i].SupremeOpinionDesc = " ";
+                    vehicleDetails[i].mvc_opinionSupremeStatusID2Desc = " ";
 
                 }
             }
@@ -1063,7 +1067,7 @@ namespace DLL.MBClaimsDLL
                               {
                                   Accident_details = item.mvcdd_doc_upload_path,
                                   Doc_ref_id = item.mvc_claim_dd_id,
-
+                                  Signed_document = item.mvcdd_doc_signed_upload_path
                               }
                               ).ToList();
             return vehicleDetails;
@@ -1395,16 +1399,11 @@ namespace DLL.MBClaimsDLL
                 tbl_mvc_claim_doc_details pathData = _db.tbl_mvc_claim_doc_details.Where(x => x.mvcdd_claim_app_id == appId && x.mvc_claim_dd_id == docID).FirstOrDefault();
                 if (pathData != null)
                 {
-                    tbl_mvc_claim_doc_details mvc_doc = new tbl_mvc_claim_doc_details();
-                    mvc_doc.mvcdd_claim_app_id = appId;
-                    mvc_doc.mvcdd_claim_due_id = 0;
-                    mvc_doc.mvcdd_doc_upload_path = DocPath;
-                    mvc_doc.mvcdd_active_status = true;
-                    mvc_doc.mvcdd_creation_datetime = DateTime.Now;
-                    mvc_doc.mvcdd_updation_datetime = DateTime.Now;
-                    mvc_doc.mvcdd_updated_by = 1;
+                    pathData.mvcdd_updation_datetime = DateTime.Now;
+                    pathData.mvcdd_doc_signed_upload_path = DocPath;
+                    pathData.mvcdd_signed_status = 1;
 
-                    _db.tbl_mvc_claim_doc_details.Add(mvc_doc);
+                    //_db.tbl_mvc_claim_doc_details.Add(mvc_doc);
                     _db.SaveChanges();
 
                 }
@@ -3018,10 +3017,14 @@ namespace DLL.MBClaimsDLL
                                 where iti.state_id == ById
                                 select new
                                 {
-                                    StateName = state1.State
+                                    StateName = state1.State,
+                                    District = iti.other_state_court_dist,
+                                    Taluk = iti.other_state_court_taluk
 
                                 }).FirstOrDefault();
                     vehicleDetails[i].Court_state_name = stateName.StateName;
+                    vehicleDetails[i].Court_District_Name = stateName.District;
+                    vehicleDetails[i].Court_Taluk_Name = stateName.Taluk;
                     long scruStat = GetScrutinyStatusCourtExecution(category, App_id);
                     vehicleDetails[i].scrutinyStatus = scruStat;
                 }
@@ -3279,8 +3282,8 @@ namespace DLL.MBClaimsDLL
                     work_flow.court_creation_datetime = DateTime.Now;
                     work_flow.court_updation_datetime = DateTime.Now;
                     work_flow.court_assigned_to = model.roleID;
-                    work_flow.verified_by_category = model.loginId;
-                    work_flow.assigned_To_category = model.Category_id;
+                    work_flow.verified_by_category = model.Category_id;
+                    work_flow.assigned_To_category = model.roleID;
                     work_flow.CE_Mainflow = 1;
                     _db.tbl_mvc_court_exeution_workflow.Add(work_flow);
                     int abc = _db.SaveChanges();
@@ -3310,7 +3313,7 @@ namespace DLL.MBClaimsDLL
                                join remarks in _db.tbl_remarks_master on work.court_remarks equals remarks.RM_Remarks_id
 
 
-                               where work.mvc_court_exe_app_id == App_id
+                               where work.mvc_court_exe_app_id == App_id where work.CE_Mainflow==1
                                select new GetVehicleChassisPolicyDetails
                                {
                                    SubmissionDate = work.court_creation_datetime,
@@ -3672,17 +3675,33 @@ namespace DLL.MBClaimsDLL
 
             return workFlowDetails;
         }
-        public SelectList RemarksJudgementDLL()
+        public SelectList RemarksJudgementDLL(int category)
         {
             List<SelectListItem> JudgementtList = new List<SelectListItem>();
 
-            JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
-                              where remark.moduleType==4
-                            select new SelectListItem
-                            {
-                                Text = remark.remark_desc,
-                                Value = (remark.remark_id).ToString(),
-                            }).ToList();
+          
+            if (category == 7 || category == 15 || category == 6 || category == 4)
+            {
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 4 || remark.remark_id == 20
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+            }
+            else
+            {
+
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 4
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+
+            }
             return new SelectList(JudgementtList, "Value", "Text");
         }
         public int  SendBackMvcToCWDLL(GetVehicleChassisPolicyDetails model) {
@@ -3836,10 +3855,13 @@ namespace DLL.MBClaimsDLL
                                 where iti.state_id == ById
                                 select new
                                 {
-                                    StateName = state1.State
-
+                                    StateName = state1.State,
+                                   District =iti.other_state_court_dist,
+                                   Taluk = iti.other_state_court_taluk
                                 }).FirstOrDefault();
                     vehicleDetails[i].Court_state_name = stateName.StateName;
+                    vehicleDetails[i].Court_District_Name = stateName.District;
+                    vehicleDetails[i].Court_Taluk_Name = stateName.Taluk;
                     long scruStat = GetLokScrutinyStatus(category, App_id);
                     vehicleDetails[i].scrutinyStatus = scruStat;
                 }
@@ -4723,10 +4745,10 @@ namespace DLL.MBClaimsDLL
         public SelectList RemarksObjectionStatementDLL(int category)
         {
             List<SelectListItem> JudgementtList = new List<SelectListItem>();
-            if (category == 7)
+            if (category == 7 || category == 15 || category == 6 || category == 4)
             {
                 JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
-                                  where remark.moduleType == 3 &&  remark.remark_id!=8
+                                  where remark.moduleType == 3 &&  remark.remark_id!=8 || remark.remark_id==20
                                   select new SelectListItem
                                   {
                                       Text = remark.remark_desc,
@@ -4749,10 +4771,10 @@ namespace DLL.MBClaimsDLL
         public SelectList RemarksPaymentStatementDLL(int category)
         {
             List<SelectListItem> JudgementtList = new List<SelectListItem>();
-            if (category == 7)
+            if (category == 7 || category == 15 || category == 6 || category == 4)
             {
                 JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
-                                  where remark.moduleType == 5 && remark.remark_id != 15 && remark.remark_id != 16 && remark.remark_id != 17
+                                  where remark.moduleType == 5 && remark.remark_id != 15 && remark.remark_id != 16 && remark.remark_id != 17 || remark.remark_id==20
                                   select new SelectListItem
                                   {
                                       Text = remark.remark_desc,
@@ -4774,17 +4796,94 @@ namespace DLL.MBClaimsDLL
         }
         public int saveVehicleNumberDLL(string vehicle_registration_no, string chassisNo)
         {
+            int result = 0;
             tbl_motor_insurance_vehicle_details mvc_tbl = (from n in _db.tbl_motor_insurance_vehicle_details where n.mivd_chasis_no == chassisNo select n).FirstOrDefault();
-            int result = 1;
-            if(mvc_tbl != null)
+            tbl_motor_insurance_vehicle_details mvc_tbl2 = (from n in _db.tbl_motor_insurance_vehicle_details where n.mivd_registration_no == vehicle_registration_no select n).FirstOrDefault();
+            if (mvc_tbl2 != null)
+            {
+                result = 2;
+
+            }
+            else
             {
 
-                mvc_tbl.mivd_registration_no = vehicle_registration_no;
-                result = _db.SaveChanges();
+                try
+                {
+                    if (mvc_tbl != null)
+                    {
+
+                        mvc_tbl.mivd_registration_no = vehicle_registration_no;
+                        result = _db.SaveChanges();
+                        result = 1;
+                    }
+                    else
+                    {
+
+                        result = 3;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             return result;
 
+        }
+        public SelectList RemarksRatificationDLL(int category)
+        {
+            List<SelectListItem> JudgementtList = new List<SelectListItem>();
+            if (category == 7 || category ==15 || category== 6 || category==4)
+            {
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 6 || remark.remark_id ==20
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+            }
+            else
+            {
+
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 6 
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+
+            }
+            return new SelectList(JudgementtList, "Value", "Text");
+        }
+        public SelectList RemarksDelayNoteDLL(int category)
+        {
+            List<SelectListItem> JudgementtList = new List<SelectListItem>();
+            if (category == 7 || category == 15 || category == 6 || category == 4)
+            {
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 7 || remark.remark_id == 20
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+            }
+            else
+            {
+
+                JudgementtList = (from remark in _db.tbl_mvc_claim_remarks
+                                  where remark.moduleType == 7
+                                  select new SelectListItem
+                                  {
+                                      Text = remark.remark_desc,
+                                      Value = (remark.remark_id).ToString(),
+                                  }).ToList();
+
+            }
+            return new SelectList(JudgementtList, "Value", "Text");
         }
     }
 

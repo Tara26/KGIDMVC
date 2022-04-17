@@ -132,10 +132,14 @@ namespace DLL.DBConnection
         public DbSet<tbl_motor_insurance_proposer_details> tbl_motor_insurance_proposer_details { get; set; }
         public DbSet<tbl_motor_insurance_type_of_cover> tbl_motor_insurance_type_of_cover { get; set; }
         public DbSet<tbl_motor_insurance_vehicle_details> tbl_motor_insurance_vehicle_details { get; set; }
+       // public DbSet<tbl_mi_renewal_policy_details> tbl_mi_policy_details { get; set; }
+
+        public DbSet<tbl_mi_policy_details> mi_policy_details { get; set; }
 
         public DbSet<tbl_motor_insurance_application> tbl_motor_insurance_application { get; set; }
         public DbSet<tbl_geographical_extension> tbl_geographical_extension { get; set; }
 
+public DbSet<tbl_vehicle_type_master> tbl_vehicle_type_master { get; set; }
         public DbSet<tbl_vehicle_subtype_master> tbl_vehicle_subtype_master { get; set; }
         public DbSet<tbl_vehicle_category_master> tbl_vehicle_category_master { get; set; }
 
@@ -156,8 +160,8 @@ namespace DLL.DBConnection
         public DbSet<tbl_surveyor_master> tbl_surveyor_master { get; set; }
         public DbSet<tbl_repairer_master> tbl_repairer_master { get; set; }
         public DbSet<tbl_mi_kii_challan_request> tbl_mi_kii_challan_request { get; set; }
-        public DbSet<tbl_mi_policy_details> tbl_mi_policy_details { get; set; }
-        public DbSet<tbl_vehicle_type_master> tbl_vehicle_type_master { get; set; }
+        //public DbSet<tbl_mi_policy_details> tbl_mi_policy_details1 { get; set; }
+        //public DbSet<tbl_vehicle_type_master> tbl_vehicle_type_master { get; set; }
         public DbSet<tbl_vehicle_category_type_master> tbl_vehicle_category_type_master { get; set; }
         public DbSet<tbl_mvc_application_details> tbl_mvc_application_details{ get; set; }
         public DbSet<tbl_mvc_claim_workflow> tbl_mvc_claim_workflow { get; set; }
@@ -170,6 +174,12 @@ namespace DLL.DBConnection
         public DbSet<tbl_mvc_claim_type_of_injury> tbl_mvc_claim_type_of_injury { get; set; }
         public DbSet<tbl_State_master>tbl_State_master { get; set; }
         public DbSet<tbl_mvc_claim_remarks> tbl_mvc_claim_remarks { get; set; }
+        public DbSet<tbl_mvc_court_execution> tbl_mvc_court_execution { get; set; }
+        public DbSet<tbl_court_execution_document> tbl_court_execution_document { get; set; }
+        public DbSet<tbl_mvc_court_exeution_workflow> tbl_mvc_court_exeution_workflow { get; set; }
+        public DbSet<tbl_mvc_lokadalath_workflow> tbl_mvc_lokadalath_workflow { get; set; }
+        public DbSet<tbl_mvc_lokadalath_document> tbl_mvc_lokadalath_document { get; set; }
+        public DbSet<tbl_mvc_lokadalath_details> tbl_mvc_lokadalath_details { get; set; }
 
     }
 }

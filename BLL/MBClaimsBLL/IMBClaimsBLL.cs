@@ -83,7 +83,7 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         int CEClaimsettleLawDeptBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> CourtExecutionMasterDetailsBLL(long appid);
         List<GetVehicleChassisPolicyDetails> GetCourtExecutiveDocumentDetailsStatusBLL(string GetStatusData, long appId);
-         SelectList RemarksJudgementBLL();
+         SelectList RemarksJudgementBLL(int category);
         int SendBackMvcToCWBLL(GetVehicleChassisPolicyDetails model);
         List<GetVehicleChassisPolicyDetails> GetSentBackMVCDetailsBLL();
         List<GetVehicleChassisPolicyDetails> GetLokadhalathdetailsofCourtBLL(long App_id, int category);
@@ -103,5 +103,7 @@ long SaveAsDraftMvcDetailsBLL(GetVehicleChassisPolicyDetails model);
         SelectList RemarksObjectionStatementBLL(int cat);
        SelectList RemarksPaymentStatementBLL(int category);
        int  saveVehicleNumberBLL(string vehicle_registration_no, string chassisNo);
+        SelectList RemarksRatificationBLL(int category);
+        SelectList RemarksDelayNoteBLL(int category);
     }
 }

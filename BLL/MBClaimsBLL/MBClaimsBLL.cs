@@ -66,7 +66,7 @@ namespace BLL.MBClaimsBLL
 
             return _IMBClaimsDLL.GetMVCApplicationFormDataDLL();
         } 
-        public  List<GetVehicleChassisPolicyDetails> GetMVCGetDetailsOnChassisBLL(string ChassisNo) {
+        public  GetVehicleChassisPolicyDetails GetMVCGetDetailsOnChassisBLL(string ChassisNo) {
 
             return _IMBClaimsDLL.GetMVCGetDetailsOnChassisDLL(ChassisNo);
         }
@@ -382,9 +382,9 @@ namespace BLL.MBClaimsBLL
         {
             return _IMBClaimsDLL.GetCourtExecutiveDocumentDetailsStatusDLL(GetStatusData, appId);
         }
-        public SelectList RemarksJudgementBLL()
+        public SelectList RemarksJudgementBLL(int Category)
         {
-            return _IMBClaimsDLL.RemarksJudgementDLL();
+            return _IMBClaimsDLL.RemarksJudgementDLL(Category);
         }
         public int SendBackMvcToCWBLL(GetVehicleChassisPolicyDetails model)
         {
@@ -480,6 +480,14 @@ namespace BLL.MBClaimsBLL
     
         {
             return _IMBClaimsDLL.saveVehicleNumberDLL(vehicle_registration_no,chassisNo);
+        }
+        public SelectList RemarksRatificationBLL(int category)
+        {
+            return _IMBClaimsDLL.RemarksRatificationDLL(category);
+        }
+        public  SelectList RemarksDelayNoteBLL(int category)
+        {
+            return _IMBClaimsDLL.RemarksDelayNoteDLL(category);
         }
     }
 }

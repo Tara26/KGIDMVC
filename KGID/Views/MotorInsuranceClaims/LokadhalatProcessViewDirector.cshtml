@@ -1187,33 +1187,23 @@
                                 </div>
 
                             </div>
-                            <div class="row" id="AdDiv">
-
-                                @*<div class="col-md-3">
-                                    <div class="form-check form-check-inline">
-                                        <label for="login_id"> Forward to Assistant Director/Deputy Director </label>
-                                    </div>
-                                </div>*@
-
-                                <div class="col-md-2"></div>
-                            </div>
-                            <div class="row" id="CWDiv">
+                            <div class="row">
 
                                 <div class="col-md-3">
                                     <div class="form-check form-check-inline">
-                                        <label for="login_id"> Send back to Case Worker </label>
+                                        <label for="login_id"> Forward to CaseWorker </label>
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-2">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes2" value="271510"><br />
+                                        <lable id="ck_sprdnt_err2" style="color:red" hidden> please select above field</lable>
+                                    </div>
+
+                                </div>
                                 <div class="col-md-2"></div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-YesMain" value="406661">
-                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                </div>
 
-                            </div>
                             <div class="row">
                                 <div class="col-md-5">
                                 </div>
@@ -1284,85 +1274,85 @@
                 <div id="collapseSeven" class="collapse">
                     @if (@Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != null && @Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2 != "")
                     {
-                    <div class="card-body">
-                        <h2 class="text-center">Opinion From Law Department Based On Lower Court Judgement </h2>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-2">
-                                Opinion Status :
-                            </div>
-                            <div class="col-md-2">
-                                @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].opinionDesc, new { @class = "form-control" })
+                        <div class="card-body">
+                            <h2 class="text-center">Opinion From Law Department Based On Lower Court Judgement </h2>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    Opinion Status :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].opinionDesc, new { @class = "form-control" })
 
-                            </div>
-                            <div class="col-md-2">
-                                Judgement Date :
-                            </div>
-                            <div class="col-md-2">
-                                @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].SupremeJudgementOpiniondate, new { @class = "form-control" })
-                            </div><div class="col-md-1">
-                                Awarded Amount :
-                            </div>
-                            <div class="col-md-2">
-                                @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })
-                            </div>
-                        </div>    <br /><br />    <br /><br />
+                                </div>
+                                <div class="col-md-2">
+                                    Judgement Date :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].SupremeJudgementOpiniondate, new { @class = "form-control" })
+                                </div><div class="col-md-1">
+                                    Awarded Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Supreme_Court_Cost", Model.LokadhalatMasterDetails[0].mvc_awardedSupreme_amount2, new { @class = "form-control" })
+                                </div>
+                            </div>    <br /><br />    <br /><br />
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        Remarks:
-                                    </label>
-                                    <div class="col-sm-6">
-                                        @Html.DropDownListFor(model => model.Remarks_id2, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
-                                        <span style="color:red" class="err" hidden> please select remarks</span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id2, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idOpinionFromLowerDept" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label align-center">
-                                        Comments :
-                                    </label>
-                                    <div class="col-sm-6 mr-8">
-                                        <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept"></textarea>
-                                        <span style="color:red" class="err" hidden> please enter comments</span>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsOpinionFromLowerDept"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
 
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+
+                                    <div class="form-check form-check-inline" id="LC_opinion_cw">
+                                        <label for="login_id"> Send Back to Case Worker</label>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    </div>
 
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-3">
-                              
-                                <div class="form-check form-check-inline"  id="LC_opinion_cw">
-                                    <label for="login_id"> Send Back to Case Worker</label>
                                 </div>
+                                <div class="col-md-2"></div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                            <div class="row">
+                                <div class="col-md-5">
                                 </div>
-
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnsubmit_OpinionFromLowerDept">Send</button>
+                                </div>
+                                <br /><br />
                             </div>
-                            <div class="col-md-2"></div>
+
+
                         </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                            </div>
-                            <div class="col-md-4 mt-1">
-                                <button class="btn-success" id="btnsubmit_OpinionFromLowerDept">Send</button>
-                            </div>
-                            <br /><br />
-                        </div>
-
-
-                    </div>
                     }
                 </div>
 
@@ -1397,82 +1387,80 @@
 
                                 </div>
                             </div><br /><br />
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                Court cost :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("Claim_settle_courtcost", Model.LokadhalatMasterDetails[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    Court cost :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_courtcost", Model.LokadhalatMasterDetails[0].Claim_settle_courtcost, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
 
-                                            </div>
-                                            <div class="col-md-1">
-                                                Awarded Total Amount :
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                </div>
+                                <div class="col-md-1">
+                                    Awarded Total Amount :
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Claim_settle_AwardedTotalAmnt", Model.LokadhalatMasterDetails[0].HighCourtClaimSettleTotalAmnt, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
 
 
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label align-center">
-                                                Remarks:
-                                            </label>
-                                            <div class="col-sm-6">
-                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
-                                                <span style="color:red" class="err" hidden> please select remarks</span>
-                                            </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Remarks:
+                                        </label>
+                                        <div class="col-sm-6">
+                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idHighCourtClaimSettlement2" })
+                                            <span style="color:red" class="err" hidden> please select remarks</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label align-center">
-                                                Comments :
-                                            </label>
-                                            <div class="col-sm-6 mr-8">
-                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettlement2"></textarea>
-                                                <span style="color:red" class="err" hidden> please enter comments</span>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <div class="form-check form-check-inline" id="HC_claim_approval_ad">
-                                                <label for="login_id"> Forward to Director  </label>
-                                            </div>
-                                            <div class="form-check form-check-inline" style="display:none" id="HC_claim_approval_cw">
-                                                <label for="login_id"> Send Back to Case Worker</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                                <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                                <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label align-center">
+                                            Comments :
+                                        </label>
+                                        <div class="col-sm-6 mr-8">
+                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsHighCourtClaimSettlement2"></textarea>
+                                            <span style="color:red" class="err" hidden> please enter comments</span>
 
                                         </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                        </div>
-                                        <div class="col-md-4 mt-1">
-                                            <button class="btn-success" id="btnsubmit_HighCourtClaimSettlement2">Send</button>
-                                        </div>
-                                        <br /><br />
                                     </div>
 
-                              
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    
+                                    <div class="form-check form-check-inline">
+                                        <label for="login_id"> Send Back to Case Worker</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <button class="btn-success" id="btnsubmit_HighCourtClaimSettlement2">Send</button>
+                                </div>
                                 <br /><br />
-                           
+                            </div>
+
+
+                            <br /><br />
+
                         }
                     </div>
                 </div>
@@ -1488,99 +1476,99 @@
                         @if (Model.LokadhalatMasterDetails[0].claim_petitionDate != null && Model.LokadhalatMasterDetails[0].claim_petitionDate != "")
                         {
 
-                        <div class="card shadow-sm rounded p-3 mt-2">
-                            <br /><br />
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Opinion status  :
-                                </div>
-                                <div class="col-md-3">
-                                    @Html.TextBox("HighCourtOpinionDesc", Model.LokadhalatMasterDetails[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                            <div class="card shadow-sm rounded p-3 mt-2">
+                                <br /><br />
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Opinion status  :
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBox("HighCourtOpinionDesc", Model.LokadhalatMasterDetails[0].HighCourtOpinionDesc, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Judgement Date  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("claim_petitionDate", Model.LokadhalatMasterDetails[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        Awarded Amount  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("awardedAmount_supremeCourtKGID", Model.LokadhalatMasterDetails[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+
+                                    </div>
 
 
                                 </div>
-                                <div class="col-md-1">
-                                    Judgement Date  :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBox("claim_petitionDate", Model.LokadhalatMasterDetails[0].claim_petitionDate, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        Judgement copy  :
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Model.Lok_DocDetails[0].judgement_Copy" id="judgement_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
+
+                                    </div>
 
                                 </div>
-                                <div class="col-md-1">
-                                    Awarded Amount  :
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBox("awardedAmount_supremeCourtKGID", Model.LokadhalatMasterDetails[0].awardedAmount_supremeCourtKGID, new { @class = "form-control" })                                     <span id="lblErrorTeacherName" , style="color:red;display:none;">Please Enter Teacher Name</span>
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    Judgement copy  :
-                                </div>
-                                <div class="col-md-2">
-                                    <a href="@Model.Lok_DocDetails[0].judgement_Copy" id="judgement_Copy" target="_blank" style='color: blue' value="Download">View Document</a>
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Remarks:
-                                        </label>
-                                        <div class="col-sm-6">
-                                            @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idClaimApprovalsettleSupreme2" })
-                                            <span style="color:red" class="err" hidden> please select remarks</span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Remarks:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idClaimApprovalsettleSupreme2" })
+                                                <span style="color:red" class="err" hidden> please select remarks</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label align-center">
-                                            Comments :
-                                        </label>
-                                        <div class="col-sm-6 mr-8">
-                                            <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsClaimApprovalsettleSupreme2"></textarea>
-                                            <span style="color:red" class="err" hidden> please enter comments</span>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Comments :
+                                            </label>
+                                            <div class="col-sm-6 mr-8">
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsClaimApprovalsettleSupreme2"></textarea>
+                                                <span style="color:red" class="err" hidden> please enter comments</span>
 
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-check form-check-inline" id="sup_claim_apprvl_cw">
+                                            <label for="login_id"> Send Back to Case Worker</label>
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                        </div>
 
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-3">
-                                    
-                                    <div class="form-check form-check-inline"  id="sup_claim_apprvl_cw">
-                                        <label for="login_id"> Send Back to Case Worker</label>
                                     </div>
+                                    <div class="col-md-2"></div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                        <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                        <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                    </div>
 
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                          
-                            <div class="row">
-                                <div class="col-md-5">
-                                </div>
-                                <div class="col-md-4 mt-1">
-                                    <button class="btn-success" id="btnsubmit_ClaimApprovalsettleSupreme2">Send</button>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsubmit_ClaimApprovalsettleSupreme2">Send</button>
+                                    </div>
+                                    <br /><br />
                                 </div>
                                 <br /><br />
                             </div>
-                            <br /><br />
-                        </div>
 
                         }
                     </div>
@@ -1666,7 +1654,7 @@
                                         <div class="form-check form-check-inline" id="sup_Auth_ad">
                                             <label for="login_id"> Send to Director</label>
                                         </div>
-                                        <div class="form-check form-check-inline" style="display:none"  id="sup_Auth_cw">
+                                        <div class="form-check form-check-inline" style="display:none" id="sup_Auth_cw">
                                             <label for="login_id"> Send Back to Case Worker</label>
                                         </div>
                                     </div>
@@ -1731,67 +1719,67 @@
 
 
                                 </div>
-                               
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Remarks:
-                                                </label>
-                                                <div class="col-sm-6">
-                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
-                                                    <span style="color:red" class="err" hidden> please select remarks</span>
-                                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Remarks:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.JudgementRemarksList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_JC_supreme" })
+                                                <span style="color:red" class="err" hidden> please select remarks</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Comments :
-                                                </label>
-                                                <div class="col-sm-6 mr-8">
-                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_JC_Supreme"></textarea>
-                                                    <span style="color:red" class="err" hidden> please enter comments</span>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="col-md-3">
-                                                <div class="form-check form-check-inline"   style="display:none"  id="sup_JC_ad">
-                                                    <label for="login_id"> Forward to Director  </label>
-                                                </div>
-                                                <div class="form-check form-check-inline" id="sup_JC_cw">
-                                                    <label for="login_id"> Send Back to Case Worker</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
-                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                                </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Comments :
+                                            </label>
+                                            <div class="col-sm-6 mr-8">
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_JC_Supreme"></textarea>
+                                                <span style="color:red" class="err" hidden> please enter comments</span>
 
                                             </div>
-                                            <div class="col-md-2"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                            </div>
-                                            <div class="col-md-4 mt-1">
-                                                <button class="btn-success" id="btnsubmit_judgementSupreme">Send</button>
-                                            </div>
-                                            <br /><br />
                                         </div>
 
-                                   
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-check form-check-inline" style="display:none" id="sup_JC_ad">
+                                            <label for="login_id"> Forward to Director  </label>
+                                        </div>
+                                        <div class="form-check form-check-inline" id="sup_JC_cw">
+                                            <label for="login_id"> Send Back to Case Worker</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkbox-Yes1" value="316277">
+                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsubmit_judgementSupreme">Send</button>
+                                    </div>
                                     <br /><br />
+                                </div>
 
-                                
+
+                                <br /><br />
+
+
                                 <br /><br />
                             </div>
                         }
@@ -1846,65 +1834,65 @@
                                     </div>
 
                                 </div>
-                             
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Remarks:
-                                                </label>
-                                                <div class="col-sm-6">
-                                                    @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
-                                                    <span style="color:red" class="err" hidden> please select remarks</span>
-                                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Remarks:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                @Html.DropDownListFor(model => model.Remarks_id, new SelectList(Model.PaymentRemarkList, "Value", "Text"), "-- Select --", new { @class = "form-control Scrutiny_details", id = "remarks_idSupremeClaimSettle" })
+                                                <span style="color:red" class="err" hidden> please select remarks</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label align-center">
-                                                    Comments :
-                                                </label>
-                                                <div class="col-sm-6 mr-8">
-                                                    <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsSupremeClaimSettle"></textarea>
-                                                    <span style="color:red" class="err" hidden> please enter comments</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label align-center">
+                                                Comments :
+                                            </label>
+                                            <div class="col-sm-6 mr-8">
+                                                <textarea maxlength="100" rows="3" cols="33" style="width: 245px;  font-size: 17px;" id="Comments_detailsSupremeClaimSettle"></textarea>
+                                                <span style="color:red" class="err" hidden> please enter comments</span>
 
-                                                </div>
                                             </div>
-
                                         </div>
 
-                                        </div>
-                                        <div class="row">
+                                    </div>
 
-                                            <div class="col-md-3">
-                                                <div class="form-check form-check-inline" id="Final_JC_ad">
-                                                    <label for="login_id"> Forward to Director   </label>
-                                                </div>
-                                                <div class="form-check form-check-inline" style="display:none" id="Final_JC_cw">
-                                                    <label for="login_id"> Send Back to Case Worker</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkboxSupeme" value="316277">
-                                                    <label class="form-check-label" for="exampleRadios1"> Yes </label>
-                                                    <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
-                                                </div>
+                                </div>
+                                <div class="row">
 
-                                            </div>
-                                            <div class="col-md-2"></div>
+                                    <div class="col-md-3">
+                                        <div class="form-check form-check-inline" id="Final_JC_ad">
+                                            <label for="login_id"> Forward to Director   </label>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                            </div>
-                                            <div class="col-md-4 mt-1">
-                                                <button class="btn-success" id="btnsubmit_SupremeClaimSettle">Send</button>
-                                            </div>
-                                            <br /><br />
+                                        <div class="form-check form-check-inline" style="display:none" id="Final_JC_cw">
+                                            <label for="login_id"> Send Back to Case Worker</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="exampleRadios" id="checkboxSupeme" value="316277">
+                                            <label class="form-check-label" for="exampleRadios1"> Yes </label>
+                                            <label class="frw_spr_err_draft" style="color:red" hidden> please select above field </label>
                                         </div>
 
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <button class="btn-success" id="btnsubmit_SupremeClaimSettle">Send</button>
+                                    </div>
+                                    <br /><br />
+                                </div>
 
-                            
+
+
                                 <br /><br />
                             </div>
                         }
@@ -1952,24 +1940,11 @@ s
             $("#ScrutinyRow").show();
         }
 
-        $("#remarks_id2").change(function (e) {
-            var remarkSelected = $("#remarks_id2").val();
-            if (remarkSelected == 20) {
-                $("#AdDiv").hide();
-                $("#CWDiv").show();
-
-            } else {
-                $("#AdDiv").show();
-                $("#CWDiv").hide();
-            }
-
-        })
-
         $('#btnsend2').click(function () {
             debugger;
             var Remarks = $("#remarks_id2 option:selected").val();
             var lok_comments = $('#Comments_details2').val();
-            var checkbox = $('#checkbox-YesMain').prop("checked");
+            var checkbox = $('#checkbox-Yes2').prop("checked");
             var count = 0;
             var isvalid;
             $('.lok_req').each(function () {
@@ -1994,8 +1969,8 @@ s
 
             if (isvalid && count == 2) {
 
-                var destination = document.getElementById("checkbox-YesMain");
-              
+                var destination = document.getElementById("checkbox-Yes2");
+                var lok_date1 = $("#date_of_petition1").val();
                 var url = window.location.href;
                 var arr = url.split('/');
                 var chasisno = arr[4];
@@ -2003,20 +1978,20 @@ s
                 var RemarkSelected = $("#remarks_id2 option:selected").val();
                 var assignedTo = destination.value;
                 var comments = $('#Comments_details2').val();
-                //var vehicle_no = $('#hrvalue').val();
-              
+                var vehicle_no = $('#hrvalue').val();
+                var model = {};
                 var Category_id = 3;
                 var Policy_number = $('#policy_no').val();
 
                 var model = {};
-               
+                model.lok_date = lok_date1;
                 model.lok_mvc_ref_no = app_ref_no;
                 model.vehicle_chasis_no = chasisno;
-             /*   model.Policy_number = Policy_number;*/
+                model.Policy_number = Policy_number;
                 model.Remarks_id = RemarkSelected;
                 model.roleID = assignedTo;
                 model.Comments_details = comments;
-                //model.Vehicle_Registration_Number = null;
+                model.Vehicle_Registration_Number = vehicle_no;
                 model.Category_id = Category_id;
 
                 $.ajax({
@@ -2232,9 +2207,9 @@ s
         model.Comments_details = AuthComments;
         model.Remarks_id = RemarkSelectedAuth;
 
-          model.DocFileVariable = "LokClaimApprovalandSettlementLowerCourt2"; 
+          model.DocFileVariable = "LokClaimApprovalandSettlementLowerCourt2";
         $.ajax({
-            url: '/MotorInsuranceClaims/SendLokadhalatDirectorApproval',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2305,7 +2280,7 @@ s
 
         model.DocFileVariable = "LokadhalatHighCourtSettlement";
         $.ajax({
-            url: '/MotorInsuranceClaims/SendLokadhalatDirectorApproval',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2367,7 +2342,7 @@ s
 
             model.DocFileVariable = "LokSupremeClaimApprovalandSettlement";
         $.ajax({
-            url: '/MotorInsuranceClaims/SendLokadhalatDirectorApproval',
+            url: '/MotorInsuranceClaims/SendLokadhalatDocWorkFlow',
             async: false,
             type: 'POST',
             cache: false,
@@ -2424,5 +2399,6 @@ s
         });
     })
 </script>
+
 
 
