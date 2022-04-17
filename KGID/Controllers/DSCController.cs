@@ -302,17 +302,26 @@ namespace KGID.Controllers
 
             try
             {
-                _Model.File_Path = "/Content//MVC_Claim_files/" + AppnID + "";
+                //_Model.File_Path = "/Content//MVC_Claim_files/" + AppnID + "" ;
+                _Model.File_Path = "/Content//MVC_Claim_files/SignedDocuments/";
 
                 if (_Model.File_Name != "" && _Model.File_bytes != "")
                 {
                     string serverFileName = GenerateUniqueCode(5);
-                    string filePathSigned = "/TTDocuments/SignedDocuments/" + serverFileName + "_Signed.pdf";
+                    //string filePathSigned = "/TTDocuments/SignedDocuments/" + serverFileName + "_Signed.pdf";
                     byte[] imageBytes = Convert.FromBase64String(_Model.File_bytes);
                     string FileName = serverFileName + "_Signed.pdf";
                     string path = _Model.File_Path;
 
-                    string imgPath = Path.Combine(path, FileName);
+
+
+                    //string rimgPath = Path.Combine(path, FileName);
+                    //string imgPath = rimgPath.Replace("\\", "/");
+
+
+
+                    string imgPath = Path.Combine(Server.MapPath(path), FileName);
+                    string imgPathwithorootpath = imgPath.Replace("\\", "/");
                     //Check if directory exist
                     if (!System.IO.Directory.Exists(path))
                     {
@@ -326,9 +335,18 @@ namespace KGID.Controllers
                     _responce_model.return_reponce = "File Upload successfully.";
                     string result = string.Empty;
                     //string signedfilepath = Server.MapPath(filePathSigned);
-                    string signedfilepath = imgPath;
-                    
-                    result = _IMBClaimsBLL.MVCSignedDocUploadBLL(docID, appId,signedfilepath);
+                    //string signedfilepath = imgPath;
+
+
+
+                    //
+                    string wrimgPath = Path.Combine(path, FileName);
+                    string withoutroot_imgPath = wrimgPath.Replace("\\", "/");
+                    string signedfilepath = withoutroot_imgPath;
+
+
+
+                    result = _IMBClaimsBLL.MVCSignedDocUploadBLL(docID, appId, signedfilepath);
                 }
                 else
                 {
